@@ -55,13 +55,13 @@ public class MessageManager {
 	 */
 	public static void sendMessasgeF(CommandSender sender, String reference, String replacement) {
 
-		String message = messages.get("reference");
+		String message = messages.get(reference);
 		if (message == null) {
 			Bukkit.getLogger().log(Level.WARNING, "Message with the reference " + reference + " does not exist");
 			return;
 		}
 
-		message = String.format(message, replacement);
+		message = String.format(ChatColor.GOLD + message, replacement);
 
 		sender.sendMessage(message);
 

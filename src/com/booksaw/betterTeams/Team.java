@@ -178,8 +178,9 @@ public class Team {
 
 		FileConfiguration config = Main.pl.getConfig();
 		setValue(config, "name", name);
+		setValue(config, "description", "");
 		this.name = name;
-
+		this.description = "";
 		setValue(config, "open", false);
 		open = false;
 
@@ -269,10 +270,21 @@ public class Team {
 	}
 
 	/**
-	 * @returnThe description of the team
+	 * @return The description of the team
 	 */
 	public String getDescription() {
 		return description;
+	}
+
+	/**
+	 * Used to change the team description
+	 * 
+	 * @param description the new team description
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+		setValue(Main.pl.getConfig(), "description", description);
+		Main.pl.saveConfig();
 	}
 
 	public List<TeamPlayer> getMembers() {
@@ -366,6 +378,7 @@ public class Team {
 		List<String> teams = Main.pl.getConfig().getStringList("teams");
 		teams.remove(ID.toString());
 		Main.pl.getConfig().set("teams", teams);
+		Main.pl.getConfig().set("team." + ID, null);
 
 		Main.pl.saveConfig();
 	}

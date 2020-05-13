@@ -3,6 +3,7 @@ package com.booksaw.betterTeams.commands;
 import java.util.HashMap;
 
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import com.booksaw.betterTeams.MessageManager;
 
@@ -62,13 +63,19 @@ public class ParentCommand extends SubCommand {
 
 		String[] newArgs = removeFirstElement(args);
 		// checking enough arguments have been entered
-		if (command.getMinimumArguments() < newArgs.length) {
+		if (command.getMinimumArguments() > newArgs.length) {
 			MessageManager.sendMessasge(sender, "invalidArg");
 			displayHelp(sender, label, args);
+			return null;
+		} else if (command.needPlayer() && !(sender instanceof Player)) {
+			MessageManager.sendMessasge(sender, "needPlayer");
+			return null;
 		}
 
 		String result = command.onCommand(sender, label, newArgs);
-		MessageManager.sendMessasge(sender, result);
+		if (result != null) {
+			MessageManager.sendMessasge(sender, result);
+		}
 		return null;
 	}
 
