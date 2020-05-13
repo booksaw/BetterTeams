@@ -23,7 +23,7 @@ public class DescriptionCommand extends SubCommand {
 
 		if (args.length == 0) {
 			if (team.getDescription() != null && !team.getDescription().equals("")) {
-				MessageManager.sendMessasgeF(sender, "description.view", team.getDescription());
+				MessageManager.sendMessageF(sender, "description.view", team.getDescription());
 			} else {
 				MessageManager.sendMessasge(sender, "description.noDesc");
 			}
@@ -34,7 +34,7 @@ public class DescriptionCommand extends SubCommand {
 
 		if (teamPlayer.getRank() != PlayerRank.OWNER) {
 			if (team.getDescription() != null && !team.getDescription().equals("")) {
-				MessageManager.sendMessasgeF(sender, "description.view", team.getDescription());
+				MessageManager.sendMessageF(sender, "description.view", team.getDescription());
 			} else {
 				MessageManager.sendMessasge(sender, "description.noDesc");
 			}

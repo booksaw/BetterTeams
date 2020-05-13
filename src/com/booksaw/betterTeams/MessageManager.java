@@ -53,7 +53,7 @@ public class MessageManager {
 	 * @param reference   the reference for the message
 	 * @param replacement the value that the placeholder should be replaced with
 	 */
-	public static void sendMessasgeF(CommandSender sender, String reference, String replacement) {
+	public static void sendMessageF(CommandSender sender, String reference, String replacement) {
 
 		String message = messages.get(reference);
 		if (message == null) {

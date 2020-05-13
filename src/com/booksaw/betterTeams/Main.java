@@ -23,16 +23,19 @@ public class Main extends JavaPlugin {
 
 	/**
 	 * This is used to add messages and their references to the the message manager,
-	 * in future this will be converted into a lanaguage file
+	 * in future this will be converted into a language file
 	 */
 	public void addMessages() {
 		// general errors
 		MessageManager.addMessage("invalidArg", ChatColor.RED + "Invalid Arguments, help:");
 		MessageManager.addMessage("inTeam", ChatColor.RED + "You must be in a team to do that");
+		MessageManager.addMessage("notInTeam", ChatColor.RED + "You must leave your team before doing that");
 		MessageManager.addMessage("needOwner", ChatColor.RED + "You must be the owner of the team to do that");
 		MessageManager.addMessage("needAdmin", ChatColor.RED + "You must be admin or owner of the team to do that");
 		MessageManager.addMessage("needPlayer", ChatColor.RED + "You must be a player to do that");
 		MessageManager.addMessage("noPlayer", ChatColor.RED + "Specified player not found");
+		MessageManager.addMessage("notTeam",
+				ChatColor.RED + "That team does not exist try" + ChatColor.AQUA + "/team create <name>");
 
 		// for /team create <name>
 		MessageManager.addMessage("create.exists", "That team already exists");
@@ -61,5 +64,10 @@ public class Main extends JavaPlugin {
 		MessageManager.addMessage("invite.invite", "You have been invited to join team %s do " + ChatColor.AQUA
 				+ "/team join <team> " + ChatColor.GOLD + " to join the team");
 		MessageManager.addMessage("invite.inTeam", "That player is already in a team");
+
+		// for /team join <team>
+		MessageManager.addMessage("join.success", "You have joined that team");
+		MessageManager.addMessage("join.notify", "Welcome " + ChatColor.AQUA + "%s " + ChatColor.GOLD + "to the team!");
+		MessageManager.addMessage("join.notInvited", ChatColor.RED + "You have not been invited to that team");
 	}
 }

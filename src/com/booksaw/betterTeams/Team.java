@@ -9,6 +9,7 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import org.bukkit.Location;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
@@ -323,6 +324,7 @@ public class Team {
 	public void removePlayer(Player p) {
 		members.remove(getTeamPlayer(p));
 		savePlayers(Main.pl.getConfig());
+		Main.pl.saveConfig();
 	}
 
 	/**
@@ -335,6 +337,7 @@ public class Team {
 	public void removePlayer(TeamPlayer p) {
 		members.remove(p);
 		savePlayers(Main.pl.getConfig());
+		Main.pl.saveConfig();
 	}
 
 	/**
@@ -411,6 +414,21 @@ public class Team {
 	 */
 	public void invite(UUID uniqueId) {
 		invitedPlayers.add(uniqueId);
+
+	}
+
+	public void join(Player p) {
+
+		for (TeamPlayer player : members) {
+			if (player.getPlayer().isOnline()) {
+				MessageManager.sendMessageF((CommandSender) player.getPlayer().getPlayer(), "join.notify",
+						p.getDisplayName());
+			}
+		}
+
+		members.add(new TeamPlayer(p, PlayerRank.DEFAULT));
+		savePlayers(Main.pl.getConfig());
+		Main.pl.saveConfig();
 
 	}
 

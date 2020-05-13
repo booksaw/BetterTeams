@@ -40,7 +40,7 @@ public class InviteCommand extends SubCommand {
 
 		// player being invited is not in a team
 		team.invite(toInvite.getUniqueId());
-		MessageManager.sendMessasgeF(toInvite, "invite.invite", team.getName());
+		MessageManager.sendMessageF(toInvite, "invite.invite", team.getName());
 		return "invite.success";
 	}
 
