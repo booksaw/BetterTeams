@@ -6,12 +6,19 @@ import com.booksaw.betterTeams.commands.SubCommand;
 
 import net.md_5.bungee.api.ChatColor;
 
-public class HelpCommand implements SubCommand {
+/**
+ * This command is for /team if the command is unknown
+ * 
+ * @author booksaw
+ *
+ */
+public class HelpCommand extends SubCommand {
 
 	@Override
 	public String onCommand(CommandSender sender, String label, String[] args) {
 
 		sender.sendMessage(createHelpMessage(label, "help", "View the this help page"));
+		sender.sendMessage(createHelpMessage(label, "create <name>", "View the this help page"));
 
 		return null;
 	}
@@ -33,6 +40,11 @@ public class HelpCommand implements SubCommand {
 	@Override
 	public String getCommand() {
 		return null;
+	}
+
+	@Override
+	public int getMinimumArguments() {
+		return 0;
 	}
 
 }

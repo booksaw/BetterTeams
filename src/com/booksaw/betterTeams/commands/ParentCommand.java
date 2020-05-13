@@ -12,7 +12,7 @@ import com.booksaw.betterTeams.MessageManager;
  * @author booksaw
  *
  */
-public class ParentCommand implements SubCommand {
+public class ParentCommand extends SubCommand {
 
 	/**
 	 * Used to store all applicable sub commands
@@ -50,20 +50,37 @@ public class ParentCommand implements SubCommand {
 		// checking length
 		if (args.length == 0) {
 			// help command is not expected to return anything
-			subCommands.get("help").onCommand(sender, label, args);
+			displayHelp(sender, label, args);
 			return null;
 		}
 
 		SubCommand command = subCommands.get(args[0]);
 		if (command == null) {
-			subCommands.get("help").onCommand(sender, label, args);
+			displayHelp(sender, label, args);
 			return null;
 		}
 
-		args = removeFirstElement(args);
-		String result = command.onCommand(sender, label, args);
+		String[] newArgs = removeFirstElement(args);
+		// checking enough arguments have been entered
+		if (command.getMinimumArguments() < newArgs.length) {
+			MessageManager.sendMessasge(sender, "invalidArg");
+			displayHelp(sender, label, args);
+		}
+
+		String result = command.onCommand(sender, label, newArgs);
 		MessageManager.sendMessasge(sender, result);
 		return null;
+	}
+
+	/**
+	 * Used to display the help information to the user
+	 * 
+	 * @param sender the user which called the command
+	 * @param label  the label of the command
+	 * @param args   the arguments that the user entered
+	 */
+	private void displayHelp(CommandSender sender, String label, String[] args) {
+		subCommands.get("help").onCommand(sender, label, args);
 	}
 
 	/**
@@ -84,6 +101,11 @@ public class ParentCommand implements SubCommand {
 	@Override
 	public String getCommand() {
 		return command;
+	}
+
+	@Override
+	public int getMinimumArguments() {
+		return 0;
 	}
 
 }

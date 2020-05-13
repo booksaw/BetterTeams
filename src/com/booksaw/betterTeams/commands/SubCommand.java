@@ -9,7 +9,7 @@ import org.bukkit.command.CommandSender;
  * @author booksaw
  *
  */
-public interface SubCommand {
+public abstract class SubCommand {
 
 	/**
 	 * <p>
@@ -27,10 +27,27 @@ public interface SubCommand {
 	 *               sub command itself will be removed)
 	 * @return the message
 	 */
-	public String onCommand(CommandSender sender, String label, String[] args);
+	public abstract String onCommand(CommandSender sender, String label, String[] args);
 
 	/**
 	 * @return the sub-command which this class handles
 	 */
-	public String getCommand();
+	public abstract String getCommand();
+
+	/**
+	 * Used to get the minimum number of arguments which need to be parsed into this
+	 * command
+	 * 
+	 * @return the number of minimum arguments
+	 */
+	public abstract int getMinimumArguments();
+
+	/**
+	 * Used to check if the commandSender needs to be a player, defaults to false
+	 * 
+	 * @return if the commandSender needs to be a player
+	 */
+	public boolean needPlayer() {
+		return false;
+	}
 }

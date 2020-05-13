@@ -6,6 +6,8 @@ import java.util.logging.Level;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
+import net.md_5.bungee.api.ChatColor;
+
 /**
  * Used to control all communications to the user
  * 
@@ -34,13 +36,13 @@ public class MessageManager {
 	 */
 	public static void sendMessasge(CommandSender sender, String reference) {
 
-		String message = messages.get("reference");
+		String message = messages.get(reference);
 		if (message == null) {
 			Bukkit.getLogger().log(Level.WARNING, "Message with the reference " + reference + " does not exist");
 			return;
 		}
 
-		sender.sendMessage(message);
+		sender.sendMessage(ChatColor.GOLD + message);
 
 	}
 
