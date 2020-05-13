@@ -138,6 +138,12 @@ public class Team {
 	 */
 	private Location teamHome;
 
+	/**
+	 * This is a list of invited players to this team since the last restart of the
+	 * server
+	 */
+	private List<UUID> invitedPlayers = new ArrayList<UUID>();
+
 	List<TeamPlayer> members;
 
 	/**
@@ -381,6 +387,31 @@ public class Team {
 		Main.pl.getConfig().set("team." + ID, null);
 
 		Main.pl.saveConfig();
+	}
+
+	/**
+	 * Used to check if a player is invited to this team
+	 * 
+	 * @param uuid the UUID of the player to check
+	 * @return [true - the player is invited] [false - the player is not invited]
+	 */
+	public boolean isInvited(UUID uuid) {
+		for (UUID temp : invitedPlayers) {
+			if (temp.compareTo(uuid) == 0) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Used to create an invite for the included player to this team
+	 * 
+	 * @param uniqueId the UUID of the player being invited
+	 */
+	public void invite(UUID uniqueId) {
+		invitedPlayers.add(uniqueId);
+
 	}
 
 }

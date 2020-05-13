@@ -8,6 +8,7 @@ import com.booksaw.betterTeams.commands.team.CreateCommand;
 import com.booksaw.betterTeams.commands.team.DescriptionCommand;
 import com.booksaw.betterTeams.commands.team.DisbandCommand;
 import com.booksaw.betterTeams.commands.team.HelpCommand;
+import com.booksaw.betterTeams.commands.team.InviteCommand;
 import com.booksaw.betterTeams.commands.team.LeaveCommand;
 
 /**
@@ -24,6 +25,7 @@ public class CommandTeam implements CommandExecutor {
 		teamCommand.addSubCommand(new LeaveCommand());
 		teamCommand.addSubCommand(new DisbandCommand());
 		teamCommand.addSubCommand(new DescriptionCommand());
+		teamCommand.addSubCommand(new InviteCommand());
 
 	}
 

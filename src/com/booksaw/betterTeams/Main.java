@@ -28,11 +28,13 @@ public class Main extends JavaPlugin {
 	public void addMessages() {
 		// general errors
 		MessageManager.addMessage("invalidArg", ChatColor.RED + "Invalid Arguments, help:");
-		MessageManager.addMessage("inTeam", "You must be in a team to do that");
-		MessageManager.addMessage("needOwner", "You must be the owner of the team to do that");
-		MessageManager.addMessage("needPlayer", "You must be a player to do that");
+		MessageManager.addMessage("inTeam", ChatColor.RED + "You must be in a team to do that");
+		MessageManager.addMessage("needOwner", ChatColor.RED + "You must be the owner of the team to do that");
+		MessageManager.addMessage("needAdmin", ChatColor.RED + "You must be admin or owner of the team to do that");
+		MessageManager.addMessage("needPlayer", ChatColor.RED + "You must be a player to do that");
+		MessageManager.addMessage("noPlayer", ChatColor.RED + "Specified player not found");
 
-		// for /team create
+		// for /team create <name>
 		MessageManager.addMessage("create.exists", "That team already exists");
 		MessageManager.addMessage("create.success", "Your team has been created");
 		MessageManager.addMessage("create.leave",
@@ -53,5 +55,11 @@ public class Main extends JavaPlugin {
 		MessageManager.addMessage("description.success", "You have changed the team description");
 		MessageManager.addMessage("description.view", "Team Description: %s");
 		MessageManager.addMessage("description.noDesc", "No team description set");
+
+		// for /team invite [player]
+		MessageManager.addMessage("invite.success", "That player has been invited");
+		MessageManager.addMessage("invite.invite", "You have been invited to join team %s do " + ChatColor.AQUA
+				+ "/team join <team> " + ChatColor.GOLD + " to join the team");
+		MessageManager.addMessage("invite.inTeam", "That player is already in a team");
 	}
 }

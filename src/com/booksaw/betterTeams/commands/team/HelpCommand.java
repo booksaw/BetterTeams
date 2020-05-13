@@ -20,6 +20,10 @@ public class HelpCommand extends SubCommand {
 		sender.sendMessage(createHelpMessage(label, "help", "View the this help page"));
 		sender.sendMessage(createHelpMessage(label, "create <name>", "Create a team with the specified name"));
 		sender.sendMessage(createHelpMessage(label, "leave", "Leave your current team"));
+		sender.sendMessage(createHelpMessage(label, "disband", "Disband your current team"));
+		sender.sendMessage(
+				createHelpMessage(label, "description [description]", "View and change your teams description"));
+		sender.sendMessage(createHelpMessage(label, "invite <player>", "Invite the specified player to your team"));
 
 		return null;
 	}
