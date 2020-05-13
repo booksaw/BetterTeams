@@ -8,6 +8,12 @@ import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.SubCommand;
 
+/**
+ * This class handles the /team leave command
+ * 
+ * @author booksaw
+ *
+ */
 public class LeaveCommand extends SubCommand {
 
 	@Override
@@ -16,7 +22,7 @@ public class LeaveCommand extends SubCommand {
 		Team team = Team.getTeam(p);
 
 		if (team == null) {
-			return "leave.inTeam";
+			return "inTeam";
 		}
 
 		TeamPlayer teamPlayer = team.getTeamPlayer(p);

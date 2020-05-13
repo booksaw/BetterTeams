@@ -28,6 +28,8 @@ public class Main extends JavaPlugin {
 	public void addMessages() {
 		// general errors
 		MessageManager.addMessage("invalidArg", ChatColor.RED + "Invalid Arguments, help:");
+		MessageManager.addMessage("inTeam", "You must be in a team to do that");
+		MessageManager.addMessage("needOwner", "You must be the owner of the team to do that");
 
 		// for /team create
 		MessageManager.addMessage("create.exists", "That team already exists");
@@ -36,10 +38,13 @@ public class Main extends JavaPlugin {
 				"You are already in a team, leave that team first to create a new one");
 
 		// for /team leave
-		MessageManager.addMessage("leave.inTeam", "You must be in a team to do that");
 		MessageManager.addMessage("leave.success", "You have left the team");
 		MessageManager.addMessage("leave.lastOwner",
 				"You are the only owner rank within the team, Either promote someone else or use " + ChatColor.AQUA
 						+ "/team disband " + ChatColor.GOLD + "to disband the team");
+		// for /team disband
+		MessageManager.addMessage("disband.success", "You have disbanded the team");
+		MessageManager.addMessage("disband.confirm",
+				"Type " + ChatColor.AQUA + "/team disband " + ChatColor.GOLD + "again to confirm");
 	}
 }

@@ -355,4 +355,19 @@ public class Team {
 		return toReturn;
 	}
 
+	/**
+	 * This command is used to disband a team, BE CAREFUL, this is irreversible
+	 */
+	public void disband() {
+		// removing it from the team list, the java GC will handle the reset
+		teamList.remove(ID);
+
+		// updating the list of teams
+		List<String> teams = Main.pl.getConfig().getStringList("teams");
+		teams.remove(ID.toString());
+		Main.pl.getConfig().set("teams", teams);
+
+		Main.pl.saveConfig();
+	}
+
 }

@@ -6,6 +6,12 @@ import org.bukkit.entity.Player;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.SubCommand;
 
+/**
+ * This class handles the /team create <team> command
+ * 
+ * @author booksaw
+ *
+ */
 public class CreateCommand extends SubCommand {
 
 	@Override
