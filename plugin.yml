@@ -1,0 +1,10 @@
+name: BetterTeams
+version: 3.0
+author: booksaw
+description: A plugin to create teams with other players
+main: com.booksaw.betterTeams.Main
+
+commands:
+   team:
+      description: All commands for teams
+      usage: /<command> help
