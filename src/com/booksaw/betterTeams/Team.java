@@ -432,4 +432,10 @@ public class Team {
 
 	}
 
+	public void setName(String name) {
+		this.name = name;
+		setValue(Main.pl.getConfig(), "name", name);
+		Main.pl.saveConfig();
+	}
+
 }

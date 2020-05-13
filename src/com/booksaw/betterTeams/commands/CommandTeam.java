@@ -11,6 +11,7 @@ import com.booksaw.betterTeams.commands.team.HelpCommand;
 import com.booksaw.betterTeams.commands.team.InviteCommand;
 import com.booksaw.betterTeams.commands.team.JoinCommand;
 import com.booksaw.betterTeams.commands.team.LeaveCommand;
+import com.booksaw.betterTeams.commands.team.NameCommand;
 
 /**
  * This is used to direct the team command to the subCommand
@@ -28,6 +29,7 @@ public class CommandTeam implements CommandExecutor {
 		teamCommand.addSubCommand(new DescriptionCommand());
 		teamCommand.addSubCommand(new InviteCommand());
 		teamCommand.addSubCommand(new JoinCommand());
+		teamCommand.addSubCommand(new NameCommand());
 
 	}
 

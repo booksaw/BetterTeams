@@ -59,6 +59,11 @@ public class Main extends JavaPlugin {
 		MessageManager.addMessage("description.view", "Team Description: %s");
 		MessageManager.addMessage("description.noDesc", "No team description set");
 
+		// for /team name
+		MessageManager.addMessage("name.success", "You have changed the team name");
+		MessageManager.addMessage("name.view", "Team name: %s");
+		MessageManager.addMessage("name.exists", ChatColor.RED + "That team already exists");
+
 		// for /team invite [player]
 		MessageManager.addMessage("invite.success", "That player has been invited");
 		MessageManager.addMessage("invite.invite", "You have been invited to join team %s do " + ChatColor.AQUA
