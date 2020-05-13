@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 
 import com.booksaw.betterTeams.commands.team.CreateCommand;
 import com.booksaw.betterTeams.commands.team.HelpCommand;
+import com.booksaw.betterTeams.commands.team.LeaveCommand;
 
 /**
  * This is used to direct the team command to the subCommand
@@ -18,6 +19,7 @@ public class CommandTeam implements CommandExecutor {
 		teamCommand = new ParentCommand("team", new HelpCommand());
 		// add all sub commands here
 		teamCommand.addSubCommand(new CreateCommand());
+		teamCommand.addSubCommand(new LeaveCommand());
 
 	}
 

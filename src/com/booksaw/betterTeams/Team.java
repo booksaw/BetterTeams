@@ -296,4 +296,63 @@ public class Team {
 
 	}
 
+	/**
+	 * Used to remove the given player from the team, you must firstly be sure that
+	 * the player is in this team (as it is not checked or caught in this method)
+	 * 
+	 * @param p the player to remove from the team
+	 */
+	public void removePlayer(Player p) {
+		members.remove(getTeamPlayer(p));
+		savePlayers(Main.pl.getConfig());
+	}
+
+	/**
+	 * Used to remove the given teamPlayer from the team, you must firstly be sure
+	 * that the player is in this team (as it is not checked or caught in this
+	 * method)
+	 * 
+	 * @param p the player to remove from the team
+	 */
+	public void removePlayer(TeamPlayer p) {
+		members.remove(p);
+		savePlayers(Main.pl.getConfig());
+	}
+
+	/**
+	 * Used to get the teamPlayer version of an included player
+	 * 
+	 * @param player the player to search for
+	 * @return the team player object for that player [null - player is not in the
+	 *         team]
+	 */
+	@Nullable
+	public TeamPlayer getTeamPlayer(Player player) {
+		for (TeamPlayer teamPlayer : members) {
+			if (teamPlayer.getPlayer().getUniqueId().compareTo(player.getUniqueId()) == 0) {
+				return teamPlayer;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Used to get all players which have the specified rank within the team
+	 * 
+	 * @param rank the rank to search for
+	 * @return a list of players which have that rank [emtpy list - no players have
+	 *         that rank]
+	 */
+	public List<TeamPlayer> getRank(PlayerRank rank) {
+		List<TeamPlayer> toReturn = new ArrayList<>();
+
+		for (TeamPlayer player : members) {
+			if (player.getRank() == rank) {
+				toReturn.add(player);
+			}
+		}
+
+		return toReturn;
+	}
+
 }

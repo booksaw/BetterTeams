@@ -18,7 +18,8 @@ public class HelpCommand extends SubCommand {
 	public String onCommand(CommandSender sender, String label, String[] args) {
 
 		sender.sendMessage(createHelpMessage(label, "help", "View the this help page"));
-		sender.sendMessage(createHelpMessage(label, "create <name>", "View the this help page"));
+		sender.sendMessage(createHelpMessage(label, "create <name>", "Create a team with the specified name"));
+		sender.sendMessage(createHelpMessage(label, "leave", "Leave your current team"));
 
 		return null;
 	}

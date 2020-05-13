@@ -35,5 +35,11 @@ public class Main extends JavaPlugin {
 		MessageManager.addMessage("create.leave",
 				"You are already in a team, leave that team first to create a new one");
 
+		// for /team leave
+		MessageManager.addMessage("leave.inTeam", "You must be in a team to do that");
+		MessageManager.addMessage("leave.success", "You have left the team");
+		MessageManager.addMessage("leave.lastOwner",
+				"You are the only owner rank within the team, Either promote someone else or use " + ChatColor.AQUA
+						+ "/team disband " + ChatColor.GOLD + "to disband the team");
 	}
 }

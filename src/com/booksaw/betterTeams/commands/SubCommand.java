@@ -50,4 +50,5 @@ public abstract class SubCommand {
 	public boolean needPlayer() {
 		return false;
 	}
+	
 }
