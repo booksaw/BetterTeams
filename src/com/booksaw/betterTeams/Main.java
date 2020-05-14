@@ -18,6 +18,8 @@ public class Main extends JavaPlugin {
 		pl = this;
 		addMessages();
 		Team.loadTeams();
+		ChatManagement.enable();
+		
 		getCommand("team").setExecutor(new CommandTeam());
 		getServer().getPluginManager().registerEvents(new ChatManagement(), this);
 

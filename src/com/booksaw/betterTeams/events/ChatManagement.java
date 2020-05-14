@@ -6,18 +6,27 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
+import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 
+import net.md_5.bungee.api.ChatColor;
+
 public class ChatManagement implements Listener {
 
+	private static boolean doPrefix;
+
+	public static void enable() {
+		doPrefix = Main.pl.getConfig().getBoolean("prefix");
+	}
+
 	/**
-	 * This detects when the player speaks it is important to have a high priority
-	 * so before any processing is carried out, the event can be cancelled if needed
+	 * This detects when the player speaks and either adds a prefix or puts the
+	 * message in the team chat
 	 * 
-	 * @param event
+	 * @param event the chat event
 	 */
-	@EventHandler(priority = EventPriority.HIGH)
+	@EventHandler(priority = EventPriority.LOW)
 	public void onChat(AsyncPlayerChatEvent event) {
 
 		if (event.isCancelled()) {
@@ -33,6 +42,10 @@ public class ChatManagement implements Listener {
 
 		TeamPlayer teamPlayer = team.getTeamPlayer(p);
 		if (!teamPlayer.isInTeamChat()) {
+			if (doPrefix) {
+				event.setFormat(ChatColor.AQUA + "[" + team.getName() + "] " + ChatColor.WHITE + event.getFormat());
+			}
+
 			return;
 		}
 
