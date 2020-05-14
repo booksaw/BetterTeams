@@ -5,14 +5,21 @@ description: A plugin to create teams with other players
 main: com.booksaw.betterTeams.Main
 api-version: 1.15
 website: https://github.com/booksaw/BetterTeams
-
 commands:
    team:
       description: All commands for teams
       usage: /<command> help
       permission: betterTeams.standard
-
+   teamadmin:
+      description: All admin commands for teams
+      usage: /<command> help
+      permission: betterTeams.admin
+      aliases: [teama]
+      
 permissions:
    betterTeams.standard:
       description: This permission gives the user access to the teams system (joining, leaving teams etc.)
-      default: true     
+      default: true
+   betterTeams.admin:
+      description: This permission gives the user access to the admin system for BetterTeams
+      default: op

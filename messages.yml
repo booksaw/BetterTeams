@@ -1,0 +1,108 @@
+# general errors
+invalidArg: '&6&4Invalid Arguments, help'
+inTeam: '&6&4You must be in a team to do that'
+notInTeam: '&6&4You must leave your team before doing that'
+needOwner: '&6&4You must be the owner of the team to do that'
+needAdmin: '&6&4You must be admin or owner of the team to do that'
+needPlayer: '&6&4You must be a player to do that'
+noPlayer: '&6&4Specified player not found'
+notTeam: '&6&4That team does not exist try &b/team create <name>'
+
+needSameTeam: '&6You are not in the same team as that person'
+
+# for /team create <name>
+create.exists: '&6That team already exists'
+create.success: '&6Your team has been created'
+create.leave: '&6You are already in a team, leave that team first to create a new one'
+
+# for /team leave
+leave.success: '&6You have left the team'
+leave.lastOwner: '&6You are the only owner rank within the team, Either promote someone else or use &b/team disband &6to disband the team'
+
+# for /team disband
+disband.success: '&6You have disbanded the team'
+disband.confirm: '&6Type &b/team disband &6again to confirm'
+
+# for /team description
+description.success: '&6You have changed the team description'
+description.view: '&6Team Description: %s'
+description.noDesc: '&6No team description set'
+
+# for /team name
+name.success: '&6You have changed the team name'
+name.view: '&6Team name: %s'
+name.exists: '&6&4That team already exists'
+
+# for /team invite [player]
+invite.success: '&6That player has been invited'
+invite.invite: '&6You have been invited to join team %s do &b/team join <team> &6 to join the team'
+invite.inTeam: '&6That player is already in a team'
+invite.banned: '&6That player is banned from your team'
+
+# for /team join <team>
+join.success: '&6You have joined that team'
+join.notify: '&6Welcome &b%s &6to the team!'
+join.notInvited: '&6&4You have not been invited to that team'
+join.banned: '&6&4You are banned from that team'
+
+# for /team open
+open.successopen: '&6Your team now open to everyone'
+open.successclose: '&6Your team is now invite only'
+
+# for /team info [team / player]
+info.needTeam: '&6No team or player found under that name'
+info.name: '&6Name: &b%s'
+info.description: '&6Description: &b%s'
+info.open: '&6Open: &b%s'
+info.owner: '&6Owners: &b%s'
+info.admin: '&6Admins: &b%s'
+info.default: '&6Users: &b%s'
+info.fail: '&6No team or player found under that name'
+
+# for /team kick <player>
+kick.success: '&6That player has been kicked'
+kick.notify: '&6You have been kicked from team %s'
+kick.noPerm: '&6You do not have permission to kick that person'
+
+# for /team ban <player>
+ban.success: '&6That player has been banned'
+ban.notify: '&6You have been banned from team %s'
+ban.noPerm: '&6You do not have permission to ban that person'
+ban.already: '&6That player is already banned'
+
+# for /team unban <player>
+unban.success: '&6That player has been unbanned'
+unban.notify: '&6You have been unbanned from team %s'
+unban.noPerm: '&6You do not have permission to unban that person'
+unban.not: '&6That player is not banned'
+
+# for /team promote <player>
+promote.success: '&6That player has been promoted'
+promote.noPerm: '&6You do not have permissions to promote that person'
+promote.max: '&6That person is already promoted to the max!'
+promote.notify: '&6You have been promoted!'
+
+# for /team demote <player>
+demote.success: '&6That player has been demoted'
+demote.noPerm: '&6You do not have permissions to demote that person'
+demote.min: '&6That person is already the lowest rank'
+demote.notify: '&6You have been demoted'
+demote.lastOwner: '&6You cannot demote the final owner, promote someone else first'
+
+# for /team home
+home.success: '&6You have been teleported'
+home.noHome: '&6Your team has not set a home'
+
+# for /team sethome
+sethome.success: '&6Your team home has been set'
+sethome.noPerm: '&6Your are not a high enough rank to set your team home'
+
+# for /team chat [message]
+chat.enabled: '&6Your messages now go to the team chat'
+chat.disabled: '&6Your messages now go to the global chat'
+
+# for chat formatting
+chat.syntax: '&6&b[Team]&f%s: %s'
+
+# for admin messages
+admin.config.reload: '&6BetterTeams has been reloaded'

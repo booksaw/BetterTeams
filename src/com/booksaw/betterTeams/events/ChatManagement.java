@@ -17,7 +17,7 @@ public class ChatManagement implements Listener {
 	private static boolean doPrefix;
 
 	public static void enable() {
-		doPrefix = Main.pl.getConfig().getBoolean("prefix");
+		doPrefix = Main.plugin.getConfig().getBoolean("prefix");
 	}
 
 	/**

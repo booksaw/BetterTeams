@@ -80,8 +80,8 @@ public class Team {
 	 * memory
 	 */
 	public static void loadTeams() {
-
-		for (String IDString : Main.pl.getConfig().getStringList("teams")) {
+		teamList = new HashMap<UUID, Team>();
+		for (String IDString : Main.plugin.getTeams().getStringList("teams")) {
 			UUID ID = UUID.fromString(IDString);
 			teamList.put(ID, new Team(ID));
 		}
@@ -107,11 +107,12 @@ public class Team {
 		teamList.put(ID, new Team(name, ID, owner));
 
 		// updating the list of teams
-		List<String> teams = Main.pl.getConfig().getStringList("teams");
+		List<String> teams = Main.plugin.getTeams().getStringList("teams");
 		teams.add(ID.toString());
-		Main.pl.getConfig().set("teams", teams);
+		Main.plugin.getTeams().set("teams", teams);
 
-		Main.pl.saveConfig();
+		Main.plugin.saveTeams();
+		;
 	}
 
 	/**
@@ -158,7 +159,7 @@ public class Team {
 	public Team(UUID ID) {
 
 		this.ID = ID;
-		FileConfiguration config = Main.pl.getConfig();
+		FileConfiguration config = Main.plugin.getTeams();
 
 		name = getString(config, "name");
 		description = getString(config, "description");
@@ -196,7 +197,7 @@ public class Team {
 	private Team(String name, UUID ID, Player owner) {
 		this.ID = ID;
 
-		FileConfiguration config = Main.pl.getConfig();
+		FileConfiguration config = Main.plugin.getTeams();
 		setValue(config, "name", name);
 		setValue(config, "description", "");
 		this.name = name;
@@ -285,8 +286,8 @@ public class Team {
 
 	public void setOpen(boolean open) {
 		this.open = open;
-		setValue(Main.pl.getConfig(), "open", open);
-		Main.pl.saveConfig();
+		setValue(Main.plugin.getTeams(), "open", open);
+		Main.plugin.saveTeams();
 	}
 
 	/**
@@ -310,8 +311,8 @@ public class Team {
 	 */
 	public void setDescription(String description) {
 		this.description = description;
-		setValue(Main.pl.getConfig(), "description", description);
-		Main.pl.saveConfig();
+		setValue(Main.plugin.getTeams(), "description", description);
+		Main.plugin.saveTeams();
 	}
 
 	public List<TeamPlayer> getMembers() {
@@ -360,8 +361,8 @@ public class Team {
 	 */
 	public void removePlayer(OfflinePlayer p) {
 		members.remove(getTeamPlayer(p));
-		savePlayers(Main.pl.getConfig());
-		Main.pl.saveConfig();
+		savePlayers(Main.plugin.getTeams());
+		Main.plugin.saveTeams();
 	}
 
 	/**
@@ -373,8 +374,8 @@ public class Team {
 	 */
 	public void removePlayer(TeamPlayer p) {
 		members.remove(p);
-		savePlayers(Main.pl.getConfig());
-		Main.pl.saveConfig();
+		savePlayers(Main.plugin.getTeams());
+		Main.plugin.saveTeams();
 	}
 
 	/**
@@ -421,12 +422,12 @@ public class Team {
 		teamList.remove(ID);
 
 		// updating the list of teams
-		List<String> teams = Main.pl.getConfig().getStringList("teams");
+		List<String> teams = Main.plugin.getTeams().getStringList("teams");
 		teams.remove(ID.toString());
-		Main.pl.getConfig().set("teams", teams);
-		Main.pl.getConfig().set("team." + ID, null);
+		Main.plugin.getTeams().set("teams", teams);
+		Main.plugin.getTeams().set("team." + ID, null);
 
-		Main.pl.saveConfig();
+		Main.plugin.saveTeams();
 	}
 
 	/**
@@ -469,8 +470,8 @@ public class Team {
 		}
 
 		members.add(new TeamPlayer(p, PlayerRank.DEFAULT));
-		savePlayers(Main.pl.getConfig());
-		Main.pl.saveConfig();
+		savePlayers(Main.plugin.getTeams());
+		Main.plugin.saveTeams();
 
 	}
 
@@ -482,8 +483,8 @@ public class Team {
 	 */
 	public void setName(String name) {
 		this.name = name;
-		setValue(Main.pl.getConfig(), "name", name);
-		Main.pl.saveConfig();
+		setValue(Main.plugin.getTeams(), "name", name);
+		Main.plugin.saveTeams();
 	}
 
 	/**
@@ -500,7 +501,7 @@ public class Team {
 			promotePlayer.setRank(PlayerRank.OWNER);
 		}
 
-		savePlayers(Main.pl.getConfig());
+		savePlayers(Main.plugin.getTeams());
 	}
 
 	/**
@@ -517,13 +518,13 @@ public class Team {
 			demotePlayer.setRank(PlayerRank.DEFAULT);
 		}
 
-		savePlayers(Main.pl.getConfig());
+		savePlayers(Main.plugin.getTeams());
 	}
 
 	public void setTeamHome(Location teamHome) {
 		this.teamHome = teamHome;
-		setValue(Main.pl.getConfig(), "home", getString(teamHome));
-		Main.pl.saveConfig();
+		setValue(Main.plugin.getTeams(), "home", getString(teamHome));
+		Main.plugin.saveTeams();
 	}
 
 	/**
@@ -559,8 +560,8 @@ public class Team {
 	 */
 	public void banPlayer(OfflinePlayer player) {
 		bannedPlayers.add(player.getUniqueId());
-		saveBans(Main.pl.getConfig());
-		Main.pl.saveConfig();
+		saveBans(Main.plugin.getTeams());
+		Main.plugin.saveTeams();
 	}
 
 	/**
@@ -579,8 +580,8 @@ public class Team {
 		}
 		bannedPlayers.remove(store);
 
-		saveBans(Main.pl.getConfig());
-		Main.pl.saveConfig();
+		saveBans(Main.plugin.getTeams());
+		Main.plugin.saveTeams();
 	}
 
 	/**

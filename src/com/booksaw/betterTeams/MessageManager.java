@@ -1,10 +1,10 @@
 package com.booksaw.betterTeams;
 
-import java.util.HashMap;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 
 import net.md_5.bungee.api.ChatColor;
 
@@ -16,16 +16,10 @@ import net.md_5.bungee.api.ChatColor;
  */
 public class MessageManager {
 
-	private static HashMap<String, String> messages = new HashMap<>();
+	private static FileConfiguration messages;
 
-	/**
-	 * Used to load a new message into the message manager
-	 * 
-	 * @param reference
-	 * @param message
-	 */
-	public static void addMessage(String reference, String message) {
-		messages.put(reference, message);
+	public static void addMessages(FileConfiguration file) {
+		messages = file;
 	}
 
 	/**
@@ -36,7 +30,7 @@ public class MessageManager {
 	 */
 	public static void sendMessasge(CommandSender sender, String reference) {
 
-		String message = messages.get(reference);
+		String message = ChatColor.translateAlternateColorCodes('&', messages.getString(reference));
 		if (message == null) {
 			Bukkit.getLogger().log(Level.WARNING, "Message with the reference " + reference + " does not exist");
 			return;
@@ -55,7 +49,7 @@ public class MessageManager {
 	 */
 	public static void sendMessageF(CommandSender sender, String reference, String replacement) {
 
-		String message = messages.get(reference);
+		String message = ChatColor.translateAlternateColorCodes('&', messages.getString(reference));
 		if (message == null) {
 			Bukkit.getLogger().log(Level.WARNING, "Message with the reference " + reference + " does not exist");
 			return;
@@ -68,7 +62,7 @@ public class MessageManager {
 	}
 
 	public static String getMessage(String reference) {
-		return messages.get(reference);
+		return ChatColor.translateAlternateColorCodes('&', messages.getString(reference));
 	}
 
 }
