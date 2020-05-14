@@ -16,10 +16,26 @@ import net.md_5.bungee.api.ChatColor;
  */
 public class MessageManager {
 
+	/**
+	 * This is used to store the configuration file which has all the messages
+	 * within
+	 */
 	private static FileConfiguration messages;
 
+	/**
+	 * This is the prefix which goes before all messages related to this plugin
+	 */
+	private static String prefix;
+
+	/**
+	 * This method is used to provide the configuration file in which all the
+	 * message references are stored, this method also loads the default prefix
+	 * 
+	 * @param file the configuration file
+	 */
 	public static void addMessages(FileConfiguration file) {
 		messages = file;
+		prefix = ChatColor.translateAlternateColorCodes('&', Main.plugin.getConfig().getString("prefixFormat"));
 	}
 
 	/**
@@ -36,7 +52,7 @@ public class MessageManager {
 			return;
 		}
 
-		sender.sendMessage(ChatColor.GOLD + message);
+		sender.sendMessage(prefix + message);
 
 	}
 
@@ -55,12 +71,19 @@ public class MessageManager {
 			return;
 		}
 
-		message = String.format(ChatColor.GOLD + message, replacement);
+		message = String.format(prefix + message, replacement);
 
 		sender.sendMessage(message);
 
 	}
 
+	/**
+	 * This is used to get the message from the provided location in the
+	 * Configuration file, this does not add a prefix to the message
+	 * 
+	 * @param reference the reference for the message
+	 * @return the message (without prefix)
+	 */
 	public static String getMessage(String reference) {
 		return ChatColor.translateAlternateColorCodes('&', messages.getString(reference));
 	}
