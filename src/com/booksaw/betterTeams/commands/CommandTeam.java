@@ -9,6 +9,7 @@ import com.booksaw.betterTeams.commands.team.DemoteCommand;
 import com.booksaw.betterTeams.commands.team.DescriptionCommand;
 import com.booksaw.betterTeams.commands.team.DisbandCommand;
 import com.booksaw.betterTeams.commands.team.HelpCommand;
+import com.booksaw.betterTeams.commands.team.HomeCommand;
 import com.booksaw.betterTeams.commands.team.InfoCommand;
 import com.booksaw.betterTeams.commands.team.InviteCommand;
 import com.booksaw.betterTeams.commands.team.JoinCommand;
@@ -17,6 +18,7 @@ import com.booksaw.betterTeams.commands.team.LeaveCommand;
 import com.booksaw.betterTeams.commands.team.NameCommand;
 import com.booksaw.betterTeams.commands.team.OpenCommand;
 import com.booksaw.betterTeams.commands.team.PromoteCommand;
+import com.booksaw.betterTeams.commands.team.SethomeCommand;
 
 /**
  * This is used to direct the team command to the subCommand
@@ -40,6 +42,8 @@ public class CommandTeam implements CommandExecutor {
 		teamCommand.addSubCommand(new KickCommand());
 		teamCommand.addSubCommand(new PromoteCommand());
 		teamCommand.addSubCommand(new DemoteCommand());
+		teamCommand.addSubCommand(new HomeCommand());
+		teamCommand.addSubCommand(new SethomeCommand());
 
 	}
 

@@ -22,8 +22,8 @@ public class HelpCommand extends SubCommand {
 		sender.sendMessage(createHelpMessage(label, "leave", "Leave your current team"));
 		sender.sendMessage(createHelpMessage(label, "disband", "Disband your current team"));
 		sender.sendMessage(
-				createHelpMessage(label, "description [description]", "View and change your teams' description"));
-		sender.sendMessage(createHelpMessage(label, "name [name]", "View and change your teams' name"));
+				createHelpMessage(label, "description [description]", "View and change your team's description"));
+		sender.sendMessage(createHelpMessage(label, "name [name]", "View and change your team's name"));
 		sender.sendMessage(createHelpMessage(label, "open", "Toggle if the team is invite only"));
 		sender.sendMessage(createHelpMessage(label, "invite <player>", "Invite the specified player to your team"));
 		sender.sendMessage(createHelpMessage(label, "join <team>", "Join the specified team"));
@@ -33,6 +33,8 @@ public class HelpCommand extends SubCommand {
 		sender.sendMessage(
 				createHelpMessage(label, "promote <player>", "Promote the specified player within your team"));
 		sender.sendMessage(createHelpMessage(label, "demote <player>", "Demote the specified player within your team"));
+		sender.sendMessage(createHelpMessage(label, "home", "Teleports you to your team's home"));
+		sender.sendMessage(createHelpMessage(label, "sethome", "Sets your team's home"));
 
 		return null;
 	}

@@ -109,5 +109,12 @@ public class Main extends JavaPlugin {
 		MessageManager.addMessage("demote.notify", "You have been demoted");
 		MessageManager.addMessage("demote.lastOwner", "You cannot demote the final owner, promote someone else first");
 
+		// for /team home
+		MessageManager.addMessage("home.success", "You have been teleported");
+		MessageManager.addMessage("home.noHome", "Your team has not set a home");
+		
+		// for /team sethome
+		MessageManager.addMessage("sethome.success", "Your team home has been set");
+		MessageManager.addMessage("sethome.noPerm", "Your are not a high enough rank to set your team home");
 	}
 }

@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
@@ -138,7 +139,7 @@ public class Team {
 	/**
 	 * The location of the teams home (/team home)
 	 */
-	private Location teamHome;
+	private Location teamHome = null;
 
 	/**
 	 * This is a list of invited players to this team since the last restart of the
@@ -167,6 +168,11 @@ public class Team {
 			members.add(new TeamPlayer(string));
 		}
 
+		String teamHomeStr = getString(config, "home");
+		if (teamHomeStr != null && !teamHomeStr.equals("")) {
+			teamHome = getLocation(teamHomeStr);
+		}
+
 	}
 
 	/**
@@ -191,6 +197,7 @@ public class Team {
 		this.description = "";
 		setValue(config, "open", false);
 		open = false;
+		setValue(config, "home", "");
 
 		members = new ArrayList<>();
 		members.add(new TeamPlayer(owner, PlayerRank.OWNER));
@@ -488,6 +495,37 @@ public class Team {
 		}
 
 		savePlayers(Main.pl.getConfig());
+	}
+
+	public void setTeamHome(Location teamHome) {
+		this.teamHome = teamHome;
+		setValue(Main.pl.getConfig(), "home", getString(teamHome));
+		Main.pl.saveConfig();
+	}
+
+	/**
+	 * This method is used to convert a string into a location which can be stored
+	 * for later use
+	 * 
+	 * @param loc the string to convert into a location
+	 * @return the location which that string reference
+	 */
+	private Location getLocation(String loc) {
+		String[] split = loc.split(":");
+		return new Location(Bukkit.getWorld(split[0]), Double.parseDouble(split[1]), Double.parseDouble(split[2]),
+				Double.parseDouble(split[3]), Float.parseFloat(split[4]), Float.parseFloat(split[5]));
+	}
+
+	/**
+	 * This method is used to convert a location into a string which can be stored
+	 * in a configuration file
+	 * 
+	 * @param loc the location to convert into a string
+	 * @return the string which references that location
+	 */
+	private String getString(Location loc) {
+		return loc.getWorld().getName() + ":" + loc.getX() + ":" + loc.getY() + ":" + loc.getZ() + ":" + loc.getYaw()
+				+ ":" + loc.getPitch();
 	}
 
 }
