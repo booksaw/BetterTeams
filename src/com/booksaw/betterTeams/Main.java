@@ -18,11 +18,14 @@ public class Main extends JavaPlugin {
 
 	public static Main plugin;
 
+	private DamageManagement damageManagement;
+
 	@Override
 	public void onEnable() {
 
 		saveDefaultConfig();
 		plugin = this;
+
 //		addMessages();
 		loadCustomConfigs();
 		ChatManagement.enable();
@@ -31,7 +34,6 @@ public class Main extends JavaPlugin {
 		getCommand("team").setExecutor(new CommandTeam());
 		getCommand("teamadmin").setExecutor(new CommandTeamAdmin());
 		getServer().getPluginManager().registerEvents(new ChatManagement(), this);
-		getServer().getPluginManager().registerEvents(new DamageManagement(), this);
 
 	}
 
@@ -57,6 +59,19 @@ public class Main extends JavaPlugin {
 		}
 
 		teams = YamlConfiguration.loadConfiguration(f);
+
+		if (getConfig().getBoolean("disableCombat")) {
+			if (damageManagement == null) {
+				damageManagement = new DamageManagement();
+				getServer().getPluginManager().registerEvents(damageManagement, this);
+			}
+
+		} else {
+			if (damageManagement != null) {
+				Bukkit.getLogger().log(Level.WARNING, "Restart server for damage changes to apply");
+			}
+		}
+
 	}
 
 	/**
