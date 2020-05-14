@@ -4,6 +4,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.booksaw.betterTeams.commands.CommandTeam;
 import com.booksaw.betterTeams.events.ChatManagement;
+import com.booksaw.betterTeams.events.DamageManagement;
 
 import net.md_5.bungee.api.ChatColor;
 
@@ -19,9 +20,10 @@ public class Main extends JavaPlugin {
 		addMessages();
 		Team.loadTeams();
 		ChatManagement.enable();
-		
+
 		getCommand("team").setExecutor(new CommandTeam());
 		getServer().getPluginManager().registerEvents(new ChatManagement(), this);
+		getServer().getPluginManager().registerEvents(new DamageManagement(), this);
 
 	}
 
