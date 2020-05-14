@@ -598,4 +598,16 @@ public class Team {
 		return false;
 	}
 
+	public void sendMessage(TeamPlayer sender, String message) {
+
+		message = String.format(MessageManager.getMessage("chat.syntax"),
+				sender.getPlayer().getPlayer().getDisplayName(), message);
+
+		for (TeamPlayer player : members) {
+			if (player.getPlayer().isOnline()) {
+				player.getPlayer().getPlayer().sendMessage(message);
+			}
+		}
+	}
+
 }

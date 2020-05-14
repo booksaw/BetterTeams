@@ -67,4 +67,8 @@ public class MessageManager {
 
 	}
 
+	public static String getMessage(String reference) {
+		return messages.get(reference);
+	}
+
 }

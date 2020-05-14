@@ -18,7 +18,15 @@ public class TeamPlayer {
 	 */
 	private UUID playerUUID;
 
+	/**
+	 * This stores the players rank within the team
+	 */
 	private PlayerRank rank;
+
+	/**
+	 * This stores if the team is messaging to the team chat or the global chat
+	 */
+	private boolean teamChat = false;
 
 	/**
 	 * Used to create a new player
@@ -29,6 +37,7 @@ public class TeamPlayer {
 	public TeamPlayer(OfflinePlayer player, PlayerRank rank) {
 		this.playerUUID = player.getUniqueId();
 		this.rank = rank;
+		teamChat = false;
 	}
 
 	/**
@@ -40,6 +49,7 @@ public class TeamPlayer {
 		String[] split = data.split(",");
 		playerUUID = UUID.fromString(split[0]);
 		rank = PlayerRank.valueOf(split[1]);
+		teamChat = false;
 	}
 
 	/**
@@ -68,6 +78,14 @@ public class TeamPlayer {
 	@Override
 	public String toString() {
 		return playerUUID + "," + rank;
+	}
+
+	public boolean isInTeamChat() {
+		return teamChat;
+	}
+
+	public void setTeamChat(boolean teamChat) {
+		this.teamChat = teamChat;
 	}
 
 }

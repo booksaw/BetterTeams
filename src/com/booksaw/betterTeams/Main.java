@@ -3,6 +3,7 @@ package com.booksaw.betterTeams;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.booksaw.betterTeams.commands.CommandTeam;
+import com.booksaw.betterTeams.events.ChatManagement;
 
 import net.md_5.bungee.api.ChatColor;
 
@@ -18,6 +19,7 @@ public class Main extends JavaPlugin {
 		addMessages();
 		Team.loadTeams();
 		getCommand("team").setExecutor(new CommandTeam());
+		getServer().getPluginManager().registerEvents(new ChatManagement(), this);
 
 	}
 
@@ -130,5 +132,12 @@ public class Main extends JavaPlugin {
 		// for /team sethome
 		MessageManager.addMessage("sethome.success", "Your team home has been set");
 		MessageManager.addMessage("sethome.noPerm", "Your are not a high enough rank to set your team home");
+
+		// for /team chat [message]
+		MessageManager.addMessage("chat.enabled", "Your messages now go to the team chat");
+		MessageManager.addMessage("chat.disabled", "Your messages now go to the global chat");
+
+		// for chat formatting
+		MessageManager.addMessage("chat.syntax", ChatColor.AQUA + "[Team] " + ChatColor.WHITE + "%s: %s");
 	}
 }

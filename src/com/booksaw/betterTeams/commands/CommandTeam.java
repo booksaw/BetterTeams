@@ -5,6 +5,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 import com.booksaw.betterTeams.commands.team.BanCommand;
+import com.booksaw.betterTeams.commands.team.ChatCommand;
 import com.booksaw.betterTeams.commands.team.CreateCommand;
 import com.booksaw.betterTeams.commands.team.DemoteCommand;
 import com.booksaw.betterTeams.commands.team.DescriptionCommand;
@@ -48,6 +49,7 @@ public class CommandTeam implements CommandExecutor {
 		teamCommand.addSubCommand(new SethomeCommand());
 		teamCommand.addSubCommand(new BanCommand());
 		teamCommand.addSubCommand(new UnbanCommand());
+		teamCommand.addSubCommand(new ChatCommand());
 
 	}
 
