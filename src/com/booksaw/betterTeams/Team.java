@@ -328,7 +328,7 @@ public class Team {
 	 * 
 	 * @param p the player to remove from the team
 	 */
-	public void removePlayer(Player p) {
+	public void removePlayer(OfflinePlayer p) {
 		members.remove(getTeamPlayer(p));
 		savePlayers(Main.pl.getConfig());
 		Main.pl.saveConfig();
@@ -355,7 +355,7 @@ public class Team {
 	 *         team]
 	 */
 	@Nullable
-	public TeamPlayer getTeamPlayer(Player player) {
+	public TeamPlayer getTeamPlayer(OfflinePlayer player) {
 		for (TeamPlayer teamPlayer : members) {
 			if (teamPlayer.getPlayer().getUniqueId().compareTo(player.getUniqueId()) == 0) {
 				return teamPlayer;

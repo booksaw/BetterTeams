@@ -11,6 +11,7 @@ import com.booksaw.betterTeams.commands.team.HelpCommand;
 import com.booksaw.betterTeams.commands.team.InfoCommand;
 import com.booksaw.betterTeams.commands.team.InviteCommand;
 import com.booksaw.betterTeams.commands.team.JoinCommand;
+import com.booksaw.betterTeams.commands.team.KickCommand;
 import com.booksaw.betterTeams.commands.team.LeaveCommand;
 import com.booksaw.betterTeams.commands.team.NameCommand;
 import com.booksaw.betterTeams.commands.team.OpenCommand;
@@ -34,6 +35,7 @@ public class CommandTeam implements CommandExecutor {
 		teamCommand.addSubCommand(new NameCommand());
 		teamCommand.addSubCommand(new OpenCommand());
 		teamCommand.addSubCommand(new InfoCommand());
+		teamCommand.addSubCommand(new KickCommand());
 
 	}
 

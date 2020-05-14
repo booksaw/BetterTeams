@@ -89,5 +89,11 @@ public class Main extends JavaPlugin {
 		MessageManager.addMessage("info.needTeam", "That player is not in a team");
 		MessageManager.addMessage("info.fail", "No team or player found under that name");
 
+		// for /team kick <player>
+		MessageManager.addMessage("kick.success", "That player has been kicked");
+		MessageManager.addMessage("kick.notify", "You have been kicked from team %s");
+		MessageManager.addMessage("kick.needSameTeam", "You are not in the same team as that person");
+		MessageManager.addMessage("kick.noPerm", "You do not have permission to kick that person");
+
 	}
 }
