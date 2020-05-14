@@ -37,6 +37,8 @@ public class Main extends JavaPlugin {
 		MessageManager.addMessage("notTeam",
 				ChatColor.RED + "That team does not exist try" + ChatColor.AQUA + "/team create <name>");
 
+		MessageManager.addMessage("needSameTeam", "You are not in the same team as that person");
+
 		// for /team create <name>
 		MessageManager.addMessage("create.exists", "That team already exists");
 		MessageManager.addMessage("create.success", "Your team has been created");
@@ -92,8 +94,20 @@ public class Main extends JavaPlugin {
 		// for /team kick <player>
 		MessageManager.addMessage("kick.success", "That player has been kicked");
 		MessageManager.addMessage("kick.notify", "You have been kicked from team %s");
-		MessageManager.addMessage("kick.needSameTeam", "You are not in the same team as that person");
 		MessageManager.addMessage("kick.noPerm", "You do not have permission to kick that person");
+
+		// for /team promote <player>
+		MessageManager.addMessage("promote.success", "That player has been promoted");
+		MessageManager.addMessage("promote.noPerm", "You do not have permissions to promote that person");
+		MessageManager.addMessage("promote.max", "That person is already promoted to the max!");
+		MessageManager.addMessage("promote.notify", "You have been promoted!");
+
+		// for /team demote <player>
+		MessageManager.addMessage("demote.success", "That player has been demoted");
+		MessageManager.addMessage("demote.noPerm", "You do not have permissions to demote that person");
+		MessageManager.addMessage("demote.min", "That person is already the lowest rank");
+		MessageManager.addMessage("demote.notify", "You have been demoted");
+		MessageManager.addMessage("demote.lastOwner", "You cannot demote the final owner, promote someone else first");
 
 	}
 }

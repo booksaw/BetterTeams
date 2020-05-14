@@ -11,7 +11,13 @@ import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.SubCommand;
 
-public class KickCommand extends SubCommand {
+/**
+ * This class handles the command /team promote <player>
+ * 
+ * @author nfgg2
+ *
+ */
+public class PromoteCommand extends SubCommand {
 
 	@Override
 	public String onCommand(CommandSender sender, String label, String[] args) {
@@ -41,34 +47,30 @@ public class KickCommand extends SubCommand {
 		}
 
 		TeamPlayer teamPlayer = team.getTeamPlayer(p);
-		TeamPlayer kickedPlayer = team.getTeamPlayer(player);
+		TeamPlayer promotePlayer = team.getTeamPlayer(player);
 
-		if (teamPlayer.getRank() == PlayerRank.DEFAULT
-				|| (teamPlayer.getRank() == PlayerRank.ADMIN && kickedPlayer.getRank() != PlayerRank.DEFAULT)
-				|| (teamPlayer.getRank() == PlayerRank.OWNER && kickedPlayer.getRank() == PlayerRank.OWNER)) {
-			return "kick.noPerm";
+		if (teamPlayer.getRank() != PlayerRank.OWNER) {
+			return "promote.noPerm";
+		} else if (promotePlayer.getRank() == PlayerRank.OWNER) {
+			return "promote.max";
+
 		}
 
-		team.removePlayer(player);
+		team.promotePlayer(promotePlayer);
+		MessageManager.sendMessasge((CommandSender) promotePlayer.getPlayer(), "promote.notify");
 
-		MessageManager.sendMessageF((CommandSender) player, "kick.notify", team.getName());
+		return "promote.success";
 
-		return "kick.success";
 	}
 
 	@Override
 	public String getCommand() {
-		return "kick";
+		return "promote";
 	}
 
 	@Override
 	public int getMinimumArguments() {
 		return 1;
-	}
-
-	@Override
-	public boolean needPlayer() {
-		return true;
 	}
 
 }

@@ -30,6 +30,9 @@ public class HelpCommand extends SubCommand {
 		sender.sendMessage(
 				createHelpMessage(label, "info [team/player]", "View information about the specified player / team"));
 		sender.sendMessage(createHelpMessage(label, "kick <player>", "Kick that player from your team"));
+		sender.sendMessage(
+				createHelpMessage(label, "promote <player>", "Promote the specified player within your team"));
+		sender.sendMessage(createHelpMessage(label, "demote <player>", "Demote the specified player within your team"));
 
 		return null;
 	}

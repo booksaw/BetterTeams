@@ -11,10 +11,17 @@ import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.SubCommand;
 
-public class KickCommand extends SubCommand {
+/**
+ * This class handles the command /team demote <player>
+ * 
+ * @author nfgg2
+ *
+ */
+public class DemoteCommand extends SubCommand {
 
 	@Override
 	public String onCommand(CommandSender sender, String label, String[] args) {
+
 		Player p = (Player) sender;
 		Team team = Team.getTeam(p);
 
@@ -41,34 +48,39 @@ public class KickCommand extends SubCommand {
 		}
 
 		TeamPlayer teamPlayer = team.getTeamPlayer(p);
-		TeamPlayer kickedPlayer = team.getTeamPlayer(player);
+		TeamPlayer demotePlayer = team.getTeamPlayer(player);
 
-		if (teamPlayer.getRank() == PlayerRank.DEFAULT
-				|| (teamPlayer.getRank() == PlayerRank.ADMIN && kickedPlayer.getRank() != PlayerRank.DEFAULT)
-				|| (teamPlayer.getRank() == PlayerRank.OWNER && kickedPlayer.getRank() == PlayerRank.OWNER)) {
-			return "kick.noPerm";
+		if (teamPlayer.getRank() != PlayerRank.OWNER) {
+			return "demote.noPerm";
+		} else if (demotePlayer.getRank() == PlayerRank.DEFAULT) {
+			return "demote.min";
+
+		} else if (demotePlayer.getPlayer().getUniqueId().compareTo(teamPlayer.getPlayer().getUniqueId()) == 0) {
+			// trying to demote self
+			// checking there is another owner
+			if (teamPlayer.getRank() == PlayerRank.OWNER && team.getRank(PlayerRank.OWNER).size() == 1) {
+				return "demote.lastOwner";
+			}
+			// all is good, continue to demotion
+		} else if (demotePlayer.getRank() == PlayerRank.OWNER) {
+			// the other person is also an owner, players cannot demote other owners
+			return "demote.noPerm";
 		}
 
-		team.removePlayer(player);
+		team.demotePlayer(demotePlayer);
+		MessageManager.sendMessasge((CommandSender) demotePlayer.getPlayer(), "demote.notify");
 
-		MessageManager.sendMessageF((CommandSender) player, "kick.notify", team.getName());
+		return "demote.success";
 
-		return "kick.success";
 	}
 
 	@Override
 	public String getCommand() {
-		return "kick";
+		return "demote";
 	}
 
 	@Override
 	public int getMinimumArguments() {
 		return 1;
 	}
-
-	@Override
-	public boolean needPlayer() {
-		return true;
-	}
-
 }

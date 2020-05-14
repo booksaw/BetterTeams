@@ -5,6 +5,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 import com.booksaw.betterTeams.commands.team.CreateCommand;
+import com.booksaw.betterTeams.commands.team.DemoteCommand;
 import com.booksaw.betterTeams.commands.team.DescriptionCommand;
 import com.booksaw.betterTeams.commands.team.DisbandCommand;
 import com.booksaw.betterTeams.commands.team.HelpCommand;
@@ -15,6 +16,7 @@ import com.booksaw.betterTeams.commands.team.KickCommand;
 import com.booksaw.betterTeams.commands.team.LeaveCommand;
 import com.booksaw.betterTeams.commands.team.NameCommand;
 import com.booksaw.betterTeams.commands.team.OpenCommand;
+import com.booksaw.betterTeams.commands.team.PromoteCommand;
 
 /**
  * This is used to direct the team command to the subCommand
@@ -36,6 +38,8 @@ public class CommandTeam implements CommandExecutor {
 		teamCommand.addSubCommand(new OpenCommand());
 		teamCommand.addSubCommand(new InfoCommand());
 		teamCommand.addSubCommand(new KickCommand());
+		teamCommand.addSubCommand(new PromoteCommand());
+		teamCommand.addSubCommand(new DemoteCommand());
 
 	}
 

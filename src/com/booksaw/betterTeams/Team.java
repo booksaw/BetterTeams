@@ -456,4 +456,38 @@ public class Team {
 		Main.pl.saveConfig();
 	}
 
+	/**
+	 * This method is used to promote a player to the next applicable rank, this
+	 * method does not check the promotion is valid but instead only promotes the
+	 * player, see PromoteCommand to see validation
+	 * 
+	 * @param promotePlayer the player to be promoted
+	 */
+	public void promotePlayer(TeamPlayer promotePlayer) {
+		if (promotePlayer.getRank() == PlayerRank.DEFAULT) {
+			promotePlayer.setRank(PlayerRank.ADMIN);
+		} else {
+			promotePlayer.setRank(PlayerRank.OWNER);
+		}
+
+		savePlayers(Main.pl.getConfig());
+	}
+
+	/**
+	 * This method is used to demote a player to the next applicable rank, this
+	 * method does not check the demotion is valid but instead only promotes the
+	 * player, see DemoteCommand to see validation
+	 * 
+	 * @param demotePlayer the player to be demoted
+	 */
+	public void demotePlayer(TeamPlayer demotePlayer) {
+		if (demotePlayer.getRank() == PlayerRank.OWNER) {
+			demotePlayer.setRank(PlayerRank.ADMIN);
+		} else {
+			demotePlayer.setRank(PlayerRank.DEFAULT);
+		}
+
+		savePlayers(Main.pl.getConfig());
+	}
+
 }
