@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.MessageManager;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
@@ -40,6 +41,12 @@ public class InviteCommand extends SubCommand {
 
 		if (Team.getTeam(toInvite) != null) {
 			return "invite.inTeam";
+		}
+
+		int limit = Main.plugin.getConfig().getInt("teamLimit");
+
+		if (limit > 0 && limit <= team.getMembers().size()) {
+			return "invite.full";
 		}
 
 		// player being invited is not in a team

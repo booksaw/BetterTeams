@@ -3,6 +3,7 @@ package com.booksaw.betterTeams.commands.team;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.SubCommand;
 
@@ -30,6 +31,12 @@ public class JoinCommand extends SubCommand {
 			return "join.notInvited";
 		}
 
+		int limit = Main.plugin.getConfig().getInt("teamLimit");
+		
+		if(limit > 0 && limit <= team.getMembers().size()) {
+			return "join.full";
+		}
+		
 		team.join(p);
 
 		return "join.success";

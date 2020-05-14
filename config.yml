@@ -19,8 +19,15 @@
 # If you need to edit the messages which are sent to the user, look in the messages.yml file
 
 # This is the value to determine if the chat prefix is enabled
-# If this is enabled a prefix [TeamName] will be displayed at the begining of chat messages.
+# - If this is enabled a prefix [TeamName] will be displayed at the begining of chat messages.
 # - If the player is not in a team, nothing will be displayed
 #
 # Possible values: [true, false]
 prefix: true
+
+# This is used set a maximum size for a team.
+# - If this feature is unwanted, set the teamLimit to -1 and there will be unlimited places in each team
+# - Keep this value reasonable, as Java cannot cope with larger numbers (over 2 billion), so if you want the team to be limitless, set the value to -1 instead of something large
+#
+# Possible values: [-1, any positive whole number]
+teamLimit: -1

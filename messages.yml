@@ -38,12 +38,14 @@ invite.success: '&6That player has been invited'
 invite.invite: '&6You have been invited to join team %s do &b/team join <team> &6 to join the team'
 invite.inTeam: '&6That player is already in a team'
 invite.banned: '&6That player is banned from your team'
+invite.full: '&6Your team is maximum size, kick someone out before inviting more pople'
 
 # for /team join <team>
 join.success: '&6You have joined that team'
 join.notify: '&6Welcome &b%s &6to the team!'
 join.notInvited: '&6&4You have not been invited to that team'
 join.banned: '&6&4You are banned from that team'
+join.full: '&4That team is full'
 
 # for /team open
 open.successopen: '&6Your team now open to everyone'

@@ -209,7 +209,7 @@ public class Team {
 		members = new ArrayList<>();
 		members.add(new TeamPlayer(owner, PlayerRank.OWNER));
 		savePlayers(config);
-
+		bannedPlayers = new ArrayList<>();
 		/*
 		 * do not need to save config as createNewTeam saves the config after more
 		 * settings modified

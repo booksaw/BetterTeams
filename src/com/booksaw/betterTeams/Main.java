@@ -26,6 +26,7 @@ public class Main extends JavaPlugin {
 //		addMessages();
 		loadCustomConfigs();
 		ChatManagement.enable();
+		Team.loadTeams();
 
 		getCommand("team").setExecutor(new CommandTeam());
 		getCommand("teamadmin").setExecutor(new CommandTeamAdmin());
