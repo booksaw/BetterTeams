@@ -22,6 +22,10 @@ public class JoinCommand extends SubCommand {
 			return "notTeam";
 		}
 
+		if (team.isBanned(p)) {
+			return "join.banned";
+		}
+
 		if (!team.isOpen() && !team.isInvited(p.getUniqueId())) {
 			return "join.notInvited";
 		}

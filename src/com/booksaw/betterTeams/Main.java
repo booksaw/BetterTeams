@@ -71,11 +71,13 @@ public class Main extends JavaPlugin {
 		MessageManager.addMessage("invite.invite", "You have been invited to join team %s do " + ChatColor.AQUA
 				+ "/team join <team> " + ChatColor.GOLD + " to join the team");
 		MessageManager.addMessage("invite.inTeam", "That player is already in a team");
+		MessageManager.addMessage("invite.banned", "That player is banned from your team");
 
 		// for /team join <team>
 		MessageManager.addMessage("join.success", "You have joined that team");
 		MessageManager.addMessage("join.notify", "Welcome " + ChatColor.AQUA + "%s " + ChatColor.GOLD + "to the team!");
 		MessageManager.addMessage("join.notInvited", ChatColor.RED + "You have not been invited to that team");
+		MessageManager.addMessage("join.banned", ChatColor.RED + "You are banned from that team");
 
 		// for /team open
 		MessageManager.addMessage("open.successopen", "Your team now open to everyone");
@@ -96,6 +98,18 @@ public class Main extends JavaPlugin {
 		MessageManager.addMessage("kick.notify", "You have been kicked from team %s");
 		MessageManager.addMessage("kick.noPerm", "You do not have permission to kick that person");
 
+		// for /team ban <player>
+		MessageManager.addMessage("ban.success", "That player has been banned");
+		MessageManager.addMessage("ban.notify", "You have been banned from team %s");
+		MessageManager.addMessage("ban.noPerm", "You do not have permission to ban that person");
+		MessageManager.addMessage("ban.already", "That player is already banned");
+
+		// for /team unban <player>
+		MessageManager.addMessage("unban.success", "That player has been unbanned");
+		MessageManager.addMessage("unban.notify", "You have been unbanned from team %s");
+		MessageManager.addMessage("unban.noPerm", "You do not have permission to unban that person");
+		MessageManager.addMessage("unban.not", "That player is not banned");
+
 		// for /team promote <player>
 		MessageManager.addMessage("promote.success", "That player has been promoted");
 		MessageManager.addMessage("promote.noPerm", "You do not have permissions to promote that person");
@@ -112,7 +126,7 @@ public class Main extends JavaPlugin {
 		// for /team home
 		MessageManager.addMessage("home.success", "You have been teleported");
 		MessageManager.addMessage("home.noHome", "Your team has not set a home");
-		
+
 		// for /team sethome
 		MessageManager.addMessage("sethome.success", "Your team home has been set");
 		MessageManager.addMessage("sethome.noPerm", "Your are not a high enough rank to set your team home");

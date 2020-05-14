@@ -34,6 +34,10 @@ public class InviteCommand extends SubCommand {
 			return "noPlayer";
 		}
 
+		if (team.isBanned(toInvite)) {
+			return "invite.banned";
+		}
+
 		if (Team.getTeam(toInvite) != null) {
 			return "invite.inTeam";
 		}

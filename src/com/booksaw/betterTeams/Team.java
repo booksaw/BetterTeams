@@ -147,7 +147,8 @@ public class Team {
 	 */
 	private List<UUID> invitedPlayers = new ArrayList<UUID>();
 
-	List<TeamPlayer> members;
+	private List<TeamPlayer> members;
+	private List<UUID> bannedPlayers;
 
 	/**
 	 * this is used to load a team from the configuration file
@@ -166,6 +167,11 @@ public class Team {
 		members = new ArrayList<>();
 		for (String string : getStringList(config, "players")) {
 			members.add(new TeamPlayer(string));
+		}
+
+		bannedPlayers = new ArrayList<>();
+		for (String string : getStringList(config, "bans")) {
+			bannedPlayers.add(UUID.fromString(string));
 		}
 
 		String teamHomeStr = getString(config, "home");
@@ -326,6 +332,23 @@ public class Team {
 		}
 
 		setValue(config, "players", output);
+
+	}
+
+	/**
+	 * Used to save the bans list to the configuration file
+	 * 
+	 * @param config the configuration file to store the ban list to
+	 */
+	private void saveBans(FileConfiguration config) {
+
+		List<String> output = new ArrayList<>();
+
+		for (UUID uuid : bannedPlayers) {
+			output.add(uuid.toString());
+		}
+
+		setValue(config, "bans", output);
 
 	}
 
@@ -526,6 +549,53 @@ public class Team {
 	private String getString(Location loc) {
 		return loc.getWorld().getName() + ":" + loc.getX() + ":" + loc.getY() + ":" + loc.getZ() + ":" + loc.getYaw()
 				+ ":" + loc.getPitch();
+	}
+
+	/**
+	 * This method is used to add a player to the list of players which are banned
+	 * from the team
+	 * 
+	 * @param player the player to add to the list
+	 */
+	public void banPlayer(OfflinePlayer player) {
+		bannedPlayers.add(player.getUniqueId());
+		saveBans(Main.pl.getConfig());
+		Main.pl.saveConfig();
+	}
+
+	/**
+	 * This method is used to remove a player from the list of players which are
+	 * banned from the team
+	 * 
+	 * @param player the player to remove from the list
+	 */
+	public void unbanPlayer(OfflinePlayer player) {
+		// used to avoid concurrent modification error
+		UUID store = null;
+		for (UUID uuid : bannedPlayers) {
+			if (player.getUniqueId().equals(uuid)) {
+				store = uuid;
+			}
+		}
+		bannedPlayers.remove(store);
+
+		saveBans(Main.pl.getConfig());
+		Main.pl.saveConfig();
+	}
+
+	/**
+	 * This method searches the ban list to check if the player is banned
+	 * 
+	 * @param player the player to check
+	 * @return [true - the player is banned] [false - the player isen't banned]
+	 */
+	public boolean isBanned(OfflinePlayer player) {
+		for (UUID uuid : bannedPlayers) {
+			if (player.getUniqueId().equals(uuid)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

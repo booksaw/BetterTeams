@@ -35,6 +35,8 @@ public class HelpCommand extends SubCommand {
 		sender.sendMessage(createHelpMessage(label, "demote <player>", "Demote the specified player within your team"));
 		sender.sendMessage(createHelpMessage(label, "home", "Teleports you to your team's home"));
 		sender.sendMessage(createHelpMessage(label, "sethome", "Sets your team's home"));
+		sender.sendMessage(createHelpMessage(label, "ban <player>", "Bans the specified player from your team"));
+		sender.sendMessage(createHelpMessage(label, "unban <player>", "Unbans the specified player from your team"));
 
 		return null;
 	}
