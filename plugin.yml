@@ -3,8 +3,16 @@ version: 3.0
 author: booksaw
 description: A plugin to create teams with other players
 main: com.booksaw.betterTeams.Main
+api-version: 1.15
+website: https://github.com/booksaw/BetterTeams
 
 commands:
    team:
       description: All commands for teams
       usage: /<command> help
+      permission: betterTeams.standard
+
+permissions:
+   betterTeams.standard:
+      description: This permission gives the user access to the teams system (joining, leaving teams etc.)
+      default: true     
