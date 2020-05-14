@@ -74,5 +74,9 @@ public class Main extends JavaPlugin {
 		MessageManager.addMessage("join.success", "You have joined that team");
 		MessageManager.addMessage("join.notify", "Welcome " + ChatColor.AQUA + "%s " + ChatColor.GOLD + "to the team!");
 		MessageManager.addMessage("join.notInvited", ChatColor.RED + "You have not been invited to that team");
+
+		// for /team open
+		MessageManager.addMessage("open.successopen", "Your team now open to everyone");
+		MessageManager.addMessage("open.successclose", "Your team is now invite only");
 	}
 }

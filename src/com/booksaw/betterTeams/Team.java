@@ -269,6 +269,12 @@ public class Team {
 		return open;
 	}
 
+	public void setOpen(boolean open) {
+		this.open = open;
+		setValue(Main.pl.getConfig(), "open", open);
+		Main.pl.saveConfig();
+	}
+
 	/**
 	 * @return the location of the team's home
 	 */
@@ -417,6 +423,11 @@ public class Team {
 
 	}
 
+	/**
+	 * This is used when a player is joining the team
+	 * 
+	 * @param p the player who is joining the team
+	 */
 	public void join(Player p) {
 
 		for (TeamPlayer player : members) {
@@ -432,6 +443,12 @@ public class Team {
 
 	}
 
+	/**
+	 * This is used to set the name of the team, it is important that you check that
+	 * the name is unique before running this method
+	 * 
+	 * @param name the new team name
+	 */
 	public void setName(String name) {
 		this.name = name;
 		setValue(Main.pl.getConfig(), "name", name);
