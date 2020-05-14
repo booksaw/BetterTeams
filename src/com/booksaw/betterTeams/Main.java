@@ -78,5 +78,16 @@ public class Main extends JavaPlugin {
 		// for /team open
 		MessageManager.addMessage("open.successopen", "Your team now open to everyone");
 		MessageManager.addMessage("open.successclose", "Your team is now invite only");
+
+		// for /team info [team / player]
+		MessageManager.addMessage("info.name", "Name: " + ChatColor.AQUA + "%s");
+		MessageManager.addMessage("info.description", "Description: " + ChatColor.AQUA + "%s");
+		MessageManager.addMessage("info.open", "Open: " + ChatColor.AQUA + "%s");
+		MessageManager.addMessage("info.owner", "Owners: " + ChatColor.AQUA + "%s");
+		MessageManager.addMessage("info.admin", "Admins: " + ChatColor.AQUA + "%s");
+		MessageManager.addMessage("info.default", "Users: " + ChatColor.AQUA + "%s");
+		MessageManager.addMessage("info.needTeam", "That player is not in a team");
+		MessageManager.addMessage("info.fail", "No team or player found under that name");
+
 	}
 }

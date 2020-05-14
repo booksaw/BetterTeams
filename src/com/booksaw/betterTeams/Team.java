@@ -9,6 +9,7 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -62,7 +63,7 @@ public class Team {
 	 * @return the team they are in [null - they are not in a team]
 	 */
 	@Nullable
-	public static Team getTeam(Player player) {
+	public static Team getTeam(OfflinePlayer player) {
 		for (Entry<UUID, Team> temp : teamList.entrySet()) {
 			for (TeamPlayer teamPlayer : temp.getValue().getMembers()) {
 				if (teamPlayer.getPlayer().getUniqueId().compareTo(player.getUniqueId()) == 0) {

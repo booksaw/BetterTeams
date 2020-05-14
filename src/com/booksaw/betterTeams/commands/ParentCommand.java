@@ -73,9 +73,14 @@ public class ParentCommand extends SubCommand {
 		}
 
 		String result = command.onCommand(sender, label, newArgs);
-		if (result != null) {
-			MessageManager.sendMessasge(sender, result);
+		if (result == null) {
+			return null;
+		} else if (result.equals("help")) {
+			displayHelp(sender, label, args);
+			return null;
 		}
+		MessageManager.sendMessasge(sender, result);
+
 		return null;
 	}
 

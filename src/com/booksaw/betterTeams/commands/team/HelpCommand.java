@@ -27,6 +27,8 @@ public class HelpCommand extends SubCommand {
 		sender.sendMessage(createHelpMessage(label, "open", "Toggle if the team is invite only"));
 		sender.sendMessage(createHelpMessage(label, "invite <player>", "Invite the specified player to your team"));
 		sender.sendMessage(createHelpMessage(label, "join <team>", "Join the specified team"));
+		sender.sendMessage(
+				createHelpMessage(label, "info [team/player]", "View information about the specified player / team"));
 
 		return null;
 	}
