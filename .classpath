@@ -11,5 +11,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/nfgg2/Desktop/server/plugins/PlaceholderAPI-2.10.6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

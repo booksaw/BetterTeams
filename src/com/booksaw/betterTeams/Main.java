@@ -26,7 +26,10 @@ public class Main extends JavaPlugin {
 		saveDefaultConfig();
 		plugin = this;
 
-//		addMessages();
+		if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+			new TeamPlaceholders(this).register();
+		}
+
 		loadCustomConfigs();
 		ChatManagement.enable();
 		Team.loadTeams();
@@ -50,6 +53,13 @@ public class Main extends JavaPlugin {
 		}
 
 		YamlConfiguration messages = YamlConfiguration.loadConfiguration(f);
+
+		/*
+		 * this is required for every value above version 1.0 of the config (as when the
+		 * user updates the plugin, it should not require the config to be refreshed
+		 */
+		addDefaults(messages);
+
 		MessageManager.addMessages(messages);
 
 		f = new File("plugins/BetterTeams/teams.yml");
@@ -72,6 +82,40 @@ public class Main extends JavaPlugin {
 			}
 		}
 
+	}
+
+	/**
+	 * This method is used to add any config values which are required post 3.0
+	 * 
+	 * @param messages
+	 */
+	private void addDefaults(YamlConfiguration messages) {
+		int version = messages.getInt("version");
+		boolean changes = false;
+
+		// use the case as the previous version of the config
+		switch (version) {
+		case 0:
+			messages.set("placeholder.noTeam", "");
+			messages.set("placeholder.noDescription", "");
+			messages.set("version", 1);
+		case 1000:
+			// this will run only if a change has been made
+			changes = true;
+			// set version the latest
+			messages.set("version", 1);
+			break;
+		}
+
+		// if something has been changed, saving the new config
+		if (changes) {
+			File f = new File("plugins/BetterTeams/messages.yml");
+			try {
+				messages.save(f);
+			} catch (IOException ex) {
+				Bukkit.getLogger().log(Level.SEVERE, "Could not save config to " + f, ex);
+			}
+		}
 	}
 
 	/**

@@ -1,9 +1,10 @@
 name: BetterTeams
-version: 3.0
+version: 3.0.1
 author: booksaw
 description: A plugin to create teams with other players
 main: com.booksaw.betterTeams.Main
 api-version: 1.15
+softdepend: [PlaceholderAPI]
 website: https://github.com/booksaw/BetterTeams
 commands:
    team:

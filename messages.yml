@@ -7,8 +7,16 @@ needAdmin: '&6&4You must be admin or owner of the team to do that'
 needPlayer: '&6&4You must be a player to do that'
 noPlayer: '&6&4Specified player not found'
 notTeam: '&6&4That team does not exist try &b/team create <name>'
-
 needSameTeam: '&6You are not in the same team as that person'
+
+# do not change this, it is used to check the messages version (test if there are any missing messages)
+version: 1
+
+# for placeholders
+# This is the placeholder for when the user has no team
+placeholder.noTeam: ''
+# if the team has not specified a description
+placeholder.noDescription: ''
 
 # for /team create <name>
 create.exists: '&6That team already exists'
