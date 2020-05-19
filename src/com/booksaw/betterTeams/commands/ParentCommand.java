@@ -55,7 +55,7 @@ public class ParentCommand extends SubCommand {
 			return null;
 		}
 
-		SubCommand command = subCommands.get(args[0]);
+		SubCommand command = subCommands.get(args[0].toLowerCase());
 		if (command == null) {
 			displayHelp(sender, label, args);
 			return null;
