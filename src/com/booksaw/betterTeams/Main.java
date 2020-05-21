@@ -98,7 +98,6 @@ public class Main extends JavaPlugin {
 		case 0:
 			messages.set("placeholder.noTeam", "");
 			messages.set("placeholder.noDescription", "");
-			messages.set("version", 1);
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
@@ -115,6 +114,28 @@ public class Main extends JavaPlugin {
 			} catch (IOException ex) {
 				Bukkit.getLogger().log(Level.SEVERE, "Could not save config to " + f, ex);
 			}
+		}
+
+		version = 0;
+		version = getConfig().getInt("version");
+		changes = false;
+		System.out.println("version = " + version);
+		// use the case as the previous version of the config
+		switch (version) {
+		case 0:
+			getConfig().set("disablePotions", true);
+			getConfig().set("playerDamageSelf", true);
+		case 1000:
+			// this will run only if a change has been made
+			changes = true;
+			// set version the latest
+			getConfig().set("version", 1);
+			break;
+		}
+
+		// if something has been changed, saving the new config
+		if (changes) {
+			saveConfig();
 		}
 	}
 

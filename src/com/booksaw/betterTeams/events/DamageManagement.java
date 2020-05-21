@@ -1,12 +1,21 @@
 package com.booksaw.betterTeams.events;
 
+import java.util.Collection;
+
 import org.bukkit.entity.Arrow;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.ThrownPotion;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.PotionSplashEvent;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+import org.bukkit.potion.PotionEffectTypeWrapper;
 import org.bukkit.projectiles.ProjectileSource;
 
+import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 
 /**
@@ -17,6 +26,13 @@ import com.booksaw.betterTeams.Team;
  *
  */
 public class DamageManagement implements Listener {
+
+	private boolean disablePotions, disableSelf;
+
+	public DamageManagement() {
+		disablePotions = Main.plugin.getConfig().getBoolean("disablePotions");
+		disableSelf = Main.plugin.getConfig().getBoolean("playerDamageSelf");
+	}
 
 	/**
 	 * This is used to cancel any events which would cause 2 players of the same
@@ -46,9 +62,72 @@ public class DamageManagement implements Listener {
 			ProjectileSource source = arrow.getShooter();
 			if (source instanceof Player && temp != null && temp == Team.getTeam((Player) source)) {
 				// they are on the same team
+				if (disableSelf && (Player) source == (Player) e.getDamager()) {
+					return;
+				}
+				e.setCancelled(true);
+			}
+		} else if (e.getDamager() instanceof ThrownPotion && disablePotions) {
+			Team temp = Team.getTeam((Player) e.getEntity());
+			ThrownPotion arrow = (ThrownPotion) e.getDamager();
+			ProjectileSource source = arrow.getShooter();
+			if (source instanceof Player && temp != null && temp == Team.getTeam((Player) source)) {
+				// they are on the same team
 				e.setCancelled(true);
 			}
 		}
+	}
+
+	/**
+	 * This method is used to detect if a negative potion is being thrown at members
+	 * of the same team
+	 * 
+	 * @param e the potion splash event
+	 */
+	@EventHandler
+	public void onPotion(PotionSplashEvent e) {
+		if (!(e.getEntity().getShooter() instanceof Player) || e.isCancelled() || !disablePotions) {
+			return;
+		}
+
+		Player thrower = (Player) e.getEntity().getShooter();
+		Team team = Team.getTeam(thrower);
+		// thrower is not in team
+		if (team == null) {
+			return;
+		}
+
+		Collection<PotionEffect> effects = e.getPotion().getEffects();
+
+		boolean cancel = false;
+
+		for (PotionEffect effect : effects) {
+			String type = effect.getType().getName();
+			if (type.equals(PotionEffectTypeWrapper.BAD_OMEN.getName())
+					|| type.equals(PotionEffectTypeWrapper.BLINDNESS.getName())
+					|| type.equals(PotionEffectTypeWrapper.CONFUSION.getName())
+					|| type.equals(PotionEffectTypeWrapper.HARM.getName())
+					|| type.equals(PotionEffectTypeWrapper.HUNGER.getName())
+					|| type.equals(PotionEffectTypeWrapper.SLOW_DIGGING.getName())
+					|| type.equals(PotionEffectTypeWrapper.UNLUCK.getName())
+					|| type.equals(PotionEffectType.POISON.getName())) {
+				cancel = true;
+			}
+		}
+
+		if (cancel) {
+			Collection<LivingEntity> affectedEntities = e.getAffectedEntities();
+			for (LivingEntity entity : affectedEntities) {
+				if (entity instanceof Player && team == Team.getTeam((Player) entity)) {
+					if (disableSelf && entity == thrower) {
+						continue;
+					}
+					e.setIntensity(entity, 0);
+				}
+			}
+
+		}
+
 	}
 
 }

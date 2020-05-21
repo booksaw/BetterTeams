@@ -47,3 +47,21 @@ teamLimit: -1
 # 
 # Possible values: [true, false]
 disableCombat: true
+
+# This will by extension of disable combat also stop players from applying negative potion effects to members of their team
+# - If disableCombat is set to false (above) potion effects will never be disabled
+# - If you change this feature, you will need to restart the server for the value to update (does not work with /teama realod)
+#
+# Posssible values: [True - Negative potions should be disabled for members of the same team, False - Negative potions are allowed for memebers of the same team ]
+disablePotions: true
+
+# This is used to toggle if players can harm themselves with potions or arrows (while they are on a team) 
+# - If this is enabled, players cannot apply negative potion effects to themselves or hit themselves with arrows
+# - If you change this feature, you will need to restart the server for the value to update (does not work with /teama realod)
+# - If a player is not on a team, they will hit themselves with potions regardless of what value this opion takes
+#
+# Possible values: [true - Potion effects will damage the player who threw them, false - Potion effects will not damage the palyer who threw them]
+playerDamageSelf: true
+
+# Do not edit this value, this is used to check the config is up to date with the lastest version of the plugin (if it is not, it will be automatically updated)
+version: 1
