@@ -1,9 +1,11 @@
 package com.booksaw.betterTeams.events;
 
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.projectiles.ProjectileSource;
 
 import com.booksaw.betterTeams.Team;
 
@@ -29,13 +31,23 @@ public class DamageManagement implements Listener {
 			return;
 		}
 
-		if (!(e.getEntity() instanceof Player) || !(e.getDamager() instanceof Player)) {
+		if (!(e.getEntity() instanceof Player)) {
 			return;
 		}
-		Team temp = Team.getTeam((Player) e.getEntity());
-		if (temp != null && temp == Team.getTeam((Player) e.getDamager())) {
-			// they are on the same team
-			e.setCancelled(true);
+		if (e.getDamager() instanceof Player) {
+			Team temp = Team.getTeam((Player) e.getEntity());
+			if (temp != null && temp == Team.getTeam((Player) e.getDamager())) {
+				// they are on the same team
+				e.setCancelled(true);
+			}
+		} else if (e.getDamager() instanceof Arrow) {
+			Team temp = Team.getTeam((Player) e.getEntity());
+			Arrow arrow = (Arrow) e.getDamager();
+			ProjectileSource source = arrow.getShooter();
+			if (source instanceof Player && temp != null && temp == Team.getTeam((Player) source)) {
+				// they are on the same team
+				e.setCancelled(true);
+			}
 		}
 	}
 
