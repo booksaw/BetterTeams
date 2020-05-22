@@ -1,31 +1,21 @@
 package com.booksaw.betterTeams.commands.team;
 
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.commands.SubCommand;
+import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 
-public class ChatCommand extends SubCommand {
+public class ChatCommand extends TeamSubCommand {
 
 	@Override
-	public String onCommand(CommandSender sender, String label, String[] args) {
-		Player p = (Player) sender;
-		Team team = Team.getTeam(p);
+	public String onCommand(TeamPlayer player, String label, String[] args, Team team) {
 
-		if (team == null) {
-			return "inTeam";
-		}
-
-		TeamPlayer teamPlayer = team.getTeamPlayer(p);
 		if (args.length == 0) {
 			// toggle chat
-			if (teamPlayer.isInTeamChat()) {
-				teamPlayer.setTeamChat(false);
+			if (player.isInTeamChat()) {
+				player.setTeamChat(false);
 				return "chat.disabled";
 			} else {
-				teamPlayer.setTeamChat(true);
+				player.setTeamChat(true);
 				return "chat.enabled";
 			}
 		}
@@ -35,7 +25,7 @@ public class ChatCommand extends SubCommand {
 			message = message + args[i] + " ";
 		}
 
-		team.sendMessage(teamPlayer, message);
+		team.sendMessage(player, message);
 		return null;
 	}
 
@@ -47,6 +37,21 @@ public class ChatCommand extends SubCommand {
 	@Override
 	public int getMinimumArguments() {
 		return 0;
+	}
+
+	@Override
+	public String getNode() {
+		return null;
+	}
+
+	@Override
+	public String getHelp() {
+		return "Send a message only to your team";
+	}
+
+	@Override
+	public String getArguments() {
+		return "[message]";
 	}
 
 }

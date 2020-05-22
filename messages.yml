@@ -8,6 +8,7 @@ needPlayer: '&6&4You must be a player to do that'
 noPlayer: '&6&4Specified player not found'
 notTeam: '&6&4That team does not exist try &b/team create <name>'
 needSameTeam: '&6You are not in the same team as that person'
+noPerm: '&4You do not have permission to do that'
 
 # do not change this, it is used to check the messages version (test if there are any missing messages)
 version: 1
@@ -21,7 +22,6 @@ placeholder.noDescription: ''
 # for /team create <name>
 create.exists: '&6That team already exists'
 create.success: '&6Your team has been created'
-create.leave: '&6You are already in a team, leave that team first to create a new one'
 
 # for /team leave
 leave.success: '&6You have left the team'

@@ -1,12 +1,9 @@
 package com.booksaw.betterTeams.commands.team;
 
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.commands.SubCommand;
+import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 
 /**
  * This class handles the /team leave command
@@ -14,24 +11,16 @@ import com.booksaw.betterTeams.commands.SubCommand;
  * @author booksaw
  *
  */
-public class LeaveCommand extends SubCommand {
+public class LeaveCommand extends TeamSubCommand {
 
 	@Override
-	public String onCommand(CommandSender sender, String label, String[] args) {
-		Player p = (Player) sender;
-		Team team = Team.getTeam(p);
-
-		if (team == null) {
-			return "inTeam";
-		}
-
-		TeamPlayer teamPlayer = team.getTeamPlayer(p);
+	public String onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
 
 		if (teamPlayer.getRank() == PlayerRank.OWNER && team.getRank(PlayerRank.OWNER).size() == 1) {
 			return "leave.lastOwner";
 		}
 
-		team.removePlayer(p);
+		team.removePlayer(teamPlayer.getPlayer());
 
 		return "leave.success";
 	}
@@ -47,8 +36,18 @@ public class LeaveCommand extends SubCommand {
 	}
 
 	@Override
-	public boolean needPlayer() {
-		return true;
+	public String getNode() {
+		return "leave";
+	}
+
+	@Override
+	public String getHelp() {
+		return "Leave your current team";
+	}
+
+	@Override
+	public String getArguments() {
+		return "";
 	}
 
 }

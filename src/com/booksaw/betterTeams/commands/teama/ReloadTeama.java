@@ -30,4 +30,19 @@ public class ReloadTeama extends SubCommand {
 		return 0;
 	}
 
+	@Override
+	public String getNode() {
+		return "admin.reload";
+	}
+
+	@Override
+	public String getHelp() {
+		return "Reload the BetterTeams configs";
+	}
+
+	@Override
+	public String getArguments() {
+		return "";
+	}
+
 }

@@ -24,3 +24,42 @@ permissions:
    betterTeams.admin:
       description: This permission gives the user access to the admin system for BetterTeams
       default: op
+   betterTeams.join:
+      default: true
+      description: Allows access to /team join
+   betterTeams.ban:
+      default: true
+      description: Allows access to /team ban and /team unban 
+   betterTeams.chat:
+      default: true
+      description: Allows access to /team chat
+   betterTeams.create:
+      default: true
+      description: Allows access to /team create
+   betterTeams.promote:
+      default: true
+      description: Allows access to /team promote and /team demote
+   betterTeams.description:
+      default: true
+      description: Allows access to /team description
+   betterTeams.disband:
+      default: true
+      description: Allows access to /team disband
+   betterTeams.home:
+      default: true
+      description: Allows access to /team home
+   betterTeams.invite:
+      default: true
+      description: Allows access to /team invite
+   betterTeams.kick:
+      default: true
+      description: Allows access to /team kick
+   betterTeams.leave:
+      default: true
+      description: Allows access to /team leave
+   betterTeams.name:
+      default: true
+      description: Allows access to /team name
+   betterTeams.open:
+      default: true
+      description: Allows access to /team open

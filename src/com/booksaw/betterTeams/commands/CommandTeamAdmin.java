@@ -4,14 +4,13 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-import com.booksaw.betterTeams.commands.teama.HelpTeama;
 import com.booksaw.betterTeams.commands.teama.ReloadTeama;
 
 public class CommandTeamAdmin implements CommandExecutor {
 	private ParentCommand teamCommand;
 
 	public CommandTeamAdmin() {
-		teamCommand = new ParentCommand("teamadmin", new HelpTeama());
+		teamCommand = new ParentCommand("teamadmin");
 
 		teamCommand.addSubCommand(new ReloadTeama());
 	}

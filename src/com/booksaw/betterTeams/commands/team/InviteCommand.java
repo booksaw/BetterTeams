@@ -1,7 +1,6 @@
 package com.booksaw.betterTeams.commands.team;
 
 import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.booksaw.betterTeams.Main;
@@ -9,21 +8,12 @@ import com.booksaw.betterTeams.MessageManager;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.commands.SubCommand;
+import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 
-public class InviteCommand extends SubCommand {
+public class InviteCommand extends TeamSubCommand {
 
 	@Override
-	public String onCommand(CommandSender sender, String label, String[] args) {
-
-		Player p = (Player) sender;
-		Team team = Team.getTeam(p);
-
-		if (team == null) {
-			return "inTeam";
-		}
-
-		TeamPlayer teamPlayer = team.getTeamPlayer(p);
+	public String onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
 
 		if (teamPlayer.getRank() == PlayerRank.DEFAULT) {
 			return "needAdmin";
@@ -66,8 +56,18 @@ public class InviteCommand extends SubCommand {
 	}
 
 	@Override
-	public boolean needPlayer() {
-		return true;
+	public String getNode() {
+		return "invite";
+	}
+
+	@Override
+	public String getHelp() {
+		return "Invite the specified player to your team";
+	}
+
+	@Override
+	public String getArguments() {
+		return "<player>";
 	}
 
 }

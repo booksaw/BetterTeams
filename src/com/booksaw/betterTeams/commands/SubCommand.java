@@ -35,6 +35,28 @@ public abstract class SubCommand {
 	public abstract String getCommand();
 
 	/**
+	 * This is used to get the permission node for that sub command
+	 * 
+	 * @return
+	 */
+	public abstract String getNode();
+
+	/**
+	 * This is used to get the help information for that sub command (this does not
+	 * include the arguments)
+	 * 
+	 * @return
+	 */
+	public abstract String getHelp();
+
+	/**
+	 * This is used to get the arguments for that sub command ie '<name>'
+	 * 
+	 * @return
+	 */
+	public abstract String getArguments();
+
+	/**
 	 * Used to get the minimum number of arguments which need to be parsed into this
 	 * command
 	 * 
@@ -50,5 +72,5 @@ public abstract class SubCommand {
 	public boolean needPlayer() {
 		return false;
 	}
-	
+
 }

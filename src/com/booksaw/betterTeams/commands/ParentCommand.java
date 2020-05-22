@@ -31,9 +31,9 @@ public class ParentCommand extends SubCommand {
 	 * @param helpCommand the command which will be defaulted to if the user enters
 	 *                    an incorrect command
 	 */
-	public ParentCommand(String command, SubCommand helpCommand) {
+	public ParentCommand(String command) {
 		this.command = command;
-		subCommands.put("help", helpCommand);
+		subCommands.put("help", new HelpCommand(this));
 	}
 
 	/**
@@ -61,14 +61,19 @@ public class ParentCommand extends SubCommand {
 			return null;
 		}
 
+		if (!sender.hasPermission("betterteams." + command.getNode())) {
+			MessageManager.sendMessage(sender, "noPerm");
+			return null;
+		}
+
 		String[] newArgs = removeFirstElement(args);
 		// checking enough arguments have been entered
 		if (command.getMinimumArguments() > newArgs.length) {
-			MessageManager.sendMessasge(sender, "invalidArg");
+			MessageManager.sendMessage(sender, "invalidArg");
 			displayHelp(sender, label, args);
 			return null;
 		} else if (command.needPlayer() && !(sender instanceof Player)) {
-			MessageManager.sendMessasge(sender, "needPlayer");
+			MessageManager.sendMessage(sender, "needPlayer");
 			return null;
 		}
 
@@ -79,7 +84,7 @@ public class ParentCommand extends SubCommand {
 			displayHelp(sender, label, args);
 			return null;
 		}
-		MessageManager.sendMessasge(sender, result);
+		MessageManager.sendMessage(sender, result);
 
 		return null;
 	}
@@ -110,6 +115,10 @@ public class ParentCommand extends SubCommand {
 
 	}
 
+	public HashMap<String, SubCommand> getSubCommands() {
+		return subCommands;
+	}
+
 	@Override
 	public String getCommand() {
 		return command;
@@ -118,6 +127,24 @@ public class ParentCommand extends SubCommand {
 	@Override
 	public int getMinimumArguments() {
 		return 0;
+	}
+
+	@Override
+	public String getNode() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getHelp() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getArguments() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

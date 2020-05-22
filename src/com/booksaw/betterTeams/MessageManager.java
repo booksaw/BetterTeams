@@ -44,7 +44,7 @@ public class MessageManager {
 	 * @param sender    the commandSender which the message should be sent to
 	 * @param reference the reference for the message
 	 */
-	public static void sendMessasge(CommandSender sender, String reference) {
+	public static void sendMessage(CommandSender sender, String reference) {
 
 		String message = ChatColor.translateAlternateColorCodes('&', messages.getString(reference));
 		if (message == null) {

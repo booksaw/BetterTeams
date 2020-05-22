@@ -4,13 +4,10 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.UUID;
 
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.commands.SubCommand;
+import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 
 /**
  * This class handles the /team disband command
@@ -18,7 +15,7 @@ import com.booksaw.betterTeams.commands.SubCommand;
  * @author booksaw
  *
  */
-public class DisbandCommand extends SubCommand {
+public class DisbandCommand extends TeamSubCommand {
 
 	/**
 	 * This HashMap is used to track all confirm messages, to ensure that the user
@@ -27,15 +24,7 @@ public class DisbandCommand extends SubCommand {
 	HashMap<UUID, Long> confirmation = new HashMap<>();
 
 	@Override
-	public String onCommand(CommandSender sender, String label, String[] args) {
-		Player p = (Player) sender;
-		Team team = Team.getTeam(p);
-
-		if (team == null) {
-			return "inTeam";
-		}
-
-		TeamPlayer teamPlayer = team.getTeamPlayer(p);
+	public String onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
 
 		if (teamPlayer.getRank() != PlayerRank.OWNER) {
 			return "needOwner";
@@ -44,7 +33,8 @@ public class DisbandCommand extends SubCommand {
 		UUID found = null;
 		// if they have already had the confirm dialogue
 		for (Entry<UUID, Long> temp : confirmation.entrySet()) {
-			if (temp.getKey().compareTo(p.getUniqueId()) == 0 && temp.getValue() < System.currentTimeMillis() + 10000) {
+			if (temp.getKey().compareTo(teamPlayer.getPlayer().getUniqueId()) == 0
+					&& temp.getValue() < System.currentTimeMillis() + 10000) {
 				found = temp.getKey();
 			}
 		}
@@ -55,7 +45,7 @@ public class DisbandCommand extends SubCommand {
 			return "disband.success";
 		}
 
-		confirmation.put(p.getUniqueId(), System.currentTimeMillis());
+		confirmation.put(teamPlayer.getPlayer().getUniqueId(), System.currentTimeMillis());
 		return "disband.confirm";
 
 	}
@@ -69,10 +59,20 @@ public class DisbandCommand extends SubCommand {
 	public int getMinimumArguments() {
 		return 0;
 	}
+	
+	@Override
+	public String getNode() {
+		return "disband";
+	}
 
 	@Override
-	public boolean needPlayer() {
-		return true;
+	public String getHelp() {
+		return "Disband your current team";
+	}
+
+	@Override
+	public String getArguments() {
+		return "";
 	}
 
 }

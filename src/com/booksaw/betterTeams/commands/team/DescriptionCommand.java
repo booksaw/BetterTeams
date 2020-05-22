@@ -1,42 +1,33 @@
 package com.booksaw.betterTeams.commands.team;
 
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
 import com.booksaw.betterTeams.MessageManager;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.commands.SubCommand;
+import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 
-public class DescriptionCommand extends SubCommand {
+public class DescriptionCommand extends TeamSubCommand {
 
 	@Override
-	public String onCommand(CommandSender sender, String label, String[] args) {
-
-		Player p = (Player) sender;
-		Team team = Team.getTeam(p);
-
-		if (team == null) {
-			return "inTeam";
-		}
+	public String onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
 
 		if (args.length == 0) {
 			if (team.getDescription() != null && !team.getDescription().equals("")) {
-				MessageManager.sendMessageF(sender, "description.view", team.getDescription());
+				MessageManager.sendMessageF(teamPlayer.getPlayer().getPlayer(), "description.view",
+						team.getDescription());
 			} else {
-				MessageManager.sendMessasge(sender, "description.noDesc");
+				MessageManager.sendMessage(teamPlayer.getPlayer().getPlayer(), "description.noDesc");
 			}
 
 			return null;
 		}
-		TeamPlayer teamPlayer = team.getTeamPlayer(p);
 
 		if (teamPlayer.getRank() != PlayerRank.OWNER) {
 			if (team.getDescription() != null && !team.getDescription().equals("")) {
-				MessageManager.sendMessageF(sender, "description.view", team.getDescription());
+				MessageManager.sendMessageF(teamPlayer.getPlayer().getPlayer(), "description.view",
+						team.getDescription());
 			} else {
-				MessageManager.sendMessasge(sender, "description.noDesc");
+				MessageManager.sendMessage(teamPlayer.getPlayer().getPlayer(), "description.noDesc");
 			}
 			return "needOwner";
 		}
@@ -62,8 +53,18 @@ public class DescriptionCommand extends SubCommand {
 	}
 
 	@Override
-	public boolean needPlayer() {
-		return true;
+	public String getNode() {
+		return "description";
+	}
+
+	@Override
+	public String getHelp() {
+		return "View and change your team's description";
+	}
+
+	@Override
+	public String getArguments() {
+		return "[description]";
 	}
 
 }

@@ -3,13 +3,12 @@ package com.booksaw.betterTeams.commands.team;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 import com.booksaw.betterTeams.MessageManager;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.commands.SubCommand;
+import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 
 /**
  * This class handles the command /team demote <player>
@@ -17,17 +16,10 @@ import com.booksaw.betterTeams.commands.SubCommand;
  * @author nfgg2
  *
  */
-public class DemoteCommand extends SubCommand {
+public class DemoteCommand extends TeamSubCommand {
 
 	@Override
-	public String onCommand(CommandSender sender, String label, String[] args) {
-
-		Player p = (Player) sender;
-		Team team = Team.getTeam(p);
-
-		if (team == null) {
-			return "inTeam";
-		}
+	public String onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
 
 		/*
 		 * method is depreciated as it does not guarantee the expected player, in most
@@ -47,7 +39,6 @@ public class DemoteCommand extends SubCommand {
 			return "needSameTeam";
 		}
 
-		TeamPlayer teamPlayer = team.getTeamPlayer(p);
 		TeamPlayer demotePlayer = team.getTeamPlayer(player);
 
 		if (teamPlayer.getRank() != PlayerRank.OWNER) {
@@ -68,7 +59,7 @@ public class DemoteCommand extends SubCommand {
 		}
 
 		team.demotePlayer(demotePlayer);
-		MessageManager.sendMessasge((CommandSender) demotePlayer.getPlayer(), "demote.notify");
+		MessageManager.sendMessage((CommandSender) demotePlayer.getPlayer(), "demote.notify");
 
 		return "demote.success";
 
@@ -76,11 +67,27 @@ public class DemoteCommand extends SubCommand {
 
 	@Override
 	public String getCommand() {
-		return "demote";
+		return "promote";
 	}
 
 	@Override
 	public int getMinimumArguments() {
 		return 1;
+	}
+
+	@Override
+	public String getNode() {
+		return "demote";
+	}
+
+	@Override
+	public String getHelp() {
+		// TODO Auto-generated method stub
+		return "Demote the specified player within your team";
+	}
+
+	@Override
+	public String getArguments() {
+		return "<player>";
 	}
 }

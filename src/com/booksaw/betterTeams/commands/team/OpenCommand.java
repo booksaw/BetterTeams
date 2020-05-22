@@ -1,12 +1,9 @@
 package com.booksaw.betterTeams.commands.team;
 
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.commands.SubCommand;
+import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 
 /**
  * This handles the command /team open
@@ -17,18 +14,10 @@ import com.booksaw.betterTeams.commands.SubCommand;
  * @author booksaw
  *
  */
-public class OpenCommand extends SubCommand {
+public class OpenCommand extends TeamSubCommand {
 
 	@Override
-	public String onCommand(CommandSender sender, String label, String[] args) {
-		Player p = (Player) sender;
-		Team team = Team.getTeam(p);
-
-		if (team == null) {
-			return "inTeam";
-		}
-
-		TeamPlayer teamPlayer = team.getTeamPlayer(p);
+	public String onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
 
 		if (teamPlayer.getRank() != PlayerRank.OWNER) {
 			return "needOwner";
@@ -52,9 +41,19 @@ public class OpenCommand extends SubCommand {
 	public int getMinimumArguments() {
 		return 0;
 	}
+	
+	@Override
+	public String getNode() {
+		return "open";
+	}
 
 	@Override
-	public boolean needPlayer() {
-		return true;
+	public String getHelp() {
+		return "Toggle if the team is invite only";
+	}
+
+	@Override
+	public String getArguments() {
+		return "";
 	}
 }

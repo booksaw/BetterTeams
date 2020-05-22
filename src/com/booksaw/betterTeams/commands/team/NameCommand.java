@@ -1,34 +1,23 @@
 package com.booksaw.betterTeams.commands.team;
 
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
 import com.booksaw.betterTeams.MessageManager;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.commands.SubCommand;
+import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 
-public class NameCommand extends SubCommand {
+public class NameCommand extends TeamSubCommand {
 
 	@Override
-	public String onCommand(CommandSender sender, String label, String[] args) {
-
-		Player p = (Player) sender;
-		Team team = Team.getTeam(p);
-
-		if (team == null) {
-			return "inTeam";
-		}
+	public String onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
 
 		if (args.length == 0) {
-			MessageManager.sendMessageF(sender, "name.view", team.getName());
+			MessageManager.sendMessageF(teamPlayer.getPlayer().getPlayer(), "name.view", team.getName());
 			return null;
 		}
-		TeamPlayer teamPlayer = team.getTeamPlayer(p);
 
 		if (teamPlayer.getRank() != PlayerRank.OWNER) {
-			MessageManager.sendMessageF(sender, "name.view", team.getName());
+			MessageManager.sendMessageF(teamPlayer.getPlayer().getPlayer(), "name.view", team.getName());
 			return "needOwner";
 		}
 
@@ -51,8 +40,18 @@ public class NameCommand extends SubCommand {
 	}
 
 	@Override
-	public boolean needPlayer() {
-		return true;
+	public String getNode() {
+		return "name";
+	}
+
+	@Override
+	public String getHelp() {
+		return "View and change your team's name";
+	}
+
+	@Override
+	public String getArguments() {
+		return "<name>";
 	}
 
 }

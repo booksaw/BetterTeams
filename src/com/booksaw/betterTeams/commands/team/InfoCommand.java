@@ -119,4 +119,19 @@ public class InfoCommand extends SubCommand {
 		return 0;
 	}
 
+	@Override
+	public String getNode() {
+		return "info";
+	}
+
+	@Override
+	public String getHelp() {
+		return "View information about the specified player / team";
+	}
+
+	@Override
+	public String getArguments() {
+		return "[team/player]";
+	}
+
 }

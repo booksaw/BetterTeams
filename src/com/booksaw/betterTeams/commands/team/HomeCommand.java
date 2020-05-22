@@ -1,25 +1,16 @@
 package com.booksaw.betterTeams.commands.team;
 
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
 import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.commands.SubCommand;
+import com.booksaw.betterTeams.TeamPlayer;
+import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 
-public class HomeCommand extends SubCommand {
+public class HomeCommand extends TeamSubCommand {
 
 	@Override
-	public String onCommand(CommandSender sender, String label, String[] args) {
-
-		Player p = (Player) sender;
-		Team team = Team.getTeam(p);
-
-		if (team == null) {
-			return "inTeam";
-		}
+	public String onCommand(TeamPlayer player, String label, String[] args, Team team) {
 
 		if (team.getTeamHome() != null) {
-			p.teleport(team.getTeamHome());
+			player.getPlayer().getPlayer().teleport(team.getTeamHome());
 			return "home.success";
 		}
 
@@ -37,8 +28,18 @@ public class HomeCommand extends SubCommand {
 	}
 
 	@Override
-	public boolean needPlayer() {
-		return true;
+	public String getNode() {
+		return "home";
+	}
+
+	@Override
+	public String getHelp() {
+		return "Teleports you to your team's home";
+	}
+
+	@Override
+	public String getArguments() {
+		return "";
 	}
 
 }

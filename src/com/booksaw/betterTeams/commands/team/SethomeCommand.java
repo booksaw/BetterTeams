@@ -1,31 +1,20 @@
 package com.booksaw.betterTeams.commands.team;
 
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.commands.SubCommand;
+import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 
-public class SethomeCommand extends SubCommand {
+public class SethomeCommand extends TeamSubCommand {
 
 	@Override
-	public String onCommand(CommandSender sender, String label, String[] args) {
-		Player p = (Player) sender;
-		Team team = Team.getTeam(p);
-
-		if (team == null) {
-			return "inTeam";
-		}
-
-		TeamPlayer player = team.getTeamPlayer(p);
+	public String onCommand(TeamPlayer player, String label, String[] args, Team team) {
 
 		if (player.getRank() == PlayerRank.DEFAULT) {
 			return "sethome.noPerm";
 		}
 
-		team.setTeamHome(p.getLocation());
+		team.setTeamHome(player.getPlayer().getPlayer().getLocation());
 
 		return "sethome.success";
 
@@ -42,8 +31,18 @@ public class SethomeCommand extends SubCommand {
 	}
 
 	@Override
-	public boolean needPlayer() {
-		return true;
+	public String getNode() {
+		return "home";
+	}
+
+	@Override
+	public String getHelp() {
+		return "Sets your team's home";
+	}
+
+	@Override
+	public String getArguments() {
+		return "";
 	}
 
 }

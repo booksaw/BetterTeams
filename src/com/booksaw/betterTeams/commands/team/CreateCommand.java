@@ -1,10 +1,9 @@
 package com.booksaw.betterTeams.commands.team;
 
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.commands.SubCommand;
+import com.booksaw.betterTeams.commands.presets.NoTeamSubCommand;
 
 /**
  * This class handles the /team create <team> command
@@ -12,14 +11,10 @@ import com.booksaw.betterTeams.commands.SubCommand;
  * @author booksaw
  *
  */
-public class CreateCommand extends SubCommand {
+public class CreateCommand extends NoTeamSubCommand {
 
 	@Override
-	public String onCommand(CommandSender sender, String label, String[] args) {
-
-		if (Team.getTeam((Player) sender) != null) {
-			return "create.leave";
-		}
+	public String onCommand(Player sender, String label, String[] args) {
 
 		if (Team.getTeam(args[0]) != null) {
 			// team already exists
@@ -41,10 +36,20 @@ public class CreateCommand extends SubCommand {
 	public int getMinimumArguments() {
 		return 1;
 	}
+	
+	@Override
+	public String getNode() {
+		return "create";
+	}
 
 	@Override
-	public boolean needPlayer() {
-		return true;
+	public String getHelp() {
+		return "Create a team with the specified name";
+	}
+
+	@Override
+	public String getArguments() {
+		return "<name";
 	}
 
 }

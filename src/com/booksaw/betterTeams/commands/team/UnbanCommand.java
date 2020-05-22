@@ -3,24 +3,17 @@ package com.booksaw.betterTeams.commands.team;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 import com.booksaw.betterTeams.MessageManager;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.commands.SubCommand;
+import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 
-public class UnbanCommand extends SubCommand {
+public class UnbanCommand extends TeamSubCommand {
 
 	@Override
-	public String onCommand(CommandSender sender, String label, String[] args) {
-		Player p = (Player) sender;
-		Team team = Team.getTeam(p);
-
-		if (team == null) {
-			return "inTeam";
-		}
+	public String onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
 
 		/*
 		 * method is depreciated as it does not guarantee the expected player, in most
@@ -39,8 +32,6 @@ public class UnbanCommand extends SubCommand {
 			return "unban.not";
 		}
 
-		TeamPlayer teamPlayer = team.getTeamPlayer(p);
-
 		if (teamPlayer.getRank() != PlayerRank.DEFAULT) {
 			team.unbanPlayer(player);
 			MessageManager.sendMessageF((CommandSender) player, "unban.notify", team.getName());
@@ -57,6 +48,21 @@ public class UnbanCommand extends SubCommand {
 	@Override
 	public int getMinimumArguments() {
 		return 1;
+	}
+
+	@Override
+	public String getNode() {
+		return "ban";
+	}
+
+	@Override
+	public String getHelp() {
+		return "Unbans the specified player from your team";
+	}
+
+	@Override
+	public String getArguments() {
+		return "<player>";
 	}
 
 }

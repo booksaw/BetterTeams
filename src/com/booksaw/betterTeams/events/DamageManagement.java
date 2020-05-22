@@ -110,6 +110,7 @@ public class DamageManagement implements Listener {
 					|| type.equals(PotionEffectTypeWrapper.HUNGER.getName())
 					|| type.equals(PotionEffectTypeWrapper.SLOW_DIGGING.getName())
 					|| type.equals(PotionEffectTypeWrapper.UNLUCK.getName())
+					|| type.equals(PotionEffectTypeWrapper.WEAKNESS.getName())
 					|| type.equals(PotionEffectType.POISON.getName())) {
 				cancel = true;
 			}

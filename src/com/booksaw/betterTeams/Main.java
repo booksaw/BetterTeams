@@ -98,11 +98,13 @@ public class Main extends JavaPlugin {
 		case 0:
 			messages.set("placeholder.noTeam", "");
 			messages.set("placeholder.noDescription", "");
+		case 1:
+			messages.set("noPerm", "&4You do not have permission to do that");
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
 			// set version the latest
-			messages.set("version", 1);
+			messages.set("version", 2);
 			break;
 		}
 

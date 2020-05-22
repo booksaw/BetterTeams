@@ -10,7 +10,6 @@ import com.booksaw.betterTeams.commands.team.CreateCommand;
 import com.booksaw.betterTeams.commands.team.DemoteCommand;
 import com.booksaw.betterTeams.commands.team.DescriptionCommand;
 import com.booksaw.betterTeams.commands.team.DisbandCommand;
-import com.booksaw.betterTeams.commands.team.HelpCommand;
 import com.booksaw.betterTeams.commands.team.HomeCommand;
 import com.booksaw.betterTeams.commands.team.InfoCommand;
 import com.booksaw.betterTeams.commands.team.InviteCommand;
@@ -31,7 +30,7 @@ public class CommandTeam implements CommandExecutor {
 	private ParentCommand teamCommand;
 
 	public CommandTeam() {
-		teamCommand = new ParentCommand("team", new HelpCommand());
+		teamCommand = new ParentCommand("team");
 		// add all sub commands here
 		teamCommand.addSubCommand(new CreateCommand());
 		teamCommand.addSubCommand(new LeaveCommand());

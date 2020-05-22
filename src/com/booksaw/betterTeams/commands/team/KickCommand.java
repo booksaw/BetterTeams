@@ -3,24 +3,17 @@ package com.booksaw.betterTeams.commands.team;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 import com.booksaw.betterTeams.MessageManager;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.commands.SubCommand;
+import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 
-public class KickCommand extends SubCommand {
+public class KickCommand extends TeamSubCommand {
 
 	@Override
-	public String onCommand(CommandSender sender, String label, String[] args) {
-		Player p = (Player) sender;
-		Team team = Team.getTeam(p);
-
-		if (team == null) {
-			return "inTeam";
-		}
+	public String onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
 
 		/*
 		 * method is depreciated as it does not guarantee the expected player, in most
@@ -40,7 +33,6 @@ public class KickCommand extends SubCommand {
 			return "needSameTeam";
 		}
 
-		TeamPlayer teamPlayer = team.getTeamPlayer(p);
 		TeamPlayer kickedPlayer = team.getTeamPlayer(player);
 
 		if (teamPlayer.getRank() == PlayerRank.DEFAULT
@@ -67,8 +59,18 @@ public class KickCommand extends SubCommand {
 	}
 
 	@Override
-	public boolean needPlayer() {
-		return true;
+	public String getNode() {
+		return "kick";
+	}
+
+	@Override
+	public String getHelp() {
+		return "Kick that player from your team";
+	}
+
+	@Override
+	public String getArguments() {
+		return "<player>";
 	}
 
 }
