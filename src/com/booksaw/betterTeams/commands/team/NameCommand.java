@@ -1,5 +1,6 @@
 package com.booksaw.betterTeams.commands.team;
 
+import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.MessageManager;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
@@ -19,6 +20,16 @@ public class NameCommand extends TeamSubCommand {
 		if (teamPlayer.getRank() != PlayerRank.OWNER) {
 			MessageManager.sendMessageF(teamPlayer.getPlayer().getPlayer(), "name.view", team.getName());
 			return "needOwner";
+		}
+
+		for (String temp : Main.plugin.getConfig().getStringList("blacklist")) {
+			if (temp.toLowerCase().equals(args[0].toLowerCase())) {
+				return "create.banned";
+			}
+		}
+		int max = Main.plugin.getConfig().getInt("maxTeamLength");
+		if (max != -1 && max < args[0].length()) {
+			return "create.maxLength";
 		}
 
 		if (Team.getTeam(args[0]) != null) {

@@ -2,6 +2,7 @@ package com.booksaw.betterTeams;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
@@ -100,11 +101,14 @@ public class Main extends JavaPlugin {
 			messages.set("placeholder.noDescription", "");
 		case 1:
 			messages.set("noPerm", "&4You do not have permission to do that");
+		case 2:
+			messages.set("create.banned", "&4That team name is banned");
+			messages.set("create.maxLength", "&4That team name is too long");
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
 			// set version the latest
-			messages.set("version", 2);
+			messages.set("version", 3);
 			break;
 		}
 
@@ -127,6 +131,11 @@ public class Main extends JavaPlugin {
 		case 0:
 			getConfig().set("disablePotions", true);
 			getConfig().set("playerDamageSelf", true);
+			getConfig().set("helpCommandColor", "b");
+			getConfig().set("helpDescriptionColor", "6");
+			getConfig().set("blacklist", new ArrayList<>());
+			getConfig().set("maxTeamLength", 12);
+
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;

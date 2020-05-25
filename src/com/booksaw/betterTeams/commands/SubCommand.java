@@ -1,6 +1,13 @@
 package com.booksaw.betterTeams.commands;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+
+import com.booksaw.betterTeams.MessageManager;
 
 /**
  * This class is used by any commands which are included within a command tree
@@ -10,6 +17,28 @@ import org.bukkit.command.CommandSender;
  *
  */
 public abstract class SubCommand {
+
+	/**
+	 * This method is used to load the help message from the file, or if there is
+	 * not one, it will get the default message
+	 * 
+	 * @return the help message for the subcommand
+	 */
+	public String getHelpMessage() {
+		String message = MessageManager.getMessages().getString("help." + getNode());
+		if (message == null || message.equals("")) {
+			message = getHelp();
+			MessageManager.getMessages().set("help." + getNode(), getHelp());
+
+			File f = new File("plugins/BetterTeams/messages.yml");
+			try {
+				MessageManager.getMessages().save(f);
+			} catch (IOException ex) {
+				Bukkit.getLogger().log(Level.SEVERE, "Could not save config to " + f, ex);
+			}
+		}
+		return message;
+	}
 
 	/**
 	 * <p>

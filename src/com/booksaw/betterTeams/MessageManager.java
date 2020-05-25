@@ -88,4 +88,8 @@ public class MessageManager {
 		return ChatColor.translateAlternateColorCodes('&', messages.getString(reference));
 	}
 
+	public static FileConfiguration getMessages() {
+		return messages;
+	}
+
 }

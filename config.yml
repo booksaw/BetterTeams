@@ -41,6 +41,12 @@ prefixFormat: '&7[&6BetterTeams&7] '
 # Possible values: [-1, any positive whole number]
 teamLimit: -1
 
+# This is used to limit the length of a team name (if chat prefixes are enabled, this will stop the team names clogging up the chat)
+# - If this feature is unwanted, set the teamLimit to -1 and team name lengths will be unlimited
+#
+# Possible values: [-1, any positive whole number]
+maxTeamLength: 12
+
 # This is used to toggle if teams can attack members of their own team
 # - If this is enabled, memebers of the same team will not be able to damage each other
 # - If you change this feature, you will need to restart the server for the value to update (does not work with /teama realod)
@@ -62,6 +68,23 @@ disablePotions: true
 #
 # Possible values: [true - Potion effects will damage the player who threw them, false - Potion effects will not damage the palyer who threw them]
 playerDamageSelf: true
+
+# This is a list of all the team names that are blacklisted on your server (include any names of teams that you want to ban)
+# - This will only work if the name exactly fits the text in the blacklist (not case sensitive) else it will be up to your servers moderation team to deal with the offence 
+#
+# Possible values: [Any String (surround with '')]
+blacklist:
+   - 'betterteamsisbad'
+   
+# This is the color of the command in the help menu, this can be changed 
+#
+# Possible values: [Any chat color code]
+helpCommandColor: 'b'
+
+# This is the color of the message which comes with the command in the help menu, this can be changed 
+#
+# Possible values: [Any chat color code]
+helpDescriptionColor: '6'
 
 # Do not edit this value, this is used to check the config is up to date with the lastest version of the plugin (if it is not, it will be automatically updated)
 version: 1

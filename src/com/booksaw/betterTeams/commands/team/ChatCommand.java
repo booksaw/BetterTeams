@@ -41,7 +41,7 @@ public class ChatCommand extends TeamSubCommand {
 
 	@Override
 	public String getNode() {
-		return null;
+		return "chat";
 	}
 
 	@Override

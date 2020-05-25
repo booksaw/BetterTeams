@@ -1,17 +1,17 @@
 # general errors
-invalidArg: '&6&4Invalid Arguments, help'
-inTeam: '&6&4You must be in a team to do that'
-notInTeam: '&6&4You must leave your team before doing that'
-needOwner: '&6&4You must be the owner of the team to do that'
-needAdmin: '&6&4You must be admin or owner of the team to do that'
-needPlayer: '&6&4You must be a player to do that'
-noPlayer: '&6&4Specified player not found'
+invalidArg: '&4Invalid Arguments, help'
+inTeam: '&4You must be in a team to do that'
+notInTeam: '&4You must leave your team before doing that'
+needOwner: '&4You must be the owner of the team to do that'
+needAdmin: '&4You must be admin or owner of the team to do that'
+needPlayer: '&4You must be a player to do that'
+noPlayer: '&4Specified player not found'
 notTeam: '&6&4That team does not exist try &b/team create <name>'
 needSameTeam: '&6You are not in the same team as that person'
 noPerm: '&4You do not have permission to do that'
 
 # do not change this, it is used to check the messages version (test if there are any missing messages)
-version: 1
+version: 3
 
 # for placeholders
 # This is the placeholder for when the user has no team
@@ -22,6 +22,8 @@ placeholder.noDescription: ''
 # for /team create <name>
 create.exists: '&6That team already exists'
 create.success: '&6Your team has been created'
+create.banned: '&4That team name is banned'
+create.maxLength: '&4That team name is too long'
 
 # for /team leave
 leave.success: '&6You have left the team'
@@ -39,7 +41,7 @@ description.noDesc: '&6No team description set'
 # for /team name
 name.success: '&6You have changed the team name'
 name.view: '&6Team name: %s'
-name.exists: '&6&4That team already exists'
+name.exists: '&4That team already exists'
 
 # for /team invite [player]
 invite.success: '&6That player has been invited'
@@ -116,3 +118,18 @@ chat.syntax: '&6&b[Team]&f%s: %s'
 
 # for admin messages
 admin.config.reload: '&6BetterTeams has been reloaded'
+
+# for help messages (the colors of the messages should be configured in the config)
+help.description: View and change your team's description
+help.ban: Bans the specified player from your team
+help.home: Teleports you to your team's home
+help.demote: Demote the specified player within your team
+help.kick: Kick that player from your team
+help.leave: Leave your current team
+help.chat: Send a message only to your team
+help.name: View and change your team's name
+help.create: Create a team with the specified name
+help.invite: Invite the specified player to your team
+help.disband: Disband your current team
+help.open: Toggle if the team is invite only
+help.info: View information about the specified player / team

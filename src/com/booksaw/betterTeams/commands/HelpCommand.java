@@ -4,14 +4,20 @@ import java.util.Map.Entry;
 
 import org.bukkit.command.CommandSender;
 
+import com.booksaw.betterTeams.Main;
+
 import net.md_5.bungee.api.ChatColor;
 
 public class HelpCommand extends SubCommand {
 
 	ParentCommand command;
+	ChatColor prefix, description;
 
 	public HelpCommand(ParentCommand command) {
 		this.command = command;
+		prefix = ChatColor.getByChar(Main.plugin.getConfig().getString("helpCommandColor").charAt(0));
+		description = ChatColor.getByChar(Main.plugin.getConfig().getString("helpDescriptionColor").charAt(0));
+
 	}
 
 	@Override
@@ -21,7 +27,7 @@ public class HelpCommand extends SubCommand {
 			if (sender.hasPermission("betterTeams." + subCommand.getValue().getNode())) {
 				sender.sendMessage(
 						createHelpMessage(label, subCommand.getKey() + " " + subCommand.getValue().getArguments(),
-								subCommand.getValue().getHelp()));
+								subCommand.getValue().getHelpMessage()));
 			}
 		}
 
@@ -38,8 +44,7 @@ public class HelpCommand extends SubCommand {
 	 * @return the created message relating to that command
 	 */
 	public String createHelpMessage(String label, String commandPath, String description) {
-		return ChatColor.AQUA + "/" + label + " " + commandPath + ChatColor.WHITE + " - " + ChatColor.GOLD
-				+ description;
+		return prefix + "/" + label + " " + commandPath + ChatColor.WHITE + " - " + this.description + description;
 	}
 
 	@Override
