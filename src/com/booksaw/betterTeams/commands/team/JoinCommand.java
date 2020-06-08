@@ -1,5 +1,10 @@
 package com.booksaw.betterTeams.commands.team;
 
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.UUID;
+
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.booksaw.betterTeams.Main;
@@ -58,6 +63,26 @@ public class JoinCommand extends NoTeamSubCommand {
 	@Override
 	public String getArguments() {
 		return "<team>";
+	}
+
+	@Override
+	public boolean needPlayer() {
+		return true;
+	}
+
+	@Override
+	public int getMaximumArguments() {
+		return 1;
+	}
+
+	@Override
+	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
+		for (Entry<UUID, Team> team : Team.getTeamList().entrySet()) {
+			if ((team.getValue().isOpen() || team.getValue().isInvited(((Player) sender).getUniqueId()))
+					&& team.getValue().getName().startsWith(args[0])) {
+				options.add(team.getValue().getName());
+			}
+		}
 	}
 
 }

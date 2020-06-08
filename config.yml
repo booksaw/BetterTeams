@@ -86,5 +86,15 @@ helpCommandColor: 'b'
 # Possible values: [Any chat color code]
 helpDescriptionColor: '6'
 
+# If you are using holographics displays, this is how many of the top teams will be displayed on the hologram
+#
+# Possible values: [Any positive whole number]
+maxHologramLines: 10 
+
+# This is used to configure if player names should be changed (display the team name of a player above their head
+#
+# Possible values: [True, False]
+displayTeamName: true
+
 # Do not edit this value, this is used to check the config is up to date with the lastest version of the plugin (if it is not, it will be automatically updated)
-version: 1
+version: 2

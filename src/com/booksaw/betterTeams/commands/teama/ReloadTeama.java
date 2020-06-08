@@ -1,5 +1,7 @@
 package com.booksaw.betterTeams.commands.teama;
 
+import java.util.List;
+
 import org.bukkit.command.CommandSender;
 
 import com.booksaw.betterTeams.Main;
@@ -43,6 +45,16 @@ public class ReloadTeama extends SubCommand {
 	@Override
 	public String getArguments() {
 		return "";
+	}
+
+	@Override
+	public int getMaximumArguments() {
+		return 0;
+	}
+
+	@Override
+	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
+
 	}
 
 }

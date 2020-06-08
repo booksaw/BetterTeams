@@ -1,8 +1,11 @@
 package com.booksaw.betterTeams.commands.team;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.UUID;
+
+import org.bukkit.command.CommandSender;
 
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
@@ -73,6 +76,15 @@ public class DisbandCommand extends TeamSubCommand {
 	@Override
 	public String getArguments() {
 		return "";
+	}
+
+	@Override
+	public int getMaximumArguments() {
+		return 0;
+	}
+
+	@Override
+	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
 	}
 
 }

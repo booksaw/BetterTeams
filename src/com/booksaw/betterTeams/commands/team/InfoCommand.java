@@ -1,6 +1,8 @@
 package com.booksaw.betterTeams.commands.team;
 
 import java.util.List;
+import java.util.UUID;
+import java.util.Map.Entry;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -73,6 +75,7 @@ public class InfoCommand extends SubCommand {
 		}
 
 		MessageManager.sendMessageF(sender, "info.open", team.isOpen() + "");
+		MessageManager.sendMessageF(sender, "info.score", team.getScore() + "");
 
 		List<TeamPlayer> owners = team.getRank(PlayerRank.OWNER);
 
@@ -132,6 +135,22 @@ public class InfoCommand extends SubCommand {
 	@Override
 	public String getArguments() {
 		return "[team/player]";
+	}
+
+	@Override
+	public int getMaximumArguments() {
+		return 2;
+	}
+
+	@Override
+	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
+
+		for (Entry<UUID, Team> team : Team.getTeamList().entrySet()) {
+			if (team.getValue().getName().startsWith(args[0]))
+				options.add(team.getValue().getName());
+		}
+		addPlayerStringList(options, (args.length == 0) ? "" : args[0]);
+
 	}
 
 }

@@ -1,5 +1,8 @@
 package com.booksaw.betterTeams.commands.team;
 
+import java.util.List;
+
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.booksaw.betterTeams.Main;
@@ -61,6 +64,16 @@ public class CreateCommand extends NoTeamSubCommand {
 	@Override
 	public String getArguments() {
 		return "<name";
+	}
+
+	@Override
+	public int getMaximumArguments() {
+		return -1;
+	}
+
+	@Override
+	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
+
 	}
 
 }

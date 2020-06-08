@@ -1,6 +1,8 @@
 package com.booksaw.betterTeams.commands;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map.Entry;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -131,20 +133,46 @@ public class ParentCommand extends SubCommand {
 
 	@Override
 	public String getNode() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String getHelp() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String getArguments() {
-		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
+		if (args.length <= 1 || args[0].equals("")) {
+			for (Entry<String, SubCommand> subCommand : subCommands.entrySet()) {
+				if ((args.length == 0 || subCommand.getKey().startsWith(args[0]))
+						&& sender.hasPermission("betterTeams." + subCommand.getValue().getNode()))
+					options.add(subCommand.getKey());
+			}
+			return;
+		}
+
+		SubCommand command = subCommands.get(args[0]);
+		if (command == null) {
+			return;
+		}
+
+		if ((args.length - 1 > command.getMaximumArguments() && command.getMaximumArguments() >= 0) || (command.needPlayer() && !(sender instanceof Player))) {
+			return;
+		}
+
+		command.onTabComplete(options, sender, label, removeFirstElement(args));
+		return;
+	}
+
+	@Override
+	public int getMaximumArguments() {
+		return -1;
 	}
 
 }

@@ -11,7 +11,7 @@ needSameTeam: '&6You are not in the same team as that person'
 noPerm: '&4You do not have permission to do that'
 
 # do not change this, it is used to check the messages version (test if there are any missing messages)
-version: 3
+version: 4
 
 # for placeholders
 # This is the placeholder for when the user has no team
@@ -70,6 +70,7 @@ info.owner: '&6Owners: &b%s'
 info.admin: '&6Admins: &b%s'
 info.default: '&6Users: &b%s'
 info.fail: '&6No team or player found under that name'
+info.score: '&6Score: &b%s'
 
 # for /team kick <player>
 kick.success: '&6That player has been kicked'
@@ -118,16 +119,28 @@ chat.syntax: '&6&b[Team]&f%s: %s'
 
 # for admin messages
 admin.config.reload: '&6BetterTeams has been reloaded'
+admin.holo.create.success: '&6Hologram created'
+admin.holo.remove.noHolo: '&4No holograms found'
+admin.holo.remove.success: '&6Hologram deleted'
 
-# for help messages (the colors of the messages should be configured in the config)
+# for the nametag syntax
+nametag.syntax: '&6&l%s&r '
+
+holo.leaderboard: '&6Leaderboard' 
+holo.syntax: '&6%s: &b%s'
+
+# The help messages
 help.description: View and change your team's description
 help.ban: Bans the specified player from your team
 help.home: Teleports you to your team's home
-help.demote: Demote the specified player within your team
+help.help: View this help page
+help.promote: Demote the specified player within your team
+help.unban: Unbans the specified player from your team
 help.kick: Kick that player from your team
 help.leave: Leave your current team
 help.chat: Send a message only to your team
 help.name: View and change your team's name
+help.sethome: Sets your team's home
 help.create: Create a team with the specified name
 help.invite: Invite the specified player to your team
 help.disband: Disband your current team

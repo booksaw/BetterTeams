@@ -1,10 +1,12 @@
 name: BetterTeams
-version: 3.0.3
+version: 3.0.5
 author: booksaw
 description: A plugin to create teams with other players
 main: com.booksaw.betterTeams.Main
 api-version: 1.15
-softdepend: [PlaceholderAPI]
+softdepend:
+- PlaceholderAPI
+- HolographicDisplays
 website: https://github.com/booksaw/BetterTeams
 commands:
    team:
@@ -15,8 +17,8 @@ commands:
       description: All admin commands for teams
       usage: /<command> help
       permission: betterTeams.admin
-      aliases: [teama]
-      
+      aliases:
+      - teama
 permissions:
    betterTeams.standard:
       description: This permission gives the user access to the teams system (joining, leaving teams etc.)
@@ -29,7 +31,7 @@ permissions:
       description: Allows access to /team join
    betterTeams.ban:
       default: true
-      description: Allows access to /team ban and /team unban 
+      description: Allows access to /team ban and /team unban
    betterTeams.chat:
       default: true
       description: Allows access to /team chat

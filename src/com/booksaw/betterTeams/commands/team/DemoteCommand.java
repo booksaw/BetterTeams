@@ -1,5 +1,7 @@
 package com.booksaw.betterTeams.commands.team;
 
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
@@ -89,5 +91,15 @@ public class DemoteCommand extends TeamSubCommand {
 	@Override
 	public String getArguments() {
 		return "<player>";
+	}
+
+	@Override
+	public int getMaximumArguments() {
+		return 1;
+	}
+
+	@Override
+	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
+		addPlayerStringList(options, (args.length == 0) ? "" : args[0]);
 	}
 }

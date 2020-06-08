@@ -2,10 +2,12 @@ package com.booksaw.betterTeams.commands;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import com.booksaw.betterTeams.MessageManager;
 
@@ -25,10 +27,10 @@ public abstract class SubCommand {
 	 * @return the help message for the subcommand
 	 */
 	public String getHelpMessage() {
-		String message = MessageManager.getMessages().getString("help." + getNode());
+		String message = MessageManager.getMessages().getString("help." + getCommand());
 		if (message == null || message.equals("")) {
 			message = getHelp();
-			MessageManager.getMessages().set("help." + getNode(), getHelp());
+			MessageManager.getMessages().set("help." + getCommand(), getHelp());
 
 			File f = new File("plugins/BetterTeams/messages.yml");
 			try {
@@ -94,12 +96,35 @@ public abstract class SubCommand {
 	public abstract int getMinimumArguments();
 
 	/**
+	 * return -1 if there is no cap
+	 * 
+	 * @return the maximum number of arguments for the command
+	 */
+	public abstract int getMaximumArguments();
+
+	/**
 	 * Used to check if the commandSender needs to be a player, defaults to false
 	 * 
 	 * @return if the commandSender needs to be a player
 	 */
 	public boolean needPlayer() {
 		return false;
+	}
+
+	public abstract void onTabComplete(List<String> options, CommandSender sender, String label, String[] args);
+
+	/**
+	 * This can be used during the tab complete process to get a string list of all
+	 * players on the server
+	 * 
+	 * @param options the tab complete list to work on
+	 */
+	public void addPlayerStringList(List<String> options, String argument) {
+		for (Player p : Bukkit.getOnlinePlayers()) {
+			if (p.getName().toLowerCase().startsWith(argument.toLowerCase())) {
+				options.add(p.getName());
+			}
+		}
 	}
 
 }

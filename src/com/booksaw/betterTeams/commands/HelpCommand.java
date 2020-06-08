@@ -1,5 +1,6 @@
 package com.booksaw.betterTeams.commands;
 
+import java.util.List;
 import java.util.Map.Entry;
 
 import org.bukkit.command.CommandSender;
@@ -69,6 +70,16 @@ public class HelpCommand extends SubCommand {
 
 	@Override
 	public int getMinimumArguments() {
+		return 0;
+	}
+
+	@Override
+	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
+
+	}
+
+	@Override
+	public int getMaximumArguments() {
 		return 0;
 	}
 

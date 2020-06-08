@@ -1,5 +1,9 @@
 package com.booksaw.betterTeams.commands.team;
 
+import java.util.List;
+
+import org.bukkit.command.CommandSender;
+
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.MessageManager;
 import com.booksaw.betterTeams.PlayerRank;
@@ -63,6 +67,16 @@ public class NameCommand extends TeamSubCommand {
 	@Override
 	public String getArguments() {
 		return "<name>";
+	}
+
+	@Override
+	public int getMaximumArguments() {
+		return 1;
+	}
+
+	@Override
+	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
+		options.add("<name>");
 	}
 
 }

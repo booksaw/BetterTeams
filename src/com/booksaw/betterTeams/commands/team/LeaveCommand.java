@@ -1,5 +1,9 @@
 package com.booksaw.betterTeams.commands.team;
 
+import java.util.List;
+
+import org.bukkit.command.CommandSender;
+
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
@@ -48,6 +52,16 @@ public class LeaveCommand extends TeamSubCommand {
 	@Override
 	public String getArguments() {
 		return "";
+	}
+
+	@Override
+	public int getMaximumArguments() {
+		return 0;
+	}
+
+	@Override
+	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
+		
 	}
 
 }

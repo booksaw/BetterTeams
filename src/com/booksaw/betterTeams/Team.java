@@ -14,6 +14,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.Scoreboard;
 
 /**
  * This class is used to manage a team and all of it's participants
@@ -22,6 +23,11 @@ import org.bukkit.entity.Player;
  *
  */
 public class Team {
+
+	/**
+	 * This is used to track if the score has been changed for any users
+	 */
+	public static boolean scoreChanges = false;
 
 	/**
 	 * Used to store all active teams
@@ -112,7 +118,58 @@ public class Team {
 		Main.plugin.getTeams().set("teams", teams);
 
 		Main.plugin.saveTeams();
-		;
+
+		if (Main.plugin.nameManagement != null) {
+			Main.plugin.nameManagement.displayBelowName(owner);
+		}
+	}
+
+	/**
+	 * @return a list of all teams
+	 */
+	public static HashMap<UUID, Team> getTeamList() {
+		return teamList;
+	}
+
+	public static Team[] sortTeams() {
+		Team[] rankedTeams = new Team[teamList.size()];
+
+		int count = teamList.size() - 1;
+		// adding them to a list to sort
+		for (Entry<UUID, Team> team : teamList.entrySet()) {
+			if (team.getValue().getTeamRank() == -1) {
+				rankedTeams[count--] = team.getValue();
+			} else {
+				if (team.getValue().getTeamRank() >= count || rankedTeams[team.getValue().getTeamRank()] != null) {
+					rankedTeams[count--] = team.getValue();
+				} else {
+					rankedTeams[team.getValue().getTeamRank()] = team.getValue();
+				}
+			}
+		}
+
+		for (int i = 0; i < rankedTeams.length - 1; i++) {
+			boolean changes = false;
+
+			for (int j = 0; j < rankedTeams.length - i - 1; j++) {
+				if (rankedTeams[j].getScore() < rankedTeams[j + 1].getScore()) {
+					Team temp = rankedTeams[j];
+					rankedTeams[j] = rankedTeams[j + 1];
+					rankedTeams[j + 1] = temp;
+					changes = true;
+				}
+			}
+
+			if (!changes) {
+				break;
+			}
+		}
+
+		for (int i = 0; i < rankedTeams.length; i++) {
+			rankedTeams[i].setTeamRank(i);
+		}
+
+		return rankedTeams;
 	}
 
 	/**
@@ -152,6 +209,16 @@ public class Team {
 	private List<UUID> bannedPlayers;
 
 	/**
+	 * The score for the team
+	 */
+	private int score;
+
+	/**
+	 * the rank of the team
+	 */
+	private transient int rank;
+
+	/**
 	 * this is used to load a team from the configuration file
 	 * 
 	 * @param ID the ID of the team to load
@@ -164,6 +231,7 @@ public class Team {
 		name = getString(config, "name");
 		description = getString(config, "description");
 		open = getBoolean(config, "open");
+		score = getInteger(config, "score");
 
 		members = new ArrayList<>();
 		for (String string : getStringList(config, "players")) {
@@ -179,6 +247,7 @@ public class Team {
 		if (teamHomeStr != null && !teamHomeStr.equals("")) {
 			teamHome = getLocation(teamHomeStr);
 		}
+		rank = -1;
 
 	}
 
@@ -204,12 +273,15 @@ public class Team {
 		this.description = "";
 		setValue(config, "open", false);
 		open = false;
+		setValue(config, "score", 0);
+		score = 0;
 		setValue(config, "home", "");
-
+		rank = -1;
 		members = new ArrayList<>();
 		members.add(new TeamPlayer(owner, PlayerRank.OWNER));
 		savePlayers(config);
 		bannedPlayers = new ArrayList<>();
+
 		/*
 		 * do not need to save config as createNewTeam saves the config after more
 		 * settings modified
@@ -240,6 +312,19 @@ public class Team {
 	 */
 	private boolean getBoolean(FileConfiguration config, String attribute) {
 		return config.getBoolean("team." + ID + "." + attribute);
+	}
+
+	/**
+	 * Used to load a integer attribute from file, this is used instead of the
+	 * direct call to ensure any changes to the config reading system can be updated
+	 * quickly
+	 * 
+	 * @param config    the config which stores the team's information
+	 * @param attribute the reference that the value is stored under
+	 * @return the loaded value
+	 */
+	private int getInteger(FileConfiguration config, String attribute) {
+		return config.getInt("team." + ID + "." + attribute);
 	}
 
 	/**
@@ -363,6 +448,10 @@ public class Team {
 		members.remove(getTeamPlayer(p));
 		savePlayers(Main.plugin.getTeams());
 		Main.plugin.saveTeams();
+
+		if (team != null) {
+			team.removeEntry(p.getName());
+		}
 	}
 
 	/**
@@ -376,6 +465,10 @@ public class Team {
 		members.remove(p);
 		savePlayers(Main.plugin.getTeams());
 		Main.plugin.saveTeams();
+
+		if (team != null) {
+			team.removeEntry(p.getPlayer().getName());
+		}
 	}
 
 	/**
@@ -428,6 +521,19 @@ public class Team {
 		Main.plugin.getTeams().set("team." + ID, null);
 
 		Main.plugin.saveTeams();
+
+		if (Main.plugin.nameManagement != null) {
+
+			for (TeamPlayer p : members) {
+				if (p.getPlayer().isOnline()) {
+					team.removeEntry(p.getPlayer().getName());
+				}
+			}
+
+			team.unregister();
+			team = null;
+
+		}
 	}
 
 	/**
@@ -473,6 +579,10 @@ public class Team {
 		savePlayers(Main.plugin.getTeams());
 		Main.plugin.saveTeams();
 
+		if (Main.plugin.nameManagement != null) {
+			Main.plugin.nameManagement.displayBelowName(p);
+		}
+
 	}
 
 	/**
@@ -485,6 +595,23 @@ public class Team {
 		this.name = name;
 		setValue(Main.plugin.getTeams(), "name", name);
 		Main.plugin.saveTeams();
+
+		if (Main.plugin.nameManagement != null) {
+
+			for (TeamPlayer p : members) {
+				if (p.getPlayer().isOnline()) {
+					team.removeEntry(p.getPlayer().getName());
+				}
+			}
+			team.unregister();
+			team = null;
+
+			for (TeamPlayer p : members) {
+				if (p.getPlayer().isOnline()) {
+					Main.plugin.nameManagement.displayBelowName(p.getPlayer().getPlayer());
+				}
+			}
+		}
 	}
 
 	/**
@@ -609,6 +736,41 @@ public class Team {
 				player.getPlayer().getPlayer().sendMessage(message);
 			}
 		}
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+		scoreChanges = true;
+		setValue(Main.plugin.getTeams(), "score", score);
+		Main.plugin.saveTeams();
+	}
+
+	/**
+	 * @return the rank of the team (-1 if the team has not been ranked)
+	 */
+	public int getTeamRank() {
+		return rank;
+	}
+
+	public void setTeamRank(int rank) {
+		this.rank = rank;
+	}
+
+	org.bukkit.scoreboard.Team team;
+
+	public org.bukkit.scoreboard.Team getScoreboardTeam(Scoreboard board) {
+		if (team != null) {
+			return team;
+		}
+		String name = String.format(MessageManager.getMessage("nametag.syntax"), getName());
+		team = board.registerNewTeam(getName());
+		team.setPrefix(name);
+		return team;
+
 	}
 
 }
