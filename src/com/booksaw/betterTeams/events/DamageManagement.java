@@ -50,6 +50,7 @@ public class DamageManagement implements Listener {
 		if (!(e.getEntity() instanceof Player)) {
 			return;
 		}
+
 		if (e.getDamager() instanceof Player) {
 			Team temp = Team.getTeam((Player) e.getEntity());
 			if (temp != null && temp == Team.getTeam((Player) e.getDamager())) {
@@ -62,7 +63,7 @@ public class DamageManagement implements Listener {
 			ProjectileSource source = arrow.getShooter();
 			if (source instanceof Player && temp != null && temp == Team.getTeam((Player) source)) {
 				// they are on the same team
-				if (disableSelf && (Player) source == (Player) e.getDamager()) {
+				if (disableSelf && (Player) source == (Player) e.getEntity()) {
 					return;
 				}
 				e.setCancelled(true);
