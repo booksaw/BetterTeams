@@ -598,12 +598,15 @@ public class Team {
 
 		if (Main.plugin.nameManagement != null) {
 
-			for (TeamPlayer p : members) {
-				if (p.getPlayer().isOnline()) {
-					team.removeEntry(p.getPlayer().getName());
+			if (team != null) {
+				for (TeamPlayer p : members) {
+					if (p.getPlayer().isOnline()) {
+						team.removeEntry(p.getPlayer().getName());
+					}
 				}
+				team.unregister();
 			}
-			team.unregister();
+
 			team = null;
 
 			for (TeamPlayer p : members) {
@@ -767,7 +770,17 @@ public class Team {
 			return team;
 		}
 		String name = String.format(MessageManager.getMessage("nametag.syntax"), getName());
-		team = board.registerNewTeam(getName());
+		int attempt = 0;
+		do {
+			try {
+				team = board.registerNewTeam(getName() + ((attempt > 0) ? attempt : ""));
+
+			} catch (Exception e) {
+				team = null;
+				attempt++;
+			}
+
+		} while (team == null);
 		team.setPrefix(name);
 		return team;
 
