@@ -15,7 +15,7 @@ import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 /**
  * This class handles the command /team promote <player>
  * 
- * @author nfgg2
+ * @author booksaw
  *
  */
 public class PromoteCommand extends TeamSubCommand {

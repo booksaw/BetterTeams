@@ -134,7 +134,8 @@ help.description: View and change your team's description
 help.ban: Bans the specified player from your team
 help.home: Teleports you to your team's home
 help.help: View this help page
-help.promote: Demote the specified player within your team
+help.promote: Promote the specified player within your team
+help.demote: Demote the specified player within your team
 help.unban: Unbans the specified player from your team
 help.kick: Kick that player from your team
 help.leave: Leave your current team

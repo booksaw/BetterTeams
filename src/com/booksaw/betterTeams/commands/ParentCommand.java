@@ -63,7 +63,7 @@ public class ParentCommand extends SubCommand {
 			return null;
 		}
 
-		if (!sender.hasPermission("betterteams." + command.getNode())) {
+		if (!sender.hasPermission("betterteams." + command.getNode()) && !command.getNode().equals("")) {
 			MessageManager.sendMessage(sender, "noPerm");
 			return null;
 		}
@@ -162,7 +162,8 @@ public class ParentCommand extends SubCommand {
 			return;
 		}
 
-		if ((args.length - 1 > command.getMaximumArguments() && command.getMaximumArguments() >= 0) || (command.needPlayer() && !(sender instanceof Player))) {
+		if ((args.length - 1 > command.getMaximumArguments() && command.getMaximumArguments() >= 0)
+				|| (command.needPlayer() && !(sender instanceof Player))) {
 			return;
 		}
 

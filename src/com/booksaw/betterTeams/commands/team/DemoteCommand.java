@@ -69,7 +69,7 @@ public class DemoteCommand extends TeamSubCommand {
 
 	@Override
 	public String getCommand() {
-		return "promote";
+		return "demote";
 	}
 
 	@Override
@@ -79,12 +79,11 @@ public class DemoteCommand extends TeamSubCommand {
 
 	@Override
 	public String getNode() {
-		return "demote";
+		return "promote";
 	}
 
 	@Override
 	public String getHelp() {
-		// TODO Auto-generated method stub
 		return "Demote the specified player within your team";
 	}
 
