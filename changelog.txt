@@ -1,0 +1,34 @@
+This file is used to track the change log for each release version, first version where the change log is used: 3.0.7. This file is used so nothing is missed out of the changelog on a new update. 
+This will also be reviewed once an update is released to ensure that the plugin description page is updated. 
+
+3.0.7:
+Features: 
+
+
+Improvements:
+Added a permission node for displaying team name: 'betterteams.teamName'
+
+Bug Fixes: 
+Fixed the commands /team promote and /team demote: (https://github.com/booksaw/BetterTeams/issues/3)
+Fixed problem with all scoreboards being overtaken by the plugin scoreboard: (https://github.com/booksaw/BetterTeams/issues/2)
+
+
+
+
+
+
+
+
+
+
+
+
+Headings: 
+Features: 
+
+
+Improvements:
+
+
+Bug Fixes: 
+

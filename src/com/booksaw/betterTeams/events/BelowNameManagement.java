@@ -5,7 +5,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 
 import com.booksaw.betterTeams.Team;
@@ -15,9 +14,11 @@ public class BelowNameManagement implements Listener {
 	Scoreboard board;
 
 	public BelowNameManagement() {
-		board = Bukkit.getScoreboardManager().getNewScoreboard();
-		Objective obj = board.registerNewObjective("betterTeams", "dummy", "betterTeams.teamNames");
-		obj.setDisplaySlot(null);
+		if (Bukkit.getScoreboardManager().getMainScoreboard() != null) {
+			board = Bukkit.getScoreboardManager().getMainScoreboard();
+		} else {
+			board = Bukkit.getScoreboardManager().getNewScoreboard();
+		}
 
 	}
 
@@ -32,6 +33,12 @@ public class BelowNameManagement implements Listener {
 
 		Team team = Team.getTeam(player);
 		if (team == null) {
+			return;
+		}
+
+		// checking the player has the correct permission node
+		if (!player.hasPermission("betterTeams.teamName")) {
+			// player does not have permission to have their team name displayed.
 			return;
 		}
 

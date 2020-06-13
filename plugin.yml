@@ -65,3 +65,6 @@ permissions:
    betterTeams.open:
       default: true
       description: Allows access to /team open
+   betterTeams.teamName:
+      default: true
+      description: Users with this permission will have their team name dispalyed above their head
