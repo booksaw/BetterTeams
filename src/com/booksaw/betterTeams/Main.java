@@ -38,6 +38,7 @@ import com.booksaw.betterTeams.events.BelowNameManagement;
 import com.booksaw.betterTeams.events.ChatManagement;
 import com.booksaw.betterTeams.events.DamageManagement;
 import com.booksaw.betterTeams.events.ScoreManagement;
+import com.booksaw.betterTeams.events.BelowNameManagement.BelowNameType;
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
 import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
 
@@ -103,13 +104,13 @@ public class Main extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new ChatManagement(), this);
 		getServer().getPluginManager().registerEvents(new ScoreManagement(), this);
 
-		if (getConfig().getBoolean("displayTeamName")) {
+		BelowNameType type = BelowNameType.getType(getConfig().getString("displayTeamName"));
+		if (type != BelowNameType.FALSE) {
 			if (nameManagement == null) {
-				nameManagement = new BelowNameManagement();
+				nameManagement = new BelowNameManagement(type);
 				nameManagement.displayBelowNameForAll();
 				getServer().getPluginManager().registerEvents(nameManagement, this);
 			}
-
 		} else {
 			if (nameManagement != null) {
 				Bukkit.getLogger().log(Level.WARNING, "Restart server for name changes to apply");
@@ -128,6 +129,10 @@ public class Main extends JavaPlugin {
 			}
 			teams.set("holos", holos);
 			saveTeams();
+		}
+
+		if (nameManagement != null) {
+			nameManagement.removeAll();
 		}
 
 	}

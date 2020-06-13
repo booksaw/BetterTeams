@@ -92,9 +92,13 @@ helpDescriptionColor: '6'
 maxHologramLines: 10 
 
 # This is used to configure if player names should be changed (display the team name of a player above their head
+# If the value is false, the team name will not be dispalyed
+# - If the value is true, the team name will be displayed as a prefix (for backwards compatibility)
+# - If the value is prefix, the team name will be displayed before the player name
+# - If the value is suffix, the team name will be displayed after the player name 
 #
-# Possible values: [True, False]
-displayTeamName: true
+# Possible values: [true, false, prefix, suffix]
+displayTeamName: prefix
 
 # Do not edit this value, this is used to check the config is up to date with the lastest version of the plugin (if it is not, it will be automatically updated)
 version: 2

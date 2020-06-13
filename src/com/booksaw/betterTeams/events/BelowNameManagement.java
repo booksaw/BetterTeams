@@ -11,9 +11,13 @@ import com.booksaw.betterTeams.Team;
 
 public class BelowNameManagement implements Listener {
 
+	BelowNameType type;
+
 	Scoreboard board;
 
-	public BelowNameManagement() {
+	public BelowNameManagement(BelowNameType type) {
+		this.type = type;
+
 		if (Bukkit.getScoreboardManager().getMainScoreboard() != null) {
 			board = Bukkit.getScoreboardManager().getMainScoreboard();
 		} else {
@@ -42,7 +46,32 @@ public class BelowNameManagement implements Listener {
 			return;
 		}
 
-		team.getScoreboardTeam(board).addEntry(player.getName());
+		team.getScoreboardTeam(board, type).addEntry(player.getName());
+
+	}
+
+	/**
+	 * Used when the plugin is disabled
+	 */
+	public void removeAll() {
+		for (Player p : Bukkit.getOnlinePlayers()) {
+			remove(p);
+		}
+	}
+
+	/**
+	 * Used to remove the prefix / suffix from the specified player
+	 * 
+	 * @param player
+	 */
+	public void remove(Player player) {
+
+		Team team = Team.getTeam(player);
+		if (team == null) {
+			return;
+		}
+
+		team.getScoreboardTeam(board, type).removeEntry(player.getName());
 
 	}
 
@@ -51,4 +80,20 @@ public class BelowNameManagement implements Listener {
 		displayBelowName(e.getPlayer());
 	}
 
+	public enum BelowNameType {
+		PREFIX, SUFFIX, FALSE;
+
+		public static BelowNameType getType(String string) {
+
+			switch (string.toLowerCase()) {
+			case "prefix":
+			case "true":
+				return PREFIX;
+			case "suffix":
+				return SUFFIX;
+			}
+
+			return FALSE;
+		}
+	}
 }

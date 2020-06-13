@@ -16,6 +16,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
 
+import com.booksaw.betterTeams.events.BelowNameManagement.BelowNameType;
+
 /**
  * This class is used to manage a team and all of it's participants
  * 
@@ -765,7 +767,7 @@ public class Team {
 
 	org.bukkit.scoreboard.Team team;
 
-	public org.bukkit.scoreboard.Team getScoreboardTeam(Scoreboard board) {
+	public org.bukkit.scoreboard.Team getScoreboardTeam(Scoreboard board, BelowNameType type) {
 		if (team != null) {
 			return team;
 		}
@@ -781,7 +783,11 @@ public class Team {
 			}
 
 		} while (team == null);
-		team.setPrefix(name);
+		if (type == BelowNameType.PREFIX) {
+			team.setPrefix(name);
+		} else if (type == BelowNameType.SUFFIX) {
+			team.setSuffix(name);
+		}
 		return team;
 
 	}
