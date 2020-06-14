@@ -17,6 +17,7 @@ import com.booksaw.betterTeams.commands.HelpCommand;
 import com.booksaw.betterTeams.commands.ParentCommand;
 import com.booksaw.betterTeams.commands.team.BanCommand;
 import com.booksaw.betterTeams.commands.team.ChatCommand;
+import com.booksaw.betterTeams.commands.team.ColorCommand;
 import com.booksaw.betterTeams.commands.team.CreateCommand;
 import com.booksaw.betterTeams.commands.team.DemoteCommand;
 import com.booksaw.betterTeams.commands.team.DescriptionCommand;
@@ -87,6 +88,7 @@ public class Main extends JavaPlugin {
 		teamCommand.addSubCommand(new BanCommand());
 		teamCommand.addSubCommand(new UnbanCommand());
 		teamCommand.addSubCommand(new ChatCommand());
+		teamCommand.addSubCommand(new ColorCommand());
 
 		new BooksawCommand(getCommand("team"), teamCommand);
 
@@ -212,12 +214,15 @@ public class Main extends JavaPlugin {
 			messages.set("holo.leaderboard", "&6Leaderboard");
 			messages.set("holo.syntax", "&6%s: &b%s");
 			messages.set("nametag.syntax", "&6&l%s&r ");
+		case 4:
+			messages.set("color.success", "&6Your team color has been changed");
+			messages.set("color.fail", "&6That is not a recognised chat color");
 
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
 			// set version the latest
-			messages.set("version", 4);
+			messages.set("version", 5);
 			break;
 		}
 

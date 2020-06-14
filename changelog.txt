@@ -4,6 +4,7 @@ This will also be reviewed once an update is released to ensure that the plugin 
 3.0.7:
 Features: 
 Added the ability to create a fully custom help message (there is an option in the config for it) 
+Added /team color to change the color of a teams nametag (not you may need to remove the color code in messages.yml under the heading nametag.syntax for this to work) 
 
 Improvements:
 Added a permission node for displaying team name: 'betterteams.teamName'

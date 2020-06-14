@@ -9,6 +9,7 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
@@ -215,6 +216,7 @@ public class Team {
 	 */
 	private int score;
 
+	ChatColor color;
 	/**
 	 * the rank of the team
 	 */
@@ -234,7 +236,14 @@ public class Team {
 		description = getString(config, "description");
 		open = getBoolean(config, "open");
 		score = getInteger(config, "score");
-
+		String colorStr = getString(config, "color");
+		if (colorStr == null) {
+			this.color = ChatColor.GOLD;
+			setValue(Main.plugin.getTeams(), "color", color.getChar());
+			Main.plugin.saveTeams();
+		} else {
+			color = ChatColor.getByChar(getString(config, "color").charAt(0));
+		}
 		members = new ArrayList<>();
 		for (String string : getStringList(config, "players")) {
 			members.add(new TeamPlayer(string));
@@ -279,6 +288,9 @@ public class Team {
 		score = 0;
 		setValue(config, "home", "");
 		rank = -1;
+		color = ChatColor.GOLD;
+		setValue(config, "color", color.getChar());
+
 		members = new ArrayList<>();
 		members.add(new TeamPlayer(owner, PlayerRank.OWNER));
 		savePlayers(config);
@@ -400,6 +412,44 @@ public class Team {
 		this.description = description;
 		setValue(Main.plugin.getTeams(), "description", description);
 		Main.plugin.saveTeams();
+	}
+
+	/**
+	 * @return The color of the team
+	 */
+	public ChatColor getColor() {
+		return color;
+	}
+
+	/**
+	 * Used to change the team color
+	 * 
+	 * @param color the new team color
+	 */
+	public void setColor(ChatColor color) {
+		this.color = color;
+		setValue(Main.plugin.getTeams(), "color", color.getChar());
+		Main.plugin.saveTeams();
+
+		if (Main.plugin.nameManagement != null) {
+
+			if (team != null) {
+				for (TeamPlayer p : members) {
+					if (p.getPlayer().isOnline()) {
+						team.removeEntry(p.getPlayer().getName());
+					}
+				}
+				team.unregister();
+			}
+
+			team = null;
+
+			for (TeamPlayer p : members) {
+				if (p.getPlayer().isOnline()) {
+					Main.plugin.nameManagement.displayBelowName(p.getPlayer().getPlayer());
+				}
+			}
+		}
 	}
 
 	public List<TeamPlayer> getMembers() {
@@ -771,7 +821,7 @@ public class Team {
 		if (team != null) {
 			return team;
 		}
-		String name = String.format(MessageManager.getMessage("nametag.syntax"), getName());
+		String name = String.format(color + MessageManager.getMessage("nametag.syntax"), getName());
 		int attempt = 0;
 		do {
 			try {
