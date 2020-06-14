@@ -92,4 +92,13 @@ public class MessageManager {
 		return messages;
 	}
 
+	/**
+	 * Used to get the prefix for all messages
+	 * 
+	 * @return
+	 */
+	public static String getPrefix() {
+		return prefix;
+	}
+
 }

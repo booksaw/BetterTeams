@@ -133,17 +133,17 @@ public class ParentCommand extends SubCommand {
 
 	@Override
 	public String getNode() {
-		return null;
+		return "";
 	}
 
 	@Override
 	public String getHelp() {
-		return null;
+		return "";
 	}
 
 	@Override
 	public String getArguments() {
-		return null;
+		return "";
 	}
 
 	@Override

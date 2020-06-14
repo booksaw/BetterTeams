@@ -1,15 +1,28 @@
 package com.booksaw.betterTeams.commands;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.logging.Level;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
 import com.booksaw.betterTeams.Main;
+import com.booksaw.betterTeams.MessageManager;
 
 import net.md_5.bungee.api.ChatColor;
 
 public class HelpCommand extends SubCommand {
+
+	private static boolean fullyCustom = false;
+
+	public static void setupHelp() {
+		fullyCustom = Main.plugin.getConfig().getBoolean("fullyCustomHelpMessages");
+	}
 
 	ParentCommand command;
 	ChatColor prefix, description;
@@ -24,6 +37,11 @@ public class HelpCommand extends SubCommand {
 	@Override
 	public String onCommand(CommandSender sender, String label, String[] args) {
 
+		if (fullyCustom) {
+			fullyCustom(sender, label);
+			return null;
+		}
+
 		for (Entry<String, SubCommand> subCommand : command.getSubCommands().entrySet()) {
 			if (sender.hasPermission("betterTeams." + subCommand.getValue().getNode())) {
 				sender.sendMessage(
@@ -33,6 +51,59 @@ public class HelpCommand extends SubCommand {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Used to send a fully custom help message which is stored in a file
+	 */
+	public void fullyCustom(CommandSender sender, String label) {
+		File f = new File(Main.plugin.getDataFolder() + File.separator + command.getCommand() + ".txt");
+
+		if (!f.exists()) {
+			try {
+				f.createNewFile();
+
+				PrintWriter writer = new PrintWriter(f);
+				for (Entry<String, SubCommand> sub : command.getSubCommands().entrySet()) {
+					writer.println("&b/" + label + " " + sub.getKey() + " " + sub.getValue().getArguments() + "&f - &6"
+							+ sub.getValue().getHelpMessage());
+				}
+				writer.close();
+
+			} catch (Exception e) {
+				Bukkit.getLogger().log(Level.SEVERE,
+
+						"Could not use fully custom help messages, inform booksaw (this should never happen)");
+				sender.sendMessage(ChatColor.RED + "Something went wrong, inform your server admins");
+				e.printStackTrace();
+				fullyCustom = false;
+			}
+		}
+		BufferedReader reader = null;
+		try {
+			reader = new BufferedReader(new FileReader(f));
+			String line = "";
+			while ((line = reader.readLine()) != null) {
+				sender.sendMessage(
+						MessageManager.getPrefix() + org.bukkit.ChatColor.translateAlternateColorCodes('&', line));
+			}
+		} catch (Exception e) {
+			Bukkit.getLogger().log(Level.SEVERE,
+					"Could not use fully custom help messages, inform booksaw (this should never happen)");
+			sender.sendMessage(ChatColor.RED + "Something went wrong, inform your server admins");
+			e.printStackTrace();
+			fullyCustom = false;
+		} finally {
+			if (reader != null) {
+				try {
+					reader.close();
+				} catch (Exception e) {
+					Bukkit.getLogger().log(Level.SEVERE,
+							"Could not use fully custom help messages, inform booksaw (this should never happen)");
+					sender.sendMessage(ChatColor.RED + "Something went wrong, inform your server admins");
+				}
+			}
+		}
 	}
 
 	/**

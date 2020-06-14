@@ -1,12 +1,13 @@
-This file is used to track the change log for each release version, first version where the change log is used: 3.0.7. This file is used so nothing is missed out of the changelog on a new update. 
+This file is used to track the change log for each release version, first version where the change log is used: 3.0.7. This file is used so nothing is missed out of the change log on a new update. 
 This will also be reviewed once an update is released to ensure that the plugin description page is updated. 
 
 3.0.7:
 Features: 
-
+Added the ability to create a fully custom help message (there is an option in the config for it) 
 
 Improvements:
 Added a permission node for displaying team name: 'betterteams.teamName'
+It is now configurable if the team name is displayed as a prefix or a suffix.
 
 Bug Fixes: 
 Fixed the commands /team promote and /team demote: (https://github.com/booksaw/BetterTeams/issues/3)

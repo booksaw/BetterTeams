@@ -13,6 +13,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
+import com.booksaw.betterTeams.commands.HelpCommand;
 import com.booksaw.betterTeams.commands.ParentCommand;
 import com.booksaw.betterTeams.commands.team.BanCommand;
 import com.booksaw.betterTeams.commands.team.ChatCommand;
@@ -179,6 +180,9 @@ public class Main extends JavaPlugin {
 			}
 		}
 
+		// loading the fully custom help message option
+		HelpCommand.setupHelp();
+
 	}
 
 	/**
@@ -242,11 +246,13 @@ public class Main extends JavaPlugin {
 		case 1:
 			getConfig().set("maxHologramLines", 10);
 			getConfig().set("displayTeamName", true);
+		case 2:
+			getConfig().set("fullyCustomHelpMessages", false);
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
 			// set version the latest
-			getConfig().set("version", 2);
+			getConfig().set("version", 3);
 			break;
 		}
 
