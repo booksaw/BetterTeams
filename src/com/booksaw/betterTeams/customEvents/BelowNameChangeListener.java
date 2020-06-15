@@ -1,0 +1,17 @@
+package com.booksaw.betterTeams.customEvents;
+
+import org.bukkit.entity.Player;
+
+/**
+ * This class can be used if two plugins need access to the scoreboard.teams, so when better teams adds/renvies a player to/from a new scoreboard your plugin will be notified
+ * @author booksaw
+ *
+ */
+public interface BelowNameChangeListener {
+	
+	/**
+	 * Run when a player is added to a new team or removed from a team
+	 * @param player The player that has been added to a team or removed from a team
+	 */
+	public void run(Player player);
+}

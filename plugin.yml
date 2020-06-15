@@ -69,3 +69,6 @@ permissions:
    betterTeams.teamName:
       default: true
       description: Users with this permission will have their team name dispalyed above their head
+   betterTeams.balance:
+      default: true
+      description: Allows access to /team bal, /team withdraw and /team balance

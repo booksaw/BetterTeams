@@ -1,5 +1,8 @@
 package com.booksaw.betterTeams.events;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -8,6 +11,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scoreboard.Scoreboard;
 
 import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.customEvents.BelowNameChangeListener;
 
 public class BelowNameManagement implements Listener {
 
@@ -24,6 +28,27 @@ public class BelowNameManagement implements Listener {
 			board = Bukkit.getScoreboardManager().getNewScoreboard();
 		}
 
+	}
+
+	/**
+	 * Used to track a list of all listeners
+	 * 
+	 * @see BelowNameChangeListener
+	 */
+	private List<BelowNameChangeListener> listeners = new ArrayList<>();
+
+	/**
+	 * @param listener The listener to add to the list of active listeners
+	 */
+	public void addListener(BelowNameChangeListener listener) {
+		listeners.add(listener);
+	}
+
+	/**
+	 * @param listener The listener to remove from the list of active listeners
+	 */
+	public void removeListener(BelowNameChangeListener listener) {
+		listeners.remove(listener);
 	}
 
 	public void displayBelowNameForAll() {
@@ -47,6 +72,11 @@ public class BelowNameManagement implements Listener {
 		}
 
 		team.getScoreboardTeam(board, type).addEntry(player.getName());
+
+		// triggering the listeners
+		for (BelowNameChangeListener listener : listeners) {
+			listener.run(player);
+		}
 
 	}
 
@@ -72,6 +102,11 @@ public class BelowNameManagement implements Listener {
 		}
 
 		team.getScoreboardTeam(board, type).removeEntry(player.getName());
+
+		// triggering the listeners
+		for (BelowNameChangeListener listener : listeners) {
+			listener.run(player);
+		}
 
 	}
 
