@@ -11,11 +11,13 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scoreboard.Scoreboard;
 
 import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.customEvents.BelowNameChangeEvent;
+import com.booksaw.betterTeams.customEvents.BelowNameChangeEvent.ChangeType;
 import com.booksaw.betterTeams.customEvents.BelowNameChangeListener;
 
 public class BelowNameManagement implements Listener {
 
-	BelowNameType type;
+	private BelowNameType type;
 
 	Scoreboard board;
 
@@ -75,7 +77,7 @@ public class BelowNameManagement implements Listener {
 
 		// triggering the listeners
 		for (BelowNameChangeListener listener : listeners) {
-			listener.run(player);
+			listener.run(new BelowNameChangeEvent(player, ChangeType.ADD));
 		}
 
 	}
@@ -105,7 +107,7 @@ public class BelowNameManagement implements Listener {
 
 		// triggering the listeners
 		for (BelowNameChangeListener listener : listeners) {
-			listener.run(player);
+			listener.run(new BelowNameChangeEvent(player, ChangeType.REMOVE));
 		}
 
 	}
@@ -131,4 +133,9 @@ public class BelowNameManagement implements Listener {
 			return FALSE;
 		}
 	}
+
+	public BelowNameType getType() {
+		return type;
+	}
+
 }
