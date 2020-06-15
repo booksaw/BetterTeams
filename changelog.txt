@@ -5,10 +5,13 @@ This will also be reviewed once an update is released to ensure that the plugin 
 Features: 
 Added the ability to create a fully custom help message (there is an option in the config for it) 
 Added /team color to change the color of a teams nametag (not you may need to remove the color code in messages.yml under the heading nametag.syntax for this to work) 
+Added bStats to log anonymous data about plugin usage
+Added an option for teams to have money associated with them (using vault) 
 
 Improvements:
 Added a permission node for displaying team name: 'betterteams.teamName'
 It is now configurable if the team name is displayed as a prefix or a suffix.
+Added placeholders for score and balance
 
 Bug Fixes: 
 Fixed the commands /team promote and /team demote: (https://github.com/booksaw/BetterTeams/issues/3)

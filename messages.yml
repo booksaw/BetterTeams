@@ -71,6 +71,7 @@ info.admin: '&6Admins: &b%s'
 info.default: '&6Users: &b%s'
 info.fail: '&6No team or player found under that name'
 info.score: '&6Score: &b%s'
+info.money: '&6Balance: &b£%s'
 
 # for /team kick <player>
 kick.success: '&6That player has been kicked'
@@ -118,6 +119,17 @@ chat.disabled: '&6Your messages now go to the global chat'
 color.success: '&6Your team color has been changed'
 color.fail: '&6That is not a recognised chat color'
 
+# for /team deposit <amount> 
+deposit.tooLittle: '&4You cannot deposit negative amounts' 
+deposit.fail: '&4The deposit failed'
+deposit.success: '&6Money deposited'
+
+# for /team withdraw <amount>
+withdraw.tooLittle: '&4You cannot widthraw negative amounts' 
+withdraw.fail: '&4The withdrawal failed'
+withdraw.success: '&6Money withdrawn'
+withdraw.notEnough: '&6Your team does not have enougn money' 
+
 # for chat formatting
 chat.syntax: '&6&b[Team]&f%s: %s'
 
@@ -151,4 +163,5 @@ help.invite: Invite the specified player to your team
 help.disband: Disband your current team
 help.open: Toggle if the team is invite only
 help.info: View information about the specified player / team
-helo.color: Change your teams color
+help.color: Change your teams color
+help.deposit: Deposit money into the teams balance

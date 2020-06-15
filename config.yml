@@ -108,5 +108,11 @@ displayTeamName: prefix
 # Possible values: [true, false]
 fullyCustomHelpMessages: false
 
+# This plugin has the option to include a team balance, if this option is enabled the plugin will tie in with vault to allow that feature 
+# - If valut is not installed on the server, this feature will not be active whatever this value is
+# 
+# Possible values: [true, false]
+useVault: true
+
 # Do not edit this value, this is used to check the config is up to date with the lastest version of the plugin (if it is not, it will be automatically updated)
 version: 2

@@ -1,5 +1,6 @@
 package com.booksaw.betterTeams;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +32,11 @@ public class Team {
 	 * This is used to track if the score has been changed for any users
 	 */
 	public static boolean scoreChanges = false;
+
+	/**
+	 * This is used to track if there have been any changes to the teams balance
+	 */
+	public static boolean moneyChanges = false;
 
 	/**
 	 * Used to store all active teams
@@ -216,6 +222,11 @@ public class Team {
 	 */
 	private int score;
 
+	/**
+	 * The money that the team has
+	 */
+	private double money;
+
 	ChatColor color;
 	/**
 	 * the rank of the team
@@ -236,6 +247,7 @@ public class Team {
 		description = getString(config, "description");
 		open = getBoolean(config, "open");
 		score = getInteger(config, "score");
+		money = getDouble(config, "money");
 		String colorStr = getString(config, "color");
 		if (colorStr == null) {
 			this.color = ChatColor.GOLD;
@@ -286,6 +298,8 @@ public class Team {
 		open = false;
 		setValue(config, "score", 0);
 		score = 0;
+		setValue(config, "money", 0);
+		money = 0;
 		setValue(config, "home", "");
 		rank = -1;
 		color = ChatColor.GOLD;
@@ -339,6 +353,19 @@ public class Team {
 	 */
 	private int getInteger(FileConfiguration config, String attribute) {
 		return config.getInt("team." + ID + "." + attribute);
+	}
+
+	/**
+	 * Used to load a double attribute from file, this is used instead of the direct
+	 * call to ensure any changes to the config reading system can be updated
+	 * quickly
+	 * 
+	 * @param config    the config which stores the team's information
+	 * @param attribute the reference that the value is stored under
+	 * @return the loaded value
+	 */
+	private double getDouble(FileConfiguration config, String attribute) {
+		return config.getDouble("team." + ID + "." + attribute);
 	}
 
 	/**
@@ -804,6 +831,17 @@ public class Team {
 		Main.plugin.saveTeams();
 	}
 
+	public double getMoney() {
+		return money;
+	}
+
+	public void setMoney(double money) {
+		this.money = money;
+		moneyChanges = true;
+		setValue(Main.plugin.getTeams(), "money", money);
+		Main.plugin.saveTeams();
+	}
+
 	/**
 	 * @return the rank of the team (-1 if the team has not been ranked)
 	 */
@@ -840,6 +878,12 @@ public class Team {
 		}
 		return team;
 
+	}
+
+	public String getBalance() {
+		NumberFormat formatter = NumberFormat.getCurrencyInstance();
+		String moneyString = formatter.format(money);
+		return moneyString.substring(1);
 	}
 
 }

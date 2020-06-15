@@ -76,6 +76,7 @@ public class InfoCommand extends SubCommand {
 
 		MessageManager.sendMessageF(sender, "info.open", team.isOpen() + "");
 		MessageManager.sendMessageF(sender, "info.score", team.getScore() + "");
+		MessageManager.sendMessageF(sender, "info.money", team.getBalance());
 
 		List<TeamPlayer> owners = team.getRank(PlayerRank.OWNER);
 

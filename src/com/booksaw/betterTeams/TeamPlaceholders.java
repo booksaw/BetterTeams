@@ -99,6 +99,28 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 			return team.isOpen() + "";
 		}
 
+		if (identifier.equals("money")) {
+
+			Team team = Team.getTeam(player);
+
+			if (team == null) {
+				return MessageManager.getMessage("placeholder.noTeam");
+			}
+
+			return team.getBalance();
+		}
+
+		if (identifier.equals("score")) {
+
+			Team team = Team.getTeam(player);
+
+			if (team == null) {
+				return MessageManager.getMessage("placeholder.noTeam");
+			}
+
+			return team.getScore() + "";
+		}
+
 		return null;
 	}
 }

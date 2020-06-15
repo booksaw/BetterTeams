@@ -10,16 +10,19 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
 import com.booksaw.betterTeams.commands.HelpCommand;
 import com.booksaw.betterTeams.commands.ParentCommand;
+import com.booksaw.betterTeams.commands.team.BalCommand;
 import com.booksaw.betterTeams.commands.team.BanCommand;
 import com.booksaw.betterTeams.commands.team.ChatCommand;
 import com.booksaw.betterTeams.commands.team.ColorCommand;
 import com.booksaw.betterTeams.commands.team.CreateCommand;
 import com.booksaw.betterTeams.commands.team.DemoteCommand;
+import com.booksaw.betterTeams.commands.team.DepositCommand;
 import com.booksaw.betterTeams.commands.team.DescriptionCommand;
 import com.booksaw.betterTeams.commands.team.DisbandCommand;
 import com.booksaw.betterTeams.commands.team.HomeCommand;
@@ -33,27 +36,35 @@ import com.booksaw.betterTeams.commands.team.OpenCommand;
 import com.booksaw.betterTeams.commands.team.PromoteCommand;
 import com.booksaw.betterTeams.commands.team.SethomeCommand;
 import com.booksaw.betterTeams.commands.team.UnbanCommand;
+import com.booksaw.betterTeams.commands.team.WithdrawCommand;
 import com.booksaw.betterTeams.commands.teama.CreateHoloTeama;
 import com.booksaw.betterTeams.commands.teama.ReloadTeama;
 import com.booksaw.betterTeams.commands.teama.RemoveHoloTeama;
 import com.booksaw.betterTeams.events.BelowNameManagement;
+import com.booksaw.betterTeams.events.BelowNameManagement.BelowNameType;
 import com.booksaw.betterTeams.events.ChatManagement;
 import com.booksaw.betterTeams.events.DamageManagement;
 import com.booksaw.betterTeams.events.ScoreManagement;
-import com.booksaw.betterTeams.events.BelowNameManagement.BelowNameType;
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
 import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
+
+import net.milkbowl.vault.economy.Economy;
 
 public class Main extends JavaPlugin {
 
 	public static Main plugin;
 	public boolean useHolographicDisplays;
+	public static Economy econ = null;
 
 	private DamageManagement damageManagement;
 	public BelowNameManagement nameManagement;
+	Metrics metrics;
 
 	@Override
 	public void onEnable() {
+
+		int pluginId = 7855;
+		metrics = new Metrics(this, pluginId);
 
 		saveDefaultConfig();
 		plugin = this;
@@ -101,6 +112,15 @@ public class Main extends JavaPlugin {
 			teamaHoloCommand.addSubCommand(new CreateHoloTeama());
 			teamaHoloCommand.addSubCommand(new RemoveHoloTeama());
 			teamaCommand.addSubCommand(teamaHoloCommand);
+		}
+
+		if (!setupEconomy() || !getConfig().getBoolean("useVault")) {
+			econ = null;
+			return;
+		} else {
+			teamCommand.addSubCommand(new DepositCommand());
+			teamCommand.addSubCommand(new BalCommand());
+			teamCommand.addSubCommand(new WithdrawCommand());
 		}
 
 		new BooksawCommand(getCommand("teamadmin"), teamaCommand);
@@ -193,6 +213,7 @@ public class Main extends JavaPlugin {
 	 * @param messages
 	 */
 	private void addDefaults(YamlConfiguration messages) {
+
 		int version = messages.getInt("version");
 		boolean changes = false;
 
@@ -217,7 +238,14 @@ public class Main extends JavaPlugin {
 		case 4:
 			messages.set("color.success", "&6Your team color has been changed");
 			messages.set("color.fail", "&6That is not a recognised chat color");
-
+			messages.set("info.money", "&6Balance: &b£%s");
+			messages.set("deposit.tooLittle", "&4You cannot deposit negative amounts");
+			messages.set("deposit.fail", "&4The deposit failed");
+			messages.set("deposit.success", "&6Money deposited");
+			messages.set("withdraw.tooLittle", "&4You cannot widthraw negative amounts");
+			messages.set("withdraw.fail", "&4The withdrawal failed");
+			messages.set("withdraw.success", "&6Money withdrawn");
+			messages.set("withdraw.notEnough", "&6Your team does not have enougn money");
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
@@ -253,6 +281,7 @@ public class Main extends JavaPlugin {
 			getConfig().set("displayTeamName", true);
 		case 2:
 			getConfig().set("fullyCustomHelpMessages", false);
+			getConfig().set("useVault", true);
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
@@ -349,4 +378,15 @@ public class Main extends JavaPlugin {
 		return loc.getWorld().getName() + ":" + loc.getX() + ":" + loc.getY() + ":" + loc.getZ();
 	}
 
+	private boolean setupEconomy() {
+		if (getServer().getPluginManager().getPlugin("Vault") == null) {
+			return false;
+		}
+		RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
+		if (rsp == null) {
+			return false;
+		}
+		econ = rsp.getProvider();
+		return econ != null;
+	}
 }
