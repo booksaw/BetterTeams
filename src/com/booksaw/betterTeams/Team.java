@@ -529,7 +529,7 @@ public class Team {
 		Main.plugin.saveTeams();
 
 		if (team != null) {
-			team.removeEntry(p.getName());
+			Main.plugin.nameManagement.remove(p.getPlayer());
 		}
 	}
 
@@ -546,7 +546,7 @@ public class Team {
 		Main.plugin.saveTeams();
 
 		if (team != null) {
-			team.removeEntry(p.getPlayer().getName());
+			Main.plugin.nameManagement.remove(p.getPlayer().getPlayer());
 		}
 	}
 
@@ -605,7 +605,7 @@ public class Team {
 
 			for (TeamPlayer p : members) {
 				if (p.getPlayer().isOnline()) {
-					team.removeEntry(p.getPlayer().getName());
+					Main.plugin.nameManagement.remove(p.getPlayer().getPlayer());
 				}
 			}
 

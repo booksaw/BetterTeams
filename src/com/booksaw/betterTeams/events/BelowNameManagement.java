@@ -100,6 +100,9 @@ public class BelowNameManagement implements Listener {
 
 		Team team = Team.getTeam(player);
 		if (team == null) {
+			for (BelowNameChangeListener listener : listeners) {
+				listener.run(new BelowNameChangeEvent(player, ChangeType.REMOVE));
+			}
 			return;
 		}
 
