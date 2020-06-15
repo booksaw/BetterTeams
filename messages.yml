@@ -165,3 +165,5 @@ help.open: Toggle if the team is invite only
 help.info: View information about the specified player / team
 help.color: Change your teams color
 help.deposit: Deposit money into the teams balance
+help.bal: View your teams balance
+help.withdraw: Withdraw money from the teams balance
