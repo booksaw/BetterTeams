@@ -77,6 +77,23 @@ public class Main extends JavaPlugin {
 			new TeamPlaceholders(this).register();
 			updateHolos();
 		}
+		Bukkit.getLogger().info("Display team name config value: " + getConfig().getString("displayTeamName"));
+		BelowNameType type = BelowNameType.getType(getConfig().getString("displayTeamName"));
+		Bukkit.getLogger().info("Loading below name. Type: " + type);
+		if (type != BelowNameType.FALSE) {
+			if (nameManagement == null) {
+
+				nameManagement = new BelowNameManagement(type);
+				nameManagement.displayBelowNameForAll();
+				getServer().getPluginManager().registerEvents(nameManagement, this);
+				Bukkit.getLogger().info("nameManagement declared: " + nameManagement);
+			}
+		} else {
+			Bukkit.getLogger().info("Not loading management");
+			if (nameManagement != null) {
+				Bukkit.getLogger().log(Level.WARNING, "Restart server for name changes to apply");
+			}
+		}
 
 		useHolographicDisplays = Bukkit.getPluginManager().isPluginEnabled("HolographicDisplays");
 
@@ -126,19 +143,6 @@ public class Main extends JavaPlugin {
 		new BooksawCommand(getCommand("teamadmin"), teamaCommand);
 		getServer().getPluginManager().registerEvents(new ChatManagement(), this);
 		getServer().getPluginManager().registerEvents(new ScoreManagement(), this);
-
-		BelowNameType type = BelowNameType.getType(getConfig().getString("displayTeamName"));
-		if (type != BelowNameType.FALSE) {
-			if (nameManagement == null) {
-				nameManagement = new BelowNameManagement(type);
-				nameManagement.displayBelowNameForAll();
-				getServer().getPluginManager().registerEvents(nameManagement, this);
-			}
-		} else {
-			if (nameManagement != null) {
-				Bukkit.getLogger().log(Level.WARNING, "Restart server for name changes to apply");
-			}
-		}
 
 	}
 

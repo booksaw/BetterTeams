@@ -1,5 +1,5 @@
 name: BetterTeams
-version: 3.0.7
+version: 3.0.8
 author: booksaw
 description: A plugin to create teams with other players
 main: com.booksaw.betterTeams.Main
@@ -57,6 +57,9 @@ permissions:
    betterTeams.kick:
       default: true
       description: Allows access to /team kick
+   betterTeams.info:
+      default: true
+      description: Allows access to /team info
    betterTeams.leave:
       default: true
       description: Allows access to /team leave
