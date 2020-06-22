@@ -114,5 +114,12 @@ fullyCustomHelpMessages: false
 # Possible values: [true, false]
 useVault: true
 
+# This determines if messages sent to the team chat should be logged to the console 
+# - If this is enabled, all messages sent to team chats will be logged to console 
+# - If this is disabled, team chat messages will not be stored anywhere
+# 
+# Posssible values [true, false ]
+logTeamChat: true 
+
 # Do not edit this value, this is used to check the config is up to date with the lastest version of the plugin (if it is not, it will be automatically updated)
 version: 2

@@ -54,6 +54,8 @@ public class Team {
 		return teamList.get(ID);
 	}
 
+	private static boolean logChat;
+
 	/**
 	 * Used to get the team by it's display name
 	 * 
@@ -95,6 +97,8 @@ public class Team {
 	 * memory
 	 */
 	public static void loadTeams() {
+
+		logChat = Main.plugin.getConfig().getBoolean("logTeamChat");
 		teamList = new HashMap<UUID, Team>();
 		for (String IDString : Main.plugin.getTeams().getStringList("teams")) {
 			UUID ID = UUID.fromString(IDString);
@@ -817,6 +821,10 @@ public class Team {
 			if (player.getPlayer().isOnline()) {
 				player.getPlayer().getPlayer().sendMessage(message);
 			}
+		}
+
+		if (logChat) {
+			Bukkit.getLogger().info("[BetterTeams]" + message);
 		}
 	}
 

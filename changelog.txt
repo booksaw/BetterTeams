@@ -19,11 +19,10 @@ Fixed problem with all scoreboards being overtaken by the plugin scoreboard: (ht
 
 
 3.0.8
-Features: 
-
-
 Improvements:
 /teama reload works under more circumstances
+Team prefix can is editable in messages.yml (https://github.com/booksaw/BetterTeams/issues/6)
+/team chat messages can now be logged to the console
 
 
 Bug Fixes: 

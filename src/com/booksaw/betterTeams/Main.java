@@ -232,11 +232,13 @@ public class Main extends JavaPlugin {
 		case 2:
 			getConfig().set("fullyCustomHelpMessages", false);
 			getConfig().set("useVault", true);
+		case 3:
+			getConfig().set("logTeamChat", true);
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
 			// set version the latest
-			getConfig().set("version", 3);
+			getConfig().set("version", 4);
 			break;
 		}
 
