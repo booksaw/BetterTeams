@@ -18,7 +18,16 @@ Fixed the commands /team promote and /team demote: (https://github.com/booksaw/B
 Fixed problem with all scoreboards being overtaken by the plugin scoreboard: (https://github.com/booksaw/BetterTeams/issues/2)
 
 
+3.0.8
+Features: 
 
+
+Improvements:
+/teama reload works under more circumstances
+
+
+Bug Fixes: 
+Fixed team chat priority issue (https://github.com/booksaw/BetterTeams/issues/5)
 
 
 

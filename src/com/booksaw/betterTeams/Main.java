@@ -58,13 +58,15 @@ public class Main extends JavaPlugin {
 
 	private DamageManagement damageManagement;
 	public BelowNameManagement nameManagement;
-	Metrics metrics;
+	Metrics metrics = null;
 
 	@Override
 	public void onEnable() {
 
-		int pluginId = 7855;
-		metrics = new Metrics(this, pluginId);
+		if (metrics == null) {
+			int pluginId = 7855;
+			metrics = new Metrics(this, pluginId);
+		}
 
 		saveDefaultConfig();
 		plugin = this;
@@ -77,73 +79,15 @@ public class Main extends JavaPlugin {
 			new TeamPlaceholders(this).register();
 			updateHolos();
 		}
-		Bukkit.getLogger().info("Display team name config value: " + getConfig().getString("displayTeamName"));
-		BelowNameType type = BelowNameType.getType(getConfig().getString("displayTeamName"));
-		Bukkit.getLogger().info("Loading below name. Type: " + type);
-		if (type != BelowNameType.FALSE) {
-			if (nameManagement == null) {
-
-				nameManagement = new BelowNameManagement(type);
-				nameManagement.displayBelowNameForAll();
-				getServer().getPluginManager().registerEvents(nameManagement, this);
-				Bukkit.getLogger().info("nameManagement declared: " + nameManagement);
-			}
-		} else {
-			Bukkit.getLogger().info("Not loading management");
-			if (nameManagement != null) {
-				Bukkit.getLogger().log(Level.WARNING, "Restart server for name changes to apply");
-			}
-		}
 
 		useHolographicDisplays = Bukkit.getPluginManager().isPluginEnabled("HolographicDisplays");
 
-		ParentCommand teamCommand = new ParentCommand("team");
-		// add all sub commands here
-		teamCommand.addSubCommand(new CreateCommand());
-		teamCommand.addSubCommand(new LeaveCommand());
-		teamCommand.addSubCommand(new DisbandCommand());
-		teamCommand.addSubCommand(new DescriptionCommand());
-		teamCommand.addSubCommand(new InviteCommand());
-		teamCommand.addSubCommand(new JoinCommand());
-		teamCommand.addSubCommand(new NameCommand());
-		teamCommand.addSubCommand(new OpenCommand());
-		teamCommand.addSubCommand(new InfoCommand());
-		teamCommand.addSubCommand(new KickCommand());
-		teamCommand.addSubCommand(new PromoteCommand());
-		teamCommand.addSubCommand(new DemoteCommand());
-		teamCommand.addSubCommand(new HomeCommand());
-		teamCommand.addSubCommand(new SethomeCommand());
-		teamCommand.addSubCommand(new BanCommand());
-		teamCommand.addSubCommand(new UnbanCommand());
-		teamCommand.addSubCommand(new ChatCommand());
-		teamCommand.addSubCommand(new ColorCommand());
-
-		new BooksawCommand(getCommand("team"), teamCommand);
-
-		ParentCommand teamaCommand = new ParentCommand("teamadmin");
-
-		teamaCommand.addSubCommand(new ReloadTeama());
-
-		if (useHolographicDisplays) {
-			ParentCommand teamaHoloCommand = new ParentCommand("holo");
-			teamaHoloCommand.addSubCommand(new CreateHoloTeama());
-			teamaHoloCommand.addSubCommand(new RemoveHoloTeama());
-			teamaCommand.addSubCommand(teamaHoloCommand);
-		}
-
 		if (!setupEconomy() || !getConfig().getBoolean("useVault")) {
 			econ = null;
-			return;
-		} else {
-			teamCommand.addSubCommand(new DepositCommand());
-			teamCommand.addSubCommand(new BalCommand());
-			teamCommand.addSubCommand(new WithdrawCommand());
 		}
 
-		new BooksawCommand(getCommand("teamadmin"), teamaCommand);
-		getServer().getPluginManager().registerEvents(new ChatManagement(), this);
-		getServer().getPluginManager().registerEvents(new ScoreManagement(), this);
-
+		setupListeners();
+		setupCommands();
 	}
 
 	@Override
@@ -392,5 +336,84 @@ public class Main extends JavaPlugin {
 		}
 		econ = rsp.getProvider();
 		return econ != null;
+	}
+
+	public void reload() {
+		reloadConfig();
+		ChatManagement.enable();
+		damageManagement = null;
+		nameManagement = null;
+
+		onDisable();
+		onEnable();
+
+	}
+
+	public void setupCommands() {
+		ParentCommand teamCommand = new ParentCommand("team");
+		// add all sub commands here
+		teamCommand.addSubCommand(new CreateCommand());
+		teamCommand.addSubCommand(new LeaveCommand());
+		teamCommand.addSubCommand(new DisbandCommand());
+		teamCommand.addSubCommand(new DescriptionCommand());
+		teamCommand.addSubCommand(new InviteCommand());
+		teamCommand.addSubCommand(new JoinCommand());
+		teamCommand.addSubCommand(new NameCommand());
+		teamCommand.addSubCommand(new OpenCommand());
+		teamCommand.addSubCommand(new InfoCommand());
+		teamCommand.addSubCommand(new KickCommand());
+		teamCommand.addSubCommand(new PromoteCommand());
+		teamCommand.addSubCommand(new DemoteCommand());
+		teamCommand.addSubCommand(new HomeCommand());
+		teamCommand.addSubCommand(new SethomeCommand());
+		teamCommand.addSubCommand(new BanCommand());
+		teamCommand.addSubCommand(new UnbanCommand());
+		teamCommand.addSubCommand(new ChatCommand());
+		teamCommand.addSubCommand(new ColorCommand());
+
+		new BooksawCommand(getCommand("team"), teamCommand);
+
+		ParentCommand teamaCommand = new ParentCommand("teamadmin");
+
+		teamaCommand.addSubCommand(new ReloadTeama());
+
+		if (useHolographicDisplays) {
+			ParentCommand teamaHoloCommand = new ParentCommand("holo");
+			teamaHoloCommand.addSubCommand(new CreateHoloTeama());
+			teamaHoloCommand.addSubCommand(new RemoveHoloTeama());
+			teamaCommand.addSubCommand(teamaHoloCommand);
+		}
+
+		if (econ != null) {
+			teamCommand.addSubCommand(new DepositCommand());
+			teamCommand.addSubCommand(new BalCommand());
+			teamCommand.addSubCommand(new WithdrawCommand());
+		}
+
+		new BooksawCommand(getCommand("teamadmin"), teamaCommand);
+
+	}
+
+	public void setupListeners() {
+		Bukkit.getLogger().info("Display team name config value: " + getConfig().getString("displayTeamName"));
+		BelowNameType type = BelowNameType.getType(getConfig().getString("displayTeamName"));
+		Bukkit.getLogger().info("Loading below name. Type: " + type);
+		if (type != BelowNameType.FALSE) {
+			if (nameManagement == null) {
+
+				nameManagement = new BelowNameManagement(type);
+				nameManagement.displayBelowNameForAll();
+				getServer().getPluginManager().registerEvents(nameManagement, this);
+				Bukkit.getLogger().info("nameManagement declared: " + nameManagement);
+			}
+		} else {
+			Bukkit.getLogger().info("Not loading management");
+			if (nameManagement != null) {
+				Bukkit.getLogger().log(Level.WARNING, "Restart server for name changes to apply");
+			}
+		}
+
+		getServer().getPluginManager().registerEvents(new ChatManagement(), this);
+		getServer().getPluginManager().registerEvents(new ScoreManagement(), this);
 	}
 }

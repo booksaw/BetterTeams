@@ -134,7 +134,7 @@ withdraw.notEnough: '&6Your team does not have enougn money'
 chat.syntax: '&6&b[Team]&f%s: %s'
 
 # for admin messages
-admin.config.reload: '&6BetterTeams has been reloaded'
+admin.config.reload: '&6BetterTeams has been reloaded (If you are having problems when using this command, restart the server)'
 admin.holo.create.success: '&6Hologram created'
 admin.holo.remove.noHolo: '&4No holograms found'
 admin.holo.remove.success: '&6Hologram deleted'

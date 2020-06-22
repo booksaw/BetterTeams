@@ -3,21 +3,18 @@ package com.booksaw.betterTeams.commands.teama;
 import java.util.List;
 
 import org.bukkit.command.CommandSender;
+import org.bukkit.event.HandlerList;
 
 import com.booksaw.betterTeams.Main;
-import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.SubCommand;
-import com.booksaw.betterTeams.events.ChatManagement;
 
 public class ReloadTeama extends SubCommand {
 
 	@Override
 	public String onCommand(CommandSender sender, String label, String[] args) {
 
-		Main.plugin.reloadConfig();
-		Main.plugin.loadCustomConfigs();
-		Team.loadTeams();
-		ChatManagement.enable();
+		HandlerList.unregisterAll(Main.plugin);
+		Main.plugin.reload();
 
 		return "admin.config.reload";
 	}
