@@ -7,10 +7,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import com.booksaw.betterTeams.Main;
+import com.booksaw.betterTeams.MessageManager;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
-
-import net.md_5.bungee.api.ChatColor;
 
 public class ChatManagement implements Listener {
 
@@ -43,7 +42,9 @@ public class ChatManagement implements Listener {
 		TeamPlayer teamPlayer = team.getTeamPlayer(p);
 		if (!teamPlayer.isInTeamChat()) {
 			if (doPrefix) {
-				event.setFormat(ChatColor.AQUA + "[" + team.getName() + "] " + ChatColor.WHITE + event.getFormat());
+				event.setFormat(
+						String.format(MessageManager.getMessage("prefixSyntax"), team.getName(), event.getFormat()));
+//				event.setFormat(ChatColor.AQUA + "[" + team.getName() + "] " + ChatColor.WHITE + event.getFormat());
 			}
 
 			return;

@@ -194,11 +194,13 @@ public class Main extends JavaPlugin {
 			messages.set("withdraw.fail", "&4The withdrawal failed");
 			messages.set("withdraw.success", "&6Money withdrawn");
 			messages.set("withdraw.notEnough", "&6Your team does not have enougn money");
+		case 5:
+			messages.set("prefixSyntax", "&b[%s] &r%s");
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
 			// set version the latest
-			messages.set("version", 5);
+			messages.set("version", 6);
 			break;
 		}
 

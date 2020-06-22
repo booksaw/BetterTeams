@@ -9,6 +9,7 @@ noPlayer: '&4Specified player not found'
 notTeam: '&6&4That team does not exist try &b/team create <name>'
 needSameTeam: '&6You are not in the same team as that person'
 noPerm: '&4You do not have permission to do that'
+prefixSyntax: '&b[%s] &r%s'
 
 # do not change this, it is used to check the messages version (test if there are any missing messages)
 version: 4
