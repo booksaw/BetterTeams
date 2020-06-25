@@ -813,18 +813,24 @@ public class Team {
 	}
 
 	public void sendMessage(TeamPlayer sender, String message) {
-
-		message = String.format(MessageManager.getMessage("chat.syntax"),
+		String fMessage = String.format(MessageManager.getMessage("chat.syntax"),
 				sender.getPlayer().getPlayer().getDisplayName(), message);
 
 		for (TeamPlayer player : members) {
 			if (player.getPlayer().isOnline()) {
-				player.getPlayer().getPlayer().sendMessage(message);
+				player.getPlayer().getPlayer().sendMessage(fMessage);
 			}
 		}
 
+		for (CommandSender temp : Main.plugin.chatManagement.spy) {
+			if (temp instanceof Player && getTeamPlayer((Player) temp) != null) {
+				continue;
+			}
+			temp.sendMessage("[BetterTeams][" + getName() + "]" + message);
+		}
+
 		if (logChat) {
-			Bukkit.getLogger().info("[BetterTeams]" + message);
+			Bukkit.getLogger().info("[BetterTeams]" + fMessage);
 		}
 	}
 

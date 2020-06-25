@@ -85,7 +85,12 @@ public class MessageManager {
 	 * @return the message (without prefix)
 	 */
 	public static String getMessage(String reference) {
-		return ChatColor.translateAlternateColorCodes('&', messages.getString(reference));
+		try {
+			return ChatColor.translateAlternateColorCodes('&', messages.getString(reference));
+		} catch (NullPointerException e) {
+			Bukkit.getLogger().warning("Could not find the message with the reference " + reference);
+			return "";
+		}
 	}
 
 	public static FileConfiguration getMessages() {

@@ -37,6 +37,7 @@ import com.booksaw.betterTeams.commands.team.PromoteCommand;
 import com.booksaw.betterTeams.commands.team.SethomeCommand;
 import com.booksaw.betterTeams.commands.team.UnbanCommand;
 import com.booksaw.betterTeams.commands.team.WithdrawCommand;
+import com.booksaw.betterTeams.commands.teama.ChatSpyTeama;
 import com.booksaw.betterTeams.commands.teama.CreateHoloTeama;
 import com.booksaw.betterTeams.commands.teama.ReloadTeama;
 import com.booksaw.betterTeams.commands.teama.RemoveHoloTeama;
@@ -58,6 +59,7 @@ public class Main extends JavaPlugin {
 
 	private DamageManagement damageManagement;
 	public BelowNameManagement nameManagement;
+	public ChatManagement chatManagement;
 	Metrics metrics = null;
 
 	@Override
@@ -196,6 +198,9 @@ public class Main extends JavaPlugin {
 			messages.set("withdraw.notEnough", "&6Your team does not have enougn money");
 		case 5:
 			messages.set("prefixSyntax", "&b[%s] &r%s");
+		case 6:
+			messages.set("spy.stop", "&6You are no longer spying on team messages");
+			messages.set("spy.start", "&6You are now spying on team messages");
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
@@ -380,6 +385,7 @@ public class Main extends JavaPlugin {
 		ParentCommand teamaCommand = new ParentCommand("teamadmin");
 
 		teamaCommand.addSubCommand(new ReloadTeama());
+		teamaCommand.addSubCommand(new ChatSpyTeama());
 
 		if (useHolographicDisplays) {
 			ParentCommand teamaHoloCommand = new ParentCommand("holo");
@@ -417,7 +423,7 @@ public class Main extends JavaPlugin {
 			}
 		}
 
-		getServer().getPluginManager().registerEvents(new ChatManagement(), this);
+		getServer().getPluginManager().registerEvents((chatManagement = new ChatManagement()), this);
 		getServer().getPluginManager().registerEvents(new ScoreManagement(), this);
 	}
 }

@@ -146,6 +146,9 @@ nametag.syntax: '&6&l%s&r '
 holo.leaderboard: '&6Leaderboard' 
 holo.syntax: '&6%s: &b%s'
 
+spy.stop: '&6You are no longer spying on team messages'
+spy.start: '&6You are now spying on team messages'
+
 # The help messages
 help.description: View and change your team's description
 help.ban: Bans the specified player from your team

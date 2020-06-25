@@ -1,10 +1,15 @@
 package com.booksaw.betterTeams.events;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.MessageManager;
@@ -14,6 +19,7 @@ import com.booksaw.betterTeams.TeamPlayer;
 public class ChatManagement implements Listener {
 
 	private static boolean doPrefix;
+	public List<CommandSender> spy = new ArrayList<>();
 
 	public static void enable() {
 		doPrefix = Main.plugin.getConfig().getBoolean("prefix");
@@ -54,6 +60,13 @@ public class ChatManagement implements Listener {
 		event.setCancelled(true);
 
 		team.sendMessage(teamPlayer, event.getMessage());
+	}
+
+	@EventHandler
+	public void spyQuit(PlayerQuitEvent e) {
+		if (spy.contains(e.getPlayer())) {
+			spy.remove(e.getPlayer());
+		}
 	}
 
 }

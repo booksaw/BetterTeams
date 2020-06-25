@@ -28,7 +28,14 @@ Team prefix can is editable in messages.yml (https://github.com/booksaw/BetterTe
 Bug Fixes: 
 Fixed team chat priority issue (https://github.com/booksaw/BetterTeams/issues/5)
 
+3.0.9
+Features: 
+Added /teama chatspy to spy on messages sent to team chats
 
+Improvements:
+
+
+Bug Fixes: 
 
 
 
