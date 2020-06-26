@@ -47,6 +47,11 @@ teamLimit: -1
 # Possible values: [-1, any positive whole number]
 maxTeamLength: 12
 
+# This is used with the /team title command, this specifies the limit in characters 
+#
+# Possible values: [Any whole number]
+maxTitleLength: 10 
+
 # This is used to toggle if teams can attack members of their own team
 # - If this is enabled, memebers of the same team will not be able to damage each other
 # - If you change this feature, you will need to restart the server for the value to update (does not work with /teama realod)

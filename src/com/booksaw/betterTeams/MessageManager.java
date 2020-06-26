@@ -45,14 +45,19 @@ public class MessageManager {
 	 * @param reference the reference for the message
 	 */
 	public static void sendMessage(CommandSender sender, String reference) {
+		try {
+			String message = ChatColor.translateAlternateColorCodes('&', messages.getString(reference));
+			if (message == null) {
+				Bukkit.getLogger().log(Level.WARNING, "Message with the reference " + reference + " does not exist");
+				return;
+			}
 
-		String message = ChatColor.translateAlternateColorCodes('&', messages.getString(reference));
-		if (message == null) {
-			Bukkit.getLogger().log(Level.WARNING, "Message with the reference " + reference + " does not exist");
-			return;
+			sender.sendMessage(prefix + message);
+
+		} catch (NullPointerException e) {
+			Bukkit.getLogger().warning("Could not find the message with the reference " + reference);
+			sender.sendMessage(prefix + "Something went wrong with the message, alert your server admins");
 		}
-
-		sender.sendMessage(prefix + message);
 
 	}
 
@@ -64,17 +69,20 @@ public class MessageManager {
 	 * @param replacement the value that the placeholder should be replaced with
 	 */
 	public static void sendMessageF(CommandSender sender, String reference, String replacement) {
+		try {
+			String message = ChatColor.translateAlternateColorCodes('&', messages.getString(reference));
+			if (message == null) {
+				Bukkit.getLogger().log(Level.WARNING, "Message with the reference " + reference + " does not exist");
+				return;
+			}
 
-		String message = ChatColor.translateAlternateColorCodes('&', messages.getString(reference));
-		if (message == null) {
-			Bukkit.getLogger().log(Level.WARNING, "Message with the reference " + reference + " does not exist");
-			return;
+			message = String.format(prefix + message, replacement);
+
+			sender.sendMessage(message);
+		} catch (NullPointerException e) {
+			Bukkit.getLogger().warning("Could not find the message with the reference " + reference);
+			sender.sendMessage(prefix + "Something went wrong with the message, alert your server admins");
 		}
-
-		message = String.format(prefix + message, replacement);
-
-		sender.sendMessage(message);
-
 	}
 
 	/**

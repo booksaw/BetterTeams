@@ -813,8 +813,22 @@ public class Team {
 	}
 
 	public void sendMessage(TeamPlayer sender, String message) {
+		ChatColor returnTo = ChatColor.RESET;
+		String toTest = MessageManager.getMessage("chat.syntax");
+		int value = toTest.indexOf("%s");
+		if (value > 2) {
+			for (int i = value; i >= 0; i--) {
+				if (toTest.charAt(i) == '§') {
+					returnTo = ChatColor.getByChar(toTest.charAt(i + 1));
+					if (toTest != null) {
+						break;
+					}
+				}
+			}
+		}
+
 		String fMessage = String.format(MessageManager.getMessage("chat.syntax"),
-				sender.getPrefix() + sender.getPlayer().getPlayer().getDisplayName(), message);
+				sender.getPrefix(returnTo) + sender.getPlayer().getPlayer().getDisplayName(), message);
 
 		for (TeamPlayer player : members) {
 			if (player.getPlayer().isOnline()) {
@@ -898,6 +912,11 @@ public class Team {
 		NumberFormat formatter = NumberFormat.getCurrencyInstance();
 		String moneyString = formatter.format(money);
 		return moneyString.substring(1);
+	}
+
+	public void setTitle(TeamPlayer player, String title) {
+		player.setTitle(title);
+		savePlayers(Main.plugin.getTeams());
 	}
 
 }

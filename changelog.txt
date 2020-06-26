@@ -31,6 +31,8 @@ Fixed team chat priority issue (https://github.com/booksaw/BetterTeams/issues/5)
 3.0.9
 Features: 
 Added /teama chatspy to spy on messages sent to team chats
+Added /team title <player/me> <title> to set the title of that team 
+Added /teama title <player> <title> to force a player to have a set title
 
 Improvements:
 Added a placeholder for team rank (%betterteams_rank%)
@@ -40,8 +42,11 @@ Bug Fixes:
 
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
+add new commands help messages to messages.yml
 add /teama chatspy to spigot plugin page
-
+add /team title to wiki and spigot plugin page (betterteams.title.others) 
+add betterteams.title.self, betterteams.title.color.color, betterteams.title.color.format
+Updates config and messages.yml version
 
 
 

@@ -10,6 +10,7 @@ notTeam: '&6&4That team does not exist try &b/team create <name>'
 needSameTeam: '&6You are not in the same team as that person'
 noPerm: '&4You do not have permission to do that'
 prefixSyntax: '&b[%s] &r%s'
+bannedChar: '&4A character you tried to use is banned"'
 
 # do not change this, it is used to check the messages version (test if there are any missing messages)
 version: 7
@@ -70,6 +71,13 @@ join.full: '&4That team is full'
 # for /team open
 open.successopen: '&6Your team now open to everyone'
 open.successclose: '&6Your team is now invite only'
+
+# for /team title <player/me> <title>
+title.change: '&6Your title has been changed to &b%s'
+title.success: '&6That title has been changed'
+title.tooLong: '&4That title is too long'
+title.noFormat: '&4You do not have permission to format titles'
+title.noColor: '&4You do not have permission to color titles'
 
 # for /team info [team / player]
 info.needTeam: '&6No team or player found under that name'
@@ -144,10 +152,12 @@ withdraw.notEnough: '&6Your team does not have enougn money'
 chat.syntax: '&6&b[Team]&f%s: %s'
 
 # for admin messages
+admin.inTeam: '&4That player is not in a team'
 admin.config.reload: '&6BetterTeams has been reloaded (If you are having problems when using this command, restart the server)'
 admin.holo.create.success: '&6Hologram created'
 admin.holo.remove.noHolo: '&4No holograms found'
 admin.holo.remove.success: '&6Hologram deleted'
+admin.title.success: '&6that players title has been changed'
 
 # for the nametag syntax
 nametag.syntax: '&6&l%s&r '

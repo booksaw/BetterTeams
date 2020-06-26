@@ -3,6 +3,7 @@ package com.booksaw.betterTeams;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 
 /**
@@ -28,6 +29,8 @@ public class TeamPlayer {
 	 */
 	private boolean teamChat = false;
 
+	private String title;
+
 	/**
 	 * Used to create a new player
 	 * 
@@ -49,6 +52,9 @@ public class TeamPlayer {
 		String[] split = data.split(",");
 		playerUUID = UUID.fromString(split[0]);
 		rank = PlayerRank.valueOf(split[1]);
+		if (split.length > 2) {
+			title = split[2];
+		}
 		teamChat = false;
 	}
 
@@ -77,7 +83,10 @@ public class TeamPlayer {
 
 	@Override
 	public String toString() {
-		return playerUUID + "," + rank;
+		if (title == null || title.equals("")) {
+			return playerUUID + "," + rank;
+		}
+		return playerUUID + "," + rank + "," + title;
 	}
 
 	public boolean isInTeamChat() {
@@ -91,8 +100,24 @@ public class TeamPlayer {
 	/**
 	 * @return the prefix for messages that the player has sent
 	 */
-	public String getPrefix() {
-		return rank.getPrefix();
+	public String getPrefix(ChatColor returnTo) {
+		if (title == null || title.equals("")) {
+			return rank.getPrefix();
+		} else {
+			return rank.getPrefix() + title + returnTo + " ";
+		}
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	/**
+	 * Do not use this method (only should be used in the class Team, instead use
+	 * Team.setTitle() as that will save the updated value)
+	 */
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 }

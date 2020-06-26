@@ -75,3 +75,18 @@ permissions:
    betterTeams.balance:
       default: true
       description: Allows access to /team bal, /team withdraw and /team balance
+   betterTeams.admin.chatspy:
+      default: op
+      description: Allows access to /teama chatspy
+   betterTeams.title:
+      default: true
+      description: Allows access to /team title
+   betterTeams.title.color.color:
+      default: op
+      description: Allows the user to add color codes into their titles
+   betterTeams.title.color.format:
+      default: op
+      description: Allows the user to add format codes into their titles
+   betterTeams.title.self:
+      default: op
+      description: Allows the user to change their own title even if they are not the team owner

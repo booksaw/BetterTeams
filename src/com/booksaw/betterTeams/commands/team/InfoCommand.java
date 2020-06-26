@@ -5,6 +5,7 @@ import java.util.UUID;
 import java.util.Map.Entry;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -82,10 +83,22 @@ public class InfoCommand extends SubCommand {
 
 		if (owners.size() > 0) {
 			String ownerStr = "";
-			for (TeamPlayer player : owners) {
-				ownerStr = ownerStr + player.getPlayer().getName() + " ";
+			ChatColor returnTo = ChatColor.RESET;
+			String toTest = MessageManager.getMessage("info.owner");
+			if (toTest.length() > 1) {
+				for (int i = toTest.length() - 1; i >= 0; i--) {
+					if (toTest.charAt(i) == '§') {
+						returnTo = ChatColor.getByChar(toTest.charAt(i + 1));
+						if (toTest != null) {
+							break;
+						}
+					}
+				}
 			}
 
+			for (TeamPlayer player : owners) {
+				ownerStr = ownerStr + player.getPrefix(returnTo) + player.getPlayer().getName() + " ";
+			}
 			MessageManager.sendMessageF(sender, "info.owner", ownerStr);
 		}
 
@@ -93,8 +106,20 @@ public class InfoCommand extends SubCommand {
 
 		if (admins.size() > 0) {
 			String adminStr = "";
+			ChatColor returnTo = ChatColor.RESET;
+			String toTest = MessageManager.getMessage("info.admin");
+			if (toTest.length() > 1) {
+				for (int i = toTest.length() - 1; i >= 0; i--) {
+					if (toTest.charAt(i) == '§') {
+						returnTo = ChatColor.getByChar(toTest.charAt(i + 1));
+						if (toTest != null) {
+							break;
+						}
+					}
+				}
+			}
 			for (TeamPlayer player : admins) {
-				adminStr = adminStr + player.getPlayer().getName() + " ";
+				adminStr = adminStr + player.getPrefix(returnTo) + player.getPlayer().getName() + " ";
 			}
 
 			MessageManager.sendMessageF(sender, "info.admin", adminStr);
@@ -104,8 +129,20 @@ public class InfoCommand extends SubCommand {
 
 		if (users.size() > 0) {
 			String userStr = "";
+			ChatColor returnTo = ChatColor.RESET;
+			String toTest = MessageManager.getMessage("info.default");
+			if (toTest.length() > 1) {
+				for (int i = toTest.length() - 1; i >= 0; i--) {
+					if (toTest.charAt(i) == '§') {
+						returnTo = ChatColor.getByChar(toTest.charAt(i + 1));
+						if (toTest != null) {
+							break;
+						}
+					}
+				}
+			}
 			for (TeamPlayer player : users) {
-				userStr = userStr + player.getPlayer().getName() + " ";
+				userStr = userStr + player.getPrefix(returnTo) + player.getPlayer().getName() + " ";
 			}
 
 			MessageManager.sendMessageF(sender, "info.default", userStr);

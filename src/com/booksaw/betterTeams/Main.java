@@ -35,12 +35,14 @@ import com.booksaw.betterTeams.commands.team.NameCommand;
 import com.booksaw.betterTeams.commands.team.OpenCommand;
 import com.booksaw.betterTeams.commands.team.PromoteCommand;
 import com.booksaw.betterTeams.commands.team.SethomeCommand;
+import com.booksaw.betterTeams.commands.team.TitleCommand;
 import com.booksaw.betterTeams.commands.team.UnbanCommand;
 import com.booksaw.betterTeams.commands.team.WithdrawCommand;
 import com.booksaw.betterTeams.commands.teama.ChatSpyTeama;
 import com.booksaw.betterTeams.commands.teama.CreateHoloTeama;
 import com.booksaw.betterTeams.commands.teama.ReloadTeama;
 import com.booksaw.betterTeams.commands.teama.RemoveHoloTeama;
+import com.booksaw.betterTeams.commands.teama.TitleTeama;
 import com.booksaw.betterTeams.events.BelowNameManagement;
 import com.booksaw.betterTeams.events.BelowNameManagement.BelowNameType;
 import com.booksaw.betterTeams.events.ChatManagement;
@@ -207,6 +209,14 @@ public class Main extends JavaPlugin {
 			messages.set("prefix.owner", " **");
 			messages.set("prefix.admin", " *");
 			messages.set("prefix.default", "");
+			messages.set("title.change", "&6Your title has been changed to &b%s");
+			messages.set("title.success", "&6That title has been changed");
+			messages.set("bannedChar", "&4A character you tried to use is banned");
+			messages.set("title.tooLong", "&4That title is too long");
+			messages.set("title.noFormat", "&4You do not have permission to format titles");
+			messages.set("title.noColor", "&4You do not have permission to color titles");
+			messages.set("admin.title.success", "&6That players title has been changed");
+			messages.set("admin.inTeam", "&4That player is not in a team");
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
@@ -245,6 +255,8 @@ public class Main extends JavaPlugin {
 			getConfig().set("useVault", true);
 		case 3:
 			getConfig().set("logTeamChat", true);
+		case 4:
+			getConfig().set("maxTitleLength", 10);
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
@@ -385,6 +397,7 @@ public class Main extends JavaPlugin {
 		teamCommand.addSubCommand(new UnbanCommand());
 		teamCommand.addSubCommand(new ChatCommand());
 		teamCommand.addSubCommand(new ColorCommand());
+		teamCommand.addSubCommand(new TitleCommand());
 
 		new BooksawCommand(getCommand("team"), teamCommand);
 
@@ -392,6 +405,7 @@ public class Main extends JavaPlugin {
 
 		teamaCommand.addSubCommand(new ReloadTeama());
 		teamaCommand.addSubCommand(new ChatSpyTeama());
+		teamaCommand.addSubCommand(new TitleTeama());
 
 		if (useHolographicDisplays) {
 			ParentCommand teamaHoloCommand = new ParentCommand("holo");
