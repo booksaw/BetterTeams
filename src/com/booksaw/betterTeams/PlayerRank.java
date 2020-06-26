@@ -24,4 +24,11 @@ public enum PlayerRank {
 	 */
 	ADMIN;
 
+	/**
+	 * @return the prefix for that player rank
+	 */
+	public String getPrefix() {
+		return MessageManager.getMessage("prefix." + this.toString().toLowerCase());
+	}
+
 }

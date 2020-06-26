@@ -814,7 +814,7 @@ public class Team {
 
 	public void sendMessage(TeamPlayer sender, String message) {
 		String fMessage = String.format(MessageManager.getMessage("chat.syntax"),
-				sender.getPlayer().getPlayer().getDisplayName(), message);
+				sender.getPrefix() + sender.getPlayer().getPlayer().getDisplayName(), message);
 
 		for (TeamPlayer player : members) {
 			if (player.getPlayer().isOnline()) {

@@ -34,6 +34,7 @@ Added /teama chatspy to spy on messages sent to team chats
 
 Improvements:
 Added a placeholder for team rank (%betterteams_rank%)
+Players rank in team is now displayed in team chat (via '*' for admins and '**' for owners). This can be changed or disabled in messages.yml
 
 Bug Fixes: 
 

@@ -204,6 +204,9 @@ public class Main extends JavaPlugin {
 			messages.set("placeholder.owner", "owner");
 			messages.set("placeholder.admin", "admin");
 			messages.set("placeholder.default", "Default");
+			messages.set("prefix.owner", " **");
+			messages.set("prefix.admin", " *");
+			messages.set("prefix.default", "");
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;

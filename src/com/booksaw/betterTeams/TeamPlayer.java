@@ -88,4 +88,11 @@ public class TeamPlayer {
 		this.teamChat = teamChat;
 	}
 
+	/**
+	 * @return the prefix for messages that the player has sent
+	 */
+	public String getPrefix() {
+		return rank.getPrefix();
+	}
+
 }
