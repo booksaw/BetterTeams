@@ -33,12 +33,13 @@ Features:
 Added /teama chatspy to spy on messages sent to team chats
 
 Improvements:
-
+Added a placeholder for team rank (%betterteams_rank%)
 
 Bug Fixes: 
 
 
-
+TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
+add /teama chatspy to spigot plugin page
 
 
 

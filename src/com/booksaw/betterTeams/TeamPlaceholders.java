@@ -121,6 +121,25 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 			return team.getScore() + "";
 		}
 
+		if (identifier.equals("rank")) {
+			Team team = Team.getTeam(player);
+
+			if (team == null) {
+				return MessageManager.getMessage("placeholder.noTeam");
+			}
+
+			switch (team.getTeamPlayer(player).getRank()) {
+			case ADMIN:
+				return MessageManager.getMessage("placeholder.admin");
+			case DEFAULT:
+				return MessageManager.getMessage("placeholder.default");
+			case OWNER:
+				return MessageManager.getMessage("placeholder.owner");
+
+			}
+		}
+
 		return null;
+
 	}
 }

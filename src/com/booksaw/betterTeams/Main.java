@@ -201,6 +201,9 @@ public class Main extends JavaPlugin {
 		case 6:
 			messages.set("spy.stop", "&6You are no longer spying on team messages");
 			messages.set("spy.start", "&6You are now spying on team messages");
+			messages.set("placeholder.owner", "owner");
+			messages.set("placeholder.admin", "admin");
+			messages.set("placeholder.default", "Default");
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
