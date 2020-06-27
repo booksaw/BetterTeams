@@ -42,6 +42,7 @@ import com.booksaw.betterTeams.commands.team.UnbanCommand;
 import com.booksaw.betterTeams.commands.team.WithdrawCommand;
 import com.booksaw.betterTeams.commands.teama.ChatSpyTeama;
 import com.booksaw.betterTeams.commands.teama.CreateHoloTeama;
+import com.booksaw.betterTeams.commands.teama.HomeTeama;
 import com.booksaw.betterTeams.commands.teama.ReloadTeama;
 import com.booksaw.betterTeams.commands.teama.RemoveHoloTeama;
 import com.booksaw.betterTeams.commands.teama.TitleTeama;
@@ -228,6 +229,9 @@ public class Main extends JavaPlugin {
 			messages.set("rank.noTeam", "&4Team not found");
 			messages.set("rank.info", "&6Team position:");
 			messages.set("rank.syntax", "&b%s: &6%s &7(%s)");
+			messages.set("admin.noTeam", "&4That is not a team");
+			messages.set("admin.home.success", "&6You have been teleported to that teams home");
+			messages.set("admin.home.noHome", "&4That team does not have a home");
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
@@ -425,6 +429,7 @@ public class Main extends JavaPlugin {
 		teamaCommand.addSubCommand(new ChatSpyTeama());
 		teamaCommand.addSubCommand(new TitleTeama());
 		teamaCommand.addSubCommand(new VersionTeama());
+		teamaCommand.addSubCommand(new HomeTeama());
 
 		if (useHolographicDisplays) {
 			ParentCommand teamaHoloCommand = new ParentCommand("holo");

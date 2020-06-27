@@ -35,6 +35,7 @@ Added /team top to view the leaderboard of teams based on their score
 Added /team rank to view a teams rank 
 Added /teama title <player> <title> to force a player to have a set title
 Added /teama version to view the plugin version
+Added /teama home <team> to teleport to a teams home
 
 Improvements:
 Added a placeholder for team rank (%betterteams_rank%)
@@ -53,6 +54,7 @@ add betterteams.title.self, betterteams.title.color.color, betterteams.title.col
 add /team top betterteams.top 
 Add /team rank betterteams.rank
 add /teama version betterteams.admin.version
+add /teama home <team> betterteams.admin.home
 Seperate unban, sethome and demote
 Updates config and messages.yml version
 
