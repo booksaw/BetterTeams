@@ -60,6 +60,9 @@ public class ChatManagement implements Listener {
 		event.setCancelled(true);
 
 		team.sendMessage(teamPlayer, event.getMessage());
+		// Used as some chat plugins do not accept when a message is cancelled
+		event.setMessage("");
+		event.setFormat("");
 	}
 
 	@EventHandler
