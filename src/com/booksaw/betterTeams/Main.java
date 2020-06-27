@@ -36,6 +36,7 @@ import com.booksaw.betterTeams.commands.team.OpenCommand;
 import com.booksaw.betterTeams.commands.team.PromoteCommand;
 import com.booksaw.betterTeams.commands.team.SethomeCommand;
 import com.booksaw.betterTeams.commands.team.TitleCommand;
+import com.booksaw.betterTeams.commands.team.TopCommand;
 import com.booksaw.betterTeams.commands.team.UnbanCommand;
 import com.booksaw.betterTeams.commands.team.WithdrawCommand;
 import com.booksaw.betterTeams.commands.teama.ChatSpyTeama;
@@ -220,6 +221,9 @@ public class Main extends JavaPlugin {
 			messages.set("admin.title.success", "&6That players title has been changed");
 			messages.set("admin.inTeam", "&4That player is not in a team");
 			messages.set("admin.version", "&6Current plugin version: %s");
+			messages.set("top.leaderboard", "&6Leaderboard");
+			messages.set("top.sytax", "&b%s: &6%s &7(%s)");
+			messages.set("top.divide", "&f...");
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
@@ -405,6 +409,7 @@ public class Main extends JavaPlugin {
 		teamCommand.addSubCommand(new ChatCommand());
 		teamCommand.addSubCommand(new ColorCommand());
 		teamCommand.addSubCommand(new TitleCommand());
+		teamCommand.addSubCommand(new TopCommand());
 
 		new BooksawCommand(getCommand("team"), teamCommand);
 

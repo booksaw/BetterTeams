@@ -166,6 +166,10 @@ nametag.syntax: '&6&l%s&r '
 holo.leaderboard: '&6Leaderboard' 
 holo.syntax: '&6%s: &b%s'
 
+top.leaderboard: '&6Leaderboard'
+top.syntax: '&b%s: &6%s &7(%s)'
+top.divide: '&f...'
+
 spy.stop: '&6You are no longer spying on team messages'
 spy.start: '&6You are now spying on team messages'
 
