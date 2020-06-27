@@ -43,6 +43,7 @@ import com.booksaw.betterTeams.commands.teama.CreateHoloTeama;
 import com.booksaw.betterTeams.commands.teama.ReloadTeama;
 import com.booksaw.betterTeams.commands.teama.RemoveHoloTeama;
 import com.booksaw.betterTeams.commands.teama.TitleTeama;
+import com.booksaw.betterTeams.commands.teama.VersionTeama;
 import com.booksaw.betterTeams.events.BelowNameManagement;
 import com.booksaw.betterTeams.events.BelowNameManagement.BelowNameType;
 import com.booksaw.betterTeams.events.ChatManagement;
@@ -218,6 +219,7 @@ public class Main extends JavaPlugin {
 			messages.set("title.noColor", "&4You do not have permission to color titles");
 			messages.set("admin.title.success", "&6That players title has been changed");
 			messages.set("admin.inTeam", "&4That player is not in a team");
+			messages.set("admin.version", "&6Current plugin version: %s");
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
@@ -411,6 +413,7 @@ public class Main extends JavaPlugin {
 		teamaCommand.addSubCommand(new ReloadTeama());
 		teamaCommand.addSubCommand(new ChatSpyTeama());
 		teamaCommand.addSubCommand(new TitleTeama());
+		teamaCommand.addSubCommand(new VersionTeama());
 
 		if (useHolographicDisplays) {
 			ParentCommand teamaHoloCommand = new ParentCommand("holo");

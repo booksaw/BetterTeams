@@ -24,7 +24,6 @@ Improvements:
 Team prefix can is editable in messages.yml (https://github.com/booksaw/BetterTeams/issues/6)
 /team chat messages can now be logged to the console
 
-
 Bug Fixes: 
 Fixed team chat priority issue (https://github.com/booksaw/BetterTeams/issues/5)
 
@@ -33,13 +32,14 @@ Features:
 Added /teama chatspy to spy on messages sent to team chats
 Added /team title <player/me> <title> to set the title of that team 
 Added /teama title <player> <title> to force a player to have a set title
+Added /teama version to view the plugin version
 
 Improvements:
 Added a placeholder for team rank (%betterteams_rank%)
 Players rank in team is now displayed in team chat (via '*' for admins and '**' for owners). This can be changed or disabled in messages.yml
 
 Bug Fixes: 
-Fixed a bug where if HolographicDisplays is present on the server, but not enabled the plugin breaks. 
+Fixed a bug where if HolographicDisplays is present but not enabled on the server, errors appear in the console. 
 
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
@@ -47,6 +47,7 @@ add new commands help messages to messages.yml
 add /teama chatspy to spigot plugin page
 add /team title to wiki and spigot plugin page (betterteams.title.others) 
 add betterteams.title.self, betterteams.title.color.color, betterteams.title.color.format
+add /teama vresion admin.version
 Updates config and messages.yml version
 
 

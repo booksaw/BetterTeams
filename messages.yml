@@ -158,6 +158,7 @@ admin.holo.create.success: '&6Hologram created'
 admin.holo.remove.noHolo: '&4No holograms found'
 admin.holo.remove.success: '&6Hologram deleted'
 admin.title.success: '&6that players title has been changed'
+admin.version: '&6Current plugin version: %s'
 
 # for the nametag syntax
 nametag.syntax: '&6&l%s&r '
