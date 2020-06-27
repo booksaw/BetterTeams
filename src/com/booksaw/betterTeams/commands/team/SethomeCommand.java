@@ -36,7 +36,7 @@ public class SethomeCommand extends TeamSubCommand {
 
 	@Override
 	public String getNode() {
-		return "home";
+		return "sethome";
 	}
 
 	@Override

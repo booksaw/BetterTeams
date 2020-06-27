@@ -79,7 +79,7 @@ public class DemoteCommand extends TeamSubCommand {
 
 	@Override
 	public String getNode() {
-		return "promote";
+		return "demote";
 	}
 
 	@Override

@@ -39,6 +39,7 @@ Added /teama version to view the plugin version
 Improvements:
 Added a placeholder for team rank (%betterteams_rank%)
 Players rank in team is now displayed in team chat (via '*' for admins and '**' for owners). This can be changed or disabled in messages.yml
+Separated the permission nodes for /team unban, /team sethome and /team demote from other commands. 
 
 Bug Fixes: 
 Fixed a bug where if HolographicDisplays is present but not enabled on the server, errors appear in the console. 
@@ -52,6 +53,7 @@ add betterteams.title.self, betterteams.title.color.color, betterteams.title.col
 add /team top betterteams.top 
 Add /team rank betterteams.rank
 add /teama version betterteams.admin.version
+Seperate unban, sethome and demote
 Updates config and messages.yml version
 
 

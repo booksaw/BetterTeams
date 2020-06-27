@@ -54,7 +54,7 @@ public class UnbanCommand extends TeamSubCommand {
 
 	@Override
 	public String getNode() {
-		return "ban";
+		return "unban";
 	}
 
 	@Override
