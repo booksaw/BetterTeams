@@ -22,11 +22,11 @@ public class TopCommand extends SubCommand {
 		}
 
 		Team[] teams = Team.sortTeams();
-		sender.sendMessage(MessageManager.getMessage("top.leaderboard"));
+		sender.sendMessage(MessageManager.getPrefix() + MessageManager.getMessage("top.leaderboard"));
 
 		for (int i = 0; i < 10 && i < teams.length; i++) {
-			sender.sendMessage(String.format(MessageManager.getMessage("top.syntax"), (i + 1) + "", teams[i].getName(),
-					teams[i].getScore()));
+			sender.sendMessage(MessageManager.getPrefix() + String.format(MessageManager.getMessage("top.syntax"),
+					(i + 1) + "", teams[i].getName(), teams[i].getScore()));
 			if (team == teams[i]) {
 				contained = true;
 			}
@@ -44,16 +44,19 @@ public class TopCommand extends SubCommand {
 				if (rank != 0) {
 					MessageManager.sendMessage(sender, "top.divide");
 					if (rank - 2 > 9) {
-						sender.sendMessage(String.format(MessageManager.getMessage("top.syntax"), (rank - 1) + "",
-								teams[rank - 2].getName(), teams[rank - 2].getScore()));
+						sender.sendMessage(
+								MessageManager.getPrefix() + String.format(MessageManager.getMessage("top.syntax"),
+										(rank - 1) + "", teams[rank - 2].getName(), teams[rank - 2].getScore()));
 					}
 
-					sender.sendMessage(String.format(MessageManager.getMessage("top.syntax"), rank + "", team.getName(),
-							team.getScore()));
+					sender.sendMessage(
+							String.format(MessageManager.getPrefix() + MessageManager.getMessage("top.syntax"),
+									rank + "", team.getName(), team.getScore()));
 
 					if (teams.length > rank) {
-						sender.sendMessage(String.format(MessageManager.getMessage("top.syntax"), (rank + 1) + "",
-								teams[rank].getName(), teams[rank].getScore()));
+						sender.sendMessage(
+								MessageManager.getPrefix() + String.format(MessageManager.getMessage("top.syntax"),
+										(rank + 1) + "", teams[rank].getName(), teams[rank].getScore()));
 					}
 				}
 			} catch (ArrayIndexOutOfBoundsException e) {

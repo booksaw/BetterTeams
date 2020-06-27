@@ -32,6 +32,7 @@ Features:
 Added /teama chatspy to spy on messages sent to team chats
 Added /team title <player/me> <title> to set the title of that team 
 Added /team top to view the leaderboard of teams based on their score
+Added /team rank to view a teams rank 
 Added /teama title <player> <title> to force a player to have a set title
 Added /teama version to view the plugin version
 
@@ -49,6 +50,7 @@ add /teama chatspy to spigot plugin page
 add /team title to wiki and spigot plugin page (betterteams.title.others) 
 add betterteams.title.self, betterteams.title.color.color, betterteams.title.color.format
 add /team top betterteams.top 
+Add /team rank betterteams.rank
 add /teama version betterteams.admin.version
 Updates config and messages.yml version
 

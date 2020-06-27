@@ -34,6 +34,7 @@ import com.booksaw.betterTeams.commands.team.LeaveCommand;
 import com.booksaw.betterTeams.commands.team.NameCommand;
 import com.booksaw.betterTeams.commands.team.OpenCommand;
 import com.booksaw.betterTeams.commands.team.PromoteCommand;
+import com.booksaw.betterTeams.commands.team.RankCommand;
 import com.booksaw.betterTeams.commands.team.SethomeCommand;
 import com.booksaw.betterTeams.commands.team.TitleCommand;
 import com.booksaw.betterTeams.commands.team.TopCommand;
@@ -224,6 +225,9 @@ public class Main extends JavaPlugin {
 			messages.set("top.leaderboard", "&6Leaderboard");
 			messages.set("top.sytax", "&b%s: &6%s &7(%s)");
 			messages.set("top.divide", "&f...");
+			messages.set("rank.noTeam", "&4Team not found");
+			messages.set("rank.info", "&6Team position:");
+			messages.set("rank.syntax", "&b%s: &6%s &7(%s)");
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
@@ -234,6 +238,7 @@ public class Main extends JavaPlugin {
 
 		// if something has been changed, saving the new config
 		if (changes) {
+			Bukkit.getLogger().info("Saving new messages to messages.yml");
 			File f = new File("plugins/BetterTeams/messages.yml");
 			try {
 				messages.save(f);
@@ -410,6 +415,7 @@ public class Main extends JavaPlugin {
 		teamCommand.addSubCommand(new ColorCommand());
 		teamCommand.addSubCommand(new TitleCommand());
 		teamCommand.addSubCommand(new TopCommand());
+		teamCommand.addSubCommand(new RankCommand());
 
 		new BooksawCommand(getCommand("team"), teamCommand);
 

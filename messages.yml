@@ -40,6 +40,11 @@ create.maxLength: '&4That team name is too long'
 leave.success: '&6You have left the team'
 leave.lastOwner: '&6You are the only owner rank within the team, Either promote someone else or use &b/team disband &6to disband the team'
 
+# for /team rank
+rank.noTeam: '&4Team not found'
+rank.info: '&6Team position:'
+rank.syntax: '&b%s: &6%s &7(%s)'
+
 # for /team disband
 disband.success: '&6You have disbanded the team'
 disband.confirm: '&6Type &b/team disband &6again to confirm'
