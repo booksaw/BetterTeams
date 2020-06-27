@@ -740,6 +740,12 @@ public class Team {
 		Main.plugin.saveTeams();
 	}
 
+	public void deleteTeamHome() {
+		teamHome = null;
+		setValue(Main.plugin.getTeams(), "home", "");
+		Main.plugin.saveTeams();
+	}
+
 	/**
 	 * This method is used to convert a string into a location which can be stored
 	 * for later use

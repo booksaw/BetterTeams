@@ -21,6 +21,7 @@ import com.booksaw.betterTeams.commands.team.BanCommand;
 import com.booksaw.betterTeams.commands.team.ChatCommand;
 import com.booksaw.betterTeams.commands.team.ColorCommand;
 import com.booksaw.betterTeams.commands.team.CreateCommand;
+import com.booksaw.betterTeams.commands.team.DelHome;
 import com.booksaw.betterTeams.commands.team.DemoteCommand;
 import com.booksaw.betterTeams.commands.team.DepositCommand;
 import com.booksaw.betterTeams.commands.team.DescriptionCommand;
@@ -232,6 +233,8 @@ public class Main extends JavaPlugin {
 			messages.set("admin.noTeam", "&4That is not a team");
 			messages.set("admin.home.success", "&6You have been teleported to that teams home");
 			messages.set("admin.home.noHome", "&4That team does not have a home");
+			messages.set("delhome.success", "&6Your team home has been deleted");
+			messages.set("delhome.noHome", "&4Your team has not set a home");
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
@@ -420,6 +423,7 @@ public class Main extends JavaPlugin {
 		teamCommand.addSubCommand(new TitleCommand());
 		teamCommand.addSubCommand(new TopCommand());
 		teamCommand.addSubCommand(new RankCommand());
+		teamCommand.addSubCommand(new DelHome());
 
 		new BooksawCommand(getCommand("team"), teamCommand);
 
