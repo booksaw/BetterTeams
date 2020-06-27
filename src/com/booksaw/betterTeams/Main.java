@@ -79,12 +79,13 @@ public class Main extends JavaPlugin {
 		ChatManagement.enable();
 		Team.loadTeams();
 
-		if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+		if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI").isEnabled()) {
 			new TeamPlaceholders(this).register();
 			updateHolos();
 		}
 
-		useHolographicDisplays = Bukkit.getPluginManager().isPluginEnabled("HolographicDisplays");
+		useHolographicDisplays = (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null
+				&& Bukkit.getPluginManager().isPluginEnabled("HolographicDisplays"));
 
 		if (!setupEconomy() || !getConfig().getBoolean("useVault")) {
 			econ = null;
@@ -315,6 +316,10 @@ public class Main extends JavaPlugin {
 		scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
 			@Override
 			public void run() {
+				if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") == null
+						|| !Bukkit.getPluginManager().getPlugin("PlaceholderAPI").isEnabled()) {
+					return;
+				}
 				// if no score changes have been made
 				if (!Team.scoreChanges) {
 					return;

@@ -39,6 +39,7 @@ Added a placeholder for team rank (%betterteams_rank%)
 Players rank in team is now displayed in team chat (via '*' for admins and '**' for owners). This can be changed or disabled in messages.yml
 
 Bug Fixes: 
+Fixed a bug where if HolographicDisplays is present on the server, but not enabled the plugin breaks. 
 
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
