@@ -15,6 +15,7 @@ bannedChar: '&4A character you tried to use is banned"'
 # do not change this, it is used to check the messages version (test if there are any missing messages)
 version: 7
 
+cooldown.wait: '&4You need to wait another %s seconds before running that!'
 # for placeholders
 # This is the placeholder for when the user has no team
 placeholder.noTeam: ''

@@ -1,0 +1,8 @@
+# This file is used to determine any /team commands which contain a cooldown or price . NOTE this currently does not work with /teama commands
+
+# COOLDOWNS - Only let a player run a command every set number of seconds. 
+# To bypass the cooldown have the permission node betterTeams.cooldown.bypass
+# To add a cooldown to this file, an example is shown below
+cooldowns: 
+#  - 'home:60'
+## The line above will add a 60 second cooldown to the command /team home

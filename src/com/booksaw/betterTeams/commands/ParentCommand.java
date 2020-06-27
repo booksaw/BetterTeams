@@ -8,6 +8,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.booksaw.betterTeams.MessageManager;
+import com.booksaw.betterTeams.cooldown.CommandCooldown;
+import com.booksaw.betterTeams.cooldown.CooldownManager;
 
 /**
  * This is used for any parent commands across the system
@@ -27,6 +29,8 @@ public class ParentCommand extends SubCommand {
 	 */
 	private String command;
 
+	private CooldownManager cooldowns = null;
+
 	/**
 	 * Creates a new parent command with a set of sub commands
 	 * 
@@ -36,6 +40,11 @@ public class ParentCommand extends SubCommand {
 	public ParentCommand(String command) {
 		this.command = command;
 		subCommands.put("help", new HelpCommand(this));
+	}
+
+	public ParentCommand(CooldownManager cooldowns, String command) {
+		this(command);
+		this.cooldowns = cooldowns;
 	}
 
 	/**
@@ -77,6 +86,16 @@ public class ParentCommand extends SubCommand {
 		} else if (command.needPlayer() && !(sender instanceof Player)) {
 			MessageManager.sendMessage(sender, "needPlayer");
 			return null;
+		}
+
+		if (cooldowns != null && sender instanceof Player) {
+			CommandCooldown cooldown = cooldowns.getCooldown(command.getCommand());
+			int remaining = cooldown.getRemaining((Player) sender);
+			if (remaining != -1) {
+				MessageManager.sendMessageF(sender, "cooldown.wait", remaining + "");
+				return null;
+			}
+			cooldown.runCommand((Player) sender);
 		}
 
 		String result = command.onCommand(sender, label, newArgs);

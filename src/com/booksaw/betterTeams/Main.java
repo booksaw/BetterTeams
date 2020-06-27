@@ -48,6 +48,7 @@ import com.booksaw.betterTeams.commands.teama.ReloadTeama;
 import com.booksaw.betterTeams.commands.teama.RemoveHoloTeama;
 import com.booksaw.betterTeams.commands.teama.TitleTeama;
 import com.booksaw.betterTeams.commands.teama.VersionTeama;
+import com.booksaw.betterTeams.cooldown.CooldownManager;
 import com.booksaw.betterTeams.events.BelowNameManagement;
 import com.booksaw.betterTeams.events.BelowNameManagement.BelowNameType;
 import com.booksaw.betterTeams.events.ChatManagement;
@@ -235,6 +236,7 @@ public class Main extends JavaPlugin {
 			messages.set("admin.home.noHome", "&4That team does not have a home");
 			messages.set("delhome.success", "&6Your team home has been deleted");
 			messages.set("delhome.noHome", "&4Your team has not set a home");
+			messages.set("cooldown.wait", "&4You need to wait another %s seconds before running that!");
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
@@ -400,7 +402,7 @@ public class Main extends JavaPlugin {
 	}
 
 	public void setupCommands() {
-		ParentCommand teamCommand = new ParentCommand("team");
+		ParentCommand teamCommand = new ParentCommand(new CooldownManager("team"), "team");
 		// add all sub commands here
 		teamCommand.addSubCommand(new CreateCommand());
 		teamCommand.addSubCommand(new LeaveCommand());
