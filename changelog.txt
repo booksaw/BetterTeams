@@ -4,7 +4,7 @@ This will also be reviewed once an update is released to ensure that the plugin 
 3.0.7:
 Features: 
 Added the ability to create a fully custom help message (there is an option in the config for it) 
-Added /team color to change the color of a teams nametag (not you may need to remove the color code in messages.yml under the heading nametag.syntax for this to work) 
+Added /team color to change the color of a teams nametag (note you may need to remove the color code in messages.yml under the heading nametag.syntax for this to work) 
 Added bStats to log anonymous data about plugin usage
 Added an option for teams to have money associated with them (using vault) 
 
@@ -29,6 +29,8 @@ Fixed team chat priority issue (https://github.com/booksaw/BetterTeams/issues/5)
 
 3.0.9
 Features: 
+/team commands can now have a cooldown, this is configured within team.yml
+
 Added /teama chatspy to spy on messages sent to team chats
 Added /team title <player/me> <title> to set the title of that team 
 Added /team top to view the leaderboard of teams based on their score
