@@ -29,7 +29,7 @@ Fixed team chat priority issue (https://github.com/booksaw/BetterTeams/issues/5)
 
 3.0.9
 Features: 
-/team commands can now have a cooldown, this is configured within team.yml
+/team commands can now have a cooldown or price associated with them, this is configured within team.yml
 
 Added /teama chatspy to spy on messages sent to team chats
 Added /team title <player/me> <title> to set the title of that team 
@@ -60,6 +60,7 @@ Add /team rank betterteams.rank
 add /teama version betterteams.admin.version
 add /teama home <team> betterteams.admin.home
 Add betterteams.cooldown.bypass
+Add betterteams.cost.bypass
 Separate unban, sethome and demote permissions
 Updates config and messages.yml version
 

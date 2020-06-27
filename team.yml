@@ -6,3 +6,8 @@
 cooldowns: 
 #  - 'home:60'
 ## The line above will add a 60 second cooldown to the command /team home
+
+# COSTS - Make take a certain amount of money from the players balance when they run a command
+# To bypass the cost have the permission node betterteams.cost.bypass
+costs:
+#  - 'home:9.99'

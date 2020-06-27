@@ -1,5 +1,6 @@
 package com.booksaw.betterTeams.commands;
 
+import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -10,6 +11,8 @@ import org.bukkit.entity.Player;
 import com.booksaw.betterTeams.MessageManager;
 import com.booksaw.betterTeams.cooldown.CommandCooldown;
 import com.booksaw.betterTeams.cooldown.CooldownManager;
+import com.booksaw.betterTeams.cost.CommandCost;
+import com.booksaw.betterTeams.cost.CostManager;
 
 /**
  * This is used for any parent commands across the system
@@ -30,6 +33,7 @@ public class ParentCommand extends SubCommand {
 	private String command;
 
 	private CooldownManager cooldowns = null;
+	private CostManager prices = null;
 
 	/**
 	 * Creates a new parent command with a set of sub commands
@@ -42,9 +46,10 @@ public class ParentCommand extends SubCommand {
 		subCommands.put("help", new HelpCommand(this));
 	}
 
-	public ParentCommand(CooldownManager cooldowns, String command) {
+	public ParentCommand(CostManager prices, CooldownManager cooldowns, String command) {
 		this(command);
 		this.cooldowns = cooldowns;
+		this.prices = prices;
 	}
 
 	/**
@@ -95,7 +100,19 @@ public class ParentCommand extends SubCommand {
 				MessageManager.sendMessageF(sender, "cooldown.wait", remaining + "");
 				return null;
 			}
-			cooldown.runCommand((Player) sender);
+
+		}
+
+		if (prices != null && sender instanceof Player) {
+			CommandCost price = prices.getCommandCost(command.getCommand());
+			if (!price.runCommand((Player) sender)) {
+				MessageManager.sendMessage(sender, "cost.tooPoor");
+				return null;
+			}
+			if (price.getCost() > 0) {
+				NumberFormat formatter = NumberFormat.getCurrencyInstance();
+				MessageManager.sendMessageF(sender, "cost.run", formatter.format(price.getCost()));
+			}
 		}
 
 		String result = command.onCommand(sender, label, newArgs);
@@ -105,6 +122,12 @@ public class ParentCommand extends SubCommand {
 			displayHelp(sender, label, args);
 			return null;
 		}
+
+		if (cooldowns != null && sender instanceof Player) {
+			CommandCooldown cooldown = cooldowns.getCooldown(command.getCommand());
+			cooldown.runCommand((Player) sender);
+		}
+
 		MessageManager.sendMessage(sender, result);
 
 		return null;
