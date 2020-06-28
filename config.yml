@@ -123,8 +123,16 @@ useVault: true
 # - If this is enabled, all messages sent to team chats will be logged to console 
 # - If this is disabled, team chat messages will not be stored anywhere
 # 
-# Posssible values [true, false ]
+# Posssible values: [true, false]
 logTeamChat: true 
+
+# This option determines if users are allowed to do /team chat to toggle their team chat, instead of just /team chat message 
+# - If team chat messages are not being cancelled correctly (this will be caused by some other plugin on your server) This can be enabled to at least hide the problem 
+# - If this is set to true a user can do /team chat to toggle if team chat is enabled or not
+# - If this value is set to false, it is recommened you ammend the help messages relating to team chat which hint that /team chat will toggle instead of just being for /team chat <message>
+#
+# Possible values: [true, false]
+allowToggleTeamChat: true
 
 # Do not edit this value, this is used to check the config is up to date with the lastest version of the plugin (if it is not, it will be automatically updated)
 version: 2

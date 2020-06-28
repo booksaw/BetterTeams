@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.bukkit.command.CommandSender;
 
+import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
@@ -15,6 +16,10 @@ public class ChatCommand extends TeamSubCommand {
 
 		if (args.length == 0) {
 			// toggle chat
+			if (!Main.plugin.getConfig().getBoolean("allowToggleTeamChat")) {
+				return "help";
+			}
+
 			if (player.isInTeamChat()) {
 				player.setTeamChat(false);
 				return "chat.disabled";

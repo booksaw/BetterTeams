@@ -44,6 +44,7 @@ Improvements:
 Added a placeholder for team rank (%betterteams_rank%)
 Players rank in team is now displayed in team chat (via '*' for admins and '**' for owners). This can be changed or disabled in messages.yml
 Separated the permission nodes for /team unban, /team sethome and /team demote from other commands. 
+Added an option to disable toggeling team chat, this should be used if your chat manager is not detecting messages to team chats are cancelled from the main chat
 
 Bug Fixes: 
 Fixed a bug where if HolographicDisplays is present but not enabled on the server, errors appear in the console. 
