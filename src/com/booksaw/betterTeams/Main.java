@@ -223,7 +223,9 @@ public class Main extends JavaPlugin {
 			messages.set("title.tooLong", "&4That title is too long");
 			messages.set("title.noFormat", "&4You do not have permission to format titles");
 			messages.set("title.noColor", "&4You do not have permission to color titles");
+			messages.set("title.reset", "&6The title has been reset");
 			messages.set("admin.title.success", "&6That players title has been changed");
+			messages.set("admin.title.reset", "&6Your title has been removed");
 			messages.set("admin.inTeam", "&4That player is not in a team");
 			messages.set("admin.version", "&6Current plugin version: %s");
 			messages.set("top.leaderboard", "&6Leaderboard");

@@ -30,6 +30,12 @@ public class TitleTeama extends SubCommand {
 			return "noPlayer";
 		}
 
+		if (args.length == 1) {
+			team.setTitle(toTitle, "");
+			MessageManager.sendMessage(toTitle.getPlayer().getPlayer(), "admin.title.reset");
+			return "title.success";
+		}
+
 		if (args[1].length() > Main.plugin.getConfig().getInt("maxTitleLength")) {
 			return "title.tooLong";
 		}
@@ -71,7 +77,7 @@ public class TitleTeama extends SubCommand {
 
 	@Override
 	public int getMinimumArguments() {
-		return 2;
+		return 1;
 	}
 
 	@Override
