@@ -2,9 +2,9 @@ package com.booksaw.betterTeams.events;
 
 import java.util.Collection;
 
-import org.bukkit.entity.Arrow;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.entity.ThrownPotion;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -57,9 +57,9 @@ public class DamageManagement implements Listener {
 				// they are on the same team
 				e.setCancelled(true);
 			}
-		} else if (e.getDamager() instanceof Arrow) {
+		} else if (e.getDamager() instanceof Projectile && !(e.getDamager() instanceof ThrownPotion)) {
 			Team temp = Team.getTeam((Player) e.getEntity());
-			Arrow arrow = (Arrow) e.getDamager();
+			Projectile arrow = (Projectile) e.getDamager();
 			ProjectileSource source = arrow.getShooter();
 			if (source instanceof Player && temp != null && temp == Team.getTeam((Player) source)) {
 				// they are on the same team

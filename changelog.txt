@@ -48,6 +48,7 @@ Added an option to disable toggeling team chat, this should be used if your chat
 
 Bug Fixes: 
 Fixed a bug where if HolographicDisplays is present but not enabled on the server, errors appear in the console. 
+Fixed a bug where tridents could still be used to damage team members. 
 
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
