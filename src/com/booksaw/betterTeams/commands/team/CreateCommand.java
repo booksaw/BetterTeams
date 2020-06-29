@@ -10,7 +10,7 @@ import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.presets.NoTeamSubCommand;
 
 /**
- * This class handles the /team create <team> command
+ * This class handles the /team create [team] command
  * 
  * @author booksaw
  *

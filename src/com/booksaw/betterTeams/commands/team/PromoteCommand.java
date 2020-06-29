@@ -13,7 +13,7 @@ import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 
 /**
- * This class handles the command /team promote <player>
+ * This class handles the command /team promote [player]
  * 
  * @author booksaw
  *

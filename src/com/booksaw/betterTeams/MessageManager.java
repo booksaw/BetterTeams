@@ -106,9 +106,8 @@ public class MessageManager {
 	}
 
 	/**
-	 * Used to get the prefix for all messages
 	 * 
-	 * @return
+	 * @return the prefix for all messages Defaults to [BetterTeams] unless it is changed by end user 
 	 */
 	public static String getPrefix() {
 		return prefix;

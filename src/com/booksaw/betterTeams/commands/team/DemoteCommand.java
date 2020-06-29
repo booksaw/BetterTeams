@@ -13,9 +13,9 @@ import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 
 /**
- * This class handles the command /team demote <player>
+ * This class handles the command /team demote [player]
  * 
- * @author nfgg2
+ * @author booksaw
  *
  */
 public class DemoteCommand extends TeamSubCommand {

@@ -52,6 +52,7 @@ import com.booksaw.betterTeams.cooldown.CooldownManager;
 import com.booksaw.betterTeams.cost.CostManager;
 import com.booksaw.betterTeams.events.BelowNameManagement;
 import com.booksaw.betterTeams.events.BelowNameManagement.BelowNameType;
+import com.booksaw.betterTeams.metrics.Metrics;
 import com.booksaw.betterTeams.events.ChatManagement;
 import com.booksaw.betterTeams.events.DamageManagement;
 import com.booksaw.betterTeams.events.ScoreManagement;
@@ -60,6 +61,11 @@ import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
 
 import net.milkbowl.vault.economy.Economy;
 
+/**
+ * Main class of the plugin, extends JavaPlugin
+ * @author booksaw
+ *
+ */
 public class Main extends JavaPlugin {
 
 	public static Main plugin;
@@ -299,9 +305,8 @@ public class Main extends JavaPlugin {
 	}
 
 	/**
-	 * This is used to store the config file in which the t
+	 * @return the config fle in which all team information is stored
 	 */
-
 	public FileConfiguration getTeams() {
 		return teams;
 	}

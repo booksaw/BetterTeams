@@ -38,7 +38,7 @@ public class ParentCommand extends SubCommand {
 	/**
 	 * Creates a new parent command with a set of sub commands
 	 * 
-	 * @param helpCommand the command which will be defaulted to if the user enters
+	 * @param command the command which will be defaulted to if the user enters
 	 *                    an incorrect command
 	 */
 	public ParentCommand(String command) {

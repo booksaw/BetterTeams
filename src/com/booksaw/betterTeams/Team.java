@@ -114,7 +114,8 @@ public class Team {
 	 * should be done before this method is called
 	 * </p>
 	 * 
-	 * @param name the name of the new team
+	 * @param name  the name of the new team
+	 * @param owner the owner of the new team (the player who ran /team create)
 	 */
 	public static void createNewTeam(String name, Player owner) {
 
@@ -144,6 +145,10 @@ public class Team {
 		return teamList;
 	}
 
+	/**
+	 * This method is used to sort all the teams into an arry ranking from hightest score to lowest 
+	 * @return the array of teams in order of their rank
+	 */
 	public static Team[] sortTeams() {
 		Team[] rankedTeams = new Team[teamList.size()];
 
@@ -818,6 +823,11 @@ public class Team {
 		return false;
 	}
 
+	/**
+	 * Used when a player sends a message to the team chat 
+	 * @param sender the player which sent the message to the team chat 
+	 * @param message the message to send to the team chat
+	 */
 	public void sendMessage(TeamPlayer sender, String message) {
 		ChatColor returnTo = ChatColor.RESET;
 		String toTest = MessageManager.getMessage("chat.syntax");
@@ -889,6 +899,14 @@ public class Team {
 
 	org.bukkit.scoreboard.Team team;
 
+	/**
+	 * Used throughout all below name management (showing team name above player
+	 * name)
+	 * 
+	 * @param board the scoreboard to add the team to
+	 * @param type  the type of the scoreboard team (mainly for prefix / suffix)
+	 * @return the team that has been created
+	 */
 	public org.bukkit.scoreboard.Team getScoreboardTeam(Scoreboard board, BelowNameType type) {
 		if (team != null) {
 			return team;

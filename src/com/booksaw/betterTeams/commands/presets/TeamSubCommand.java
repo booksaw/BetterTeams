@@ -34,6 +34,7 @@ public abstract class TeamSubCommand extends SubCommand {
 	 * @param player the player who is in a team
 	 * @param label  the label for the command
 	 * @param args   the arguments for the command
+	 * @param team the team that the player is in
 	 * @return the message reference to send to the user
 	 */
 	public abstract String onCommand(TeamPlayer player, String label, String[] args, Team team);

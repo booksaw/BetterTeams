@@ -55,6 +55,8 @@ public class HelpCommand extends SubCommand {
 
 	/**
 	 * Used to send a fully custom help message which is stored in a file
+	 * @param sender the CommandSender that called the help message
+	 * @param label the label for the message (the base command for example for /teamadmin it could be /teama as well) 
 	 */
 	public void fullyCustom(CommandSender sender, String label) {
 		File f = new File(Main.plugin.getDataFolder() + File.separator + command.getCommand() + ".txt");
@@ -111,7 +113,7 @@ public class HelpCommand extends SubCommand {
 	 * user
 	 * 
 	 * @param label       the base command
-	 * @param commandPath the rest of the command (i.e. help \<param\>)
+	 * @param commandPath the rest of the command (i.e. help [param])
 	 * @param description the description of the command
 	 * @return the created message relating to that command
 	 */

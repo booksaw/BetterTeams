@@ -17,7 +17,7 @@ import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.SubCommand;
 
 /**
- * This class handles the command /team info <team/player>
+ * This class handles the command /team info [team/player]
  * 
  * @author booksaw
  *

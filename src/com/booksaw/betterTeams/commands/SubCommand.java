@@ -66,24 +66,18 @@ public abstract class SubCommand {
 	public abstract String getCommand();
 
 	/**
-	 * This is used to get the permission node for that sub command
-	 * 
-	 * @return
+	 * @return the permission node for that sub command
 	 */
 	public abstract String getNode();
 
 	/**
-	 * This is used to get the help information for that sub command (this does not
-	 * include the arguments)
-	 * 
-	 * @return
+	 * @return the help information for that sub command (this does not include the
+	 *         arguments)
 	 */
 	public abstract String getHelp();
 
 	/**
-	 * This is used to get the arguments for that sub command ie '<name>'
-	 * 
-	 * @return
+	 * @return the arguments for that sub command ie '[name]'
 	 */
 	public abstract String getArguments();
 
@@ -118,6 +112,7 @@ public abstract class SubCommand {
 	 * players on the server
 	 * 
 	 * @param options the tab complete list to work on
+	 * @param argument the details of that argument that have already been entered (ie 'boo' when typing 'booksaw')
 	 */
 	public void addPlayerStringList(List<String> options, String argument) {
 		for (Player p : Bukkit.getOnlinePlayers()) {

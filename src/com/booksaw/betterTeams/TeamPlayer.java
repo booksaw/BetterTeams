@@ -46,7 +46,7 @@ public class TeamPlayer {
 	/**
 	 * Used to load player information relating to that player
 	 * 
-	 * @param data
+	 * @param data the data for the player (uuid,rank,title)
 	 */
 	public TeamPlayer(String data) {
 		String[] split = data.split(",");
@@ -98,6 +98,9 @@ public class TeamPlayer {
 	}
 
 	/**
+	 * @param returnTo the chat color that should be returned to after the prefix
+	 *                 has been added (to stop the color of the prefix continuing
+	 *                 for the rest of the message)
 	 * @return the prefix for messages that the player has sent
 	 */
 	public String getPrefix(ChatColor returnTo) {
@@ -115,6 +118,9 @@ public class TeamPlayer {
 	/**
 	 * Do not use this method (only should be used in the class Team, instead use
 	 * Team.setTitle() as that will save the updated value)
+	 * 
+	 * @see com.booksaw.betterTeams.Team#setTitle
+	 * @param title the new title for that player
 	 */
 	public void setTitle(String title) {
 		this.title = title;
