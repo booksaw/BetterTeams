@@ -52,10 +52,9 @@ Fixed a bug where tridents could still be used to damage team members.
 
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
-add new commands help messages to messages.yml
 Add permissions for all new commands to plugin.yml
 add /teama chatspy to spigot plugin page
-add /team title to wiki and spigot plugin page (betterteams.title.others) 
+add /team title to wiki and spigot plugin page (betterteams.title) 
 add betterteams.title.self, betterteams.title.color.color, betterteams.title.color.format
 add /team top betterteams.top 
 Add /team rank betterteams.rank
@@ -64,7 +63,7 @@ add /teama home <team> betterteams.admin.home
 Add betterteams.cooldown.bypass
 Add betterteams.cost.bypass
 Separate unban, sethome and demote permissions
-Updates config and messages.yml version
+
 
 
 

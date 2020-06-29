@@ -14,14 +14,14 @@ public class DelHome extends TeamSubCommand {
 	@Override
 	public String onCommand(TeamPlayer player, String label, String[] args, Team team) {
 
-		if (player.getRank() != PlayerRank.OWNER) {
-			return "needOwner";
+		if (player.getRank() == PlayerRank.DEFAULT) {
+			return "needAdmin";
 		}
 
-		if(team.getTeamHome() == null) {
+		if (team.getTeamHome() == null) {
 			return "delhome.noHome";
 		}
-		
+
 		team.deleteTeamHome();
 
 		return "delhome.success";

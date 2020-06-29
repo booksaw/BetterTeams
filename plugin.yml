@@ -32,7 +32,7 @@ permissions:
       description: Allows access to /team join
    betterTeams.ban:
       default: true
-      description: Allows access to /team ban and /team unban
+      description: Allows access to /team ban
    betterTeams.chat:
       default: true
       description: Allows access to /team chat
@@ -41,7 +41,7 @@ permissions:
       description: Allows access to /team create
    betterTeams.promote:
       default: true
-      description: Allows access to /team promote and /team demote
+      description: Allows access to /team promote
    betterTeams.description:
       default: true
       description: Allows access to /team description
@@ -90,3 +90,48 @@ permissions:
    betterTeams.title.self:
       default: op
       description: Allows the user to change their own title even if they are not the team owner
+   betterTeams.unan:
+      default: true
+      description: Allows access to /team unban
+   betterTeams.sethome:
+      default: true
+      description: Allows access to /team sethome
+   betterTeams.demote:
+      default: true
+      description: Allows access to /team demote
+   betterTeams.top:
+      default: true
+      description: Allows access to /team top
+   betterTeams.rank:
+      default: true
+      description: Allows access to /team rank
+   betterTeams.title.:
+      default: true
+      description: Allows access to /team title
+   betterTeams.title.color.color:
+      default: op
+      description: Allows access to color codes wtih /team title
+   betterTeams.title.color.format:
+      default: op
+      description: Allows access to formatting codes with /team title
+   betterTeams.title.self:
+      default: op
+      description: Allows access to change their own title, even when they are not team owner
+   betterTeams.admin.version:
+      default: op
+      description: Allows access to /teama version
+   betterTeams.admin.home:
+      default: op
+      description: Allows access to /teama home
+   betterTeams.cooldown.bypass:
+      default: op
+      description: Allows access to bypass command cooldown
+   betterTeams.cost.bypass:
+      default: op
+      description: Allows access to bypass command cost
+   betterTeams.admin.chatspy:
+      default: op
+      description: Allows access to /teama chatspy
+   betterTeams.admin.title:
+      default: op
+      description: Allows access to /teama title

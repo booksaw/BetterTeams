@@ -213,3 +213,8 @@ help.color: Change your teams color
 help.deposit: Deposit money into the teams balance
 help.bal: View your teams balance
 help.withdraw: Withdraw money from the teams balance
+help.title: Change that players title within the team
+help.top: View the top teams
+help.rank: View the rank of a team
+help.join: Join the specified team
+help.delhome: Delete your teams home
