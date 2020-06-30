@@ -12,7 +12,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
 import com.booksaw.betterTeams.Main;
-import com.booksaw.betterTeams.MessageManager;
+import com.booksaw.betterTeams.message.MessageManager;
 
 import net.md_5.bungee.api.ChatColor;
 

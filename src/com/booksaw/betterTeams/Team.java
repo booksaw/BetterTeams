@@ -19,6 +19,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
 
 import com.booksaw.betterTeams.events.BelowNameManagement.BelowNameType;
+import com.booksaw.betterTeams.message.MessageManager;
 
 /**
  * This class is used to manage a team and all of it's participants

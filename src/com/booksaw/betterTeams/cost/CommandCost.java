@@ -51,4 +51,24 @@ public class CommandCost {
 		return cost;
 	}
 
+	/**
+	 * 
+	 * @param player the player to check for
+	 * @return if a player has the money to run that command (to check before
+	 *         executing the command)
+	 */
+	public boolean hasBalance(Player player) {
+
+		if (Main.econ == null) {
+			Bukkit.getLogger().warning("Could not detect vault, command running with no cost");
+			return true;
+		}
+
+		if (Main.econ.has(player, cost)) {
+			return true;
+		}
+
+		return false;
+	}
+
 }

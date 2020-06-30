@@ -1,10 +1,12 @@
-package com.booksaw.betterTeams;
+package com.booksaw.betterTeams.message;
 
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
+
+import com.booksaw.betterTeams.Main;
 
 import net.md_5.bungee.api.ChatColor;
 

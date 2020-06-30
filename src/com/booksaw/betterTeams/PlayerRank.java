@@ -1,5 +1,7 @@
 package com.booksaw.betterTeams;
 
+import com.booksaw.betterTeams.message.MessageManager;
+
 /**
  * This class is used to define all the possible ranks that a player can be
  * within a team

@@ -52,6 +52,7 @@ import com.booksaw.betterTeams.cooldown.CooldownManager;
 import com.booksaw.betterTeams.cost.CostManager;
 import com.booksaw.betterTeams.events.BelowNameManagement;
 import com.booksaw.betterTeams.events.BelowNameManagement.BelowNameType;
+import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.metrics.Metrics;
 import com.booksaw.betterTeams.events.ChatManagement;
 import com.booksaw.betterTeams.events.DamageManagement;
@@ -63,6 +64,7 @@ import net.milkbowl.vault.economy.Economy;
 
 /**
  * Main class of the plugin, extends JavaPlugin
+ * 
  * @author booksaw
  *
  */
@@ -94,11 +96,15 @@ public class Main extends JavaPlugin {
 
 		if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI").isEnabled()) {
 			new TeamPlaceholders(this).register();
-			updateHolos();
+
 		}
 
-		useHolographicDisplays = (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null
+		useHolographicDisplays = (Bukkit.getPluginManager().getPlugin("HolographicDisplays") != null
 				&& Bukkit.getPluginManager().isPluginEnabled("HolographicDisplays"));
+
+		if (useHolographicDisplays) {
+			updateHolos();
+		}
 
 		if (!setupEconomy() || !getConfig().getBoolean("useVault")) {
 			econ = null;
@@ -347,8 +353,8 @@ public class Main extends JavaPlugin {
 		scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
 			@Override
 			public void run() {
-				if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") == null
-						|| !Bukkit.getPluginManager().getPlugin("PlaceholderAPI").isEnabled()) {
+				if (Bukkit.getPluginManager().getPlugin("HolographicDisplays") == null
+						|| !Bukkit.getPluginManager().getPlugin("HolographicDisplays").isEnabled()) {
 					return;
 				}
 				// if no score changes have been made

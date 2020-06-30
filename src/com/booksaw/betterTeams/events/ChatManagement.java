@@ -12,9 +12,9 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import com.booksaw.betterTeams.Main;
-import com.booksaw.betterTeams.MessageManager;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
+import com.booksaw.betterTeams.message.MessageManager;
 
 public class ChatManagement implements Listener {
 

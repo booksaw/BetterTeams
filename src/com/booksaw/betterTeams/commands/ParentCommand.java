@@ -8,11 +8,11 @@ import java.util.Map.Entry;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.booksaw.betterTeams.MessageManager;
 import com.booksaw.betterTeams.cooldown.CommandCooldown;
 import com.booksaw.betterTeams.cooldown.CooldownManager;
 import com.booksaw.betterTeams.cost.CommandCost;
 import com.booksaw.betterTeams.cost.CostManager;
+import com.booksaw.betterTeams.message.MessageManager;
 
 /**
  * This is used for any parent commands across the system
@@ -38,8 +38,8 @@ public class ParentCommand extends SubCommand {
 	/**
 	 * Creates a new parent command with a set of sub commands
 	 * 
-	 * @param command the command which will be defaulted to if the user enters
-	 *                    an incorrect command
+	 * @param command the command which will be defaulted to if the user enters an
+	 *                incorrect command
 	 */
 	public ParentCommand(String command) {
 		this.command = command;

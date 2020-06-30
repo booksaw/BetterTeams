@@ -9,7 +9,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.booksaw.betterTeams.MessageManager;
+import com.booksaw.betterTeams.message.MessageManager;
 
 /**
  * This class is used by any commands which are included within a command tree
