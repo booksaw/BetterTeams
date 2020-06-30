@@ -68,7 +68,7 @@ public class MessageManager {
 	 * @param reference   the reference for the message
 	 * @param replacement the value that the placeholder should be replaced with
 	 */
-	public static void sendMessageF(CommandSender sender, String reference, String replacement) {
+	public static void sendMessageF(CommandSender sender, String reference, String... replacement) {
 		try {
 			String message = ChatColor.translateAlternateColorCodes('&', messages.getString(reference));
 			if (message == null) {
@@ -76,7 +76,7 @@ public class MessageManager {
 				return;
 			}
 
-			message = String.format(prefix + message, replacement);
+			message = String.format(prefix + message, (Object[]) replacement);
 
 			sender.sendMessage(message);
 		} catch (NullPointerException e) {
@@ -107,10 +107,23 @@ public class MessageManager {
 
 	/**
 	 * 
-	 * @return the prefix for all messages Defaults to [BetterTeams] unless it is changed by end user 
+	 * @return the prefix for all messages Defaults to [BetterTeams] unless it is
+	 *         changed by end user
 	 */
 	public static String getPrefix() {
 		return prefix;
+	}
+
+	/**
+	 * Used when you are sending a user a message instead of a message loaded from a
+	 * file
+	 * 
+	 * @param sender  the player who sent the command
+	 * @param message the message to send to that user
+	 */
+	public static void sendFullMessage(CommandSender sender, String message) {
+
+		sender.sendMessage(prefix + message);
 	}
 
 }
