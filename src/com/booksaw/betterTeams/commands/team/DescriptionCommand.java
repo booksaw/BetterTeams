@@ -4,26 +4,27 @@ import java.util.List;
 
 import org.bukkit.command.CommandSender;
 
+import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 import com.booksaw.betterTeams.message.MessageManager;
+import com.booksaw.betterTeams.message.ReferencedFormatMessage;
 
 public class DescriptionCommand extends TeamSubCommand {
 
 	@Override
-	public String onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
+	public CommandResponse onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
 
 		if (args.length == 0) {
 			if (team.getDescription() != null && !team.getDescription().equals("")) {
-				MessageManager.sendMessageF(teamPlayer.getPlayer().getPlayer(), "description.view",
-						team.getDescription());
+				return new CommandResponse(true,
+						new ReferencedFormatMessage("description.view", team.getDescription()));
 			} else {
-				MessageManager.sendMessage(teamPlayer.getPlayer().getPlayer(), "description.noDesc");
+				return new CommandResponse("description.noDesc");
 			}
 
-			return null;
 		}
 
 		if (teamPlayer.getRank() != PlayerRank.OWNER) {
@@ -33,7 +34,7 @@ public class DescriptionCommand extends TeamSubCommand {
 			} else {
 				MessageManager.sendMessage(teamPlayer.getPlayer().getPlayer(), "description.noDesc");
 			}
-			return "needOwner";
+			return new CommandResponse("needOwner");
 		}
 
 		String newDescrip = "";
@@ -43,7 +44,7 @@ public class DescriptionCommand extends TeamSubCommand {
 
 		team.setDescription(newDescrip);
 
-		return "description.success";
+		return new CommandResponse(true, "description.success");
 	}
 
 	@Override

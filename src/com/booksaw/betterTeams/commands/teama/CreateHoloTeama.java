@@ -5,6 +5,7 @@ import java.util.List;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.SubCommand;
@@ -15,7 +16,7 @@ import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
 public class CreateHoloTeama extends SubCommand {
 
 	@Override
-	public String onCommand(CommandSender sender, String label, String[] args) {
+	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
 		Player p = (Player) sender;
 
 		Hologram holo = HologramsAPI.createHologram(Main.plugin, p.getLocation());
@@ -30,7 +31,7 @@ public class CreateHoloTeama extends SubCommand {
 					String.format(MessageManager.getMessage("holo.syntax"), teams[i].getName(), teams[i].getScore()));
 		}
 
-		return "admin.holo.create.success";
+		return new CommandResponse(true, "admin.holo.create.success");
 	}
 
 	@Override

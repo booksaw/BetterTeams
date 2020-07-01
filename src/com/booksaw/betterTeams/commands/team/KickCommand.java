@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 
+import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
@@ -15,7 +16,7 @@ import com.booksaw.betterTeams.message.MessageManager;
 public class KickCommand extends TeamSubCommand {
 
 	@Override
-	public String onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
+	public CommandResponse onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
 
 		/*
 		 * method is depreciated as it does not guarantee the expected player, in most
@@ -27,12 +28,12 @@ public class KickCommand extends TeamSubCommand {
 		OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
 
 		if (player == null) {
-			return "noPlayer";
+			return new CommandResponse("noPlayer");
 		}
 
 		Team otherTeam = Team.getTeam(player);
 		if (team != otherTeam) {
-			return "needSameTeam";
+			return new CommandResponse("needSameTeam");
 		}
 
 		TeamPlayer kickedPlayer = team.getTeamPlayer(player);
@@ -40,14 +41,14 @@ public class KickCommand extends TeamSubCommand {
 		if (teamPlayer.getRank() == PlayerRank.DEFAULT
 				|| (teamPlayer.getRank() == PlayerRank.ADMIN && kickedPlayer.getRank() != PlayerRank.DEFAULT)
 				|| (teamPlayer.getRank() == PlayerRank.OWNER && kickedPlayer.getRank() == PlayerRank.OWNER)) {
-			return "kick.noPerm";
+			return new CommandResponse("kick.noPerm");
 		}
 
 		team.removePlayer(player);
 
 		MessageManager.sendMessageF((CommandSender) player, "kick.notify", team.getName());
 
-		return "kick.success";
+		return new CommandResponse(true, "kick.success");
 	}
 
 	@Override

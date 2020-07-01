@@ -31,7 +31,9 @@ public class BooksawCommand implements CommandExecutor, TabCompleter {
 	@Override
 	public boolean onCommand(CommandSender sender, Command arg1, String label, String[] args) {
 		// running custom command manager
-		subCommand.onCommand(sender, label, args);
+		CommandResponse response = subCommand.onCommand(sender, label, args);
+		if (response != null)
+			response.sendResponseMessage(sender);
 		return true;
 	}
 

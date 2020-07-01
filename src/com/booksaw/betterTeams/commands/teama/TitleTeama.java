@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
+import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
@@ -17,32 +18,32 @@ public class TitleTeama extends SubCommand {
 	private final char[] bannedChars = new char[] { ',', '§' };
 
 	@Override
-	public String onCommand(CommandSender sender, String label, String[] args) {
+	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
 		Team team = Team.getTeam(Bukkit.getPlayer(args[0]));
 
 		if (team == null) {
-			return "admin.inTeam";
+			return new CommandResponse("admin.inTeam");
 		}
 
 		TeamPlayer toTitle = team.getTeamPlayer(Bukkit.getPlayer(args[0]));
 
 		if (toTitle == null) {
-			return "noPlayer";
+			return new CommandResponse("noPlayer");
 		}
 
 		if (args.length == 1) {
 			team.setTitle(toTitle, "");
 			MessageManager.sendMessage(toTitle.getPlayer().getPlayer(), "admin.title.reset");
-			return "title.success";
+			return new CommandResponse(true, "title.success");
 		}
 
 		if (args[1].length() > Main.plugin.getConfig().getInt("maxTitleLength")) {
-			return "title.tooLong";
+			return new CommandResponse("title.tooLong");
 		}
 
 		for (char bannedChar : bannedChars) {
 			if (args[1].contains(bannedChar + "")) {
-				return "bannedChar";
+				return new CommandResponse("bannedChar");
 			}
 		}
 
@@ -52,7 +53,7 @@ public class TitleTeama extends SubCommand {
 
 		MessageManager.sendMessageF(toTitle.getPlayer().getPlayer(), "title.change", args[1]);
 
-		return "admin.title.success";
+		return new CommandResponse(true, "admin.title.success");
 	}
 
 	@Override

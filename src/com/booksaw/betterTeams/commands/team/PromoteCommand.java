@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 
+import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
@@ -21,7 +22,7 @@ import com.booksaw.betterTeams.message.MessageManager;
 public class PromoteCommand extends TeamSubCommand {
 
 	@Override
-	public String onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
+	public CommandResponse onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
 
 		/*
 		 * method is depreciated as it does not guarantee the expected player, in most
@@ -33,27 +34,27 @@ public class PromoteCommand extends TeamSubCommand {
 		OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
 
 		if (player == null) {
-			return "noPlayer";
+			return new CommandResponse("noPlayer");
 		}
 
 		Team otherTeam = Team.getTeam(player);
 		if (team != otherTeam) {
-			return "needSameTeam";
+			return new CommandResponse("needSameTeam");
 		}
 
 		TeamPlayer promotePlayer = team.getTeamPlayer(player);
 
 		if (teamPlayer.getRank() != PlayerRank.OWNER) {
-			return "promote.noPerm";
+			return new CommandResponse("promote.noPerm");
 		} else if (promotePlayer.getRank() == PlayerRank.OWNER) {
-			return "promote.max";
+			return new CommandResponse("promote.max");
 
 		}
 
 		team.promotePlayer(promotePlayer);
 		MessageManager.sendMessage((CommandSender) promotePlayer.getPlayer(), "promote.notify");
 
-		return "promote.success";
+		return new CommandResponse(true, "promote.success");
 
 	}
 

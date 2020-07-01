@@ -4,28 +4,30 @@ import java.util.List;
 
 import org.bukkit.command.CommandSender;
 
+import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
+import com.booksaw.betterTeams.message.HelpMessage;
 
 public class ChatCommand extends TeamSubCommand {
 
 	@Override
-	public String onCommand(TeamPlayer player, String label, String[] args, Team team) {
+	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 
 		if (args.length == 0) {
 			// toggle chat
 			if (!Main.plugin.getConfig().getBoolean("allowToggleTeamChat")) {
-				return "help";
+				return new CommandResponse(new HelpMessage(this, label));
 			}
 
 			if (player.isInTeamChat()) {
 				player.setTeamChat(false);
-				return "chat.disabled";
+				return new CommandResponse(true, "chat.disabled");
 			} else {
 				player.setTeamChat(true);
-				return "chat.enabled";
+				return new CommandResponse(true, "chat.enabled");
 			}
 		}
 
@@ -35,7 +37,7 @@ public class ChatCommand extends TeamSubCommand {
 		}
 
 		team.sendMessage(player, message);
-		return null;
+		return new CommandResponse(true);
 	}
 
 	@Override

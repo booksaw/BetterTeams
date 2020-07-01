@@ -5,6 +5,7 @@ import java.util.List;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.SubCommand;
 import com.booksaw.betterTeams.message.MessageManager;
@@ -12,7 +13,7 @@ import com.booksaw.betterTeams.message.MessageManager;
 public class TopCommand extends SubCommand {
 
 	@Override
-	public String onCommand(CommandSender sender, String label, String[] args) {
+	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
 
 		Team team = null;
 		boolean contained = false;
@@ -64,7 +65,7 @@ public class TopCommand extends SubCommand {
 			}
 		}
 
-		return null;
+		return new CommandResponse(true);
 	}
 
 	@Override

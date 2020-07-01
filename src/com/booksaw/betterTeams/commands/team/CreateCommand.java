@@ -5,6 +5,7 @@ import java.util.List;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.presets.NoTeamSubCommand;
@@ -18,26 +19,26 @@ import com.booksaw.betterTeams.commands.presets.NoTeamSubCommand;
 public class CreateCommand extends NoTeamSubCommand {
 
 	@Override
-	public String onCommand(Player sender, String label, String[] args) {
+	public CommandResponse onCommand(Player sender, String label, String[] args) {
 
 		for (String temp : Main.plugin.getConfig().getStringList("blacklist")) {
 			if (temp.toLowerCase().equals(args[0].toLowerCase())) {
-				return "create.banned";
+				return new CommandResponse("create.banned");
 			}
 		}
 		int max = Main.plugin.getConfig().getInt("maxTeamLength");
 		if (max != -1 && max < args[0].length()) {
-			return "create.maxLength";
+			return new CommandResponse("create.maxLength");
 		}
 
 		if (Team.getTeam(args[0]) != null) {
 			// team already exists
-			return "create.exists";
+			return new CommandResponse("create.exists");
 		}
 
 		Team.createNewTeam(args[0], (Player) sender);
 
-		return "create.success";
+		return new CommandResponse(true, "create.success");
 
 	}
 

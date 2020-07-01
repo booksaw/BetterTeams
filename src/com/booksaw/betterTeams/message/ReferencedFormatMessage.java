@@ -12,17 +12,19 @@ import org.bukkit.command.CommandSender;
 public class ReferencedFormatMessage implements Message {
 
 	String reference;
+	Object[] replacement;
 
 	/**
 	 * @param reference the messages.yml reference for the command
 	 */
-	public ReferencedFormatMessage(String reference) {
+	public ReferencedFormatMessage(String reference, String... replacement) {
 		this.reference = reference;
+		this.replacement = (Object[]) replacement;
 	}
 
 	@Override
 	public void sendMessage(CommandSender sender) {
-
+		MessageManager.sendMessageF(sender, reference, replacement);
 	}
 
 }

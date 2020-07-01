@@ -7,6 +7,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
@@ -23,7 +24,7 @@ public class TitleCommand extends TeamSubCommand {
 	Team team;
 
 	@Override
-	public String onCommand(TeamPlayer player, String label, String[] args, Team team) {
+	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 
 		TeamPlayer toTitle = null;
 
@@ -34,27 +35,27 @@ public class TitleCommand extends TeamSubCommand {
 		}
 
 		if (toTitle == null) {
-			return "noPlayer";
+			return new CommandResponse("noPlayer");
 		}
 
 		if (player.getRank() != PlayerRank.OWNER
 				&& !(player == toTitle && player.getPlayer().getPlayer().hasPermission("betterteams.title.self"))) {
-			return "needOwner";
+			return new CommandResponse("needOwner");
 		}
 
 		if (args.length == 1) {
 			team.setTitle(toTitle, "");
 			MessageManager.sendMessage(toTitle.getPlayer().getPlayer(), "title.reset");
-			return "title.success";
+			return new CommandResponse("title.success");
 		}
 
 		if (args[1].length() > Main.plugin.getConfig().getInt("maxTitleLength")) {
-			return "title.tooLong";
+			return new CommandResponse("title.tooLong");
 		}
 
 		for (char bannedChar : bannedChars) {
 			if (args[1].contains(bannedChar + "")) {
-				return "bannedChar";
+				return new CommandResponse("bannedChar");
 			}
 		}
 
@@ -63,14 +64,14 @@ public class TitleCommand extends TeamSubCommand {
 		if (!sender.hasPermission("betterteams.title.color.format")) {
 			if (args[1].contains("&l") || args[1].contains("&k") || args[1].contains("&n") || args[1].contains("&m")
 					|| args[1].contains("&o")) {
-				return "title.noFormat";
+				return new CommandResponse("title.noFormat");
 			}
 		}
 
 		if (!sender.hasPermission("betterteams.title.color.color")) {
 			for (String bannedChar : bannedColor) {
 				if (args[1].contains(bannedChar)) {
-					return "title.noColor";
+					return new CommandResponse("title.noColor");
 				}
 			}
 		}
@@ -86,7 +87,7 @@ public class TitleCommand extends TeamSubCommand {
 			MessageManager.sendMessageF(toTitle.getPlayer().getPlayer(), "title.change", args[1]);
 		}
 
-		return "title.success";
+		return new CommandResponse(true, "title.success");
 	}
 
 	@Override

@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.presets.NoTeamSubCommand;
@@ -14,30 +15,30 @@ import com.booksaw.betterTeams.commands.presets.NoTeamSubCommand;
 public class JoinCommand extends NoTeamSubCommand {
 
 	@Override
-	public String onCommand(Player p, String label, String[] args) {
+	public CommandResponse onCommand(Player p, String label, String[] args) {
 
 		Team team = Team.getTeam(args[0]);
 		if (team == null) {
-			return "notTeam";
+			return new CommandResponse("notTeam");
 		}
 
 		if (team.isBanned(p)) {
-			return "join.banned";
+			return new CommandResponse("join.banned");
 		}
 
 		if (!team.isOpen() && !team.isInvited(p.getUniqueId())) {
-			return "join.notInvited";
+			return new CommandResponse("join.notInvited");
 		}
 
 		int limit = Main.plugin.getConfig().getInt("teamLimit");
 
 		if (limit > 0 && limit <= team.getMembers().size()) {
-			return "join.full";
+			return new CommandResponse("join.full");
 		}
 
 		team.join(p);
 
-		return "join.success";
+		return new CommandResponse(true, "join.success");
 	}
 
 	@Override

@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
+import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.message.MessageManager;
 
@@ -25,7 +26,7 @@ public class HelpCommand extends SubCommand {
 	}
 
 	ParentCommand command;
-	ChatColor prefix, description;
+	public static ChatColor prefix, description;
 
 	public HelpCommand(ParentCommand command) {
 		this.command = command;
@@ -35,7 +36,7 @@ public class HelpCommand extends SubCommand {
 	}
 
 	@Override
-	public String onCommand(CommandSender sender, String label, String[] args) {
+	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
 
 		if (fullyCustom) {
 			fullyCustom(sender, label);
@@ -55,8 +56,10 @@ public class HelpCommand extends SubCommand {
 
 	/**
 	 * Used to send a fully custom help message which is stored in a file
+	 * 
 	 * @param sender the CommandSender that called the help message
-	 * @param label the label for the message (the base command for example for /teamadmin it could be /teama as well) 
+	 * @param label  the label for the message (the base command for example for
+	 *               /teamadmin it could be /teama as well)
 	 */
 	public void fullyCustom(CommandSender sender, String label) {
 		File f = new File(Main.plugin.getDataFolder() + File.separator + command.getCommand() + ".txt");
@@ -118,7 +121,8 @@ public class HelpCommand extends SubCommand {
 	 * @return the created message relating to that command
 	 */
 	public String createHelpMessage(String label, String commandPath, String description) {
-		return prefix + "/" + label + " " + commandPath + ChatColor.WHITE + " - " + this.description + description;
+		return prefix + "/" + label + " " + commandPath + ChatColor.WHITE + " - " + HelpCommand.description
+				+ description;
 	}
 
 	@Override

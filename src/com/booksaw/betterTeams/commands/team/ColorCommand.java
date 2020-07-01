@@ -5,6 +5,7 @@ import java.util.List;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
+import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
@@ -13,20 +14,20 @@ import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 public class ColorCommand extends TeamSubCommand {
 
 	@Override
-	public String onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
+	public CommandResponse onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
 
 		if (teamPlayer.getRank() != PlayerRank.OWNER) {
-			return "needOwner";
+			return new CommandResponse("needOwner");
 		}
 
 		ChatColor color = ChatColor.getByChar(args[0].charAt(0));
 		if (color == null) {
-			return "color.fail";
+			return new CommandResponse("color.fail");
 		}
 
 		team.setColor(color);
 
-		return "color.success";
+		return new CommandResponse(true, "color.success");
 	}
 
 	@Override

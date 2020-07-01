@@ -9,6 +9,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.message.MessageManager;
 
 /**
@@ -58,7 +59,7 @@ public abstract class SubCommand {
 	 *               sub command itself will be removed)
 	 * @return the message
 	 */
-	public abstract String onCommand(CommandSender sender, String label, String[] args);
+	public abstract CommandResponse onCommand(CommandSender sender, String label, String[] args);
 
 	/**
 	 * @return the sub-command which this class handles
@@ -111,8 +112,9 @@ public abstract class SubCommand {
 	 * This can be used during the tab complete process to get a string list of all
 	 * players on the server
 	 * 
-	 * @param options the tab complete list to work on
-	 * @param argument the details of that argument that have already been entered (ie 'boo' when typing 'booksaw')
+	 * @param options  the tab complete list to work on
+	 * @param argument the details of that argument that have already been entered
+	 *                 (ie 'boo' when typing 'booksaw')
 	 */
 	public void addPlayerStringList(List<String> options, String argument) {
 		for (Player p : Bukkit.getOnlinePlayers()) {

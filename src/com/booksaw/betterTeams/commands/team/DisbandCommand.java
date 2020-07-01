@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import org.bukkit.command.CommandSender;
 
+import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
@@ -27,10 +28,10 @@ public class DisbandCommand extends TeamSubCommand {
 	HashMap<UUID, Long> confirmation = new HashMap<>();
 
 	@Override
-	public String onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
+	public CommandResponse onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
 
 		if (teamPlayer.getRank() != PlayerRank.OWNER) {
-			return "needOwner";
+			return new CommandResponse("needOwner");
 		}
 
 		UUID found = null;
@@ -45,11 +46,11 @@ public class DisbandCommand extends TeamSubCommand {
 		if (found != null) {
 			team.disband();
 			confirmation.remove(found);
-			return "disband.success";
+			return new CommandResponse(true, "disband.success");
 		}
 
 		confirmation.put(teamPlayer.getPlayer().getUniqueId(), System.currentTimeMillis());
-		return "disband.confirm";
+		return new CommandResponse("disband.confirm");
 
 	}
 

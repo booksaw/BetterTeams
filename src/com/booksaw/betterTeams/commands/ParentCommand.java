@@ -8,11 +8,13 @@ import java.util.Map.Entry;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.cooldown.CommandCooldown;
 import com.booksaw.betterTeams.cooldown.CooldownManager;
 import com.booksaw.betterTeams.cost.CommandCost;
 import com.booksaw.betterTeams.cost.CostManager;
 import com.booksaw.betterTeams.message.MessageManager;
+import com.booksaw.betterTeams.message.ReferencedFormatMessage;
 
 /**
  * This is used for any parent commands across the system
@@ -62,18 +64,20 @@ public class ParentCommand extends SubCommand {
 	}
 
 	@Override
-	public String onCommand(CommandSender sender, String label, String[] args) {
+	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
 
 		// checking length
 		if (args.length == 0) {
 			// help command is not expected to return anything
 			displayHelp(sender, label, args);
+			// TODO
 			return null;
 		}
 
 		SubCommand command = subCommands.get(args[0].toLowerCase());
 		if (command == null) {
 			displayHelp(sender, label, args);
+			// TODO
 			return null;
 		}
 
@@ -87,27 +91,38 @@ public class ParentCommand extends SubCommand {
 		if (command.getMinimumArguments() > newArgs.length) {
 			MessageManager.sendMessage(sender, "invalidArg");
 			displayHelp(sender, label, args);
+			// TODO
 			return null;
 		} else if (command.needPlayer() && !(sender instanceof Player)) {
-			MessageManager.sendMessage(sender, "needPlayer");
-			return null;
+			return new CommandResponse("needPlayer");
 		}
 
 		if (cooldowns != null && sender instanceof Player) {
 			CommandCooldown cooldown = cooldowns.getCooldown(command.getCommand());
 			int remaining = cooldown.getRemaining((Player) sender);
 			if (remaining != -1) {
-				MessageManager.sendMessageF(sender, "cooldown.wait", remaining + "");
-				return null;
+				return new CommandResponse(false, new ReferencedFormatMessage("cooldown.wait", remaining + ""));
 			}
 
 		}
 
 		if (prices != null && sender instanceof Player) {
 			CommandCost price = prices.getCommandCost(command.getCommand());
+			if (!price.hasBalance((Player) sender)) {
+				return new CommandResponse("cost.tooPoor");
+			}
+		}
+
+		CommandResponse result = command.onCommand(sender, label, newArgs);
+
+		if (result == null) {
+			return null;
+		}
+
+		if (prices != null && sender instanceof Player && result.wasSuccessful()) {
+			CommandCost price = prices.getCommandCost(command.getCommand());
 			if (!price.runCommand((Player) sender)) {
-				MessageManager.sendMessage(sender, "cost.tooPoor");
-				return null;
+				return new CommandResponse("cost.tooPoor");
 			}
 			if (price.getCost() > 0) {
 				NumberFormat formatter = NumberFormat.getCurrencyInstance();
@@ -115,22 +130,12 @@ public class ParentCommand extends SubCommand {
 			}
 		}
 
-		String result = command.onCommand(sender, label, newArgs);
-		if (result == null) {
-			return null;
-		} else if (result.equals("help")) {
-			displayHelp(sender, label, args);
-			return null;
-		}
-
 		if (cooldowns != null && sender instanceof Player) {
 			CommandCooldown cooldown = cooldowns.getCooldown(command.getCommand());
 			cooldown.runCommand((Player) sender);
 		}
 
-		MessageManager.sendMessage(sender, result);
-
-		return null;
+		return result;
 	}
 
 	/**

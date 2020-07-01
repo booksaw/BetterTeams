@@ -7,27 +7,28 @@ import java.util.UUID;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.SubCommand;
 
 public class HomeTeama extends SubCommand {
 
 	@Override
-	public String onCommand(CommandSender sender, String label, String[] args) {
+	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
 
 		Team team = Team.getTeam(args[0]);
 		if (team == null) {
-			return "admin.noTeam";
+			return new CommandResponse("admin.noTeam");
 		}
 
 		if(team.getTeamHome() == null) {
-			return "admin.home.noHome";
+			return new CommandResponse("admin.home.noHome");
 		}
 		
 		Player p = (Player)sender; 
 		p.teleport(team.getTeamHome()); 
 		
-		return "admin.home.success";
+		return new CommandResponse(true, "admin.home.success");
 	}
 
 	@Override

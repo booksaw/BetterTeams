@@ -4,46 +4,48 @@ import java.util.List;
 
 import org.bukkit.command.CommandSender;
 
+import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
+import com.booksaw.betterTeams.message.HelpMessage;
 
 import net.milkbowl.vault.economy.EconomyResponse;
 
 public class WithdrawCommand extends TeamSubCommand {
 
 	@Override
-	public String onCommand(TeamPlayer player, String label, String[] args, Team team) {
+	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 
 		if (player.getRank() == PlayerRank.DEFAULT) {
-			return "needAdmin";
+			return new CommandResponse("needAdmin");
 		}
 
 		double amount;
 		try {
 			amount = Double.parseDouble(args[0]);
 		} catch (Exception e) {
-			return "help";
+			return new CommandResponse(new HelpMessage(this, label));
 		}
 
 		if (amount <= 0) {
-			return "withdraw.tooLittle";
+			return new CommandResponse("withdraw.tooLittle");
 		}
 
 		if (team.getMoney() - amount < 0) {
-			return "withdraw.notEnough";
+			return new CommandResponse("withdraw.notEnough");
 		}
 		EconomyResponse response = Main.econ.depositPlayer(player.getPlayer(), amount);
 
 		if (!response.transactionSuccess()) {
-			return "withdraw.fail";
+			return new CommandResponse("withdraw.fail");
 		}
 
 		team.setMoney(team.getMoney() - amount);
 
-		return "withdraw.success";
+		return new CommandResponse(true, "withdraw.success");
 	}
 
 	@Override

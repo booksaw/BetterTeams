@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.bukkit.command.CommandSender;
 
+import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
@@ -12,15 +13,15 @@ import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 public class SethomeCommand extends TeamSubCommand {
 
 	@Override
-	public String onCommand(TeamPlayer player, String label, String[] args, Team team) {
+	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 
 		if (player.getRank() == PlayerRank.DEFAULT) {
-			return "sethome.noPerm";
+			return new CommandResponse("sethome.noPerm");
 		}
 
 		team.setTeamHome(player.getPlayer().getPlayer().getLocation());
 
-		return "sethome.success";
+		return new CommandResponse(true, "sethome.success");
 
 	}
 

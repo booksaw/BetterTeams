@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 
+import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
@@ -21,7 +22,7 @@ import com.booksaw.betterTeams.message.MessageManager;
 public class DemoteCommand extends TeamSubCommand {
 
 	@Override
-	public String onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
+	public CommandResponse onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
 
 		/*
 		 * method is depreciated as it does not guarantee the expected player, in most
@@ -33,37 +34,37 @@ public class DemoteCommand extends TeamSubCommand {
 		OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
 
 		if (player == null) {
-			return "noPlayer";
+			return new CommandResponse("noPlayer");
 		}
 
 		Team otherTeam = Team.getTeam(player);
 		if (team != otherTeam) {
-			return "needSameTeam";
+			return new CommandResponse("needSameTeam");
 		}
 
 		TeamPlayer demotePlayer = team.getTeamPlayer(player);
 
 		if (teamPlayer.getRank() != PlayerRank.OWNER) {
-			return "demote.noPerm";
+			return new CommandResponse("demote.noPerm");
 		} else if (demotePlayer.getRank() == PlayerRank.DEFAULT) {
-			return "demote.min";
+			return new CommandResponse("demote.min");
 
 		} else if (demotePlayer.getPlayer().getUniqueId().compareTo(teamPlayer.getPlayer().getUniqueId()) == 0) {
 			// trying to demote self
 			// checking there is another owner
 			if (teamPlayer.getRank() == PlayerRank.OWNER && team.getRank(PlayerRank.OWNER).size() == 1) {
-				return "demote.lastOwner";
+				return new CommandResponse("demote.lastOwner");
 			}
 			// all is good, continue to demotion
 		} else if (demotePlayer.getRank() == PlayerRank.OWNER) {
 			// the other person is also an owner, players cannot demote other owners
-			return "demote.noPerm";
+			return new CommandResponse("demote.noPerm");
 		}
 
 		team.demotePlayer(demotePlayer);
 		MessageManager.sendMessage((CommandSender) demotePlayer.getPlayer(), "demote.notify");
 
-		return "demote.success";
+		return new CommandResponse(true, "demote.success");
 
 	}
 

@@ -4,18 +4,17 @@ import java.util.List;
 
 import org.bukkit.command.CommandSender;
 
+import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.commands.SubCommand;
-import com.booksaw.betterTeams.message.MessageManager;
+import com.booksaw.betterTeams.message.ReferencedFormatMessage;
 
 public class VersionTeama extends SubCommand {
 
 	@Override
-	public String onCommand(CommandSender sender, String label, String[] args) {
-
-		MessageManager.sendMessageF(sender, "admin.version", Main.plugin.getDescription().getVersion() + "");
-
-		return null;
+	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
+		return new CommandResponse(true,
+				new ReferencedFormatMessage("admin.version", Main.plugin.getDescription().getVersion() + ""));
 	}
 
 	@Override
@@ -35,7 +34,7 @@ public class VersionTeama extends SubCommand {
 
 	@Override
 	public String getArguments() {
-		return null;
+		return "";
 	}
 
 	@Override

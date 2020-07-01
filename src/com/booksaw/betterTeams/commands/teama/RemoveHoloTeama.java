@@ -5,6 +5,7 @@ import java.util.List;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.commands.SubCommand;
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
@@ -13,7 +14,7 @@ import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
 public class RemoveHoloTeama extends SubCommand {
 
 	@Override
-	public String onCommand(CommandSender sender, String label, String[] args) {
+	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
 		Player p = (Player) sender;
 		Hologram closest = null;
 		double distance = -1;
@@ -27,11 +28,11 @@ public class RemoveHoloTeama extends SubCommand {
 		}
 
 		if (closest == null) {
-			return "admin.holo.remove.noHolo";
+			return new CommandResponse("admin.holo.remove.noHolo");
 		}
 
 		closest.delete();
-		return "admin.holo.remove.success";
+		return new CommandResponse(true, "admin.holo.remove.success");
 	}
 
 	@Override

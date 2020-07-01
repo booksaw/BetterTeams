@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.bukkit.command.CommandSender;
 
+import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
@@ -18,15 +19,15 @@ import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 public class LeaveCommand extends TeamSubCommand {
 
 	@Override
-	public String onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
+	public CommandResponse onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
 
 		if (teamPlayer.getRank() == PlayerRank.OWNER && team.getRank(PlayerRank.OWNER).size() == 1) {
-			return "leave.lastOwner";
+			return new CommandResponse("leave.lastOwner");
 		}
 
 		team.removePlayer(teamPlayer.getPlayer());
 
-		return "leave.success";
+		return new CommandResponse(true, "leave.success");
 	}
 
 	@Override
@@ -61,7 +62,7 @@ public class LeaveCommand extends TeamSubCommand {
 
 	@Override
 	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
-		
+
 	}
 
 }

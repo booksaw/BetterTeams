@@ -5,18 +5,19 @@ import java.util.List;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.HandlerList;
 
+import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.commands.SubCommand;
 
 public class ReloadTeama extends SubCommand {
 
 	@Override
-	public String onCommand(CommandSender sender, String label, String[] args) {
+	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
 
 		HandlerList.unregisterAll(Main.plugin);
 		Main.plugin.reload();
 
-		return "admin.config.reload";
+		return new CommandResponse(true, "admin.config.reload");
 	}
 
 	@Override

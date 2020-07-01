@@ -37,6 +37,15 @@ public class CommandResponse {
 	}
 
 	/**
+	 * This method assumes that the command is not a success
+	 * 
+	 * @param message the message to send to the user
+	 */
+	public CommandResponse(String message) {
+		this(false, message);
+	}
+
+	/**
 	 * Used when you want to send a more complex message to the user
 	 * 
 	 * @param success if the command was successful
@@ -44,6 +53,25 @@ public class CommandResponse {
 	 */
 	public CommandResponse(boolean success, Message message) {
 		this.message = message;
+		this.success = success;
+	}
+
+	/**
+	 * Used when you want to send a more complex message to the user
+	 * 
+	 * @param message the message to send to the user
+	 */
+	public CommandResponse(Message message) {
+		this(false, message);
+	}
+
+	/**
+	 * Used when no message should be sent to the user
+	 * 
+	 * @param success
+	 */
+	public CommandResponse(boolean success) {
+		message = null;
 		this.success = success;
 	}
 

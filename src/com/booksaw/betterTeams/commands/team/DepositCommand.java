@@ -4,38 +4,40 @@ import java.util.List;
 
 import org.bukkit.command.CommandSender;
 
+import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
+import com.booksaw.betterTeams.message.HelpMessage;
 
 import net.milkbowl.vault.economy.EconomyResponse;
 
 public class DepositCommand extends TeamSubCommand {
 
 	@Override
-	public String onCommand(TeamPlayer player, String label, String[] args, Team team) {
+	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 
 		double amount;
 		try {
 			amount = Double.parseDouble(args[0]);
 		} catch (Exception e) {
-			return "help";
+			return new CommandResponse(new HelpMessage(this, label));
 		}
 
 		if (amount <= 0) {
-			return "deposit.tooLittle";
+			return new CommandResponse("deposit.tooLittle");
 		}
 
 		EconomyResponse response = Main.econ.withdrawPlayer(player.getPlayer(), amount);
 
 		if (!response.transactionSuccess()) {
-			return "deposit.fail";
+			return new CommandResponse("deposit.fail");
 		}
 
 		team.setMoney(team.getMoney() + amount);
 
-		return "deposit.success";
+		return new CommandResponse(true, "deposit.success");
 	}
 
 	@Override

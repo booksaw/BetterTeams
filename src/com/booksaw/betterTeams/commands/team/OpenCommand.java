@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.bukkit.command.CommandSender;
 
+import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
@@ -21,18 +22,18 @@ import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 public class OpenCommand extends TeamSubCommand {
 
 	@Override
-	public String onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
+	public CommandResponse onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
 
 		if (teamPlayer.getRank() != PlayerRank.OWNER) {
-			return "needOwner";
+			return new CommandResponse("needOwner");
 		}
 
 		team.setOpen(!team.isOpen());
 
 		if (team.isOpen()) {
-			return "open.successopen";
+			return new CommandResponse(true, "open.successopen");
 		}
-		return "open.successclose";
+		return new CommandResponse(true, "open.successclose");
 
 	}
 

@@ -10,10 +10,12 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.SubCommand;
+import com.booksaw.betterTeams.message.HelpMessage;
 import com.booksaw.betterTeams.message.MessageManager;
 
 /**
@@ -25,17 +27,17 @@ import com.booksaw.betterTeams.message.MessageManager;
 public class InfoCommand extends SubCommand {
 
 	@Override
-	public String onCommand(CommandSender sender, String label, String[] args) {
+	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
 		if (args.length == 0) {
 			if (!(sender instanceof Player)) {
-				return "help";
+				return new CommandResponse(new HelpMessage(this, label));
 			}
 			Team team = Team.getTeam((Player) sender);
 			if (team == null) {
-				return "help";
+				return new CommandResponse(new HelpMessage(this, label));
 			}
 			displayTeamInfo(sender, team);
-			return null;
+			return new CommandResponse(true);
 		}
 
 		// player or team has been entered
@@ -44,7 +46,7 @@ public class InfoCommand extends SubCommand {
 
 		if (team != null) {
 			displayTeamInfo(sender, team);
-			return null;
+			return new CommandResponse(true);
 		}
 
 		// trying by player name
@@ -63,10 +65,10 @@ public class InfoCommand extends SubCommand {
 				displayTeamInfo(sender, team);
 				return null;
 			}
-			return "info.needTeam";
+			return new CommandResponse("info.needTeam");
 		}
 
-		return "info.fail";
+		return new CommandResponse("info.fail");
 	}
 
 	private void displayTeamInfo(CommandSender sender, Team team) {

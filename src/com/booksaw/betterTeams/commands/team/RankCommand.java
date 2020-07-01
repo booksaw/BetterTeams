@@ -7,14 +7,17 @@ import java.util.UUID;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.SubCommand;
-import com.booksaw.betterTeams.message.MessageManager;
+import com.booksaw.betterTeams.message.CompositeMessage;
+import com.booksaw.betterTeams.message.ReferenceMessage;
+import com.booksaw.betterTeams.message.ReferencedFormatMessage;
 
 public class RankCommand extends SubCommand {
 
 	@Override
-	public String onCommand(CommandSender sender, String label, String[] args) {
+	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
 		Team team = null;
 
 		if (args.length == 0 && sender instanceof Player) {
@@ -24,16 +27,14 @@ public class RankCommand extends SubCommand {
 		}
 
 		if (team == null) {
-			return "rank.noTeam";
+			return new CommandResponse("rank.noTeam");
 		}
 
 		Team.sortTeams();
 		int rank = team.getTeamRank() + 1;
 
-		MessageManager.sendMessage(sender, "rank.info");
-		sender.sendMessage(MessageManager.getPrefix()
-				+ String.format(MessageManager.getMessage("rank.syntax"), rank + "", team.getName(), team.getScore()));
-		return null;
+		return new CommandResponse(true, new CompositeMessage(new ReferenceMessage("rank.info"),
+				new ReferencedFormatMessage("rank.syntax", rank + "", team.getScore() + "")));
 	}
 
 	@Override

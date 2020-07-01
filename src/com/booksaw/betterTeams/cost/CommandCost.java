@@ -58,6 +58,9 @@ public class CommandCost {
 	 *         executing the command)
 	 */
 	public boolean hasBalance(Player player) {
+		if (player.hasPermission("betterteams.cost.bypass")) {
+			return true;
+		}
 
 		if (Main.econ == null) {
 			Bukkit.getLogger().warning("Could not detect vault, command running with no cost");

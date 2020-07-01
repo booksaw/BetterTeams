@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 
+import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
@@ -15,7 +16,7 @@ import com.booksaw.betterTeams.message.MessageManager;
 public class UnbanCommand extends TeamSubCommand {
 
 	@Override
-	public String onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
+	public CommandResponse onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
 
 		/*
 		 * method is depreciated as it does not guarantee the expected player, in most
@@ -27,19 +28,19 @@ public class UnbanCommand extends TeamSubCommand {
 		OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
 
 		if (player == null) {
-			return "noPlayer";
+			return new CommandResponse("noPlayer");
 		}
 
 		if (!team.isBanned(player)) {
-			return "unban.not";
+			return new CommandResponse("unban.not");
 		}
 
 		if (teamPlayer.getRank() != PlayerRank.DEFAULT) {
 			team.unbanPlayer(player);
 			MessageManager.sendMessageF((CommandSender) player, "unban.notify", team.getName());
-			return "unban.success";
+			return new CommandResponse(true, "unban.success");
 		}
-		return "unban.noPerm";
+		return new CommandResponse("unban.noPerm");
 	}
 
 	@Override

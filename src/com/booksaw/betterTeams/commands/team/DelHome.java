@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.bukkit.command.CommandSender;
 
+import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
@@ -12,19 +13,19 @@ import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 public class DelHome extends TeamSubCommand {
 
 	@Override
-	public String onCommand(TeamPlayer player, String label, String[] args, Team team) {
+	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 
 		if (player.getRank() == PlayerRank.DEFAULT) {
-			return "needAdmin";
+			return new CommandResponse("needAdmin");
 		}
 
 		if (team.getTeamHome() == null) {
-			return "delhome.noHome";
+			return new CommandResponse("delhome.noHome");
 		}
 
 		team.deleteTeamHome();
 
-		return "delhome.success";
+		return new CommandResponse(true, "delhome.success");
 	}
 
 	@Override
@@ -44,7 +45,7 @@ public class DelHome extends TeamSubCommand {
 
 	@Override
 	public String getArguments() {
-		return null;
+		return "";
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package com.booksaw.betterTeams.commands.presets;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.SubCommand;
@@ -17,12 +18,12 @@ import com.booksaw.betterTeams.commands.SubCommand;
 public abstract class TeamSubCommand extends SubCommand {
 
 	@Override
-	public String onCommand(CommandSender sender, String label, String[] args) {
+	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
 		Player player = (Player) sender;
 		Team team = Team.getTeam(player);
 
 		if (team == null) {
-			return "inTeam";
+			return new CommandResponse("inTeam");
 		}
 		TeamPlayer teamPlayer = team.getTeamPlayer(player);
 		return onCommand(teamPlayer, label, args, team);
@@ -34,10 +35,10 @@ public abstract class TeamSubCommand extends SubCommand {
 	 * @param player the player who is in a team
 	 * @param label  the label for the command
 	 * @param args   the arguments for the command
-	 * @param team the team that the player is in
+	 * @param team   the team that the player is in
 	 * @return the message reference to send to the user
 	 */
-	public abstract String onCommand(TeamPlayer player, String label, String[] args, Team team);
+	public abstract CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team);
 
 	@Override
 	public boolean needPlayer() {
