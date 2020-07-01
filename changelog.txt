@@ -27,11 +27,6 @@ Team prefix can is editable in messages.yml (https://github.com/booksaw/BetterTe
 Bug Fixes: 
 Fixed team chat priority issue (https://github.com/booksaw/BetterTeams/issues/5)
 
-3.0.10
-Bug Fixes:
-Fixed a problem where errors are logged to console when holographic displays is not on the server
-
-
 3.0.9
 Features: 
 /team commands can now have a cooldown or price associated with them, this is configured within team.yml
@@ -55,12 +50,18 @@ Bug Fixes:
 Fixed a bug where if HolographicDisplays is present but not enabled on the server, errors appear in the console. 
 Fixed a bug where tridents could still be used to damage team members. 
 
+
+3.0.10
+Bug Fixes:
+Fixed a problem where errors are logged to console when holographic displays is not on the server
+
+
 3.1.0
 Features: 
 
 
 Improvements:
-
+Commands and cooldowns only activate if the command is successful
 
 Bug Fixes: 
 
