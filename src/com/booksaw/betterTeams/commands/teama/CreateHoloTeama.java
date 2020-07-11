@@ -51,25 +51,21 @@ public class CreateHoloTeama extends SubCommand {
 
 	@Override
 	public String getArguments() {
-		// TODO Auto-generated method stub
-		return null;
+		return "";
 	}
 
 	@Override
 	public int getMinimumArguments() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int getMaximumArguments() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
-		// TODO
 	}
 
 	@Override

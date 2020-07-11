@@ -94,7 +94,8 @@ public class Main extends JavaPlugin {
 		ChatManagement.enable();
 		Team.loadTeams();
 
-		if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI").isEnabled()) {
+		if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null
+				&& Bukkit.getPluginManager().getPlugin("PlaceholderAPI").isEnabled()) {
 			new TeamPlaceholders(this).register();
 
 		}
