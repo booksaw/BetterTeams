@@ -108,15 +108,6 @@ permissions:
    betterTeams.title.:
       default: true
       description: Allows access to /team title
-   betterTeams.title.color.color:
-      default: op
-      description: Allows access to color codes wtih /team title
-   betterTeams.title.color.format:
-      default: op
-      description: Allows access to formatting codes with /team title
-   betterTeams.title.self:
-      default: op
-      description: Allows access to change their own title, even when they are not team owner
    betterTeams.admin.version:
       default: op
       description: Allows access to /teama version
@@ -135,3 +126,6 @@ permissions:
    betterTeams.admin.title:
       default: op
       description: Allows access to /teama title
+   betterTeams.color: 
+      default: true
+      description: Allows the player to change access to the team color

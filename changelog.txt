@@ -54,6 +54,8 @@ Fixed a bug where tridents could still be used to damage team members.
 3.0.10
 Bug Fixes:
 Fixed a problem where errors are logged to console when holographic displays is not on the server
+Fixed /team color permission problem 
+Fixed a problem with the placeholder %betterteams_rank%
 
 
 3.1.0
@@ -64,10 +66,11 @@ Improvements:
 Commands and cooldowns only activate if the command is successful
 
 Bug Fixes: 
+Fixed a problem when placeholder API is not present on the server. 
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 Add command cost and cooldown to documentation 
-
+add /team color to documentation
 
 
 

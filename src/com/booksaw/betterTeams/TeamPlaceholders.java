@@ -64,17 +64,15 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 
 		}
 
-		// %betterTeams_rank%
-		if (identifier.equals("rank")) {
-
-			Team team = Team.getTeam(player);
-
-			if (team == null) {
-				return MessageManager.getMessage("placeholder.noTeam");
-			}
-
-			return team.getTeamPlayer(player).getRank().toString();
-		}
+		/*
+		 * // %betterTeams_rank% if (identifier.equals("rank")) {
+		 * 
+		 * Team team = Team.getTeam(player);
+		 * 
+		 * if (team == null) { return MessageManager.getMessage("placeholder.noTeam"); }
+		 * 
+		 * return team.getTeamPlayer(player).getRank().toString(); }
+		 */
 
 		if (identifier.equals("description")) {
 
@@ -139,6 +137,17 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 				return MessageManager.getMessage("placeholder.owner");
 
 			}
+		}
+
+		if (identifier.equals("color")) {
+			Team team = Team.getTeam(player);
+
+			if (team == null) {
+				return MessageManager.getMessage("placeholder.noTeam");
+			}
+
+			return team.getColor() + "";
+
 		}
 
 		return null;
