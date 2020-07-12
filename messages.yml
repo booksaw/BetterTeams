@@ -179,6 +179,8 @@ admin.home.success: '&6You have been teleported to that teams home'
 admin.home.noHome: '&4That team does not have a home set'
 admin.name.success: '&6The team name has been changed'
 admin.description.success: '&6That teams name has been changed'
+admin.open.successopen: '&6That team is now open for everyone'
+admin.open.successclose: '&6That team is now invite only'
 
 
 # for the nametag syntax

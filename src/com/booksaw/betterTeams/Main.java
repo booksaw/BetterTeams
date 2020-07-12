@@ -46,6 +46,7 @@ import com.booksaw.betterTeams.commands.teama.CreateHoloTeama;
 import com.booksaw.betterTeams.commands.teama.DescriptionTeama;
 import com.booksaw.betterTeams.commands.teama.HomeTeama;
 import com.booksaw.betterTeams.commands.teama.NameTeama;
+import com.booksaw.betterTeams.commands.teama.OpenTeama;
 import com.booksaw.betterTeams.commands.teama.ReloadTeama;
 import com.booksaw.betterTeams.commands.teama.RemoveHoloTeama;
 import com.booksaw.betterTeams.commands.teama.TitleTeama;
@@ -260,6 +261,8 @@ public class Main extends JavaPlugin {
 		case 7:
 			messages.set("admin.name.success", "&6The team name has been changed");
 			messages.set("admin.description.success", "&6That teams name has been changed");
+			messages.set("admin.open.successopen", "&6That team is now open for everyone");
+			messages.set("admin.open.successclose", "&6That team is now invite only");
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
@@ -461,6 +464,7 @@ public class Main extends JavaPlugin {
 		teamaCommand.addSubCommand(new HomeTeama());
 		teamaCommand.addSubCommand(new NameTeama());
 		teamaCommand.addSubCommand(new DescriptionTeama());
+		teamaCommand.addSubCommand(new OpenTeama());
 
 		if (useHolographicDisplays) {
 			ParentCommand teamaHoloCommand = new ParentCommand("holo");
