@@ -30,7 +30,7 @@ public class RankCommand extends SubCommand {
 			return new CommandResponse("rank.noTeam");
 		}
 
-		Team.sortTeams();
+		Team.sortTeamsByScore();
 		int rank = team.getTeamRank() + 1;
 
 		return new CommandResponse(true, new CompositeMessage(new ReferenceMessage("rank.info"),

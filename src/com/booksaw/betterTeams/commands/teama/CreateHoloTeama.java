@@ -6,32 +6,24 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.Main;
-import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.HologramManager;
+import com.booksaw.betterTeams.HologramManager.HologramType;
 import com.booksaw.betterTeams.commands.SubCommand;
-import com.booksaw.betterTeams.message.MessageManager;
-import com.gmail.filoghost.holographicdisplays.api.Hologram;
-import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
 
 public class CreateHoloTeama extends SubCommand {
 
 	@Override
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
 		Player p = (Player) sender;
-
-		Hologram holo = HologramsAPI.createHologram(Main.plugin, p.getLocation());
-		Team[] teams = Team.sortTeams();
-
-		int maxHologramLines = Main.plugin.getConfig().getInt("maxHologramLines");
-
-		holo.appendTextLine(MessageManager.getMessage("holo.leaderboard"));
-
-		for (int i = 0; i < maxHologramLines && i < teams.length; i++) {
-			holo.appendTextLine(
-					String.format(MessageManager.getMessage("holo.syntax"), teams[i].getName(), teams[i].getScore()));
+		if (args[0].equals("score")) {
+			HologramManager.holoManager.createHolo(p.getLocation(), HologramType.SCORE);
+			return new CommandResponse(true, "admin.holo.create.success");
+		} else if (args[0].equals("money")) {
+			HologramManager.holoManager.createHolo(p.getLocation(), HologramType.MONEY);
+			return new CommandResponse(true, "admin.holo.create.success");
 		}
 
-		return new CommandResponse(true, "admin.holo.create.success");
+		return new CommandResponse("help");
 	}
 
 	@Override
@@ -51,21 +43,26 @@ public class CreateHoloTeama extends SubCommand {
 
 	@Override
 	public String getArguments() {
-		return "";
+		return "<score/money>";
 	}
 
 	@Override
 	public int getMinimumArguments() {
-		return 0;
+		return 1;
 	}
 
 	@Override
 	public int getMaximumArguments() {
-		return 0;
+		return 1;
 	}
 
 	@Override
 	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
+		if (args.length == 1) {
+			options.add("score");
+			options.add("money");
+		}
+
 	}
 
 	@Override

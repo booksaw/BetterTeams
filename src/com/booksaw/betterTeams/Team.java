@@ -147,12 +147,25 @@ public class Team {
 	}
 
 	/**
+	 * Used for legacy support, instead use sortTeamsByScore() or
+	 * sortTeamsByBalance()
+	 * 
+	 * @return a sorted list by the team score
+	 * @deprecated THIS IS ONLY FOR LEGACY SUPPORT, DO NOT USE
+	 * @see sortTeamsByScore()
+	 */
+	@Deprecated
+	public static Team[] sortTeams() {
+		return sortTeamsByScore();
+	}
+
+	/**
 	 * This method is used to sort all the teams into an arry ranking from hightest
 	 * score to lowest
 	 * 
 	 * @return the array of teams in order of their rank
 	 */
-	public static Team[] sortTeams() {
+	public static Team[] sortTeamsByScore() {
 		Team[] rankedTeams = new Team[teamList.size()];
 
 		int count = teamList.size() - 1;
@@ -189,7 +202,48 @@ public class Team {
 		for (int i = 0; i < rankedTeams.length; i++) {
 			rankedTeams[i].setTeamRank(i);
 		}
+		scoreChanges = false;
+		return rankedTeams;
+	}
 
+	public static Team[] sortTeamsByBalance() {
+		Team[] rankedTeams = new Team[teamList.size()];
+
+		int count = teamList.size() - 1;
+		// adding them to a list to sort
+		for (Entry<UUID, Team> team : teamList.entrySet()) {
+			if (team.getValue().getTeamRank() == -1) {
+				rankedTeams[count--] = team.getValue();
+			} else {
+				if (team.getValue().getTeamRank() >= count || rankedTeams[team.getValue().getTeamRank()] != null) {
+					rankedTeams[count--] = team.getValue();
+				} else {
+					rankedTeams[team.getValue().getTeamRank()] = team.getValue();
+				}
+			}
+		}
+
+		for (int i = 0; i < rankedTeams.length - 1; i++) {
+			boolean changes = false;
+
+			for (int j = 0; j < rankedTeams.length - i - 1; j++) {
+				if (rankedTeams[j].getMoney() < rankedTeams[j + 1].getMoney()) {
+					Team temp = rankedTeams[j];
+					rankedTeams[j] = rankedTeams[j + 1];
+					rankedTeams[j + 1] = temp;
+					changes = true;
+				}
+			}
+
+			if (!changes) {
+				break;
+			}
+		}
+
+		for (int i = 0; i < rankedTeams.length; i++) {
+			rankedTeams[i].setTeamRank(i);
+		}
+		moneyChanges = false;
 		return rankedTeams;
 	}
 

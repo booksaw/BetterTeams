@@ -189,6 +189,7 @@ nametag.syntax: '&6&l%s&r '
 
 holo.leaderboard: '&6Leaderboard' 
 holo.syntax: '&6%s: &b%s'
+holo.msyntax: '&6%s: &b$%s' 
 
 top.leaderboard: '&6Leaderboard'
 top.syntax: '&b%s: &6%s &7(%s)'

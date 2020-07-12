@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.HologramManager;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.commands.SubCommand;
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
@@ -21,7 +22,7 @@ public class RemoveHoloTeama extends SubCommand {
 
 		for (Hologram holo : HologramsAPI.getHolograms(Main.plugin)) {
 			double tempDistance = p.getLocation().distance(holo.getLocation());
-			if (closest == null || tempDistance > distance) {
+			if (closest == null || tempDistance < distance) {
 				closest = holo;
 				distance = tempDistance;
 			}
@@ -31,7 +32,7 @@ public class RemoveHoloTeama extends SubCommand {
 			return new CommandResponse("admin.holo.remove.noHolo");
 		}
 
-		closest.delete();
+		HologramManager.holoManager.removeHolo(closest);
 		return new CommandResponse(true, "admin.holo.remove.success");
 	}
 

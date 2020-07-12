@@ -3,16 +3,13 @@ package com.booksaw.betterTeams;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitScheduler;
 
 import com.booksaw.betterTeams.commands.HelpCommand;
 import com.booksaw.betterTeams.commands.ParentCommand;
@@ -61,8 +58,6 @@ import com.booksaw.betterTeams.events.DamageManagement;
 import com.booksaw.betterTeams.events.ScoreManagement;
 import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.metrics.Metrics;
-import com.gmail.filoghost.holographicdisplays.api.Hologram;
-import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
 
 import net.milkbowl.vault.economy.Economy;
 
@@ -123,12 +118,7 @@ public class Main extends JavaPlugin {
 	public void onDisable() {
 
 		if (useHolographicDisplays) {
-			List<String> holos = new ArrayList<>();
-			for (Hologram holo : HologramsAPI.getHolograms(this)) {
-				holos.add(getString(holo.getLocation()));
-			}
-			teams.set("holos", holos);
-			saveTeams();
+			HologramManager.holoManager.disable();
 		}
 
 		if (nameManagement != null) {
@@ -265,6 +255,7 @@ public class Main extends JavaPlugin {
 			messages.set("admin.open.successopen", "&6That team is now open for everyone");
 			messages.set("admin.open.successclose", "&6That team is now invite only");
 			messages.set("admin.invite.success", "&6That player has been invited to that team");
+			messages.set("holo.msyntax", "&6%s: &b$%s");
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
@@ -343,69 +334,7 @@ public class Main extends JavaPlugin {
 	 * Used to manage all holograms information
 	 */
 	public void updateHolos() {
-		List<String> holos = teams.getStringList("holos");
-		if (holos != null && holos.size() != 0) {
-			for (String s : holos) {
-				Location location = getLocation(s);
-				Hologram holo = HologramsAPI.createHologram(Main.plugin, location);
-				Team[] teams = Team.sortTeams();
-
-				int maxHologramLines = Main.plugin.getConfig().getInt("maxHologramLines");
-
-				holo.appendTextLine(MessageManager.getMessage("holo.leaderboard"));
-
-				for (int i = 0; i < maxHologramLines && i < teams.length; i++) {
-					holo.appendTextLine(String.format(MessageManager.getMessage("holo.syntax"), teams[i].getName(),
-							teams[i].getScore()));
-				}
-			}
-
-		}
-
-		BukkitScheduler scheduler = getServer().getScheduler();
-		scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
-			@Override
-			public void run() {
-				if (Bukkit.getPluginManager().getPlugin("HolographicDisplays") == null
-						|| !Bukkit.getPluginManager().getPlugin("HolographicDisplays").isEnabled()) {
-					return;
-				}
-				// if no score changes have been made
-				if (!Team.scoreChanges) {
-					return;
-				}
-
-				Team[] teams = Team.sortTeams();
-
-				for (Hologram holo : HologramsAPI.getHolograms(Main.plugin)) {
-					holo.clearLines();
-
-					int maxHologramLines = Main.plugin.getConfig().getInt("maxHologramLines");
-
-					holo.appendTextLine(MessageManager.getMessage("holo.leaderboard"));
-
-					for (int i = 0; i < maxHologramLines && i < teams.length; i++) {
-						holo.appendTextLine(String.format(MessageManager.getMessage("holo.syntax"), teams[i].getName(),
-								teams[i].getScore()));
-					}
-
-				}
-
-				Team.scoreChanges = false;
-			}
-		}, 0L, 20 * 60L);
-	}
-
-	// returns the location of a string
-	public static Location getLocation(String loc) {
-		String[] split = loc.split(":");
-		return new Location(Bukkit.getWorld(split[0]), Double.parseDouble(split[1]), Double.parseDouble(split[2]),
-				Double.parseDouble(split[3]));
-	}
-
-	// returns the string of a location
-	public static String getString(Location loc) {
-		return loc.getWorld().getName() + ":" + loc.getX() + ":" + loc.getY() + ":" + loc.getZ();
+		new HologramManager();
 	}
 
 	private boolean setupEconomy() {
