@@ -43,6 +43,7 @@ import com.booksaw.betterTeams.commands.team.UnbanCommand;
 import com.booksaw.betterTeams.commands.team.WithdrawCommand;
 import com.booksaw.betterTeams.commands.teama.ChatSpyTeama;
 import com.booksaw.betterTeams.commands.teama.CreateHoloTeama;
+import com.booksaw.betterTeams.commands.teama.DescriptionTeama;
 import com.booksaw.betterTeams.commands.teama.HomeTeama;
 import com.booksaw.betterTeams.commands.teama.NameTeama;
 import com.booksaw.betterTeams.commands.teama.ReloadTeama;
@@ -258,6 +259,7 @@ public class Main extends JavaPlugin {
 			messages.set("cost.run", "&4&l-%s");
 		case 7:
 			messages.set("admin.name.success", "&6The team name has been changed");
+			messages.set("admin.description.success", "&6That teams name has been changed");
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
@@ -458,6 +460,7 @@ public class Main extends JavaPlugin {
 		teamaCommand.addSubCommand(new VersionTeama());
 		teamaCommand.addSubCommand(new HomeTeama());
 		teamaCommand.addSubCommand(new NameTeama());
+		teamaCommand.addSubCommand(new DescriptionTeama());
 
 		if (useHolographicDisplays) {
 			ParentCommand teamaHoloCommand = new ParentCommand("holo");

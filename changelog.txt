@@ -60,7 +60,7 @@ Fixed a problem with the placeholder %betterteams_rank%
 
 3.1.0
 Features: 
-Added admin commands: /teama name <team> <name>,
+Added admin commands: /teama name <team> <name>, /teama description <team> <description>
 
 Improvements:
 Commands and cooldowns only activate if the command is successful
