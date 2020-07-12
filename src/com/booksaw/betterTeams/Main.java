@@ -307,6 +307,8 @@ public class Main extends JavaPlugin {
 		case 4:
 			getConfig().set("maxTitleLength", 10);
 			getConfig().set("allowToggleTeamChat", true);
+		case 5:
+			getConfig().set("colorTeamName", true);
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;

@@ -61,6 +61,7 @@ Fixed a problem with the placeholder %betterteams_rank%
 3.1.0
 Features: 
 Added admin commands: /teama name <team> <name>, /teama description <team> <description>, /teama open <team>, /teama invite <team> <player>
+/team color is used whenever the players team name is displayed, this can be changed in the config under the option colorTeamName'
 
 Improvements:
 Commands and cooldowns only activate if the command is successful

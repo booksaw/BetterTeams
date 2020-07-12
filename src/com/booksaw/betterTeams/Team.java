@@ -147,7 +147,9 @@ public class Team {
 	}
 
 	/**
-	 * This method is used to sort all the teams into an arry ranking from hightest score to lowest 
+	 * This method is used to sort all the teams into an arry ranking from hightest
+	 * score to lowest
+	 * 
 	 * @return the array of teams in order of their rank
 	 */
 	public static Team[] sortTeams() {
@@ -408,6 +410,9 @@ public class Team {
 	 * @return the name of the team
 	 */
 	public String getName() {
+		if (Main.plugin.getConfig().getBoolean("colorTeamName") && color != null) {
+			return color + name;
+		}
 		return name;
 	}
 
@@ -825,8 +830,9 @@ public class Team {
 	}
 
 	/**
-	 * Used when a player sends a message to the team chat 
-	 * @param sender the player which sent the message to the team chat 
+	 * Used when a player sends a message to the team chat
+	 * 
+	 * @param sender  the player which sent the message to the team chat
 	 * @param message the message to send to the team chat
 	 */
 	public void sendMessage(TeamPlayer sender, String message) {

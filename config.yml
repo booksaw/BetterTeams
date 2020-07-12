@@ -134,5 +134,11 @@ logTeamChat: true
 # Possible values: [true, false]
 allowToggleTeamChat: true
 
+# This option is used to determine if the team name should be colored in correspondance to /team color whenever the team name is displayed within the plugin 
+# - If this is true, the color set will be displayed in /team info, wherever the placeholder %betterteams_name% is included etc. 
+#
+# Possible values: [true, false]
+colorTeamName: true
+
 # Do not edit this value, this is used to check the config is up to date with the lastest version of the plugin (if it is not, it will be automatically updated)
 version: 5
