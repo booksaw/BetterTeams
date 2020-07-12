@@ -56,7 +56,7 @@ public class ChatManagement implements Listener {
 					returnTo = ChatColor.getByChar(syntax.charAt(value + 1));
 				}
 
-				event.setFormat(String.format(syntax, team.getName(returnTo), event.getFormat()));
+				event.setFormat(String.format(syntax, team.getDisplayName(returnTo), event.getFormat()));
 //				event.setFormat(ChatColor.AQUA + "[" + team.getName() + "] " + ChatColor.WHITE + event.getFormat());
 			}
 

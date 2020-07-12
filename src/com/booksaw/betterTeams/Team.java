@@ -464,9 +464,6 @@ public class Team {
 	 * @return the name of the team
 	 */
 	public String getName() {
-		if (Main.plugin.getConfig().getBoolean("colorTeamName") && color != null) {
-			return color + name;
-		}
 		return name;
 	}
 
@@ -476,12 +473,19 @@ public class Team {
 	 * @param resetTo the color to return to at the end of the string
 	 * @return the name of the team
 	 */
-	public String getName(ChatColor resetTo) {
+	public String getDisplayName(ChatColor resetTo) {
 		if (resetTo == null) {
 			return getName();
 		}
 		if (Main.plugin.getConfig().getBoolean("colorTeamName") && color != null) {
 			return color + name + resetTo;
+		}
+		return name;
+	}
+
+	public String getDisplayName() {
+		if (Main.plugin.getConfig().getBoolean("colorTeamName") && color != null) {
+			return color + name;
 		}
 		return name;
 	}

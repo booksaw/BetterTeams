@@ -72,7 +72,7 @@ public class InfoCommand extends SubCommand {
 	}
 
 	private void displayTeamInfo(CommandSender sender, Team team) {
-		MessageManager.sendMessageF(sender, "info.name", team.getName());
+		MessageManager.sendMessageF(sender, "info.name", team.getDisplayName());
 		if (team.getDescription() != null && !team.getDescription().equals("")) {
 			MessageManager.sendMessageF(sender, "info.description", team.getDescription());
 		}
