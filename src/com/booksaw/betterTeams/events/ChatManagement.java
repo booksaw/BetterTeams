@@ -3,6 +3,7 @@ package com.booksaw.betterTeams.events;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -48,8 +49,14 @@ public class ChatManagement implements Listener {
 		TeamPlayer teamPlayer = team.getTeamPlayer(p);
 		if (!teamPlayer.isInTeamChat()) {
 			if (doPrefix) {
-				event.setFormat(
-						String.format(MessageManager.getMessage("prefixSyntax"), team.getName(), event.getFormat()));
+				String syntax = MessageManager.getMessage("prefixSyntax");
+				ChatColor returnTo = ChatColor.RESET;
+				int value = syntax.indexOf("§");
+				if (syntax.charAt(value) == '§') {
+					returnTo = ChatColor.getByChar(syntax.charAt(value + 1));
+				}
+
+				event.setFormat(String.format(syntax, team.getName(returnTo), event.getFormat()));
 //				event.setFormat(ChatColor.AQUA + "[" + team.getName() + "] " + ChatColor.WHITE + event.getFormat());
 			}
 
