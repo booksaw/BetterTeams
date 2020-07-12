@@ -3,6 +3,8 @@ package com.booksaw.betterTeams.commands;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map.Entry;
+import java.util.UUID;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
@@ -10,6 +12,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.message.MessageManager;
 
 /**
@@ -120,6 +123,14 @@ public abstract class SubCommand {
 		for (Player p : Bukkit.getOnlinePlayers()) {
 			if (p.getName().toLowerCase().startsWith(argument.toLowerCase())) {
 				options.add(p.getName());
+			}
+		}
+	}
+
+	public void addTeamStringList(List<String> options, String argument) {
+		for (Entry<UUID, Team> team : Team.getTeamList().entrySet()) {
+			if (team.getValue().getName().toLowerCase().startsWith(argument.toLowerCase())) {
+				options.add(team.getValue().getName());
 			}
 		}
 	}

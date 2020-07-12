@@ -44,6 +44,7 @@ import com.booksaw.betterTeams.commands.team.WithdrawCommand;
 import com.booksaw.betterTeams.commands.teama.ChatSpyTeama;
 import com.booksaw.betterTeams.commands.teama.CreateHoloTeama;
 import com.booksaw.betterTeams.commands.teama.HomeTeama;
+import com.booksaw.betterTeams.commands.teama.NameTeama;
 import com.booksaw.betterTeams.commands.teama.ReloadTeama;
 import com.booksaw.betterTeams.commands.teama.RemoveHoloTeama;
 import com.booksaw.betterTeams.commands.teama.TitleTeama;
@@ -52,11 +53,11 @@ import com.booksaw.betterTeams.cooldown.CooldownManager;
 import com.booksaw.betterTeams.cost.CostManager;
 import com.booksaw.betterTeams.events.BelowNameManagement;
 import com.booksaw.betterTeams.events.BelowNameManagement.BelowNameType;
-import com.booksaw.betterTeams.message.MessageManager;
-import com.booksaw.betterTeams.metrics.Metrics;
 import com.booksaw.betterTeams.events.ChatManagement;
 import com.booksaw.betterTeams.events.DamageManagement;
 import com.booksaw.betterTeams.events.ScoreManagement;
+import com.booksaw.betterTeams.message.MessageManager;
+import com.booksaw.betterTeams.metrics.Metrics;
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
 import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
 
@@ -255,6 +256,8 @@ public class Main extends JavaPlugin {
 			messages.set("cooldown.wait", "&4You need to wait another %s seconds before running that!");
 			messages.set("cost.tooPoor", "&4You are too poor to run that command");
 			messages.set("cost.run", "&4&l-%s");
+		case 7:
+			messages.set("admin.name.success", "&6The team name has been changed");
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
@@ -454,6 +457,7 @@ public class Main extends JavaPlugin {
 		teamaCommand.addSubCommand(new TitleTeama());
 		teamaCommand.addSubCommand(new VersionTeama());
 		teamaCommand.addSubCommand(new HomeTeama());
+		teamaCommand.addSubCommand(new NameTeama());
 
 		if (useHolographicDisplays) {
 			ParentCommand teamaHoloCommand = new ParentCommand("holo");
