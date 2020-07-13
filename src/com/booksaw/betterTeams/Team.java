@@ -617,7 +617,7 @@ public class Team {
 		savePlayers(Main.plugin.getTeams());
 		Main.plugin.saveTeams();
 
-		if (team != null) {
+		if (Main.plugin.nameManagement != null) {
 			Main.plugin.nameManagement.remove(p.getPlayer());
 		}
 	}

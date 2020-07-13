@@ -70,7 +70,8 @@ Added placeholder %betterteams_color% to use the team color
 Improved help message if a command is invalid
 
 Bug Fixes: 
-Fixed a problem when placeholder API is not present on the server. 
+Fixed a problem when placeholder API is not present on the server.
+Fixed a problem where a players team name was not removed when they left the team
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 Add command cost and cooldown to documentation 
