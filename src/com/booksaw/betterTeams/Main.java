@@ -31,6 +31,7 @@ import com.booksaw.betterTeams.commands.team.InviteCommand;
 import com.booksaw.betterTeams.commands.team.JoinCommand;
 import com.booksaw.betterTeams.commands.team.KickCommand;
 import com.booksaw.betterTeams.commands.team.LeaveCommand;
+import com.booksaw.betterTeams.commands.team.ListCommand;
 import com.booksaw.betterTeams.commands.team.NameCommand;
 import com.booksaw.betterTeams.commands.team.NeutralCommand;
 import com.booksaw.betterTeams.commands.team.OpenCommand;
@@ -280,6 +281,10 @@ public class Main extends JavaPlugin {
 			messages.set("allychat.disabled", "&6Your messages are no longer going to the ally chat");
 			messages.set("allychat.enabled", "&6Your messages are now going to the ally chat");
 			messages.set("allychat.syntax", "&d[%s]&f%s: %s");
+			messages.set("list.noPage", "&6That page is not found");
+			messages.set("list.header", "&7--- &blist page %s &7---");
+			messages.set("list.body", "&6%s: &b%s");
+			messages.set("list.footer", "&7--- &6do &b/team list [page] &6to view more &7---");
 
 			// messages.set("", "");
 		case 1000:
@@ -415,6 +420,7 @@ public class Main extends JavaPlugin {
 		teamCommand.addSubCommand(new AllyCommand());
 		teamCommand.addSubCommand(new NeutralCommand());
 		teamCommand.addSubCommand(new AllyChatCommand());
+		teamCommand.addSubCommand(new ListCommand());
 
 		new BooksawCommand(getCommand("team"), teamCommand);
 

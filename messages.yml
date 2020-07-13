@@ -188,6 +188,12 @@ neutral.notAlly: '&4You are not allied with that team'
 neutral.success: '&4You are no longer allied wih that team'
 neutral.remove: '&4You are no longer allied with &b%s'
 
+# for /team list 
+list.noPage: '&6That page is not found'
+list.header: '&7--- &bTeam list page %s &7---'
+list.body: '&6%s: &b%s'
+list.footer: '&7--- &6do &b/team list [page] &6to view more &7---'
+
 # for chat formatting
 chat.syntax: '&6&b[Team]&f%s: %s'
 

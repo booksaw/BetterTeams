@@ -60,7 +60,8 @@ Fixed a problem with the placeholder %betterteams_rank%
 
 3.1.0
 Features: 
-Added the option for allies, this comes with the commands (/team ally, /team neutral and /team allychat) 
+Added the option for allies, this comes with the commands (/team ally, /team neutral and /team allychat)
+Added /team list to view a list of all teams, in order of size. 
 Added admin commands: /teama name <team> <name>, /teama description <team> <description>, /teama open <team>, /teama invite <team> <player>
 /team color is used whenever the players team name is displayed, this can be changed in the config under the option colorTeamName'
 Added a second hologram option to display a balance leaderboard
