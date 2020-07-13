@@ -70,6 +70,7 @@ Improvements:
 Commands and cooldowns only activate if the command is successful
 Added placeholder %betterteams_color% to use the team color
 Improved help message if a command is invalid
+Team color displays when the team name is being displayed below the players name
 
 Bug Fixes: 
 Fixed a problem when placeholder API is not present on the server.

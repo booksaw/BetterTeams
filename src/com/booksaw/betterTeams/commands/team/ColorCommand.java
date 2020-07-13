@@ -20,11 +20,18 @@ public class ColorCommand extends TeamSubCommand {
 			return new CommandResponse("needOwner");
 		}
 
-		ChatColor color = ChatColor.getByChar(args[0].charAt(0));
-		if (color == null) {
-			return new CommandResponse("color.fail");
+		ChatColor color = null;
+		try {
+			color = ChatColor.valueOf(args[0]);
+		} catch (IllegalArgumentException e) {
+			// expected if they do not input a correct value, or a char
 		}
-
+		if (color == null) {
+			color = ChatColor.getByChar(args[0]);
+			if (color == null || args[0].length() > 1)
+				return new CommandResponse("color.fail");
+		}
+		System.out.println(color.name());
 		team.setColor(color);
 
 		return new CommandResponse(true, "color.success");
@@ -63,7 +70,7 @@ public class ColorCommand extends TeamSubCommand {
 	@Override
 	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
 		for (ChatColor c : ChatColor.values()) {
-			options.add(c.getChar() + "");
+			options.add(c.name() + "");
 		}
 	}
 

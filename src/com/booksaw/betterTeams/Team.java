@@ -1080,7 +1080,7 @@ public class Team {
 		if (team != null) {
 			return team;
 		}
-		String name = String.format(color + MessageManager.getMessage("nametag.syntax"), getName());
+		String name = String.format(color + MessageManager.getMessage("nametag.syntax"), getDisplayName());
 		int attempt = 0;
 		do {
 			try {
