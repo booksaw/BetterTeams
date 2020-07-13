@@ -31,7 +31,6 @@ public class ColorCommand extends TeamSubCommand {
 			if (color == null || args[0].length() > 1)
 				return new CommandResponse("color.fail");
 		}
-		System.out.println(color.name());
 		team.setColor(color);
 
 		return new CommandResponse(true, "color.success");
