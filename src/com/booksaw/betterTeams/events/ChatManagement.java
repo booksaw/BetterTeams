@@ -47,29 +47,41 @@ public class ChatManagement implements Listener {
 		}
 
 		TeamPlayer teamPlayer = team.getTeamPlayer(p);
-		if (!teamPlayer.isInTeamChat()) {
-			if (doPrefix) {
-				String syntax = MessageManager.getMessage("prefixSyntax");
-				ChatColor returnTo = ChatColor.RESET;
-				int value = syntax.indexOf("§");
-				if (syntax.charAt(value) == '§') {
-					returnTo = ChatColor.getByChar(syntax.charAt(value + 1));
-				}
 
-				event.setFormat(String.format(syntax, team.getDisplayName(returnTo), event.getFormat()));
-//				event.setFormat(ChatColor.AQUA + "[" + team.getName() + "] " + ChatColor.WHITE + event.getFormat());
-			}
+		if (teamPlayer.isInTeamChat()) {
+			// player is sending to team chat
+			event.setCancelled(true);
 
+			team.sendMessage(teamPlayer, event.getMessage());
+			// Used as some chat plugins do not accept when a message is cancelled
+			event.setMessage("");
+			event.setFormat("");
+			return;
+		} else if (teamPlayer.isInAllyChat()) {
+			// player is sending to team chat
+			event.setCancelled(true);
+
+			team.sendAllyMessage(teamPlayer, event.getMessage());
+			// Used as some chat plugins do not accept when a message is cancelled
+			event.setMessage("");
+			event.setFormat("");
 			return;
 		}
 
-		// player is sending to team chat
-		event.setCancelled(true);
+		if (doPrefix) {
+			String syntax = MessageManager.getMessage("prefixSyntax");
+			ChatColor returnTo = ChatColor.RESET;
+			int value = syntax.indexOf("§");
+			if (syntax.charAt(value) == '§') {
+				returnTo = ChatColor.getByChar(syntax.charAt(value + 1));
+			}
 
-		team.sendMessage(teamPlayer, event.getMessage());
-		// Used as some chat plugins do not accept when a message is cancelled
-		event.setMessage("");
-		event.setFormat("");
+			event.setFormat(String.format(syntax, team.getDisplayName(returnTo), event.getFormat()));
+//				event.setFormat(ChatColor.AQUA + "[" + team.getName() + "] " + ChatColor.WHITE + event.getFormat());
+		}
+
+		return;
+
 	}
 
 	@EventHandler

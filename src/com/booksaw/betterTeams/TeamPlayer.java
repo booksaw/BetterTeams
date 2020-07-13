@@ -29,6 +29,8 @@ public class TeamPlayer {
 	 */
 	private boolean teamChat = false;
 
+	private boolean allyChat = false;
+
 	private String title;
 
 	/**
@@ -95,6 +97,14 @@ public class TeamPlayer {
 
 	public void setTeamChat(boolean teamChat) {
 		this.teamChat = teamChat;
+	}
+
+	public boolean isInAllyChat() {
+		return allyChat;
+	}
+
+	public void setAllyChat(boolean AllyChat) {
+		this.allyChat = AllyChat;
 	}
 
 	/**

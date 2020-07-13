@@ -11,7 +11,7 @@ needSameTeam: '&6You are not in the same team as that person'
 noPerm: '&4You do not have permission to do that'
 prefixSyntax: '&b[%s] &r%s'
 bannedChar: '&4A character you tried to use is banned"'
-
+noTeam: '&4That team does not exist'
 # do not change this, it is used to check the messages version (test if there are any missing messages)
 version: 7
 
@@ -32,7 +32,7 @@ placeholder.default: 'Default'
 # Used prefixing team chat messages, for no prefix, leave blank 
 prefix.owner: ' **'
 prefix.admin: ' *'
-prefix.default: ''
+prefix.default: ' '
 
 # for /team create <name>
 create.exists: '&6That team already exists'
@@ -104,6 +104,7 @@ info.default: '&6Users: &b%s'
 info.fail: '&6No team or player found under that name'
 info.score: '&6Score: &b%s'
 info.money: '&6Balance: &b£%s'
+info.ally: '&6Allies: &b%s'
 
 # for /team kick <player>
 kick.success: '&6That player has been kicked'
@@ -161,6 +162,31 @@ withdraw.tooLittle: '&4You cannot widthraw negative amounts'
 withdraw.fail: '&4The withdrawal failed'
 withdraw.success: '&6Money withdrawn'
 withdraw.notEnough: '&6Your team does not have enougn money' 
+
+# for /team ally
+ally.already: '&4You are already allies'
+ally.success: '&6Your teams are now allies'
+ally.ally: '&6Your team is now allied wtih &b%s'
+ally.requested: '&6An ally request has been sent to that team'
+ally.request: '&b%s &6has sent an ally request, use &b/team ally <team> &6to accept'
+ally.self: '&4You cannot ally your own team'
+ally.from: '&6You have ally requests from: %s'
+ally.noRequests: '&4You do not have any ally requests'
+ally.onJoin: '&6You have new ally requests do &b/team ally &6to view them'
+ally.limit: '&4The limit on allies has been reached'
+
+# for /team allychat
+allychat.disabled: '&6Your messages are no longer going to the ally chat'
+allychat.enabled: '&6Your messages are now going to the ally chat'
+allychat.syntax: '&d[%s]&f%s: %s'
+
+# for /team neutral
+neutral.self: '&6That is your own team'
+neutral.requestremove: '&6That ally request has been removed'
+neutral.reject: '&4Your ally request with &b%s &4has been rejected'
+neutral.notAlly: '&4You are not allied with that team'
+neutral.success: '&4You are no longer allied wih that team'
+neutral.remove: '&4You are no longer allied with &b%s'
 
 # for chat formatting
 chat.syntax: '&6&b[Team]&f%s: %s'

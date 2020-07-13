@@ -300,6 +300,16 @@ public class Team {
 	private transient int rank;
 
 	/**
+	 * Used to track the allies of this team
+	 */
+	private List<UUID> allies;
+
+	/**
+	 * Used to track which teams have requested to be allies with this team
+	 */
+	private List<UUID> requests;
+
+	/**
 	 * this is used to load a team from the configuration file
 	 * 
 	 * @param ID the ID of the team to load
@@ -336,6 +346,17 @@ public class Team {
 		if (teamHomeStr != null && !teamHomeStr.equals("")) {
 			teamHome = getLocation(teamHomeStr);
 		}
+
+		allies = new ArrayList<>();
+		for (String string : getStringList(config, "allies")) {
+			allies.add(UUID.fromString(string));
+		}
+
+		requests = new ArrayList<>();
+		for (String string : getStringList(config, "allyrequests")) {
+			requests.add(UUID.fromString(string));
+		}
+
 		rank = -1;
 
 	}
@@ -370,6 +391,10 @@ public class Team {
 		rank = -1;
 		color = ChatColor.GOLD;
 		setValue(config, "color", color.getChar());
+		allies = new ArrayList<>();
+		setValue(config, "allies", allies);
+		requests = new ArrayList<>();
+		setValue(config, "allyrequests", requests);
 
 		members = new ArrayList<>();
 		members.add(new TeamPlayer(owner, PlayerRank.OWNER));
@@ -679,6 +704,18 @@ public class Team {
 	 * This command is used to disband a team, BE CAREFUL, this is irreversible
 	 */
 	public void disband() {
+
+		for (UUID ally : allies) {
+			Team team = Team.getTeam(ally);
+			team.removeAlly(getID());
+		}
+
+		for (Entry<UUID, Team> team : teamList.entrySet()) {
+			if (team.getValue().hasRequested(getID())) {
+				team.getValue().removeAllyRequest(getID());
+			}
+		}
+
 		// removing it from the team list, the java GC will handle the reset
 		teamList.remove(ID);
 
@@ -945,6 +982,57 @@ public class Team {
 		}
 	}
 
+	/**
+	 * Used to send a message to all of the teams allies
+	 * 
+	 * @param sender  the player who sent the message
+	 * @param message the message that the player sent
+	 */
+	public void sendAllyMessage(TeamPlayer sender, String message) {
+		ChatColor returnTo = ChatColor.RESET;
+		String toTest = MessageManager.getMessage("chat.syntax");
+		int value = toTest.indexOf("%s");
+		if (value > 2) {
+			for (int i = value; i >= 0; i--) {
+				if (toTest.charAt(i) == '§') {
+					returnTo = ChatColor.getByChar(toTest.charAt(i + 1));
+					if (toTest != null) {
+						break;
+					}
+				}
+			}
+		}
+
+		String fMessage = String.format(MessageManager.getMessage("allychat.syntax"), getName(),
+				sender.getPrefix(returnTo) + sender.getPlayer().getPlayer().getDisplayName(), message);
+
+		for (TeamPlayer player : members) {
+			if (player.getPlayer().isOnline()) {
+				player.getPlayer().getPlayer().sendMessage(fMessage);
+			}
+		}
+
+		for (UUID ally : allies) {
+			Team temp = Team.getTeam(ally);
+			for (TeamPlayer player : temp.getMembers()) {
+				if (player.getPlayer().isOnline()) {
+					player.getPlayer().getPlayer().sendMessage(fMessage);
+				}
+			}
+		}
+
+		for (CommandSender temp : Main.plugin.chatManagement.spy) {
+			if (temp instanceof Player && getTeamPlayer((Player) temp) != null) {
+				continue;
+			}
+			temp.sendMessage("[BetterTeams]" + message);
+		}
+
+		if (logChat) {
+			Bukkit.getLogger().info("[BetterTeams]" + fMessage);
+		}
+	}
+
 	public int getScore() {
 		return score;
 	}
@@ -1022,6 +1110,166 @@ public class Team {
 	public void setTitle(TeamPlayer player, String title) {
 		player.setTitle(title);
 		savePlayers(Main.plugin.getTeams());
+	}
+
+	/**
+	 * Used to add an ally for this team
+	 * 
+	 * @param ally the UUID of the new ally
+	 */
+	public void addAlly(UUID ally) {
+		allies.add(ally);
+		saveAllies();
+
+		Team team = Team.getTeam(ally);
+		// notifying all online members of the team
+		for (TeamPlayer p : members) {
+			OfflinePlayer player = p.getPlayer();
+			if (player.isOnline()) {
+				MessageManager.sendMessageF(player.getPlayer(), "ally.ally", team.getDisplayName());
+			}
+		}
+	}
+
+	/**
+	 * Used to remove an ally from this team
+	 * 
+	 * @param ally the ally to remove
+	 */
+	public void removeAlly(UUID ally) {
+		allies.remove(ally);
+		saveAllies();
+	}
+
+	/**
+	 * Used to check if a team is in alliance with this team
+	 * 
+	 * @param team the team to check for allies
+	 * @return if the team is an ally
+	 */
+	public boolean isAlly(UUID team) {
+		return allies.contains(team);
+	}
+
+	/**
+	 * Used to add an ally request to this team
+	 * 
+	 * @param team the team that has sent the request
+	 */
+	public void addAllyRequest(UUID team) {
+		requests.add(team);
+		saveAllyRequests();
+
+		Team t = Team.getTeam(team);
+		// notifying all online owners of the team
+		for (TeamPlayer p : members) {
+			OfflinePlayer player = p.getPlayer();
+			if (player.isOnline() && p.getRank() == PlayerRank.OWNER) {
+				MessageManager.sendMessageF(player.getPlayer(), "ally.request", t.getDisplayName());
+			}
+		}
+	}
+
+	/**
+	 * Used to remove an ally request from this team
+	 * 
+	 * @param team the team to remove the ally request for
+	 */
+	public void removeAllyRequest(UUID team) {
+		requests.remove(team);
+		saveAllyRequests();
+	}
+
+	/**
+	 * Used to check if a team has sent an ally request for this team
+	 * 
+	 * @param team the team to check for
+	 * @return if they have sent an ally request
+	 */
+	public boolean hasRequested(UUID team) {
+		return requests.contains(team);
+	}
+
+	/**
+	 * @return the list of all UUIDS of teams that have sent ally requests
+	 */
+	public List<UUID> getRequests() {
+		return requests;
+	}
+
+	/**
+	 * @return the list of all UUIDS of teams that are allied with this team
+	 */
+	public List<UUID> getAllies() {
+		return allies;
+	}
+
+	/**
+	 * Used to save the list of allies for this team
+	 */
+	private void saveAllies() {
+		List<String> toSave = new ArrayList<>();
+
+		for (UUID uuid : allies) {
+			toSave.add(uuid.toString());
+		}
+
+		setValue(Main.plugin.getTeams(), "allies", toSave);
+		Main.plugin.saveTeams();
+	}
+
+	/**
+	 * Used to save the list of requests for allies for this team
+	 */
+	private void saveAllyRequests() {
+		List<String> toSave = new ArrayList<>();
+
+		for (UUID uuid : requests) {
+			toSave.add(uuid.toString());
+		}
+
+		setValue(Main.plugin.getTeams(), "allyrequests", toSave);
+		Main.plugin.saveTeams();
+	}
+
+	public UUID getID() {
+		return ID;
+	}
+
+	/**
+	 * Used to check if a member of this team can damage the specified player
+	 * 
+	 * @param player the player to check for
+	 * @return if this team can damage that player
+	 */
+	public boolean canDamage(Player player) {
+		Team team = Team.getTeam(player);
+		if (team == null) {
+			return true;
+		}
+		return canDamage(team);
+	}
+
+	/**
+	 * Used to check if this team can damage members of the specified team
+	 * 
+	 * @param team the team to test
+	 * @return if players of this team can damage members of the other team
+	 */
+	public boolean canDamage(Team team) {
+		if (team.isAlly(getID()) || team == this) {
+			return false;
+		}
+		return true;
+	}
+
+	public boolean hasMaxAllies() {
+		int limit = Main.plugin.getConfig().getInt("allyLimit");
+		if (limit == -1) {
+			return false;
+		}
+
+		return allies.size() >= limit;
 	}
 
 }

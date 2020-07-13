@@ -41,6 +41,13 @@ prefixFormat: '&7[&6BetterTeams&7] '
 # Possible values: [-1, any positive whole number]
 teamLimit: -1
 
+# This is used to set the maxmimum number of allies a team can have
+# - If this feature is unwanted, set the allyLimit to -1 and there will be unlimited allies for each team
+# - Keep this value reasonable, as Java cannot cope with larger numbers (over 2 billion), so if you want the team to be limitless, set the value to -1 instead of something large
+#
+# Possible values: [-1, any positive whole number]
+allyLimit: 5
+
 # This is used to limit the length of a team name (if chat prefixes are enabled, this will stop the team names clogging up the chat)
 # - If this feature is unwanted, set the teamLimit to -1 and team name lengths will be unlimited
 #

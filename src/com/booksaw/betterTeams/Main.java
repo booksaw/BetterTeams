@@ -13,6 +13,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.booksaw.betterTeams.commands.HelpCommand;
 import com.booksaw.betterTeams.commands.ParentCommand;
+import com.booksaw.betterTeams.commands.team.AllyChatCommand;
+import com.booksaw.betterTeams.commands.team.AllyCommand;
 import com.booksaw.betterTeams.commands.team.BalCommand;
 import com.booksaw.betterTeams.commands.team.BanCommand;
 import com.booksaw.betterTeams.commands.team.ChatCommand;
@@ -30,6 +32,7 @@ import com.booksaw.betterTeams.commands.team.JoinCommand;
 import com.booksaw.betterTeams.commands.team.KickCommand;
 import com.booksaw.betterTeams.commands.team.LeaveCommand;
 import com.booksaw.betterTeams.commands.team.NameCommand;
+import com.booksaw.betterTeams.commands.team.NeutralCommand;
 import com.booksaw.betterTeams.commands.team.OpenCommand;
 import com.booksaw.betterTeams.commands.team.PromoteCommand;
 import com.booksaw.betterTeams.commands.team.RankCommand;
@@ -51,6 +54,7 @@ import com.booksaw.betterTeams.commands.teama.TitleTeama;
 import com.booksaw.betterTeams.commands.teama.VersionTeama;
 import com.booksaw.betterTeams.cooldown.CooldownManager;
 import com.booksaw.betterTeams.cost.CostManager;
+import com.booksaw.betterTeams.events.AllyManagement;
 import com.booksaw.betterTeams.events.BelowNameManagement;
 import com.booksaw.betterTeams.events.BelowNameManagement.BelowNameType;
 import com.booksaw.betterTeams.events.ChatManagement;
@@ -223,7 +227,7 @@ public class Main extends JavaPlugin {
 			messages.set("placeholder.default", "Default");
 			messages.set("prefix.owner", " **");
 			messages.set("prefix.admin", " *");
-			messages.set("prefix.default", "");
+			messages.set("prefix.default", " ");
 			messages.set("title.change", "&6Your title has been changed to &b%s");
 			messages.set("title.success", "&6That title has been changed");
 			messages.set("bannedChar", "&4A character you tried to use is banned");
@@ -256,6 +260,28 @@ public class Main extends JavaPlugin {
 			messages.set("admin.open.successclose", "&6That team is now invite only");
 			messages.set("admin.invite.success", "&6That player has been invited to that team");
 			messages.set("holo.msyntax", "&6%s: &b$%s");
+			messages.set("noTeam", "&4That team does not exist");
+			messages.set("ally.already", "&4You are already allies");
+			messages.set("ally.success", "&6Your teams are now allies");
+			messages.set("ally.ally", "&6Your team is now allied with &b%s");
+			messages.set("ally.requested", "&6An ally request has been sent to that team");
+			messages.set("ally.request", "&b%s &6has sent an ally request, use &b/team ally <team> &6to accept");
+			messages.set("ally.self", "&4You cannot ally your own team");
+			messages.set("info.ally", "&6Allies: &b%s");
+			messages.set("ally.from", "&6You have ally requests from: %s");
+			messages.set("ally.noRequests", "&4You do not have any ally requests");
+			messages.set("neutral.self", "&6That is your own team");
+			messages.set("neutral.requestremove", "&6That ally request has been removed");
+			messages.set("neutral.reject", "&4Your ally request with &b%s &4has been rejected");
+			messages.set("neutral.notAlly", "&4You are not allied with that team");
+			messages.set("neutral.success", "&4You are no longer allied wih that team");
+			messages.set("neutral.remove", "&4You are no longer allied with &b%s");
+			messages.set("ally.onJoin", "&6You have new ally requests do &b/team ally &6to view them");
+			messages.set("allychat.disabled", "&6Your messages are no longer going to the ally chat");
+			messages.set("allychat.enabled", "&6Your messages are now going to the ally chat");
+			messages.set("allychat.syntax", "&d[%s]&f%s: %s");
+
+			// messages.set("", "");
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
@@ -300,6 +326,7 @@ public class Main extends JavaPlugin {
 			getConfig().set("allowToggleTeamChat", true);
 		case 5:
 			getConfig().set("colorTeamName", true);
+			getConfig().set("allyLimit", 5);
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
@@ -385,6 +412,9 @@ public class Main extends JavaPlugin {
 		teamCommand.addSubCommand(new TopCommand());
 		teamCommand.addSubCommand(new RankCommand());
 		teamCommand.addSubCommand(new DelHome());
+		teamCommand.addSubCommand(new AllyCommand());
+		teamCommand.addSubCommand(new NeutralCommand());
+		teamCommand.addSubCommand(new AllyChatCommand());
 
 		new BooksawCommand(getCommand("team"), teamCommand);
 
@@ -438,5 +468,6 @@ public class Main extends JavaPlugin {
 
 		getServer().getPluginManager().registerEvents((chatManagement = new ChatManagement()), this);
 		getServer().getPluginManager().registerEvents(new ScoreManagement(), this);
+		getServer().getPluginManager().registerEvents(new AllyManagement(), this);
 	}
 }

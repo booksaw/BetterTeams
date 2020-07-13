@@ -11,7 +11,7 @@ import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 import com.booksaw.betterTeams.message.HelpMessage;
 
-public class ChatCommand extends TeamSubCommand {
+public class AllyChatCommand extends TeamSubCommand {
 
 	@Override
 	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
@@ -22,13 +22,13 @@ public class ChatCommand extends TeamSubCommand {
 				return new CommandResponse(new HelpMessage(this, label));
 			}
 
-			if (player.isInTeamChat()) {
-				player.setTeamChat(false);
-				return new CommandResponse(true, "chat.disabled");
-			} else {
-				player.setTeamChat(true);
+			if (player.isInAllyChat()) {
 				player.setAllyChat(false);
-				return new CommandResponse(true, "chat.enabled");
+				return new CommandResponse(true, "allychat.disabled");
+			} else {
+				player.setTeamChat(false);
+				player.setAllyChat(true);
+				return new CommandResponse(true, "allychat.enabled");
 			}
 		}
 
@@ -37,13 +37,13 @@ public class ChatCommand extends TeamSubCommand {
 			message = message + args[i] + " ";
 		}
 
-		team.sendMessage(player, message);
+		team.sendAllyMessage(player, message);
 		return new CommandResponse(true);
 	}
 
 	@Override
 	public String getCommand() {
-		return "chat";
+		return "allychat";
 	}
 
 	@Override
@@ -53,12 +53,12 @@ public class ChatCommand extends TeamSubCommand {
 
 	@Override
 	public String getNode() {
-		return "chat";
+		return "allychat";
 	}
 
 	@Override
 	public String getHelp() {
-		return "Send a message only to your team";
+		return "Send a message only to your allies";
 	}
 
 	@Override

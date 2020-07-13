@@ -1,8 +1,8 @@
 package com.booksaw.betterTeams.commands.team;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.Map.Entry;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -80,6 +80,16 @@ public class InfoCommand extends SubCommand {
 		MessageManager.sendMessageF(sender, "info.open", team.isOpen() + "");
 		MessageManager.sendMessageF(sender, "info.score", team.getScore() + "");
 		MessageManager.sendMessageF(sender, "info.money", team.getBalance());
+
+		String allies = "";
+		for (UUID uuid : team.getAllies()) {
+			allies = allies + Team.getTeam(uuid).getDisplayName() + ChatColor.WHITE + ", ";
+		}
+		if (allies.length() > 2) {
+			allies = allies.substring(0, allies.length() - 2);
+
+			MessageManager.sendMessageF(sender, "info.ally", allies);
+		}
 
 		List<TeamPlayer> owners = team.getRank(PlayerRank.OWNER);
 
