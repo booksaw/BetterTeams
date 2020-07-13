@@ -147,5 +147,19 @@ allowToggleTeamChat: true
 # Possible values: [true, false]
 colorTeamName: true
 
+# This is used to determine how long of a delay should happen before the user is teleported when using /team home
+# - If this is set to 0 there will be no delay when teleporting
+# - This value is in seconds
+# 
+# Possible values: [0, Any positive whole number]
+tpDelay: 0
+
+# This is used when there is a tp cooldown to check if the player can move during the countdown
+# - If this is true, the player can not move around (they can still look around though)
+# - If this is false, the player can move around however they want while waiting for the teleport
+# 
+# Possible values: [true, false]
+noMove: false
+
 # Do not edit this value, this is used to check the config is up to date with the lastest version of the plugin (if it is not, it will be automatically updated)
 version: 5

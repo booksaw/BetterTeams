@@ -65,6 +65,7 @@ Added /team list to view a list of all teams, in order of size.
 Added admin commands: /teama name <team> <name>, /teama description <team> <description>, /teama open <team>, /teama invite <team> <player>
 /team color is used whenever the players team name is displayed, this can be changed in the config under the option colorTeamName'
 Added a second hologram option to display a balance leaderboard
+Added a config option for a teleport delay on /team home
 
 Improvements:
 Commands and cooldowns only activate if the command is successful
@@ -79,8 +80,9 @@ Fixed a problem where a players team name was not removed when they left the tea
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 Add command cost and cooldown to documentation 
 add /team color to documentation
-commands to add to documentation, plugin.yml and plugin page: /teama name, /teama description, /teama open, /teama invite, /team ally, /team neutral, /team allychat 
+commands to add to documentation, plugin.yml and plugin page: /teama name, /teama description, /teama open, /teama invite, /team ally, /team neutral, /team allychat
 Add help messages to messages.yml
+add betterteams.warmup.bypass to documentation and plugin.yml
 update messages.yml and config.yml version 
 
 

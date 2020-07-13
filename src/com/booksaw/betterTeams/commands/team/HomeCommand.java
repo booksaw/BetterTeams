@@ -5,6 +5,7 @@ import java.util.List;
 import org.bukkit.command.CommandSender;
 
 import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.PlayerTeleport;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
@@ -15,11 +16,11 @@ public class HomeCommand extends TeamSubCommand {
 	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 
 		if (team.getTeamHome() != null) {
-			player.getPlayer().getPlayer().teleport(team.getTeamHome());
-			return new CommandResponse(true, "home.success");
+			new PlayerTeleport(player.getPlayer().getPlayer(), team.getTeamHome(), "home.success");
+			return new CommandResponse(true);
 		}
 
-		return new CommandResponse(true, "home.noHome");
+		return new CommandResponse("home.noHome");
 	}
 
 	@Override
@@ -54,7 +55,7 @@ public class HomeCommand extends TeamSubCommand {
 
 	@Override
 	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
-		
+
 	}
 
 }

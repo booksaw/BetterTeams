@@ -285,6 +285,8 @@ public class Main extends JavaPlugin {
 			messages.set("list.header", "&7--- &blist page %s &7---");
 			messages.set("list.body", "&6%s: &b%s");
 			messages.set("list.footer", "&7--- &6do &b/team list [page] &6to view more &7---");
+			messages.set("teleport.fail", "&4The teleportation failed");
+			messages.set("teleport.wait", "&6Wait &b%s &6seconds");
 
 			// messages.set("", "");
 		case 1000:
@@ -337,6 +339,8 @@ public class Main extends JavaPlugin {
 			changes = true;
 			// set version the latest
 			getConfig().set("version", 5);
+			getConfig().set("tpDelay", 0);
+			getConfig().set("noMove", false);
 			break;
 		}
 

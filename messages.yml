@@ -197,6 +197,9 @@ list.footer: '&7--- &6do &b/team list [page] &6to view more &7---'
 # for chat formatting
 chat.syntax: '&6&b[Team]&f%s: %s'
 
+teleport.fail: '&4The teleportation failed'
+teleport.wait: '&6Wait &b%s &6seconds'
+
 # for admin messages
 admin.inTeam: '&4That player is not in a team'
 admin.config.reload: '&6BetterTeams has been reloaded (If you are having problems when using this command, restart the server)'
