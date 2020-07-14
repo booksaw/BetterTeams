@@ -7,24 +7,16 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 
 import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 import com.booksaw.betterTeams.message.MessageManager;
 
-/**
- * This class handles the command /team promote [player]
- * 
- * @author booksaw
- *
- */
-public class PromoteCommand extends TeamSubCommand {
+public class SetOwnerCommand extends TeamSubCommand {
 
 	@Override
 	public CommandResponse onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
-
 		/*
 		 * method is depreciated as it does not guarantee the expected player, in most
 		 * use cases this will work and it will be down to the user if it does not due
@@ -46,46 +38,41 @@ public class PromoteCommand extends TeamSubCommand {
 		TeamPlayer promotePlayer = team.getTeamPlayer(player);
 
 		if (teamPlayer.getRank() != PlayerRank.OWNER) {
-			return new CommandResponse("promote.noPerm");
+			return new CommandResponse("noPerm");
 		} else if (promotePlayer.getRank() == PlayerRank.OWNER) {
-			return new CommandResponse("promote.max");
-
-		}
-
-		if (promotePlayer.getRank() == PlayerRank.ADMIN && Main.plugin.getConfig().getBoolean("singleOwner")) {
-			return new CommandResponse("setowner.use");
+			return new CommandResponse("setowner.max");
 		}
 
 		team.promotePlayer(promotePlayer);
-		MessageManager.sendMessage((CommandSender) promotePlayer.getPlayer(), "promote.notify");
+		team.demotePlayer(teamPlayer);
+		MessageManager.sendMessage((CommandSender) promotePlayer.getPlayer(), "setowner.notify");
 
-		return new CommandResponse(true, "promote.success");
-
+		return new CommandResponse(true, "setowner.success");
 	}
 
 	@Override
 	public String getCommand() {
-		return "promote";
-	}
-
-	@Override
-	public int getMinimumArguments() {
-		return 1;
+		return "setowner";
 	}
 
 	@Override
 	public String getNode() {
-		return "promote";
+		return "setowner";
 	}
 
 	@Override
 	public String getHelp() {
-		return "Promote the specified player within your team";
+		return "Set the teams new owner";
 	}
 
 	@Override
 	public String getArguments() {
 		return "<player>";
+	}
+
+	@Override
+	public int getMinimumArguments() {
+		return 1;
 	}
 
 	@Override
@@ -95,7 +82,9 @@ public class PromoteCommand extends TeamSubCommand {
 
 	@Override
 	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
-		addPlayerStringList(options, (args.length == 0) ? "" : args[0]);
+		if (args.length == 1) {
+			addPlayerStringList(options, args[0]);
+		}
 	}
 
 }

@@ -837,6 +837,7 @@ public class Team {
 		}
 
 		savePlayers(Main.plugin.getTeams());
+		Main.plugin.saveTeams();
 	}
 
 	/**
@@ -854,6 +855,7 @@ public class Team {
 		}
 
 		savePlayers(Main.plugin.getTeams());
+		Main.plugin.saveTeams();
 	}
 
 	public void setTeamHome(Location teamHome) {

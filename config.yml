@@ -161,5 +161,13 @@ tpDelay: 0
 # Possible values: [true, false]
 noMove: false
 
+# If this is enabled, a slightly different set of commands will be avaliable allowing a team to only have a single owner
+# - If this is false, a team can have as many owners as wanted, members are promoted to owners with the command /team promote
+# - If this is true a team can only have a single owner, which is set by doing /team setowner
+# - If this is set to true after a team has multiple owners, they will all retain owner status until they leave the team or do /team setowner (when they do so, they will no longer be an owner but the rest of the team owners will remain owners
+#
+# Possible values: [true, false]
+singleOwner: false
+
 # Do not edit this value, this is used to check the config is up to date with the lastest version of the plugin (if it is not, it will be automatically updated)
 version: 5

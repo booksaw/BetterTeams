@@ -37,6 +37,7 @@ import com.booksaw.betterTeams.commands.team.NeutralCommand;
 import com.booksaw.betterTeams.commands.team.OpenCommand;
 import com.booksaw.betterTeams.commands.team.PromoteCommand;
 import com.booksaw.betterTeams.commands.team.RankCommand;
+import com.booksaw.betterTeams.commands.team.SetOwnerCommand;
 import com.booksaw.betterTeams.commands.team.SethomeCommand;
 import com.booksaw.betterTeams.commands.team.TitleCommand;
 import com.booksaw.betterTeams.commands.team.TopCommand;
@@ -287,6 +288,11 @@ public class Main extends JavaPlugin {
 			messages.set("list.footer", "&7--- &6do &b/team list [page] &6to view more &7---");
 			messages.set("teleport.fail", "&4The teleportation failed");
 			messages.set("teleport.wait", "&6Wait &b%s &6seconds");
+			messages.set("setowner.use",
+					"&6You cannot promote that player, use &b/team setowner <player> &6to promote that player to owner");
+			messages.set("setowner.success", "&6That player is now owner");
+			messages.set("setowner.notify", "&6You are now owner of your team");
+			messages.set("setowner.max", "&4That player is already owner");
 
 			// messages.set("", "");
 		case 1000:
@@ -334,6 +340,7 @@ public class Main extends JavaPlugin {
 		case 5:
 			getConfig().set("colorTeamName", true);
 			getConfig().set("allyLimit", 5);
+			getConfig().set("singleOwner", false);
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
@@ -425,6 +432,11 @@ public class Main extends JavaPlugin {
 		teamCommand.addSubCommand(new NeutralCommand());
 		teamCommand.addSubCommand(new AllyChatCommand());
 		teamCommand.addSubCommand(new ListCommand());
+
+		// only used if a team is only allowed a single owner
+		if (getConfig().getBoolean("singleOwner")) {
+			teamCommand.addSubCommand(new SetOwnerCommand());
+		}
 
 		new BooksawCommand(getCommand("team"), teamCommand);
 

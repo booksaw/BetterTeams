@@ -59,7 +59,7 @@ public class DemoteCommand extends TeamSubCommand {
 		} else if (demotePlayer.getRank() == PlayerRank.OWNER) {
 			// the other person is also an owner, players cannot demote other owners
 			return new CommandResponse("demote.noPerm");
-		}
+		} 
 
 		team.demotePlayer(demotePlayer);
 		MessageManager.sendMessage((CommandSender) demotePlayer.getPlayer(), "demote.notify");

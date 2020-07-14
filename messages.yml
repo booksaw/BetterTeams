@@ -194,6 +194,14 @@ list.header: '&7--- &bTeam list page %s &7---'
 list.body: '&6%s: &b%s'
 list.footer: '&7--- &6do &b/team list [page] &6to view more &7---'
 
+# for /team setowner
+setowner.use: '&6You cannot promote that player, use &b/team setowner <player> &6to promote that player to owner'
+setowner.success: '&6That player is now owner'
+setowner.notify: '&6You are now owner of your team'
+setowner.max: '&4That player is already owner'
+
+
+
 # for chat formatting
 chat.syntax: '&6&b[Team]&f%s: %s'
 
