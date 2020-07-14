@@ -328,7 +328,7 @@ public class Main extends JavaPlugin {
 			// this will run only if a change has been made
 			changes = true;
 			// set version the latest
-			messages.set("version", 7);
+			messages.set("version", 8);
 			break;
 		}
 
@@ -376,7 +376,7 @@ public class Main extends JavaPlugin {
 			// this will run only if a change has been made
 			changes = true;
 			// set version the latest
-			getConfig().set("version", 5);
+			getConfig().set("version", 6);
 
 			break;
 		}
@@ -530,5 +530,6 @@ public class Main extends JavaPlugin {
 		getServer().getPluginManager().registerEvents((chatManagement = new ChatManagement()), this);
 		getServer().getPluginManager().registerEvents(new ScoreManagement(), this);
 		getServer().getPluginManager().registerEvents(new AllyManagement(), this);
+
 	}
 }

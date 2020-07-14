@@ -1,5 +1,5 @@
 name: BetterTeams
-version: 3.0.10
+version: 3.1.0
 author: booksaw
 description: A plugin to create teams with other players
 main: com.booksaw.betterTeams.Main
@@ -129,3 +129,46 @@ permissions:
    betterTeams.color: 
       default: true
       description: Allows the player to change access to the team color
+   betterTeams.admin.name:
+      default: op
+      description: gives access to /teama name
+   betterTeams.admin.description:
+      default: op
+      description: gives access to /teama description
+   betterTeams.admin.open:
+      default: op
+      description: gives access to /teama open
+   betterTeams.admin.invite:
+      default: op
+      description: gives access to /teama invite
+   betterTeams.admin.create:
+      default: op
+      description: gives access to /teama create
+   betterTeams.admin.join:
+      default: op
+      description: gives access to /teama join
+   betterTeams.admin.demote:
+      default: op
+      description: gives access to /teama demote
+   betterTeams.admin.promote:
+      default: op
+      description: gives access to /teama promote
+   betterTeams.admin.setowner:
+      default: op
+      description: gives access to /teama setowner
+   betterTeams.admin.leave:
+      default: op
+      description: gives access to /teama leave
+   betterTeams.ally:
+      default: true
+      description: gives access to /team ally
+   betterTeams.neutral:
+      default: true
+      description: gives access to /team neutral
+   betterTeams.allychat:
+      default: true
+      description: gives access to /team allychat
+   betterTeams.warmup.bypass:
+      default: op
+      description: gives access to bypass the teleport warnmup
+      

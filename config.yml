@@ -170,4 +170,4 @@ noMove: false
 singleOwner: false
 
 # Do not edit this value, this is used to check the config is up to date with the lastest version of the plugin (if it is not, it will be automatically updated)
-version: 5
+version: 6

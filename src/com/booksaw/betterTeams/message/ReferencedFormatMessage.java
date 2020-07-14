@@ -16,6 +16,7 @@ public class ReferencedFormatMessage implements Message {
 
 	/**
 	 * @param reference the messages.yml reference for the command
+	 * @param replacement all replacements that need to be made to the message
 	 */
 	public ReferencedFormatMessage(String reference, String... replacement) {
 		this.reference = reference;

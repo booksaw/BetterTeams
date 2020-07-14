@@ -13,7 +13,7 @@ prefixSyntax: '&b[%s] &r%s'
 bannedChar: '&4A character you tried to use is banned"'
 noTeam: '&4That team does not exist'
 # do not change this, it is used to check the messages version (test if there are any missing messages)
-version: 7
+version: 6
 
 cooldown.wait: '&4You need to wait another %s seconds before running that!'
 
@@ -289,3 +289,6 @@ help.top: View the top teams
 help.rank: View the rank of a team
 help.join: Join the specified team
 help.delhome: Delete your teams home
+help.ally: Used to request an alliance with another team
+help.neutral: Remove allies and reject ally requests
+help.allychat: Send a message only to your allies

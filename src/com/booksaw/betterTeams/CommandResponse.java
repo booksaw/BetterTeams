@@ -68,7 +68,7 @@ public class CommandResponse {
 	/**
 	 * Used when no message should be sent to the user
 	 * 
-	 * @param success
+	 * @param success if the command was a success or not
 	 */
 	public CommandResponse(boolean success) {
 		message = null;
@@ -78,9 +78,7 @@ public class CommandResponse {
 	/**
 	 * This method is used to send the message which has been set by the command
 	 * 
-	 * @param sender  the player who sent the command
-	 * @param command the sub command that was called (used in the case that help is
-	 *                required)
+	 * @param sender the player who sent the command
 	 */
 	public void sendResponseMessage(CommandSender sender) {
 
