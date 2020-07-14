@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import com.booksaw.betterTeams.Main;
+import com.booksaw.betterTeams.Team;
 
 import net.milkbowl.vault.economy.EconomyResponse;
 
@@ -39,6 +40,22 @@ public class CommandCost {
 			Bukkit.getLogger().warning("Could not detect vault, command running with no cost");
 			return true;
 		}
+		double cost = this.cost;
+		if (CostManager.costFromTeam) {
+			Team team = Team.getTeam(player);
+
+			if (team != null) {
+				if (team.getMoney() >= cost) {
+					team.setMoney(team.getMoney() - cost);
+					return true;
+				} else if (team.getMoney() > 0) {
+					cost -= team.getMoney();
+					team.setMoney(0);
+				}
+			}
+
+		}
+
 		EconomyResponse response = Main.econ.withdrawPlayer(player, cost);
 		return response.transactionSuccess();
 	}
@@ -65,6 +82,19 @@ public class CommandCost {
 		if (Main.econ == null) {
 			Bukkit.getLogger().warning("Could not detect vault, command running with no cost");
 			return true;
+		}
+
+		double cost = this.cost;
+		if (CostManager.costFromTeam) {
+			Team team = Team.getTeam(player);
+
+			if (team != null) {
+				if (team.getMoney() >= cost) {
+					return true;
+				} else if (team.getMoney() > 0) {
+					cost -= team.getMoney();
+				}
+			}
 		}
 
 		if (Main.econ.has(player, cost)) {

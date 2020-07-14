@@ -11,3 +11,8 @@ cooldowns:
 # To bypass the cost have the permission node betterteams.cost.bypass
 costs:
 #  - 'home:9.99'
+
+# This option determines if the command cost is taken from the team balance first or the individual player
+#
+# Possible values: [true, false]
+costFromTeam: true

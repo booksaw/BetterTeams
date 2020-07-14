@@ -1,6 +1,7 @@
 package com.booksaw.betterTeams.cost;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,6 +19,8 @@ import com.booksaw.betterTeams.Main;
  */
 public class CostManager {
 
+	public static boolean costFromTeam;
+
 	HashMap<String, CommandCost> prices;
 
 	public CostManager(String command) {
@@ -28,6 +31,19 @@ public class CostManager {
 		}
 
 		YamlConfiguration cooldown = YamlConfiguration.loadConfiguration(f);
+
+		if (Main.plugin.getConfig().getInt("version") <= 5) {
+			cooldown.set("costFromTeam", true);
+			try {
+				cooldown.save(f);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			costFromTeam = true;
+		} else {
+			costFromTeam = cooldown.getBoolean("costFromTeam");
+		}
+
 		prices = new HashMap<>();
 
 		List<String> cooldownsStr = cooldown.getStringList("costs");
