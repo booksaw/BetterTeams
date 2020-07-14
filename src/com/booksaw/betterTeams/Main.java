@@ -45,13 +45,19 @@ import com.booksaw.betterTeams.commands.team.UnbanCommand;
 import com.booksaw.betterTeams.commands.team.WithdrawCommand;
 import com.booksaw.betterTeams.commands.teama.ChatSpyTeama;
 import com.booksaw.betterTeams.commands.teama.CreateHoloTeama;
+import com.booksaw.betterTeams.commands.teama.CreateTeama;
+import com.booksaw.betterTeams.commands.teama.DemoteTeama;
 import com.booksaw.betterTeams.commands.teama.DescriptionTeama;
 import com.booksaw.betterTeams.commands.teama.HomeTeama;
 import com.booksaw.betterTeams.commands.teama.InviteTeama;
+import com.booksaw.betterTeams.commands.teama.JoinTeama;
+import com.booksaw.betterTeams.commands.teama.LeaveTeama;
 import com.booksaw.betterTeams.commands.teama.NameTeama;
 import com.booksaw.betterTeams.commands.teama.OpenTeama;
+import com.booksaw.betterTeams.commands.teama.PromoteTeama;
 import com.booksaw.betterTeams.commands.teama.ReloadTeama;
 import com.booksaw.betterTeams.commands.teama.RemoveHoloTeama;
+import com.booksaw.betterTeams.commands.teama.SetOwnerTeama;
 import com.booksaw.betterTeams.commands.teama.TitleTeama;
 import com.booksaw.betterTeams.commands.teama.VersionTeama;
 import com.booksaw.betterTeams.cooldown.CooldownManager;
@@ -293,6 +299,27 @@ public class Main extends JavaPlugin {
 			messages.set("setowner.success", "&6That player is now owner");
 			messages.set("setowner.notify", "&6You are now owner of your team");
 			messages.set("setowner.max", "&4That player is already owner");
+			messages.set("admin.create.success", "&6That team has been created");
+			messages.set("admin.join.banned", "&4That player is banned from that team");
+			messages.set("admin.join.success", "&6that player has joined the team");
+			messages.set("admin.join.notify", "&6You have joined the team &b%s");
+			messages.set("admin.join.full", "&4That team is full");
+			messages.set("admin.notInTeam", "&6That player cannot be in a team before doing that");
+			messages.set("admin.inTeam", "&4That player is not in a team");
+			messages.set("admin.leave.success", "&6That player has left that team");
+			messages.set("admin.leave.notify", "&6You have left that team");
+			messages.set("admin.demote.notify", "&6You have been demoted");
+			messages.set("admin.demote.success", "&6That player has been demoted");
+			messages.set("admin.demote.min", "&4That player cannot be demoted any more");
+			messages.set("admin.promote.max", "&6That player is already the maximum rank");
+			messages.set("admin.promote.notify", "&6You have been promoted");
+			messages.set("admin.promote.success", "&6That player has been promoted");
+			messages.set("admin.promote.owner",
+					"&6It is configured that teams can only have a single owner, do &b/teama setowner <player> &6To set the player as the owner");
+			messages.set("admin.setowner.already", "&4That player is already an owner");
+			messages.set("admin.setowner.nonotify", "&6You are no longer owner of the team");
+			messages.set("admin.setowner.success", "&6That player is the new team owner");
+			messages.set("admin.setowner.notify", "&6You are now the owner of your team");
 
 			// messages.set("", "");
 		case 1000:
@@ -340,14 +367,15 @@ public class Main extends JavaPlugin {
 		case 5:
 			getConfig().set("colorTeamName", true);
 			getConfig().set("allyLimit", 5);
-			getConfig().set("singleOwner", false);
+			getConfig().set("singleOwner", true);
+			getConfig().set("tpDelay", 0);
+			getConfig().set("noMove", false);
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
 			// set version the latest
 			getConfig().set("version", 5);
-			getConfig().set("tpDelay", 0);
-			getConfig().set("noMove", false);
+
 			break;
 		}
 
@@ -451,6 +479,15 @@ public class Main extends JavaPlugin {
 		teamaCommand.addSubCommand(new DescriptionTeama());
 		teamaCommand.addSubCommand(new OpenTeama());
 		teamaCommand.addSubCommand(new InviteTeama());
+		teamaCommand.addSubCommand(new CreateTeama());
+		teamaCommand.addSubCommand(new JoinTeama());
+		teamaCommand.addSubCommand(new LeaveTeama());
+		teamaCommand.addSubCommand(new PromoteTeama());
+		teamaCommand.addSubCommand(new DemoteTeama());
+
+		if (getConfig().getBoolean("singleOwner")) {
+			teamaCommand.addSubCommand(new SetOwnerTeama());
+		}
 
 		if (useHolographicDisplays) {
 			ParentCommand teamaHoloCommand = new ParentCommand("holo");
