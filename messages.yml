@@ -259,6 +259,8 @@ top.divide: '&f...'
 
 spy.stop: '&6You are no longer spying on team messages'
 spy.start: '&6You are now spying on team messages'
+spy.team: '&7[&b%s&7]&f%s&f: %s'
+spy.ally: '&7[&d%s&7]&f%s&f: %s'
 
 # The help messages
 help.description: View and change your team's description

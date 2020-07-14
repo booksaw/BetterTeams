@@ -20,7 +20,7 @@ public class ChatSpyTeama extends SubCommand {
 
 		Main.plugin.chatManagement.spy.add(sender);
 
-		return new CommandResponse("true, spy.start");
+		return new CommandResponse(true, "spy.start");
 	}
 
 	@Override

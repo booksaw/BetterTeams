@@ -320,6 +320,8 @@ public class Main extends JavaPlugin {
 			messages.set("admin.setowner.nonotify", "&6You are no longer owner of the team");
 			messages.set("admin.setowner.success", "&6That player is the new team owner");
 			messages.set("admin.setowner.notify", "&6You are now the owner of your team");
+			messages.set("spy.team", "&b[%s]&f%s&f: %s");
+			messages.set("spy.ally", "&d[%s]&f%s&f: %s");
 
 			// messages.set("", "");
 		case 1000:

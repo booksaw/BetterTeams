@@ -976,7 +976,7 @@ public class Team {
 			if (temp instanceof Player && getTeamPlayer((Player) temp) != null) {
 				continue;
 			}
-			temp.sendMessage("[BetterTeams][" + getName() + "]" + message);
+			MessageManager.sendMessageF(temp, "spy.team", getName(), sender.getPlayer().getPlayer().getName(), message);
 		}
 
 		if (logChat) {
@@ -1027,7 +1027,7 @@ public class Team {
 			if (temp instanceof Player && getTeamPlayer((Player) temp) != null) {
 				continue;
 			}
-			temp.sendMessage("[BetterTeams]" + message);
+			MessageManager.sendMessageF(temp, "spy.ally", getName(), sender.getPlayer().getName(), message);
 		}
 
 		if (logChat) {
