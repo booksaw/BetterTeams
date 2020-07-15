@@ -45,6 +45,7 @@ import com.booksaw.betterTeams.commands.team.TitleCommand;
 import com.booksaw.betterTeams.commands.team.TopCommand;
 import com.booksaw.betterTeams.commands.team.UnbanCommand;
 import com.booksaw.betterTeams.commands.team.WarpCommand;
+import com.booksaw.betterTeams.commands.team.WarpsCommand;
 import com.booksaw.betterTeams.commands.team.WithdrawCommand;
 import com.booksaw.betterTeams.commands.teama.ChatSpyTeama;
 import com.booksaw.betterTeams.commands.teama.CreateHoloTeama;
@@ -486,6 +487,7 @@ public class Main extends JavaPlugin {
 		teamCommand.addSubCommand(new WarpCommand());
 		teamCommand.addSubCommand(new SetWarpCommand());
 		teamCommand.addSubCommand(new DelwarpCommand());
+		teamCommand.addSubCommand(new WarpsCommand());
 
 		// only used if a team is only allowed a single owner
 		if (getConfig().getBoolean("singleOwner")) {
