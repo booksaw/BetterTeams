@@ -1,5 +1,6 @@
 package com.booksaw.betterTeams.commands.team;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.ChatColor;
@@ -12,6 +13,8 @@ import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 
 public class ColorCommand extends TeamSubCommand {
+
+	List<Character> banned = Arrays.asList(new Character[] { 'l', 'n', 'o', 'k', 'n', 'r' });
 
 	@Override
 	public CommandResponse onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
@@ -31,6 +34,11 @@ public class ColorCommand extends TeamSubCommand {
 			if (color == null || args[0].length() > 1)
 				return new CommandResponse("color.fail");
 		}
+
+		if (banned.contains(color.getChar())) {
+			return new CommandResponse("color.banned");
+		}
+
 		team.setColor(color);
 
 		return new CommandResponse(true, "color.success");
@@ -68,8 +76,12 @@ public class ColorCommand extends TeamSubCommand {
 
 	@Override
 	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
-		for (ChatColor c : ChatColor.values()) {
-			options.add(c.name() + "");
+		if (args.length == 1) {
+			for (ChatColor c : ChatColor.values()) {
+				if (!banned.contains(c.getChar()) && c.name().toLowerCase().startsWith(args[0].toLowerCase())) {
+					options.add(c.name() + "");
+				}
+			}
 		}
 	}
 

@@ -327,7 +327,8 @@ public class Main extends JavaPlugin {
 			messages.set("top.divide", "&f...");
 			messages.set("top.leaderboard", "&6Leaderboard");
 			messages.set("neutral.success", "&4You are no longer allied with that team");
-			
+			messages.set("color.banned", "&4You can only use colors, not formatting codes");
+
 			// messages.set("", "");
 		case 1000:
 			// this will run only if a change has been made

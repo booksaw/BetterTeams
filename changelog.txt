@@ -87,8 +87,9 @@ Team color displays when the team name is being displayed below the players name
 Command cost is now by default taken from the team balance (this can be changed in team.yml) 
 
 Bug Fixes: 
-Fixed a problem when placeholder API is not present on the server.
+Fixed a problem when placeholder API is not present on the server.	
 Fixed a problem where a players team name was not removed when they left the team
+Fixed a problem where players could use formatting codes in /team color
 
 
 3.1.1: 

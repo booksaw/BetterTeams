@@ -151,6 +151,7 @@ chat.disabled: '&6Your messages now go to the global chat'
 # for /team color <color> 
 color.success: '&6Your team color has been changed'
 color.fail: '&6That is not a recognised chat color'
+color.banned: '&4You can only use colors, not formatting codes'
 
 # for /team deposit <amount> 
 deposit.tooLittle: '&4You cannot deposit negative amounts' 
