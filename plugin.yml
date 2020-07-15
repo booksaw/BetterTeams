@@ -171,4 +171,7 @@ permissions:
    betterTeams.warmup.bypass:
       default: op
       description: gives access to bypass the teleport warnmup
+   betterTeams.list: 
+      default: true
+      description: gives access to the command /team list 
       

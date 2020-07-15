@@ -90,8 +90,21 @@ Bug Fixes:
 Fixed a problem when placeholder API is not present on the server.
 Fixed a problem where a players team name was not removed when they left the team
 
-TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
+3.1.1: 
+Features: 
+
+
+Improvements:
+
+
+Bug Fixes: 
+Fixed 2 bugs with updating messages.yml to the most recent version
+
+
+
+TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
+update messages.yml version
 
 
 Headings: 

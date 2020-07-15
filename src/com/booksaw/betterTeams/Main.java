@@ -282,7 +282,7 @@ public class Main extends JavaPlugin {
 			messages.set("neutral.requestremove", "&6That ally request has been removed");
 			messages.set("neutral.reject", "&4Your ally request with &b%s &4has been rejected");
 			messages.set("neutral.notAlly", "&4You are not allied with that team");
-			messages.set("neutral.success", "&4You are no longer allied wih that team");
+			messages.set("neutral.success", "&4You are no longer allied with that team");
 			messages.set("neutral.remove", "&4You are no longer allied with &b%s");
 			messages.set("ally.onJoin", "&6You have new ally requests do &b/team ally &6to view them");
 			messages.set("allychat.disabled", "&6Your messages are no longer going to the ally chat");
@@ -322,7 +322,12 @@ public class Main extends JavaPlugin {
 			messages.set("admin.setowner.notify", "&6You are now the owner of your team");
 			messages.set("spy.team", "&b[%s]&f%s&f: %s");
 			messages.set("spy.ally", "&d[%s]&f%s&f: %s");
-
+		case 8:
+			messages.set("top.syntax", "&b%s: &6%s &7(%s)");
+			messages.set("top.divide", "&f...");
+			messages.set("top.leaderboard", "&6Leaderboard");
+			messages.set("neutral.success", "&4You are no longer allied with that team");
+			
 			// messages.set("", "");
 		case 1000:
 			// this will run only if a change has been made
