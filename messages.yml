@@ -201,7 +201,20 @@ setowner.success: '&6That player is now owner'
 setowner.notify: '&6You are now owner of your team'
 setowner.max: '&4That player is already owner'
 
+# for /team setwarp
+setwarp.exist: '&4That warp already exists'
+setwarp.max: '&4Your team already has the maximum number of warps set'
+setwarp.success: '&6That warp has been created'
 
+warp.nowarp: '&4That warp does not exist'
+warp.invalidPassword: '&4Invalid password for that warp'
+warp.success: '&6You have been teleported'
+
+# for /team warps
+warps.syntax: '&6Warps: &b%s'
+warps.none: '&4Your team has no warps set'
+
+delwarp.success: '&4That warp has been deleted'
 
 # for chat formatting
 chat.syntax: '&6&b[Team]&f%s: %s'

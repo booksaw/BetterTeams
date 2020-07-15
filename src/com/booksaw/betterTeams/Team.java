@@ -309,6 +309,8 @@ public class Team {
 	 */
 	private List<UUID> requests;
 
+	HashMap<String, Warp> warps;
+
 	/**
 	 * this is used to load a team from the configuration file
 	 * 
@@ -357,6 +359,12 @@ public class Team {
 			requests.add(UUID.fromString(string));
 		}
 
+		warps = new HashMap<>();
+		for (String str : getStringList(config, "warps")) {
+			String[] split = str.split(";");
+			warps.put(split[0], new Warp(split));
+		}
+
 		rank = -1;
 
 	}
@@ -395,6 +403,9 @@ public class Team {
 		setValue(config, "allies", allies);
 		requests = new ArrayList<>();
 		setValue(config, "allyrequests", requests);
+
+		warps = new HashMap<>();
+		setValue(config, "warps", new ArrayList<>());
 
 		members = new ArrayList<>();
 		members.add(new TeamPlayer(owner, PlayerRank.OWNER));
@@ -481,6 +492,7 @@ public class Team {
 	 */
 	private void setValue(FileConfiguration config, String attribute, Object value) {
 		config.set("team." + ID + "." + attribute, value);
+		Main.plugin.saveTeams();
 	}
 
 	/**
@@ -877,7 +889,7 @@ public class Team {
 	 * @param loc the string to convert into a location
 	 * @return the location which that string reference
 	 */
-	private Location getLocation(String loc) {
+	public static Location getLocation(String loc) {
 		String[] split = loc.split(":");
 		return new Location(Bukkit.getWorld(split[0]), Double.parseDouble(split[1]), Double.parseDouble(split[2]),
 				Double.parseDouble(split[3]), Float.parseFloat(split[4]), Float.parseFloat(split[5]));
@@ -890,7 +902,7 @@ public class Team {
 	 * @param loc the location to convert into a string
 	 * @return the string which references that location
 	 */
-	private String getString(Location loc) {
+	public static String getString(Location loc) {
 		return loc.getWorld().getName() + ":" + loc.getX() + ":" + loc.getY() + ":" + loc.getZ() + ":" + loc.getYaw()
 				+ ":" + loc.getPitch();
 	}
@@ -1272,6 +1284,43 @@ public class Team {
 		}
 
 		return allies.size() >= limit;
+	}
+
+	/**
+	 * Used to save all warps that this team has set
+	 */
+	public void saveWarps() {
+		List<String> toSave = new ArrayList<>();
+
+		for (Entry<String, Warp> temp : warps.entrySet()) {
+			toSave.add(temp.getValue().toString());
+		}
+
+		setValue(Main.plugin.getTeams(), "warps", toSave);
+	}
+
+	/**
+	 * Used to get a warp with the specified name
+	 * 
+	 * @param name the name of the warp
+	 * @return the warp with that name
+	 */
+	public Warp getWarp(String name) {
+		return warps.get(name);
+	}
+
+	public void addWarp(Warp warp) {
+		warps.put(warp.getName(), warp);
+		saveWarps();
+	}
+
+	public void delWarp(String name) {
+		warps.remove(name);
+		saveWarps();
+	}
+
+	public HashMap<String, Warp> getWarps() {
+		return warps;
 	}
 
 }

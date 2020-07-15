@@ -94,7 +94,10 @@ Fixed a problem where players could use formatting codes in /team color
 
 3.1.1: 
 Features: 
-
+Added team warps with the commands 
+/team warp <name> [password] - warp to the specified warp
+/team setwarp <name> [password] - Creates a new warp for your team
+/team delwarp <name> [password] - Deletes a warp (owners do not need to know the password to do this
 
 Improvements:
 
@@ -105,7 +108,7 @@ Fixed 2 bugs with updating messages.yml to the most recent version
 
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
-update messages.yml version
+update messages.yml version and config 
 
 
 Headings: 

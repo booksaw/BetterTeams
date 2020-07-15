@@ -21,6 +21,7 @@ import com.booksaw.betterTeams.commands.team.ChatCommand;
 import com.booksaw.betterTeams.commands.team.ColorCommand;
 import com.booksaw.betterTeams.commands.team.CreateCommand;
 import com.booksaw.betterTeams.commands.team.DelHome;
+import com.booksaw.betterTeams.commands.team.DelwarpCommand;
 import com.booksaw.betterTeams.commands.team.DemoteCommand;
 import com.booksaw.betterTeams.commands.team.DepositCommand;
 import com.booksaw.betterTeams.commands.team.DescriptionCommand;
@@ -38,10 +39,12 @@ import com.booksaw.betterTeams.commands.team.OpenCommand;
 import com.booksaw.betterTeams.commands.team.PromoteCommand;
 import com.booksaw.betterTeams.commands.team.RankCommand;
 import com.booksaw.betterTeams.commands.team.SetOwnerCommand;
+import com.booksaw.betterTeams.commands.team.SetWarpCommand;
 import com.booksaw.betterTeams.commands.team.SethomeCommand;
 import com.booksaw.betterTeams.commands.team.TitleCommand;
 import com.booksaw.betterTeams.commands.team.TopCommand;
 import com.booksaw.betterTeams.commands.team.UnbanCommand;
+import com.booksaw.betterTeams.commands.team.WarpCommand;
 import com.booksaw.betterTeams.commands.team.WithdrawCommand;
 import com.booksaw.betterTeams.commands.teama.ChatSpyTeama;
 import com.booksaw.betterTeams.commands.teama.CreateHoloTeama;
@@ -328,6 +331,15 @@ public class Main extends JavaPlugin {
 			messages.set("top.leaderboard", "&6Leaderboard");
 			messages.set("neutral.success", "&4You are no longer allied with that team");
 			messages.set("color.banned", "&4You can only use colors, not formatting codes");
+			messages.set("setwarp.exist", "&4That warp already exists");
+			messages.set("warp.nowarp", "&4That warp does not exist");
+			messages.set("warp.invalidPassword", "&4Invalid password for that warp");
+			messages.set("warp.success", "&6You have been teleported");
+			messages.set("warps.syntax", "&6Warps: &b%s");
+			messages.set("warps.none", "&4Your team has no warps set");
+			messages.set("delwarp.success", "&4That warp has been deleted");
+			messages.set("setwarp.success", "&6That warp has been created");
+			messages.set("setwarp.max", "&4Your team already has the maximum number of warps set");
 
 			// messages.set("", "");
 		case 1000:
@@ -378,6 +390,9 @@ public class Main extends JavaPlugin {
 			getConfig().set("singleOwner", true);
 			getConfig().set("tpDelay", 0);
 			getConfig().set("noMove", false);
+		case 6:
+			getConfig().set("maxWarps", 2);
+			getConfig().set("allowPassword", true);
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
@@ -468,6 +483,9 @@ public class Main extends JavaPlugin {
 		teamCommand.addSubCommand(new NeutralCommand());
 		teamCommand.addSubCommand(new AllyChatCommand());
 		teamCommand.addSubCommand(new ListCommand());
+		teamCommand.addSubCommand(new WarpCommand());
+		teamCommand.addSubCommand(new SetWarpCommand());
+		teamCommand.addSubCommand(new DelwarpCommand());
 
 		// only used if a team is only allowed a single owner
 		if (getConfig().getBoolean("singleOwner")) {
