@@ -1,5 +1,5 @@
 name: BetterTeams
-version: 3.1.0
+version: 3.1.1
 author: booksaw
 description: A plugin to create teams with other players
 main: com.booksaw.betterTeams.Main
@@ -75,9 +75,6 @@ permissions:
    betterTeams.balance:
       default: true
       description: Allows access to /team bal, /team withdraw and /team balance
-   betterTeams.admin.chatspy:
-      default: op
-      description: Allows access to /teama chatspy
    betterTeams.title:
       default: true
       description: Allows access to /team title
@@ -126,7 +123,7 @@ permissions:
    betterTeams.admin.title:
       default: op
       description: Allows access to /teama title
-   betterTeams.color: 
+   betterTeams.color:
       default: true
       description: Allows the player to change access to the team color
    betterTeams.admin.name:
@@ -171,7 +168,27 @@ permissions:
    betterTeams.warmup.bypass:
       default: op
       description: gives access to bypass the teleport warnmup
-   betterTeams.list: 
+   betterTeams.list:
       default: true
-      description: gives access to the command /team list 
-      
+      description: gives access to the command /team list
+   betterTeams.warp:
+      default: true
+      description: gives access to the command /team warp
+   betterTeams.warps:
+      default: true
+      description: gives access to the command /team warps
+   betterTeams.setwarp:
+      default: true
+      description: gives access to the command /team setwarp
+   betterTeams.delwarp:
+      default: true
+      description: gives access to the command /team delwarp
+   betterTeams.admin.warp:
+      default: op
+      description: gives access to the command /teama warp
+   betterTeams.admin.setwarp:
+      default: op
+      description: gives access to the command /teama setwarp
+   betterTeams.admin.delwarp:
+      default: op
+      description: gives access to the command /teama delwarp

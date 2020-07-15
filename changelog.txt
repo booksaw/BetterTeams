@@ -89,26 +89,29 @@ Command cost is now by default taken from the team balance (this can be changed 
 Bug Fixes: 
 Fixed a problem when placeholder API is not present on the server.	
 Fixed a problem where a players team name was not removed when they left the team
-Fixed a problem where players could use formatting codes in /team color
 
 
 3.1.1: 
 Features: 
 Added team warps with the commands 
 /team warp <name> [password] - warp to the specified warp
+/team warps - view a list of your teams warps
 /team setwarp <name> [password] - Creates a new warp for your team
 /team delwarp <name> [password] - Deletes a warp (owners do not need to know the password to do this
 
-Improvements:
-
+Added the following admin commands:
+/teama warp <team> <warp> - Used to teleport to a teams warp, leave the warp blank to get a list of their warps 
+/teama setwarp <team> <name> - Used to set a warp for that team
+/teama delwarp <team> <name> - Used to delete a warp from that team
 
 Bug Fixes: 
 Fixed 2 bugs with updating messages.yml to the most recent version
+Fixed a problem where players could use formatting codes in /team color
 
 
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
-update messages.yml version and config 
+
 
 
 Headings: 

@@ -353,7 +353,7 @@ public class Main extends JavaPlugin {
 			// this will run only if a change has been made
 			changes = true;
 			// set version the latest
-			messages.set("version", 8);
+			messages.set("version", 9);
 			break;
 		}
 
@@ -404,7 +404,7 @@ public class Main extends JavaPlugin {
 			// this will run only if a change has been made
 			changes = true;
 			// set version the latest
-			getConfig().set("version", 6);
+			getConfig().set("version", 7);
 
 			break;
 		}

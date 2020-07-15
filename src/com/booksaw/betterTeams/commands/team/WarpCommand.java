@@ -63,7 +63,7 @@ public class WarpCommand extends TeamSubCommand {
 
 	@Override
 	public String getHelp() {
-		return "Warp to a warp set by your team";
+		return "Warp to a location set by your team";
 	}
 
 	@Override
