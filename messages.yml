@@ -259,6 +259,9 @@ admin.setowner.already: '&4That player is already an owner'
 admin.setowner.nonotify: '&6You are no longer owner of the team'
 admin.setowner.success: '&6That player is the new team owner'
 admin.setowner.notify: '&6You are now the owner of your team'
+admin.warps.none: '&4That team has not set any warps'
+admin.setwarp.success: '&6That warp has been set '
+admin.setwarp.max: '&6That team has already set the maximum number of warps'
 
 # for the nametag syntax
 nametag.syntax: '&6&l%s&r '

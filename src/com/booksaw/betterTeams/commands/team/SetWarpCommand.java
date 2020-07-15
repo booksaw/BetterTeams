@@ -57,7 +57,7 @@ public class SetWarpCommand extends TeamSubCommand {
 
 	@Override
 	public String getArguments() {
-		return "<name>";
+		return "<name> [password]";
 	}
 
 	@Override

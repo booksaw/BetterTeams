@@ -50,6 +50,7 @@ import com.booksaw.betterTeams.commands.team.WithdrawCommand;
 import com.booksaw.betterTeams.commands.teama.ChatSpyTeama;
 import com.booksaw.betterTeams.commands.teama.CreateHoloTeama;
 import com.booksaw.betterTeams.commands.teama.CreateTeama;
+import com.booksaw.betterTeams.commands.teama.DelwarpTeama;
 import com.booksaw.betterTeams.commands.teama.DemoteTeama;
 import com.booksaw.betterTeams.commands.teama.DescriptionTeama;
 import com.booksaw.betterTeams.commands.teama.HomeTeama;
@@ -62,8 +63,10 @@ import com.booksaw.betterTeams.commands.teama.PromoteTeama;
 import com.booksaw.betterTeams.commands.teama.ReloadTeama;
 import com.booksaw.betterTeams.commands.teama.RemoveHoloTeama;
 import com.booksaw.betterTeams.commands.teama.SetOwnerTeama;
+import com.booksaw.betterTeams.commands.teama.SetwarpTeama;
 import com.booksaw.betterTeams.commands.teama.TitleTeama;
 import com.booksaw.betterTeams.commands.teama.VersionTeama;
+import com.booksaw.betterTeams.commands.teama.WarpTeama;
 import com.booksaw.betterTeams.cooldown.CooldownManager;
 import com.booksaw.betterTeams.cost.CostManager;
 import com.booksaw.betterTeams.events.AllyManagement;
@@ -341,6 +344,9 @@ public class Main extends JavaPlugin {
 			messages.set("delwarp.success", "&4That warp has been deleted");
 			messages.set("setwarp.success", "&6That warp has been created");
 			messages.set("setwarp.max", "&4Your team already has the maximum number of warps set");
+			messages.set("admin.warps.none", "&4That team has not set any warps");
+			messages.set("admin.setwarp.success", "&6That warp has been set ");
+			messages.set("admin.setwarp.max", "&6That team has already set the maximum number of warps");
 
 			// messages.set("", "");
 		case 1000:
@@ -512,6 +518,9 @@ public class Main extends JavaPlugin {
 		teamaCommand.addSubCommand(new LeaveTeama());
 		teamaCommand.addSubCommand(new PromoteTeama());
 		teamaCommand.addSubCommand(new DemoteTeama());
+		teamaCommand.addSubCommand(new WarpTeama());
+		teamaCommand.addSubCommand(new SetwarpTeama());
+		teamaCommand.addSubCommand(new DelwarpTeama());
 
 		if (getConfig().getBoolean("singleOwner")) {
 			teamaCommand.addSubCommand(new SetOwnerTeama());
