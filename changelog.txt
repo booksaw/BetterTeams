@@ -108,10 +108,20 @@ Bug Fixes:
 Fixed 2 bugs with updating messages.yml to the most recent version
 Fixed a problem where players could use formatting codes in /team color
 
+3.1.2
+Features: 
+Added integration with zKoth 
+
+Improvements:
+Improved BelowNameChangeEvent backend
+
+Bug Fixes: 
 
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
-
+Update documentation on 
+Make a page for the zkoth dependancy
+make a page for the epic levels dependancy 
 
 
 Headings: 
