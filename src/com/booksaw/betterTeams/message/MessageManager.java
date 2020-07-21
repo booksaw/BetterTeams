@@ -52,6 +52,8 @@ public class MessageManager {
 			if (message == null) {
 				Bukkit.getLogger().log(Level.WARNING, "Message with the reference " + reference + " does not exist");
 				return;
+			} else if (message.equals("")) {
+				return;
 			}
 
 			sender.sendMessage(prefix + message);
@@ -76,6 +78,8 @@ public class MessageManager {
 			if (message == null) {
 				Bukkit.getLogger().log(Level.WARNING, "Message with the reference " + reference + " does not exist");
 				return;
+			} else if (message.equals("")) {
+				return;
 			}
 
 			message = String.format(prefix + message, (Object[]) replacement);
@@ -99,6 +103,8 @@ public class MessageManager {
 			String message = ChatColor.translateAlternateColorCodes('&', messages.getString(reference));
 			if (message == null) {
 				Bukkit.getLogger().log(Level.WARNING, "Message with the reference " + reference + " does not exist");
+				return;
+			} else if (message.equals("")) {
 				return;
 			}
 

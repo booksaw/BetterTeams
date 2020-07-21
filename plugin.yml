@@ -4,10 +4,8 @@ author: booksaw
 description: A plugin to create teams with other players
 main: com.booksaw.betterTeams.Main
 api-version: 1.15
-softdepend:
-- PlaceholderAPI
-- HolographicDisplays
-- Vault
+softdepend: [PlaceholderAPI, HolographicDisplays, Vault, zKoth]
+
 website: https://github.com/booksaw/BetterTeams
 commands:
    team:

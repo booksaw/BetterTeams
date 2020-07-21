@@ -400,6 +400,8 @@ public class Main extends JavaPlugin {
 		case 6:
 			getConfig().set("maxWarps", 2);
 			getConfig().set("allowPassword", true);
+		case 7:
+			getConfig().set("zkoth.pointsPerCapture", 5);
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
@@ -560,6 +562,12 @@ public class Main extends JavaPlugin {
 			if (nameManagement != null) {
 				Bukkit.getLogger().log(Level.WARNING, "Restart server for name changes to apply");
 			}
+		}
+
+		// loading the zkoth event listener
+		if (getServer().getPluginManager().isPluginEnabled("zKoth")) {
+			Bukkit.getLogger().info("Found plugin zKoth, adding plugin integration");
+			getServer().getPluginManager().registerEvents(new ZKothManager(), this);
 		}
 
 		getServer().getPluginManager().registerEvents((chatManagement = new ChatManagement()), this);

@@ -183,5 +183,32 @@ maxWarps: 2
 #
 allowPassword: true
 
+#######################################################################################
+#  ____  _             _         ___       _                       _   _              #
+# |  _ \| |_   _  __ _(_)_ __   |_ _|_ __ | |_ ___  __ _ _ __ __ _| |_(_) ___  _ __   #
+# | |_) | | | | |/ _` | | '_ \   | || '_ \| __/ _ \/ _` | '__/ _` | __| |/ _ \| '_ \  #
+# |  __/| | |_| | (_| | | | | |  | || | | | ||  __/ (_| | | | (_| | |_| | (_) | | | | #
+# |_|   |_|\__,_|\__, |_|_| |_| |___|_| |_|\__\___|\__, |_|  \__,_|\__|_|\___/|_| |_| #
+#                |___/                             |___/                              #
+#######################################################################################
+
+# This section of the config is used for editing settings of how the plugin integrates with different plugins
+# If you are not using one of the plugins in this section, don't change any values as if the plugin is not on the server
+# It will change nothing
+
+
+# INTEGRATION WITH ZKOTH
+# Plugin link: https://www.spigotmc.org/resources/zkoth-king-of-the-hill.76749/
+zkoth:
+   # This is used to determine how many points are awarded when a team captures a KOTH location 
+   # If this is set to 0, players will not get any points for capturing a koth location
+   #
+   # Possible values: [Any positive number, 0]
+   pointsPerCapture: 5
+
+
+
+
+
 # Do not edit this value, this is used to check the config is up to date with the lastest version of the plugin (if it is not, it will be automatically updated)
 version: 7

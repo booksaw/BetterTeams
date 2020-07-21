@@ -1323,4 +1323,21 @@ public class Team {
 		return warps;
 	}
 
+	/**
+	 * Used to get a list of all the online players that are on this team
+	 * 
+	 * @return
+	 */
+	public List<Player> getOnlineMemebers() {
+		List<Player> online = new ArrayList<>();
+
+		for (TeamPlayer player : members) {
+			if (player.getPlayer().isOnline()) {
+				online.add(player.getPlayer().getPlayer());
+			}
+		}
+
+		return online;
+	}
+
 }
