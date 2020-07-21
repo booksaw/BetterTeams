@@ -116,7 +116,7 @@ Improvements:
 Improved BelowNameChangeEvent backend
 
 Bug Fixes: 
-
+Fixed a bug with formatted strings missing %s (https://github.com/booksaw/BetterTeams/issues/20)
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 Update documentation on 

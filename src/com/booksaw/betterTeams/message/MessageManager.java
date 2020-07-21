@@ -1,5 +1,6 @@
 package com.booksaw.betterTeams.message;
 
+import java.util.MissingFormatArgumentException;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
@@ -82,7 +83,11 @@ public class MessageManager {
 				return;
 			}
 
-			message = String.format(prefix + message, (Object[]) replacement);
+			try {
+				message = String.format(prefix + message, (Object[]) replacement);
+			} catch (MissingFormatArgumentException e) {
+				// expected error if the message does not contain %s
+			}
 
 			sender.sendMessage(message);
 		} catch (NullPointerException e) {
@@ -108,7 +113,11 @@ public class MessageManager {
 				return;
 			}
 
-			message = String.format(prefix + message, (Object[]) replacement);
+			try {
+				message = String.format(prefix + message, (Object[]) replacement);
+			} catch (MissingFormatArgumentException e) {
+				// expected error if the message does not contain %s
+			}
 
 			sender.sendMessage(message);
 		} catch (NullPointerException e) {
