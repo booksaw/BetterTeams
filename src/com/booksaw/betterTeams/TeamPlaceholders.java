@@ -62,19 +62,7 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 
 			return team.getName();
 
-		}
-
-		/*
-		 * // %betterTeams_rank% if (identifier.equals("rank")) {
-		 * 
-		 * Team team = Team.getTeam(player);
-		 * 
-		 * if (team == null) { return MessageManager.getMessage("placeholder.noTeam"); }
-		 * 
-		 * return team.getTeamPlayer(player).getRank().toString(); }
-		 */
-
-		if (identifier.equals("description")) {
+		} else if (identifier.equals("description")) {
 
 			Team team = Team.getTeam(player);
 
@@ -86,9 +74,7 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 			}
 
 			return team.getDescription();
-		}
-
-		if (identifier.equals("open")) {
+		} else if (identifier.equals("open")) {
 
 			Team team = Team.getTeam(player);
 
@@ -97,9 +83,7 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 			}
 
 			return team.isOpen() + "";
-		}
-
-		if (identifier.equals("money")) {
+		} else if (identifier.equals("money")) {
 
 			Team team = Team.getTeam(player);
 
@@ -108,9 +92,7 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 			}
 
 			return team.getBalance();
-		}
-
-		if (identifier.equals("score")) {
+		} else if (identifier.equals("score")) {
 
 			Team team = Team.getTeam(player);
 
@@ -119,9 +101,7 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 			}
 
 			return team.getScore() + "";
-		}
-
-		if (identifier.equals("rank")) {
+		} else if (identifier.equals("rank")) {
 			Team team = Team.getTeam(player);
 
 			if (team == null) {
@@ -137,9 +117,7 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 				return MessageManager.getMessage("placeholder.owner");
 
 			}
-		}
-
-		if (identifier.equals("color")) {
+		} else if (identifier.equals("color")) {
 			Team team = Team.getTeam(player);
 
 			if (team == null) {
@@ -147,6 +125,25 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 			}
 
 			return team.getColor() + "";
+
+		} else if (identifier.startsWith("score_")) {
+			identifier = identifier.replaceAll("score_", "");
+			int place = 0;
+			try {
+				place = Integer.parseInt(identifier);
+			} catch (NumberFormatException e) {
+				return null;
+			}
+			if (place == 0) {
+				return null;
+			}
+
+			Team[] teams = Team.sortTeamsByScore();
+			if (teams.length <= place) {
+				return null;
+			} else {
+				return teams[place].getName();
+			}
 
 		}
 

@@ -183,6 +183,24 @@ maxWarps: 2
 #
 allowPassword: true
 
+# This is a lsit of commands which are run by the console before a purge occurs
+# If this is left blank, no commands will be run before a purge occurs
+# You can use placeholders from placeholder API, though the player is set to be null (so things like %betterteams_team% will not work) 
+#    the main reason for the placeholders is so you can use %betterteams_score_{rank}% to refrence a player on the leaderboard
+# 
+# Possible values: [Any command valid on your server]
+purgeCommands:
+- 'give @a minecraft:dirt 1'
+
+# This is used to track when the next purge should occur. This is a list of dates where a purge will be run 
+# If this list is left blank, no purges will occur
+# these dates must be in order of ealiest to latest
+# 
+# Possible values: [{dateOfMonth}:{Hour of day}]
+autoPurge: 
+#- 1:6
+# This will purge the users score at 6am on the first of every month
+
 #######################################################################################
 #  ____  _             _         ___       _                       _   _              #
 # |  _ \| |_   _  __ _(_)_ __   |_ _|_ __ | |_ ___  __ _ _ __ __ _| |_(_) ___  _ __   #

@@ -262,6 +262,8 @@ admin.setowner.notify: '&6You are now the owner of your team'
 admin.warps.none: '&4That team has not set any warps'
 admin.setwarp.success: '&6That warp has been set '
 admin.setwarp.max: '&6That team has already set the maximum number of warps'
+admin.purge.confirm: '&6Run that command in the next 10 seconds to confirm, THIS CANNOT BE UNDONE AND WILL RESET SCORES FOR ALL TEAMS'
+admin.purge.success: '&6The teams have been purged'
 
 # for the nametag syntax
 nametag.syntax: '&6&l%s&r '

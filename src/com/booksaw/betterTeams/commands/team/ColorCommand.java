@@ -25,7 +25,7 @@ public class ColorCommand extends TeamSubCommand {
 
 		ChatColor color = null;
 		try {
-			color = ChatColor.valueOf(args[0]);
+			color = ChatColor.valueOf(args[0].toUpperCase());
 		} catch (IllegalArgumentException e) {
 			// expected if they do not input a correct value, or a char
 		}
@@ -79,7 +79,7 @@ public class ColorCommand extends TeamSubCommand {
 		if (args.length == 1) {
 			for (ChatColor c : ChatColor.values()) {
 				if (!banned.contains(c.getChar()) && c.name().toLowerCase().startsWith(args[0].toLowerCase())) {
-					options.add(c.name() + "");
+					options.add(c.name().toLowerCase() + "");
 				}
 			}
 		}

@@ -3,6 +3,7 @@ package com.booksaw.betterTeams;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
@@ -60,6 +61,7 @@ import com.booksaw.betterTeams.commands.teama.LeaveTeama;
 import com.booksaw.betterTeams.commands.teama.NameTeama;
 import com.booksaw.betterTeams.commands.teama.OpenTeama;
 import com.booksaw.betterTeams.commands.teama.PromoteTeama;
+import com.booksaw.betterTeams.commands.teama.PurgeTeama;
 import com.booksaw.betterTeams.commands.teama.ReloadTeama;
 import com.booksaw.betterTeams.commands.teama.RemoveHoloTeama;
 import com.booksaw.betterTeams.commands.teama.SetOwnerTeama;
@@ -347,7 +349,10 @@ public class Main extends JavaPlugin {
 			messages.set("admin.warps.none", "&4That team has not set any warps");
 			messages.set("admin.setwarp.success", "&6That warp has been set ");
 			messages.set("admin.setwarp.max", "&6That team has already set the maximum number of warps");
-
+		case 9:
+			messages.set("admin.purge.confirm",
+					"&6Run that command in the next 10 seconds to confirm, THIS CANNOT BE UNDONE AND WILL RESET SCORES FOR ALL TEAMS");
+			messages.set("admin.purge.success", "&6The teams have been purged");
 			// messages.set("", "");
 		case 1000:
 			// this will run only if a change has been made
@@ -402,6 +407,8 @@ public class Main extends JavaPlugin {
 			getConfig().set("allowPassword", true);
 		case 7:
 			getConfig().set("zkoth.pointsPerCapture", 5);
+			getConfig().set("purgeCommands", Arrays.asList(new String[] { "minecraft:give @a minecraft:dirt 1" }));
+			getConfig().set("autoPurge", new ArrayList<>());
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
@@ -523,6 +530,7 @@ public class Main extends JavaPlugin {
 		teamaCommand.addSubCommand(new WarpTeama());
 		teamaCommand.addSubCommand(new SetwarpTeama());
 		teamaCommand.addSubCommand(new DelwarpTeama());
+		teamaCommand.addSubCommand(new PurgeTeama());
 
 		if (getConfig().getBoolean("singleOwner")) {
 			teamaCommand.addSubCommand(new SetOwnerTeama());

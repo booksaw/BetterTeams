@@ -18,6 +18,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
 
+import com.booksaw.betterTeams.customEvents.PrePurgeEvent;
 import com.booksaw.betterTeams.events.BelowNameManagement.BelowNameType;
 import com.booksaw.betterTeams.message.MessageManager;
 
@@ -66,7 +67,7 @@ public class Team {
 	@Nullable
 	public static Team getTeam(String name) {
 		for (Entry<UUID, Team> temp : teamList.entrySet()) {
-			if (temp.getValue().getName().equals(name)) {
+			if (temp.getValue().getName().equalsIgnoreCase(name)) {
 				return temp.getValue();
 			}
 		}
@@ -245,6 +246,21 @@ public class Team {
 		}
 		moneyChanges = false;
 		return rankedTeams;
+	}
+
+	public static boolean purge() {
+		// calling custom bukkit event
+		PrePurgeEvent event = new PrePurgeEvent();
+		Bukkit.getPluginManager().callEvent(event);
+		if (event.isCancelled()) {
+			return false;
+		}
+
+		for (Entry<UUID, Team> temp : Team.getTeamList().entrySet()) {
+			temp.getValue().setScore(0);
+		}
+		System.out.println("purging team score");
+		return true;
 	}
 
 	/**
