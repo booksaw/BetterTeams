@@ -190,3 +190,16 @@ permissions:
    betterTeams.admin.delwarp:
       default: op
       description: gives access to the command /teama delwarp
+   betterTeams.admin.purge:
+      default: op
+      description: gives access to the command /teama purge
+   betterTeams.admin.score.add:
+      default: op
+      description: gives access to the command /teama score add
+   betterTeams.admin.score.set:
+      default: op
+      description: gives access to the command /teama score set
+   betterTeams.admin.score.remove:
+      default: op
+      description: gives access to the command /teama score remove
+      

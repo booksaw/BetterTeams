@@ -123,10 +123,7 @@ Bug Fixes:
 Fixed a bug with formatted strings missing %s (https://github.com/booksaw/BetterTeams/issues/20)
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
-Update documentation on  belownamemanagement 
-add prepurgeevent to documentation
-Fix plugin info page so links go to the relvent wiki page
-add /teama score <add/set/remove>, add /teama purge to wiki and plugin.yml
+
 
 
 Headings: 

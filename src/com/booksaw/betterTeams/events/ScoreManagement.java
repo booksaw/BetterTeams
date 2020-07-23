@@ -70,6 +70,7 @@ public class ScoreManagement implements Listener {
 					} else {
 						nextPurge = 0;
 					}
+					return; 
 				}
 				// clean pass so it can reset the tracker
 				run = false;
