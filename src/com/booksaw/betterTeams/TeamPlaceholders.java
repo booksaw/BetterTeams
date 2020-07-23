@@ -126,7 +126,7 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 
 			return team.getColor() + "";
 
-		} else if (identifier.startsWith("score_")) {
+		} else if (identifier.startsWith("teamscore_")) {
 			identifier = identifier.replaceAll("score_", "");
 			int place = 0;
 			try {

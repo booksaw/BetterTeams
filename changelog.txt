@@ -117,7 +117,7 @@ Improvements:
 Improved BelowNameChangeEvent backend
 tab complete for /team color is now lower case
 Commands which require a team name are no longer case sensitive
-use %betterteams_score_{rank}) to get the team name of the team with that rank
+use %betterteams_teamscore_{rank}) to get the team name of the team with that rank
 
 Bug Fixes: 
 Fixed a bug with formatted strings missing %s (https://github.com/booksaw/BetterTeams/issues/20)
@@ -125,11 +125,8 @@ Fixed a bug with formatted strings missing %s (https://github.com/booksaw/Better
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 Update documentation on  belownamemanagement 
 add prepurgeevent to documentation
-Make a page for the zkoth dependancy
-make a page for the epic levels dependancy 
-make a placeholders page on the wiki 
 Fix plugin info page so links go to the relvent wiki page
-add /teama score <add/set/remove>, add /teama purge
+add /teama score <add/set/remove>, add /teama purge to wiki and plugin.yml
 
 
 Headings: 

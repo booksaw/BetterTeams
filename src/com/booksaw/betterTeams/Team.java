@@ -1342,7 +1342,7 @@ public class Team {
 	/**
 	 * Used to get a list of all the online players that are on this team
 	 * 
-	 * @return
+	 * @return a list of online members for this team
 	 */
 	public List<Player> getOnlineMemebers() {
 		List<Player> online = new ArrayList<>();
