@@ -69,6 +69,9 @@ import com.booksaw.betterTeams.commands.teama.SetwarpTeama;
 import com.booksaw.betterTeams.commands.teama.TitleTeama;
 import com.booksaw.betterTeams.commands.teama.VersionTeama;
 import com.booksaw.betterTeams.commands.teama.WarpTeama;
+import com.booksaw.betterTeams.commands.teama.score.AddScore;
+import com.booksaw.betterTeams.commands.teama.score.RemoveScore;
+import com.booksaw.betterTeams.commands.teama.score.SetScore;
 import com.booksaw.betterTeams.cooldown.CooldownManager;
 import com.booksaw.betterTeams.cost.CostManager;
 import com.booksaw.betterTeams.events.AllyManagement;
@@ -351,14 +354,16 @@ public class Main extends JavaPlugin {
 			messages.set("admin.setwarp.max", "&6That team has already set the maximum number of warps");
 		case 9:
 			messages.set("admin.purge.confirm",
-					"&6Run that command in the next 10 seconds to confirm, THIS CANNOT BE UNDONE AND WILL RESET SCORES FOR ALL TEAMS");
+					"&6Run that command in the next 10 seconds to confirm, &4THIS CANNOT BE UNDONE AND WILL RESET SCORES FOR ALL TEAMS");
 			messages.set("admin.purge.success", "&6The teams have been purged");
+			messages.set("admin.score.tooSmall", "&4The score must be greater than 0");
+			messages.set("admin.score.success", "&6That teams score has been changed");
 			// messages.set("", "");
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
 			// set version the latest
-			messages.set("version", 9);
+			messages.set("version", 10);
 			break;
 		}
 
@@ -413,7 +418,7 @@ public class Main extends JavaPlugin {
 			// this will run only if a change has been made
 			changes = true;
 			// set version the latest
-			getConfig().set("version", 7);
+			getConfig().set("version", 8);
 
 			break;
 		}
@@ -535,6 +540,12 @@ public class Main extends JavaPlugin {
 		if (getConfig().getBoolean("singleOwner")) {
 			teamaCommand.addSubCommand(new SetOwnerTeama());
 		}
+
+		ParentCommand teamaScoreCommand = new ParentCommand("score");
+		teamaScoreCommand.addSubCommand(new AddScore());
+		teamaScoreCommand.addSubCommand(new SetScore());
+		teamaScoreCommand.addSubCommand(new RemoveScore());
+		teamaCommand.addSubCommand(teamaScoreCommand);
 
 		if (useHolographicDisplays) {
 			ParentCommand teamaHoloCommand = new ParentCommand("holo");

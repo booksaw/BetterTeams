@@ -13,7 +13,7 @@ prefixSyntax: '&b[%s] &r%s'
 bannedChar: '&4A character you tried to use is banned"'
 noTeam: '&4That team does not exist'
 # do not change this, it is used to check the messages version (test if there are any missing messages)
-version: 9
+version: 10
 
 cooldown.wait: '&4You need to wait another %s seconds before running that!'
 
@@ -262,8 +262,10 @@ admin.setowner.notify: '&6You are now the owner of your team'
 admin.warps.none: '&4That team has not set any warps'
 admin.setwarp.success: '&6That warp has been set '
 admin.setwarp.max: '&6That team has already set the maximum number of warps'
-admin.purge.confirm: '&6Run that command in the next 10 seconds to confirm, THIS CANNOT BE UNDONE AND WILL RESET SCORES FOR ALL TEAMS'
+admin.purge.confirm: '&6Run that command in the next 10 seconds to confirm, &4THIS CANNOT BE UNDONE AND WILL RESET SCORES FOR ALL TEAMS'
 admin.purge.success: '&6The teams have been purged'
+admin.score.tooSmall: '&4The score must be greater than 0'
+admin.score.success: '&6That teams score has been changed'
 
 # for the nametag syntax
 nametag.syntax: '&6&l%s&r '

@@ -65,19 +65,16 @@ public class ParentCommand extends SubCommand {
 
 	@Override
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
-
 		// checking length
 		if (args.length == 0) {
 			// help command is not expected to return anything
 			displayHelp(sender, label, args);
-			// TODO
 			return null;
 		}
 
 		SubCommand command = subCommands.get(args[0].toLowerCase());
 		if (command == null) {
 			displayHelp(sender, label, args);
-			// TODO
 			return null;
 		}
 
@@ -91,7 +88,6 @@ public class ParentCommand extends SubCommand {
 		if (command.getMinimumArguments() > newArgs.length) {
 			MessageManager.sendMessage(sender, "invalidArg");
 			displayHelp(sender, label, args);
-			// TODO
 			return null;
 		} else if (command.needPlayer() && !(sender instanceof Player)) {
 			return new CommandResponse("needPlayer");

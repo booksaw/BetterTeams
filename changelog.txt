@@ -111,6 +111,7 @@ Fixed a problem where players could use formatting codes in /team color
 3.1.2
 Features: 
 Added integration with zKoth 
+Added /team purge to reset team score 
 
 Improvements:
 Improved BelowNameChangeEvent backend
@@ -128,7 +129,7 @@ Make a page for the zkoth dependancy
 make a page for the epic levels dependancy 
 make a placeholders page on the wiki 
 Fix plugin info page so links go to the relvent wiki page
-
+add /teama score <add/set/remove>, add /teama purge
 
 
 Headings: 
