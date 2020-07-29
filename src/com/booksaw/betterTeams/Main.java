@@ -358,6 +358,16 @@ public class Main extends JavaPlugin {
 			messages.set("admin.purge.success", "&6The teams have been purged");
 			messages.set("admin.score.tooSmall", "&4The score must be greater than 0");
 			messages.set("admin.score.success", "&6That teams score has been changed");
+		case 10:
+			if (messages.getString("invite.invite") == null || messages.getString("invite.invite").equals("")) {
+				messages.set("invite.success", "&6That player has been invited");
+				messages.set("invite.invite",
+						"&6You have been invited to join team %s do &b/team join <team> &6 to join the team");
+				messages.addDefault("invite.success", "&6That player has been invited");
+				messages.addDefault("invite.invite",
+						"&6You have been invited to join team %s do &b/team join <team> &6 to join the team");
+			}
+
 			// messages.set("", "");
 		case 1000:
 			// this will run only if a change has been made

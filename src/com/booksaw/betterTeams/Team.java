@@ -801,6 +801,8 @@ public class Team {
 	 */
 	public void join(Player p) {
 
+		invitedPlayers.remove(p.getUniqueId());
+
 		for (TeamPlayer player : members) {
 			if (player.getPlayer().isOnline()) {
 				MessageManager.sendMessageF((CommandSender) player.getPlayer().getPlayer(), "join.notify",
