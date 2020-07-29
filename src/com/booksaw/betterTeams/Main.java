@@ -424,11 +424,13 @@ public class Main extends JavaPlugin {
 			getConfig().set("zkoth.pointsPerCapture", 5);
 			getConfig().set("purgeCommands", Arrays.asList(new String[] { "minecraft:give @a minecraft:dirt 1" }));
 			getConfig().set("autoPurge", new ArrayList<>());
+		case 8:
+			getConfig().set("pointsLostByDeath", 0);
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
 			// set version the latest
-			getConfig().set("version", 8);
+			getConfig().set("version", 9);
 
 			break;
 		}

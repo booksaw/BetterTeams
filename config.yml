@@ -183,7 +183,7 @@ maxWarps: 2
 #
 allowPassword: true
 
-# This is a lsit of commands which are run by the console before a purge occurs
+# This is a list of commands which are run by the console before a purge occurs
 # If this is left blank, no commands will be run before a purge occurs
 # You can use placeholders from placeholder API, though the player is set to be null (so things like %betterteams_team% will not work) 
 #    the main reason for the placeholders is so you can use %betterteams_score_{rank}% to refrence a player on the leaderboard
@@ -200,6 +200,12 @@ purgeCommands:
 autoPurge: 
 #- 1:6
 # This will purge the users score at 6am on the first of every month
+
+# This is used to determine how many points a team will lose if one of their members dies
+# If you do not want this feature, set it to 0
+# 
+# Possible values: [0, any positive whole number]
+pointsLostByDeath: 0
 
 #######################################################################################
 #  ____  _             _         ___       _                       _   _              #

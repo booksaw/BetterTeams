@@ -70,7 +70,7 @@ public class ScoreManagement implements Listener {
 					} else {
 						nextPurge = 0;
 					}
-					return; 
+					return;
 				}
 				// clean pass so it can reset the tracker
 				run = false;
@@ -81,19 +81,24 @@ public class ScoreManagement implements Listener {
 
 	@EventHandler
 	public void onKill(PlayerDeathEvent e) {
+		Player killed = e.getEntity().getPlayer();
+		// score decreases
+		Team killedTeam = Team.getTeam(killed);
+		if (killedTeam != null) {
+			killedTeam.setScore(killedTeam.getScore() - Main.plugin.getConfig().getInt("pointsLostByDeath"));
+		}
+
 		if (e.getEntity().getKiller() == null || !(e.getEntity() instanceof Player)
 				|| !(e.getEntity().getKiller() instanceof Player)) {
 			return;
 		}
-		Player killed = e.getEntity().getPlayer();
+
 		Player killer = e.getEntity().getKiller().getPlayer();
 
 		Team killerTeam = Team.getTeam(killer);
 		if (killerTeam == null) {
 			return;
 		}
-
-		Team killedTeam = Team.getTeam(killed);
 
 		if (killerTeam == killedTeam) {
 			killerTeam.setScore(killerTeam.getScore() - 1);

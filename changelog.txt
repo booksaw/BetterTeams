@@ -122,6 +122,15 @@ use %betterteams_teamscore_{rank}) to get the team name of the team with that ra
 Bug Fixes: 
 Fixed a bug with formatted strings missing %s (https://github.com/booksaw/BetterTeams/issues/20)
 
+3.1.3
+Features: 
+Score will decrease a configurable amount on player death
+
+Bug Fixes: 
+Fixed bug where team nametag was not removed when a player left the team (https://github.com/booksaw/BetterTeams/issues/22)
+Fixed a bug where invites were not invalidated once a player joins a team (https://github.com/booksaw/BetterTeams/issues/23)
+
+
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
 
