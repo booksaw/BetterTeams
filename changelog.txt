@@ -125,6 +125,7 @@ Fixed a bug with formatted strings missing %s (https://github.com/booksaw/Better
 3.1.3
 Features: 
 Score will decrease a configurable amount on player death
+Admins will now be notified when a plugin update is released on spigot
 
 Bug Fixes: 
 Fixed bug where team nametag was not removed when a player left the team (https://github.com/booksaw/BetterTeams/issues/22)

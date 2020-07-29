@@ -266,6 +266,7 @@ admin.purge.confirm: '&6Run that command in the next 10 seconds to confirm, &4TH
 admin.purge.success: '&6The teams have been purged'
 admin.score.tooSmall: '&4The score must be greater than 0'
 admin.score.success: '&6That teams score has been changed'
+admin.update: '&4There is a new version of better teams released update here: (https://www.spigotmc.org/resources/better-teams.17129/)'
 
 # for the nametag syntax
 nametag.syntax: '&6&l%s&r '

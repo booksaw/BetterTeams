@@ -367,6 +367,8 @@ public class Main extends JavaPlugin {
 				messages.addDefault("invite.invite",
 						"&6You have been invited to join team %s do &b/team join <team> &6 to join the team");
 			}
+			messages.set("admin.update",
+					"&4There is a new version of better teams released update here: (https://www.spigotmc.org/resources/better-teams.17129/)");
 
 			// messages.set("", "");
 		case 1000:
@@ -604,6 +606,7 @@ public class Main extends JavaPlugin {
 		getServer().getPluginManager().registerEvents((chatManagement = new ChatManagement()), this);
 		getServer().getPluginManager().registerEvents(new ScoreManagement(), this);
 		getServer().getPluginManager().registerEvents(new AllyManagement(), this);
+		getServer().getPluginManager().registerEvents(new UpdateChecker(this), this);
 
 	}
 }
