@@ -375,7 +375,7 @@ public class Main extends JavaPlugin {
 			// this will run only if a change has been made
 			changes = true;
 			// set version the latest
-			messages.set("version", 10);
+			messages.set("version", 11);
 			break;
 		}
 
