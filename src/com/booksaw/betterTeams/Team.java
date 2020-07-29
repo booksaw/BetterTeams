@@ -666,13 +666,14 @@ public class Team {
 	 * @param p the player to remove from the team
 	 */
 	public void removePlayer(OfflinePlayer p) {
-		members.remove(getTeamPlayer(p));
-		savePlayers(Main.plugin.getTeams());
-		Main.plugin.saveTeams();
 
 		if (Main.plugin.nameManagement != null) {
 			Main.plugin.nameManagement.remove(p.getPlayer());
 		}
+
+		members.remove(getTeamPlayer(p));
+		savePlayers(Main.plugin.getTeams());
+		Main.plugin.saveTeams();
 	}
 
 	/**

@@ -103,13 +103,15 @@ public class BelowNameManagement implements Listener {
 
 		Team team = Team.getTeam(player);
 		if (team == null) {
-			for (BelowNameChangeListener listener : listeners) {
-				listener.run(new BelowNameChangeEvent(player, ChangeType.REMOVE));
-			}
+//			for (BelowNameChangeListener listener : listeners) {
+//				listener.run(new BelowNameChangeEvent(player, ChangeType.REMOVE));
+//			}
 			return;
 		}
-
 		team.getScoreboardTeam(board, type).removeEntry(player.getName());
+
+		BelowNameChangeEvent event = new BelowNameChangeEvent(player, ChangeType.REMOVE);
+		Bukkit.getPluginManager().callEvent(event);
 
 		// triggering the listeners
 		for (BelowNameChangeListener listener : listeners) {
