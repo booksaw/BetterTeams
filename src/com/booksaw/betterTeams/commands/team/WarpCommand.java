@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Main;
@@ -84,7 +85,25 @@ public class WarpCommand extends TeamSubCommand {
 	@Override
 	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
 		if (args.length == 1) {
+
+			if (sender instanceof Player) {
+				Team team = Team.getTeam((Player) sender);
+
+				if (team == null) {
+					options.add("<name>");
+					return;
+				}
+
+				for (String temp : team.getWarps().keySet()) {
+					if (temp.startsWith(args[0])) {
+						options.add(temp);
+					}
+				}
+				return;
+			}
+
 			options.add("<name>");
+
 		}
 		if (args.length == 2 && Main.plugin.getConfig().getBoolean("allowPassword")) {
 			options.add("[password]");

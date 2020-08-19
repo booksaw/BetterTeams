@@ -26,6 +26,5 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/nfgg2/Desktop/server/plugins/zKoth.jar"/>
-	<classpathentry kind="lib" path="C:/Users/nfgg2/Desktop/server/plugins/EpicLevels-1.2.5.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

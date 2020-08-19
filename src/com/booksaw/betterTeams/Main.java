@@ -370,12 +370,14 @@ public class Main extends JavaPlugin {
 			messages.set("admin.update",
 					"&4There is a new version of better teams released update here: (https://www.spigotmc.org/resources/better-teams.17129/)");
 
+		case 11:
+			messages.set("placeholder.name", "%s");
 			// messages.set("", "");
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
 			// set version the latest
-			messages.set("version", 11);
+			messages.set("version", 12);
 			break;
 		}
 

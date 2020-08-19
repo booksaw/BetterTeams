@@ -28,6 +28,7 @@ placeholder.noDescription: ''
 placeholder.owner: 'Owner'
 placeholder.admin: 'Admin'
 placeholder.default: 'Default'
+placeholder.name: '%s'
 
 # Used prefixing team chat messages, for no prefix, leave blank 
 prefix.owner: ' **'

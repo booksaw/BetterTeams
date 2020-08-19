@@ -1007,6 +1007,7 @@ public class Team {
 			if (temp instanceof Player && getTeamPlayer((Player) temp) != null) {
 				continue;
 			}
+
 			MessageManager.sendMessageF(temp, "spy.team", getName(), sender.getPlayer().getPlayer().getName(), message);
 		}
 
@@ -1055,8 +1056,12 @@ public class Team {
 		}
 
 		for (CommandSender temp : Main.plugin.chatManagement.spy) {
-			if (temp instanceof Player && getTeamPlayer((Player) temp) != null) {
-				continue;
+			if (temp instanceof Player) {
+				Team spyTeam = Team.getTeam((Player) temp);
+				// if they are receiving the message without chat spy
+				if (spyTeam == this || (spyTeam != null && isAlly(spyTeam.getID()))) {
+					continue;
+				}
 			}
 			MessageManager.sendMessageF(temp, "spy.ally", getName(), sender.getPlayer().getName(), message);
 		}

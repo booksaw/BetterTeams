@@ -131,6 +131,14 @@ Bug Fixes:
 Fixed bug where team nametag was not removed when a player left the team (https://github.com/booksaw/BetterTeams/issues/22)
 Fixed a bug where invites were not invalidated once a player joins a team (https://github.com/booksaw/BetterTeams/issues/23)
 
+3.1.4
+Improvements:
+/team warp and /team delwarp now have tabcomplete for warp names
+Formatting characters can be used around the teamname placeholder 
+
+Bug Fixes: 
+Players with team chatspy enabled no longer receive ally messages twice
+
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 

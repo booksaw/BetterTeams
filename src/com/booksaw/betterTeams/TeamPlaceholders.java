@@ -60,7 +60,7 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 				return MessageManager.getMessage("placeholder.noTeam");
 			}
 
-			return team.getName();
+			return String.format(MessageManager.getMessage("placeholder.name"), team.getName());
 
 		} else if (identifier.equals("description")) {
 
