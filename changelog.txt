@@ -139,6 +139,10 @@ Formatting characters can be used around the teamname placeholder
 Bug Fixes: 
 Players with team chatspy enabled no longer receive ally messages twice
 
+3.1.5
+Features: 
+/teama disband to force a team to be disbanded (Note: there is no confirmation for this command)
+/teama color to force a team to change their team color
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 

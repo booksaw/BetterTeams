@@ -49,11 +49,13 @@ import com.booksaw.betterTeams.commands.team.WarpCommand;
 import com.booksaw.betterTeams.commands.team.WarpsCommand;
 import com.booksaw.betterTeams.commands.team.WithdrawCommand;
 import com.booksaw.betterTeams.commands.teama.ChatSpyTeama;
+import com.booksaw.betterTeams.commands.teama.ColorTeama;
 import com.booksaw.betterTeams.commands.teama.CreateHoloTeama;
 import com.booksaw.betterTeams.commands.teama.CreateTeama;
 import com.booksaw.betterTeams.commands.teama.DelwarpTeama;
 import com.booksaw.betterTeams.commands.teama.DemoteTeama;
 import com.booksaw.betterTeams.commands.teama.DescriptionTeama;
+import com.booksaw.betterTeams.commands.teama.DisbandTeama;
 import com.booksaw.betterTeams.commands.teama.HomeTeama;
 import com.booksaw.betterTeams.commands.teama.InviteTeama;
 import com.booksaw.betterTeams.commands.teama.JoinTeama;
@@ -373,6 +375,9 @@ public class Main extends JavaPlugin {
 		case 11:
 			messages.set("placeholder.name", "%s");
 			// messages.set("", "");
+		case 12:
+			messages.set("admin.disband.success", "&6That team has been disbanded successfully");
+			messages.set("admin.color.success", "&6That teams color has been changed");
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
@@ -552,6 +557,8 @@ public class Main extends JavaPlugin {
 		teamaCommand.addSubCommand(new SetwarpTeama());
 		teamaCommand.addSubCommand(new DelwarpTeama());
 		teamaCommand.addSubCommand(new PurgeTeama());
+		teamaCommand.addSubCommand(new DisbandTeama());
+		teamaCommand.addSubCommand(new ColorTeama());
 
 		if (getConfig().getBoolean("singleOwner")) {
 			teamaCommand.addSubCommand(new SetOwnerTeama());

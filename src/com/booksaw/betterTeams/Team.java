@@ -764,7 +764,8 @@ public class Team {
 				}
 			}
 
-			team.unregister();
+			if (team != null)
+				team.unregister();
 			team = null;
 
 		}

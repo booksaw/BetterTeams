@@ -268,6 +268,9 @@ admin.purge.success: '&6The teams have been purged'
 admin.score.tooSmall: '&4The score must be greater than 0'
 admin.score.success: '&6That teams score has been changed'
 admin.update: '&4There is a new version of better teams released update here: (https://www.spigotmc.org/resources/better-teams.17129/)'
+admin.disband.success: '&6That team has been disbanded successfully'
+admin.color.success: '&6That teams color has been changed'
+
 
 # for the nametag syntax
 nametag.syntax: '&6&l%s&r '
