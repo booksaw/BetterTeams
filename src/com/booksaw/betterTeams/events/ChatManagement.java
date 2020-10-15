@@ -72,7 +72,7 @@ public class ChatManagement implements Listener {
 			String syntax = MessageManager.getMessage("prefixSyntax");
 			ChatColor returnTo = ChatColor.RESET;
 			int value = syntax.indexOf("§");
-			if (syntax.charAt(value) == '§') {
+			if (value != -1 && syntax.charAt(value) == '§') {
 				returnTo = ChatColor.getByChar(syntax.charAt(value + 1));
 			}
 
