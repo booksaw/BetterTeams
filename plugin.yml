@@ -1,5 +1,5 @@
 name: BetterTeams
-version: 3.1.6
+version: 3.1.7
 author: booksaw
 description: A plugin to create teams with other players
 main: com.booksaw.betterTeams.Main
@@ -208,4 +208,22 @@ permissions:
    betterTeams.admin.disband:
       default: op
       description: gives access to the command /teama disband
+   betterTeams.chest.claim:
+      default: true
+      description: gives access to the command /team chest claim
+   betterTeams.chest.remove:
+      default: true
+      description: gives access to the command /team chest remove
+   betterTeams.chest.removeall:
+      default: true
+      description: gives access to the command /team chest removeall
+   betterTeams.admin.chest.claim:
+      default: op
+      description: gives access to the command /teama chest claim
+   betterTeams.admin.chest.remove:
+      default: op
+      description: gives access to the command /teama chest remove
+   betterTeams.admin.chest.removeall:
+      default: op
+      description: gives access to the command /teama chest removeall
       

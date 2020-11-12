@@ -148,9 +148,20 @@ Features:
 
 Bug Fixes:
 Fixed bug with chat colors not being correctly recognised
+
+3.1.7
+Features:
+- Added chest claiming
+Added commands:
+- /team chest claim - Used to claim a given chest (betterteams.chest.claim) 
+- /team chest remove - Used to remove a claim from a chest (betterteams.chest.remove)
+- /team chest removeall - Used to remove all chest claims from that team (betterteams.chest.removeall)
+Added admin commands:
+- /teama chest claim <team> - Used to claim a chest for the given team (betterteams.admin.chest.claim)
+- /teama chest remove - Used to remove the claim on the chest, regardless of team (betterteams.admin.chest.remove)
+- /teama chest removeall <team> - Used to remove all (betterteams.admin.chest.removeall)
+
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
-
-
 
 Headings: 
 Features: 

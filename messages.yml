@@ -13,7 +13,7 @@ prefixSyntax: '&b[%s] &r%s'
 bannedChar: '&4A character you tried to use is banned"'
 noTeam: '&4That team does not exist'
 # do not change this, it is used to check the messages version (test if there are any missing messages)
-version: 12
+version: 14
 
 cooldown.wait: '&4You need to wait another %s seconds before running that!'
 
@@ -223,6 +223,16 @@ chat.syntax: '&6&b[Team]&f%s: %s'
 teleport.fail: '&4The teleportation failed'
 teleport.wait: '&6Wait &b%s &6seconds'
 
+chest.claim.noChest: '&4You are not standing on a chest'
+chest.claim.limit: '&4Your team has claimed the maximum number of chests'
+chest.claim.claimed: '&4That chest has already been claimed'
+chest.claim.success: '&6You have claimed that chest' 
+chest.remove.noChest: '&4You are not standing on a chest'
+chest.remove.notClaimed: '&4Your team has not claimed that chest'
+chest.remove.success: '&4your team no longer has a claim to that chest'
+chest.all.success: '&6Unclaimed all chests'
+chest.claimed: '&4That chest is claimed by &a%s'
+
 # for admin messages
 admin.inTeam: '&4That player is not in a team'
 admin.config.reload: '&6BetterTeams has been reloaded (If you are having problems when using this command, restart the server)'
@@ -270,6 +280,11 @@ admin.score.success: '&6That teams score has been changed'
 admin.update: '&4There is a new version of better teams released update here: (https://www.spigotmc.org/resources/better-teams.17129/)'
 admin.disband.success: '&6That team has been disbanded successfully'
 admin.color.success: '&6That teams color has been changed'
+admin.chest.claim.success: '&6You have claimed that chest on behalf of the team'
+admin.chest.remove.success: '&6You have successfully removed the claim from that chest'
+admin.chest.all.success: '&6All claims removed from that team'
+admin.chest.remove.notClaimed: '&4No team has claimed that chest'
+
 
 
 # for the nametag syntax

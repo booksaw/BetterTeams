@@ -13,13 +13,18 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.block.Block;
+import org.bukkit.block.Chest;
+import org.bukkit.block.DoubleChest;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.scoreboard.Scoreboard;
 
 import com.booksaw.betterTeams.customEvents.PrePurgeEvent;
 import com.booksaw.betterTeams.events.BelowNameManagement.BelowNameType;
+import com.booksaw.betterTeams.events.ChestManagement;
 import com.booksaw.betterTeams.message.MessageManager;
 
 /**
@@ -264,6 +269,115 @@ public class Team {
 	}
 
 	/**
+	 * Used to get the team which has claimed the provided chest, will return null
+	 * if that location is not claimed
+	 * 
+	 * @param location the location of the chest - must already be normalised
+	 * @return The team which has claimed that chest
+	 */
+	public static Team getClamingTeam(Location location) {
+
+		for (Entry<UUID, Team> team : teamList.entrySet()) {
+			if (team.getValue().isClaimed(location)) {
+				return team.getValue();
+			}
+		}
+		return null;
+
+	}
+
+	/**
+	 * Used to get the config value checking if ally chests can be opened
+	 * 
+	 * @return
+	 */
+	public static boolean canOpenAllyChests() {
+		return Main.plugin.getConfig().getBoolean("allowAllyChests");
+	}
+
+	/**
+	 * Used to get the claiming team of a chest, will check both parts of a double
+	 * chest, it is assumed that the provided block is known to be a chest
+	 * 
+	 * @param block The block being checked
+	 * @return The team which has claimed that block
+	 */
+	public static Team getClaimingTeam(Block block) {
+		// player is opening a chest
+		Chest chest = (Chest) block.getState();
+		InventoryHolder holder = chest.getInventory().getHolder();
+		return getClaimingTeam(holder);
+	}
+
+	/**
+	 * Used to get the claiming team of a chest, will check both parts of a double
+	 * chest, it is assumed that the provided block is known to be a chest
+	 * 
+	 * @param holder the inventory holder of the block to check
+	 * @return The team which has claimed that block
+	 */
+	public static Team getClaimingTeam(InventoryHolder holder) {
+		// player is opening a chest
+
+		if (holder instanceof DoubleChest) {
+			DoubleChest doubleChest = (DoubleChest) holder;
+			Team claimedBy = getClamingTeam(ChestManagement.getLocation((Chest) doubleChest.getLeftSide()));
+			if (claimedBy != null) {
+				return claimedBy;
+			}
+
+			claimedBy = getClamingTeam(ChestManagement.getLocation((Chest) doubleChest.getRightSide()));
+			if (claimedBy != null) {
+				return claimedBy;
+			}
+		} else if (holder instanceof Chest) {
+			// single chest
+			Team claimedBy = getClamingTeam(ChestManagement.getLocation((Chest) holder));
+			if (claimedBy != null) {
+				return claimedBy;
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * Used to get the claiming location, will check both parts of a double chest,
+	 * it is assumed that the provided block is known to be a chest
+	 * 
+	 * @param block
+	 * @return
+	 */
+	public static Location getClaimingLocation(Block block) {
+		// player is opening a chest
+		Chest chest = (Chest) block.getState();
+		InventoryHolder holder = chest.getInventory().getHolder();
+
+		if (holder instanceof DoubleChest) {
+			DoubleChest doubleChest = (DoubleChest) holder;
+			Location loc = ChestManagement.getLocation((Chest) doubleChest.getLeftSide());
+			Team claimedBy = getClamingTeam(loc);
+			if (claimedBy != null) {
+				return loc;
+			}
+
+			loc = ChestManagement.getLocation((Chest) doubleChest.getRightSide());
+			claimedBy = getClamingTeam(ChestManagement.getLocation((Chest) doubleChest.getRightSide()));
+			if (claimedBy != null) {
+				return loc;
+			}
+		} else {
+			// single chest
+			Team claimedBy = getClamingTeam(block.getLocation());
+			if (claimedBy != null) {
+				return block.getLocation();
+			}
+		}
+
+		return null;
+	}
+
+	/**
 	 * The ID of the team (this is a unique identifier of the team which will never
 	 * change)
 	 */
@@ -381,6 +495,11 @@ public class Team {
 			warps.put(split[0], new Warp(split));
 		}
 
+		claims = new ArrayList<>();
+		for (String str : getStringList(config, "chests")) {
+			claims.add(getLocation(str));
+		}
+
 		rank = -1;
 
 	}
@@ -422,6 +541,9 @@ public class Team {
 
 		warps = new HashMap<>();
 		setValue(config, "warps", new ArrayList<>());
+
+		claims = new ArrayList<>();
+		setValue(config, "chests", new ArrayList<>());
 
 		members = new ArrayList<>();
 		members.add(new TeamPlayer(owner, PlayerRank.OWNER));
@@ -927,6 +1049,10 @@ public class Team {
 				+ ":" + loc.getPitch();
 	}
 
+	public static Location normalise(Location loc) {
+		return new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY(), loc.getBlockZ());
+	}
+
 	/**
 	 * This method is used to add a player to the list of players which are banned
 	 * from the team
@@ -1363,6 +1489,63 @@ public class Team {
 		}
 
 		return online;
+	}
+
+	// CHEST CLAIM COMPONENT
+	private List<Location> claims;
+
+	/**
+	 * Used to add a chest claim to this team
+	 * 
+	 * @param location The location of the chest claim (round to the nearest block)
+	 */
+	public void addClaim(Location location) {
+		claims.add(location);
+		saveClaims();
+	}
+
+	/**
+	 * Used to remove a chest claim from this team
+	 * 
+	 * @param location The location of the chest claim (round to the nearest block)
+	 */
+	public void removeClaim(Location location) {
+		for (Location loc : new ArrayList<>(claims)) {
+			if (loc.equals(location)) {
+				claims.remove(loc);
+				saveClaims();
+				return;
+			}
+		}
+	}
+
+	public void clearClaims() {
+		claims = new ArrayList<>();
+		saveClaims();
+	}
+
+	public int getClaimCount() {
+		return claims.size();
+	}
+
+	public boolean isClaimed(Location location) {
+		for (Location loc : claims) {
+			if (loc.equals(location)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private void saveClaims() {
+		List<String> toSave = new ArrayList<>();
+
+		for (Location loc : claims) {
+			toSave.add(getString(loc));
+		}
+
+		setValue(Main.plugin.getTeams(), "chests", toSave);
+		Main.plugin.saveTeams();
 	}
 
 }

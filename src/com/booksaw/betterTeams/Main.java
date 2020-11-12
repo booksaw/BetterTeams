@@ -48,6 +48,9 @@ import com.booksaw.betterTeams.commands.team.UnbanCommand;
 import com.booksaw.betterTeams.commands.team.WarpCommand;
 import com.booksaw.betterTeams.commands.team.WarpsCommand;
 import com.booksaw.betterTeams.commands.team.WithdrawCommand;
+import com.booksaw.betterTeams.commands.team.chest.ChestClaimCommand;
+import com.booksaw.betterTeams.commands.team.chest.ChestRemoveCommand;
+import com.booksaw.betterTeams.commands.team.chest.ChestRemoveallCommand;
 import com.booksaw.betterTeams.commands.teama.ChatSpyTeama;
 import com.booksaw.betterTeams.commands.teama.ColorTeama;
 import com.booksaw.betterTeams.commands.teama.CreateHoloTeama;
@@ -71,6 +74,9 @@ import com.booksaw.betterTeams.commands.teama.SetwarpTeama;
 import com.booksaw.betterTeams.commands.teama.TitleTeama;
 import com.booksaw.betterTeams.commands.teama.VersionTeama;
 import com.booksaw.betterTeams.commands.teama.WarpTeama;
+import com.booksaw.betterTeams.commands.teama.chest.ChestClaimTeama;
+import com.booksaw.betterTeams.commands.teama.chest.ChestRemoveTeama;
+import com.booksaw.betterTeams.commands.teama.chest.ChestRemoveallTeama;
 import com.booksaw.betterTeams.commands.teama.score.AddScore;
 import com.booksaw.betterTeams.commands.teama.score.RemoveScore;
 import com.booksaw.betterTeams.commands.teama.score.SetScore;
@@ -80,6 +86,7 @@ import com.booksaw.betterTeams.events.AllyManagement;
 import com.booksaw.betterTeams.events.BelowNameManagement;
 import com.booksaw.betterTeams.events.BelowNameManagement.BelowNameType;
 import com.booksaw.betterTeams.events.ChatManagement;
+import com.booksaw.betterTeams.events.ChestManagement;
 import com.booksaw.betterTeams.events.DamageManagement;
 import com.booksaw.betterTeams.events.ScoreManagement;
 import com.booksaw.betterTeams.message.MessageManager;
@@ -378,11 +385,24 @@ public class Main extends JavaPlugin {
 		case 12:
 			messages.set("admin.disband.success", "&6That team has been disbanded successfully");
 			messages.set("admin.color.success", "&6That teams color has been changed");
+		case 13:
+			messages.set("chest.claim.noChest", "&4You are not standing on a chest");
+			messages.set("chest.claim.limit", "&4Your team has claimed the maximum number of chests");
+			messages.set("chest.claim.claimed", "&4That chest has already been claimed");
+			messages.set("chest.claim.success", "&6You have claimed that chest");
+			messages.set("chest.remove.noChest", "&4You are not standing on a chest");
+			messages.set("chest.remove.notClaimed", "&4Your team has not claimed that chest");
+			messages.set("chest.remove.success", "&4your team no longer has a claim to that chest");
+			messages.set("chest.all.success", "&6Unclaimed all chests");
+			messages.set("chest.claimed", "&4That chest is claimed by &a%s");
+			messages.set("admin.chest.claim.success", "&6You have claimed that chest on behalf of the team");
+			messages.set("admin.chest.remove.success", "&6You have successfully removed the claim from that chest");
+			messages.set("admin.chest.all.success", "&6All claims removed from that team");
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
 			// set version the latest
-			messages.set("version", 12);
+			messages.set("version", 14);
 			break;
 		}
 
@@ -435,11 +455,14 @@ public class Main extends JavaPlugin {
 			getConfig().set("autoPurge", new ArrayList<>());
 		case 8:
 			getConfig().set("pointsLostByDeath", 0);
+		case 9:
+			getConfig().set("maxChests", 2);
+			getConfig().set("allowAllyChests", true);
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
 			// set version the latest
-			getConfig().set("version", 9);
+			getConfig().set("version", 10);
 
 			break;
 		}
@@ -535,6 +558,12 @@ public class Main extends JavaPlugin {
 			teamCommand.addSubCommand(new SetOwnerCommand());
 		}
 
+		ParentCommand chest = new ParentCommand("chest");
+		chest.addSubCommand(new ChestClaimCommand());
+		chest.addSubCommand(new ChestRemoveCommand());
+		chest.addSubCommand(new ChestRemoveallCommand());
+		teamCommand.addSubCommand(chest);
+
 		new BooksawCommand(getCommand("team"), teamCommand);
 
 		ParentCommand teamaCommand = new ParentCommand("teamadmin");
@@ -569,6 +598,12 @@ public class Main extends JavaPlugin {
 		teamaScoreCommand.addSubCommand(new SetScore());
 		teamaScoreCommand.addSubCommand(new RemoveScore());
 		teamaCommand.addSubCommand(teamaScoreCommand);
+
+		ParentCommand teamaChestCommand = new ParentCommand("chest");
+		teamaChestCommand.addSubCommand(new ChestClaimTeama());
+		teamaChestCommand.addSubCommand(new ChestRemoveTeama());
+		teamaChestCommand.addSubCommand(new ChestRemoveallTeama());
+		teamaCommand.addSubCommand(teamaChestCommand);
 
 		if (useHolographicDisplays) {
 			ParentCommand teamaHoloCommand = new ParentCommand("holo");
@@ -616,6 +651,7 @@ public class Main extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new ScoreManagement(), this);
 		getServer().getPluginManager().registerEvents(new AllyManagement(), this);
 		getServer().getPluginManager().registerEvents(new UpdateChecker(this), this);
+		getServer().getPluginManager().registerEvents(new ChestManagement(), this);
 
 	}
 }

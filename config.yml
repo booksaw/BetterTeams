@@ -183,6 +183,20 @@ maxWarps: 2
 #
 allowPassword: true
 
+# This is used to determine the maximum number of chests that a team can claim
+# - If this is set to 0 teams will not be allowed any claims (though it is recommended you do that through permissions instead of the config option)
+# - If this is set to -1 there will be no limit on the number of warps
+# 
+# Possible values: [Any positive whole number, 0, -1]
+maxChests: 2
+
+# This is used to determine if players can open claimed chests of their allies or not
+# - If this is set to true, allies will be able to open claimed chests 
+# - If this is set to false, allies will not be able to open claimed chests
+# 
+# Possible values: [true, false]
+allowAllyChests: true
+
 # This is a list of commands which are run by the console before a purge occurs
 # If this is left blank, no commands will be run before a purge occurs
 # You can use placeholders from placeholder API, though the player is set to be null (so things like %betterteams_team% will not work) 
@@ -235,4 +249,4 @@ zkoth:
 
 
 # Do not edit this value, this is used to check the config is up to date with the lastest version of the plugin (if it is not, it will be automatically updated)
-version: 9
+version: 10
