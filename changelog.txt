@@ -164,6 +164,8 @@ Added admin commands:
 3.1.7:
 Features: 
 - Added new placeholder (%betterteams_teamscoreno_<rank>%) which can be used to display the score of the team at that position in the leaderboard
+- Placeholders from placeholder API can now be used in messages.yml
+- Added admin commands to enable and disable chest claim for a period of time (/teama chest disableclaims, /teama chest enableclaims)
 
 Improvements:
 
@@ -172,6 +174,7 @@ Bug Fixes:
 - /team neutral double message (https://github.com/booksaw/BetterTeams/issues/32)  
 - Fixed multiple typos within messages.yml (https://github.com/booksaw/BetterTeams/issues/31)
 - Fixed problem where the placeholder (teamscore) was not working correctly
+- Fixed problem with /team top
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 

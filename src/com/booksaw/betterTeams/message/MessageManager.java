@@ -6,9 +6,11 @@ import java.util.logging.Level;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 
 import com.booksaw.betterTeams.Main;
 
+import me.clip.placeholderapi.PlaceholderAPI;
 import net.md_5.bungee.api.ChatColor;
 
 /**
@@ -49,7 +51,7 @@ public class MessageManager {
 	 */
 	public static void sendMessage(CommandSender sender, String reference) {
 		try {
-			String message = ChatColor.translateAlternateColorCodes('&', messages.getString(reference));
+			String message = getMessage(sender, reference);
 			if (message == null) {
 				Bukkit.getLogger().log(Level.WARNING, "Message with the reference " + reference + " does not exist");
 				return;
@@ -75,7 +77,7 @@ public class MessageManager {
 	 */
 	public static void sendMessageF(CommandSender sender, String reference, String... replacement) {
 		try {
-			String message = ChatColor.translateAlternateColorCodes('&', messages.getString(reference));
+			String message = getMessage(sender, reference);
 			if (message == null) {
 				Bukkit.getLogger().log(Level.WARNING, "Message with the reference " + reference + " does not exist");
 				return;
@@ -105,7 +107,7 @@ public class MessageManager {
 	 */
 	public static void sendMessageF(CommandSender sender, String reference, Object[] replacement) {
 		try {
-			String message = ChatColor.translateAlternateColorCodes('&', messages.getString(reference));
+			String message = getMessage(sender, reference);
 			if (message == null) {
 				Bukkit.getLogger().log(Level.WARNING, "Message with the reference " + reference + " does not exist");
 				return;
@@ -135,7 +137,21 @@ public class MessageManager {
 	 */
 	public static String getMessage(String reference) {
 		try {
-			return ChatColor.translateAlternateColorCodes('&', messages.getString(reference));
+			String msg = messages.getString(reference);
+			return ChatColor.translateAlternateColorCodes('&', msg);
+		} catch (NullPointerException e) {
+			Bukkit.getLogger().warning("Could not find the message with the reference " + reference);
+			return "";
+		}
+	}
+
+	public static String getMessage(CommandSender sender, String reference) {
+		try {
+			String msg = getMessage(reference);
+			if (sender instanceof Player && Main.placeholderAPI) {
+				msg = PlaceholderAPI.setPlaceholders((Player) sender, msg);
+			}
+			return ChatColor.translateAlternateColorCodes('&', msg);
 		} catch (NullPointerException e) {
 			Bukkit.getLogger().warning("Could not find the message with the reference " + reference);
 			return "";

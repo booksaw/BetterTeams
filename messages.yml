@@ -1,3 +1,4 @@
+# Any placeholders from placeholder API will work in this file
 # general errors
 invalidArg: '&4Invalid Arguments, help'
 inTeam: '&4You must be in a team to do that'
@@ -247,6 +248,13 @@ admin.chest.claim.success: '&6You have claimed that chest on behalf of the team'
 admin.chest.remove.success: '&6You have successfully removed the claim from that chest'
 admin.chest.all.success: '&6All claims removed from that team'
 admin.chest.remove.notClaimed: '&4No team has claimed that chest'
+admin.chest.disable.already: '&4Chest claims are already disabled'
+admin.chest.disable.success: '&6Chest claiming has been disabled'
+admin.chest.disabled.bc: '&6&lAll claimed chests are able to be opened'
+admin.chest.enable.already: '&4Chest claims are already enabled'
+admin.chest.enable.success: '&6Chest claiming has been enabled'
+admin.chest.enabled.bc: '&6&lAll claimed chests are no longer able to be opened'
+
 nametag.syntax: '&6&l%s&r '
 holo.leaderboard: '&6Leaderboard'
 holo.syntax: '&6%s: &b%s'

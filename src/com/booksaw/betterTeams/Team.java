@@ -192,6 +192,10 @@ public class Team {
 			boolean changes = false;
 
 			for (int j = 0; j < rankedTeams.length - i - 1; j++) {
+				if (rankedTeams[j + 1] == null) {
+					continue;
+				}
+
 				if (rankedTeams[j].getScore() < rankedTeams[j + 1].getScore()) {
 					Team temp = rankedTeams[j];
 					rankedTeams[j] = rankedTeams[j + 1];

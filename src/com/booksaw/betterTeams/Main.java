@@ -105,6 +105,7 @@ public class Main extends JavaPlugin {
 	public static Main plugin;
 	public boolean useHolographicDisplays;
 	public static Economy econ = null;
+	public static boolean placeholderAPI = false;
 
 	private DamageManagement damageManagement;
 	public BelowNameManagement nameManagement;
@@ -128,6 +129,7 @@ public class Main extends JavaPlugin {
 
 		if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null
 				&& Bukkit.getPluginManager().getPlugin("PlaceholderAPI").isEnabled()) {
+			placeholderAPI = true;
 			new TeamPlaceholders(this).register();
 
 		}

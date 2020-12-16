@@ -15,11 +15,14 @@ import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.message.MessageManager;
 
 public class ChestManagement implements Listener {
+
+	public static boolean enableClaims = true;
 
 	@EventHandler
 	public void onOpen(PlayerInteractEvent e) {
@@ -85,8 +88,11 @@ public class ChestManagement implements Listener {
 	}
 
 	private void cancelChestEvent(PlayerInteractEvent e, Team claimedBy) {
-		MessageManager.sendMessageF(e.getPlayer(), "chest.claimed", claimedBy.getName());
-		((Cancellable) e).setCancelled(true);
+		// checking if chest claims are currently enabled
+		if (enableClaims) {
+			MessageManager.sendMessageF(e.getPlayer(), "chest.claimed", claimedBy.getName());
+			((Cancellable) e).setCancelled(true);
+		}
 	}
 
 	private void cancelChestEvent(BlockBreakEvent e, Team claimedBy) {
@@ -96,5 +102,12 @@ public class ChestManagement implements Listener {
 
 	public static Location getLocation(Chest chest) {
 		return new Location(chest.getWorld(), chest.getX(), chest.getY(), chest.getZ());
+	}
+
+	@EventHandler
+	public void onJoin(PlayerJoinEvent e) {
+		// used to notifiy players if claimed chests can be opened
+		if (!enableClaims)
+			MessageManager.sendMessage(e.getPlayer(), "admin.chest.disabled.bc");
 	}
 }
