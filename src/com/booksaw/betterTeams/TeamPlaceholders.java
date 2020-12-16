@@ -128,13 +128,13 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 
 		} else if (identifier.startsWith("teamscore_")) {
 			identifier = identifier.replaceAll("teamscore_", "");
-			int place = 0;
+			int place = -1;
 			try {
-				place = Integer.parseInt(identifier);
+				place = Integer.parseInt(identifier) - 1;
 			} catch (NumberFormatException e) {
 				return null;
 			}
-			if (place == 0) {
+			if (place == -1) {
 				return null;
 			}
 
@@ -147,13 +147,13 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 
 		} else if (identifier.startsWith("teamscoreno_")) {
 			identifier = identifier.replaceAll("teamscoreno_", "");
-			int place = 0;
+			int place = -1;
 			try {
-				place = Integer.parseInt(identifier);
+				place = Integer.parseInt(identifier) - 1;
 			} catch (NumberFormatException e) {
 				return null;
 			}
-			if (place == 0) {
+			if (place == -1) {
 				return null;
 			}
 

@@ -167,9 +167,6 @@ Features:
 - Placeholders from placeholder API can now be used in messages.yml
 - Added admin commands to enable and disable chest claim for a period of time (/teama chest disableclaims, /teama chest enableclaims)
 
-Improvements:
-
-
 Bug Fixes: 
 - /team neutral double message (https://github.com/booksaw/BetterTeams/issues/32)  
 - Fixed multiple typos within messages.yml (https://github.com/booksaw/BetterTeams/issues/31)
