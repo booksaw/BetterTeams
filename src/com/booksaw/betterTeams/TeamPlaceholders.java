@@ -127,7 +127,7 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 			return team.getColor() + "";
 
 		} else if (identifier.startsWith("teamscore_")) {
-			identifier = identifier.replaceAll("score_", "");
+			identifier = identifier.replaceAll("teamscore_", "");
 			int place = 0;
 			try {
 				place = Integer.parseInt(identifier);
@@ -143,6 +143,25 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 				return null;
 			} else {
 				return teams[place].getName();
+			}
+
+		} else if (identifier.startsWith("teamscoreno_")) {
+			identifier = identifier.replaceAll("teamscoreno_", "");
+			int place = 0;
+			try {
+				place = Integer.parseInt(identifier);
+			} catch (NumberFormatException e) {
+				return null;
+			}
+			if (place == 0) {
+				return null;
+			}
+
+			Team[] teams = Team.sortTeamsByScore();
+			if (teams.length <= place) {
+				return null;
+			} else {
+				return teams[place].getScore();
 			}
 
 		}
