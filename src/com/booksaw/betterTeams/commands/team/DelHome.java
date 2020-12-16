@@ -40,7 +40,7 @@ public class DelHome extends TeamSubCommand {
 
 	@Override
 	public String getHelp() {
-		return "Delete your teams home";
+		return "Delete your team's home";
 	}
 
 	@Override

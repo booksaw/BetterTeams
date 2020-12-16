@@ -392,12 +392,32 @@ public class Main extends JavaPlugin {
 			messages.set("chest.claim.success", "&6You have claimed that chest");
 			messages.set("chest.remove.noChest", "&4You are not standing on a chest");
 			messages.set("chest.remove.notClaimed", "&4Your team has not claimed that chest");
-			messages.set("chest.remove.success", "&4your team no longer has a claim to that chest");
+			messages.set("chest.remove.success", "&4Your team no longer has a claim to that chest");
 			messages.set("chest.all.success", "&6Unclaimed all chests");
 			messages.set("chest.claimed", "&4That chest is claimed by &a%s");
 			messages.set("admin.chest.claim.success", "&6You have claimed that chest on behalf of the team");
 			messages.set("admin.chest.remove.success", "&6You have successfully removed the claim from that chest");
 			messages.set("admin.chest.all.success", "&6All claims removed from that team");
+		case 14:
+			// fixing a few typos (https://github.com/booksaw/BetterTeams/issues/31)
+			if (messages.getString("neutral.success").contains("wih")) {
+				messages.set("neutral.success", messages.getString("neutral.success").replace("wih", "with"));
+			}
+			if (messages.getString("chest.remove.success").startsWith("&4your")) {
+				messages.set("chest.remove.success",
+						messages.getString("chest.remove.success").replace("&4your", "&4Your"));
+			}
+			if (messages.getString("admin.join.success").startsWith("&6that")) {
+				messages.set("admin.join.success",
+						messages.getString("admin.join.success").replace("&6your", "&6Your"));
+			}
+			if (messages.getString("admin.promote.owner").contains("&6To")) {
+				messages.set("admin.promote.owner", messages.getString("admin.promote.owner").replace("&6To", "&6to"));
+			}
+
+			if (messages.getString("help.delhome").contains("teams")) {
+				messages.set("help.delhome", messages.getString("help.delhome").replace("teams", "team's"));
+			}
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;

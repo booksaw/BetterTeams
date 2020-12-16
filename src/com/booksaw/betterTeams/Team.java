@@ -304,9 +304,18 @@ public class Team {
 	 */
 	public static Team getClaimingTeam(Block block) {
 		// player is opening a chest
-		Chest chest = (Chest) block.getState();
-		InventoryHolder holder = chest.getInventory().getHolder();
-		return getClaimingTeam(holder);
+		if (block.getState() instanceof Chest) {
+			Chest chest = (Chest) block.getState();
+			InventoryHolder holder = chest.getInventory().getHolder();
+			return getClaimingTeam(holder);
+		} else if (block.getState() instanceof DoubleChest) {
+			DoubleChest chest = (DoubleChest) block.getState();
+			InventoryHolder holder = chest.getInventory().getHolder();
+			return getClaimingTeam(holder);
+		}
+
+		return null;
+
 	}
 
 	/**

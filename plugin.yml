@@ -1,5 +1,5 @@
 name: BetterTeams
-version: 3.1.7
+version: 3.1.9
 author: booksaw
 description: A plugin to create teams with other players
 main: com.booksaw.betterTeams.Main
@@ -85,7 +85,7 @@ permissions:
    betterTeams.title.self:
       default: op
       description: Allows the user to change their own title even if they are not the team owner
-   betterTeams.unan:
+   betterTeams.unban:
       default: true
       description: Allows access to /team unban
    betterTeams.sethome:

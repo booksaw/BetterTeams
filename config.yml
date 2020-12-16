@@ -205,6 +205,7 @@ allowAllyChests: true
 # Possible values: [Any command valid on your server]
 purgeCommands:
 - 'give @a minecraft:dirt 1'
+- 
 
 # This is used to track when the next purge should occur. This is a list of dates where a purge will be run 
 # If this list is left blank, no purges will occur

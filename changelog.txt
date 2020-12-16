@@ -161,6 +161,17 @@ Added admin commands:
 - /teama chest remove - Used to remove the claim on the chest, regardless of team (betterteams.admin.chest.remove)
 - /teama chest removeall <team> - Used to remove all (betterteams.admin.chest.removeall)
 
+3.1.7:
+Features: 
+
+
+Improvements:
+
+
+Bug Fixes: 
+- /team neutral double message (https://github.com/booksaw/BetterTeams/issues/32)  
+- Fixed multiple typos within messages.yml (https://github.com/booksaw/BetterTeams/issues/31)
+
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
 Headings: 

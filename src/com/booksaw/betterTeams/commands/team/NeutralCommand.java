@@ -65,7 +65,7 @@ public class NeutralCommand extends TeamSubCommand {
 					MessageManager.sendMessageF(pl.getPlayer(), "neutral.remove", toNeutral.getDisplayName());
 				}
 			}
-			return new CommandResponse(true, "neutral.success");
+			return new CommandResponse(true);
 		}
 
 		return new CommandResponse("neutral.notAlly");

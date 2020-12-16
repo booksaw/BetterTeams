@@ -40,7 +40,6 @@ public class UpdateChecker implements Listener {
 	public void checkForUpdate() {
 		(new BukkitRunnable() {
 			public void run() {
-				System.out.println("running");
 				try {
 					HttpsURLConnection connection = (HttpsURLConnection) (new URL(
 							"https://api.spigotmc.org/legacy/update.php?resource=" + ID)).openConnection();
