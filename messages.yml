@@ -14,7 +14,7 @@ prefixSyntax: '&b[%s] &r%s'
 bannedChar: '&4A character you tried to use is banned"'
 noTeam: '&4That team does not exist'
 # do not change this, it is used to check the messages version (test if there are any missing messages)
-version: 14
+version: 15
 cooldown.wait: '&4You need to wait another %s seconds before running that!'
 cost.tooPoor: '&4You are too poor to run that command'
 cost.run: '&4&l-%s'
@@ -253,7 +253,7 @@ admin.chest.disable.success: '&6Chest claiming has been disabled'
 admin.chest.disabled.bc: '&6&lAll claimed chests are able to be opened'
 admin.chest.enable.already: '&4Chest claims are already enabled'
 admin.chest.enable.success: '&6Chest claiming has been enabled'
-admin.chest.enabled.bc: '&6&lAll claimed chests are no longer able to be opened'
+admin.chest.enabled.bc: '&6&lAll claimed chests are locked'
 
 nametag.syntax: '&6&l%s&r '
 holo.leaderboard: '&6Leaderboard'

@@ -75,6 +75,8 @@ import com.booksaw.betterTeams.commands.teama.TitleTeama;
 import com.booksaw.betterTeams.commands.teama.VersionTeama;
 import com.booksaw.betterTeams.commands.teama.WarpTeama;
 import com.booksaw.betterTeams.commands.teama.chest.ChestClaimTeama;
+import com.booksaw.betterTeams.commands.teama.chest.ChestDisableClaims;
+import com.booksaw.betterTeams.commands.teama.chest.ChestEnableClaims;
 import com.booksaw.betterTeams.commands.teama.chest.ChestRemoveTeama;
 import com.booksaw.betterTeams.commands.teama.chest.ChestRemoveallTeama;
 import com.booksaw.betterTeams.commands.teama.score.AddScore;
@@ -420,11 +422,19 @@ public class Main extends JavaPlugin {
 			if (messages.getString("help.delhome").contains("teams")) {
 				messages.set("help.delhome", messages.getString("help.delhome").replace("teams", "team's"));
 			}
+
+			messages.set("admin.chest.disable.already", "&4Chest claims are already disabled");
+			messages.set("admin.chest.disable.success", "&6Chest claiming has been disabled");
+			messages.set("admin.chest.disabled.bc", "&6&lAll claimed chests are able to be opened");
+			messages.set("admin.chest.enable.already", "&4Chest claims are already enabled");
+			messages.set("admin.chest.enable.success", "&6Chest claiming has been enabled");
+			messages.set("admin.chest.enabled.bc", "&6&lAll claimed chests are locked");
+
 		case 1000:
-			// this will run only if a change has been made
+			// this will run only if a change has been made q
 			changes = true;
 			// set version the latest
-			messages.set("version", 14);
+			messages.set("version", 15);
 			break;
 		}
 
@@ -625,6 +635,8 @@ public class Main extends JavaPlugin {
 		teamaChestCommand.addSubCommand(new ChestClaimTeama());
 		teamaChestCommand.addSubCommand(new ChestRemoveTeama());
 		teamaChestCommand.addSubCommand(new ChestRemoveallTeama());
+		teamaChestCommand.addSubCommand(new ChestEnableClaims());
+		teamaChestCommand.addSubCommand(new ChestDisableClaims());
 		teamaCommand.addSubCommand(teamaChestCommand);
 
 		if (useHolographicDisplays) {

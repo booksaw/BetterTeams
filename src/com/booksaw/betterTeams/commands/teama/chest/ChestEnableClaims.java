@@ -19,7 +19,7 @@ public class ChestEnableClaims extends SubCommand {
 		}
 
 		ChestManagement.enableClaims = true;
-		Bukkit.broadcastMessage(MessageManager.getMessage("admin.chest.enabled.bc"));
+		Bukkit.broadcastMessage(MessageManager.getPrefix() + MessageManager.getMessage("admin.chest.enabled.bc"));
 		return new CommandResponse("admin.chest.enable.success");
 	}
 

@@ -146,6 +146,7 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 			}
 
 		} else if (identifier.startsWith("teamscoreno_")) {
+			identifier = identifier.replaceAll("teamscoreno_", "");
 			int place = 0;
 			try {
 				place = Integer.parseInt(identifier);
