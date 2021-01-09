@@ -490,6 +490,8 @@ public class Main extends JavaPlugin {
 		case 9:
 			getConfig().set("maxChests", 2);
 			getConfig().set("allowAllyChests", true);
+		case 10:
+			getConfig().set("bannedChars", ",.!\"£$%^&*()[]{};:#~\\|`¬");
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;

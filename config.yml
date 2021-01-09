@@ -87,7 +87,10 @@ playerDamageSelf: true
 # Possible values: [Any String (surround with '')]
 blacklist:
    - 'betterteamsisbad'
-   
+  
+  # This is a list of characters wich will not be allowed in team names
+bannedChars: ',.!"£$%^&*()[]{};:#~\|`¬'
+
 # This is the color of the command in the help menu, this can be changed 
 #
 # Possible values: [Any chat color code]

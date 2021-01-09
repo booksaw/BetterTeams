@@ -26,6 +26,18 @@ public class CreateCommand extends NoTeamSubCommand {
 				return new CommandResponse("create.banned");
 			}
 		}
+		
+		for (char temp : Main.plugin.getConfig().getString("bannedChars").toCharArray()) {
+			if (args[0].contains(Character.toString(temp))) {
+				return new CommandResponse("create.banned");
+			}
+		}
+
+		// stop players inputting color codes
+		if (args[0].contains("&")) {
+			return new CommandResponse("create.banned");
+		}
+		
 		int max = Main.plugin.getConfig().getInt("maxTeamLength");
 		if (max != -1 && max < args[0].length()) {
 			return new CommandResponse("create.maxLength");

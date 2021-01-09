@@ -19,7 +19,7 @@ public class NameCommand extends TeamSubCommand {
 	public CommandResponse onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
 
 		if (args.length == 0) {
-			return new CommandResponse(new ReferencedFormatMessage("name.view", team.getName())); 
+			return new CommandResponse(new ReferencedFormatMessage("name.view", team.getName()));
 		}
 
 		if (teamPlayer.getRank() != PlayerRank.OWNER) {
@@ -32,6 +32,18 @@ public class NameCommand extends TeamSubCommand {
 				return new CommandResponse("create.banned");
 			}
 		}
+
+		for (char temp : Main.plugin.getConfig().getString("bannedChars").toCharArray()) {
+			if (args[0].contains(Character.toString(temp))) {
+				return new CommandResponse("create.banned");
+			}
+		}
+
+		// stop players inputting color codes
+		if (args[0].contains("&")) {
+			return new CommandResponse("create.banned");
+		}
+
 		int max = Main.plugin.getConfig().getInt("maxTeamLength");
 		if (max != -1 && max < args[0].length()) {
 			return new CommandResponse("create.maxLength");
