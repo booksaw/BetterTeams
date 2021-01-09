@@ -161,7 +161,7 @@ Added admin commands:
 - /teama chest remove - Used to remove the claim on the chest, regardless of team (betterteams.admin.chest.remove)
 - /teama chest removeall <team> - Used to remove all (betterteams.admin.chest.removeall)
 
-3.1.7:
+3.1.8:
 Features: 
 - Added new placeholder (%betterteams_teamscoreno_<rank>%) which can be used to display the score of the team at that position in the leaderboard
 - Placeholders from placeholder API can now be used in messages.yml
@@ -172,6 +172,16 @@ Bug Fixes:
 - Fixed multiple typos within messages.yml (https://github.com/booksaw/BetterTeams/issues/31)
 - Fixed problem where the placeholder (teamscore) was not working correctly
 - Fixed problem with /team top
+
+3.1.12: 
+Features:
+
+
+Improvements:
+- Added a character ban list in the config
+
+Bug Fixes: 
+- Added a hard ban on the symbol '&' as it caused many problems within the plugin
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 

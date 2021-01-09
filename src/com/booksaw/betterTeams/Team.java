@@ -1121,7 +1121,7 @@ public class Team {
 	 */
 	public void sendMessage(TeamPlayer sender, String message) {
 		ChatColor returnTo = ChatColor.RESET;
-		String toTest = MessageManager.getMessage("chat.syntax");
+		String toTest = MessageManager.getMessage(sender.getPlayer().getPlayer(), "chat.syntax");
 		int value = toTest.indexOf("%s");
 		if (value > 2) {
 			for (int i = value; i >= 0; i--) {
@@ -1164,7 +1164,7 @@ public class Team {
 	 */
 	public void sendAllyMessage(TeamPlayer sender, String message) {
 		ChatColor returnTo = ChatColor.RESET;
-		String toTest = MessageManager.getMessage("chat.syntax");
+		String toTest = MessageManager.getMessage(sender.getPlayer().getPlayer(), "chat.syntax");
 		int value = toTest.indexOf("%s");
 		if (value > 2) {
 			for (int i = value; i >= 0; i--) {
