@@ -492,6 +492,7 @@ public class Main extends JavaPlugin {
 			getConfig().set("allowAllyChests", true);
 		case 10:
 			getConfig().set("bannedChars", ",.!\"£$%^&*()[]{};:#~\\|`¬");
+			getConfig().set("defaultColor", "6");
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;

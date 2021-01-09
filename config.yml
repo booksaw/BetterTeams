@@ -88,7 +88,9 @@ playerDamageSelf: true
 blacklist:
    - 'betterteamsisbad'
   
-  # This is a list of characters wich will not be allowed in team names
+# This is a list of characters wich will not be allowed in team names
+#
+# Possible values: [Any character]
 bannedChars: ',.!"£$%^&*()[]{};:#~\|`¬'
 
 # This is the color of the command in the help menu, this can be changed 
@@ -149,6 +151,11 @@ allowToggleTeamChat: true
 #
 # Possible values: [true, false]
 colorTeamName: true
+
+# This option is used to determine the default team color using the color code of the color you want
+# 
+# Possible values: [0-9, a-f]
+defaultColor: 6
 
 # This is used to determine how long of a delay should happen before the user is teleported when using /team home
 # - If this is set to 0 there will be no delay when teleporting

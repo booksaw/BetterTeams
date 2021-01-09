@@ -545,7 +545,7 @@ public class Team {
 		money = 0;
 		setValue(config, "home", "");
 		rank = -1;
-		color = ChatColor.GOLD;
+		color = ChatColor.getByChar(Main.plugin.getConfig().getString("defaultColor").charAt(0));
 		setValue(config, "color", color.getChar());
 		allies = new ArrayList<>();
 		setValue(config, "allies", allies);
