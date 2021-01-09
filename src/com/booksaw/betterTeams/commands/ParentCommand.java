@@ -60,7 +60,7 @@ public class ParentCommand extends SubCommand {
 	 * @param command the command to add
 	 */
 	public void addSubCommand(SubCommand command) {
-		subCommands.put(command.getCommand(), command);
+		subCommands.put(getReference(command), command);
 	}
 
 	@Override
@@ -217,6 +217,18 @@ public class ParentCommand extends SubCommand {
 	@Override
 	public int getMaximumArguments() {
 		return -1;
+	}
+
+	public String getReference(SubCommand subCommand) {
+
+		String toReturn = MessageManager.getMessage("command." + subCommand.getCommand());
+		if (toReturn != null && !toReturn.equals("")) {
+			return toReturn;
+		}
+
+		MessageManager.getMessages().set("command." + subCommand.getCommand(), subCommand.getCommand());
+		return subCommand.getCommand();
+
 	}
 
 }

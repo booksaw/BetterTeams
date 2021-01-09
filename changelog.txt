@@ -175,13 +175,15 @@ Bug Fixes:
 
 3.1.12: 
 Features:
-
+Language options for subcommands ie /team make can be changed to /team make
 
 Improvements:
 - Added a character ban list in the config
+- Added the ability to change the default team color
 
 Bug Fixes: 
 - Added a hard ban on the symbol '&' as it caused many problems within the plugin
+- Fixed problem where some messages could not contain placeholders
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
