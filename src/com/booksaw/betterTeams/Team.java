@@ -23,8 +23,8 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.scoreboard.Scoreboard;
 
 import com.booksaw.betterTeams.customEvents.PrePurgeEvent;
-import com.booksaw.betterTeams.events.BelowNameManagement.BelowNameType;
 import com.booksaw.betterTeams.events.ChestManagement;
+import com.booksaw.betterTeams.events.MCTeamManagement.BelowNameType;
 import com.booksaw.betterTeams.message.MessageManager;
 
 /**
@@ -140,8 +140,8 @@ public class Team {
 
 		Main.plugin.saveTeams();
 
-		if (Main.plugin.nameManagement != null) {
-			Main.plugin.nameManagement.displayBelowName(owner);
+		if (Main.plugin.teamManagement != null) {
+			Main.plugin.teamManagement.displayBelowName(owner);
 		}
 	}
 
@@ -735,7 +735,7 @@ public class Team {
 		setValue(Main.plugin.getTeams(), "color", color.getChar());
 		Main.plugin.saveTeams();
 
-		if (Main.plugin.nameManagement != null) {
+		if (Main.plugin.teamManagement != null) {
 
 			if (team != null) {
 				for (TeamPlayer p : members) {
@@ -750,7 +750,7 @@ public class Team {
 
 			for (TeamPlayer p : members) {
 				if (p.getPlayer().isOnline()) {
-					Main.plugin.nameManagement.displayBelowName(p.getPlayer().getPlayer());
+					Main.plugin.teamManagement.displayBelowName(p.getPlayer().getPlayer());
 				}
 			}
 		}
@@ -802,8 +802,8 @@ public class Team {
 	 */
 	public void removePlayer(OfflinePlayer p) {
 
-		if (Main.plugin.nameManagement != null) {
-			Main.plugin.nameManagement.remove(p.getPlayer());
+		if (Main.plugin.teamManagement != null) {
+			Main.plugin.teamManagement.remove(p.getPlayer());
 		}
 
 		members.remove(getTeamPlayer(p));
@@ -824,7 +824,7 @@ public class Team {
 		Main.plugin.saveTeams();
 
 		if (team != null) {
-			Main.plugin.nameManagement.remove(p.getPlayer().getPlayer());
+			Main.plugin.teamManagement.remove(p.getPlayer().getPlayer());
 		}
 	}
 
@@ -891,11 +891,11 @@ public class Team {
 
 		Main.plugin.saveTeams();
 
-		if (Main.plugin.nameManagement != null) {
+		if (Main.plugin.teamManagement != null) {
 
 			for (TeamPlayer p : members) {
 				if (p.getPlayer().isOnline()) {
-					Main.plugin.nameManagement.remove(p.getPlayer().getPlayer());
+					Main.plugin.teamManagement.remove(p.getPlayer().getPlayer());
 				}
 			}
 
@@ -951,8 +951,8 @@ public class Team {
 		savePlayers(Main.plugin.getTeams());
 		Main.plugin.saveTeams();
 
-		if (Main.plugin.nameManagement != null) {
-			Main.plugin.nameManagement.displayBelowName(p);
+		if (Main.plugin.teamManagement != null) {
+			Main.plugin.teamManagement.displayBelowName(p);
 		}
 
 	}
@@ -968,7 +968,7 @@ public class Team {
 		setValue(Main.plugin.getTeams(), "name", name);
 		Main.plugin.saveTeams();
 
-		if (Main.plugin.nameManagement != null) {
+		if (Main.plugin.teamManagement != null) {
 
 			if (team != null) {
 				for (TeamPlayer p : members) {
@@ -983,7 +983,7 @@ public class Team {
 
 			for (TeamPlayer p : members) {
 				if (p.getPlayer().isOnline()) {
-					Main.plugin.nameManagement.displayBelowName(p.getPlayer().getPlayer());
+					Main.plugin.teamManagement.displayBelowName(p.getPlayer().getPlayer());
 				}
 			}
 		}
@@ -1270,11 +1270,9 @@ public class Team {
 			}
 
 		} while (team == null);
-		if (type == BelowNameType.PREFIX) {
-			team.setPrefix(name);
-		} else if (type == BelowNameType.SUFFIX) {
-			team.setSuffix(name);
-		}
+
+		Main.plugin.teamManagement.setupTeam(team, name);
+
 		return team;
 
 	}

@@ -9,19 +9,22 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team.Option;
+import org.bukkit.scoreboard.Team.OptionStatus;
 
+import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.customEvents.BelowNameChangeEvent;
 import com.booksaw.betterTeams.customEvents.BelowNameChangeEvent.ChangeType;
 import com.booksaw.betterTeams.customEvents.BelowNameChangeListener;
 
-public class BelowNameManagement implements Listener {
+public class MCTeamManagement implements Listener {
 
 	private BelowNameType type;
 
 	Scoreboard board;
 
-	public BelowNameManagement(BelowNameType type) {
+	public MCTeamManagement(BelowNameType type) {
 		this.type = type;
 
 		if (Bukkit.getScoreboardManager().getMainScoreboard() != null) {
@@ -144,6 +147,30 @@ public class BelowNameManagement implements Listener {
 
 	public BelowNameType getType() {
 		return type;
+	}
+
+	public void setupTeam(org.bukkit.scoreboard.Team team, String teamName) {
+		// setting team name
+		if (type == BelowNameType.PREFIX) {
+			team.setPrefix(teamName);
+		} else if (type == BelowNameType.SUFFIX) {
+			team.setSuffix(teamName);
+		}
+
+		if (!Main.plugin.getConfig().getBoolean("collide")) {
+			team.setOption(Option.COLLISION_RULE, OptionStatus.FOR_OWN_TEAM);
+		}
+
+		if (Main.plugin.getConfig().getBoolean("privateDeath")) {
+			team.setOption(Option.DEATH_MESSAGE_VISIBILITY, OptionStatus.FOR_OWN_TEAM);
+		}
+
+		if (Main.plugin.getConfig().getBoolean("privateName")) {
+			team.setOption(Option.NAME_TAG_VISIBILITY, OptionStatus.FOR_OWN_TEAM);
+		}
+
+		team.setCanSeeFriendlyInvisibles(Main.plugin.getConfig().getBoolean("canSeeFriendlyInvisibles"));
+
 	}
 
 }

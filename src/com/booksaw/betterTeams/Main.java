@@ -85,11 +85,11 @@ import com.booksaw.betterTeams.commands.teama.score.SetScore;
 import com.booksaw.betterTeams.cooldown.CooldownManager;
 import com.booksaw.betterTeams.cost.CostManager;
 import com.booksaw.betterTeams.events.AllyManagement;
-import com.booksaw.betterTeams.events.BelowNameManagement;
-import com.booksaw.betterTeams.events.BelowNameManagement.BelowNameType;
 import com.booksaw.betterTeams.events.ChatManagement;
 import com.booksaw.betterTeams.events.ChestManagement;
 import com.booksaw.betterTeams.events.DamageManagement;
+import com.booksaw.betterTeams.events.MCTeamManagement;
+import com.booksaw.betterTeams.events.MCTeamManagement.BelowNameType;
 import com.booksaw.betterTeams.events.ScoreManagement;
 import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.metrics.Metrics;
@@ -110,7 +110,7 @@ public class Main extends JavaPlugin {
 	public static boolean placeholderAPI = false;
 
 	private DamageManagement damageManagement;
-	public BelowNameManagement nameManagement;
+	public MCTeamManagement teamManagement;
 	public ChatManagement chatManagement;
 	Metrics metrics = null;
 
@@ -158,8 +158,8 @@ public class Main extends JavaPlugin {
 			HologramManager.holoManager.disable();
 		}
 
-		if (nameManagement != null) {
-			nameManagement.removeAll();
+		if (teamManagement != null) {
+			teamManagement.removeAll();
 		}
 
 	}
@@ -493,11 +493,16 @@ public class Main extends JavaPlugin {
 		case 10:
 			getConfig().set("bannedChars", ",.!\"£$%^&*()[]{};:#~\\|`¬");
 			getConfig().set("defaultColor", "6");
+			getConfig().set("useTeams", true);
+			getConfig().set("collide", true);
+			getConfig().set("privateDeath", false);
+			getConfig().set("privateName", false);
+			getConfig().set("canSeeFriendlyInvisibles", false);
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
 			// set version the latest
-			getConfig().set("version", 10);
+			getConfig().set("version", 11);
 
 			break;
 		}
@@ -547,7 +552,7 @@ public class Main extends JavaPlugin {
 		reloadConfig();
 		ChatManagement.enable();
 		damageManagement = null;
-		nameManagement = null;
+		teamManagement = null;
 
 		onDisable();
 		onEnable();
@@ -663,18 +668,18 @@ public class Main extends JavaPlugin {
 		Bukkit.getLogger().info("Display team name config value: " + getConfig().getString("displayTeamName"));
 		BelowNameType type = BelowNameType.getType(getConfig().getString("displayTeamName"));
 		Bukkit.getLogger().info("Loading below name. Type: " + type);
-		if (type != BelowNameType.FALSE) {
-			if (nameManagement == null) {
+		if (getConfig().getBoolean("useTeams")) {
+			if (teamManagement == null) {
 
-				nameManagement = new BelowNameManagement(type);
-				nameManagement.displayBelowNameForAll();
-				getServer().getPluginManager().registerEvents(nameManagement, this);
-				Bukkit.getLogger().info("nameManagement declared: " + nameManagement);
+				teamManagement = new MCTeamManagement(type);
+				teamManagement.displayBelowNameForAll();
+				getServer().getPluginManager().registerEvents(teamManagement, this);
+				Bukkit.getLogger().info("teamManagement declared: " + teamManagement);
 			}
 		} else {
 			Bukkit.getLogger().info("Not loading management");
-			if (nameManagement != null) {
-				Bukkit.getLogger().log(Level.WARNING, "Restart server for name changes to apply");
+			if (teamManagement != null) {
+				Bukkit.getLogger().log(Level.WARNING, "Restart server for minecraft team changes to apply");
 			}
 		}
 
