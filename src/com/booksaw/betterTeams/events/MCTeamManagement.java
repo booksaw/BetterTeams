@@ -166,7 +166,7 @@ public class MCTeamManagement implements Listener {
 		}
 
 		if (Main.plugin.getConfig().getBoolean("privateName")) {
-			team.setOption(Option.NAME_TAG_VISIBILITY, OptionStatus.FOR_OWN_TEAM);
+			team.setOption(Option.NAME_TAG_VISIBILITY, OptionStatus.FOR_OTHER_TEAMS);
 		}
 
 		team.setCanSeeFriendlyInvisibles(Main.plugin.getConfig().getBoolean("canSeeFriendlyInvisibles"));

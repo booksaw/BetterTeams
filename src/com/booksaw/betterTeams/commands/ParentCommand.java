@@ -1,10 +1,14 @@
 package com.booksaw.betterTeams.commands;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.logging.Level;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -227,6 +231,14 @@ public class ParentCommand extends SubCommand {
 		}
 
 		MessageManager.getMessages().set("command." + subCommand.getCommand(), subCommand.getCommand());
+
+		File f = new File("plugins/BetterTeams/messages.yml");
+		try {
+			MessageManager.getMessages().save(f);
+		} catch (IOException ex) {
+			Bukkit.getLogger().log(Level.SEVERE, "Could not save config to " + f, ex);
+		}
+
 		return subCommand.getCommand();
 
 	}
