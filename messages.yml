@@ -90,7 +90,7 @@ info.default: '&6Members: &b%s'
 # for /team title <player/me> <title>
 info.fail: '&6No team or player found under that name'
 info.score: '&6Score: &b%s'
-info.money: '&6Balance: &b£%s'
+info.money: '&6Balance: &b%s'
 info.ally: '&6Allies: &b%s'
 kick.success: '&6That player has been kicked'
 kick.notify: '&6You have been kicked from team %s'

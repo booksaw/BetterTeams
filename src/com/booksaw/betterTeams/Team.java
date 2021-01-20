@@ -1,6 +1,6 @@
 package com.booksaw.betterTeams;
 
-import java.text.NumberFormat;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -1312,9 +1312,9 @@ public class Team {
 	}
 
 	public String getBalance() {
-		NumberFormat formatter = NumberFormat.getCurrencyInstance();
-		String moneyString = formatter.format(money);
-		return moneyString.substring(1);
+		DecimalFormat df = new DecimalFormat("0.00");
+		String moneyString = df.format(money);
+		return moneyString;
 	}
 
 	public void setTitle(TeamPlayer player, String title) {

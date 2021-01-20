@@ -193,6 +193,7 @@ Improvements:
 
 Bug Fixes:
 - Fixed bypass on adding color codes to team names
+- Fixed bug causing team balance to be displayed incorrectly (https://github.com/booksaw/BetterTeams/issues/37)
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
