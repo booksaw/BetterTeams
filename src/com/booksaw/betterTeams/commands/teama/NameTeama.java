@@ -14,20 +14,7 @@ public class NameTeama extends TeamSelectSubCommand {
 	@Override
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args, Team team) {
 
-		for (String temp : Main.plugin.getConfig().getStringList("blacklist")) {
-			if (temp.toLowerCase().equals(args[1].toLowerCase())) {
-				return new CommandResponse("create.banned");
-			}
-		}
-
-		for (char temp : Main.plugin.getConfig().getString("bannedChars").toCharArray()) {
-			if (args[0].contains(Character.toString(temp))) {
-				return new CommandResponse("create.banned");
-			}
-		}
-
-		// stop players inputting color codes
-		if (args[0].contains("&")) {
+		if (!Team.isValidTeamName(args[1])) {
 			return new CommandResponse("create.banned");
 		}
 

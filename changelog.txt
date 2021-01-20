@@ -186,6 +186,14 @@ Bug Fixes:
 - Added a hard ban on the symbol '&' as it caused many problems within the plugin
 - Fixed problem where some messages could not contain placeholders
 
+3.1.14: 
+Improvements:
+- Added an allowed characters list for team names, leave blank if you do not want to utilise it
+- Score for a kill is configurable
+
+Bug Fixes:
+- Fixed bypass on adding color codes to team names
+
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
 Headings: 

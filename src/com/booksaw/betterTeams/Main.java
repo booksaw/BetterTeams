@@ -498,11 +498,15 @@ public class Main extends JavaPlugin {
 			getConfig().set("privateDeath", false);
 			getConfig().set("privateName", false);
 			getConfig().set("canSeeFriendlyInvisibles", false);
+		case 11:
+			getConfig().set("allowedChars", "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789");
+			getConfig().set("scoreForKill", 1);
+			getConfig().set("scoreForDeath", -1);
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
 			// set version the latest
-			getConfig().set("version", 11);
+			getConfig().set("version", 12);
 
 			break;
 		}

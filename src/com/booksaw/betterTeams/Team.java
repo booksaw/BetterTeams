@@ -390,6 +390,40 @@ public class Team {
 		return null;
 	}
 
+	public static boolean isValidTeamName(String name) {
+		for (String temp : Main.plugin.getConfig().getStringList("blacklist")) {
+			if (temp.toLowerCase().equals(name.toLowerCase())) {
+				return false;
+			}
+		}
+
+		for (char temp : Main.plugin.getConfig().getString("bannedChars").toCharArray()) {
+			if (name.contains(Character.toString(temp))) {
+				return false;
+			}
+		}
+
+		if (!(name.equals(ChatColor.stripColor(name)))) {
+			return false;
+		}
+
+		// stop players inputting color codes
+		if (name.contains("&")) {
+			return false;
+		}
+		String allowed = Main.plugin.getConfig().getString("allowedChars");
+
+		if (allowed.length() != 0) {
+			for (char temp : name.toCharArray()) {
+				if (!allowed.contains(Character.toString(temp))) {
+					return false;
+				}
+			}
+		}
+
+		return true;
+	}
+
 	/**
 	 * The ID of the team (this is a unique identifier of the team which will never
 	 * change)

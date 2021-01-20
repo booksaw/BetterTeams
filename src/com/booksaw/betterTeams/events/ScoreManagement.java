@@ -100,10 +100,12 @@ public class ScoreManagement implements Listener {
 			return;
 		}
 
+		int scoreForKill = Main.plugin.getConfig().getInt("scoreForKill");
+		
 		if (killerTeam == killedTeam) {
-			killerTeam.setScore(killerTeam.getScore() - 1);
+			killerTeam.setScore(killerTeam.getScore() - scoreForKill);
 		} else {
-			killerTeam.setScore(killerTeam.getScore() + 1);
+			killerTeam.setScore(killerTeam.getScore() + scoreForKill);
 		}
 	}
 

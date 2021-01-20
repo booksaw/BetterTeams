@@ -90,8 +90,14 @@ blacklist:
   
 # This is a list of characters wich will not be allowed in team names
 #
-# Possible values: [Any character]
+# Possible values: [Any characters]
 bannedChars: ',.!"£$%^&*()[]{};:#~\|`¬'
+
+# This is a list of all characters to be allowed in team names
+# - If this is left blank, all characters (except those in bannedChars or color codes) will be allowed in team name
+# 
+# Possible values: [Any characters]
+allowedChars: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 
 # This is the color of the command in the help menu, this can be changed 
 #
@@ -223,6 +229,12 @@ autoPurge:
 # Possible values: [0, any positive whole number]
 pointsLostByDeath: 0
 
+# This is used to determine how many points a player gets for killing another player
+# - If a player kills a member of their own team, this number of points will be taken from the team 
+#
+# Possible values: [Any whole number]
+scoreForKill: 1
+
 ################################################################################
 #                                                                             #
 #  __  __ _                            __ _     _____                         #
@@ -281,6 +293,8 @@ privateName: false
 # 
 # Possible values: [true, false]
 canSeeFriendlyInvisibles: false
+
+
 #######################################################################################
 #  ____  _             _         ___       _                       _   _              #
 # |  _ \| |_   _  __ _(_)_ __   |_ _|_ __ | |_ ___  __ _ _ __ __ _| |_(_) ___  _ __   #
@@ -309,4 +323,4 @@ zkoth:
 
 
 # Do not edit this value, this is used to check the config is up to date with the lastest version of the plugin (if it is not, it will be automatically updated)
-version: 11
+version: 12
