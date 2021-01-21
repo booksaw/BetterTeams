@@ -40,6 +40,7 @@ import com.booksaw.betterTeams.commands.team.NameCommand;
 import com.booksaw.betterTeams.commands.team.NeutralCommand;
 import com.booksaw.betterTeams.commands.team.OpenCommand;
 import com.booksaw.betterTeams.commands.team.PromoteCommand;
+import com.booksaw.betterTeams.commands.team.PvpCommand;
 import com.booksaw.betterTeams.commands.team.RankCommand;
 import com.booksaw.betterTeams.commands.team.SetOwnerCommand;
 import com.booksaw.betterTeams.commands.team.SetWarpCommand;
@@ -455,6 +456,8 @@ public class Main extends JavaPlugin {
 			messages.set("admin.chest.enabled.bc", "&6&lAll claimed chests are locked");
 		case 15:
 			messages.set("echest.echest", "Enderchest");
+			messages.set("pvp.enabled", "&6Pvp has been enabled for your team");
+			messages.set("pvp.disabled", "&6Pvp has been disabled for your team");
 		case 1000:
 			// this will run only if a change has been made q
 			changes = true;
@@ -625,6 +628,9 @@ public class Main extends JavaPlugin {
 		teamCommand.addSubCommand(new WarpsCommand());
 		teamCommand.addSubCommand(new EchestCommand());
 
+		if (getConfig().getBoolean("disableCombat")) {
+			teamCommand.addSubCommand(new PvpCommand());
+		}
 		// only used if a team is only allowed a single owner
 		if (getConfig().getBoolean("singleOwner")) {
 			teamCommand.addSubCommand(new SetOwnerCommand());

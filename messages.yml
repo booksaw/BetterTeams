@@ -193,6 +193,10 @@ chest.all.success: '&6Unclaimed all chests'
 chest.claimed: '&4That chest is claimed by &a%s'
 
 echest.echest: 'Enderchest'
+
+pvp.enabled: '&6Pvp has been enabled for your team'
+pvp.disabled: '&6Pvp has been disabled for your team'
+
 # for /team list
 admin.config.reload: '&6BetterTeams has been reloaded (If you are having problems when using this command, restart the server)'
 admin.holo.create.success: '&6Hologram created'

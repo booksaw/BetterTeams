@@ -472,6 +472,8 @@ public class Team {
 	 */
 	private double money;
 
+	public boolean pvp = false;
+
 	ChatColor color;
 	/**
 	 * the rank of the team
@@ -1484,6 +1486,9 @@ public class Team {
 	 */
 	public boolean canDamage(Team team) {
 		if (team.isAlly(getID()) || team == this) {
+			if (pvp && team.pvp) {
+				return true;
+			}
 			return false;
 		}
 		return true;
