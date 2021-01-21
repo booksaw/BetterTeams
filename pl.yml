@@ -18,7 +18,7 @@ noPerm: '&cNie masz uprawnień do użycia tej komendy.'
 prefixSyntax: '&7[%s] &r%s'
 bannedChar: '&cZnak, którego próbujesz użyć jest zakazany."'
 noTeam: '&cTa drużyna nie istnieje.'
-version: 15
+version: 16
 cooldown:
   wait: '&cMusisz odczekać %s sekund przed następnym użyciem!'
 cost:

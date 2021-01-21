@@ -14,7 +14,7 @@ prefixSyntax: '&b[%s] &r%s'
 bannedChar: '&4A character you tried to use is banned"'
 noTeam: '&4That team does not exist'
 # do not change this, it is used to check the messages version (test if there are any missing messages)
-version: 15
+version: 16
 cooldown.wait: '&4You need to wait another %s seconds before running that!'
 cost.tooPoor: '&4You are too poor to run that command'
 cost.run: '&4&l-%s'
@@ -191,6 +191,8 @@ chest.remove.notClaimed: '&4Your team has not claimed that chest'
 chest.remove.success: '&4Your team no longer has a claim to that chest'
 chest.all.success: '&6Unclaimed all chests'
 chest.claimed: '&4That chest is claimed by &a%s'
+
+echest.echest: 'Enderchest'
 # for /team list
 admin.config.reload: '&6BetterTeams has been reloaded (If you are having problems when using this command, restart the server)'
 admin.holo.create.success: '&6Hologram created'
@@ -226,8 +228,7 @@ admin.demote.min: '&4That player cannot be demoted any more'
 admin.promote.max: '&6That player is already the maximum rank'
 admin.promote.notify: '&6You have been promoted'
 admin.promote.success: '&6That player has been promoted'
-admin.promote.owner: '&6It is configured that teams can only have a single owner, do &b/teama setowner <player> &6to set the
-   player as the owner'
+admin.promote.owner: '&6It is configured that teams can only have a single owner, do &b/teama setowner <player> &6to set the player as the owner'
 admin.setowner.already: '&4That player is already an owner'
 admin.setowner.nonotify: '&6You are no longer owner of the team'
 admin.setowner.success: '&6That player is the new team owner'
@@ -236,8 +237,7 @@ admin.warps.none: '&4That team has not set any warps'
 admin.setwarp.success: '&6That warp has been set'
 # for admin messages
 admin.setwarp.max: '&6That team has already set the maximum number of warps'
-admin.purge.confirm: '&6Run that command in the next 10 seconds to confirm, &4THIS CANNOT BE UNDONE AND WILL RESET SCORES
-   FOR ALL TEAMS'
+admin.purge.confirm: '&6Run that command in the next 10 seconds to confirm, &4THIS CANNOT BE UNDONE AND WILL RESET SCORES FOR ALL TEAMS'
 admin.purge.success: '&6The teams have been purged'
 admin.score.tooSmall: '&4The score must be greater than 0'
 admin.score.success: '&6That teams score has been changed'
@@ -295,9 +295,3 @@ help.delhome: Delete your team's home
 help.ally: Used to request an alliance with another team
 help.neutral: Remove allies and reject ally requests
 help.allychat: Send a message only to your allies
-# ----------------
-# Orphan comments:
-# ----------------
-# Was at begin of line:290 :# for the nametag syntax
-# Was at begin of line:297 :#for /team top
-# Was at begin of line:307 :# The help messages

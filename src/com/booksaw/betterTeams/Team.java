@@ -19,7 +19,9 @@ import org.bukkit.block.DoubleChest;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scoreboard.Scoreboard;
 
 import com.booksaw.betterTeams.customEvents.PrePurgeEvent;
@@ -486,6 +488,8 @@ public class Team {
 	 */
 	private List<UUID> requests;
 
+	private Inventory echest;
+
 	HashMap<String, Warp> warps;
 
 	/**
@@ -547,6 +551,14 @@ public class Team {
 			claims.add(getLocation(str));
 		}
 
+		echest = Bukkit.createInventory(null, 27, MessageManager.getMessage("echest.echest"));
+		for (int i = 0; i < 27; i++) {
+			ItemStack is = getItemStack(config, "echest." + i);
+			if (is != null) {
+				echest.setItem(i, is);
+			}
+		}
+
 		rank = -1;
 
 	}
@@ -596,7 +608,7 @@ public class Team {
 		members.add(new TeamPlayer(owner, PlayerRank.OWNER));
 		savePlayers(config);
 		bannedPlayers = new ArrayList<>();
-
+		echest = Bukkit.createInventory(null, 27, MessageManager.getMessage("echest.echest"));
 		/*
 		 * do not need to save config as createNewTeam saves the config after more
 		 * settings modified
@@ -665,6 +677,10 @@ public class Team {
 	 */
 	private List<String> getStringList(FileConfiguration config, String attribute) {
 		return config.getStringList("team." + ID + "." + attribute);
+	}
+
+	private ItemStack getItemStack(FileConfiguration config, String attribute) {
+		return config.getItemStack("team." + ID + "." + attribute);
 	}
 
 	/**
@@ -1591,6 +1607,22 @@ public class Team {
 
 		setValue(Main.plugin.getTeams(), "chests", toSave);
 		Main.plugin.saveTeams();
+	}
+
+	public void saveEchest() {
+		for (int i = 0; i < 27; i++) {
+			ItemStack is = echest.getItem(i);
+			if (is != null) {
+				setValue(Main.plugin.getTeams(), "echest." + i, is);
+			} else {
+				setValue(Main.plugin.getTeams(), "echest." + i, null);
+			}
+		}
+		Main.plugin.saveTeams();
+	}
+
+	public Inventory getEchest() {
+		return echest;
 	}
 
 }

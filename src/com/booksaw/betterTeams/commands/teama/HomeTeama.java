@@ -21,13 +21,13 @@ public class HomeTeama extends SubCommand {
 			return new CommandResponse("admin.noTeam");
 		}
 
-		if(team.getTeamHome() == null) {
+		if (team.getTeamHome() == null) {
 			return new CommandResponse("admin.home.noHome");
 		}
-		
-		Player p = (Player)sender; 
-		p.teleport(team.getTeamHome()); 
-		
+
+		Player p = (Player) sender;
+		p.teleport(team.getTeamHome());
+
 		return new CommandResponse(true, "admin.home.success");
 	}
 

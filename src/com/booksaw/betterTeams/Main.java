@@ -4,11 +4,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map.Entry;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -48,6 +50,7 @@ import com.booksaw.betterTeams.commands.team.UnbanCommand;
 import com.booksaw.betterTeams.commands.team.WarpCommand;
 import com.booksaw.betterTeams.commands.team.WarpsCommand;
 import com.booksaw.betterTeams.commands.team.WithdrawCommand;
+import com.booksaw.betterTeams.commands.team.EchestCommand;
 import com.booksaw.betterTeams.commands.team.chest.ChestClaimCommand;
 import com.booksaw.betterTeams.commands.team.chest.ChestRemoveCommand;
 import com.booksaw.betterTeams.commands.team.chest.ChestRemoveallCommand;
@@ -59,6 +62,7 @@ import com.booksaw.betterTeams.commands.teama.DelwarpTeama;
 import com.booksaw.betterTeams.commands.teama.DemoteTeama;
 import com.booksaw.betterTeams.commands.teama.DescriptionTeama;
 import com.booksaw.betterTeams.commands.teama.DisbandTeama;
+import com.booksaw.betterTeams.commands.teama.EchestTeama;
 import com.booksaw.betterTeams.commands.teama.HomeTeama;
 import com.booksaw.betterTeams.commands.teama.InviteTeama;
 import com.booksaw.betterTeams.commands.teama.JoinTeama;
@@ -88,6 +92,7 @@ import com.booksaw.betterTeams.events.AllyManagement;
 import com.booksaw.betterTeams.events.ChatManagement;
 import com.booksaw.betterTeams.events.ChestManagement;
 import com.booksaw.betterTeams.events.DamageManagement;
+import com.booksaw.betterTeams.events.InventoryManagement;
 import com.booksaw.betterTeams.events.MCTeamManagement;
 import com.booksaw.betterTeams.events.MCTeamManagement.BelowNameType;
 import com.booksaw.betterTeams.events.ScoreManagement;
@@ -157,6 +162,11 @@ public class Main extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
+
+		for (Entry<Player, Team> temp : InventoryManagement.adminViewers.entrySet()) {
+			temp.getKey().closeInventory();
+			temp.getValue().saveEchest();
+		}
 
 		if (useHolographicDisplays) {
 			HologramManager.holoManager.disable();
@@ -443,11 +453,13 @@ public class Main extends JavaPlugin {
 			messages.set("admin.chest.enable.already", "&4Chest claims are already enabled");
 			messages.set("admin.chest.enable.success", "&6Chest claiming has been enabled");
 			messages.set("admin.chest.enabled.bc", "&6&lAll claimed chests are locked");
+		case 15:
+			messages.set("echest.echest", "Enderchest");
 		case 1000:
 			// this will run only if a change has been made q
 			changes = true;
 			// set version the latest
-			messages.set("version", 15);
+			messages.set("version", 16);
 			break;
 		}
 
@@ -611,6 +623,7 @@ public class Main extends JavaPlugin {
 		teamCommand.addSubCommand(new SetWarpCommand());
 		teamCommand.addSubCommand(new DelwarpCommand());
 		teamCommand.addSubCommand(new WarpsCommand());
+		teamCommand.addSubCommand(new EchestCommand());
 
 		// only used if a team is only allowed a single owner
 		if (getConfig().getBoolean("singleOwner")) {
@@ -647,6 +660,7 @@ public class Main extends JavaPlugin {
 		teamaCommand.addSubCommand(new PurgeTeama());
 		teamaCommand.addSubCommand(new DisbandTeama());
 		teamaCommand.addSubCommand(new ColorTeama());
+		teamaCommand.addSubCommand(new EchestTeama());
 
 		if (getConfig().getBoolean("singleOwner")) {
 			teamaCommand.addSubCommand(new SetOwnerTeama());
@@ -713,6 +727,7 @@ public class Main extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new AllyManagement(), this);
 		getServer().getPluginManager().registerEvents(new UpdateChecker(this), this);
 		getServer().getPluginManager().registerEvents(new ChestManagement(), this);
+		getServer().getPluginManager().registerEvents(new InventoryManagement(), this);
 
 	}
 }
