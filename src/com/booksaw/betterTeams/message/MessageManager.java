@@ -1,5 +1,6 @@
 package com.booksaw.betterTeams.message;
 
+import java.io.File;
 import java.util.MissingFormatArgumentException;
 import java.util.logging.Level;
 
@@ -31,6 +32,11 @@ public class MessageManager {
 	 * This is the prefix which goes before all messages related to this plugin
 	 */
 	private static String prefix;
+	
+	/**
+	 * This is the language reference for the selected language
+	 */
+	public  static String lang;
 
 	/**
 	 * This method is used to provide the configuration file in which all the
@@ -181,6 +187,10 @@ public class MessageManager {
 	public static void sendFullMessage(CommandSender sender, String message) {
 
 		sender.sendMessage(prefix + message);
+	}
+
+	public static File getFile() {
+		return new File("plugins/BetterTeams/" + lang + ".yml");
 	}
 
 }

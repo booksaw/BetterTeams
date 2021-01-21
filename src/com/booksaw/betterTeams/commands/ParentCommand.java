@@ -232,7 +232,7 @@ public class ParentCommand extends SubCommand {
 
 		MessageManager.getMessages().set("command." + subCommand.getCommand(), subCommand.getCommand());
 
-		File f = new File("plugins/BetterTeams/messages.yml");
+		File f = MessageManager.getFile();
 		try {
 			MessageManager.getMessages().save(f);
 		} catch (IOException ex) {

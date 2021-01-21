@@ -36,7 +36,7 @@ public abstract class SubCommand {
 			message = getHelp();
 			MessageManager.getMessages().set("help." + getCommand(), getHelp());
 
-			File f = new File("plugins/BetterTeams/messages.yml");
+			File f = MessageManager.getFile();
 			try {
 				MessageManager.getMessages().save(f);
 			} catch (IOException ex) {

@@ -125,6 +125,10 @@ public class Main extends JavaPlugin {
 		saveDefaultConfig();
 		plugin = this;
 
+		MessageManager.lang = getConfig().getString("language");
+		if (MessageManager.lang.equals("en")) {
+			MessageManager.lang = "messages";
+		}
 		loadCustomConfigs();
 		ChatManagement.enable();
 		Team.loadTeams();
@@ -170,10 +174,20 @@ public class Main extends JavaPlugin {
 	FileConfiguration teams;
 
 	public void loadCustomConfigs() {
-		File f = new File("plugins/BetterTeams/messages.yml");
 
-		if (!f.exists()) {
-			saveResource("messages.yml", false);
+		File f = MessageManager.getFile();
+
+		try {
+			if (!f.exists()) {
+				saveResource(MessageManager.lang + ".yml", false);
+			}
+		} catch (Exception e) {
+			Bukkit.getLogger().warning("Could not load selected language: " + MessageManager.lang
+					+ " go to https://github.com/booksaw/BetterTeams/wiki/Language to view a list of supported languages");
+			Bukkit.getLogger().warning("Reverting to english so the plugin can still function");
+			MessageManager.lang = "messages";
+			loadCustomConfigs();
+			return;
 		}
 
 		YamlConfiguration messages = YamlConfiguration.loadConfiguration(f);
@@ -429,7 +443,6 @@ public class Main extends JavaPlugin {
 			messages.set("admin.chest.enable.already", "&4Chest claims are already enabled");
 			messages.set("admin.chest.enable.success", "&6Chest claiming has been enabled");
 			messages.set("admin.chest.enabled.bc", "&6&lAll claimed chests are locked");
-
 		case 1000:
 			// this will run only if a change has been made q
 			changes = true;
@@ -441,7 +454,8 @@ public class Main extends JavaPlugin {
 		// if something has been changed, saving the new config
 		if (changes) {
 			Bukkit.getLogger().info("Saving new messages to messages.yml");
-			File f = new File("plugins/BetterTeams/messages.yml");
+			File f = MessageManager.getFile();
+			;
 			try {
 				messages.save(f);
 			} catch (IOException ex) {
@@ -502,6 +516,7 @@ public class Main extends JavaPlugin {
 			getConfig().set("allowedChars", "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789");
 			getConfig().set("scoreForKill", 1);
 			getConfig().set("scoreForDeath", -1);
+			getConfig().set("language", "en");
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;

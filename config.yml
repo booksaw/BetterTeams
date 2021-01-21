@@ -15,7 +15,19 @@
 # Is there something annoying you about how the plugin works, or something missing? 
 # Make suggestions for the future of the plugin here: https://github.com/booksaw/BetterTeams/issues/new/choose (Use the feature template)
 #
+# Want to talk about the plugin with other users? Join the discord: https://discord.gg/JF9DNs3
+#
 # If you need to edit the messages which are sent to the user, look in the messages.yml file
+
+# Select the default language of betterteams
+# If you select a language which is not english remember they are translations done by the community, 
+# This means they may lag behind the english version or have slight inaccuracies, but it will still be better than nothing
+#
+# Able to help with translations? Either improving a already existing language, or adding a whole new one. Join the discord server: https://discord.gg/JF9DNs3 
+# or message me on spigot: https://www.spigotmc.org/members/booksaw123.120955/
+#
+# For a list of supported languages, use this link: https://github.com/booksaw/BetterTeams/wiki/Language
+language: en
 
 # This is the value to determine if the chat prefix is enabled
 # - If this is enabled a prefix [TeamName] will be displayed at the begining of chat messages.
