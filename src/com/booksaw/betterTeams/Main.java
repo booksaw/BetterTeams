@@ -132,9 +132,10 @@ public class Main extends JavaPlugin {
 		plugin = this;
 
 		MessageManager.lang = getConfig().getString("language");
-		if (MessageManager.lang.equals("en")) {
+		if (MessageManager.lang.equals("en") || MessageManager.lang.equals("")) {
 			MessageManager.lang = "messages";
 		}
+
 		loadCustomConfigs();
 		ChatManagement.enable();
 		Team.loadTeams();
