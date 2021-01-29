@@ -1,11 +1,13 @@
 package com.booksaw.betterTeams;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
-import org.bukkit.craftbukkit.v1_16_R3.CraftServer;
 
 import com.booksaw.betterTeams.commands.SubCommand;
 
@@ -27,7 +29,16 @@ public class BooksawCommand extends BukkitCommand {
 		setAliases(alises);
 		this.subCommand = subCommand;
 
-		((CraftServer) Main.plugin.getServer()).getCommandMap().register(command, this);
+		try {
+			final Field bukkitCommandMap = Bukkit.getServer().getClass().getDeclaredField("commandMap");
+
+			bukkitCommandMap.setAccessible(true);
+			CommandMap commandMap = (CommandMap) bukkitCommandMap.get(Bukkit.getServer());
+
+			commandMap.register(command, this);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
