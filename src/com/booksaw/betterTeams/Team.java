@@ -40,12 +40,12 @@ public class Team {
 	/**
 	 * This is used to track if the score has been changed for any users
 	 */
-	public static boolean scoreChanges = false;
+	public static boolean scoreChanges = true;
 
 	/**
 	 * This is used to track if there have been any changes to the teams balance
 	 */
-	public static boolean moneyChanges = false;
+	public static boolean moneyChanges = true;
 
 	/**
 	 * Used to store all active teams
@@ -231,13 +231,13 @@ public class Team {
 		int count = teamList.size() - 1;
 		// adding them to a list to sort
 		for (Entry<UUID, Team> team : teamList.entrySet()) {
-			if (team.getValue().getTeamRank() == -1) {
+			if (team.getValue().getTeamBalRank() == -1) {
 				rankedTeams[count--] = team.getValue();
 			} else {
-				if (team.getValue().getTeamRank() >= count || rankedTeams[team.getValue().getTeamRank()] != null) {
+				if (team.getValue().getTeamBalRank() >= count || rankedTeams[team.getValue().getTeamBalRank()] != null) {
 					rankedTeams[count--] = team.getValue();
 				} else {
-					rankedTeams[team.getValue().getTeamRank()] = team.getValue();
+					rankedTeams[team.getValue().getTeamBalRank()] = team.getValue();
 				}
 			}
 		}
@@ -260,7 +260,7 @@ public class Team {
 		}
 
 		for (int i = 0; i < rankedTeams.length; i++) {
-			rankedTeams[i].setTeamRank(i);
+			rankedTeams[i].setTeamBalRank(i);
 		}
 		moneyChanges = false;
 		return rankedTeams;
@@ -485,7 +485,7 @@ public class Team {
 	/**
 	 * the rank of the team
 	 */
-	private transient int rank;
+	private transient int rank, balRank;
 
 	/**
 	 * Used to track the allies of this team
@@ -1308,6 +1308,15 @@ public class Team {
 	public void setTeamRank(int rank) {
 		this.rank = rank;
 	}
+	
+	private void setTeamBalRank(int rank) {
+		this.balRank = rank; 
+	}
+	
+	public int getTeamBalRank() {
+		return balRank;
+	}
+
 
 	org.bukkit.scoreboard.Team team;
 

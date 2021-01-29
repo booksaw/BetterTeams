@@ -43,8 +43,7 @@ public class HologramManager {
 	}
 
 	public void reloadHolo(Hologram holo, HologramType type) {
-
-		Team[] teams = Team.sortTeamsByScore();
+		Team[] teams = getSortedArray(type);
 		holo.clearLines();
 
 		int maxHologramLines = Main.plugin.getConfig().getInt("maxHologramLines");

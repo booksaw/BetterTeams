@@ -29,8 +29,9 @@ public class RankCommand extends SubCommand {
 		if (team == null) {
 			return new CommandResponse("rank.noTeam");
 		}
-
-		Team.sortTeamsByScore();
+		if (Team.scoreChanges) {
+			Team.sortTeamsByScore();
+		}
 		int rank = team.getTeamRank() + 1;
 
 		return new CommandResponse(true, new CompositeMessage(new ReferenceMessage("rank.info"),

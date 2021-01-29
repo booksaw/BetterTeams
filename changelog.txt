@@ -202,16 +202,17 @@ Bug Fixes:
 
 3.1.15: 
 Features: 
-- Configurable aliases for /team and /teama command (for example /clan)
+- Configurable aliases for /team and /teama command (for example /clan) (https://github.com/booksaw/BetterTeams/issues/42)
+- Players can be referenced by @a and @p (https://github.com/booksaw/BetterTeams/issues/41)
 
 Improvements:
-- Full Polish translation is now avaliable
-- Added a way to use player name instead of player display name in team/ally chat
-- Added placeholder support for chat prefixing
-- Teams can be referenced by a player within them instead of just in commands
+- Full Polish translation is now avaliable (https://github.com/booksaw/BetterTeams/issues/48)
+- Added a way to use player name instead of player display name in team/ally chat (https://github.com/booksaw/BetterTeams/issues/49)
+- Added placeholder support for chat prefixing (https://github.com/booksaw/BetterTeams/issues/45)
+- Teams can be referenced by a player within them instead of just in commands (https://github.com/booksaw/BetterTeams/issues/41)
 
 Bug Fixes: 
-
+- Baltop Holo sorts after score not balance (https://github.com/booksaw/BetterTeams/issues/46)
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
