@@ -29,6 +29,7 @@ import com.booksaw.betterTeams.commands.team.DemoteCommand;
 import com.booksaw.betterTeams.commands.team.DepositCommand;
 import com.booksaw.betterTeams.commands.team.DescriptionCommand;
 import com.booksaw.betterTeams.commands.team.DisbandCommand;
+import com.booksaw.betterTeams.commands.team.EchestCommand;
 import com.booksaw.betterTeams.commands.team.HomeCommand;
 import com.booksaw.betterTeams.commands.team.InfoCommand;
 import com.booksaw.betterTeams.commands.team.InviteCommand;
@@ -51,7 +52,6 @@ import com.booksaw.betterTeams.commands.team.UnbanCommand;
 import com.booksaw.betterTeams.commands.team.WarpCommand;
 import com.booksaw.betterTeams.commands.team.WarpsCommand;
 import com.booksaw.betterTeams.commands.team.WithdrawCommand;
-import com.booksaw.betterTeams.commands.team.EchestCommand;
 import com.booksaw.betterTeams.commands.team.chest.ChestClaimCommand;
 import com.booksaw.betterTeams.commands.team.chest.ChestRemoveCommand;
 import com.booksaw.betterTeams.commands.team.chest.ChestRemoveallCommand;
@@ -533,6 +533,9 @@ public class Main extends JavaPlugin {
 			getConfig().set("scoreForKill", 1);
 			getConfig().set("scoreForDeath", -1);
 			getConfig().set("language", "en");
+		case 12:
+			getConfig().set("command.team", new ArrayList<String>());
+			getConfig().set("command.teama", new ArrayList<String>(Arrays.asList("teama")));
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
@@ -643,7 +646,8 @@ public class Main extends JavaPlugin {
 		chest.addSubCommand(new ChestRemoveallCommand());
 		teamCommand.addSubCommand(chest);
 
-		new BooksawCommand(getCommand("team"), teamCommand);
+		new BooksawCommand("team", teamCommand, "betterteams.standard", "All commands for teams",
+				getConfig().getStringList("command.team"));
 
 		ParentCommand teamaCommand = new ParentCommand("teamadmin");
 
@@ -700,7 +704,8 @@ public class Main extends JavaPlugin {
 			teamCommand.addSubCommand(new WithdrawCommand());
 		}
 
-		new BooksawCommand(getCommand("teamadmin"), teamaCommand);
+		new BooksawCommand("teamadmin", teamCommand, "betterteams.admin", "All admin commands for teams",
+				getConfig().getStringList("command.teama"));
 
 	}
 

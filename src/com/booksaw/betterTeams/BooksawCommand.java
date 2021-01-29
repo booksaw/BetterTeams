@@ -3,11 +3,9 @@ package com.booksaw.betterTeams;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.PluginCommand;
-import org.bukkit.command.TabCompleter;
+import org.bukkit.command.defaults.BukkitCommand;
+import org.bukkit.craftbukkit.v1_16_R3.CraftServer;
 
 import com.booksaw.betterTeams.commands.SubCommand;
 
@@ -17,19 +15,23 @@ import com.booksaw.betterTeams.commands.SubCommand;
  * @author booksaw
  *
  */
-public class BooksawCommand implements CommandExecutor, TabCompleter {
-
+public class BooksawCommand extends BukkitCommand {
 	private SubCommand subCommand;
 
-	public BooksawCommand(PluginCommand command, SubCommand subCommand) {
+	public BooksawCommand(String command, SubCommand subCommand, String permission, String description,
+			List<String> alises) {
+		super(command);
+		this.description = description;
+		usageMessage = "/<command> help";
+		setPermission(permission);
+		setAliases(alises);
 		this.subCommand = subCommand;
 
-		command.setExecutor(this);
-		command.setTabCompleter(this);
+		((CraftServer) Main.plugin.getServer()).getCommandMap().register(command, this);
 	}
 
 	@Override
-	public boolean onCommand(CommandSender sender, Command arg1, String label, String[] args) {
+	public boolean execute(CommandSender sender, String label, String[] args) {
 		// running custom command manager
 		CommandResponse response = subCommand.onCommand(sender, label, args);
 		if (response != null)
@@ -38,7 +40,7 @@ public class BooksawCommand implements CommandExecutor, TabCompleter {
 	}
 
 	@Override
-	public List<String> onTabComplete(CommandSender sender, Command arg1, String label, String[] args) {
+	public List<String> tabComplete(CommandSender sender, String label, String[] args) {
 		List<String> options = new ArrayList<>();
 		subCommand.onTabComplete(options, sender, label, args);
 

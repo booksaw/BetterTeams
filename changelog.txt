@@ -200,6 +200,15 @@ Bug Fixes:
 - Fixed bypass on adding color codes to team names
 - Fixed bug causing team balance to be displayed incorrectly (https://github.com/booksaw/BetterTeams/issues/37)
 
+3.1.15: 
+Features: 
+- Configurable aliases for /team and /teama command (for example /clan)
+
+Improvements:
+
+Bug Fixes: 
+
+
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
 Headings: 
