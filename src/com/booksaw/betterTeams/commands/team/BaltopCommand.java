@@ -10,7 +10,7 @@ import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.SubCommand;
 import com.booksaw.betterTeams.message.MessageManager;
 
-public class TopCommand extends SubCommand {
+public class BaltopCommand extends SubCommand {
 
 	@Override
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
@@ -22,12 +22,12 @@ public class TopCommand extends SubCommand {
 			team = Team.getTeam((Player) sender);
 		}
 
-		Team[] teams = Team.sortTeamsByScore();
-		MessageManager.sendMessage(sender, "top.leaderboard");
+		Team[] teams = Team.sortTeamsByBalance();
+		MessageManager.sendMessage(sender, "baltop.leaderboard");
 
 		for (int i = 0; i < 10 && i < teams.length; i++) {
-			MessageManager.sendMessageF(sender, "top.syntax", (i + 1) + "", teams[i].getName(),
-					teams[i].getScore() + "");
+			MessageManager.sendMessageF(sender, "baltop.syntax", (i + 1) + "", teams[i].getName(),
+					teams[i].getBalance() + "");
 			if (team == teams[i]) {
 				contained = true;
 			}
@@ -43,21 +43,21 @@ public class TopCommand extends SubCommand {
 					}
 				}
 				if (rank != 0) {
-					MessageManager.sendMessage(sender, "top.divide");
+					MessageManager.sendMessage(sender, "baltop.divide");
 					if (rank - 2 > 9) {
 						sender.sendMessage(
-								MessageManager.getPrefix() + String.format(MessageManager.getMessage("top.syntax"),
-										(rank - 1) + "", teams[rank - 2].getName(), teams[rank - 2].getScore()));
-						MessageManager.sendMessageF(sender, "top.syntax", (rank - 1) + "", teams[rank - 2].getName(),
-								teams[rank - 2].getScore() + "");
+								MessageManager.getPrefix() + String.format(MessageManager.getMessage("baltop.syntax"),
+										(rank - 1) + "", teams[rank - 2].getName(), teams[rank - 2].getBalance()));
+						MessageManager.sendMessageF(sender, "baltop.syntax", (rank - 1) + "", teams[rank - 2].getName(),
+								teams[rank - 2].getBalance() + "");
 					}
 
-					MessageManager.sendMessageF(sender, "top.syntax", (rank) + "", team.getName(),
-							team.getScore() + "");
+					MessageManager.sendMessageF(sender, "baltop.syntax", (rank) + "", team.getName(),
+							team.getBalance() + "");
 
 					if (teams.length > rank) {
-						MessageManager.sendMessageF(sender, "top.syntax", (rank + 1) + "", teams[rank].getName(),
-								teams[rank].getScore() + "");
+						MessageManager.sendMessageF(sender, "baltop.syntax", (rank + 1) + "", teams[rank].getName(),
+								teams[rank].getBalance() + "");
 					}
 				}
 			} catch (ArrayIndexOutOfBoundsException e) {
@@ -70,17 +70,17 @@ public class TopCommand extends SubCommand {
 
 	@Override
 	public String getCommand() {
-		return "top";
+		return "baltop";
 	}
 
 	@Override
 	public String getNode() {
-		return "top";
+		return "baltop";
 	}
 
 	@Override
 	public String getHelp() {
-		return "View the top teams";
+		return "View the richest teams";
 	}
 
 	@Override

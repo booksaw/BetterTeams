@@ -87,6 +87,9 @@ permissions:
    betterTeams.top:
       default: true
       description: Allows access to /team top
+   betterTeams.baltop:
+      default: true
+      description: Allows access to /team baltop
    betterTeams.rank:
       default: true
       description: Allows access to /team rank

@@ -19,6 +19,7 @@ import com.booksaw.betterTeams.commands.ParentCommand;
 import com.booksaw.betterTeams.commands.team.AllyChatCommand;
 import com.booksaw.betterTeams.commands.team.AllyCommand;
 import com.booksaw.betterTeams.commands.team.BalCommand;
+import com.booksaw.betterTeams.commands.team.BaltopCommand;
 import com.booksaw.betterTeams.commands.team.BanCommand;
 import com.booksaw.betterTeams.commands.team.ChatCommand;
 import com.booksaw.betterTeams.commands.team.ColorCommand;
@@ -459,6 +460,10 @@ public class Main extends JavaPlugin {
 			messages.set("echest.echest", "Enderchest");
 			messages.set("pvp.enabled", "&6Pvp has been enabled for your team");
 			messages.set("pvp.disabled", "&6Pvp has been disabled for your team");
+		case 16:
+			messages.set("baltop.leaderboard", "&6Leaderboard");
+			messages.set("baltop.syntax", "&b%s: &6%s &7(%s)");
+			messages.set("baltop.divide", "&f...");
 		case 1000:
 			// this will run only if a change has been made q
 			changes = true;
@@ -620,6 +625,7 @@ public class Main extends JavaPlugin {
 		teamCommand.addSubCommand(new ColorCommand());
 		teamCommand.addSubCommand(new TitleCommand());
 		teamCommand.addSubCommand(new TopCommand());
+		teamCommand.addSubCommand(new BaltopCommand());
 		teamCommand.addSubCommand(new RankCommand());
 		teamCommand.addSubCommand(new DelHome());
 		teamCommand.addSubCommand(new AllyCommand());
