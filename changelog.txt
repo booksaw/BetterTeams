@@ -195,6 +195,7 @@ Features:
 Improvements:
 - Added an allowed characters list for team names, leave blank if you do not want to utilise it
 - Score for a kill is configurable
+- Added placeholder support for chat prefixing
 
 Bug Fixes:
 - Fixed bypass on adding color codes to team names
@@ -206,6 +207,7 @@ Features:
 
 Improvements:
 - Full Polish translation is now avaliable
+- Added a way to use player name instead of player display name in team/ally chat
 
 Bug Fixes: 
 

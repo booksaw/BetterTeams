@@ -58,7 +58,7 @@ public class ChatManagement implements Listener {
 			event.setFormat("");
 			return;
 		} else if (teamPlayer.isInAllyChat()) {
-			// player is sending to team chat
+			// player is sending to ally chat
 			event.setCancelled(true);
 
 			team.sendAllyMessage(teamPlayer, event.getMessage());
@@ -69,7 +69,7 @@ public class ChatManagement implements Listener {
 		}
 
 		if (doPrefix) {
-			String syntax = MessageManager.getMessage("prefixSyntax");
+			String syntax = MessageManager.getMessage(p, "prefixSyntax");
 			ChatColor returnTo = ChatColor.RESET;
 			int value = syntax.indexOf("§");
 			if (value != -1 && syntax.charAt(value) == '§') {
