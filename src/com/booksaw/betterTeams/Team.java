@@ -1189,6 +1189,9 @@ public class Team {
 		String fMessage = String.format(MessageManager.getMessage("chat.syntax"),
 				sender.getPrefix(returnTo) + sender.getPlayer().getPlayer().getDisplayName(), message);
 
+		fMessage = fMessage.replace("$name$", sender.getPrefix(returnTo) + sender.getPlayer().getPlayer().getName());
+		fMessage = fMessage.replace("$message$", message);
+
 		for (TeamPlayer player : members) {
 			if (player.getPlayer().isOnline()) {
 				player.getPlayer().getPlayer().sendMessage(fMessage);
@@ -1231,6 +1234,9 @@ public class Team {
 
 		String fMessage = String.format(MessageManager.getMessage("allychat.syntax"), getName(),
 				sender.getPrefix(returnTo) + sender.getPlayer().getPlayer().getDisplayName(), message);
+
+		fMessage = fMessage.replace("$name$", sender.getPrefix(returnTo) + sender.getPlayer().getPlayer().getName());
+		fMessage = fMessage.replace("$message$", message);
 
 		for (TeamPlayer player : members) {
 			if (player.getPlayer().isOnline()) {
