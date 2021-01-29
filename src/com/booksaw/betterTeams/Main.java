@@ -704,7 +704,7 @@ public class Main extends JavaPlugin {
 			teamCommand.addSubCommand(new WithdrawCommand());
 		}
 
-		new BooksawCommand("teamadmin", teamCommand, "betterteams.admin", "All admin commands for teams",
+		new BooksawCommand("teamadmin", teamaCommand, "betterteams.admin", "All admin commands for teams",
 				getConfig().getStringList("command.teama"));
 
 	}

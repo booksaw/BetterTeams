@@ -8,6 +8,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
 
 import com.booksaw.betterTeams.commands.SubCommand;
 
@@ -44,6 +46,11 @@ public class BooksawCommand extends BukkitCommand {
 	@Override
 	public boolean execute(CommandSender sender, String label, String[] args) {
 		// running custom command manager
+		if(checkPointers(sender, label, args)) {
+			// if pointers were found and dealt with
+			return true;
+		}
+		
 		CommandResponse response = subCommand.onCommand(sender, label, args);
 		if (response != null)
 			response.sendResponseMessage(sender);
@@ -56,6 +63,34 @@ public class BooksawCommand extends BukkitCommand {
 		subCommand.onTabComplete(options, sender, label, args);
 
 		return options;
+	}
+
+	public boolean checkPointers(CommandSender sender, String label, String[] args) {
+
+		for (int i = 0; i < args.length; i++) {
+			String str = args[i];
+
+			if (!str.startsWith("@")) {
+				continue;
+			}
+			// a selector is found
+			boolean found = false;
+			for (Entity e : Bukkit.selectEntities(sender, str)) {
+				if (e instanceof Player) {
+					found = true;
+					String[] newArgs = args.clone();
+					newArgs[i] = e.getName();
+					execute(sender, label, newArgs);
+
+				}
+			}
+
+			return found;
+		}
+
+		// no selector was found
+		return false;
+
 	}
 
 }

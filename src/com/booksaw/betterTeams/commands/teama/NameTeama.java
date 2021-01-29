@@ -13,7 +13,6 @@ public class NameTeama extends TeamSelectSubCommand {
 
 	@Override
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args, Team team) {
-
 		if (!Team.isValidTeamName(args[1])) {
 			return new CommandResponse("create.banned");
 		}

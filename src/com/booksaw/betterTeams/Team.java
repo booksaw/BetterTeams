@@ -78,11 +78,14 @@ public class Team {
 				return temp.getValue();
 			}
 		}
-		
+
 		// trying to get team by a player name
 		OfflinePlayer player = Bukkit.getPlayer(name);
+		if (player == null) {
+			return null;
+		}
 		return getTeam(player);
-		
+
 	}
 
 	/**
