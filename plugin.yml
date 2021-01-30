@@ -93,9 +93,12 @@ permissions:
    betterTeams.rank:
       default: true
       description: Allows access to /team rank
-   betterTeams.title.:
+   betterTeams.title:
       default: true
       description: Allows access to /team title
+   betterTeams.rankup:
+      default: true
+      description: Allows access to /team rankup
    betterTeams.admin.version:
       default: op
       description: Allows access to /teama version
@@ -183,6 +186,9 @@ permissions:
    betterTeams.admin.delwarp:
       default: op
       description: gives access to the command /teama delwarp
+   betterTeams.admin.setrank:
+      default: op
+      description: gives access to the command /teama setrank
    betterTeams.admin.purge:
       default: op
       description: gives access to the command /teama purge

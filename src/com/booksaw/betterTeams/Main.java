@@ -44,6 +44,7 @@ import com.booksaw.betterTeams.commands.team.OpenCommand;
 import com.booksaw.betterTeams.commands.team.PromoteCommand;
 import com.booksaw.betterTeams.commands.team.PvpCommand;
 import com.booksaw.betterTeams.commands.team.RankCommand;
+import com.booksaw.betterTeams.commands.team.RankupCommand;
 import com.booksaw.betterTeams.commands.team.SetOwnerCommand;
 import com.booksaw.betterTeams.commands.team.SetWarpCommand;
 import com.booksaw.betterTeams.commands.team.SethomeCommand;
@@ -76,6 +77,7 @@ import com.booksaw.betterTeams.commands.teama.PurgeTeama;
 import com.booksaw.betterTeams.commands.teama.ReloadTeama;
 import com.booksaw.betterTeams.commands.teama.RemoveHoloTeama;
 import com.booksaw.betterTeams.commands.teama.SetOwnerTeama;
+import com.booksaw.betterTeams.commands.teama.SetrankTeama;
 import com.booksaw.betterTeams.commands.teama.SetwarpTeama;
 import com.booksaw.betterTeams.commands.teama.TitleTeama;
 import com.booksaw.betterTeams.commands.teama.VersionTeama;
@@ -464,6 +466,13 @@ public class Main extends JavaPlugin {
 			messages.set("baltop.leaderboard", "&6Leaderboard");
 			messages.set("baltop.syntax", "&b%s: &6%s &7(%s)");
 			messages.set("baltop.divide", "&f...");
+			messages.set("info.level", "&6Level: &b%s");
+			messages.set("rankup.max", "&4You are already the max rank");
+			messages.set("rankup.score", "&4You need %s score to rankup");
+			messages.set("rankup.money", "&4You need %s money in the team balance to rankup");
+			messages.set("rankup.success", "&6Your team has leveled up");
+			messages.set("admin.setrank.success", "&6That teams rank has been set");
+			messages.set("admin.setrank.no", "&4That rank either does not exist or is not setup correctly");
 		case 1000:
 			// this will run only if a change has been made q
 			changes = true;
@@ -545,6 +554,11 @@ public class Main extends JavaPlugin {
 			getConfig().set("events.kill.score", 1);
 			getConfig().set("events.kill.spam", 0);
 			getConfig().set("spamThreshold", 60);
+			getConfig().set("levels.l1.teamLimit", 10);
+			getConfig().set("levels.l1.maxChests", 2);
+			getConfig().set("levels.l2.teamLimit", 20);
+			getConfig().set("levels.l2.maxChests", 2);
+			getConfig().set("levels.l2.price", "100s");
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
@@ -641,6 +655,7 @@ public class Main extends JavaPlugin {
 		teamCommand.addSubCommand(new DelwarpCommand());
 		teamCommand.addSubCommand(new WarpsCommand());
 		teamCommand.addSubCommand(new EchestCommand());
+		teamCommand.addSubCommand(new RankupCommand());
 
 		if (getConfig().getBoolean("disableCombat")) {
 			teamCommand.addSubCommand(new PvpCommand());
@@ -682,6 +697,7 @@ public class Main extends JavaPlugin {
 		teamaCommand.addSubCommand(new DisbandTeama());
 		teamaCommand.addSubCommand(new ColorTeama());
 		teamaCommand.addSubCommand(new EchestTeama());
+		teamaCommand.addSubCommand(new SetrankTeama());
 
 		if (getConfig().getBoolean("singleOwner")) {
 			teamaCommand.addSubCommand(new SetOwnerTeama());

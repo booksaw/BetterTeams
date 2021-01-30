@@ -234,7 +234,8 @@ public class Team {
 			if (team.getValue().getTeamBalRank() == -1) {
 				rankedTeams[count--] = team.getValue();
 			} else {
-				if (team.getValue().getTeamBalRank() >= count || rankedTeams[team.getValue().getTeamBalRank()] != null) {
+				if (team.getValue().getTeamBalRank() >= count
+						|| rankedTeams[team.getValue().getTeamBalRank()] != null) {
 					rankedTeams[count--] = team.getValue();
 				} else {
 					rankedTeams[team.getValue().getTeamBalRank()] = team.getValue();
@@ -420,7 +421,7 @@ public class Team {
 		if (name.contains("&")) {
 			return false;
 		}
-		
+
 		String allowed = Main.plugin.getConfig().getString("allowedChars");
 
 		if (allowed.length() != 0) {
@@ -500,6 +501,8 @@ public class Team {
 
 	private Inventory echest;
 
+	private int level;
+
 	HashMap<String, Warp> warps;
 
 	/**
@@ -569,6 +572,11 @@ public class Team {
 			}
 		}
 
+		level = getInteger(config, "level");
+		if (level < 1) {
+			level = 1;
+		}
+
 		rank = -1;
 
 	}
@@ -619,6 +627,8 @@ public class Team {
 		savePlayers(config);
 		bannedPlayers = new ArrayList<>();
 		echest = Bukkit.createInventory(null, 27, MessageManager.getMessage("echest.echest"));
+		level = 1;
+		setValue(config, "level", 1);
 		/*
 		 * do not need to save config as createNewTeam saves the config after more
 		 * settings modified
@@ -1309,15 +1319,14 @@ public class Team {
 	public void setTeamRank(int rank) {
 		this.rank = rank;
 	}
-	
+
 	private void setTeamBalRank(int rank) {
-		this.balRank = rank; 
+		this.balRank = rank;
 	}
-	
+
 	public int getTeamBalRank() {
 		return balRank;
 	}
-
 
 	org.bukkit.scoreboard.Team team;
 
@@ -1651,6 +1660,16 @@ public class Team {
 
 	public Inventory getEchest() {
 		return echest;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+		setValue(Main.plugin.teams, "level", level);
+
 	}
 
 }

@@ -202,6 +202,7 @@ Bug Fixes:
 
 3.1.15: 
 Features: 
+- Teams can levelup for money or score to get perks (https://github.com/booksaw/BetterTeams/issues/44)
 - Configurable aliases for /team and /teama command (for example /clan) (https://github.com/booksaw/BetterTeams/issues/42)
 - Players can be referenced by @a and @p (https://github.com/booksaw/BetterTeams/issues/41)
 - Added spam killing prevention to stop score farming (https://github.com/booksaw/BetterTeams/issues/43)

@@ -83,6 +83,7 @@ info.needTeam: '&6No team or player found under that name'
 info.name: '&6Name: &b%s'
 info.description: '&6Description: &b%s'
 info.open: '&6Open: &b%s'
+info.level: '&6Level: &b%s'
 # for /team open
 info.owner: '&6Owners: &b%s'
 info.admin: '&6Admins: &b%s'
@@ -196,6 +197,14 @@ echest.echest: 'Enderchest'
 
 pvp.enabled: '&6Pvp has been enabled for your team'
 pvp.disabled: '&6Pvp has been disabled for your team'
+
+rankup.max: '&4You are already the max rank'
+rankup.score: '&4You need %s score to rankup'
+rankup.money: '&4You need %s money in the team balance to rankup'
+rankup.success: '&6Your team has leveled up'
+
+admin.setrank.success: '&6That teams rank has been set'
+admin.setrank.no: '&4That rank either does not exist or is not setup correctly'
 
 # for /team list
 admin.config.reload: '&6BetterTeams has been reloaded (If you are having problems when using this command, restart the server)'

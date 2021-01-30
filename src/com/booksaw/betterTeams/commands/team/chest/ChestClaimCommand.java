@@ -39,7 +39,7 @@ public class ChestClaimCommand extends TeamSubCommand {
 
 		// on a chest
 		// checking there is no limit on chests
-		int lim = Main.plugin.getConfig().getInt("maxChests");
+		int lim = Main.plugin.getConfig().getInt("levels.l" + team.getLevel() + ".maxChests");
 		if (lim != -1 && lim <= team.getClaimCount()) {
 			return new CommandResponse("chest.claim.limit");
 		}

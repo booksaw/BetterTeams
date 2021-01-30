@@ -80,6 +80,7 @@ public class InfoCommand extends SubCommand {
 		MessageManager.sendMessageF(sender, "info.open", team.isOpen() + "");
 		MessageManager.sendMessageF(sender, "info.score", team.getScore() + "");
 		MessageManager.sendMessageF(sender, "info.money", team.getBalance());
+		MessageManager.sendMessageF(sender, "info.level", team.getLevel() + "");
 
 		String allies = "";
 		for (UUID uuid : team.getAllies()) {

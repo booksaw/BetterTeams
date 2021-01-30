@@ -36,7 +36,7 @@ public class JoinTeama extends SubCommand {
 			return new CommandResponse("admin.join.banned");
 		}
 
-		int limit = Main.plugin.getConfig().getInt("teamLimit");
+		int limit = Main.plugin.getConfig().getInt("levels.l" + team.getLevel() + ".teamLimit");
 
 		if (limit > 0 && limit <= team.getMembers().size()) {
 			return new CommandResponse("admin.join.full");

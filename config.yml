@@ -50,13 +50,6 @@ prefix: true
 # Possible values: [Any text, any chat colours using the reference '&']
 prefixFormat: '&7[&6BetterTeams&7] '
 
-# This is used set a maximum size for a team.
-# - If this feature is unwanted, set the teamLimit to -1 and there will be unlimited places in each team
-# - Keep this value reasonable, as Java cannot cope with larger numbers (over 2 billion), so if you want the team to be limitless, set the value to -1 instead of something large
-#
-# Possible values: [-1, any positive whole number]
-teamLimit: -1
-
 # This is used to set the maxmimum number of allies a team can have
 # - If this feature is unwanted, set the allyLimit to -1 and there will be unlimited allies for each team
 # - Keep this value reasonable, as Java cannot cope with larger numbers (over 2 billion), so if you want the team to be limitless, set the value to -1 instead of something large
@@ -206,13 +199,6 @@ maxWarps: 2
 #
 allowPassword: true
 
-# This is used to determine the maximum number of chests that a team can claim
-# - If this is set to 0 teams will not be allowed any claims (though it is recommended you do that through permissions instead of the config option)
-# - If this is set to -1 there will be no limit on the number of warps
-# 
-# Possible values: [Any positive whole number, 0, -1]
-maxChests: 2
-
 # This is used to determine if players can open claimed chests of their allies or not
 # - If this is set to true, allies will be able to open claimed chests 
 # - If this is set to false, allies will not be able to open claimed chests
@@ -229,7 +215,28 @@ command:
    teamadmin: 
    - teama
 
-
+levels:
+   l1: 
+      # This is used set a maximum size for a team.
+      # - If this feature is unwanted, set the teamLimit to -1 and there will be unlimited places in each team
+      # - Keep this value reasonable, as Java cannot cope with larger numbers (over 2 billion), so if you want the team to be limitless, set the value to -1 instead of something large
+      #
+      # Possible values: [-1, any positive whole number]
+      teamLimit: 10
+      # This is used to determine the maximum number of chests that a team can claim
+      # - If this is set to 0 teams will not be allowed any claims (though it is recommended you do that through permissions instead of the config option)
+      # - If this is set to -1 there will be no limit on the number of warps
+      # 
+      # Possible values: [Any positive whole number, 0, -1]
+      maxChests: 2
+   l2: 
+      # Price is determined for all levels aside level 1,
+      # - If this value ends with 's' it will take score from the team
+      # - If this value ends with 'm' it will take money from the team balance
+      price: 100s 
+      teamLimit: 20
+      maxChests: 2
+      
 #####################################################################
 #                                                                   #
 #  ____                       ____       _   _   _                  #

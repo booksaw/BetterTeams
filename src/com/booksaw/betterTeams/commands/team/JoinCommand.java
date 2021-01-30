@@ -30,7 +30,7 @@ public class JoinCommand extends NoTeamSubCommand {
 			return new CommandResponse("join.notInvited");
 		}
 
-		int limit = Main.plugin.getConfig().getInt("teamLimit");
+		int limit = Main.plugin.getConfig().getInt("levels.l" + team.getLevel() + ".teamLimit");
 
 		if (limit > 0 && limit <= team.getMembers().size()) {
 			return new CommandResponse("join.full");
