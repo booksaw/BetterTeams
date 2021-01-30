@@ -420,6 +420,7 @@ public class Team {
 		if (name.contains("&")) {
 			return false;
 		}
+		
 		String allowed = Main.plugin.getConfig().getString("allowedChars");
 
 		if (allowed.length() != 0) {

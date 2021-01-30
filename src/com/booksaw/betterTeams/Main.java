@@ -97,9 +97,9 @@ import com.booksaw.betterTeams.events.DamageManagement;
 import com.booksaw.betterTeams.events.InventoryManagement;
 import com.booksaw.betterTeams.events.MCTeamManagement;
 import com.booksaw.betterTeams.events.MCTeamManagement.BelowNameType;
-import com.booksaw.betterTeams.events.ScoreManagement;
 import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.metrics.Metrics;
+import com.booksaw.betterTeams.score.ScoreManagement;
 
 import net.milkbowl.vault.economy.Economy;
 
@@ -535,12 +535,16 @@ public class Main extends JavaPlugin {
 			getConfig().set("canSeeFriendlyInvisibles", false);
 		case 11:
 			getConfig().set("allowedChars", "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789");
-			getConfig().set("scoreForKill", 1);
-			getConfig().set("scoreForDeath", -1);
 			getConfig().set("language", "en");
 		case 12:
 			getConfig().set("command.team", new ArrayList<String>());
 			getConfig().set("command.teama", new ArrayList<String>(Arrays.asList("teama")));
+		case 13:
+			getConfig().set("events.death.score", 0);
+			getConfig().set("events.death.spam", -1);
+			getConfig().set("events.kill.score", 1);
+			getConfig().set("events.kill.spam", 0);
+			getConfig().set("spamThreshold", 60);
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;

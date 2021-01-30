@@ -204,7 +204,8 @@ Bug Fixes:
 Features: 
 - Configurable aliases for /team and /teama command (for example /clan) (https://github.com/booksaw/BetterTeams/issues/42)
 - Players can be referenced by @a and @p (https://github.com/booksaw/BetterTeams/issues/41)
-
+- Added spam killing prevention to stop score farming (https://github.com/booksaw/BetterTeams/issues/43)
+	
 Improvements:
 - Full Polish translation is now avaliable (https://github.com/booksaw/BetterTeams/issues/48)
 - Added a way to use player name instead of player display name in team/ally chat (https://github.com/booksaw/BetterTeams/issues/49)

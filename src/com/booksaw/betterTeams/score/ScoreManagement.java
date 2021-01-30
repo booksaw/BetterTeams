@@ -1,4 +1,4 @@
-package com.booksaw.betterTeams.events;
+package com.booksaw.betterTeams.score;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -14,6 +14,7 @@ import org.bukkit.scheduler.BukkitScheduler;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.customEvents.PrePurgeEvent;
+import com.booksaw.betterTeams.score.ScoreChange.ChangeType;
 
 import me.clip.placeholderapi.PlaceholderAPI;
 
@@ -80,36 +81,6 @@ public class ScoreManagement implements Listener {
 	}
 
 	@EventHandler
-	public void onKill(PlayerDeathEvent e) {
-		Player killed = e.getEntity().getPlayer();
-		// score decreases
-		Team killedTeam = Team.getTeam(killed);
-		if (killedTeam != null) {
-			killedTeam.setScore(killedTeam.getScore() - Main.plugin.getConfig().getInt("pointsLostByDeath"));
-		}
-
-		if (e.getEntity().getKiller() == null || !(e.getEntity() instanceof Player)
-				|| !(e.getEntity().getKiller() instanceof Player)) {
-			return;
-		}
-
-		Player killer = e.getEntity().getKiller().getPlayer();
-
-		Team killerTeam = Team.getTeam(killer);
-		if (killerTeam == null) {
-			return;
-		}
-
-		int scoreForKill = Main.plugin.getConfig().getInt("scoreForKill");
-		
-		if (killerTeam == killedTeam) {
-			killerTeam.setScore(killerTeam.getScore() - scoreForKill);
-		} else {
-			killerTeam.setScore(killerTeam.getScore() + scoreForKill);
-		}
-	}
-
-	@EventHandler
 	public void onPurge(PrePurgeEvent e) {
 		Main.plugin.getConfig().getStringList("purgeCommands").forEach(cmd -> {
 			if (Main.plugin.getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
@@ -166,7 +137,7 @@ public class ScoreManagement implements Listener {
 		}
 
 		/**
-		 * Used to check if hte date is after the current time
+		 * Used to check if the date is after the current time
 		 * 
 		 * @return
 		 */
@@ -175,6 +146,63 @@ public class ScoreManagement implements Listener {
 			Date nowDate = new Date(now.getDayOfMonth(), now.getHour());
 			return nowDate.isBefore(this);
 		}
+	}
+
+	@EventHandler
+	public void onKill(PlayerDeathEvent e) {
+		Player killed = e.getEntity().getPlayer();
+		// score decreases
+		Team killedTeam = Team.getTeam(killed);
+		if (killedTeam != null) {
+			death(killed, killedTeam);
+		}
+
+		if (e.getEntity().getKiller() == null || !(e.getEntity() instanceof Player)
+				|| !(e.getEntity().getKiller() instanceof Player)) {
+			return;
+		}
+
+		Player killer = e.getEntity().getKiller().getPlayer();
+		Team killerTeam = Team.getTeam(killer);
+		if (killerTeam == null) {
+			return;
+		}
+		kill(killer, killed, killerTeam, killedTeam);
+
+	}
+
+	public void kill(Player source, Player target, Team souceTeam, Team targetTeam) {
+
+		int scoreForKill;
+
+		if (ScoreChange.isSpam(ChangeType.KILL, source, target)) {
+			scoreForKill = Main.plugin.getConfig().getInt("events.kill.spam");
+
+		} else {
+			new ScoreChange(ChangeType.KILL, source, target);
+			scoreForKill = Main.plugin.getConfig().getInt("events.kill.score");
+		}
+
+		if (souceTeam == targetTeam) {
+			souceTeam.setScore(souceTeam.getScore() - scoreForKill);
+		} else {
+			souceTeam.setScore(souceTeam.getScore() + scoreForKill);
+		}
+	}
+
+	public void death(Player source, Team souceTeam) {
+
+		int scoreForDeath;
+
+		if (ScoreChange.isSpam(ChangeType.DEATH, source)) {
+			scoreForDeath = Main.plugin.getConfig().getInt("events.death.spam");
+
+		} else {
+			new ScoreChange(ChangeType.DEATH, source);
+			scoreForDeath = Main.plugin.getConfig().getInt("events.death.score");
+		}
+
+		souceTeam.setScore(souceTeam.getScore() + scoreForDeath);
 	}
 
 }
