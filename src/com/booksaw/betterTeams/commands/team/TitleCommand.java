@@ -28,6 +28,10 @@ public class TitleCommand extends TeamSubCommand {
 
 		TeamPlayer toTitle = null;
 
+		if (args.length == 1) {
+			args = new String[] { "me", args[0] };
+		}
+
 		if (args[0].equals("me")) {
 			toTitle = player;
 		} else {
@@ -107,7 +111,7 @@ public class TitleCommand extends TeamSubCommand {
 
 	@Override
 	public String getArguments() {
-		return "<player/me> <title>";
+		return "[player/me] <title>";
 	}
 
 	@Override

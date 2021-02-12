@@ -221,6 +221,7 @@ Improvements:
 
 Bug Fixes: 
 - Fixed bug causing a server crash if a team name was too long
+- Fixed bug causing incorrect arguments for /team title (#50)
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
