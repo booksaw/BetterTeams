@@ -64,6 +64,7 @@ allyLimit: 5
 maxTeamLength: 12
 
 # This is used with the /team title command, this specifies the limit in characters 
+# If you are using belowNameManagement, any names over 16 characters will be clipped throught some handeling of the plugin
 #
 # Possible values: [Any whole number]
 maxTitleLength: 10 

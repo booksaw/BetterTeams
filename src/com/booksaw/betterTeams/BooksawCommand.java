@@ -11,6 +11,7 @@ import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
+import com.booksaw.betterTeams.commands.ParentCommand;
 import com.booksaw.betterTeams.commands.SubCommand;
 
 /**
@@ -46,12 +47,18 @@ public class BooksawCommand extends BukkitCommand {
 	@Override
 	public boolean execute(CommandSender sender, String label, String[] args) {
 		// running custom command manager
-		if(checkPointers(sender, label, args)) {
+		if (checkPointers(sender, label, args)) {
 			// if pointers were found and dealt with
 			return true;
 		}
-		
-		CommandResponse response = subCommand.onCommand(sender, label, args);
+
+		CommandResponse response;
+		if (subCommand instanceof ParentCommand) {
+			response = ((ParentCommand) subCommand).onCommand(sender, label, args, true);
+		} else {
+			response = subCommand.onCommand(sender, label, args);
+		}
+
 		if (response != null)
 			response.sendResponseMessage(sender);
 		return true;

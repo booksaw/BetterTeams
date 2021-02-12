@@ -69,11 +69,20 @@ public class ParentCommand extends SubCommand {
 
 	@Override
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
+		return onCommand(sender, label, args, false);
+	}
+
+	public CommandResponse onCommand(CommandSender sender, String label, String[] args, boolean first) {
+
 		// checking length
 		if (args.length == 0) {
 			// help command is not expected to return anything
 			displayHelp(sender, label, args);
 			return null;
+		}
+
+		if (!first) {
+			label = label + " " + getCommand();
 		}
 
 		SubCommand command = subCommands.get(args[0].toLowerCase());

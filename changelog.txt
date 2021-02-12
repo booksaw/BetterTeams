@@ -216,6 +216,12 @@ Improvements:
 Bug Fixes: 
 - Baltop Holo sorts after score not balance (https://github.com/booksaw/BetterTeams/issues/46)
 
+3.1.17
+Improvements: 
+
+Bug Fixes: 
+- Fixed bug causing a server crash if a team name was too long
+
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
 Headings: 

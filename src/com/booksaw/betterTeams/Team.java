@@ -1343,10 +1343,19 @@ public class Team {
 			return team;
 		}
 		String name = String.format(color + MessageManager.getMessage("nametag.syntax"), getDisplayName());
+		if (name.length() > 16) {
+			name = name.substring(0, 16);
+		}
 		int attempt = 0;
 		do {
 			try {
-				team = board.registerNewTeam(getName() + ((attempt > 0) ? attempt : ""));
+				String attemptStr = ((attempt > 0) ? attempt + "" : "");
+				String teamName = getName();
+				if (getName().length() + attemptStr.length() > 16) {
+					teamName = teamName.substring(0, 16 - attemptStr.length());
+				}
+
+				team = board.registerNewTeam(teamName);
 
 			} catch (Exception e) {
 				team = null;

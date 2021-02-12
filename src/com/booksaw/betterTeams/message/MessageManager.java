@@ -32,11 +32,11 @@ public class MessageManager {
 	 * This is the prefix which goes before all messages related to this plugin
 	 */
 	private static String prefix;
-	
+
 	/**
 	 * This is the language reference for the selected language
 	 */
-	public  static String lang;
+	public static String lang;
 
 	/**
 	 * This method is used to provide the configuration file in which all the
@@ -142,6 +142,7 @@ public class MessageManager {
 	 * @return the message (without prefix)
 	 */
 	public static String getMessage(String reference) {
+
 		try {
 			String msg = messages.getString(reference);
 			return ChatColor.translateAlternateColorCodes('&', msg);
