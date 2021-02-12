@@ -48,6 +48,13 @@ public class ChatManagement implements Listener {
 
 		TeamPlayer teamPlayer = team.getTeamPlayer(p);
 
+		if (teamPlayer.isInTeamChat() || teamPlayer.isInAllyChat()) {
+			if (event.getMessage().startsWith("!") && event.getMessage().length() > 1) {
+				event.setMessage(event.getMessage().substring(1));
+				return;
+			}
+		}
+
 		if (teamPlayer.isInTeamChat()) {
 			// player is sending to team chat
 			event.setCancelled(true);

@@ -218,6 +218,7 @@ Bug Fixes:
 
 3.1.17
 Improvements: 
+- Added ! to send a message to global chat while in team or ally chat (#53)
 
 Bug Fixes: 
 - Fixed bug causing a server crash if a team name was too long
