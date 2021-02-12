@@ -15,8 +15,8 @@ public class PvpCommand extends TeamSubCommand {
 
 	@Override
 	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
-		if (player.getRank() != PlayerRank.OWNER) {
-			return new CommandResponse("needOwner");
+		if (player.getRank() == PlayerRank.DEFAULT) {
+			return new CommandResponse("needAdmin");
 		}
 
 		if (team.pvp) {

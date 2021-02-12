@@ -99,6 +99,9 @@ permissions:
    betterTeams.rankup:
       default: true
       description: Allows access to /team rankup
+   betterTeams.pvp:
+      default: true
+      description: Allows access to /team pvp
    betterTeams.admin.version:
       default: op
       description: Allows access to /teama version
