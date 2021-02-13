@@ -226,7 +226,7 @@ levels:
       teamLimit: 10
       # This is used to determine the maximum number of chests that a team can claim
       # - If this is set to 0 teams will not be allowed any claims (though it is recommended you do that through permissions instead of the config option)
-      # - If this is set to -1 there will be no limit on the number of warps
+      # - If this is set to -1 there will be no limit on the number of chests
       # 
       # Possible values: [Any positive whole number, 0, -1]
       maxChests: 2
