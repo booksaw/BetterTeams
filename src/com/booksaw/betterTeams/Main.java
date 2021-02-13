@@ -473,11 +473,15 @@ public class Main extends JavaPlugin {
 			messages.set("rankup.success", "&6Your team has leveled up");
 			messages.set("admin.setrank.success", "&6That teams rank has been set");
 			messages.set("admin.setrank.no", "&4That rank either does not exist or is not setup correctly");
+		case 17:
+			messages.set("rank.infos", "&6Team rank: &b%s &7(%s score needed for next rankup)");
+			messages.set("rank.infom", "&6Team rank: &b%s &7($%s needed for next rankup)");
+			messages.set("placeholder.money", "%s ");
 		case 1000:
 			// this will run only if a change has been made q
 			changes = true;
 			// set version the latest
-			messages.set("version", 17);
+			messages.set("version", 18);
 			break;
 		}
 

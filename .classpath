@@ -12,7 +12,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/Minecraft Servers/server/spigot.jar">
+	<classpathentry kind="lib" path="D:/Minecraft Servers/server/spigot 1.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>

@@ -60,7 +60,7 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 				return MessageManager.getMessage("placeholder.noTeam");
 			}
 
-			return String.format(MessageManager.getMessage("placeholder.name"), team.getName());
+			return String.format(MessageManager.getMessage(player, "placeholder.name"), team.getName());
 
 		} else if (identifier.equals("description")) {
 
@@ -91,7 +91,7 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 				return MessageManager.getMessage("placeholder.noTeam");
 			}
 
-			return team.getBalance();
+			return String.format(MessageManager.getMessage(player, "placeholder.money"), team.getBalance() + "");
 		} else if (identifier.equals("score")) {
 
 			Team team = Team.getTeam(player);
@@ -110,11 +110,11 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 
 			switch (team.getTeamPlayer(player).getRank()) {
 			case ADMIN:
-				return MessageManager.getMessage("placeholder.admin");
+				return MessageManager.getMessage(player, "placeholder.admin");
 			case DEFAULT:
-				return MessageManager.getMessage("placeholder.default");
+				return MessageManager.getMessage(player, "placeholder.default");
 			case OWNER:
-				return MessageManager.getMessage("placeholder.owner");
+				return MessageManager.getMessage(player, "placeholder.owner");
 
 			}
 		} else if (identifier.equals("color")) {

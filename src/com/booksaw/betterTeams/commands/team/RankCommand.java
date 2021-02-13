@@ -8,10 +8,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.SubCommand;
-import com.booksaw.betterTeams.message.CompositeMessage;
-import com.booksaw.betterTeams.message.ReferenceMessage;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
 
 public class RankCommand extends SubCommand {
@@ -29,13 +28,12 @@ public class RankCommand extends SubCommand {
 		if (team == null) {
 			return new CommandResponse("rank.noTeam");
 		}
-		if (Team.scoreChanges) {
-			Team.sortTeamsByScore();
-		}
-		int rank = team.getTeamRank() + 1;
 
-		return new CommandResponse(true, new CompositeMessage(new ReferenceMessage("rank.info"),
-				new ReferencedFormatMessage("rank.syntax", rank + "", team.getScore() + "")));
+		String priceStr = Main.plugin.getConfig().getString("levels.l" + (team.getLevel() + 1) + ".price");
+		boolean score = priceStr.contains("s");
+
+		return new CommandResponse(true, new ReferencedFormatMessage("rank.info" + ((score) ? "s" : "m"),
+				team.getLevel() + "", priceStr.substring(0, priceStr.length() - 1)));
 	}
 
 	@Override

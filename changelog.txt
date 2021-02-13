@@ -225,6 +225,15 @@ Bug Fixes:
 - Fixed bug causing incorrect arguments for /team title (#50)
 - Fixed bug about permissions for the command /team pvp (#52)
 
+3.1.18
+Improvements: 
+- Placeholders are now allowed within placeholders
+- Currency symbols are allowed within placeholders
+
+Bug fixes:
+- Fixed a bug causing servers to crash
+- Fixed a bug with /team rank
+
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
 Headings: 

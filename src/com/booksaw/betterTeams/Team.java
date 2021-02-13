@@ -1354,8 +1354,14 @@ public class Team {
 				if (getName().length() + attemptStr.length() > 16) {
 					teamName = teamName.substring(0, 16 - attemptStr.length());
 				}
-
-				team = board.registerNewTeam(teamName);
+				System.out.println("found = " + board.getTeam(teamName + attemptStr));
+				System.out.println("teamName - " + teamName + attemptStr);
+				if (board.getTeam(teamName + attemptStr) != null) {
+					team = null;
+					attempt++;
+					continue;
+				}
+				team = board.registerNewTeam(teamName + attemptStr);
 
 			} catch (Exception e) {
 				team = null;
