@@ -57,7 +57,9 @@ public class PromoteCommand extends TeamSubCommand {
 		}
 
 		team.promotePlayer(promotePlayer);
-		MessageManager.sendMessage((CommandSender) promotePlayer.getPlayer(), "promote.notify");
+		if (promotePlayer.getPlayer().isOnline()) {
+			MessageManager.sendMessage(promotePlayer.getPlayer().getPlayer(), "promote.notify");
+		}
 
 		return new CommandResponse(true, "promote.success");
 
