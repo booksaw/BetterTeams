@@ -14,7 +14,7 @@ prefixSyntax: '&b[%s] &r%s'
 bannedChar: '&4A character you tried to use is banned"'
 noTeam: '&4That team does not exist'
 # do not change this, it is used to check the messages version (test if there are any missing messages)
-version: 18
+version: 19
 cooldown.wait: '&4You need to wait another %s seconds before running that!'
 cost.tooPoor: '&4You are too poor to run that command'
 cost.run: '&4&l-%s'
