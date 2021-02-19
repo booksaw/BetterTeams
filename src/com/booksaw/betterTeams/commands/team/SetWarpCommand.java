@@ -31,7 +31,8 @@ public class SetWarpCommand extends TeamSubCommand {
 			password = args[1];
 		}
 
-		if (team.getWarps().size() >= Main.plugin.getConfig().getInt("maxWarps")) {
+		int maxWarps = Main.plugin.getConfig().getInt("maxWarps");
+		if (team.getWarps().size() >= maxWarps && maxWarps != -1) {
 			return new CommandResponse("setwarp.max");
 		}
 

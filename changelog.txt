@@ -237,6 +237,9 @@ Bug fixes:
 3.1.19
 Bug fixes: 
 - Fixed a problem with /team promote causing error messages
+- Fixed space after Team name (#58)
+- Fixed Config version wrong (#61)
+- Fixed maxWarps cannot be set to -1 
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
