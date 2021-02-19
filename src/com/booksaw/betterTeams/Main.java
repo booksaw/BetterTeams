@@ -569,6 +569,7 @@ public class Main extends JavaPlugin {
 			getConfig().set("maxChests", null);
 			getConfig().set("levels.l1.maxWarps", 2);
 			getConfig().set("levels.l2.maxWarps", 2);
+			getConfig().set("command.teama", new ArrayList<String>(Arrays.asList("teama")));
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;

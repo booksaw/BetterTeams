@@ -206,7 +206,7 @@ allowAllyChests: true
 # Possible values: [Any set of lower case letters]
 command:
    team: []
-   teamadmin: 
+   teama: 
    - teama
 
 levels:

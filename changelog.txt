@@ -245,6 +245,7 @@ Bug fixes:
 - Fixed maxWarps cannot be set to -1 
 - Fixed Team names above 5 characters lose space (#62)
 - Fixed Deleting betterteams does not remove scoreboard teams correctly (#60)
+- Fixed /teama not working  (#56)
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
