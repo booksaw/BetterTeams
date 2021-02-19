@@ -1376,6 +1376,8 @@ public class Team {
 
 	public String getBalance() {
 		DecimalFormat df = new DecimalFormat("0.00");
+		df.setGroupingUsed(true);
+		df.setGroupingSize(3);
 		String moneyString = df.format(money);
 		return moneyString;
 	}
