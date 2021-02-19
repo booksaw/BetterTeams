@@ -48,6 +48,7 @@ import com.booksaw.betterTeams.commands.team.RankupCommand;
 import com.booksaw.betterTeams.commands.team.SetOwnerCommand;
 import com.booksaw.betterTeams.commands.team.SetWarpCommand;
 import com.booksaw.betterTeams.commands.team.SethomeCommand;
+import com.booksaw.betterTeams.commands.team.TagCommand;
 import com.booksaw.betterTeams.commands.team.TitleCommand;
 import com.booksaw.betterTeams.commands.team.TopCommand;
 import com.booksaw.betterTeams.commands.team.UnbanCommand;
@@ -79,6 +80,7 @@ import com.booksaw.betterTeams.commands.teama.RemoveHoloTeama;
 import com.booksaw.betterTeams.commands.teama.SetOwnerTeama;
 import com.booksaw.betterTeams.commands.teama.SetrankTeama;
 import com.booksaw.betterTeams.commands.teama.SetwarpTeama;
+import com.booksaw.betterTeams.commands.teama.TagTeama;
 import com.booksaw.betterTeams.commands.teama.TitleTeama;
 import com.booksaw.betterTeams.commands.teama.VersionTeama;
 import com.booksaw.betterTeams.commands.teama.WarpTeama;
@@ -477,6 +479,12 @@ public class Main extends JavaPlugin {
 			messages.set("rank.infos", "&6Team rank: &b%s &7(%s score needed for next rankup)");
 			messages.set("rank.infom", "&6Team rank: &b%s &7($%s needed for next rankup)");
 			messages.set("placeholder.money", "%s ");
+		case 18:
+			messages.set("info.tag", "&6Tag: &b%s");
+			messages.set("tag.banned", "&4That tag name is banned");
+			messages.set("tag.success", "&6Your tag has succsessfully changed");
+			messages.set("admin.tag.success", "&6That teams tag successfully changed");
+			messages.set("tag.maxLength", "&4That tag is too long");
 		case 1000:
 			// this will run only if a change has been made q
 			changes = true;
@@ -570,6 +578,7 @@ public class Main extends JavaPlugin {
 			getConfig().set("levels.l1.maxWarps", 2);
 			getConfig().set("levels.l2.maxWarps", 2);
 			getConfig().set("command.teama", new ArrayList<String>(Arrays.asList("teama")));
+			getConfig().set("maxTagLength", 12);
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
@@ -667,6 +676,7 @@ public class Main extends JavaPlugin {
 		teamCommand.addSubCommand(new WarpsCommand());
 		teamCommand.addSubCommand(new EchestCommand());
 		teamCommand.addSubCommand(new RankupCommand());
+		teamCommand.addSubCommand(new TagCommand());
 
 		if (getConfig().getBoolean("disableCombat")) {
 			teamCommand.addSubCommand(new PvpCommand());
@@ -709,6 +719,7 @@ public class Main extends JavaPlugin {
 		teamaCommand.addSubCommand(new ColorTeama());
 		teamaCommand.addSubCommand(new EchestTeama());
 		teamaCommand.addSubCommand(new SetrankTeama());
+		teamaCommand.addSubCommand(new TagTeama());
 
 		if (getConfig().getBoolean("singleOwner")) {
 			teamaCommand.addSubCommand(new SetOwnerTeama());

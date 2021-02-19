@@ -99,6 +99,9 @@ permissions:
    betterTeams.rankup:
       default: true
       description: Allows access to /team rankup
+   betterTeams.tag:
+      default: true
+      description: Allows access to /team tag
    betterTeams.pvp:
       default: true
       description: Allows access to /team pvp
@@ -192,6 +195,9 @@ permissions:
    betterTeams.admin.setrank:
       default: op
       description: gives access to the command /teama setrank
+   betterTeams.admin.tag:
+      default: op
+      description: gives access to the command /teama tag
    betterTeams.admin.purge:
       default: op
       description: gives access to the command /teama purge

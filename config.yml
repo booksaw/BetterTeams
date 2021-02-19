@@ -63,6 +63,12 @@ allyLimit: 5
 # Possible values: [-1, any positive whole number]
 maxTeamLength: 12
 
+# This is used to limit the length of the teams tag (If enabled, this will display next to the players nametag above their character)
+# - If this feature is unwanted, set the teamLimit to -1 and team name lengths will be unlimited
+#
+# Possible values: [-1, any positive whole number]
+maxTagLength: 12
+
 # This is used with the /team title command, this specifies the limit in characters 
 # If you are using belowNameManagement, any names over 16 characters will be clipped throught some handeling of the plugin
 #

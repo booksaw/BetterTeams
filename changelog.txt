@@ -235,6 +235,9 @@ Bug fixes:
 - Fixed a bug with /team rank
 
 3.1.19
+Features:
+- Added team tags, so teams can have different things about their heads than their team name (#64)
+
 Improvements: 
 - Associated maxWarps with team level (#54)
 

@@ -503,6 +503,8 @@ public class Team {
 
 	private int level;
 
+	private String tag;
+
 	HashMap<String, Warp> warps;
 
 	/**
@@ -577,6 +579,8 @@ public class Team {
 			level = 1;
 		}
 
+		tag = getString(config, "tag");
+
 		rank = -1;
 
 	}
@@ -629,6 +633,8 @@ public class Team {
 		echest = Bukkit.createInventory(null, 27, MessageManager.getMessage("echest.echest"));
 		level = 1;
 		setValue(config, "level", 1);
+		tag = "";
+		setValue(config, "tag", "");
 		/*
 		 * do not need to save config as createNewTeam saves the config after more
 		 * settings modified
@@ -746,6 +752,39 @@ public class Team {
 			return color + name;
 		}
 		return name;
+	}
+
+	public String getTag() {
+		if (tag == null || tag.length() == 0) {
+			return getDisplayName();
+		}
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
+		setValue(Main.plugin.getTeams(), "tag", tag);
+		Main.plugin.saveTeams();
+
+		if (Main.plugin.teamManagement != null) {
+
+			if (team != null) {
+				for (TeamPlayer p : members) {
+					if (p.getPlayer().isOnline()) {
+						team.removeEntry(p.getPlayer().getName());
+					}
+				}
+				team.unregister();
+			}
+
+			team = null;
+
+			for (TeamPlayer p : members) {
+				if (p.getPlayer().isOnline()) {
+					Main.plugin.teamManagement.displayBelowName(p.getPlayer().getPlayer());
+				}
+			}
+		}
 	}
 
 	/**
@@ -1343,7 +1382,7 @@ public class Team {
 			return team;
 		}
 
-		String name = String.format(color + MessageManager.getMessage("nametag.syntax"), getDisplayName());
+		String name = String.format(color + MessageManager.getMessage("nametag.syntax"), getTag());
 		int attempt = 0;
 		do {
 			try {
