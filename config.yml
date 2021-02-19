@@ -223,7 +223,7 @@ levels:
       # 
       # Possible values: [Any positive whole number, 0, -1]
       maxChests: 2
-      #This is used to determine the maximum number of warps that a team can set 
+      # This is used to determine the maximum number of warps that a team can set 
       # - If this is set to 0 teams will not be allowed any warps (though it is recommended you do that through permissions instead of the config option) 
       # - If this is set to -1 there will be no limit on the number of warps
       #
@@ -236,6 +236,7 @@ levels:
       price: 100s 
       teamLimit: 20
       maxChests: 2
+      maxWarps: 2
       
 #####################################################################
 #                                                                   #
