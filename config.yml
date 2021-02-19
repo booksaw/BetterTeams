@@ -186,13 +186,6 @@ noMove: false
 # Possible values: [true, false]
 singleOwner: false
 
-#This is used to determine the maximum number of warps that a team can set 
-# - If this is set to 0 teams will not be allowed any warps (though it is recommended you do that through permissions instead of the config option) 
-# - If this is set to -1 there will be no limit on the number of warps
-#
-# Possible values: [Any positive whole number, 0, -1]
-maxWarps: 2
-
 # This is used to determine if a warp is allowed to have a password set which can be used to limit usage across the team
 # - If this is true, a password can be set for a warp, so only users with that password can teleport to it
 # 
@@ -230,6 +223,12 @@ levels:
       # 
       # Possible values: [Any positive whole number, 0, -1]
       maxChests: 2
+      #This is used to determine the maximum number of warps that a team can set 
+      # - If this is set to 0 teams will not be allowed any warps (though it is recommended you do that through permissions instead of the config option) 
+      # - If this is set to -1 there will be no limit on the number of warps
+      #
+      # Possible values: [Any positive whole number, 0, -1]
+      maxWarps: 2
    l2: 
       # Price is determined for all levels aside level 1,
       # - If this value ends with 's' it will take score from the team

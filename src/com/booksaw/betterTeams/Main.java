@@ -563,6 +563,12 @@ public class Main extends JavaPlugin {
 			getConfig().set("levels.l2.teamLimit", 20);
 			getConfig().set("levels.l2.maxChests", 2);
 			getConfig().set("levels.l2.price", "100s");
+		case 14:
+			getConfig().set("maxWarps", null);
+			getConfig().set("teamLimit", null);
+			getConfig().set("maxChests", null);
+			getConfig().set("levels.l1.maxWarps", 2);
+			getConfig().set("levels.l2.maxWarps", 2);
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;

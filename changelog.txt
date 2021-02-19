@@ -235,6 +235,9 @@ Bug fixes:
 - Fixed a bug with /team rank
 
 3.1.19
+Improvements: 
+- Associated maxWarps with team level (#54)
+
 Bug fixes: 
 - Fixed a problem with /team promote causing error messages
 - Fixed space after Team name (#58)
