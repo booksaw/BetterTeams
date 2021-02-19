@@ -1342,18 +1342,18 @@ public class Team {
 		if (team != null) {
 			return team;
 		}
+
 		String name = String.format(color + MessageManager.getMessage("nametag.syntax"), getDisplayName());
-		if (name.length() > 16) {
-			name = name.substring(0, 16);
-		}
 		int attempt = 0;
 		do {
 			try {
 				String attemptStr = ((attempt > 0) ? attempt + "" : "");
 				String teamName = getName();
-				if (getName().length() + attemptStr.length() > 16) {
-					teamName = teamName.substring(0, 16 - attemptStr.length());
+
+				while (teamName.length() + attemptStr.length() > 16) {
+					teamName = teamName.substring(0, teamName.length() - 1);
 				}
+
 				if (board.getTeam(teamName + attemptStr) != null) {
 					team = null;
 					attempt++;
@@ -1366,7 +1366,14 @@ public class Team {
 				attempt++;
 			}
 
-		} while (team == null);
+		} while (team == null && attempt < 100);
+
+		if (team == null) {
+			Bukkit.getLogger().warning(
+					"An avaliable team cannot be found, be prepared for a lot of errors. (this should never happen, and should always be reported to booksaw)");
+			Bukkit.getLogger().warning("This catch is merely here to stop the server crashing");
+			return null;
+		}
 
 		Main.plugin.teamManagement.setupTeam(team, name);
 

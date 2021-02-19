@@ -20,6 +20,9 @@ public class CreateTeama extends SubCommand {
 		}
 
 		int max = Main.plugin.getConfig().getInt("maxTeamLength");
+		if (max > 55) {
+			max = 55;
+		}
 		if (max != -1 && max < args[0].length()) {
 			return new CommandResponse("create.maxLength");
 		}
