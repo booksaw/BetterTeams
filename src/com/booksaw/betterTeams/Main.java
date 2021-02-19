@@ -567,7 +567,7 @@ public class Main extends JavaPlugin {
 			// this will run only if a change has been made
 			changes = true;
 			// set version the latest
-			getConfig().set("version", 13);
+			getConfig().set("version", 14);
 
 			break;
 		}
