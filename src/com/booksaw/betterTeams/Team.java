@@ -1381,6 +1381,16 @@ public class Team {
 
 	}
 
+	/**
+	 * Used to return the scoreboard team, and not create a new one if it does not
+	 * exist
+	 * 
+	 * @return The scoreboard team (if already created)
+	 */
+	public org.bukkit.scoreboard.Team getScoreboardTeamOrNull() {
+		return team;
+	}
+
 	public String getBalance() {
 		DecimalFormat df = new DecimalFormat("0.00");
 		df.setGroupingUsed(true);

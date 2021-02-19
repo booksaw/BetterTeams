@@ -2,6 +2,8 @@ package com.booksaw.betterTeams.events;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -94,6 +96,15 @@ public class MCTeamManagement implements Listener {
 	public void removeAll() {
 		for (Player p : Bukkit.getOnlinePlayers()) {
 			remove(p);
+		}
+
+		for (Entry<UUID, Team> t : Team.getTeamList().entrySet()) {
+			org.bukkit.scoreboard.Team team = t.getValue().getScoreboardTeamOrNull();
+
+			if (team != null) {
+				team.unregister();
+			}
+
 		}
 	}
 

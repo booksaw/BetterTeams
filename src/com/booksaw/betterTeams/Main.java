@@ -620,12 +620,12 @@ public class Main extends JavaPlugin {
 	}
 
 	public void reload() {
+
+		onDisable();
+		teamManagement = null;
 		reloadConfig();
 		ChatManagement.enable();
 		damageManagement = null;
-		teamManagement = null;
-
-		onDisable();
 		onEnable();
 
 	}
