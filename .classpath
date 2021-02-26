@@ -26,5 +26,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="D:/Minecraft Servers/server/other plugins/zKoth.jar"/>
+	<classpathentry kind="lib" path="D:/Minecraft Servers/server/other plugins/UltimateClaims-1.4.2.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

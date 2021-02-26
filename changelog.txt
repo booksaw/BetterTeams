@@ -251,10 +251,14 @@ Bug fixes:
 - Fixed /teama not working  (#56)
 
 3.1.20:
+Improvements 
+- Added a permission node for usage of @a and @p
 
 Bug Fixes: 
 - Fixed a problem with ! not adding team prefix (#68)
 - Fixed permissions for /team delhome (#70)
+- Fixed /team kick (#69, #67)
+- Fixed problem /team create causing a cost to be invoked (#72)
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 

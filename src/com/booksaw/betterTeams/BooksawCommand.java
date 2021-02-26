@@ -74,6 +74,10 @@ public class BooksawCommand extends BukkitCommand {
 
 	public boolean checkPointers(CommandSender sender, String label, String[] args) {
 
+		if (!sender.hasPermission("betterteams.admin.selector")) {
+			return false;
+		}
+
 		for (int i = 0; i < args.length; i++) {
 			String str = args[i];
 
