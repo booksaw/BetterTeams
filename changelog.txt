@@ -250,6 +250,12 @@ Bug fixes:
 - Fixed Deleting betterteams does not remove scoreboard teams correctly (#60)
 - Fixed /teama not working  (#56)
 
+3.1.20:
+
+Bug Fixes: 
+- Fixed a problem with ! not adding team prefix (#68)
+- Fixed permissions for /team delhome (#70)
+
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
 Headings: 

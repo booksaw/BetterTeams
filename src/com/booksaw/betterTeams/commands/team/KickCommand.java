@@ -46,7 +46,9 @@ public class KickCommand extends TeamSubCommand {
 
 		team.removePlayer(player);
 
-		MessageManager.sendMessageF((CommandSender) player, "kick.notify", team.getName());
+		if (player.isOnline()) {
+			MessageManager.sendMessageF((CommandSender) player, "kick.notify", team.getName());
+		}
 
 		return new CommandResponse(true, "kick.success");
 	}

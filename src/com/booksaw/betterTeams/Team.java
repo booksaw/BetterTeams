@@ -911,7 +911,7 @@ public class Team {
 	 */
 	public void removePlayer(OfflinePlayer p) {
 
-		if (Main.plugin.teamManagement != null) {
+		if (Main.plugin.teamManagement != null && p.isOnline()) {
 			Main.plugin.teamManagement.remove(p.getPlayer());
 		}
 
@@ -932,7 +932,7 @@ public class Team {
 		savePlayers(Main.plugin.getTeams());
 		Main.plugin.saveTeams();
 
-		if (team != null) {
+		if (team != null && p.getPlayer().isOnline()) {
 			Main.plugin.teamManagement.remove(p.getPlayer().getPlayer());
 		}
 	}

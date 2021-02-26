@@ -115,6 +115,10 @@ public class MCTeamManagement implements Listener {
 	 */
 	public void remove(Player player) {
 
+		if (player == null) {
+			return;
+		}
+
 		Team team = Team.getTeam(player);
 		if (team == null) {
 //			for (BelowNameChangeListener listener : listeners) {
