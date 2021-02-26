@@ -81,6 +81,9 @@ permissions:
    betterTeams.sethome:
       default: true
       description: Allows access to /team sethome
+   betterTeams.delhome:
+      default: true
+      description: Allows access to /team delhome
    betterTeams.demote:
       default: true
       description: Allows access to /team demote
