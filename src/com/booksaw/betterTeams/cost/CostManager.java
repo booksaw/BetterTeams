@@ -47,7 +47,6 @@ public class CostManager {
 		prices = new HashMap<>();
 
 		List<String> cooldownsStr = cooldown.getStringList("costs");
-
 		for (String temp : cooldownsStr) {
 			try {
 				String[] split = temp.split(":");
@@ -84,6 +83,11 @@ public class CostManager {
 
 		@Override
 		public boolean runCommand(Player player) {
+			return true;
+		}
+
+		@Override
+		public boolean hasBalance(Player player) {
 			return true;
 		}
 
