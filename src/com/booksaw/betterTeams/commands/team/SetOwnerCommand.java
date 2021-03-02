@@ -38,7 +38,7 @@ public class SetOwnerCommand extends TeamSubCommand {
 		TeamPlayer promotePlayer = team.getTeamPlayer(player);
 
 		if (teamPlayer.getRank() != PlayerRank.OWNER) {
-			return new CommandResponse("noPerm");
+			return new CommandResponse("needOwner");
 		} else if (promotePlayer.getRank() == PlayerRank.OWNER) {
 			return new CommandResponse("setowner.max");
 		}
