@@ -56,7 +56,7 @@ public class RankupCommand extends TeamSubCommand {
 				return new CommandResponse(new ReferencedFormatMessage("rankup.money", price + ""));
 			}
 
-			team.setScore(team.getScore() - price);
+			team.setMoney(team.getMoney() - price);
 		}
 
 		team.setLevel(team.getLevel() + 1);
