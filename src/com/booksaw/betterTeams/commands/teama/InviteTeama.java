@@ -32,7 +32,7 @@ public class InviteTeama extends TeamSelectSubCommand {
 
 		int limit = Main.plugin.getConfig().getInt("levels.l" + team.getLevel() + ".teamLimit");
 
-		if (limit > 0 && limit <= team.getMembers().size()) {
+		if (limit > 0 && limit <= team.getMembers().size() + team.getInvitedPlayers().size()) {
 			return new CommandResponse("invite.full");
 		}
 

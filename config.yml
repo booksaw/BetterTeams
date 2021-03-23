@@ -206,6 +206,13 @@ allowPassword: true
 # Possible values: [true, false]
 allowAllyChests: true
 
+# This is the number of seconds an invite lasts
+# - If this is set to 0, invites will expire immeidatly (dont do this)
+# - If this is set to -1 invites will not expire
+#
+# Possible Values: [-1, any positive whole number]]
+invite: 120
+
 # Used to add new aliases for betterteams commands
 # Anything listed here can be used instead of the base commands (/team and /teamadmin)
 # 

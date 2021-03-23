@@ -39,7 +39,7 @@ public class InviteCommand extends TeamSubCommand {
 
 		int limit = Main.plugin.getConfig().getInt("levels.l" + team.getLevel() + ".teamLimit");
 
-		if (limit > 0 && limit <= team.getMembers().size()) {
+		if (limit > 0 && limit <= team.getMembers().size() + team.getInvitedPlayers().size()) {
 			return new CommandResponse("invite.full");
 		}
 
@@ -81,7 +81,7 @@ public class InviteCommand extends TeamSubCommand {
 
 	@Override
 	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
-		addPlayerStringList(options, (args.length == 0) ? "" : args[0]);		
+		addPlayerStringList(options, (args.length == 0) ? "" : args[0]);
 	}
 
 }

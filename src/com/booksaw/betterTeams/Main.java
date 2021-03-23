@@ -489,6 +489,7 @@ public class Main extends JavaPlugin {
 			messages.set("setwarp.char", "&4That warp name includes banned characters");
 			messages.set("warp.world", "&4The location of that warp could not be found");
 			messages.set("home.world", "&4You team home could not be found");
+			messages.set("invite.expired", "&4The invite from &b%s has expired");
 		case 1000:
 			// this will run only if a change has been made q
 			changes = true;
@@ -583,6 +584,8 @@ public class Main extends JavaPlugin {
 			getConfig().set("levels.l2.maxWarps", 2);
 			getConfig().set("command.teama", new ArrayList<String>(Arrays.asList("teama")));
 			getConfig().set("maxTagLength", 12);
+		case 15:
+			getConfig().set("invite", 120);
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;

@@ -22,6 +22,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
 
 import com.booksaw.betterTeams.customEvents.PrePurgeEvent;
@@ -1038,6 +1039,22 @@ public class Team {
 	public void invite(UUID uniqueId) {
 		invitedPlayers.add(uniqueId);
 
+		int invite = Main.plugin.getConfig().getInt("invite");
+
+		if (invite <= 0) {
+			return;
+		}
+
+		new BukkitRunnable() {
+
+			@Override
+			public void run() {
+				invitedPlayers.remove(uniqueId);
+				Player p = Bukkit.getPlayer(uniqueId);
+				MessageManager.sendMessageF(p, "invite.expired", getName());
+			}
+		}.runTaskLaterAsynchronously(Main.plugin, invite * 20L);
+
 	}
 
 	/**
@@ -1741,6 +1758,10 @@ public class Team {
 		this.level = level;
 		setValue(Main.plugin.teams, "level", level);
 
+	}
+
+	public List<UUID> getInvitedPlayers() {
+		return invitedPlayers;
 	}
 
 }
