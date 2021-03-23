@@ -1625,6 +1625,38 @@ public class Team {
 		return true;
 	}
 
+	/**
+	 * Used to check if a member of this team can damage the specified player
+	 * 
+	 * @param player the player to check for
+	 * @return if this team can damage that player
+	 */
+	public boolean canDamage(Player player) {
+		Team team = Team.getTeam(player);
+		if (team == null) {
+			return true;
+		}
+		return canDamage(team);
+	}
+
+	/**
+	 * Used to check if this team can damage members of the specified team
+	 * 
+	 * @param team the team to test
+	 * @return if players of this team can damage members of the other team
+	 */
+	public boolean canDamage(Team team) {
+		if (team.isAlly(getID()) || team == this) {
+
+			if (pvp && team.pvp) {
+				return true;
+			}
+
+			return false;
+		}
+		return true;
+	}
+
 	public boolean hasMaxAllies() {
 		int limit = Main.plugin.getConfig().getInt("allyLimit");
 		if (limit == -1) {

@@ -261,6 +261,9 @@ Bug Fixes:
 - Fixed problem /team create causing a cost to be invoked (#72)
 
 3.1.21: 
+Features: 
+- Added world guard flag 'teampvp' which can be used to toggle if players can pvp members of their own team (#77)
+
 Improvements: 
 - Team invites now expire after a configurable period (#81)
 
