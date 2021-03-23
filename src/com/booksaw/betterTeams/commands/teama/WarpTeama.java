@@ -45,7 +45,11 @@ public class WarpTeama extends SubCommand {
 		}
 
 		// the user is allowed to go to the warp
-		warp.execute((Player) sender);
+		try {
+			warp.execute((Player) sender);
+		} catch (Exception e) {
+			return new CommandResponse("warp.world");
+		}
 
 		return new CommandResponse(true);
 

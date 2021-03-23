@@ -47,7 +47,11 @@ public class WarpCommand extends TeamSubCommand {
 		}
 
 		// the user is allowed to go to the warp
-		warp.execute(player.getPlayer().getPlayer());
+		try {
+			warp.execute(player.getPlayer().getPlayer());
+		} catch (Exception e) {
+			return new CommandResponse("warp.world");
+		}
 
 		return new CommandResponse(true);
 	}

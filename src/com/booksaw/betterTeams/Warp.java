@@ -47,8 +47,12 @@ public class Warp {
 		}
 	}
 
-	public void execute(Player player) {
-		new PlayerTeleport(player, location, "warp.success");
+	public void execute(Player player) throws Exception {
+		try {
+			new PlayerTeleport(player, location, "warp.success");
+		} catch (Exception e) {
+			throw new NullPointerException();
+		}
 	}
 
 }

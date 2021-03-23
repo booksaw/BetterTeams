@@ -16,7 +16,11 @@ public class HomeCommand extends TeamSubCommand {
 	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 
 		if (team.getTeamHome() != null) {
-			new PlayerTeleport(player.getPlayer().getPlayer(), team.getTeamHome(), "home.success");
+			try {
+				new PlayerTeleport(player.getPlayer().getPlayer(), team.getTeamHome(), "home.success");
+			} catch (Exception e) {
+				return new CommandResponse("home.world");
+			}
 			return new CommandResponse(true);
 		}
 

@@ -26,7 +26,7 @@ public class PlayerTeleport {
 	 * @param reference the reference for the message that should be sent when the
 	 *                  player is teleported
 	 */
-	public PlayerTeleport(Player player, Location location, String reference) {
+	public PlayerTeleport(Player player, Location location, String reference) throws Exception {
 
 		this.player = player;
 		this.location = location;
@@ -51,7 +51,11 @@ public class PlayerTeleport {
 			@Override
 			public void run() {
 				if (canTp()) {
-					runTp();
+					try {
+						runTp();
+					} catch (Exception e) {
+						throw new NullPointerException();
+					}
 				} else {
 					cancel();
 				}
@@ -60,7 +64,10 @@ public class PlayerTeleport {
 
 	}
 
-	public void runTp() {
+	public void runTp() throws Exception {
+		if (location == null || location.getWorld() == null) {
+			throw new NullPointerException();
+		}
 		player.teleport(location);
 		MessageManager.sendMessage(player, reference);
 	}
