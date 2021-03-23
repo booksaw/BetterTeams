@@ -261,6 +261,8 @@ Bug Fixes:
 - Fixed problem /team create causing a cost to be invoked (#72)
 
 3.1.21: 
+Improvements: 
+- Team invites now expire after a configurable period (#81)
 
 Bug Fixes: 
 - Fixed a bug with causing team warps to break (#83)
@@ -268,6 +270,7 @@ Bug Fixes:
 - Fixed a bug causing console spam when betterteams is initally installed (#79)
 - Fixed a bug causing errors if a plyaer is not in a team with /teama score (#85) 
 - Lowered the chat priority to help support PremiumChat (#75) 
+- Fixed a problem with tags overwriting team colors (#81) 
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
