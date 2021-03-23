@@ -485,6 +485,8 @@ public class Main extends JavaPlugin {
 			messages.set("tag.success", "&6Your tag has succsessfully changed");
 			messages.set("admin.tag.success", "&6That teams tag successfully changed");
 			messages.set("tag.maxLength", "&4That tag is too long");
+		case 19: 
+			messages.set("setwarp.char", "&4That warp name includes banned characters");
 		case 1000:
 			// this will run only if a change has been made q
 			changes = true;

@@ -36,6 +36,12 @@ public class SetWarpCommand extends TeamSubCommand {
 			return new CommandResponse("setwarp.max");
 		}
 
+		for (char c : args[0].toCharArray()) {
+			if (!Character.isLetterOrDigit(c)) {
+				return new CommandResponse("setwarp.char");
+			}
+		}
+
 		team.addWarp(new Warp(args[0], player.getPlayer().getPlayer().getLocation(), password));
 
 		return new CommandResponse("setwarp.success");
