@@ -260,6 +260,13 @@ Bug Fixes:
 - Fixed /team kick (#69, #67)
 - Fixed problem /team create causing a cost to be invoked (#72)
 
+3.1.21: 
+
+Bug Fixes: 
+- Fixed a bug with causing team warps to break (#83)
+- Fixed bug causing team levelup to take money not score (#84)
+- Fixed a bug causing console spam when betterteams is initally installed (#79)
+
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
 Headings: 
