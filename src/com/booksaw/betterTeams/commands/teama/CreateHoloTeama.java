@@ -6,9 +6,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.HologramManager;
-import com.booksaw.betterTeams.HologramManager.HologramType;
 import com.booksaw.betterTeams.commands.SubCommand;
+import com.booksaw.betterTeams.integrations.HologramManager;
+import com.booksaw.betterTeams.integrations.HologramManager.HologramType;
 
 public class CreateHoloTeama extends SubCommand {
 

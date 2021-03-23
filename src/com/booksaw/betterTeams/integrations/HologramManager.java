@@ -1,4 +1,4 @@
-package com.booksaw.betterTeams;
+package com.booksaw.betterTeams.integrations;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,6 +9,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.scheduler.BukkitScheduler;
 
+import com.booksaw.betterTeams.Main;
+import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.message.MessageManager;
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
 import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
@@ -23,7 +25,7 @@ public class HologramManager {
 		holoManager = this;
 		holos = new HashMap<>();
 
-		List<String> stored = Main.plugin.teams.getStringList("holos");
+		List<String> stored = Main.plugin.getTeams().getStringList("holos");
 		for (String temp : stored) {
 			String[] split = temp.split(";");
 			if (split.length == 1) {
@@ -134,7 +136,7 @@ public class HologramManager {
 			holostr.add(getString(holo.getKey().getLocation()) + ";" + holo.getValue());
 			holo.getKey().delete();
 		}
-		Main.plugin.teams.set("holos", holostr);
+		Main.plugin.getTeams().set("holos", holostr);
 		Main.plugin.saveTeams();
 		holos = new HashMap<>();
 	}

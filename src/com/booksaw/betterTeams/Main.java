@@ -101,6 +101,8 @@ import com.booksaw.betterTeams.events.DamageManagement;
 import com.booksaw.betterTeams.events.InventoryManagement;
 import com.booksaw.betterTeams.events.MCTeamManagement;
 import com.booksaw.betterTeams.events.MCTeamManagement.BelowNameType;
+import com.booksaw.betterTeams.integrations.HologramManager;
+import com.booksaw.betterTeams.integrations.ZKothManager;
 import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.metrics.Metrics;
 import com.booksaw.betterTeams.score.ScoreManagement;

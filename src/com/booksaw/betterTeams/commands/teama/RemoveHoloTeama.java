@@ -6,9 +6,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.HologramManager;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.commands.SubCommand;
+import com.booksaw.betterTeams.integrations.HologramManager;
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
 import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
 
