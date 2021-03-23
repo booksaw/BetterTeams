@@ -759,6 +759,11 @@ public class Team {
 		if (tag == null || tag.length() == 0) {
 			return getDisplayName();
 		}
+
+		if (Main.plugin.getConfig().getBoolean("colorTeamName") && color != null) {
+			return color + tag;
+		}
+
 		return tag;
 	}
 
