@@ -1,6 +1,5 @@
 package com.booksaw.betterTeams.commands.presets;
 
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
 import com.booksaw.betterTeams.CommandResponse;
@@ -14,10 +13,7 @@ public abstract class ScoreSubCommand extends SubCommand {
 
 		Team team = Team.getTeam(args[0]);
 		if (team == null) {
-			team = Team.getTeam(Bukkit.getPlayer(args[0]));
-			if (team == null) {
-				return new CommandResponse("noTeam");
-			}
+			return new CommandResponse("noTeam");
 		}
 		// team is not null
 		// getting the score change
