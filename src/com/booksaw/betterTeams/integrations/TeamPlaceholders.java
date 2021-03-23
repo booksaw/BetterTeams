@@ -1,8 +1,9 @@
-package com.booksaw.betterTeams;
+package com.booksaw.betterTeams.integrations;
 
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
+import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.message.MessageManager;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;

@@ -102,6 +102,8 @@ import com.booksaw.betterTeams.events.InventoryManagement;
 import com.booksaw.betterTeams.events.MCTeamManagement;
 import com.booksaw.betterTeams.events.MCTeamManagement.BelowNameType;
 import com.booksaw.betterTeams.integrations.HologramManager;
+import com.booksaw.betterTeams.integrations.TeamPlaceholders;
+import com.booksaw.betterTeams.integrations.WorldGaurdManager;
 import com.booksaw.betterTeams.integrations.ZKothManager;
 import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.metrics.Metrics;
@@ -152,6 +154,11 @@ public class Main extends JavaPlugin {
 			placeholderAPI = true;
 			new TeamPlaceholders(this).register();
 
+		}
+		
+		if (Bukkit.getPluginManager().getPlugin("WorldGuard") != null
+				&& Bukkit.getPluginManager().getPlugin("WorldGuard").isEnabled()) {
+			new WorldGaurdManager(); 
 		}
 
 		useHolographicDisplays = (Bukkit.getPluginManager().getPlugin("HolographicDisplays") != null
