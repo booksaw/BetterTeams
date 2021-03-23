@@ -266,6 +266,8 @@ Bug Fixes:
 - Fixed a bug with causing team warps to break (#83)
 - Fixed bug causing team levelup to take money not score (#84)
 - Fixed a bug causing console spam when betterteams is initally installed (#79)
+- Fixed a bug causing errors if a plyaer is not in a team with /teama score (#85) 
+- Lowered the chat priority to help support PremiumChat (#75) 
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 

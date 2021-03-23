@@ -32,7 +32,7 @@ public class ChatManagement implements Listener {
 	 * 
 	 * @param event the chat event
 	 */
-	@EventHandler(priority = EventPriority.HIGHEST)
+	@EventHandler(priority = EventPriority.HIGH)
 	public void onChat(AsyncPlayerChatEvent event) {
 
 		if (event.isCancelled()) {
