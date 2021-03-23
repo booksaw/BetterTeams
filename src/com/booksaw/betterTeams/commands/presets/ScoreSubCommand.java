@@ -11,7 +11,13 @@ public abstract class ScoreSubCommand extends SubCommand {
 	@Override
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
 
-		Team team = Team.getTeam(args[0]);
+		Team team = null;
+		try {
+			team = Team.getTeam(args[0]);
+		} catch (NullPointerException e) {
+			return new CommandResponse("noTeam");
+		}
+
 		if (team == null) {
 			return new CommandResponse("noTeam");
 		}
