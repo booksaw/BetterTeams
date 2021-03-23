@@ -40,7 +40,7 @@ create.maxLength: '&4That team name is too long'
 # for /team create <name>
 leave.success: '&6You have left the team'
 leave.lastOwner: '&6You are the only owner rank within the team, Either promote someone else or use &b/team disband &6to disband
-   the team'
+command. the team'
 rank.noTeam: '&4Team not found'
 rank.info: '&6Team position:'
 rank.infos: '&6Team rank: &b%s &7(%s score needed for next rankup)'
@@ -320,3 +320,53 @@ help.delhome: Delete your team's home
 help.ally: Used to request an alliance with another team
 help.neutral: Remove allies and reject ally requests
 help.allychat: Send a message only to your allies
+
+command.create: create
+command.leave: leave
+command.disband: disband
+command.description: description
+command.invite: invite
+command.join: join
+command.name: name
+command.open: open
+command.info: info
+command.kick: kick
+command.promote: promote
+command.demote: demote
+command.home: home
+command.sethome: sethome
+command.ban: ban
+command.unban: unban
+command.chat: chat
+command.color: color
+command.title: title
+command.top: top
+command.baltop: baltop
+command.rank: rank
+command.delhome: delhome
+command.ally: ally
+command.neutral: neutral
+command.allychat: allychat
+command.list: list
+command.warp: warp
+command.setwarp: setwarp
+command.delwarp: delwarp
+command.warps: warps
+command.echest: echest
+command.rankup: rankup
+command.tag: tag
+command.pvp: pvp
+command.claim: claim
+command.remove: remove
+command.removeall: removeall
+command.chest: chest
+command.reload: reload
+command.chatspy: chatspy
+command.version: version
+command.purge: purge
+command.setrank: setrank
+command.add: add
+command.set: set
+command.score: score
+command.enableclaims: enableclaims
+command.disableclaims: disableclaims
