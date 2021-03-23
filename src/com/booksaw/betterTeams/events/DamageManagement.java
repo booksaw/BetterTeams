@@ -56,14 +56,15 @@ public class DamageManagement implements Listener {
 		}
 		try {
 			if (e.getDamager() instanceof Player) {
-				if (temp != null && !Team.getTeam((Player) e.getDamager()).canDamage(temp)) {
+				if (temp != null && !Team.getTeam((Player) e.getDamager()).canDamage(temp, (Player) e.getDamager())) {
 					// they are on the same team
 					e.setCancelled(true);
 				}
 			} else if (e.getDamager() instanceof Projectile && !(e.getDamager() instanceof ThrownPotion)) {
 				Projectile arrow = (Projectile) e.getDamager();
 				ProjectileSource source = arrow.getShooter();
-				if (source instanceof Player && temp != null && !Team.getTeam((Player) source).canDamage(temp)) {
+				if (source instanceof Player && temp != null
+						&& !Team.getTeam((Player) source).canDamage(temp, (Player) e.getDamager())) {
 					// they are on the same team
 					if (disableSelf && (Player) source == (Player) e.getEntity()) {
 						return;
@@ -73,7 +74,8 @@ public class DamageManagement implements Listener {
 			} else if (e.getDamager() instanceof ThrownPotion && disablePotions) {
 				ThrownPotion arrow = (ThrownPotion) e.getDamager();
 				ProjectileSource source = arrow.getShooter();
-				if (source instanceof Player && temp != null && !Team.getTeam((Player) source).canDamage(temp)) {
+				if (source instanceof Player && temp != null
+						&& !Team.getTeam((Player) source).canDamage(temp, (Player) e.getDamager())) {
 					// they are on the same team
 					e.setCancelled(true);
 				}
@@ -125,7 +127,7 @@ public class DamageManagement implements Listener {
 			Collection<LivingEntity> affectedEntities = e.getAffectedEntities();
 			for (LivingEntity entity : affectedEntities) {
 				try {
-					if (entity instanceof Player && Team.getTeam((Player) entity).canDamage(team)) {
+					if (entity instanceof Player && Team.getTeam((Player) entity).canDamage(team, thrower)) {
 						if (disableSelf && entity == thrower) {
 							continue;
 						}

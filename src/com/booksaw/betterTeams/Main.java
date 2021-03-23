@@ -127,7 +127,15 @@ public class Main extends JavaPlugin {
 	private DamageManagement damageManagement;
 	public MCTeamManagement teamManagement;
 	public ChatManagement chatManagement;
+	public WorldGaurdManager wgManagement;
 	Metrics metrics = null;
+
+	@Override
+	public void onLoad() {
+		if (Bukkit.getPluginManager().getPlugin("WorldGuard") != null) {
+			wgManagement = new WorldGaurdManager();
+		}
+	}
 
 	@Override
 	public void onEnable() {
@@ -154,11 +162,6 @@ public class Main extends JavaPlugin {
 			placeholderAPI = true;
 			new TeamPlaceholders(this).register();
 
-		}
-		
-		if (Bukkit.getPluginManager().getPlugin("WorldGuard") != null
-				&& Bukkit.getPluginManager().getPlugin("WorldGuard").isEnabled()) {
-			new WorldGaurdManager(); 
 		}
 
 		useHolographicDisplays = (Bukkit.getPluginManager().getPlugin("HolographicDisplays") != null

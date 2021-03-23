@@ -1595,12 +1595,12 @@ public class Team {
 	 * @param player the player to check for
 	 * @return if this team can damage that player
 	 */
-	public boolean canDamage(Player player) {
+	public boolean canDamage(Player player, Player source) {
 		Team team = Team.getTeam(player);
 		if (team == null) {
 			return true;
 		}
-		return canDamage(team);
+		return canDamage(team, source);
 	}
 
 	/**
@@ -1609,11 +1609,17 @@ public class Team {
 	 * @param team the team to test
 	 * @return if players of this team can damage members of the other team
 	 */
-	public boolean canDamage(Team team) {
+	public boolean canDamage(Team team, Player source) {
 		if (team.isAlly(getID()) || team == this) {
+
 			if (pvp && team.pvp) {
 				return true;
 			}
+
+			if (Main.plugin.wgManagement != null) {
+				return Main.plugin.wgManagement.canTeamPvp(source);
+			}
+
 			return false;
 		}
 		return true;
