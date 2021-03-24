@@ -338,4 +338,4 @@ command.enableclaims: enableclaims
 command.disableclaims: disableclaims
 
 # do not change this, it is used to check the messages version (test if there are any missing messages)
-version: 19
+version: 20
