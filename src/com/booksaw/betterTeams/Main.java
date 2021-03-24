@@ -103,6 +103,7 @@ import com.booksaw.betterTeams.events.MCTeamManagement;
 import com.booksaw.betterTeams.events.MCTeamManagement.BelowNameType;
 import com.booksaw.betterTeams.integrations.HologramManager;
 import com.booksaw.betterTeams.integrations.TeamPlaceholders;
+import com.booksaw.betterTeams.integrations.UltimateClaimsManager;
 import com.booksaw.betterTeams.integrations.WorldGaurdManager;
 import com.booksaw.betterTeams.integrations.ZKothManager;
 import com.booksaw.betterTeams.message.MessageManager;
@@ -161,7 +162,11 @@ public class Main extends JavaPlugin {
 				&& Bukkit.getPluginManager().getPlugin("PlaceholderAPI").isEnabled()) {
 			placeholderAPI = true;
 			new TeamPlaceholders(this).register();
+		}
 
+		if (Bukkit.getPluginManager().getPlugin("UltimateClaims") != null
+				&& Bukkit.getPluginManager().getPlugin("UltimateClaims").isEnabled()) {
+			new UltimateClaimsManager();
 		}
 
 		useHolographicDisplays = (Bukkit.getPluginManager().getPlugin("HolographicDisplays") != null
@@ -502,6 +507,8 @@ public class Main extends JavaPlugin {
 			messages.set("warp.world", "&4The location of that warp could not be found");
 			messages.set("home.world", "&4You team home could not be found");
 			messages.set("invite.expired", "&4The invite from &b%s has expired");
+			messages.set("admin.cancel", "&4The command was cancelled by another plugin");
+			messages.set("uclaim.team", "&4You must be in a team to create a claim");
 		case 1000:
 			// this will run only if a change has been made q
 			changes = true;
