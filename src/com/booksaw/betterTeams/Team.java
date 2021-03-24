@@ -25,6 +25,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
 
+import com.booksaw.betterTeams.customEvents.PlayerJoinTeamEvent;
+import com.booksaw.betterTeams.customEvents.PlayerLeaveTeamEvent;
 import com.booksaw.betterTeams.customEvents.PrePurgeEvent;
 import com.booksaw.betterTeams.events.ChestManagement;
 import com.booksaw.betterTeams.events.MCTeamManagement.BelowNameType;
@@ -915,15 +917,24 @@ public class Team {
 	 * 
 	 * @param p the player to remove from the team
 	 */
-	public void removePlayer(OfflinePlayer p) {
+	public boolean removePlayer(OfflinePlayer p) {
+
+		TeamPlayer teamPlayer = getTeamPlayer(p);
+
+		PlayerLeaveTeamEvent event = new PlayerLeaveTeamEvent(this, teamPlayer);
+		Bukkit.getPluginManager().callEvent(event);
+		if (event.isCancelled()) {
+			return false;
+		}
 
 		if (Main.plugin.teamManagement != null && p.isOnline()) {
 			Main.plugin.teamManagement.remove(p.getPlayer());
 		}
 
-		members.remove(getTeamPlayer(p));
+		members.remove(teamPlayer);
 		savePlayers(Main.plugin.getTeams());
 		Main.plugin.saveTeams();
+		return true;
 	}
 
 	/**
@@ -1066,8 +1077,17 @@ public class Team {
 	 * This is used when a player is joining the team
 	 * 
 	 * @param p the player who is joining the team
+	 * @return true if the player joined the team, else false
 	 */
-	public void join(Player p) {
+	public boolean join(Player p) {
+
+		// calling the event
+		TeamPlayer teamPlayer = new TeamPlayer(p, PlayerRank.DEFAULT);
+		PlayerJoinTeamEvent event = new PlayerJoinTeamEvent(this, teamPlayer);
+		Bukkit.getPluginManager().callEvent(event);
+		if (event.isCancelled()) {
+			return false;
+		}
 
 		invitedPlayers.remove(p.getUniqueId());
 
@@ -1078,13 +1098,14 @@ public class Team {
 			}
 		}
 
-		members.add(new TeamPlayer(p, PlayerRank.DEFAULT));
+		members.add(teamPlayer);
 		savePlayers(Main.plugin.getTeams());
 		Main.plugin.saveTeams();
 
 		if (Main.plugin.teamManagement != null) {
 			Main.plugin.teamManagement.displayBelowName(p);
 		}
+		return true;
 
 	}
 

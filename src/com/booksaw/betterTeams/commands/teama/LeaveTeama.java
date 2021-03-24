@@ -16,19 +16,21 @@ public class LeaveTeama extends SubCommand {
 	@Override
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
 
-		Player p = Bukkit.getPlayer(args[0]); 
-		if(p == null) {
+		Player p = Bukkit.getPlayer(args[0]);
+		if (p == null) {
 			return new CommandResponse("noPlayer");
 		}
-		
-		Team team = Team.getTeam(p); 
-		if(team == null) {
+
+		Team team = Team.getTeam(p);
+		if (team == null) {
 			return new CommandResponse("admin.inTeam");
 		}
 
-		team.removePlayer(p);
-		MessageManager.sendMessage(p, "admin.leave.notify");
-		return new CommandResponse(true, "admin.leave.success");
+		if (team.removePlayer(p)) {
+			MessageManager.sendMessage(p, "admin.leave.notify");
+			return new CommandResponse(true, "admin.leave.success");
+		}
+		return new CommandResponse("admin.cancel");
 	}
 
 	@Override

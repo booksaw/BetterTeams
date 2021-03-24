@@ -25,9 +25,11 @@ public class LeaveCommand extends TeamSubCommand {
 			return new CommandResponse("leave.lastOwner");
 		}
 
-		team.removePlayer(teamPlayer.getPlayer());
-
-		return new CommandResponse(true, "leave.success");
+		if (team.removePlayer(teamPlayer.getPlayer())) {
+			return new CommandResponse(true, "leave.success");
+		}
+		// event has been cancelled
+		return new CommandResponse(false);
 	}
 
 	@Override

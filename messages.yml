@@ -1,5 +1,4 @@
 # Any placeholders from placeholder API will work in this file
-# general errors
 invalidArg: '&4Invalid Arguments, help'
 inTeam: '&4You must be in a team to do that'
 notInTeam: '&4You must leave your team before doing that'
@@ -13,73 +12,57 @@ noPerm: '&4You do not have permission to do that'
 prefixSyntax: '&b[%s] &r%s'
 bannedChar: '&4A character you tried to use is banned"'
 noTeam: '&4That team does not exist'
-# do not change this, it is used to check the messages version (test if there are any missing messages)
-version: 19
 cooldown.wait: '&4You need to wait another %s seconds before running that!'
 cost.tooPoor: '&4You are too poor to run that command'
 cost.run: '&4&l-%s'
 placeholder.noTeam: ''
 placeholder.noDescription: ''
 placeholder.money: '%s'
-# for placeholders
-# This is the placeholder for when the user has no team
 placeholder.owner: Owner
-# if the team has not specified a description
 placeholder.admin: Admin
-# for %betterTeams_rank%
 placeholder.default: Default
 placeholder.name: '%s '
 prefix.owner: ' **'
 prefix.admin: ' *'
 prefix.default: ' '
-# Used prefixing team chat messages, for no prefix, leave blank
 create.exists: '&6That team already exists'
 create.success: '&6Your team has been created'
 create.banned: '&4That team name is banned'
 create.maxLength: '&4That team name is too long'
-# for /team create <name>
 leave.success: '&6You have left the team'
 leave.lastOwner: '&6You are the only owner rank within the team, Either promote someone else or use &b/team disband &6to disband command. the team'
 rank.noTeam: '&4Team not found'
 rank.info: '&6Team position:'
 rank.infos: '&6Team rank: &b%s &7(%s score needed for next rankup)'
 rank.infom: '&6Team rank: &b%s &7($%s needed for next rankup)'
-# for /team leave
 rank.syntax: '&b%s: &6%s &7(%s)'
 delhome.success: '&6Your team home has been deleted'
 delhome.noHome: '&4Your team has not set a home'
-# for /team rank
 disband.success: '&6You have disbanded the team'
 disband.confirm: '&6Type &b/team disband &6again to confirm'
 description.success: '&6You have changed the team description'
 description.view: '&6Team Description: %s'
-# for /team delhome
 description.noDesc: '&6No team description set'
 name.success: '&6You have changed the team name'
 name.view: '&6Team name: %s'
-# for /team disband
 name.exists: '&4That team already exists'
 invite.success: '&6That player has been invited'
 invite.invite: '&6You have been invited to join team %s do &b/team join <team> &6 to join the team'
-# for /team description
 invite.inTeam: '&6That player is already in a team'
 invite.banned: '&6That player is banned from your team'
 invite.full: '&6Your team is maximum size, kick someone out before inviting more people'
 invite.expired: '&4The invite from &b%s has expired'
 join.success: '&6You have joined that team'
-# for /team name
 join.notify: '&6Welcome &b%s &6to the team!'
 join.notInvited: '&6&4You have not been invited to that team'
 join.banned: '&6&4You are banned from that team'
 join.full: '&4That team is full'
-# for /team invite [player]
 open.successopen: '&6Your team now open to everyone'
 open.successclose: '&6Your team is now invite only'
 title.change: '&6Your title has been changed to &b%s'
 title.success: '&6That title has been changed'
 title.tooLong: '&4That title is too long'
 title.noFormat: '&4You do not have permission to format titles'
-# for /team join <team>
 title.noColor: '&4You do not have permission to color titles'
 title.reset: '&6Your title has been reset'
 info.needTeam: '&6No team or player found under that name'
@@ -87,12 +70,10 @@ info.name: '&6Name: &b%s'
 info.description: '&6Description: &b%s'
 info.open: '&6Open: &b%s'
 info.level: '&6Level: &b%s'
-# for /team open
 info.owner: '&6Owners: &b%s'
 info.admin: '&6Admins: &b%s'
 info.default: '&6Members: &b%s'
 info.tag: '&6Tag: &b%s'
-# for /team title <player/me> <title>
 info.fail: '&6No team or player found under that name'
 info.score: '&6Score: &b%s'
 info.money: '&6Balance: &b%s'
@@ -100,7 +81,6 @@ info.ally: '&6Allies: &b%s'
 kick.success: '&6That player has been kicked'
 kick.notify: '&6You have been kicked from team %s'
 kick.noPerm: '&6You do not have permission to kick that person'
-# for /team info [team / player]
 ban.success: '&6That player has been banned'
 ban.notify: '&6You have been banned from team %s'
 ban.noPerm: '&6You do not have permission to ban that person'
@@ -113,66 +93,54 @@ promote.success: '&6That player has been promoted'
 promote.noPerm: '&6You do not have permissions to promote that person'
 promote.max: '&6That person is already promoted to the max!'
 promote.notify: '&6You have been promoted!'
-# for /team kick <player>
 demote.success: '&6That player has been demoted'
 demote.noPerm: '&6You do not have permissions to demote that person'
 demote.min: '&6That person is already the lowest rank'
 demote.notify: '&6You have been demoted'
-# for /team ban <player>
 demote.lastOwner: '&6You cannot demote the final owner, promote someone else first'
 home.success: '&6You have been teleported'
 home.noHome: '&6Your team has not set a home'
 home.world: '&4You team home could not be found'
 sethome.success: '&6Your team home has been set'
 sethome.noPerm: '&6Your are not a high enough rank to set your team home'
-# for /team unban <player>
 chat.enabled: '&6Your messages now go to the team chat'
 chat.disabled: '&6Your messages now go to the global chat'
 color.success: '&6Your team color has been changed'
 color.fail: '&6That is not a recognised chat color'
 color.banned: '&4You can only use colors, not formatting codes'
-# for /team promote <player>
 deposit.tooLittle: '&4You cannot deposit negative amounts'
 deposit.fail: '&4The deposit failed'
 deposit.success: '&6Money deposited'
 withdraw.tooLittle: '&4You cannot widthraw negative amounts'
 withdraw.fail: '&4The withdrawal failed'
-# for /team demote <player>
 withdraw.success: '&6Money withdrawn'
 withdraw.notEnough: '&6Your team does not have enougn money'
 ally.already: '&4You are already allies'
 ally.success: '&6Your teams are now allies'
 ally.ally: '&6Your team is now allied with &b%s'
 ally.requested: '&6An ally request has been sent to that team'
-# for /team home
 ally.request: '&b%s &6has sent an ally request, use &b/team ally <team> &6to accept'
 ally.self: '&4You cannot ally your own team'
 ally.from: '&6You have ally requests from: %s'
-# for /team sethome
 ally.noRequests: '&4You do not have any ally requests'
 ally.onJoin: '&6You have new ally requests do &b/team ally &6to view them'
 ally.limit: '&4The limit on allies has been reached'
-# for /team chat [message]
 allychat.disabled: '&6Your messages are no longer going to the ally chat'
 allychat.enabled: '&6Your messages are now going to the ally chat'
 allychat.syntax: '&d[%s]&f%s: %s'
-# for /team color <color>
 neutral.self: '&6That is your own team'
 neutral.requestremove: '&6That ally request has been removed'
 neutral.reject: '&4Your ally request with &b%s &4has been rejected'
 neutral.notAlly: '&4You are not allied with that team'
-# for /team deposit <amount>
 neutral.success: '&4You are no longer allied with that team'
 neutral.remove: '&4You are no longer allied with &b%s'
 list.noPage: '&6That page is not found'
 list.header: '&7--- &bTeam list page %s &7---'
-# for /team withdraw <amount>
 list.body: '&6%s: &b%s'
 list.footer: '&7--- &6do &b/team list [page] &6to view more &7---'
 setowner.use: '&6You cannot promote that player, use &b/team setowner <player> &6to promote that player to owner'
 setowner.success: '&6That player is now owner'
 setowner.notify: '&6You are now owner of your team'
-# for /team ally
 setowner.max: '&4That player is already owner'
 setwarp.exist: '&4That warp already exists'
 setwarp.max: '&4Your team already has the maximum number of warps set'
@@ -186,12 +154,10 @@ warps.none: '&4Your team has no warps set'
 warp.world: '&4The location of that warp could not be found'
 delwarp.success: '&4That warp has been deleted'
 chat.syntax: '&6&b[Team]&f%s: %s'
-# for /team allychat
 teleport.fail: '&4The teleportation failed'
 teleport.wait: '&6Wait &b%s &6seconds'
 chest.claim.noChest: '&4You are not standing on a chest'
 chest.claim.limit: '&4Your team has claimed the maximum number of chests'
-# for /team neutral
 chest.claim.claimed: '&4That chest has already been claimed'
 chest.claim.success: '&6You have claimed that chest'
 chest.remove.noChest: '&4You are not standing on a chest'
@@ -213,24 +179,21 @@ rankup.success: '&6Your team has leveled up'
 tag.banned: '&4That tag is banned'
 tag.success: '&6Your tag has successfully changed'
 tag.maxLength: '&4That tag is too long'
+admin.cancel: '&4The command was cancelled by another plugin'
 admin.tag.success: '&6That teams tag successfully changed'
-
 admin.setrank.success: '&6That teams rank has been set'
 admin.setrank.no: '&4That rank either does not exist or is not setup correctly'
 
-# for /team list
 admin.config.reload: '&6BetterTeams has been reloaded (If you are having problems when using this command, restart the server)'
 admin.holo.create.success: '&6Hologram created'
 admin.holo.remove.noHolo: '&4No holograms found'
 admin.holo.remove.success: '&6Hologram deleted'
 admin.title.success: '&6that players title has been changed'
-# for /team setowner
 admin.title.reset: '&6That players title has been reset'
 admin.version: '&6Current plugin version: %s'
 admin.noTeam: '&4That is not a team'
 admin.home.success: '&6You have been teleported to that teams home'
 admin.home.noHome: '&4That team does not have a home set'
-# for /team setwarp
 admin.name.success: '&6The team name has been changed'
 admin.description.success: '&6That teams name has been changed'
 admin.open.successopen: '&6That team is now open for everyone'
@@ -239,13 +202,11 @@ admin.invite.success: '&6That player has been invited to that team'
 admin.create.success: '&6That team has been created'
 admin.join.banned: '&4That player is banned from that team'
 admin.join.success: '&6That player has joined the team'
-# for /team warps
 admin.join.notify: '&6You have joined the team &b%s'
 admin.join.full: '&4That team is full'
 admin.notInTeam: '&6That player cannot be in a team before doing that'
 admin.inTeam: '&4That player is not in a team'
 admin.leave.success: '&6That player has left that team'
-# for chat formatting
 admin.leave.notify: '&6You have left that team'
 admin.demote.notify: '&6You have been demoted'
 admin.demote.success: '&6That player has been demoted'
@@ -260,7 +221,6 @@ admin.setowner.success: '&6That player is the new team owner'
 admin.setowner.notify: '&6You are now the owner of your team'
 admin.warps.none: '&4That team has not set any warps'
 admin.setwarp.success: '&6That warp has been set'
-# for admin messages
 admin.setwarp.max: '&6That team has already set the maximum number of warps'
 admin.purge.confirm: '&6Run that command in the next 10 seconds to confirm, &4THIS CANNOT BE UNDONE AND WILL RESET SCORES FOR ALL TEAMS'
 admin.purge.success: '&6The teams have been purged'
@@ -294,6 +254,9 @@ spy.stop: '&6You are no longer spying on team messages'
 spy.start: '&6You are now spying on team messages'
 spy.team: '&7[&b%s&7]&f%s&f: %s'
 spy.ally: '&7[&d%s&7]&f%s&f: %s'
+
+uclaim.team: '&4You must be in a team to create a claim'
+
 help.description: View and change your team's description
 help.ban: Bans the specified player from your team
 help.home: Teleports you to your team's home
@@ -373,3 +336,6 @@ command.set: set
 command.score: score
 command.enableclaims: enableclaims
 command.disableclaims: disableclaims
+
+# do not change this, it is used to check the messages version (test if there are any missing messages)
+version: 19

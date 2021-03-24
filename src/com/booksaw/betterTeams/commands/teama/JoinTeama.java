@@ -42,10 +42,12 @@ public class JoinTeama extends SubCommand {
 			return new CommandResponse("admin.join.full");
 		}
 
-		team.join(p);
-		MessageManager.sendMessageF(p, "admin.join.notify", team.getDisplayName());
+		if (team.join(p)) {
+			MessageManager.sendMessageF(p, "admin.join.notify", team.getDisplayName());
 
-		return new CommandResponse(true, "admin.join.success");
+			return new CommandResponse(true, "admin.join.success");
+		}
+		return new CommandResponse("admin.cancel");
 	}
 
 	@Override
