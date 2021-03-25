@@ -275,6 +275,10 @@ Bug Fixes:
 - Lowered the chat priority to help support PremiumChat (#75) 
 - Fixed a problem with tags overwriting team colors (#81) 
 
+3.1.22:
+Bug Fixes: 
+- Fixed problem with bows included in 2.1.21 (#87)
+
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
 Headings: 
