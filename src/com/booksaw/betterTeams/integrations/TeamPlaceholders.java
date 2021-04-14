@@ -61,7 +61,7 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 				return MessageManager.getMessage("placeholder.noTeam");
 			}
 
-			return String.format(MessageManager.getMessage(player, "placeholder.name"), team.getName());
+			return String.format(MessageManager.getMessage(player, "placeholder.name").trim(), team.getName());
 
 		} else if (identifier.equals("description")) {
 
@@ -92,7 +92,7 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 				return MessageManager.getMessage("placeholder.noTeam");
 			}
 
-			return String.format(MessageManager.getMessage(player, "placeholder.money"), team.getBalance() + "");
+			return String.format(MessageManager.getMessage(player, "placeholder.money").trim(), team.getBalance() + "");
 		} else if (identifier.equals("score")) {
 
 			Team team = Team.getTeam(player);

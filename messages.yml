@@ -21,7 +21,7 @@ placeholder.money: '%s'
 placeholder.owner: Owner
 placeholder.admin: Admin
 placeholder.default: Default
-placeholder.name: '%s '
+placeholder.name: '%s'
 prefix.owner: ' **'
 prefix.admin: ' *'
 prefix.default: ' '
