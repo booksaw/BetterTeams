@@ -279,6 +279,10 @@ Bug Fixes:
 Bug Fixes: 
 - Fixed problem with bows included in 2.1.21 (#87)
 
+3.1.23: 
+Bug Fixes:
+- Fixed problem causing a space to occur at the end of the money and name placeholder (#94)
+
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
 Headings: 
