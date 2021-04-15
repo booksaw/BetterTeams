@@ -178,7 +178,7 @@ public class Team {
 	}
 
 	/**
-	 * This method is used to sort all the teams into an arry ranking from hightest
+	 * This method is used to sort all the teams into an array ranking from highest
 	 * score to lowest
 	 * 
 	 * @return the array of teams in order of their rank
