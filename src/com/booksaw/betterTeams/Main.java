@@ -502,6 +502,9 @@ public class Main extends JavaPlugin {
 			messages.set("warp.world", "&4The location of that warp could not be found");
 			messages.set("home.world", "&4You team home could not be found");
 			messages.set("invite.expired", "&4The invite from &b%s has expired");
+		case 20:
+			messages.set("placeholder.tag", "%s");
+			messages.set("placeholder.displayname", "%s");
 		case 1000:
 			// this will run only if a change has been made q
 			changes = true;

@@ -22,6 +22,8 @@ placeholder.owner: Owner
 placeholder.admin: Admin
 placeholder.default: Default
 placeholder.name: '%s'
+placeholder.tag: '%s'
+placeholder.displayname: '%s'
 prefix.owner: ' **'
 prefix.admin: ' *'
 prefix.default: ' '

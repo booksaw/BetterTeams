@@ -280,6 +280,10 @@ Bug Fixes:
 - Fixed problem with bows included in 2.1.21 (#87)
 
 3.1.23: 
+Improvements: 
+- Added two new placeholders
+	- %betterteams_tag% - For the team tag 
+	- %betterteams_displayname% - For the display name of the team
 Bug Fixes:
 - Fixed problem causing a space to occur at the end of the money and name placeholder (#94)
 - Fixed ClassCastException with pots (#98)
