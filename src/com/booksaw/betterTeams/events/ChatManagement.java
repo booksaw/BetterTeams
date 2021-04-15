@@ -3,7 +3,6 @@ package com.booksaw.betterTeams.events;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,11 +18,11 @@ import com.booksaw.betterTeams.message.MessageManager;
 
 public class ChatManagement implements Listener {
 
-	private static boolean doPrefix;
+	private static PrefixType doPrefix;
 	public List<CommandSender> spy = new ArrayList<>();
 
 	public static void enable() {
-		doPrefix = Main.plugin.getConfig().getBoolean("prefix");
+		doPrefix = PrefixType.getType(Main.plugin.getConfig().getString("prefix"));
 	}
 
 	/**
@@ -71,15 +70,8 @@ public class ChatManagement implements Listener {
 			return;
 		}
 
-		if (doPrefix) {
-			String syntax = MessageManager.getMessage(p, "prefixSyntax");
-			ChatColor returnTo = ChatColor.RESET;
-			int value = syntax.indexOf("§");
-			if (value != -1 && syntax.charAt(value) == '§') {
-				returnTo = ChatColor.getByChar(syntax.charAt(value + 1));
-			}
-
-			event.setFormat(String.format(syntax, team.getDisplayName(returnTo), event.getFormat()));
+		if (doPrefix != PrefixType.NONE) {
+			event.setFormat(doPrefix.getUpdatedFormat(p, event.getFormat(), team));
 //				event.setFormat(ChatColor.AQUA + "[" + team.getName() + "] " + ChatColor.WHITE + event.getFormat());
 		}
 
@@ -92,6 +84,37 @@ public class ChatManagement implements Listener {
 		if (spy.contains(e.getPlayer())) {
 			spy.remove(e.getPlayer());
 		}
+	}
+
+	enum PrefixType {
+		NONE, NAME, TAG;
+
+		public String getUpdatedFormat(Player p, String format, Team team) {
+			switch (this) {
+			case NAME:
+				String syntax = MessageManager.getMessage(p, "prefixSyntax");
+				return String.format(syntax, team.getDisplayName(), format);
+			case TAG:
+				syntax = MessageManager.getMessage(p, "prefixSyntax");
+				return String.format(syntax, team.getColor() + team.getTag(), format);
+			default:
+				return format;
+			}
+		}
+
+		public static PrefixType getType(String str) {
+			str = str.toLowerCase().trim();
+			switch (str) {
+			case "name":
+			case "true":
+				return NAME;
+			case "tag":
+				return TAG;
+			default:
+				return NONE;
+			}
+		}
+
 	}
 
 }
