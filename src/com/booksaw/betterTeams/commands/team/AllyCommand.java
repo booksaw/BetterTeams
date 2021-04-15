@@ -52,7 +52,7 @@ public class AllyCommand extends TeamSubCommand {
 
 		// checking limit
 		if (team.hasMaxAllies() || toAlly.hasMaxAllies()) {
-			new CommandResponse("ally.limit");
+			return new CommandResponse("ally.limit");
 		}
 
 		// checking if an ally request has been sent
