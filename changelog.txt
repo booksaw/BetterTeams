@@ -283,6 +283,7 @@ Bug Fixes:
 Bug Fixes:
 - Fixed problem causing a space to occur at the end of the money and name placeholder (#94)
 - Fixed ClassCastException with pots (#98)
+- Fixed bug causing invite links to not expire correctly (#93)
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
