@@ -1065,8 +1065,12 @@ public class Team {
 
 			@Override
 			public void run() {
-				invitedPlayers.remove(uniqueId);
 				Player p = Bukkit.getPlayer(uniqueId);
+				if (getTeamPlayer(p) != null) {
+					return;
+				}
+				invitedPlayers.remove(uniqueId);
+
 				MessageManager.sendMessageF(p, "invite.expired", getName());
 			}
 		}.runTaskLaterAsynchronously(Main.plugin, invite * 20L);
