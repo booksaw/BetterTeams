@@ -187,7 +187,6 @@ noMove: false
 
 # this is used if noMove is set to true. this is the distance the player can travel while not being classed as moving
 # - If this is set to 0 the player cannot move 
-# - If this is set to a netagive number, the plugin will break
 #
 # Possible values: [Any whole positive number]
 maxMove: 0
