@@ -601,6 +601,8 @@ public class Main extends JavaPlugin {
 			getConfig().set("maxTagLength", 12);
 		case 15:
 			getConfig().set("invite", 120);
+		case 16:
+			getConfig().set("maxMove", 0);
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;

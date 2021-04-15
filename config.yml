@@ -185,6 +185,13 @@ tpDelay: 0
 # Possible values: [true, false]
 noMove: false
 
+# this is used if noMove is set to true. this is the distance the player can travel while not being classed as moving
+# - If this is set to 0 the player cannot move 
+# - If this is set to a netagive number, the plugin will break
+#
+# Possible values: [Any whole positive number]
+maxMove: 0
+
 # If this is enabled, a slightly different set of commands will be avaliable allowing a team to only have a single owner
 # - If this is false, a team can have as many owners as wanted, members are promoted to owners with the command /team promote
 # - If this is true a team can only have a single owner, which is set by doing /team setowner

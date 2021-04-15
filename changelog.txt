@@ -283,7 +283,10 @@ Bug Fixes:
 Improvements: 
 - Added two new placeholders
 	- %betterteams_tag% - For the team tag 
-	- %betterteams_displayname% - For the display name of the team
+	- %betterteams_displayname% - For the display name of the team (#99)
+- Added the option to prefix chat with team tag (#99)
+- Added a maxMove option to the config for teleport warmup (#97)
+
 Bug Fixes:
 - Fixed problem causing a space to occur at the end of the money and name placeholder (#94)
 - Fixed ClassCastException with pots (#98)
