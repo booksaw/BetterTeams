@@ -281,8 +281,8 @@ Bug Fixes:
 
 3.1.23: 
 Features: 
-Individual commands can be toggled in a yaml file instead of through permissions (#92)
-The required rank within a team can be changed for each individual command (#92)
+- Individual commands can be toggled in a yaml file instead of through permissions (#92)
+- The required rank within a team can be changed for each individual command (#92)
 
 Improvements: 
 - Added two new placeholders
@@ -290,6 +290,7 @@ Improvements:
 	- %betterteams_displayname% - For the display name of the team (#99)
 - Added the option to prefix chat with team tag (#99)
 - Added a maxMove option to the config for teleport warmup (#97)
+- Added language tracking to bstats (#106)
 
 Bug Fixes:
 - Fixed problem causing a space to occur at the end of the money and name placeholder (#94)

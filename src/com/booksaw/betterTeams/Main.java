@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map.Entry;
+import java.util.concurrent.Callable;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
@@ -140,13 +141,9 @@ public class Main extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
-
-		if (metrics == null) {
-			int pluginId = 7855;
-			metrics = new Metrics(this, pluginId);
-		}
-
 		saveDefaultConfig();
+		setupMetrics();
+
 		plugin = this;
 
 		MessageManager.lang = getConfig().getString("language");
@@ -819,5 +816,20 @@ public class Main extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new ChestManagement(), this);
 		getServer().getPluginManager().registerEvents(new InventoryManagement(), this);
 
+	}
+
+	public void setupMetrics() {
+		if (metrics == null) {
+			int pluginId = 7855;
+			metrics = new Metrics(this, pluginId);
+			metrics.addCustomChart(new Metrics.SimplePie("language", new Callable<String>() {
+
+				@Override
+				public String call() throws Exception {
+					return getConfig().getString("language");
+				}
+			}));
+
+		}
 	}
 }
