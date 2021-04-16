@@ -44,22 +44,20 @@ public class DemoteCommand extends TeamSubCommand {
 
 		TeamPlayer demotePlayer = team.getTeamPlayer(player);
 
-		if (teamPlayer.getRank() != PlayerRank.OWNER) {
-			return new CommandResponse("demote.noPerm");
-		} else if (demotePlayer.getRank() == PlayerRank.DEFAULT) {
+		if (demotePlayer.getRank() == PlayerRank.DEFAULT) {
 			return new CommandResponse("demote.min");
+		}
 
-		} else if (demotePlayer.getPlayer().getUniqueId().compareTo(teamPlayer.getPlayer().getUniqueId()) == 0) {
-			// trying to demote self
-			// checking there is another owner
-			if (teamPlayer.getRank() == PlayerRank.OWNER && team.getRank(PlayerRank.OWNER).size() == 1) {
-				return new CommandResponse("demote.lastOwner");
-			}
-			// all is good, continue to demotion
-		} else if (demotePlayer.getRank() == PlayerRank.OWNER) {
+		// checking there is another owner
+		if (teamPlayer.getRank() == PlayerRank.OWNER && team.getRank(PlayerRank.OWNER).size() == 1) {
+			return new CommandResponse("demote.lastOwner");
+		}
+		// all is good, continue to demotion
+		if (demotePlayer.getRank().value >= teamPlayer.getRank().value
+				&& !demotePlayer.getPlayer().getUniqueId().equals(teamPlayer.getPlayer().getUniqueId())) {
 			// the other person is also an owner, players cannot demote other owners
 			return new CommandResponse("demote.noPerm");
-		} 
+		}
 
 		team.demotePlayer(demotePlayer);
 		MessageManager.sendMessage((CommandSender) demotePlayer.getPlayer(), "demote.notify");
@@ -101,5 +99,10 @@ public class DemoteCommand extends TeamSubCommand {
 	@Override
 	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
 		addPlayerStringList(options, (args.length == 0) ? "" : args[0]);
+	}
+
+	@Override
+	public PlayerRank getDefaultRank() {
+		return PlayerRank.OWNER;
 	}
 }

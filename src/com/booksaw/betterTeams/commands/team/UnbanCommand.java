@@ -35,12 +35,9 @@ public class UnbanCommand extends TeamSubCommand {
 			return new CommandResponse("unban.not");
 		}
 
-		if (teamPlayer.getRank() != PlayerRank.DEFAULT) {
-			team.unbanPlayer(player);
-			MessageManager.sendMessageF((CommandSender) player, "unban.notify", team.getName());
-			return new CommandResponse(true, "unban.success");
-		}
-		return new CommandResponse("unban.noPerm");
+		team.unbanPlayer(player);
+		MessageManager.sendMessageF((CommandSender) player, "unban.notify", team.getName());
+		return new CommandResponse(true, "unban.success");
 	}
 
 	@Override
@@ -76,6 +73,11 @@ public class UnbanCommand extends TeamSubCommand {
 	@Override
 	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
 		addPlayerStringList(options, (args.length == 0) ? "" : args[0]);
+	}
+
+	@Override
+	public PlayerRank getDefaultRank() {
+		return PlayerRank.ADMIN;
 	}
 
 }

@@ -19,10 +19,6 @@ public class InviteCommand extends TeamSubCommand {
 	@Override
 	public CommandResponse onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
 
-		if (teamPlayer.getRank() == PlayerRank.DEFAULT) {
-			return new CommandResponse("needAdmin");
-		}
-
 		Player toInvite = Bukkit.getPlayer(args[0]);
 
 		if (toInvite == null) {
@@ -82,6 +78,11 @@ public class InviteCommand extends TeamSubCommand {
 	@Override
 	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
 		addPlayerStringList(options, (args.length == 0) ? "" : args[0]);
+	}
+
+	@Override
+	public PlayerRank getDefaultRank() {
+		return PlayerRank.ADMIN;
 	}
 
 }

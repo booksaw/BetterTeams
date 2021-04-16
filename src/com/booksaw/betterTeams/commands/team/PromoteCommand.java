@@ -45,11 +45,13 @@ public class PromoteCommand extends TeamSubCommand {
 
 		TeamPlayer promotePlayer = team.getTeamPlayer(player);
 
-		if (teamPlayer.getRank() != PlayerRank.OWNER) {
-			return new CommandResponse("promote.noPerm");
-		} else if (promotePlayer.getRank() == PlayerRank.OWNER) {
+		if (promotePlayer.getRank() == PlayerRank.OWNER) {
 			return new CommandResponse("promote.max");
 
+		}
+
+		if (promotePlayer.getRank() == PlayerRank.ADMIN && teamPlayer.getRank() != PlayerRank.OWNER) {
+			return new CommandResponse("promote.noPerm");
 		}
 
 		if (promotePlayer.getRank() == PlayerRank.ADMIN && Main.plugin.getConfig().getBoolean("singleOwner")) {
@@ -98,6 +100,11 @@ public class PromoteCommand extends TeamSubCommand {
 	@Override
 	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
 		addPlayerStringList(options, (args.length == 0) ? "" : args[0]);
+	}
+
+	@Override
+	public PlayerRank getDefaultRank() {
+		return PlayerRank.OWNER;
 	}
 
 }

@@ -4,6 +4,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.SubCommand;
@@ -17,6 +18,9 @@ import com.booksaw.betterTeams.commands.SubCommand;
  */
 public abstract class TeamSubCommand extends SubCommand {
 
+	PlayerRank requiredRank = getDefaultRank();
+	protected boolean checkRank = true;
+
 	@Override
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
 		Player player = (Player) sender;
@@ -26,6 +30,14 @@ public abstract class TeamSubCommand extends SubCommand {
 			return new CommandResponse("inTeam");
 		}
 		TeamPlayer teamPlayer = team.getTeamPlayer(player);
+
+		if (checkRank) {
+			CommandResponse response = checkRank(teamPlayer);
+			if (response != null) {
+				return response;
+			}
+		}
+
 		return onCommand(teamPlayer, label, args, team);
 	}
 
@@ -44,4 +56,37 @@ public abstract class TeamSubCommand extends SubCommand {
 	public boolean needPlayer() {
 		return true;
 	}
+
+	/**
+	 * @return the rank that the player has to be by default for this command
+	 */
+	public abstract PlayerRank getDefaultRank();
+
+	public PlayerRank getRequiredRank() {
+		return requiredRank;
+	}
+
+	public void setRequiredRank(PlayerRank requiredRank) {
+		this.requiredRank = requiredRank;
+	}
+
+	protected CommandResponse checkRank(TeamPlayer player) {
+		return checkRank(player, requiredRank);
+	}
+
+	protected CommandResponse checkRank(TeamPlayer player, PlayerRank rank) {
+
+		if (player.getRank() != PlayerRank.OWNER && requiredRank != PlayerRank.DEFAULT) {
+			if (requiredRank == PlayerRank.OWNER) {
+				return new CommandResponse("needOwner");
+			}
+
+			if (player.getRank() != PlayerRank.ADMIN) {
+				return new CommandResponse("needAdmin");
+			}
+		}
+
+		return null;
+	}
+
 }

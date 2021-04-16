@@ -37,9 +37,7 @@ public class SetOwnerCommand extends TeamSubCommand {
 
 		TeamPlayer promotePlayer = team.getTeamPlayer(player);
 
-		if (teamPlayer.getRank() != PlayerRank.OWNER) {
-			return new CommandResponse("needOwner");
-		} else if (promotePlayer.getRank() == PlayerRank.OWNER) {
+		if (promotePlayer.getRank() == PlayerRank.OWNER) {
 			return new CommandResponse("setowner.max");
 		}
 
@@ -85,6 +83,11 @@ public class SetOwnerCommand extends TeamSubCommand {
 		if (args.length == 1) {
 			addPlayerStringList(options, args[0]);
 		}
+	}
+
+	@Override
+	public PlayerRank getDefaultRank() {
+		return PlayerRank.OWNER;
 	}
 
 }

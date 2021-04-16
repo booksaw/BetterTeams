@@ -22,10 +22,6 @@ public class DelwarpCommand extends TeamSubCommand {
 			return new CommandResponse("warp.nowarp");
 		}
 
-		if (player.getRank() == PlayerRank.DEFAULT) {
-			return new CommandResponse("needAdmin");
-		}
-
 		if (player.getRank() == PlayerRank.ADMIN) {
 			if (warp.getPassword() != null && !warp.getPassword().equals("")
 					&& Main.plugin.getConfig().getBoolean("allowPassword")) {
@@ -93,6 +89,11 @@ public class DelwarpCommand extends TeamSubCommand {
 		if (args.length == 2 && Main.plugin.getConfig().getBoolean("allowPassword")) {
 			options.add("[password]");
 		}
+	}
+
+	@Override
+	public PlayerRank getDefaultRank() {
+		return PlayerRank.ADMIN;
 	}
 
 }

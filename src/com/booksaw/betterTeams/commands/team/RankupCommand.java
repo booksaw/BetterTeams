@@ -18,10 +18,6 @@ public class RankupCommand extends TeamSubCommand {
 	@Override
 	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 
-		if (player.getRank() != PlayerRank.OWNER) {
-			return new CommandResponse("needOwner");
-		}
-
 		String priceStr = Main.plugin.getConfig().getString("levels.l" + (team.getLevel() + 1) + ".price");
 
 		if (priceStr == null || priceStr.equals("")) {
@@ -96,6 +92,11 @@ public class RankupCommand extends TeamSubCommand {
 
 	@Override
 	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
+	}
+
+	@Override
+	public PlayerRank getDefaultRank() {
+		return PlayerRank.OWNER;
 	}
 
 }

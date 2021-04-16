@@ -19,10 +19,6 @@ public class ColorCommand extends TeamSubCommand {
 	@Override
 	public CommandResponse onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
 
-		if (teamPlayer.getRank() != PlayerRank.OWNER) {
-			return new CommandResponse("needOwner");
-		}
-
 		ChatColor color = null;
 		try {
 			color = ChatColor.valueOf(args[0].toUpperCase());
@@ -83,6 +79,11 @@ public class ColorCommand extends TeamSubCommand {
 				}
 			}
 		}
+	}
+
+	@Override
+	public PlayerRank getDefaultRank() {
+		return PlayerRank.OWNER;
 	}
 
 }

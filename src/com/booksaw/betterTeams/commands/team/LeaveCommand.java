@@ -67,4 +67,9 @@ public class LeaveCommand extends TeamSubCommand {
 
 	}
 
+	@Override
+	public PlayerRank getDefaultRank() {
+		return PlayerRank.DEFAULT;
+	}
+
 }

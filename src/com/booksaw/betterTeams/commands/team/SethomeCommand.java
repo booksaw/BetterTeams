@@ -15,10 +15,6 @@ public class SethomeCommand extends TeamSubCommand {
 	@Override
 	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 
-		if (player.getRank() == PlayerRank.DEFAULT) {
-			return new CommandResponse("sethome.noPerm");
-		}
-
 		team.setTeamHome(player.getPlayer().getPlayer().getLocation());
 
 		return new CommandResponse(true, "sethome.success");
@@ -57,6 +53,11 @@ public class SethomeCommand extends TeamSubCommand {
 
 	@Override
 	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
+	}
+
+	@Override
+	public PlayerRank getDefaultRank() {
+		return PlayerRank.ADMIN;
 	}
 
 }

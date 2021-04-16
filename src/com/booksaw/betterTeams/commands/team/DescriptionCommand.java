@@ -14,6 +14,10 @@ import com.booksaw.betterTeams.message.ReferencedFormatMessage;
 
 public class DescriptionCommand extends TeamSubCommand {
 
+	public DescriptionCommand() {
+		checkRank = false;
+	}
+
 	@Override
 	public CommandResponse onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
 
@@ -27,14 +31,14 @@ public class DescriptionCommand extends TeamSubCommand {
 
 		}
 
-		if (teamPlayer.getRank() != PlayerRank.OWNER) {
+		if (teamPlayer.getRank().value < getRequiredRank().value) {
 			if (team.getDescription() != null && !team.getDescription().equals("")) {
 				MessageManager.sendMessageF(teamPlayer.getPlayer().getPlayer(), "description.view",
 						team.getDescription());
 			} else {
 				MessageManager.sendMessage(teamPlayer.getPlayer().getPlayer(), "description.noDesc");
 			}
-			return new CommandResponse("needOwner");
+			return new CommandResponse("description.noPerm");
 		}
 
 		String newDescrip = "";
@@ -80,6 +84,11 @@ public class DescriptionCommand extends TeamSubCommand {
 	@Override
 	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
 
+	}
+
+	@Override
+	public PlayerRank getDefaultRank() {
+		return PlayerRank.OWNER;
 	}
 
 }

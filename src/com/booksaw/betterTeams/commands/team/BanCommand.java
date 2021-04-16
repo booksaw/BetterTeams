@@ -38,19 +38,15 @@ public class BanCommand extends TeamSubCommand {
 		}
 
 		if (team != otherTeam) {
-			if (teamPlayer.getRank() != PlayerRank.DEFAULT) {
-				team.banPlayer(player);
-				MessageManager.sendMessageF((CommandSender) player, "ban.notify", team.getName());
-				return new CommandResponse("ban.success");
-			}
-			return new CommandResponse("ban.noPerm");
+			team.banPlayer(player);
+			MessageManager.sendMessageF((CommandSender) player, "ban.notify", team.getName());
+			return new CommandResponse("ban.success");
 		}
 
 		TeamPlayer kickedPlayer = team.getTeamPlayer(player);
 
-		if (teamPlayer.getRank() == PlayerRank.DEFAULT
-				|| (teamPlayer.getRank() == PlayerRank.ADMIN && kickedPlayer.getRank() != PlayerRank.DEFAULT)
-				|| (teamPlayer.getRank() == PlayerRank.OWNER && kickedPlayer.getRank() == PlayerRank.OWNER)) {
+		// ensuring the player they are banning has less perms than them
+		if (teamPlayer.getRank().value <= kickedPlayer.getRank().value) {
 			return new CommandResponse("ban.noPerm");
 		}
 
@@ -95,6 +91,11 @@ public class BanCommand extends TeamSubCommand {
 	@Override
 	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
 		addPlayerStringList(options, (args.length == 0) ? "" : args[0]);
+	}
+
+	@Override
+	public PlayerRank getDefaultRank() {
+		return PlayerRank.ADMIN;
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.bukkit.command.CommandSender;
 
 import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.PlayerTeleport;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
@@ -60,6 +61,11 @@ public class HomeCommand extends TeamSubCommand {
 	@Override
 	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
 
+	}
+
+	@Override
+	public PlayerRank getDefaultRank() {
+		return PlayerRank.DEFAULT;
 	}
 
 }

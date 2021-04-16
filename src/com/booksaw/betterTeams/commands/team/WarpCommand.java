@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Main;
+import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.Warp;
@@ -112,6 +113,11 @@ public class WarpCommand extends TeamSubCommand {
 		if (args.length == 2 && Main.plugin.getConfig().getBoolean("allowPassword")) {
 			options.add("[password]");
 		}
+	}
+
+	@Override
+	public PlayerRank getDefaultRank() {
+		return PlayerRank.DEFAULT;
 	}
 
 }

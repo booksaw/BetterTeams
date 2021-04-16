@@ -16,6 +16,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.booksaw.betterTeams.commands.HelpCommand;
 import com.booksaw.betterTeams.commands.ParentCommand;
+import com.booksaw.betterTeams.commands.PermissionParentCommand;
 import com.booksaw.betterTeams.commands.team.AllyChatCommand;
 import com.booksaw.betterTeams.commands.team.AllyCommand;
 import com.booksaw.betterTeams.commands.team.BalCommand;
@@ -505,6 +506,10 @@ public class Main extends JavaPlugin {
 		case 20:
 			messages.set("placeholder.tag", "%s");
 			messages.set("placeholder.displayname", "%s");
+			messages.set("description.noPerm", "&4You do not have permission to edit the description");
+			messages.set("tag.noPerm", "&4You do not have permission to change the team tag");
+			messages.set("name.noPerm", "&4You do not have permission to change your team name");
+			messages.set("name.noPerm", "&4You do not have permission to change your team title");
 		case 1000:
 			// this will run only if a change has been made q
 			changes = true;
@@ -665,7 +670,8 @@ public class Main extends JavaPlugin {
 	}
 
 	public void setupCommands() {
-		ParentCommand teamCommand = new ParentCommand(new CostManager("team"), new CooldownManager("team"), "team");
+		ParentCommand teamCommand = new PermissionParentCommand(new CostManager("team"), new CooldownManager("team"),
+				"team");
 		// add all sub commands here
 		teamCommand.addSubCommand(new CreateCommand());
 		teamCommand.addSubCommand(new LeaveCommand());
@@ -710,7 +716,7 @@ public class Main extends JavaPlugin {
 			teamCommand.addSubCommand(new SetOwnerCommand());
 		}
 
-		ParentCommand chest = new ParentCommand("chest");
+		ParentCommand chest = new PermissionParentCommand("chest");
 		chest.addSubCommand(new ChestClaimCommand());
 		chest.addSubCommand(new ChestRemoveCommand());
 		chest.addSubCommand(new ChestRemoveallCommand());
