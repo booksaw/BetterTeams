@@ -280,6 +280,10 @@ Bug Fixes:
 - Fixed problem with bows included in 2.1.21 (#87)
 
 3.1.23: 
+Features: 
+Individual commands can be toggled in a yaml file instead of through permissions (#92)
+The required rank within a team can be changed for each individual command (#92)
+
 Improvements: 
 - Added two new placeholders
 	- %betterteams_tag% - For the team tag 
