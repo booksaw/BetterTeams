@@ -281,6 +281,7 @@ Bug Fixes:
 
 3.1.23: 
 Features: 
+- Added support for UltimateClaims (#63)
 - Individual commands can be toggled in a yaml file instead of through permissions (#92)
 - The required rank within a team can be changed for each individual command (#92)
 
@@ -292,6 +293,7 @@ Improvements:
 - Added a maxMove option to the config for teleport warmup (#97)
 - Added language tracking to bstats (#106)
 - Commands can be run when a team levels up (#91)
+- Added RankupTeamEvent and DisbandTeamEvent to the API
 
 Bug Fixes:
 - Fixed problem causing a space to occur at the end of the money and name placeholder (#94)
