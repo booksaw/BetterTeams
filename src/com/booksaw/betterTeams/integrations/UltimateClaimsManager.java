@@ -5,7 +5,9 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.PlayerRank;
@@ -44,7 +46,7 @@ public class UltimateClaimsManager implements Listener {
 	 */
 	public UltimateClaimsManager() {
 		Bukkit.getPluginManager().registerEvents(this, Main.plugin);
-		System.out.println("registered");
+		System.out.println("Registered UltimateClaims integration");
 	}
 
 	// used to check that the event hander is registering events correctly
@@ -53,7 +55,7 @@ public class UltimateClaimsManager implements Listener {
 //		System.out.println("called move");
 //	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled = true)
 	public void create(ClaimCreateEvent e) {
 		OfflinePlayer p = e.getClaim().getOwner().getPlayer();
 		Team team = Team.getTeam(p);
@@ -79,41 +81,42 @@ public class UltimateClaimsManager implements Listener {
 				ClaimMember member = e.getClaim().addMember(tp.getPlayer(), ClaimRole.MEMBER);
 				UltimateClaims.getInstance().getDataManager().createMember(member);
 
-				System.out.println("SAVING MEMBER " + member.getName());
 			}
 		}
 
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
 	public void onJoin(PlayerJoinTeamEvent e) {
 		List<TeamPlayer> players = e.getTeam().getRank(PlayerRank.OWNER);
 
 		for (TeamPlayer player : players) {
-			System.out.println("checking player " + player.getPlayer().getName());
 			Claim c = UltimateClaims.getInstance().getClaimManager().getClaim(player.getPlayer().getUniqueId());
 			if (c == null) {
 				continue;
 			}
 
-			System.out.println("claim found for plkayer, adding new player");
-			ClaimMember member = c.addMember(e.getPlayer(), ClaimRole.MEMBER);
-			UltimateClaims.getInstance().getDataManager().createMember(member);
+			new BukkitRunnable() {
+
+				@Override
+				public void run() {
+					ClaimMember member = c.addMember(e.getPlayer(), ClaimRole.MEMBER);
+					UltimateClaims.getInstance().getDataManager().createMember(member);
+				}
+			}.runTaskLater(Main.plugin, 1);
 
 		}
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
 	public void onLeave(PlayerLeaveTeamEvent e) {
 		List<TeamPlayer> players = e.getTeam().getRank(PlayerRank.OWNER);
 
 		for (TeamPlayer player : players) {
-			System.out.println("Leave checking player " + player.getPlayer().getName());
 			Claim c = UltimateClaims.getInstance().getClaimManager().getClaim(player.getPlayer().getUniqueId());
 			if (c == null) {
 				continue;
 			}
-			System.out.println("claim found, removing player");
 
 			ClaimMember member = c.getMember(e.getPlayer());
 			c.removeMember(member);
@@ -122,7 +125,7 @@ public class UltimateClaimsManager implements Listener {
 		}
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled = true)
 	public void kickEvent(ClaimPlayerKickEvent e) {
 		Team team = Team.getTeam(e.getClaim().getOwner().getPlayer());
 		Team team2 = Team.getTeam(e.getPlayer());
@@ -134,7 +137,7 @@ public class UltimateClaimsManager implements Listener {
 		}
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled = true)
 	public void banEvent(ClaimPlayerBanEvent e) {
 		Team team = Team.getTeam(e.getClaim().getOwner().getPlayer());
 		Team team2 = Team.getTeam(e.getBannedPlayer());
@@ -158,7 +161,7 @@ public class UltimateClaimsManager implements Listener {
 		}
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled = true)
 	public void transferEvent(ClaimTransferOwnershipEvent e) {
 		Team team = Team.getTeam(e.getNewOwner());
 		if (team == null || team.getTeamPlayer(e.getNewOwner()).getRank() != PlayerRank.OWNER) {
