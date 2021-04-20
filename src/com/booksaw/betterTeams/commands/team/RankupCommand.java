@@ -11,6 +11,7 @@ import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
+import com.booksaw.betterTeams.customEvents.LevelupTeamEvent;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
 
 public class RankupCommand extends TeamSubCommand {
@@ -44,14 +45,24 @@ public class RankupCommand extends TeamSubCommand {
 				return new CommandResponse(new ReferencedFormatMessage("rankup.score", price + ""));
 			}
 
-			team.setScore(team.getScore() - price);
-
 		} else {
 
 			if (team.getMoney() < price) {
 				return new CommandResponse(new ReferencedFormatMessage("rankup.money", price + ""));
 			}
 
+		}
+
+		LevelupTeamEvent event = new LevelupTeamEvent(team, team.getLevel(), team.getLevel() + 1, price, score,
+				player.getPlayer().getPlayer());
+		Bukkit.getPluginManager().callEvent(event);
+		if (event.isCancelled()) {
+			return new CommandResponse(false);
+		}
+
+		if (score) {
+			team.setScore(team.getScore() - price);
+		} else {
 			team.setMoney(team.getMoney() - price);
 		}
 
