@@ -620,7 +620,6 @@ public class Main extends JavaPlugin {
 		case 16:
 			getConfig().set("ultimateClaims.enabled", true);
 			getConfig().set("maxMove", 0);
-			getConfig().set("ultimateClaims.enabled", true);
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
