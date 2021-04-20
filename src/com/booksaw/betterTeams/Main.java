@@ -166,7 +166,9 @@ public class Main extends JavaPlugin {
 
 		if (Bukkit.getPluginManager().getPlugin("UltimateClaims") != null
 				&& Bukkit.getPluginManager().getPlugin("UltimateClaims").isEnabled()) {
-			new UltimateClaimsManager();
+			if (getConfig().getBoolean("ultimateClaims.enabled")) {
+				new UltimateClaimsManager();
+			}
 		}
 
 		useHolographicDisplays = (Bukkit.getPluginManager().getPlugin("HolographicDisplays") != null
@@ -606,7 +608,7 @@ public class Main extends JavaPlugin {
 		case 15:
 			getConfig().set("invite", 120);
 		case 16:
-			getConfig().set("ultimateclaims.", arg1);
+			getConfig().set("ultimateClaims.enabled", true);
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
