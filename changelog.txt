@@ -275,6 +275,31 @@ Bug Fixes:
 - Lowered the chat priority to help support PremiumChat (#75) 
 - Fixed a problem with tags overwriting team colors (#81) 
 
+3.1.22:
+Bug Fixes: 
+- Fixed problem with bows included in 2.1.21 (#87)
+
+3.1.23: 
+Features: 
+- Individual commands can be toggled in a yaml file instead of through permissions (#92)
+- The required rank within a team can be changed for each individual command (#92)
+
+Improvements: 
+- Added two new placeholders
+	- %betterteams_tag% - For the team tag 
+	- %betterteams_displayname% - For the display name of the team (#99)
+- Added the option to prefix chat with team tag (#99)
+- Added a maxMove option to the config for teleport warmup (#97)
+- Added language tracking to bstats (#106)
+- Commands can be run when a team levels up (#91)
+- Added RankupTeamEvent and DisbandTeamEvent to the API
+
+Bug Fixes:
+- Fixed problem causing a space to occur at the end of the money and name placeholder (#94)
+- Fixed ClassCastException with pots (#98)
+- Fixed bug causing invite links to not expire correctly (#93)
+- Fixed bug causing ally limits to be ignored (#100)
+
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
 Headings: 

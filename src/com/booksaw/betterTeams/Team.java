@@ -25,6 +25,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
 
+import com.booksaw.betterTeams.customEvents.DisbandTeamEvent;
 import com.booksaw.betterTeams.customEvents.PlayerJoinTeamEvent;
 import com.booksaw.betterTeams.customEvents.PlayerLeaveTeamEvent;
 import com.booksaw.betterTeams.customEvents.PrePurgeEvent;
@@ -994,6 +995,13 @@ public class Team {
 	 * This command is used to disband a team, BE CAREFUL, this is irreversible
 	 */
 	public void disband() {
+
+		DisbandTeamEvent event = new DisbandTeamEvent(this);
+		Bukkit.getPluginManager().callEvent(event);
+
+		if (event.isCancelled()) {
+			throw new IllegalArgumentException("Disbanding was cancelled by another plugin");
+		}
 
 		for (UUID ally : allies) {
 			Team team = Team.getTeam(ally);

@@ -511,6 +511,11 @@ public class Main extends JavaPlugin {
 			messages.set("invite.expired", "&4The invite from &b%s has expired");
 			messages.set("admin.cancel", "&4The command was cancelled by another plugin");
 			messages.set("uclaim.team", "&4You must be in a team to create a claim");
+		case 21:
+			messages.set("uclaim.member", "&4You cannot leave your teams claim");
+			messages.set("uclaim.kick", "&4You cannot kick members of your own team from your claim");
+			messages.set("uclaim.ban", "&4You cannot ban members of your own team from your claim");
+			messages.set("uclaim.dissolve", "&4Your team has been disbanded so your claim has been dissolved");
 		case 1000:
 			// this will run only if a change has been made q
 			changes = true;

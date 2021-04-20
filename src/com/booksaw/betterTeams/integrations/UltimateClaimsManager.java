@@ -13,6 +13,7 @@ import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
+import com.booksaw.betterTeams.customEvents.DisbandTeamEvent;
 import com.booksaw.betterTeams.customEvents.PlayerJoinTeamEvent;
 import com.booksaw.betterTeams.customEvents.PlayerLeaveTeamEvent;
 import com.booksaw.betterTeams.message.MessageManager;
@@ -23,6 +24,7 @@ import com.songoda.ultimateclaims.api.events.ClaimPlayerBanEvent;
 import com.songoda.ultimateclaims.api.events.ClaimPlayerKickEvent;
 import com.songoda.ultimateclaims.api.events.ClaimTransferOwnershipEvent;
 import com.songoda.ultimateclaims.claim.Claim;
+import com.songoda.ultimateclaims.claim.ClaimDeleteReason;
 import com.songoda.ultimateclaims.member.ClaimMember;
 import com.songoda.ultimateclaims.member.ClaimRole;
 
@@ -73,6 +75,7 @@ public class UltimateClaimsManager implements Listener {
 			}
 			e.setCancelled(true);
 		}
+		e.getClaim().setName(team.getName());
 
 		// they are owner of their team, adding the rest of the team members as members
 		// of the claim
@@ -172,6 +175,24 @@ public class UltimateClaimsManager implements Listener {
 			System.out.println();
 			e.setCancelled(true);
 		}
+	}
+
+	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+	public void disbandEvent(DisbandTeamEvent event) {
+
+		for (TeamPlayer player : event.getTeam().getRank(PlayerRank.OWNER)) {
+			Claim c = UltimateClaims.getInstance().getClaimManager().getClaim(player.getPlayer().getUniqueId());
+			if (c == null) {
+				continue;
+			}
+
+			c.destroy(ClaimDeleteReason.PLAYER);
+			
+			if(player.getPlayer().isOnline()) {
+				MessageManager.sendMessage(player.getPlayer().getPlayer(), "uclaim.dissolve");
+			}
+		}
+
 	}
 
 }
