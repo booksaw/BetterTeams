@@ -103,6 +103,7 @@ import com.booksaw.betterTeams.events.DamageManagement;
 import com.booksaw.betterTeams.events.InventoryManagement;
 import com.booksaw.betterTeams.events.MCTeamManagement;
 import com.booksaw.betterTeams.events.MCTeamManagement.BelowNameType;
+import com.booksaw.betterTeams.events.RankupEvents;
 import com.booksaw.betterTeams.integrations.HologramManager;
 import com.booksaw.betterTeams.integrations.TeamPlaceholders;
 import com.booksaw.betterTeams.integrations.WorldGaurdManager;
@@ -815,6 +816,7 @@ public class Main extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new UpdateChecker(this), this);
 		getServer().getPluginManager().registerEvents(new ChestManagement(), this);
 		getServer().getPluginManager().registerEvents(new InventoryManagement(), this);
+		getServer().getPluginManager().registerEvents(new RankupEvents(), this);
 
 	}
 

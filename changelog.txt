@@ -291,6 +291,7 @@ Improvements:
 - Added the option to prefix chat with team tag (#99)
 - Added a maxMove option to the config for teleport warmup (#97)
 - Added language tracking to bstats (#106)
+- Commands can be run when a team levels up (#91)
 
 Bug Fixes:
 - Fixed problem causing a space to occur at the end of the money and name placeholder (#94)
