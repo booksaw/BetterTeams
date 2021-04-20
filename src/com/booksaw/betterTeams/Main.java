@@ -508,11 +508,16 @@ public class Main extends JavaPlugin {
 			messages.set("tag.noPerm", "&4You do not have permission to change the team tag");
 			messages.set("name.noPerm", "&4You do not have permission to change your team name");
 			messages.set("name.noPerm", "&4You do not have permission to change your team title");
+			messages.set("uclaim.member", "&4You cannot leave your teams claim");
+			messages.set("uclaim.kick", "&4You cannot kick members of your own team from your claim");
+			messages.set("uclaim.ban", "&4You cannot ban members of your own team from your claim");
+			messages.set("uclaim.dissolve", "&4Your team has been disbanded so your claim has been dissolved");
+			messages.set("uclaim.team", "&4You must be in a team to create a claim");
 		case 1000:
 			// this will run only if a change has been made q
 			changes = true;
 			// set version the latest
-			messages.set("version", 20);
+			messages.set("version", 21);
 			break;
 		}
 
@@ -606,11 +611,12 @@ public class Main extends JavaPlugin {
 			getConfig().set("invite", 120);
 		case 16:
 			getConfig().set("maxMove", 0);
+			getConfig().set("ultimateClaims.enabled", true);
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
 			// set version the latest
-			getConfig().set("version", 16);
+			getConfig().set("version", 17);
 
 			break;
 		}

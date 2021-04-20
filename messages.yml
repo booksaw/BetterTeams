@@ -262,6 +262,12 @@ spy.team: '&7[&b%s&7]&f%s&f: %s'
 spy.ally: '&7[&d%s&7]&f%s&f: %s'
 
 uclaim.team: '&4You must be in a team to create a claim'
+uclaim.team: '&4You must be in a team to create a claim'
+uclaim.member: '&4You cannot leave your teams claim'
+uclaim.kick: '&4You cannot kick members of your own team from your claim'
+uclaim.ban: '&4You cannot ban members of your own team from your claim'
+uclaim.dissolve: '&4Your team has been disbanded so your claim has been dissolved'
+
 
 help.description: View and change your team's description
 help.ban: Bans the specified player from your team
@@ -344,4 +350,4 @@ command.enableclaims: enableclaims
 command.disableclaims: disableclaims
 
 # do not change this, it is used to check the messages version (test if there are any missing messages)
-version: 20
+version: 21

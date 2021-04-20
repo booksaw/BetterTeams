@@ -413,9 +413,13 @@ zkoth:
    # Possible values: [Any positive number, 0]
    pointsPerCapture: 5
 
-
-
-
+# INTEGRATION WITH ULTIMATECLAIMS 
+# Plugin link: https://songoda.com/marketplace/product/ultimateclaims-the-ultimate-claiming-plugin.65
+ultimateClaims:
+   # This is used to determine if the utlimateclaims integration is active 
+   # If it is, only team owners will be able to make claims
+   # All members of a team are trusted in the claim
+   enabled: true
 
 # Do not edit this value, this is used to check the config is up to date with the lastest version of the plugin (if it is not, it will be automatically updated)
-version: 16
+version: 17
