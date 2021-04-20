@@ -21,10 +21,6 @@ public class SetWarpCommand extends TeamSubCommand {
 			return new CommandResponse("setwarp.exist");
 		}
 
-		if (player.getRank() == PlayerRank.DEFAULT) {
-			return new CommandResponse("needAdmin");
-		}
-
 		String password = "";
 
 		if (args.length >= 2 && Main.plugin.getConfig().getBoolean("allowPassword")) {
@@ -85,6 +81,11 @@ public class SetWarpCommand extends TeamSubCommand {
 		if (args.length == 2 && Main.plugin.getConfig().getBoolean("allowPassword")) {
 			options.add("[password]");
 		}
+	}
+
+	@Override
+	public PlayerRank getDefaultRank() {
+		return PlayerRank.ADMIN;
 	}
 
 }

@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Main;
+import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
@@ -73,6 +74,11 @@ public class DepositCommand extends TeamSubCommand {
 	@Override
 	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
 		options.add("<amount>");
+	}
+
+	@Override
+	public PlayerRank getDefaultRank() {
+		return PlayerRank.DEFAULT;
 	}
 
 }

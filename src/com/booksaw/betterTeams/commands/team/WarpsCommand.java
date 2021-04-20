@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 import org.bukkit.command.CommandSender;
 
 import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.Warp;
@@ -63,6 +64,11 @@ public class WarpsCommand extends TeamSubCommand {
 
 	@Override
 	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
+	}
+
+	@Override
+	public PlayerRank getDefaultRank() {
+		return PlayerRank.DEFAULT;
 	}
 
 }

@@ -53,6 +53,7 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 			return "";
 		}
 
+		identifier = identifier.toLowerCase();
 		// %betterTeams_name%
 		if (identifier.equals("name")) {
 			Team team = Team.getTeam(player);
@@ -61,7 +62,24 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 				return MessageManager.getMessage("placeholder.noTeam");
 			}
 
-			return String.format(MessageManager.getMessage(player, "placeholder.name"), team.getName());
+			return String.format(MessageManager.getMessage(player, "placeholder.name").trim(), team.getName());
+		} else if (identifier.equals("tag")) {
+			Team team = Team.getTeam(player);
+
+			if (team == null) {
+				return MessageManager.getMessage("placeholder.noTeam");
+			}
+
+			return String.format(MessageManager.getMessage(player, "placeholder.tag").trim(), team.getTag());
+		} else if (identifier.equals("displayname")) {
+			Team team = Team.getTeam(player);
+
+			if (team == null) {
+				return MessageManager.getMessage("placeholder.noTeam");
+			}
+
+			return String.format(MessageManager.getMessage(player, "placeholder.displayname").trim(),
+					team.getColor() + team.getTag());
 
 		} else if (identifier.equals("description")) {
 
@@ -92,7 +110,7 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 				return MessageManager.getMessage("placeholder.noTeam");
 			}
 
-			return String.format(MessageManager.getMessage(player, "placeholder.money"), team.getBalance() + "");
+			return String.format(MessageManager.getMessage(player, "placeholder.money").trim(), team.getBalance() + "");
 		} else if (identifier.equals("score")) {
 
 			Team team = Team.getTeam(player);

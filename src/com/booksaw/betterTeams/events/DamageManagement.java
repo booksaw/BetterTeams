@@ -64,7 +64,7 @@ public class DamageManagement implements Listener {
 				Projectile arrow = (Projectile) e.getDamager();
 				ProjectileSource source = arrow.getShooter();
 				if (source instanceof Player && temp != null
-						&& !Team.getTeam((Player) source).canDamage(temp, (Player) e.getDamager())) {
+						&& !Team.getTeam((Player) source).canDamage(temp, (Player) source)) {
 					// they are on the same team
 					if (disableSelf && (Player) source == (Player) e.getEntity()) {
 						return;
@@ -75,7 +75,7 @@ public class DamageManagement implements Listener {
 				ThrownPotion arrow = (ThrownPotion) e.getDamager();
 				ProjectileSource source = arrow.getShooter();
 				if (source instanceof Player && temp != null
-						&& !Team.getTeam((Player) source).canDamage(temp, (Player) e.getDamager())) {
+						&& !Team.getTeam((Player) source).canDamage(temp, (Player) source)) {
 					// they are on the same team
 					e.setCancelled(true);
 				}

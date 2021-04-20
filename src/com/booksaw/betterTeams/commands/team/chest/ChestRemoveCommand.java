@@ -17,9 +17,6 @@ public class ChestRemoveCommand extends TeamSubCommand {
 
 	@Override
 	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
-		if (player.getRank() == PlayerRank.DEFAULT) {
-			return new CommandResponse("needAdmin");
-		}
 
 		Location loc = player.getPlayer().getPlayer().getLocation();
 
@@ -69,6 +66,11 @@ public class ChestRemoveCommand extends TeamSubCommand {
 
 	@Override
 	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
+	}
+
+	@Override
+	public PlayerRank getDefaultRank() {
+		return PlayerRank.ADMIN;
 	}
 
 }

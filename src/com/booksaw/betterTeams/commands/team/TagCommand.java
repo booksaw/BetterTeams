@@ -15,6 +15,10 @@ import com.booksaw.betterTeams.message.ReferencedFormatMessage;
 
 public class TagCommand extends TeamSubCommand {
 
+	public TagCommand() {
+		checkRank = false;
+	}
+
 	@Override
 	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 
@@ -22,9 +26,9 @@ public class TagCommand extends TeamSubCommand {
 			return new CommandResponse(new ReferencedFormatMessage("info.tag", team.getTag()));
 		}
 
-		if (player.getRank() != PlayerRank.OWNER) {
+		if (player.getRank().value < getRequiredRank().value) {
 			MessageManager.sendMessageF(player.getPlayer().getPlayer(), "info.tag", team.getTag());
-			return new CommandResponse("needOwner");
+			return new CommandResponse("tag.noPerm");
 		}
 
 		if (!Team.isValidTeamName(args[0])) {
@@ -79,6 +83,11 @@ public class TagCommand extends TeamSubCommand {
 		if (args.length == 1) {
 			options.add("[tag]");
 		}
+	}
+
+	@Override
+	public PlayerRank getDefaultRank() {
+		return PlayerRank.OWNER;
 	}
 
 }

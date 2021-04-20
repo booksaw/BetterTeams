@@ -19,9 +19,6 @@ public class WithdrawCommand extends TeamSubCommand {
 	@Override
 	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 
-		if (player.getRank() == PlayerRank.DEFAULT) {
-			return new CommandResponse("needAdmin");
-		}
 
 		double amount;
 		try {
@@ -81,6 +78,11 @@ public class WithdrawCommand extends TeamSubCommand {
 	@Override
 	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
 		options.add("<amount>");
+	}
+
+	@Override
+	public PlayerRank getDefaultRank() {
+		return PlayerRank.ADMIN;
 	}
 
 }

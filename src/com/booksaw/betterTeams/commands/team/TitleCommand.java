@@ -42,9 +42,9 @@ public class TitleCommand extends TeamSubCommand {
 			return new CommandResponse("noPlayer");
 		}
 
-		if (player.getRank() != PlayerRank.OWNER
+		if (player.getRank().value < getRequiredRank().value
 				&& !(player == toTitle && player.getPlayer().getPlayer().hasPermission("betterteams.title.self"))) {
-			return new CommandResponse("needOwner");
+			return new CommandResponse("title.noPerm");
 		}
 
 		if (args.length == 1) {
@@ -138,5 +138,10 @@ public class TitleCommand extends TeamSubCommand {
 		}
 
 		options.add("<title>");
+	}
+
+	@Override
+	public PlayerRank getDefaultRank() {
+		return PlayerRank.OWNER;
 	}
 }

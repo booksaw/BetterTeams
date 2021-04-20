@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map.Entry;
+import java.util.concurrent.Callable;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
@@ -16,6 +17,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.booksaw.betterTeams.commands.HelpCommand;
 import com.booksaw.betterTeams.commands.ParentCommand;
+import com.booksaw.betterTeams.commands.PermissionParentCommand;
 import com.booksaw.betterTeams.commands.team.AllyChatCommand;
 import com.booksaw.betterTeams.commands.team.AllyCommand;
 import com.booksaw.betterTeams.commands.team.BalCommand;
@@ -101,6 +103,7 @@ import com.booksaw.betterTeams.events.DamageManagement;
 import com.booksaw.betterTeams.events.InventoryManagement;
 import com.booksaw.betterTeams.events.MCTeamManagement;
 import com.booksaw.betterTeams.events.MCTeamManagement.BelowNameType;
+import com.booksaw.betterTeams.events.RankupEvents;
 import com.booksaw.betterTeams.integrations.HologramManager;
 import com.booksaw.betterTeams.integrations.TeamPlaceholders;
 import com.booksaw.betterTeams.integrations.UltimateClaimsManager;
@@ -140,13 +143,9 @@ public class Main extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
-
-		if (metrics == null) {
-			int pluginId = 7855;
-			metrics = new Metrics(this, pluginId);
-		}
-
 		saveDefaultConfig();
+		setupMetrics();
+
 		plugin = this;
 
 		MessageManager.lang = getConfig().getString("language");
@@ -292,7 +291,7 @@ public class Main extends JavaPlugin {
 		case 4:
 			messages.set("color.success", "&6Your team color has been changed");
 			messages.set("color.fail", "&6That is not a recognised chat color");
-			messages.set("info.money", "&6Balance: &b£%s");
+			messages.set("info.money", "&6Balance: &bÂ£%s");
 			messages.set("deposit.tooLittle", "&4You cannot deposit negative amounts");
 			messages.set("deposit.fail", "&4The deposit failed");
 			messages.set("deposit.success", "&6Money deposited");
@@ -510,17 +509,23 @@ public class Main extends JavaPlugin {
 			messages.set("home.world", "&4You team home could not be found");
 			messages.set("invite.expired", "&4The invite from &b%s has expired");
 			messages.set("admin.cancel", "&4The command was cancelled by another plugin");
-			messages.set("uclaim.team", "&4You must be in a team to create a claim");
-		case 21:
-			messages.set("uclaim.member", "&4You cannot leave your teams claim");
+		case 20:
+			messages.set("placeholder.tag", "%s");
+			messages.set("placeholder.displayname", "%s");
+			messages.set("description.noPerm", "&4You do not have permission to edit the description");
+			messages.set("tag.noPerm", "&4You do not have permission to change the team tag");
+			messages.set("name.noPerm", "&4You do not have permission to change your team name");
+			messages.set("name.noPerm", "&4You do not have permission to change your team title");
+      messages.set("uclaim.member", "&4You cannot leave your teams claim");
 			messages.set("uclaim.kick", "&4You cannot kick members of your own team from your claim");
 			messages.set("uclaim.ban", "&4You cannot ban members of your own team from your claim");
 			messages.set("uclaim.dissolve", "&4Your team has been disbanded so your claim has been dissolved");
+			messages.set("uclaim.team", "&4You must be in a team to create a claim");
 		case 1000:
 			// this will run only if a change has been made q
 			changes = true;
 			// set version the latest
-			messages.set("version", 19);
+			messages.set("version", 20);
 			break;
 		}
 
@@ -578,7 +583,7 @@ public class Main extends JavaPlugin {
 			getConfig().set("maxChests", 2);
 			getConfig().set("allowAllyChests", true);
 		case 10:
-			getConfig().set("bannedChars", ",.!\"£$%^&*()[]{};:#~\\|`¬");
+			getConfig().set("bannedChars", ",.!\"Â£$%^&*()[]{};:#~\\|`Â¬");
 			getConfig().set("defaultColor", "6");
 			getConfig().set("useTeams", true);
 			getConfig().set("collide", true);
@@ -614,11 +619,12 @@ public class Main extends JavaPlugin {
 			getConfig().set("invite", 120);
 		case 16:
 			getConfig().set("ultimateClaims.enabled", true);
+			getConfig().set("maxMove", 0);
 		case 1000:
 			// this will run only if a change has been made
 			changes = true;
 			// set version the latest
-			getConfig().set("version", 15);
+			getConfig().set("version", 16);
 
 			break;
 		}
@@ -676,7 +682,8 @@ public class Main extends JavaPlugin {
 	}
 
 	public void setupCommands() {
-		ParentCommand teamCommand = new ParentCommand(new CostManager("team"), new CooldownManager("team"), "team");
+		ParentCommand teamCommand = new PermissionParentCommand(new CostManager("team"), new CooldownManager("team"),
+				"team");
 		// add all sub commands here
 		teamCommand.addSubCommand(new CreateCommand());
 		teamCommand.addSubCommand(new LeaveCommand());
@@ -721,7 +728,7 @@ public class Main extends JavaPlugin {
 			teamCommand.addSubCommand(new SetOwnerCommand());
 		}
 
-		ParentCommand chest = new ParentCommand("chest");
+		ParentCommand chest = new PermissionParentCommand("chest");
 		chest.addSubCommand(new ChestClaimCommand());
 		chest.addSubCommand(new ChestRemoveCommand());
 		chest.addSubCommand(new ChestRemoveallCommand());
@@ -823,6 +830,22 @@ public class Main extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new UpdateChecker(this), this);
 		getServer().getPluginManager().registerEvents(new ChestManagement(), this);
 		getServer().getPluginManager().registerEvents(new InventoryManagement(), this);
+		getServer().getPluginManager().registerEvents(new RankupEvents(), this);
 
+	}
+
+	public void setupMetrics() {
+		if (metrics == null) {
+			int pluginId = 7855;
+			metrics = new Metrics(this, pluginId);
+			metrics.addCustomChart(new Metrics.SimplePie("language", new Callable<String>() {
+
+				@Override
+				public String call() throws Exception {
+					return getConfig().getString("language");
+				}
+			}));
+
+		}
 	}
 }

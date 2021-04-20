@@ -18,11 +18,6 @@ public class AllyCommand extends TeamSubCommand {
 	@Override
 	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 
-		// checking the player is the owner
-		if (player.getRank() != PlayerRank.OWNER) {
-			return new CommandResponse("needOwner");
-		}
-
 		if (args.length == 0) {
 			String requests = "";
 
@@ -52,7 +47,7 @@ public class AllyCommand extends TeamSubCommand {
 
 		// checking limit
 		if (team.hasMaxAllies() || toAlly.hasMaxAllies()) {
-			new CommandResponse("ally.limit");
+			return new CommandResponse("ally.limit");
 		}
 
 		// checking if an ally request has been sent
@@ -105,6 +100,11 @@ public class AllyCommand extends TeamSubCommand {
 		if (args.length == 1) {
 			addTeamStringList(options, args[0]);
 		}
+	}
+
+	@Override
+	public PlayerRank getDefaultRank() {
+		return PlayerRank.OWNER;
 	}
 
 }

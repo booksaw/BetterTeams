@@ -24,10 +24,6 @@ public class OpenCommand extends TeamSubCommand {
 	@Override
 	public CommandResponse onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
 
-		if (teamPlayer.getRank() != PlayerRank.OWNER) {
-			return new CommandResponse("needOwner");
-		}
-
 		team.setOpen(!team.isOpen());
 
 		if (team.isOpen()) {
@@ -69,5 +65,10 @@ public class OpenCommand extends TeamSubCommand {
 
 	@Override
 	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
+	}
+
+	@Override
+	public PlayerRank getDefaultRank() {
+		return PlayerRank.OWNER;
 	}
 }

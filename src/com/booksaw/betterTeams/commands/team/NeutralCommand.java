@@ -17,10 +17,6 @@ public class NeutralCommand extends TeamSubCommand {
 	@Override
 	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 
-		if (player.getRank() != PlayerRank.OWNER) {
-			return new CommandResponse("needOwner");
-		}
-
 		// getting the referenced team
 		Team toNeutral = Team.getTeam(args[0]);
 		if (toNeutral == null) {
@@ -106,6 +102,11 @@ public class NeutralCommand extends TeamSubCommand {
 		if (args.length == 1) {
 			addTeamStringList(options, args[0]);
 		}
+	}
+
+	@Override
+	public PlayerRank getDefaultRank() {
+		return PlayerRank.OWNER;
 	}
 
 }
