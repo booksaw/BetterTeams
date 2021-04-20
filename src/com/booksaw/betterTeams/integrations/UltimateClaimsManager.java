@@ -19,6 +19,7 @@ import com.songoda.ultimateclaims.api.events.ClaimCreateEvent;
 import com.songoda.ultimateclaims.api.events.ClaimMemberLeaveEvent;
 import com.songoda.ultimateclaims.api.events.ClaimPlayerBanEvent;
 import com.songoda.ultimateclaims.api.events.ClaimPlayerKickEvent;
+import com.songoda.ultimateclaims.api.events.ClaimTransferOwnershipEvent;
 import com.songoda.ultimateclaims.claim.Claim;
 import com.songoda.ultimateclaims.member.ClaimMember;
 import com.songoda.ultimateclaims.member.ClaimRole;
@@ -154,6 +155,19 @@ public class UltimateClaimsManager implements Listener {
 			if (e.getPlayer().isOnline()) {
 				MessageManager.sendMessage(e.getPlayer().getPlayer(), "uclaim.member");
 			}
+		}
+	}
+
+	@EventHandler
+	public void transferEvent(ClaimTransferOwnershipEvent e) {
+		Team team = Team.getTeam(e.getNewOwner());
+		if (team == null || team.getTeamPlayer(e.getNewOwner()).getRank() != PlayerRank.OWNER) {
+			System.out.println();
+			System.out.println();
+			System.out.println("You cannot transfer ownership to a player who is not an owner of a team");
+			System.out.println();
+			System.out.println();
+			e.setCancelled(true);
 		}
 	}
 
