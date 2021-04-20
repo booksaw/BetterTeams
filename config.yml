@@ -108,7 +108,7 @@ blacklist:
 # This is a list of characters wich will not be allowed in team names
 #
 # Possible values: [Any characters]
-bannedChars: ',.!"£$%^&*()[]{};:#~\|`¬'
+bannedChars: ',.!"ï¿½$%^&*()[]{};:#~\|`ï¿½'
 
 # This is a list of all characters to be allowed in team names
 # - If this is left blank, all characters (except those in bannedChars or color codes) will be allowed in team name

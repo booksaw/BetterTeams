@@ -106,6 +106,7 @@ import com.booksaw.betterTeams.events.MCTeamManagement.BelowNameType;
 import com.booksaw.betterTeams.events.RankupEvents;
 import com.booksaw.betterTeams.integrations.HologramManager;
 import com.booksaw.betterTeams.integrations.TeamPlaceholders;
+import com.booksaw.betterTeams.integrations.UltimateClaimsManager;
 import com.booksaw.betterTeams.integrations.WorldGaurdManager;
 import com.booksaw.betterTeams.integrations.ZKothManager;
 import com.booksaw.betterTeams.message.MessageManager;
@@ -160,7 +161,13 @@ public class Main extends JavaPlugin {
 				&& Bukkit.getPluginManager().getPlugin("PlaceholderAPI").isEnabled()) {
 			placeholderAPI = true;
 			new TeamPlaceholders(this).register();
+		}
 
+		if (Bukkit.getPluginManager().getPlugin("UltimateClaims") != null
+				&& Bukkit.getPluginManager().getPlugin("UltimateClaims").isEnabled()) {
+			if (getConfig().getBoolean("ultimateClaims.enabled")) {
+				new UltimateClaimsManager();
+			}
 		}
 
 		useHolographicDisplays = (Bukkit.getPluginManager().getPlugin("HolographicDisplays") != null
@@ -284,7 +291,7 @@ public class Main extends JavaPlugin {
 		case 4:
 			messages.set("color.success", "&6Your team color has been changed");
 			messages.set("color.fail", "&6That is not a recognised chat color");
-			messages.set("info.money", "&6Balance: &b£%s");
+			messages.set("info.money", "&6Balance: &bÂ£%s");
 			messages.set("deposit.tooLittle", "&4You cannot deposit negative amounts");
 			messages.set("deposit.fail", "&4The deposit failed");
 			messages.set("deposit.success", "&6Money deposited");
@@ -501,6 +508,7 @@ public class Main extends JavaPlugin {
 			messages.set("warp.world", "&4The location of that warp could not be found");
 			messages.set("home.world", "&4You team home could not be found");
 			messages.set("invite.expired", "&4The invite from &b%s has expired");
+			messages.set("admin.cancel", "&4The command was cancelled by another plugin");
 		case 20:
 			messages.set("placeholder.tag", "%s");
 			messages.set("placeholder.displayname", "%s");
@@ -575,7 +583,7 @@ public class Main extends JavaPlugin {
 			getConfig().set("maxChests", 2);
 			getConfig().set("allowAllyChests", true);
 		case 10:
-			getConfig().set("bannedChars", ",.!\"£$%^&*()[]{};:#~\\|`¬");
+			getConfig().set("bannedChars", ",.!\"Â£$%^&*()[]{};:#~\\|`Â¬");
 			getConfig().set("defaultColor", "6");
 			getConfig().set("useTeams", true);
 			getConfig().set("collide", true);
@@ -610,6 +618,7 @@ public class Main extends JavaPlugin {
 		case 15:
 			getConfig().set("invite", 120);
 		case 16:
+			getConfig().set("ultimateClaims.enabled", true);
 			getConfig().set("maxMove", 0);
 			getConfig().set("ultimateClaims.enabled", true);
 		case 1000:
