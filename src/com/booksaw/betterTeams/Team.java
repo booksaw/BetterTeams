@@ -187,18 +187,11 @@ public class Team {
 	public static Team[] sortTeamsByScore() {
 		Team[] rankedTeams = new Team[teamList.size()];
 
-		int count = teamList.size() - 1;
+		int count = 0;
 		// adding them to a list to sort
 		for (Entry<UUID, Team> team : teamList.entrySet()) {
-			if (team.getValue().getTeamRank() == -1) {
-				rankedTeams[count--] = team.getValue();
-			} else {
-				if (team.getValue().getTeamRank() >= count || rankedTeams[team.getValue().getTeamRank()] != null) {
-					rankedTeams[count--] = team.getValue();
-				} else {
-					rankedTeams[team.getValue().getTeamRank()] = team.getValue();
-				}
-			}
+			rankedTeams[count] = team.getValue();
+			count++;
 		}
 
 		for (int i = 0; i < rankedTeams.length - 1; i++) {
@@ -232,19 +225,11 @@ public class Team {
 	public static Team[] sortTeamsByBalance() {
 		Team[] rankedTeams = new Team[teamList.size()];
 
-		int count = teamList.size() - 1;
+		int count = 0;
 		// adding them to a list to sort
 		for (Entry<UUID, Team> team : teamList.entrySet()) {
-			if (team.getValue().getTeamBalRank() == -1) {
-				rankedTeams[count--] = team.getValue();
-			} else {
-				if (team.getValue().getTeamBalRank() >= count
-						|| rankedTeams[team.getValue().getTeamBalRank()] != null) {
-					rankedTeams[count--] = team.getValue();
-				} else {
-					rankedTeams[team.getValue().getTeamBalRank()] = team.getValue();
-				}
-			}
+			rankedTeams[count] = team.getValue();
+			count++;
 		}
 
 		for (int i = 0; i < rankedTeams.length - 1; i++) {
