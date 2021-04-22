@@ -301,6 +301,10 @@ Bug Fixes:
 - Fixed bug causing invite links to not expire correctly (#93)
 - Fixed bug causing ally limits to be ignored (#100)
 
+3.1.24: 
+Bug Fixes:
+- Fixed a problem with /team top (#103)
+
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
 Headings: 
