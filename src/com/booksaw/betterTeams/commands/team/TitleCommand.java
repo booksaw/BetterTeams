@@ -32,10 +32,16 @@ public class TitleCommand extends TeamSubCommand {
 			args = new String[] { "me", args[0] };
 		}
 
+		Player toTitlePlayer = Bukkit.getPlayer(args[0]);
+
+		if (toTitlePlayer == null) {
+			return new CommandResponse("noPlayer");
+		}
+
 		if (args[0].equals("me")) {
 			toTitle = player;
 		} else {
-			toTitle = team.getTeamPlayer(Bukkit.getPlayer(args[0]));
+			toTitle = team.getTeamPlayer(toTitlePlayer);
 		}
 
 		if (toTitle == null) {

@@ -949,6 +949,10 @@ public class Team {
 	 */
 	@Nullable
 	public TeamPlayer getTeamPlayer(OfflinePlayer player) {
+		if (player == null) {
+			throw new IllegalArgumentException("Provided player cannot be null");
+		}
+
 		for (TeamPlayer teamPlayer : members) {
 			if (teamPlayer.getPlayer().getUniqueId().compareTo(player.getUniqueId()) == 0) {
 				return teamPlayer;
