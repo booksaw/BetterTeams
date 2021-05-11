@@ -308,6 +308,7 @@ Bug Fixes:
 3.1.25: 
 Bug Fixes:
 - Fixed prefixSyntax message having different coloured brackets (#115)
+- Fixed bug causing essentialsX /back to not work (#109)
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 

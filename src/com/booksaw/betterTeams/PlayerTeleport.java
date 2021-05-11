@@ -3,6 +3,7 @@ package com.booksaw.betterTeams;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerTeleportEvent;
 
 import com.booksaw.betterTeams.message.MessageManager;
 
@@ -68,6 +69,13 @@ public class PlayerTeleport {
 		if (location == null || location.getWorld() == null) {
 			throw new NullPointerException();
 		}
+
+		PlayerTeleportEvent event = new PlayerTeleportEvent(player, player.getLocation(), location);
+		Bukkit.getPluginManager().callEvent(event);
+		if (event.isCancelled()) {
+			return;
+		}
+
 		player.teleport(location);
 		MessageManager.sendMessage(player, reference);
 	}
