@@ -529,7 +529,7 @@ public class Main extends JavaPlugin {
 			// this will run only if a change has been made q
 			changes = true;
 			// set version the latest
-			messages.set("version", 21);
+			messages.set("version", 22);
 			break;
 		}
 

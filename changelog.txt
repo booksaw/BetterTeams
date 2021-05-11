@@ -309,7 +309,7 @@ Bug Fixes:
 Bug Fixes:
 - Fixed prefixSyntax message having different coloured brackets (#115)
 - Fixed bug causing essentialsX /back to not work (#109)
-- Fixed bug with /team title when the player is not recognised
+- Fixed bug with /team title when the player is not recognised (#112)
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
