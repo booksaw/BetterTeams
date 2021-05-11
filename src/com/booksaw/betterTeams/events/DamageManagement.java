@@ -66,7 +66,7 @@ public class DamageManagement implements Listener {
 				if (source instanceof Player && temp != null
 						&& !Team.getTeam((Player) source).canDamage(temp, (Player) source)) {
 					// they are on the same team
-					if (disableSelf && (Player) source == (Player) e.getEntity()) {
+					if (disableSelf && source == e.getEntity()) {
 						return;
 					}
 					e.setCancelled(true);

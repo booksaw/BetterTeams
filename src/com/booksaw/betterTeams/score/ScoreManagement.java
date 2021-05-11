@@ -22,7 +22,7 @@ public class ScoreManagement implements Listener {
 
 	private int nextPurge;
 	private final List<Date> purges;
-	private boolean run = false;
+	private boolean run;
 
 	public ScoreManagement() {
 		purges = new ArrayList<>();
@@ -55,28 +55,23 @@ public class ScoreManagement implements Listener {
 	 */
 	private void sched() {
 		BukkitScheduler scheduler = Main.plugin.getServer().getScheduler();
-		scheduler.scheduleSyncRepeatingTask(Main.plugin, new Runnable() {
-
-			@Override
-			public void run() {
-				if (purges.get(nextPurge).isNow()) {
-					if (run) {
-						return;
-					}
-
-					run = true;
-					Team.purge();
-					if (nextPurge + 1 < purges.size()) {
-						nextPurge++;
-					} else {
-						nextPurge = 0;
-					}
+		scheduler.scheduleSyncRepeatingTask(Main.plugin, () -> {
+			if (purges.get(nextPurge).isNow()) {
+				if (run) {
 					return;
 				}
-				// clean pass so it can reset the tracker
-				run = false;
-			}
 
+				run = true;
+				Team.purge();
+				if (nextPurge + 1 < purges.size()) {
+					nextPurge++;
+				} else {
+					nextPurge = 0;
+				}
+				return;
+			}
+			// clean pass so it can reset the tracker
+			run = false;
 		}, 0L, 20 * 60L);
 	}
 
@@ -116,11 +111,7 @@ public class ScoreManagement implements Listener {
 			} else if (date.date > this.date) {
 				return true;
 			} else {
-				if (date.hours <= hours) {
-					return false;
-				} else {
-					return true;
-				}
+				return date.hours > hours;
 			}
 
 		}
@@ -130,16 +121,13 @@ public class ScoreManagement implements Listener {
 		 */
 		public boolean isNow() {
 			LocalDateTime now = LocalDateTime.now();
-			if (date == now.getDayOfMonth() && now.getHour() == hours) {
-				return true;
-			}
-			return false;
+			return date == now.getDayOfMonth() && now.getHour() == hours;
 		}
 
 		/**
 		 * Used to check if the date is after the current time
 		 * 
-		 * @return
+		 * @return If the date is after the current time
 		 */
 		public boolean isAfterNow() {
 			LocalDateTime now = LocalDateTime.now();

@@ -41,12 +41,12 @@ public class DescriptionCommand extends TeamSubCommand {
 			return new CommandResponse("description.noPerm");
 		}
 
-		String newDescrip = "";
+		StringBuilder newDescrip = new StringBuilder();
 		for (String temp : args) {
-			newDescrip = newDescrip + temp + " ";
+			newDescrip.append(temp).append(" ");
 		}
 
-		team.setDescription(newDescrip);
+		team.setDescription(newDescrip.toString());
 
 		return new CommandResponse(true, "description.success");
 	}

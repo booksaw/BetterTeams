@@ -15,5 +15,5 @@ public interface BelowNameChangeListener {
 	 * 
 	 * @param event The event that has been added to a team or removed from a team
 	 */
-	public void run(BelowNameChangeEvent event);
+	void run(BelowNameChangeEvent event);
 }

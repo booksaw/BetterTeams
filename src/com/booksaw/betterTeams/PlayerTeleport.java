@@ -27,8 +27,7 @@ public class PlayerTeleport {
 	 * @param reference the reference for the message that should be sent when the
 	 *                  player is teleported
 	 */
-	public PlayerTeleport(Player player, Location location, String reference) throws Exception {
-
+	public PlayerTeleport(Player player, Location location, String reference) {
 		this.player = player;
 		this.location = location;
 		this.reference = reference;
@@ -48,24 +47,21 @@ public class PlayerTeleport {
 		// sending the wait message
 		MessageManager.sendMessageF(player, "teleport.wait", wait + "");
 
-		Bukkit.getScheduler().runTaskLater(Main.plugin, new Runnable() {
-			@Override
-			public void run() {
-				if (canTp()) {
-					try {
-						runTp();
-					} catch (Exception e) {
-						throw new NullPointerException();
-					}
-				} else {
-					cancel();
+		Bukkit.getScheduler().runTaskLater(Main.plugin, () -> {
+			if (canTp()) {
+				try {
+					runTp();
+				} catch (Exception e) {
+					throw new NullPointerException();
 				}
+			} else {
+				cancel();
 			}
 		}, 20L * wait);
 
 	}
 
-	public void runTp() throws Exception {
+	public void runTp() {
 		if (location == null || location.getWorld() == null) {
 			throw new NullPointerException();
 		}
@@ -86,11 +82,7 @@ public class PlayerTeleport {
 			return true;
 		}
 
-		if (playerLoc.distance(player.getLocation()) <= Math.abs(Main.plugin.getConfig().getInt("maxMove"))) {
-			return true;
-		}
-
-		return false;
+		return playerLoc.distance(player.getLocation()) <= Math.abs(Main.plugin.getConfig().getInt("maxMove"));
 	}
 
 	public void cancel() {

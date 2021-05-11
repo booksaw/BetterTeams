@@ -66,11 +66,11 @@ public class ScoreChange {
 	}
 
 	public void update() {
-		expires = System.currentTimeMillis() + (Main.plugin.getConfig().getInt("spamThreshold") * 1000);
+		expires = System.currentTimeMillis() + (Main.plugin.getConfig().getInt("spamThreshold") * 1000L);
 	}
 
 	public enum ChangeType {
-		KILL, DEATH;
+		KILL, DEATH
 	}
 
 }

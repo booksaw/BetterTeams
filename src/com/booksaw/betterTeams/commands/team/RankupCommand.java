@@ -26,7 +26,7 @@ public class RankupCommand extends TeamSubCommand {
 		}
 
 		boolean score = priceStr.contains("s");
-		int price = 0;
+		int price;
 		try {
 			price = Integer.parseInt(priceStr.substring(0, priceStr.length() - 1));
 		} catch (Exception e) {

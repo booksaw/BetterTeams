@@ -11,7 +11,7 @@ public abstract class ScoreSubCommand extends SubCommand {
 	@Override
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
 
-		Team team = null;
+		Team team;
 		try {
 			team = Team.getTeam(args[0]);
 		} catch (NullPointerException e) {
@@ -24,7 +24,7 @@ public abstract class ScoreSubCommand extends SubCommand {
 		// team is not null
 		// getting the score change
 
-		int score = -1;
+		int score;
 		try {
 			score = Integer.parseInt(args[1]);
 		} catch (NumberFormatException e) {

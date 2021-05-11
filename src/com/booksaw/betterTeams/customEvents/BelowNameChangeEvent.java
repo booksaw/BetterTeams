@@ -29,7 +29,7 @@ public class BelowNameChangeEvent extends Event {
 	}
 
 	public enum ChangeType {
-		ADD, REMOVE;
+		ADD, REMOVE
 	}
 
 	private static final HandlerList HANDLERS = new HandlerList();

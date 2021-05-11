@@ -27,7 +27,7 @@ public class TeamPlayer {
 	/**
 	 * This stores if the team is messaging to the team chat or the global chat
 	 */
-	private boolean teamChat = false;
+	private boolean teamChat;
 
 	private boolean allyChat = false;
 

@@ -33,12 +33,12 @@ public class AllyChatCommand extends TeamSubCommand {
 			}
 		}
 
-		String message = "";
-		for (int i = 0; i < args.length; i++) {
-			message = message + args[i] + " ";
+		StringBuilder message = new StringBuilder();
+		for (String arg : args) {
+			message.append(arg).append(" ");
 		}
 
-		team.sendAllyMessage(player, message);
+		team.sendAllyMessage(player, message.toString());
 		return new CommandResponse(true);
 	}
 

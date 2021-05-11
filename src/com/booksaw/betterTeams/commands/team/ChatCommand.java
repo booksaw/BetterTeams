@@ -33,12 +33,12 @@ public class ChatCommand extends TeamSubCommand {
 			}
 		}
 
-		String message = "";
-		for (int i = 0; i < args.length; i++) {
-			message = message + args[i] + " ";
+		StringBuilder message = new StringBuilder();
+		for (String arg : args) {
+			message.append(arg).append(" ");
 		}
 
-		team.sendMessage(player, message);
+		team.sendMessage(player, message.toString());
 		return new CommandResponse(true);
 	}
 

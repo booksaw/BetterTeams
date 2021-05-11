@@ -19,15 +19,15 @@ public class AllyCommand extends TeamSubCommand {
 	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 
 		if (args.length == 0) {
-			String requests = "";
+			StringBuilder requests = new StringBuilder();
 
 			for (UUID uuid : team.getRequests()) {
-				requests = requests + Team.getTeam(uuid).getDisplayName() + ChatColor.WHITE + ", ";
+				requests.append(Team.getTeam(uuid).getDisplayName()).append(ChatColor.WHITE).append(", ");
 			}
 			if (requests.length() > 2) {
-				requests = requests.substring(0, requests.length() - 2);
+				requests = new StringBuilder(requests.substring(0, requests.length() - 2));
 
-				return new CommandResponse(true, new ReferencedFormatMessage("ally.from", requests));
+				return new CommandResponse(true, new ReferencedFormatMessage("ally.from", requests.toString()));
 			} else {
 				return new CommandResponse(true, "ally.noRequests");
 			}

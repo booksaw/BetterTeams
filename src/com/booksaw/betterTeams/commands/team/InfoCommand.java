@@ -83,20 +83,20 @@ public class InfoCommand extends SubCommand {
 		MessageManager.sendMessageF(sender, "info.level", team.getLevel() + "");
 		MessageManager.sendMessageF(sender, "info.tag", team.getTag() + "");
 
-		String allies = "";
+		StringBuilder allies = new StringBuilder();
 		for (UUID uuid : team.getAllies()) {
-			allies = allies + Team.getTeam(uuid).getDisplayName() + ChatColor.WHITE + ", ";
+			allies.append(Team.getTeam(uuid).getDisplayName()).append(ChatColor.WHITE).append(", ");
 		}
 		if (allies.length() > 2) {
-			allies = allies.substring(0, allies.length() - 2);
+			allies = new StringBuilder(allies.substring(0, allies.length() - 2));
 
-			MessageManager.sendMessageF(sender, "info.ally", allies);
+			MessageManager.sendMessageF(sender, "info.ally", allies.toString());
 		}
 
 		List<TeamPlayer> owners = team.getRank(PlayerRank.OWNER);
 
 		if (owners.size() > 0) {
-			String ownerStr = "";
+			StringBuilder ownerStr = new StringBuilder();
 			ChatColor returnTo = ChatColor.RESET;
 			String toTest = MessageManager.getMessage("info.owner");
 			if (toTest.length() > 1) {
@@ -111,15 +111,15 @@ public class InfoCommand extends SubCommand {
 			}
 
 			for (TeamPlayer player : owners) {
-				ownerStr = ownerStr + player.getPrefix(returnTo) + player.getPlayer().getName() + " ";
+				ownerStr.append(player.getPrefix(returnTo)).append(player.getPlayer().getName()).append(" ");
 			}
-			MessageManager.sendMessageF(sender, "info.owner", ownerStr);
+			MessageManager.sendMessageF(sender, "info.owner", ownerStr.toString());
 		}
 
 		List<TeamPlayer> admins = team.getRank(PlayerRank.ADMIN);
 
 		if (admins.size() > 0) {
-			String adminStr = "";
+			StringBuilder adminStr = new StringBuilder();
 			ChatColor returnTo = ChatColor.RESET;
 			String toTest = MessageManager.getMessage("info.admin");
 			if (toTest.length() > 1) {
@@ -133,16 +133,16 @@ public class InfoCommand extends SubCommand {
 				}
 			}
 			for (TeamPlayer player : admins) {
-				adminStr = adminStr + player.getPrefix(returnTo) + player.getPlayer().getName() + " ";
+				adminStr.append(player.getPrefix(returnTo)).append(player.getPlayer().getName()).append(" ");
 			}
 
-			MessageManager.sendMessageF(sender, "info.admin", adminStr);
+			MessageManager.sendMessageF(sender, "info.admin", adminStr.toString());
 		}
 
 		List<TeamPlayer> users = team.getRank(PlayerRank.DEFAULT);
 
 		if (users.size() > 0) {
-			String userStr = "";
+			StringBuilder userStr = new StringBuilder();
 			ChatColor returnTo = ChatColor.RESET;
 			String toTest = MessageManager.getMessage("info.default");
 			if (toTest.length() > 1) {
@@ -156,10 +156,10 @@ public class InfoCommand extends SubCommand {
 				}
 			}
 			for (TeamPlayer player : users) {
-				userStr = userStr + player.getPrefix(returnTo) + player.getPlayer().getName() + " ";
+				userStr.append(player.getPrefix(returnTo)).append(player.getPlayer().getName()).append(" ");
 			}
 
-			MessageManager.sendMessageF(sender, "info.default", userStr);
+			MessageManager.sendMessageF(sender, "info.default", userStr.toString());
 		}
 
 	}

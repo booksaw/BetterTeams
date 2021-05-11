@@ -12,7 +12,7 @@ import com.booksaw.betterTeams.commands.presets.TeamSelectSubCommand;
 
 public class ColorTeama extends TeamSelectSubCommand {
 
-	List<Character> banned = Arrays.asList(new Character[] { 'l', 'n', 'o', 'k', 'n', 'r' });
+	List<Character> banned = Arrays.asList('l', 'n', 'o', 'k', 'n', 'r');
 
 	@Override
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args, Team team) {

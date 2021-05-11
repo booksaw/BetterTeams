@@ -61,24 +61,20 @@ public class HologramManager {
 
 	public void startUpdates() {
 		BukkitScheduler scheduler = Main.plugin.getServer().getScheduler();
-		scheduler.scheduleSyncRepeatingTask(Main.plugin, new Runnable() {
-			@Override
-			public void run() {
-				if (Bukkit.getPluginManager().getPlugin("HolographicDisplays") == null
-						|| !Bukkit.getPluginManager().getPlugin("HolographicDisplays").isEnabled()) {
-					return;
-				}
-				for (HologramType type : HologramType.values()) {
-					if (needsUpdating(type)) {
-						for (Entry<Hologram, HologramType> holo : holos.entrySet()) {
-							if (holo.getValue() == type) {
-								reloadHolo(holo.getKey(), holo.getValue());
-							}
+		scheduler.scheduleSyncRepeatingTask(Main.plugin, () -> {
+			if (Bukkit.getPluginManager().getPlugin("HolographicDisplays") == null
+					|| !Bukkit.getPluginManager().getPlugin("HolographicDisplays").isEnabled()) {
+				return;
+			}
+			for (HologramType type : HologramType.values()) {
+				if (needsUpdating(type)) {
+					for (Entry<Hologram, HologramType> holo : holos.entrySet()) {
+						if (holo.getValue() == type) {
+							reloadHolo(holo.getKey(), holo.getValue());
 						}
 					}
 				}
 			}
-
 		}, 0L, 20 * 60L);
 	}
 
@@ -121,7 +117,7 @@ public class HologramManager {
 
 		private String syntaxReference;
 
-		private HologramType(String syntaxReference) {
+		HologramType(String syntaxReference) {
 			this.syntaxReference = syntaxReference;
 		}
 

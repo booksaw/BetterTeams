@@ -15,11 +15,10 @@ public class SetrankTeama extends TeamSelectSubCommand {
 	@Override
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args, Team team) {
 
-		int level = 0;
+		int level;
 		try {
 			level = Integer.parseInt(args[1]);
 		} catch (NumberFormatException e) {
-			level = 0;
 			return new CommandResponse(new HelpMessage(this, label));
 		}
 

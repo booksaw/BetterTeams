@@ -12,7 +12,7 @@ public class RemoveScore extends ScoreSubCommand {
 	@Override
 	public CommandResponse onCommand(CommandSender sender, Team team, int change) {
 
-		team.setScore((team.getScore() - change < 0) ? 0 : team.getScore() - change);
+		team.setScore(Math.max(team.getScore() - change, 0));
 
 		return new CommandResponse("admin.score.success");
 	}

@@ -47,7 +47,7 @@ public class Warp {
 		}
 	}
 
-	public void execute(Player player) throws Exception {
+	public void execute(Player player) {
 		try {
 			new PlayerTeleport(player, location, "warp.success");
 		} catch (Exception e) {

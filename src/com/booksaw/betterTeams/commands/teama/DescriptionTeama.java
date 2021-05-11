@@ -12,17 +12,17 @@ public class DescriptionTeama extends TeamSelectSubCommand {
 
 	@Override
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args, Team team) {
-		String newDescrip = "";
+		StringBuilder newDescrip = new StringBuilder();
 		int i = 0;
 		for (String temp : args) {
 			if (i == 0) {
 				i++;
 				continue;
 			}
-			newDescrip = newDescrip + temp + " ";
+			newDescrip.append(temp).append(" ");
 		}
 
-		team.setDescription(newDescrip);
+		team.setDescription(newDescrip.toString());
 
 		return new CommandResponse(true, "admin.description.success");
 	}

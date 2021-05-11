@@ -75,15 +75,11 @@ public class ChatManagement implements Listener {
 //				event.setFormat(ChatColor.AQUA + "[" + team.getName() + "] " + ChatColor.WHITE + event.getFormat());
 		}
 
-		return;
-
 	}
 
 	@EventHandler
 	public void spyQuit(PlayerQuitEvent e) {
-		if (spy.contains(e.getPlayer())) {
-			spy.remove(e.getPlayer());
-		}
+		spy.remove(e.getPlayer());
 	}
 
 	enum PrefixType {

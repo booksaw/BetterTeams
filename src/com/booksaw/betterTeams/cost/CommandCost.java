@@ -97,11 +97,7 @@ public class CommandCost {
 			}
 		}
 
-		if (Main.econ.has(player, cost)) {
-			return true;
-		}
-
-		return false;
+		return Main.econ.has(player, cost);
 	}
 
 }

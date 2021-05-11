@@ -21,18 +21,18 @@ public class WarpCommand extends TeamSubCommand {
 	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 		if (args.length == 0) {
 
-			String replace = "";
+			StringBuilder replace = new StringBuilder();
 			for (Entry<String, Warp> warp : team.getWarps().entrySet()) {
-				replace = replace + warp.getKey() + ", ";
+				replace.append(warp.getKey()).append(", ");
 			}
 
 			if (replace.length() == 0) {
 				return new CommandResponse("warps.none");
 			}
 
-			replace = replace.substring(0, replace.length() - 2);
+			replace = new StringBuilder(replace.substring(0, replace.length() - 2));
 
-			return new CommandResponse(new ReferencedFormatMessage("warps.syntax", replace));
+			return new CommandResponse(new ReferencedFormatMessage("warps.syntax", replace.toString()));
 		}
 
 		Warp warp = team.getWarp(args[0]);

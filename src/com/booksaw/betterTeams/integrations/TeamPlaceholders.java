@@ -147,7 +147,7 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 
 		} else if (identifier.startsWith("teamscore_")) {
 			identifier = identifier.replaceAll("teamscore_", "");
-			int place = -1;
+			int place;
 			try {
 				place = Integer.parseInt(identifier) - 1;
 			} catch (NumberFormatException e) {
@@ -166,7 +166,7 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 
 		} else if (identifier.startsWith("teamscoreno_")) {
 			identifier = identifier.replaceAll("teamscoreno_", "");
-			int place = -1;
+			int place;
 			try {
 				place = Integer.parseInt(identifier) - 1;
 			} catch (NumberFormatException e) {

@@ -20,7 +20,7 @@ public class ReferencedFormatMessage implements Message {
 	 */
 	public ReferencedFormatMessage(String reference, String... replacement) {
 		this.reference = reference;
-		this.replacement = (Object[]) replacement;
+		this.replacement = replacement;
 	}
 
 	@Override

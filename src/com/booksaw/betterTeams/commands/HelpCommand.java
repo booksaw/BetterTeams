@@ -87,7 +87,7 @@ public class HelpCommand extends SubCommand {
 		BufferedReader reader = null;
 		try {
 			reader = new BufferedReader(new FileReader(f));
-			String line = "";
+			String line;
 			while ((line = reader.readLine()) != null) {
 				sender.sendMessage(
 						MessageManager.getPrefix() + org.bukkit.ChatColor.translateAlternateColorCodes('&', line));

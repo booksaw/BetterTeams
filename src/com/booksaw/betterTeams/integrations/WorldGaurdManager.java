@@ -47,7 +47,7 @@ public class WorldGaurdManager {
 	public boolean canTeamPvp(Player p) {
 		LocalPlayer localPlayer = WorldGuardPlugin.inst().wrapPlayer(p);
 
-		Location loc = new Location((com.sk89q.worldedit.world.World) new BukkitWorld(p.getWorld()),
+		Location loc = new Location(new BukkitWorld(p.getWorld()),
 				p.getLocation().getX(), p.getLocation().getY(), p.getLocation().getZ());
 		RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
 		RegionQuery query = container.createQuery();

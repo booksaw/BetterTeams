@@ -122,7 +122,7 @@ public class MessageManager {
 			}
 
 			try {
-				message = String.format(prefix + message, (Object[]) replacement);
+				message = String.format(prefix + message, replacement);
 			} catch (MissingFormatArgumentException e) {
 				// expected error if the message does not contain %s
 			}

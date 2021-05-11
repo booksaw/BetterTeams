@@ -59,6 +59,16 @@ public class ParentCommand extends SubCommand {
 	}
 
 	/**
+	 * Add multiple subcommands (see {@link ParentCommand#addSubCommand(SubCommand)})
+	 * @param commands The command(s) to add
+	 */
+	public void addSubCommands(SubCommand... commands) {
+		for (SubCommand command : commands) {
+			addSubCommand(command);
+		}
+	}
+
+	/**
 	 * this method adds another command to the parent command
 	 * 
 	 * @param command the command to add
@@ -164,11 +174,7 @@ public class ParentCommand extends SubCommand {
 	 */
 	private String[] removeFirstElement(String[] args) {
 		String[] toReturn = new String[args.length - 1];
-
-		for (int i = 0; i < toReturn.length; i++) {
-			toReturn[i] = args[i + 1];
-		}
-
+		System.arraycopy(args, 1, toReturn, 0, toReturn.length);
 		return toReturn;
 
 	}
@@ -224,7 +230,6 @@ public class ParentCommand extends SubCommand {
 		}
 
 		command.onTabComplete(options, sender, label, removeFirstElement(args));
-		return;
 	}
 
 	@Override
@@ -233,9 +238,8 @@ public class ParentCommand extends SubCommand {
 	}
 
 	public String getReference(SubCommand subCommand) {
-
 		String toReturn = MessageManager.getMessage("command." + subCommand.getCommand());
-		if (toReturn != null && !toReturn.equals("")) {
+		if (!toReturn.equals("")) {
 			return toReturn;
 		}
 

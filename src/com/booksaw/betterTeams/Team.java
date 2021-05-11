@@ -119,7 +119,7 @@ public class Team {
 	public static void loadTeams() {
 
 		logChat = Main.plugin.getConfig().getBoolean("logTeamChat");
-		teamList = new HashMap<UUID, Team>();
+		teamList = new HashMap<>();
 		for (String IDString : Main.plugin.getTeams().getStringList("teams")) {
 			UUID ID = UUID.fromString(IDString);
 			teamList.put(ID, new Team(ID));
@@ -171,7 +171,7 @@ public class Team {
 	 * 
 	 * @return a sorted list by the team score
 	 * @deprecated THIS IS ONLY FOR LEGACY SUPPORT, DO NOT USE
-	 * @see sortTeamsByScore()
+	 * @see Team#sortTeamsByScore()
 	 */
 	@Deprecated
 	public static Team[] sortTeams() {
@@ -292,7 +292,7 @@ public class Team {
 	/**
 	 * Used to get the config value checking if ally chests can be opened
 	 * 
-	 * @return
+	 * @return If ally chests can be opened
 	 */
 	public static boolean canOpenAllyChests() {
 		return Main.plugin.getConfig().getBoolean("allowAllyChests");
@@ -339,15 +339,10 @@ public class Team {
 			}
 
 			claimedBy = getClamingTeam(ChestManagement.getLocation((Chest) doubleChest.getRightSide()));
-			if (claimedBy != null) {
-				return claimedBy;
-			}
+			return claimedBy;
 		} else if (holder instanceof Chest) {
 			// single chest
-			Team claimedBy = getClamingTeam(ChestManagement.getLocation((Chest) holder));
-			if (claimedBy != null) {
-				return claimedBy;
-			}
+			return getClamingTeam(ChestManagement.getLocation((Chest) holder));
 		}
 
 		return null;
@@ -357,8 +352,8 @@ public class Team {
 	 * Used to get the claiming location, will check both parts of a double chest,
 	 * it is assumed that the provided block is known to be a chest
 	 * 
-	 * @param block
-	 * @return
+	 * @param block The block to get the claiming location of
+	 * @return The claiming location
 	 */
 	public static Location getClaimingLocation(Block block) {
 		// player is opening a chest
@@ -391,7 +386,7 @@ public class Team {
 
 	public static boolean isValidTeamName(String name) {
 		for (String temp : Main.plugin.getConfig().getStringList("blacklist")) {
-			if (temp.toLowerCase().equals(name.toLowerCase())) {
+			if (temp.equalsIgnoreCase(name)) {
 				return false;
 			}
 		}
@@ -455,7 +450,7 @@ public class Team {
 	 * This is a list of invited players to this team since the last restart of the
 	 * server
 	 */
-	private List<UUID> invitedPlayers = new ArrayList<UUID>();
+	private List<UUID> invitedPlayers = new ArrayList<>();
 
 	private List<TeamPlayer> members;
 	private List<UUID> bannedPlayers;
@@ -1094,7 +1089,7 @@ public class Team {
 
 		for (TeamPlayer player : members) {
 			if (player.getPlayer().isOnline()) {
-				MessageManager.sendMessageF((CommandSender) player.getPlayer().getPlayer(), "join.notify",
+				MessageManager.sendMessageF(player.getPlayer().getPlayer(), "join.notify",
 						p.getDisplayName());
 			}
 		}
@@ -1478,8 +1473,7 @@ public class Team {
 		DecimalFormat df = new DecimalFormat("0.00");
 		df.setGroupingUsed(true);
 		df.setGroupingSize(3);
-		String moneyString = df.format(money);
-		return moneyString;
+		return df.format(money);
 	}
 
 	public void setTitle(TeamPlayer player, String title) {
@@ -1669,12 +1663,7 @@ public class Team {
 	 */
 	public boolean canDamage(Team team) {
 		if (team.isAlly(getID()) || team == this) {
-
-			if (pvp && team.pvp) {
-				return true;
-			}
-
-			return false;
+			return pvp && team.pvp;
 		}
 		return true;
 	}
@@ -1802,11 +1791,7 @@ public class Team {
 	public void saveEchest() {
 		for (int i = 0; i < 27; i++) {
 			ItemStack is = echest.getItem(i);
-			if (is != null) {
-				setValue(Main.plugin.getTeams(), "echest." + i, is);
-			} else {
-				setValue(Main.plugin.getTeams(), "echest." + i, null);
-			}
+			setValue(Main.plugin.getTeams(), "echest." + i, is);
 		}
 		Main.plugin.saveTeams();
 	}

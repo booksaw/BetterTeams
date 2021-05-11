@@ -25,18 +25,18 @@ public class WarpTeama extends SubCommand {
 
 		if (args.length == 1) {
 
-			String replace = "";
+			StringBuilder replace = new StringBuilder();
 			for (Entry<String, Warp> warp : team.getWarps().entrySet()) {
-				replace = replace + warp.getKey() + ", ";
+				replace.append(warp.getKey()).append(", ");
 			}
 
 			if (replace.length() == 0) {
 				return new CommandResponse("admin.warps.none");
 			}
 
-			replace = replace.substring(0, replace.length() - 2);
+			replace = new StringBuilder(replace.substring(0, replace.length() - 2));
 
-			return new CommandResponse(new ReferencedFormatMessage("warps.syntax", replace));
+			return new CommandResponse(new ReferencedFormatMessage("warps.syntax", replace.toString()));
 		}
 
 		Warp warp = team.getWarp(args[1]);

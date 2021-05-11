@@ -26,7 +26,7 @@ public class TitleCommand extends TeamSubCommand {
 	@Override
 	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 
-		TeamPlayer toTitle = null;
+		TeamPlayer toTitle;
 
 		if (args.length == 1) {
 			args = new String[] { "me", args[0] };
