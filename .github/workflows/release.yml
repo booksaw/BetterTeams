@@ -11,8 +11,5 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Release new version
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npx semantic-release
+      - name: Generate changelog
+        uses: heinrichreimer/action-github-changelog-generator@v2.2
