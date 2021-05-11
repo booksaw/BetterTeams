@@ -1,9 +1,10 @@
 name: Release
 
 on:
-  push:
-    branches:
-      - master
+  issues:
+    types: [opened, labeled]
+  pull_request:
+    types: [opened, labeled]
 
 jobs:
   main:
