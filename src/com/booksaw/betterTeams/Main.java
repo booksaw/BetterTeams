@@ -521,6 +521,10 @@ public class Main extends JavaPlugin {
 			messages.set("uclaim.ban", "&4You cannot ban members of your own team from your claim");
 			messages.set("uclaim.dissolve", "&4Your team has been disbanded so your claim has been dissolved");
 			messages.set("uclaim.team", "&4You must be in a team to create a claim");
+		case 21:
+			if (messages.getString("prefixSyntax").equals("&b[%s] &r%s")) {
+				messages.set("prefixSyntax", "&7[%s&7] &r%s");
+			}
 		case 1000:
 			// this will run only if a change has been made q
 			changes = true;

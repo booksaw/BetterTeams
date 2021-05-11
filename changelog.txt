@@ -305,6 +305,10 @@ Bug Fixes:
 Bug Fixes:
 - Fixed a problem with /team top (#103)
 
+3.1.25: 
+Bug Fixes:
+- Fixed prefixSyntax message having different coloured brackets (#115)
+
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
 Headings: 
