@@ -1,0 +1,16 @@
+name: Release
+
+on:
+  issues:
+    types: [opened, labeled]
+  pull_request:
+    types: [opened, labeled]
+
+jobs:
+  main:
+    name: NPM Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Generate changelog
+        uses: heinrichreimer/action-github-changelog-generator@v2.2
