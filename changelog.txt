@@ -311,6 +311,11 @@ Bug Fixes:
 - Fixed bug causing essentialsX /back to not work (#109)
 - Fixed bug with /team title when the player is not recognised (#112)
 
+3.1.26:
+- Fixed problem with permissions
+
+4.0: 
+
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
 Headings: 

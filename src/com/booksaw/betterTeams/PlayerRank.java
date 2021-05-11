@@ -18,13 +18,13 @@ public enum PlayerRank {
 	/**
 	 * The highest rank, this rank has full permissions over the team
 	 */
-	OWNER(1),
+	OWNER(2),
 
 	/**
 	 * This player has permissions to invite new players to the team and kick
 	 * default users, but cannot ban people or change team settings
 	 */
-	ADMIN(2);
+	ADMIN(1);
 
 	public int value;
 
