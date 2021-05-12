@@ -1,11 +1,10 @@
 package com.booksaw.betterTeams.events;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map.Entry;
-import java.util.Objects;
-import java.util.UUID;
-
+import com.booksaw.betterTeams.Main;
+import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.customEvents.BelowNameChangeEvent;
+import com.booksaw.betterTeams.customEvents.BelowNameChangeEvent.ChangeType;
+import com.booksaw.betterTeams.customEvents.BelowNameChangeListener;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,172 +14,170 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team.Option;
 import org.bukkit.scoreboard.Team.OptionStatus;
 
-import com.booksaw.betterTeams.Main;
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.customEvents.BelowNameChangeEvent;
-import com.booksaw.betterTeams.customEvents.BelowNameChangeEvent.ChangeType;
-import com.booksaw.betterTeams.customEvents.BelowNameChangeListener;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.Objects;
+import java.util.UUID;
 
 public class MCTeamManagement implements Listener {
 
-	private final BelowNameType type;
+    final Scoreboard board;
+    private final BelowNameType type;
+    /**
+     * Used to track a list of all listeners
+     *
+     * @see BelowNameChangeListener
+     */
+    private final List<BelowNameChangeListener> listeners = new ArrayList<>();
 
-	final Scoreboard board;
+    public MCTeamManagement(BelowNameType type) {
+        this.type = type;
 
-	public MCTeamManagement(BelowNameType type) {
-		this.type = type;
+        Objects.requireNonNull(Bukkit.getScoreboardManager()).getMainScoreboard();
+        board = Bukkit.getScoreboardManager().getMainScoreboard();
 
-		Objects.requireNonNull(Bukkit.getScoreboardManager()).getMainScoreboard();
-		board = Bukkit.getScoreboardManager().getMainScoreboard();
+    }
 
-	}
+    /**
+     * @param listener The listener to add to the list of active listeners
+     */
+    public void addListener(BelowNameChangeListener listener) {
+        listeners.add(listener);
+    }
 
-	/**
-	 * Used to track a list of all listeners
-	 * 
-	 * @see BelowNameChangeListener
-	 */
-	private final List<BelowNameChangeListener> listeners = new ArrayList<>();
+    /**
+     * @param listener The listener to remove from the list of active listeners
+     */
+    public void removeListener(BelowNameChangeListener listener) {
+        listeners.remove(listener);
+    }
 
-	/**
-	 * @param listener The listener to add to the list of active listeners
-	 */
-	public void addListener(BelowNameChangeListener listener) {
-		listeners.add(listener);
-	}
+    public void displayBelowNameForAll() {
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            displayBelowName(p);
+        }
+    }
 
-	/**
-	 * @param listener The listener to remove from the list of active listeners
-	 */
-	public void removeListener(BelowNameChangeListener listener) {
-		listeners.remove(listener);
-	}
+    public void displayBelowName(Player player) {
+        player.setScoreboard(board);
 
-	public void displayBelowNameForAll() {
-		for (Player p : Bukkit.getOnlinePlayers()) {
-			displayBelowName(p);
-		}
-	}
+        Team team = Team.getTeam(player);
+        if (team == null) {
+            return;
+        }
 
-	public void displayBelowName(Player player) {
-		player.setScoreboard(board);
+        // checking the player has the correct permission node
+        if (!player.hasPermission("betterTeams.teamName")) {
+            // player does not have permission to have their team name displayed.
+            return;
+        }
 
-		Team team = Team.getTeam(player);
-		if (team == null) {
-			return;
-		}
+        BelowNameChangeEvent event = new BelowNameChangeEvent(player, ChangeType.ADD);
+        Bukkit.getPluginManager().callEvent(event);
 
-		// checking the player has the correct permission node
-		if (!player.hasPermission("betterTeams.teamName")) {
-			// player does not have permission to have their team name displayed.
-			return;
-		}
+        team.getScoreboardTeam(board).addEntry(player.getName());
 
-		BelowNameChangeEvent event = new BelowNameChangeEvent(player, ChangeType.ADD);
-		Bukkit.getPluginManager().callEvent(event);
+        // triggering the listeners
+        for (BelowNameChangeListener listener : listeners) {
+            listener.run(event);
+        }
 
-		team.getScoreboardTeam(board).addEntry(player.getName());
+    }
 
-		// triggering the listeners
-		for (BelowNameChangeListener listener : listeners) {
-			listener.run(event);
-		}
+    /**
+     * Used when the plugin is disabled
+     */
+    public void removeAll() {
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            remove(p);
+        }
 
-	}
+        for (Entry<UUID, Team> t : Team.getTeamList().entrySet()) {
+            org.bukkit.scoreboard.Team team = t.getValue().getScoreboardTeamOrNull();
 
-	/**
-	 * Used when the plugin is disabled
-	 */
-	public void removeAll() {
-		for (Player p : Bukkit.getOnlinePlayers()) {
-			remove(p);
-		}
+            if (team != null) {
+                team.unregister();
+            }
 
-		for (Entry<UUID, Team> t : Team.getTeamList().entrySet()) {
-			org.bukkit.scoreboard.Team team = t.getValue().getScoreboardTeamOrNull();
+        }
+    }
 
-			if (team != null) {
-				team.unregister();
-			}
+    /**
+     * Used to remove the prefix / suffix from the specified player
+     *
+     * @param player the player to remove the prefix/suffix from
+     */
+    public void remove(Player player) {
 
-		}
-	}
+        if (player == null) {
+            return;
+        }
 
-	/**
-	 * Used to remove the prefix / suffix from the specified player
-	 * 
-	 * @param player the player to remove the prefix/suffix from
-	 */
-	public void remove(Player player) {
+        Team team = Team.getTeam(player);
+        if (team == null) {
+            return;
+        }
+        team.getScoreboardTeam(board).removeEntry(player.getName());
 
-		if (player == null) {
-			return;
-		}
+        BelowNameChangeEvent event = new BelowNameChangeEvent(player, ChangeType.REMOVE);
+        Bukkit.getPluginManager().callEvent(event);
 
-		Team team = Team.getTeam(player);
-		if (team == null) {
-			return;
-		}
-		team.getScoreboardTeam(board).removeEntry(player.getName());
+        // triggering the listeners
+        for (BelowNameChangeListener listener : listeners) {
+            listener.run(new BelowNameChangeEvent(player, ChangeType.REMOVE));
+        }
 
-		BelowNameChangeEvent event = new BelowNameChangeEvent(player, ChangeType.REMOVE);
-		Bukkit.getPluginManager().callEvent(event);
+    }
 
-		// triggering the listeners
-		for (BelowNameChangeListener listener : listeners) {
-			listener.run(new BelowNameChangeEvent(player, ChangeType.REMOVE));
-		}
+    @EventHandler
+    public void playerJoinEvent(PlayerJoinEvent e) {
+        displayBelowName(e.getPlayer());
+    }
 
-	}
+    public BelowNameType getType() {
+        return type;
+    }
 
-	@EventHandler
-	public void playerJoinEvent(PlayerJoinEvent e) {
-		displayBelowName(e.getPlayer());
-	}
+    public void setupTeam(org.bukkit.scoreboard.Team team, String teamName) {
+        // setting team name
+        if (type == BelowNameType.PREFIX) {
+            team.setPrefix(teamName);
+        } else if (type == BelowNameType.SUFFIX) {
+            team.setSuffix(teamName);
+        }
 
-	public enum BelowNameType {
-		PREFIX, SUFFIX, FALSE;
+        if (!Main.plugin.getConfig().getBoolean("collide")) {
+            team.setOption(Option.COLLISION_RULE, OptionStatus.FOR_OWN_TEAM);
+        }
 
-		public static BelowNameType getType(String string) {
+        if (Main.plugin.getConfig().getBoolean("privateDeath")) {
+            team.setOption(Option.DEATH_MESSAGE_VISIBILITY, OptionStatus.FOR_OWN_TEAM);
+        }
 
-			switch (string.toLowerCase()) {
-			case "prefix":
-			case "true":
-				return PREFIX;
-			case "suffix":
-				return SUFFIX;
-			}
+        if (Main.plugin.getConfig().getBoolean("privateName")) {
+            team.setOption(Option.NAME_TAG_VISIBILITY, OptionStatus.FOR_OTHER_TEAMS);
+        }
 
-			return FALSE;
-		}
-	}
+        team.setCanSeeFriendlyInvisibles(Main.plugin.getConfig().getBoolean("canSeeFriendlyInvisibles"));
 
-	public BelowNameType getType() {
-		return type;
-	}
+    }
 
-	public void setupTeam(org.bukkit.scoreboard.Team team, String teamName) {
-		// setting team name
-		if (type == BelowNameType.PREFIX) {
-			team.setPrefix(teamName);
-		} else if (type == BelowNameType.SUFFIX) {
-			team.setSuffix(teamName);
-		}
+    public enum BelowNameType {
+        PREFIX, SUFFIX, FALSE;
 
-		if (!Main.plugin.getConfig().getBoolean("collide")) {
-			team.setOption(Option.COLLISION_RULE, OptionStatus.FOR_OWN_TEAM);
-		}
+        public static BelowNameType getType(String string) {
 
-		if (Main.plugin.getConfig().getBoolean("privateDeath")) {
-			team.setOption(Option.DEATH_MESSAGE_VISIBILITY, OptionStatus.FOR_OWN_TEAM);
-		}
+            switch (string.toLowerCase()) {
+                case "prefix":
+                case "true":
+                    return PREFIX;
+                case "suffix":
+                    return SUFFIX;
+            }
 
-		if (Main.plugin.getConfig().getBoolean("privateName")) {
-			team.setOption(Option.NAME_TAG_VISIBILITY, OptionStatus.FOR_OTHER_TEAMS);
-		}
-
-		team.setCanSeeFriendlyInvisibles(Main.plugin.getConfig().getBoolean("canSeeFriendlyInvisibles"));
-
-	}
+            return FALSE;
+        }
+    }
 
 }

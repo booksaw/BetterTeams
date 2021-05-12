@@ -1,57 +1,54 @@
 package com.booksaw.betterTeams.customEvents;
 
+import com.booksaw.betterTeams.Team;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
-
-import com.booksaw.betterTeams.Team;
 import org.jetbrains.annotations.NotNull;
 
 public class LevelupTeamEvent extends TeamEvent {
 
-	private static final HandlerList HANDLERS = new HandlerList();
+    private static final HandlerList HANDLERS = new HandlerList();
+    private final int currentLevel;
+    private final int newLevel;
+    private final int cost;
+    private final boolean score;
+    private final Player commandSender;
+    public LevelupTeamEvent(Team team, int currentLevel, int newLevel, int cost, boolean score, Player commandSender) {
+        super(team);
+        this.currentLevel = currentLevel;
+        this.newLevel = newLevel;
+        this.cost = cost;
+        this.score = score;
+        this.commandSender = commandSender;
+    }
 
-	@Override
-	public @NotNull HandlerList getHandlers() {
-		return HANDLERS;
-	}
+    public static HandlerList getHandlerList() {
+        return HANDLERS;
+    }
 
-	public static HandlerList getHandlerList() {
-		return HANDLERS;
-	}
+    @Override
+    public @NotNull HandlerList getHandlers() {
+        return HANDLERS;
+    }
 
-	private final int currentLevel;
-	private final int newLevel;
-	private final int cost;
-	private final boolean score;
-	private final Player commandSender;
+    public int getCurrentLevel() {
+        return currentLevel;
+    }
 
-	public LevelupTeamEvent(Team team, int currentLevel, int newLevel, int cost, boolean score, Player commandSender) {
-		super(team);
-		this.currentLevel = currentLevel;
-		this.newLevel = newLevel;
-		this.cost = cost;
-		this.score = score;
-		this.commandSender = commandSender;
-	}
+    public int getNewLevel() {
+        return newLevel;
+    }
 
-	public int getCurrentLevel() {
-		return currentLevel;
-	}
+    public int getCost() {
+        return cost;
+    }
 
-	public int getNewLevel() {
-		return newLevel;
-	}
+    public boolean isScore() {
+        return score;
+    }
 
-	public int getCost() {
-		return cost;
-	}
-
-	public boolean isScore() {
-		return score;
-	}
-
-	public Player getCommandSender() {
-		return commandSender;
-	}
+    public Player getCommandSender() {
+        return commandSender;
+    }
 
 }

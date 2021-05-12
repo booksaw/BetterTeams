@@ -1,65 +1,64 @@
 package com.booksaw.betterTeams.commands.team;
 
-import java.util.List;
-import java.util.Objects;
-
-import org.bukkit.command.CommandSender;
-
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 import com.booksaw.betterTeams.events.InventoryManagement;
+import org.bukkit.command.CommandSender;
+
+import java.util.List;
+import java.util.Objects;
 
 public class EchestCommand extends TeamSubCommand {
 
-	@Override
-	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
+    @Override
+    public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 
-		InventoryManagement.adminViewers.put(player.getPlayer().getPlayer(), team);
-		Objects.requireNonNull(player.getPlayer().getPlayer()).openInventory(team.getEchest());
+        InventoryManagement.adminViewers.put(player.getPlayer().getPlayer(), team);
+        Objects.requireNonNull(player.getPlayer().getPlayer()).openInventory(team.getEchest());
 
-		return new CommandResponse(true);
-	}
+        return new CommandResponse(true);
+    }
 
-	@Override
-	public String getCommand() {
-		return "echest";
-	}
+    @Override
+    public String getCommand() {
+        return "echest";
+    }
 
-	@Override
-	public String getNode() {
-		return "echest";
-	}
+    @Override
+    public String getNode() {
+        return "echest";
+    }
 
-	@Override
-	public String getHelp() {
-		return "View your teams ender chest";
-	}
+    @Override
+    public String getHelp() {
+        return "View your teams ender chest";
+    }
 
-	@Override
-	public String getArguments() {
-		return "";
-	}
+    @Override
+    public String getArguments() {
+        return "";
+    }
 
-	@Override
-	public int getMinimumArguments() {
-		return 0;
-	}
+    @Override
+    public int getMinimumArguments() {
+        return 0;
+    }
 
-	@Override
-	public int getMaximumArguments() {
-		return 0;
-	}
+    @Override
+    public int getMaximumArguments() {
+        return 0;
+    }
 
-	@Override
-	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
-	}
+    @Override
+    public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
+    }
 
-	@Override
-	public PlayerRank getDefaultRank() {
-		return PlayerRank.DEFAULT;
-	}
+    @Override
+    public PlayerRank getDefaultRank() {
+        return PlayerRank.DEFAULT;
+    }
 
 }
