@@ -44,7 +44,7 @@ public class ScoreManagement implements Listener {
 		}
 
 		// if there are actually purges
-		if (purges.size() != 0) {
+		if (!purges.isEmpty()) {
 			sched();
 		}
 
@@ -55,27 +55,24 @@ public class ScoreManagement implements Listener {
 	 */
 	private void sched() {
 		BukkitScheduler scheduler = Main.plugin.getServer().getScheduler();
-		scheduler.scheduleSyncRepeatingTask(Main.plugin, new Runnable() {
+		scheduler.scheduleSyncRepeatingTask(Main.plugin, () -> {
 
-			@Override
-			public void run() {
-				if (purges.get(nextPurge).isNow()) {
-					if (run) {
-						return;
-					}
-
-					run = true;
-					Team.purge();
-					if (nextPurge + 1 < purges.size()) {
-						nextPurge++;
-					} else {
-						nextPurge = 0;
-					}
+			if (purges.get(nextPurge).isNow()) {
+				if (run) {
 					return;
 				}
-				// clean pass so it can reset the tracker
-				run = false;
+
+				run = true;
+				Team.getTeamManager().purgeTeams();
+				if (nextPurge + 1 < purges.size()) {
+					nextPurge++;
+				} else {
+					nextPurge = 0;
+				}
+				return;
 			}
+			// clean pass so it can reset the tracker
+			run = false;
 
 		}, 0L, 20 * 60L);
 	}
@@ -91,36 +88,25 @@ public class ScoreManagement implements Listener {
 	}
 
 	private class Date {
-		private final int date, hours;
+		private final int days;
+		private final int hours;
 
 		public Date(int date, int hours) {
-			this.date = date;
+			this.days = date;
 			this.hours = hours;
 		}
-
-//		public int getDate() {
-//			return date;
-//		}
-//
-//		public int getHours() {
-//			return hours;
-//		}
 
 		/**
 		 * @param date the date to check if this date is before
 		 * @return if the event is before now
 		 */
 		public boolean isBefore(Date date) {
-			if (date.date < this.date) {
+			if (date.days < this.days) {
 				return false;
-			} else if (date.date > this.date) {
+			} else if (date.days > this.days) {
 				return true;
 			} else {
-				if (date.hours <= hours) {
-					return false;
-				} else {
-					return true;
-				}
+				return date.hours > hours;
 			}
 
 		}
@@ -130,10 +116,7 @@ public class ScoreManagement implements Listener {
 		 */
 		public boolean isNow() {
 			LocalDateTime now = LocalDateTime.now();
-			if (date == now.getDayOfMonth() && now.getHour() == hours) {
-				return true;
-			}
-			return false;
+			return days == now.getDayOfMonth() && now.getHour() == hours;
 		}
 
 		/**

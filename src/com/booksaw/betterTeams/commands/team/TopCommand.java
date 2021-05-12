@@ -22,7 +22,7 @@ public class TopCommand extends SubCommand {
 			team = Team.getTeam((Player) sender);
 		}
 
-		Team[] teams = Team.sortTeamsByScore();
+		Team[] teams = Team.getTeamManager().sortTeamsByScore();
 		MessageManager.sendMessage(sender, "top.leaderboard");
 
 		for (int i = 0; i < 10 && i < teams.length; i++) {

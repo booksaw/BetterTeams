@@ -39,7 +39,7 @@ public class CreateCommand extends NoTeamSubCommand {
 			return new CommandResponse("create.exists");
 		}
 
-		Team.createNewTeam(args[0], (Player) sender);
+		Team.getTeamManager().createNewTeam(args[0], (Player) sender);
 
 		return new CommandResponse(true, "create.success");
 

@@ -27,7 +27,7 @@ public class ChestRemoveTeama extends SubCommand {
 			return new CommandResponse("chest.remove.noChest");
 		}
 
-		Team team = Team.getClamingTeam(loc);
+		Team team = Team.getClaimingTeam(loc);
 
 		if (loc == null || team == null) {
 			return new CommandResponse("chest.remove.notClaimed");

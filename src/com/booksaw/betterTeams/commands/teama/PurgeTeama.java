@@ -20,7 +20,7 @@ public class PurgeTeama extends SubCommand {
 			return new CommandResponse("admin.purge.confirm");
 		}
 
-		if (Team.purge())
+		if (Team.getTeamManager().purgeTeams())
 			return new CommandResponse(true, "admin.purge.success");
 
 		return new CommandResponse(false);

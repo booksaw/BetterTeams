@@ -16,15 +16,15 @@ public class PvpCommand extends TeamSubCommand {
 	@Override
 	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 
-		if (team.pvp) {
-			team.pvp = false;
+		if (team.isPvp()) {
+			team.setPvp(false);
 			for (TeamPlayer p : team.getMembers()) {
 				if (p.getPlayer().isOnline()) {
 					MessageManager.sendMessage(p.getPlayer().getPlayer(), "pvp.disabled");
 				}
 			}
 		} else {
-			team.pvp = true;
+			team.setPvp(true);
 			for (TeamPlayer p : team.getMembers()) {
 				if (p.getPlayer().isOnline()) {
 					MessageManager.sendMessage(p.getPlayer().getPlayer(), "pvp.enabled");

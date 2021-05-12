@@ -25,7 +25,7 @@ public class HologramManager {
 		holoManager = this;
 		holos = new HashMap<>();
 
-		List<String> stored = Main.plugin.getTeams().getStringList("holos");
+		List<String> stored = Team.getTeamManager().getTeamStorage().getStringList("holos");
 		for (String temp : stored) {
 			String[] split = temp.split(";");
 			if (split.length == 1) {
@@ -94,26 +94,24 @@ public class HologramManager {
 	}
 
 	public Team[] getSortedArray(HologramType type) {
-		switch (type) {
-		case MONEY:
-			return Team.sortTeamsByBalance();
-		case SCORE:
-			return Team.sortTeamsByScore();
-
+		if (type == HologramType.MONEY) {
+			return Team.getTeamManager().sortTeamsByBalance();
+		} else {
+			return Team.getTeamManager().sortTeamsByScore();
 		}
 
-		return new Team[0];
 	}
 
 	public boolean needsUpdating(HologramType type) {
-		switch (type) {
-		case MONEY:
-			return Team.moneyChanges;
-		case SCORE:
-			return Team.scoreChanges;
-		}
+		// TODO reinstate this method
+//		switch (type) {
+//		case MONEY:
+//			return Team.moneyChanges;
+//		case SCORE:
+//			return Team.scoreChanges;
+//		}
 
-		return false;
+		return true;
 	}
 
 	public enum HologramType {
@@ -136,8 +134,8 @@ public class HologramManager {
 			holostr.add(getString(holo.getKey().getLocation()) + ";" + holo.getValue());
 			holo.getKey().delete();
 		}
-		Main.plugin.getTeams().set("holos", holostr);
-		Main.plugin.saveTeams();
+		Team.getTeamManager().getTeamStorage().set("holos", holostr);
+		Team.getTeamManager().saveTeamsFile();
 		holos = new HashMap<>();
 	}
 

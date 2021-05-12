@@ -9,7 +9,6 @@ import java.util.concurrent.Callable;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -155,7 +154,6 @@ public class Main extends JavaPlugin {
 
 		loadCustomConfigs();
 		ChatManagement.enable();
-		Team.loadTeams();
 
 		if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null
 				&& Bukkit.getPluginManager().getPlugin("PlaceholderAPI").isEnabled()) {
@@ -203,11 +201,6 @@ public class Main extends JavaPlugin {
 
 	}
 
-	/**
-	 * This is used to store the config file in which the the teams data is stored
-	 */
-	FileConfiguration teams;
-
 	public void loadCustomConfigs() {
 
 		File f = MessageManager.getFile();
@@ -234,14 +227,6 @@ public class Main extends JavaPlugin {
 		addDefaults(messages);
 
 		MessageManager.addMessages(messages);
-
-		f = new File("plugins/BetterTeams/teams.yml");
-
-		if (!f.exists()) {
-			saveResource("teams.yml", false);
-		}
-
-		teams = YamlConfiguration.loadConfiguration(f);
 
 		if (getConfig().getBoolean("disableCombat")) {
 			if (damageManagement == null) {
@@ -636,22 +621,6 @@ public class Main extends JavaPlugin {
 		// if something has been changed, saving the new config
 		if (changes) {
 			saveConfig();
-		}
-	}
-
-	/**
-	 * @return the config fle in which all team information is stored
-	 */
-	public FileConfiguration getTeams() {
-		return teams;
-	}
-
-	public void saveTeams() {
-		File f = new File("plugins/BetterTeams/teams.yml");
-		try {
-			teams.save(f);
-		} catch (IOException ex) {
-			Bukkit.getLogger().log(Level.SEVERE, "Could not save config to " + f, ex);
 		}
 	}
 
