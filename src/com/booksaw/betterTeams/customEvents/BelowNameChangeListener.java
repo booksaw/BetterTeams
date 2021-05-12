@@ -6,8 +6,10 @@ package com.booksaw.betterTeams.customEvents;
  * will be notified
  * 
  * @author booksaw
+ * @deprecated Use BelowNameChangeEvent like any other spigot event
  *
  */
+@Deprecated
 public interface BelowNameChangeListener {
 
 	/**
@@ -15,5 +17,5 @@ public interface BelowNameChangeListener {
 	 * 
 	 * @param event The event that has been added to a team or removed from a team
 	 */
-	void run(BelowNameChangeEvent event);
+	public void run(BelowNameChangeEvent event);
 }
