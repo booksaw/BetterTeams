@@ -119,9 +119,6 @@ public class MCTeamManagement implements Listener {
 
 		Team team = Team.getTeam(player);
 		if (team == null) {
-//			for (BelowNameChangeListener listener : listeners) {
-//				listener.run(new BelowNameChangeEvent(player, ChangeType.REMOVE));
-//			}
 			return;
 		}
 		team.getScoreboardTeam(board).removeEntry(player.getName());

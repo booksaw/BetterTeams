@@ -93,14 +93,6 @@ public class ScoreManagement implements Listener {
 			this.hours = hours;
 		}
 
-//		public int getDate() {
-//			return date;
-//		}
-//
-//		public int getHours() {
-//			return hours;
-//		}
-
 		/**
 		 * @param date the date to check if this date is before
 		 * @return if the event is before now
