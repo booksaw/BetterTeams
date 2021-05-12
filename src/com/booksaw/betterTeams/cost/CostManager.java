@@ -75,7 +75,7 @@ public class CostManager {
 	 * @author booksaw
 	 *
 	 */
-	public class NoCost extends CommandCost {
+	public static class NoCost extends CommandCost {
 
 		public NoCost() {
 			super("", 0);

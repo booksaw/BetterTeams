@@ -61,7 +61,7 @@ public class CooldownManager {
 	 * @author booksaw
 	 *
 	 */
-	public class NoCooldown extends CommandCooldown {
+	public static class NoCooldown extends CommandCooldown {
 
 		public NoCooldown() {
 			super("", 0);

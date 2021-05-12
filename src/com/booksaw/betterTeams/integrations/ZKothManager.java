@@ -31,7 +31,7 @@ public class ZKothManager implements Listener {
 		team.setScore(team.getScore() + Main.plugin.getConfig().getInt("zkoth.pointsPerCapture"));
 	}
 
-	public class TeamListener implements FactionListener {
+	public static class TeamListener implements FactionListener {
 
 		@Override
 		public String getFactionTag(Player p) {

@@ -85,7 +85,7 @@ public class ScoreManagement implements Listener {
 		});
 	}
 
-	private class Date {
+	private static class Date {
 		private final int date, hours;
 
 		public Date(int date, int hours) {
