@@ -6,19 +6,19 @@ import org.jetbrains.annotations.NotNull;
 
 public class DisbandTeamEvent extends TeamEvent {
 
-    private static final HandlerList HANDLERS = new HandlerList();
+	private static final HandlerList HANDLERS = new HandlerList();
 
-    public DisbandTeamEvent(Team team) {
-        super(team);
-    }
+	public DisbandTeamEvent(Team team) {
+		super(team);
+	}
 
-    public static HandlerList getHandlerList() {
-        return HANDLERS;
-    }
+	public static HandlerList getHandlerList() {
+		return HANDLERS;
+	}
 
-    @Override
-    public @NotNull HandlerList getHandlers() {
-        return HANDLERS;
-    }
+	@Override
+	public @NotNull HandlerList getHandlers() {
+		return HANDLERS;
+	}
 
 }

@@ -16,58 +16,58 @@ import java.util.List;
  */
 public class LeaveCommand extends TeamSubCommand {
 
-    @Override
-    public CommandResponse onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
+	@Override
+	public CommandResponse onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
 
-        if (teamPlayer.getRank() == PlayerRank.OWNER && team.getRank(PlayerRank.OWNER).size() == 1) {
-            return new CommandResponse("leave.lastOwner");
-        }
+		if (teamPlayer.getRank() == PlayerRank.OWNER && team.getRank(PlayerRank.OWNER).size() == 1) {
+			return new CommandResponse("leave.lastOwner");
+		}
 
-        if (team.removePlayer(teamPlayer.getPlayer())) {
-            return new CommandResponse(true, "leave.success");
-        }
-        // event has been cancelled
-        return new CommandResponse(false);
-    }
+		if (team.removePlayer(teamPlayer.getPlayer())) {
+			return new CommandResponse(true, "leave.success");
+		}
+		// event has been cancelled
+		return new CommandResponse(false);
+	}
 
-    @Override
-    public String getCommand() {
-        return "leave";
-    }
+	@Override
+	public String getCommand() {
+		return "leave";
+	}
 
-    @Override
-    public int getMinimumArguments() {
-        return 0;
-    }
+	@Override
+	public int getMinimumArguments() {
+		return 0;
+	}
 
-    @Override
-    public String getNode() {
-        return "leave";
-    }
+	@Override
+	public String getNode() {
+		return "leave";
+	}
 
-    @Override
-    public String getHelp() {
-        return "Leave your current team";
-    }
+	@Override
+	public String getHelp() {
+		return "Leave your current team";
+	}
 
-    @Override
-    public String getArguments() {
-        return "";
-    }
+	@Override
+	public String getArguments() {
+		return "";
+	}
 
-    @Override
-    public int getMaximumArguments() {
-        return 0;
-    }
+	@Override
+	public int getMaximumArguments() {
+		return 0;
+	}
 
-    @Override
-    public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
+	@Override
+	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
 
-    }
+	}
 
-    @Override
-    public PlayerRank getDefaultRank() {
-        return PlayerRank.DEFAULT;
-    }
+	@Override
+	public PlayerRank getDefaultRank() {
+		return PlayerRank.DEFAULT;
+	}
 
 }

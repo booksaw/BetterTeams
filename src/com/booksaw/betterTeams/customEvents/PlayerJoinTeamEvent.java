@@ -12,19 +12,19 @@ import org.jetbrains.annotations.NotNull;
  */
 public class PlayerJoinTeamEvent extends TeamPlayerEvent {
 
-    private static final HandlerList HANDLERS = new HandlerList();
+	private static final HandlerList HANDLERS = new HandlerList();
 
-    public PlayerJoinTeamEvent(Team team, TeamPlayer teamPlayer) {
-        super(team, teamPlayer);
-    }
+	public PlayerJoinTeamEvent(Team team, TeamPlayer teamPlayer) {
+		super(team, teamPlayer);
+	}
 
-    public static HandlerList getHandlerList() {
-        return HANDLERS;
-    }
+	public static HandlerList getHandlerList() {
+		return HANDLERS;
+	}
 
-    @Override
-    public @NotNull HandlerList getHandlers() {
-        return HANDLERS;
-    }
+	@Override
+	public @NotNull HandlerList getHandlers() {
+		return HANDLERS;
+	}
 
 }

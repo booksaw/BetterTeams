@@ -12,52 +12,52 @@ import java.util.Objects;
 
 public class SethomeCommand extends TeamSubCommand {
 
-    @Override
-    public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
+	@Override
+	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 
-        team.setTeamHome(Objects.requireNonNull(player.getPlayer().getPlayer()).getLocation());
+		team.setTeamHome(Objects.requireNonNull(player.getPlayer().getPlayer()).getLocation());
 
-        return new CommandResponse(true, "sethome.success");
+		return new CommandResponse(true, "sethome.success");
 
-    }
+	}
 
-    @Override
-    public String getCommand() {
-        return "sethome";
-    }
+	@Override
+	public String getCommand() {
+		return "sethome";
+	}
 
-    @Override
-    public int getMinimumArguments() {
-        return 0;
-    }
+	@Override
+	public int getMinimumArguments() {
+		return 0;
+	}
 
-    @Override
-    public String getNode() {
-        return "sethome";
-    }
+	@Override
+	public String getNode() {
+		return "sethome";
+	}
 
-    @Override
-    public String getHelp() {
-        return "Sets your team's home";
-    }
+	@Override
+	public String getHelp() {
+		return "Sets your team's home";
+	}
 
-    @Override
-    public String getArguments() {
-        return "";
-    }
+	@Override
+	public String getArguments() {
+		return "";
+	}
 
-    @Override
-    public int getMaximumArguments() {
-        return 0;
-    }
+	@Override
+	public int getMaximumArguments() {
+		return 0;
+	}
 
-    @Override
-    public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
-    }
+	@Override
+	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
+	}
 
-    @Override
-    public PlayerRank getDefaultRank() {
-        return PlayerRank.ADMIN;
-    }
+	@Override
+	public PlayerRank getDefaultRank() {
+		return PlayerRank.ADMIN;
+	}
 
 }

@@ -12,27 +12,27 @@ import org.jetbrains.annotations.NotNull;
  */
 public class PrePurgeEvent extends Event implements Cancellable {
 
-    private static final HandlerList HANDLERS = new HandlerList();
-    private boolean cancelled = false;
+	private static final HandlerList HANDLERS = new HandlerList();
+	private boolean cancelled = false;
 
-    public static HandlerList getHandlerList() {
-        return HANDLERS;
-    }
+	public static HandlerList getHandlerList() {
+		return HANDLERS;
+	}
 
-    @Override
-    public @NotNull HandlerList getHandlers() {
-        return HANDLERS;
-    }
+	@Override
+	public @NotNull HandlerList getHandlers() {
+		return HANDLERS;
+	}
 
-    @Override
-    public boolean isCancelled() {
-        return cancelled;
-    }
+	@Override
+	public boolean isCancelled() {
+		return cancelled;
+	}
 
-    @Override
-    public void setCancelled(boolean b) {
-        cancelled = b;
+	@Override
+	public void setCancelled(boolean b) {
+		cancelled = b;
 
-    }
+	}
 
 }

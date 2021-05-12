@@ -12,66 +12,66 @@ import java.util.Objects;
 
 public class PromoteTeama extends SubCommand {
 
-    @Override
-    public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
+	@Override
+	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
 
-        Player p = Bukkit.getPlayer(args[0]);
-        if (p == null) {
-            return new CommandResponse("noPlayer");
-        }
+		Player p = Bukkit.getPlayer(args[0]);
+		if (p == null) {
+			return new CommandResponse("noPlayer");
+		}
 
-        Team team = Team.getTeam(p);
-        if (team == null) {
-            return new CommandResponse("admin.inTeam");
-        }
+		Team team = Team.getTeam(p);
+		if (team == null) {
+			return new CommandResponse("admin.inTeam");
+		}
 
-        TeamPlayer tp = team.getTeamPlayer(p);
-        if (Objects.requireNonNull(tp).getRank() == PlayerRank.OWNER) {
-            return new CommandResponse("admin.promote.max");
-        } else if (tp.getRank() == PlayerRank.ADMIN && Main.plugin.getConfig().getBoolean("singleOwner")) {
-            return new CommandResponse("admin.promote.owner");
-        }
+		TeamPlayer tp = team.getTeamPlayer(p);
+		if (Objects.requireNonNull(tp).getRank() == PlayerRank.OWNER) {
+			return new CommandResponse("admin.promote.max");
+		} else if (tp.getRank() == PlayerRank.ADMIN && Main.plugin.getConfig().getBoolean("singleOwner")) {
+			return new CommandResponse("admin.promote.owner");
+		}
 
-        team.promotePlayer(tp);
-        MessageManager.sendMessage(p, "admin.promote.notify");
-        return new CommandResponse(true, "admin.promote.success");
-    }
+		team.promotePlayer(tp);
+		MessageManager.sendMessage(p, "admin.promote.notify");
+		return new CommandResponse(true, "admin.promote.success");
+	}
 
-    @Override
-    public String getCommand() {
-        return "promote";
-    }
+	@Override
+	public String getCommand() {
+		return "promote";
+	}
 
-    @Override
-    public String getNode() {
-        return "admin.promote";
-    }
+	@Override
+	public String getNode() {
+		return "admin.promote";
+	}
 
-    @Override
-    public String getHelp() {
-        return "Promote that player within their team";
-    }
+	@Override
+	public String getHelp() {
+		return "Promote that player within their team";
+	}
 
-    @Override
-    public String getArguments() {
-        return "<player>";
-    }
+	@Override
+	public String getArguments() {
+		return "<player>";
+	}
 
-    @Override
-    public int getMinimumArguments() {
-        return 1;
-    }
+	@Override
+	public int getMinimumArguments() {
+		return 1;
+	}
 
-    @Override
-    public int getMaximumArguments() {
-        return 1;
-    }
+	@Override
+	public int getMaximumArguments() {
+		return 1;
+	}
 
-    @Override
-    public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
-        if (args.length == 1) {
-            addPlayerStringList(options, args[0]);
-        }
-    }
+	@Override
+	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
+		if (args.length == 1) {
+			addPlayerStringList(options, args[0]);
+		}
+	}
 
 }

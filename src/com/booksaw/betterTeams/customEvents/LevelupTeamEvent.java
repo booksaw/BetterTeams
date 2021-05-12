@@ -7,48 +7,49 @@ import org.jetbrains.annotations.NotNull;
 
 public class LevelupTeamEvent extends TeamEvent {
 
-    private static final HandlerList HANDLERS = new HandlerList();
-    private final int currentLevel;
-    private final int newLevel;
-    private final int cost;
-    private final boolean score;
-    private final Player commandSender;
-    public LevelupTeamEvent(Team team, int currentLevel, int newLevel, int cost, boolean score, Player commandSender) {
-        super(team);
-        this.currentLevel = currentLevel;
-        this.newLevel = newLevel;
-        this.cost = cost;
-        this.score = score;
-        this.commandSender = commandSender;
-    }
+	private static final HandlerList HANDLERS = new HandlerList();
+	private final int currentLevel;
+	private final int newLevel;
+	private final int cost;
+	private final boolean score;
+	private final Player commandSender;
 
-    public static HandlerList getHandlerList() {
-        return HANDLERS;
-    }
+	public LevelupTeamEvent(Team team, int currentLevel, int newLevel, int cost, boolean score, Player commandSender) {
+		super(team);
+		this.currentLevel = currentLevel;
+		this.newLevel = newLevel;
+		this.cost = cost;
+		this.score = score;
+		this.commandSender = commandSender;
+	}
 
-    @Override
-    public @NotNull HandlerList getHandlers() {
-        return HANDLERS;
-    }
+	public static HandlerList getHandlerList() {
+		return HANDLERS;
+	}
 
-    public int getCurrentLevel() {
-        return currentLevel;
-    }
+	@Override
+	public @NotNull HandlerList getHandlers() {
+		return HANDLERS;
+	}
 
-    public int getNewLevel() {
-        return newLevel;
-    }
+	public int getCurrentLevel() {
+		return currentLevel;
+	}
 
-    public int getCost() {
-        return cost;
-    }
+	public int getNewLevel() {
+		return newLevel;
+	}
 
-    public boolean isScore() {
-        return score;
-    }
+	public int getCost() {
+		return cost;
+	}
 
-    public Player getCommandSender() {
-        return commandSender;
-    }
+	public boolean isScore() {
+		return score;
+	}
+
+	public Player getCommandSender() {
+		return commandSender;
+	}
 
 }

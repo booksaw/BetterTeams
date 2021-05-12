@@ -7,32 +7,32 @@ import org.bukkit.command.CommandSender;
 
 public class HelpMessage implements Message {
 
-    final SubCommand command;
-    final String label;
+	final SubCommand command;
+	final String label;
 
-    public HelpMessage(SubCommand command, String label) {
-        this.command = command;
-        this.label = label;
-    }
+	public HelpMessage(SubCommand command, String label) {
+		this.command = command;
+		this.label = label;
+	}
 
-    @Override
-    public void sendMessage(CommandSender sender) {
-        MessageManager.sendFullMessage(sender, createHelpMessage(label,
-                command.getCommand() + " " + command.getArguments(), command.getHelpMessage()));
-    }
+	@Override
+	public void sendMessage(CommandSender sender) {
+		MessageManager.sendFullMessage(sender, createHelpMessage(label,
+				command.getCommand() + " " + command.getArguments(), command.getHelpMessage()));
+	}
 
-    /**
-     * Used to create a formatted help message to explain what a command does to the
-     * user
-     *
-     * @param label       the base command
-     * @param commandPath the rest of the command (i.e. help [param])
-     * @param description the description of the command
-     * @return the created message relating to that command
-     */
-    public String createHelpMessage(String label, String commandPath, String description) {
-        return HelpCommand.prefix + "/" + label + " " + commandPath + ChatColor.WHITE + " - " + HelpCommand.description
-                + description;
-    }
+	/**
+	 * Used to create a formatted help message to explain what a command does to the
+	 * user
+	 *
+	 * @param label       the base command
+	 * @param commandPath the rest of the command (i.e. help [param])
+	 * @param description the description of the command
+	 * @return the created message relating to that command
+	 */
+	public String createHelpMessage(String label, String commandPath, String description) {
+		return HelpCommand.prefix + "/" + label + " " + commandPath + ChatColor.WHITE + " - " + HelpCommand.description
+				+ description;
+	}
 
 }

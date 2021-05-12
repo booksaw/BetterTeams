@@ -12,22 +12,22 @@ import java.util.Objects;
 
 public class AllyManagement implements Listener {
 
-    @EventHandler
-    public void onJoin(PlayerJoinEvent e) {
-        Team team = Team.getTeam(e.getPlayer());
-        if (team == null) {
-            return;
-        }
+	@EventHandler
+	public void onJoin(PlayerJoinEvent e) {
+		Team team = Team.getTeam(e.getPlayer());
+		if (team == null) {
+			return;
+		}
 
-        if (team.getRequests().size() == 0) {
-            return;
-        }
+		if (team.getRequests().size() == 0) {
+			return;
+		}
 
-        TeamPlayer player = team.getTeamPlayer(e.getPlayer());
+		TeamPlayer player = team.getTeamPlayer(e.getPlayer());
 
-        if (Objects.requireNonNull(player).getRank() == PlayerRank.OWNER) {
-            MessageManager.sendMessage(e.getPlayer(), "ally.onJoin");
-        }
-    }
+		if (Objects.requireNonNull(player).getRank() == PlayerRank.OWNER) {
+			MessageManager.sendMessage(e.getPlayer(), "ally.onJoin");
+		}
+	}
 
 }

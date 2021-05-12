@@ -15,64 +15,64 @@ import java.util.Objects;
 
 public class DemoteTeama extends SubCommand {
 
-    @Override
-    public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
+	@Override
+	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
 
-        Player p = Bukkit.getPlayer(args[0]);
-        if (p == null) {
-            return new CommandResponse("noPlayer");
-        }
+		Player p = Bukkit.getPlayer(args[0]);
+		if (p == null) {
+			return new CommandResponse("noPlayer");
+		}
 
-        Team team = Team.getTeam(p);
-        if (team == null) {
-            return new CommandResponse("admin.inTeam");
-        }
+		Team team = Team.getTeam(p);
+		if (team == null) {
+			return new CommandResponse("admin.inTeam");
+		}
 
-        TeamPlayer tp = team.getTeamPlayer(p);
-        if (Objects.requireNonNull(tp).getRank() == PlayerRank.DEFAULT) {
-            return new CommandResponse("admin.demote.min");
-        }
+		TeamPlayer tp = team.getTeamPlayer(p);
+		if (Objects.requireNonNull(tp).getRank() == PlayerRank.DEFAULT) {
+			return new CommandResponse("admin.demote.min");
+		}
 
-        team.demotePlayer(tp);
-        MessageManager.sendMessage(p, "admin.demote.notify");
-        return new CommandResponse(true, "admin.demote.success");
-    }
+		team.demotePlayer(tp);
+		MessageManager.sendMessage(p, "admin.demote.notify");
+		return new CommandResponse(true, "admin.demote.success");
+	}
 
-    @Override
-    public String getCommand() {
-        return "demote";
-    }
+	@Override
+	public String getCommand() {
+		return "demote";
+	}
 
-    @Override
-    public String getNode() {
-        return "admin.demote";
-    }
+	@Override
+	public String getNode() {
+		return "admin.demote";
+	}
 
-    @Override
-    public String getHelp() {
-        return "Demote a player within their team";
-    }
+	@Override
+	public String getHelp() {
+		return "Demote a player within their team";
+	}
 
-    @Override
-    public String getArguments() {
-        return "<player>";
-    }
+	@Override
+	public String getArguments() {
+		return "<player>";
+	}
 
-    @Override
-    public int getMinimumArguments() {
-        return 1;
-    }
+	@Override
+	public int getMinimumArguments() {
+		return 1;
+	}
 
-    @Override
-    public int getMaximumArguments() {
-        return 1;
-    }
+	@Override
+	public int getMaximumArguments() {
+		return 1;
+	}
 
-    @Override
-    public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
-        if (args.length == 1) {
-            addPlayerStringList(options, args[0]);
-        }
-    }
+	@Override
+	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
+		if (args.length == 1) {
+			addPlayerStringList(options, args[0]);
+		}
+	}
 
 }

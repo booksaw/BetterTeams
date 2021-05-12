@@ -16,66 +16,66 @@ import java.util.List;
  */
 public class CreateCommand extends NoTeamSubCommand {
 
-    @Override
-    public CommandResponse onCommand(Player sender, String label, String[] args) {
+	@Override
+	public CommandResponse onCommand(Player sender, String label, String[] args) {
 
-        if (!Team.isValidTeamName(args[0])) {
-            return new CommandResponse("create.banned");
-        }
+		if (!Team.isValidTeamName(args[0])) {
+			return new CommandResponse("create.banned");
+		}
 
-        int max = Main.plugin.getConfig().getInt("maxTeamLength");
-        if (max > 55) {
-            max = 55;
-        }
+		int max = Main.plugin.getConfig().getInt("maxTeamLength");
+		if (max > 55) {
+			max = 55;
+		}
 
-        if (max != -1 && max < args[0].length()) {
-            return new CommandResponse("create.maxLength");
-        }
+		if (max != -1 && max < args[0].length()) {
+			return new CommandResponse("create.maxLength");
+		}
 
-        if (Team.getTeam(args[0]) != null) {
-            // team already exists
-            return new CommandResponse("create.exists");
-        }
+		if (Team.getTeam(args[0]) != null) {
+			// team already exists
+			return new CommandResponse("create.exists");
+		}
 
-        Team.createNewTeam(args[0], sender);
+		Team.createNewTeam(args[0], sender);
 
-        return new CommandResponse(true, "create.success");
+		return new CommandResponse(true, "create.success");
 
-    }
+	}
 
-    @Override
-    public String getCommand() {
-        return "create";
-    }
+	@Override
+	public String getCommand() {
+		return "create";
+	}
 
-    @Override
-    public int getMinimumArguments() {
-        return 1;
-    }
+	@Override
+	public int getMinimumArguments() {
+		return 1;
+	}
 
-    @Override
-    public String getNode() {
-        return "create";
-    }
+	@Override
+	public String getNode() {
+		return "create";
+	}
 
-    @Override
-    public String getHelp() {
-        return "Create a team with the specified name";
-    }
+	@Override
+	public String getHelp() {
+		return "Create a team with the specified name";
+	}
 
-    @Override
-    public String getArguments() {
-        return "<name";
-    }
+	@Override
+	public String getArguments() {
+		return "<name";
+	}
 
-    @Override
-    public int getMaximumArguments() {
-        return -1;
-    }
+	@Override
+	public int getMaximumArguments() {
+		return -1;
+	}
 
-    @Override
-    public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
+	@Override
+	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
 
-    }
+	}
 
 }

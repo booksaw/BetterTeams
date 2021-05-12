@@ -11,27 +11,27 @@ import java.util.HashMap;
 
 public class InventoryManagement implements Listener {
 
-    public static final HashMap<Player, Team> adminViewers = new HashMap<>();
+	public static final HashMap<Player, Team> adminViewers = new HashMap<>();
 
-    @EventHandler
-    public void onClose(InventoryCloseEvent e) {
-        Team t = adminViewers.get((Player) e.getPlayer());
+	@EventHandler
+	public void onClose(InventoryCloseEvent e) {
+		Team t = adminViewers.get((Player) e.getPlayer());
 
-        if (t == null) {
-            t = Team.getTeam((Player) e.getPlayer());
-            if (t == null) {
-                return;
-            }
-        }
+		if (t == null) {
+			t = Team.getTeam((Player) e.getPlayer());
+			if (t == null) {
+				return;
+			}
+		}
 
-        if (!e.getView().getTitle().equals(MessageManager.getMessage("echest.echest"))) {
-            return;
-        }
+		if (!e.getView().getTitle().equals(MessageManager.getMessage("echest.echest"))) {
+			return;
+		}
 
-        adminViewers.remove((Player) e.getPlayer());
+		adminViewers.remove((Player) e.getPlayer());
 
-        t.saveEchest();
+		t.saveEchest();
 
-    }
+	}
 
 }

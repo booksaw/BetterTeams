@@ -13,127 +13,126 @@ import java.util.Objects;
 
 public class TitleCommand extends TeamSubCommand {
 
-    private final String[] bannedColor = new String[]{"&1", "&2", "&3", "&4", "&5", "&6", "&7", "&8", "&9", "&a",
-            "&b", "&c", "&d", "&e", "&f"};
+	private final String[] bannedColor = new String[] { "&1", "&2", "&3", "&4", "&5", "&6", "&7", "&8", "&9", "&a",
+			"&b", "&c", "&d", "&e", "&f" };
 
+	@Override
+	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 
-    @Override
-    public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
+		TeamPlayer toTitle;
 
-        TeamPlayer toTitle;
+		if (args.length == 1) {
+			args = new String[] { "me", args[0] };
+		}
 
-        if (args.length == 1) {
-            args = new String[]{"me", args[0]};
-        }
+		Player toTitlePlayer = Bukkit.getPlayer(args[0]);
 
-        Player toTitlePlayer = Bukkit.getPlayer(args[0]);
+		if (toTitlePlayer == null) {
+			return new CommandResponse("noPlayer");
+		}
 
-        if (toTitlePlayer == null) {
-            return new CommandResponse("noPlayer");
-        }
+		if (args[0].equals("me")) {
+			toTitle = player;
+		} else {
+			toTitle = team.getTeamPlayer(toTitlePlayer);
+		}
 
-        if (args[0].equals("me")) {
-            toTitle = player;
-        } else {
-            toTitle = team.getTeamPlayer(toTitlePlayer);
-        }
+		if (toTitle == null) {
+			return new CommandResponse("noPlayer");
+		}
 
-        if (toTitle == null) {
-            return new CommandResponse("noPlayer");
-        }
+		if (player.getRank().value < getRequiredRank().value && !(player == toTitle
+				&& Objects.requireNonNull(player.getPlayer().getPlayer()).hasPermission("betterteams.title.self"))) {
+			return new CommandResponse("title.noPerm");
+		}
 
-        if (player.getRank().value < getRequiredRank().value && !(player == toTitle
-                && Objects.requireNonNull(player.getPlayer().getPlayer()).hasPermission("betterteams.title.self"))) {
-            return new CommandResponse("title.noPerm");
-        }
+		if (args[1].length() > Main.plugin.getConfig().getInt("maxTitleLength")) {
+			return new CommandResponse("title.tooLong");
+		}
 
-        if (args[1].length() > Main.plugin.getConfig().getInt("maxTitleLength")) {
-            return new CommandResponse("title.tooLong");
-        }
+		if (Team.isValidTeamName(args[1])) {
+			return new CommandResponse("bannedChar");
+		}
 
-        if (Team.isValidTeamName(args[1])) {
-            return new CommandResponse("bannedChar");
-        }
+		Player sender = player.getPlayer().getPlayer();
 
-        Player sender = player.getPlayer().getPlayer();
+		if (!Objects.requireNonNull(sender).hasPermission("betterteams.title.color.format")) {
+			if (args[1].contains("&l") || args[1].contains("&k") || args[1].contains("&n") || args[1].contains("&m")
+					|| args[1].contains("&o")) {
+				return new CommandResponse("title.noFormat");
+			}
+		}
 
-        if (!Objects.requireNonNull(sender).hasPermission("betterteams.title.color.format")) {
-            if (args[1].contains("&l") || args[1].contains("&k") || args[1].contains("&n") || args[1].contains("&m")
-                    || args[1].contains("&o")) {
-                return new CommandResponse("title.noFormat");
-            }
-        }
+		if (!sender.hasPermission("betterteams.title.color.color")) {
+			for (String bannedChar : bannedColor) {
+				if (args[1].contains(bannedChar)) {
+					return new CommandResponse("title.noColor");
+				}
+			}
+		}
 
-        if (!sender.hasPermission("betterteams.title.color.color")) {
-            for (String bannedChar : bannedColor) {
-                if (args[1].contains(bannedChar)) {
-                    return new CommandResponse("title.noColor");
-                }
-            }
-        }
+		if (sender.hasPermission("betterteams.title.color.color")
+				|| sender.hasPermission("betterteams.title.color.format")) {
+			args[1] = ChatColor.translateAlternateColorCodes('&', args[1]);
+		}
 
-        if (sender.hasPermission("betterteams.title.color.color")
-                || sender.hasPermission("betterteams.title.color.format")) {
-            args[1] = ChatColor.translateAlternateColorCodes('&', args[1]);
-        }
+		team.setTitle(toTitle, args[1]);
 
-        team.setTitle(toTitle, args[1]);
+		if (player != toTitle && toTitle.getPlayer().isOnline()) {
+			MessageManager.sendMessageF(toTitle.getPlayer().getPlayer(), "title.change", args[1]);
+		}
 
-        if (player != toTitle && toTitle.getPlayer().isOnline()) {
-            MessageManager.sendMessageF(toTitle.getPlayer().getPlayer(), "title.change", args[1]);
-        }
+		return new CommandResponse(true, "title.success");
+	}
 
-        return new CommandResponse(true, "title.success");
-    }
+	@Override
+	public String getCommand() {
+		return "title";
+	}
 
-    @Override
-    public String getCommand() {
-        return "title";
-    }
+	@Override
+	public String getNode() {
+		return "title";
+	}
 
-    @Override
-    public String getNode() {
-        return "title";
-    }
+	@Override
+	public String getHelp() {
+		return "Change that players title within the team";
+	}
 
-    @Override
-    public String getHelp() {
-        return "Change that players title within the team";
-    }
+	@Override
+	public String getArguments() {
+		return "[player/me] <title>";
+	}
 
-    @Override
-    public String getArguments() {
-        return "[player/me] <title>";
-    }
+	@Override
+	public int getMinimumArguments() {
+		return 1;
+	}
 
-    @Override
-    public int getMinimumArguments() {
-        return 1;
-    }
+	@Override
+	public int getMaximumArguments() {
+		return 2;
+	}
 
-    @Override
-    public int getMaximumArguments() {
-        return 2;
-    }
+	@Override
+	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
 
-    @Override
-    public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
+		if (args.length == 0) {
+			return;
+		}
 
-        if (args.length == 0) {
-            return;
-        }
+		if (args.length < 2) {
 
-        if (args.length < 2) {
+			addPlayerStringList(options, args[0]);
+			return;
+		}
 
-            addPlayerStringList(options, args[0]);
-            return;
-        }
+		options.add("<title>");
+	}
 
-        options.add("<title>");
-    }
-
-    @Override
-    public PlayerRank getDefaultRank() {
-        return PlayerRank.OWNER;
-    }
+	@Override
+	public PlayerRank getDefaultRank() {
+		return PlayerRank.OWNER;
+	}
 }

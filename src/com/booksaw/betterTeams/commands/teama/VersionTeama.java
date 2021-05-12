@@ -10,44 +10,44 @@ import java.util.List;
 
 public class VersionTeama extends SubCommand {
 
-    @Override
-    public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
-        return new CommandResponse(true,
-                new ReferencedFormatMessage("admin.version", Main.plugin.getDescription().getVersion() + ""));
-    }
+	@Override
+	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
+		return new CommandResponse(true,
+				new ReferencedFormatMessage("admin.version", Main.plugin.getDescription().getVersion() + ""));
+	}
 
-    @Override
-    public String getCommand() {
-        return "version";
-    }
+	@Override
+	public String getCommand() {
+		return "version";
+	}
 
-    @Override
-    public String getNode() {
-        return "admin.version";
-    }
+	@Override
+	public String getNode() {
+		return "admin.version";
+	}
 
-    @Override
-    public String getHelp() {
-        return "Check the plugin version";
-    }
+	@Override
+	public String getHelp() {
+		return "Check the plugin version";
+	}
 
-    @Override
-    public String getArguments() {
-        return "";
-    }
+	@Override
+	public String getArguments() {
+		return "";
+	}
 
-    @Override
-    public int getMinimumArguments() {
-        return 0;
-    }
+	@Override
+	public int getMinimumArguments() {
+		return 0;
+	}
 
-    @Override
-    public int getMaximumArguments() {
-        return 0;
-    }
+	@Override
+	public int getMaximumArguments() {
+		return 0;
+	}
 
-    @Override
-    public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
-    }
+	@Override
+	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
+	}
 
 }

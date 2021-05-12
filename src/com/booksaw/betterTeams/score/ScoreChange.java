@@ -8,65 +8,67 @@ import java.util.List;
 
 public class ScoreChange {
 
-    public static final List<ScoreChange> spams = new ArrayList<>();
-    public final ChangeType type;
-    public final Player source;
-    public final Player target;
-    private long expires;
-    public ScoreChange(ChangeType type, Player source) {
-        this(type, source, null);
-    }
-    public ScoreChange(ChangeType type, Player source, Player target) {
-        this.type = type;
-        this.source = source;
-        this.target = target;
-        update();
-        spams.add(this);
-    }
+	public static final List<ScoreChange> spams = new ArrayList<>();
+	public final ChangeType type;
+	public final Player source;
+	public final Player target;
+	private long expires;
 
-    public static boolean isSpam(ChangeType type, Player source) {
-        return isSpam(type, source, null);
-    }
+	public ScoreChange(ChangeType type, Player source) {
+		this(type, source, null);
+	}
 
-    /**
-     * Used to check if an action is a spam action, this will increase the timer if
-     * it is Returns false if it is not a spam kill
-     */
-    public static boolean isSpam(ChangeType type, Player source, Player target) {
+	public ScoreChange(ChangeType type, Player source, Player target) {
+		this.type = type;
+		this.source = source;
+		this.target = target;
+		update();
+		spams.add(this);
+	}
 
-        ScoreChange change = null;
+	public static boolean isSpam(ChangeType type, Player source) {
+		return isSpam(type, source, null);
+	}
 
-        for (ScoreChange temp : spams) {
-            if (temp.type == type && temp.source == source && temp.target == target) {
-                change = temp;
-                break;
-            }
-        }
+	/**
+	 * Used to check if an action is a spam action, this will increase the timer if
+	 * it is Returns false if it is not a spam kill
+	 */
+	public static boolean isSpam(ChangeType type, Player source, Player target) {
 
-        if (change == null) {
-            return false;
-        }
+		ScoreChange change = null;
 
-        if (change.hasExpired()) {
-            spams.remove(change);
-            return false;
-        }
+		for (ScoreChange temp : spams) {
+			if (temp.type == type && temp.source == source && temp.target == target) {
+				change = temp;
+				break;
+			}
+		}
 
-        change.update();
-        return true;
+		if (change == null) {
+			return false;
+		}
 
-    }
+		if (change.hasExpired()) {
+			spams.remove(change);
+			return false;
+		}
 
-    public boolean hasExpired() {
-        return expires < System.currentTimeMillis();
-    }
+		change.update();
+		return true;
 
-    public void update() {
-        expires = System.currentTimeMillis() + (Main.plugin.getConfig().getInt("spamThreshold") * 1000L);
-    }
+	}
 
-    public enum ChangeType {
-        KILL, DEATH
-    }
+	public boolean hasExpired() {
+		return expires < System.currentTimeMillis();
+	}
+
+	public void update() {
+		expires = System.currentTimeMillis() + (Main.plugin.getConfig().getInt("spamThreshold") * 1000L);
+	}
+
+	public enum ChangeType {
+		KILL, DEATH
+	}
 
 }

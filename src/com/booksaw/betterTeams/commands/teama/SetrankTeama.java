@@ -11,67 +11,67 @@ import java.util.List;
 
 public class SetrankTeama extends TeamSelectSubCommand {
 
-    @Override
-    public CommandResponse onCommand(CommandSender sender, String label, String[] args, Team team) {
+	@Override
+	public CommandResponse onCommand(CommandSender sender, String label, String[] args, Team team) {
 
-        int level;
-        try {
-            level = Integer.parseInt(args[1]);
-        } catch (NumberFormatException e) {
-            return new CommandResponse(new HelpMessage(this, label));
-        }
+		int level;
+		try {
+			level = Integer.parseInt(args[1]);
+		} catch (NumberFormatException e) {
+			return new CommandResponse(new HelpMessage(this, label));
+		}
 
-        if (level <= 0) {
-            return new CommandResponse(new HelpMessage(this, label));
-        }
+		if (level <= 0) {
+			return new CommandResponse(new HelpMessage(this, label));
+		}
 
-        String price = Main.plugin.getConfig().getString("levels.l" + level + ".price");
-        if (level > 1 && (price == null || price.equals(""))) {
-            return new CommandResponse(true, "admin.setrank.no");
-        }
+		String price = Main.plugin.getConfig().getString("levels.l" + level + ".price");
+		if (level > 1 && (price == null || price.equals(""))) {
+			return new CommandResponse(true, "admin.setrank.no");
+		}
 
-        team.setLevel(level);
+		team.setLevel(level);
 
-        return new CommandResponse(true, "admin.setrank.success");
-    }
+		return new CommandResponse(true, "admin.setrank.success");
+	}
 
-    @Override
-    public String getCommand() {
-        return "setrank";
-    }
+	@Override
+	public String getCommand() {
+		return "setrank";
+	}
 
-    @Override
-    public String getNode() {
-        return "admin.setrank";
-    }
+	@Override
+	public String getNode() {
+		return "admin.setrank";
+	}
 
-    @Override
-    public String getHelp() {
-        return "Set the level of the team specified";
-    }
+	@Override
+	public String getHelp() {
+		return "Set the level of the team specified";
+	}
 
-    @Override
-    public String getArguments() {
-        return "<team> <rank>";
-    }
+	@Override
+	public String getArguments() {
+		return "<team> <rank>";
+	}
 
-    @Override
-    public int getMinimumArguments() {
-        return 2;
-    }
+	@Override
+	public int getMinimumArguments() {
+		return 2;
+	}
 
-    @Override
-    public int getMaximumArguments() {
-        return 2;
-    }
+	@Override
+	public int getMaximumArguments() {
+		return 2;
+	}
 
-    @Override
-    public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
-        if (args.length == 1) {
-            addTeamStringList(options, args[0]);
-        } else if (args.length == 2) {
-            options.add("<rank>");
-        }
-    }
+	@Override
+	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
+		if (args.length == 1) {
+			addTeamStringList(options, args[0]);
+		} else if (args.length == 2) {
+			options.add("<rank>");
+		}
+	}
 
 }

@@ -14,62 +14,62 @@ import java.util.List;
 
 public class ZKothManager implements Listener {
 
-    @EventHandler
-    public void onRegister(KothRegisterEvent event) {
-        event.setFactionListener(new TeamListener());
-    }
+	@EventHandler
+	public void onRegister(KothRegisterEvent event) {
+		event.setFactionListener(new TeamListener());
+	}
 
-    @EventHandler
-    public void onWin(KothWinEvent e) {
-        Team team = Team.getTeam(e.getPlayer());
-        if (team == null) {
-            return;
-        }
-        // increasing the team score by the configured amount
-        team.setScore(team.getScore() + Main.plugin.getConfig().getInt("zkoth.pointsPerCapture"));
-    }
+	@EventHandler
+	public void onWin(KothWinEvent e) {
+		Team team = Team.getTeam(e.getPlayer());
+		if (team == null) {
+			return;
+		}
+		// increasing the team score by the configured amount
+		team.setScore(team.getScore() + Main.plugin.getConfig().getInt("zkoth.pointsPerCapture"));
+	}
 
-    public static class TeamListener implements FactionListener {
+	public static class TeamListener implements FactionListener {
 
-        @Override
-        public String getFactionTag(Player p) {
-            Team team = Team.getTeam(p);
-            if (team == null) {
-                return null;
-            }
+		@Override
+		public String getFactionTag(Player p) {
+			Team team = Team.getTeam(p);
+			if (team == null) {
+				return null;
+			}
 
-            return team.getName();
-        }
+			return team.getName();
+		}
 
-        @Override
-        public String getFactionTag(String p) {
-            Team team = Team.getTeam(Bukkit.getPlayer(p));
-            if (team == null) {
-                return null;
-            }
+		@Override
+		public String getFactionTag(String p) {
+			Team team = Team.getTeam(Bukkit.getPlayer(p));
+			if (team == null) {
+				return null;
+			}
 
-            return team.getName();
-        }
+			return team.getName();
+		}
 
-        @Override
-        public List<Player> getOnlinePlayer(String p) {
-            Team team = Team.getTeam(Bukkit.getPlayer(p));
-            if (team == null) {
-                return null;
-            }
+		@Override
+		public List<Player> getOnlinePlayer(String p) {
+			Team team = Team.getTeam(Bukkit.getPlayer(p));
+			if (team == null) {
+				return null;
+			}
 
-            return team.getOnlineMemebers();
-        }
+			return team.getOnlineMemebers();
+		}
 
-        @Override
-        public List<Player> getOnlinePlayer(Player p) {
-            Team team = Team.getTeam(p);
-            if (team == null) {
-                return null;
-            }
+		@Override
+		public List<Player> getOnlinePlayer(Player p) {
+			Team team = Team.getTeam(p);
+			if (team == null) {
+				return null;
+			}
 
-            return team.getOnlineMemebers();
-        }
-    }
+			return team.getOnlineMemebers();
+		}
+	}
 
 }

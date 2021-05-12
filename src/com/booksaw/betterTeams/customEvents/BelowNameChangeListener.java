@@ -11,10 +11,10 @@ package com.booksaw.betterTeams.customEvents;
 @Deprecated
 public interface BelowNameChangeListener {
 
-    /**
-     * Run when a player is added to a new team or removed from a team
-     *
-     * @param event The event that has been added to a team or removed from a team
-     */
-    void run(BelowNameChangeEvent event);
+	/**
+	 * Run when a player is added to a new team or removed from a team
+	 *
+	 * @param event The event that has been added to a team or removed from a team
+	 */
+	void run(BelowNameChangeEvent event);
 }

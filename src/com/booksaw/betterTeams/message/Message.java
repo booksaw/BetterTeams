@@ -11,11 +11,11 @@ import org.bukkit.command.CommandSender;
  */
 public interface Message {
 
-    /**
-     * Used to send the message
-     *
-     * @param sender the player to send the message to
-     */
-    void sendMessage(CommandSender sender);
+	/**
+	 * Used to send the message
+	 *
+	 * @param sender the player to send the message to
+	 */
+	void sendMessage(CommandSender sender);
 
 }

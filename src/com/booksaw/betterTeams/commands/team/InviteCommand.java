@@ -11,73 +11,73 @@ import java.util.List;
 
 public class InviteCommand extends TeamSubCommand {
 
-    @Override
-    public CommandResponse onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
+	@Override
+	public CommandResponse onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
 
-        Player toInvite = Bukkit.getPlayer(args[0]);
+		Player toInvite = Bukkit.getPlayer(args[0]);
 
-        if (toInvite == null) {
-            return new CommandResponse("noPlayer");
-        }
+		if (toInvite == null) {
+			return new CommandResponse("noPlayer");
+		}
 
-        if (team.isBanned(toInvite)) {
-            return new CommandResponse("invite.banned");
-        }
+		if (team.isBanned(toInvite)) {
+			return new CommandResponse("invite.banned");
+		}
 
-        if (Team.getTeam(toInvite) != null) {
-            return new CommandResponse("invite.inTeam");
-        }
+		if (Team.getTeam(toInvite) != null) {
+			return new CommandResponse("invite.inTeam");
+		}
 
-        int limit = Main.plugin.getConfig().getInt("levels.l" + team.getLevel() + ".teamLimit");
+		int limit = Main.plugin.getConfig().getInt("levels.l" + team.getLevel() + ".teamLimit");
 
-        if (limit > 0 && limit <= team.getMembers().size() + team.getInvitedPlayers().size()) {
-            return new CommandResponse("invite.full");
-        }
+		if (limit > 0 && limit <= team.getMembers().size() + team.getInvitedPlayers().size()) {
+			return new CommandResponse("invite.full");
+		}
 
-        // player being invited is not in a team
-        team.invite(toInvite.getUniqueId());
-        MessageManager.sendMessageF(toInvite, "invite.invite", team.getName());
-        return new CommandResponse(true, "invite.success");
-    }
+		// player being invited is not in a team
+		team.invite(toInvite.getUniqueId());
+		MessageManager.sendMessageF(toInvite, "invite.invite", team.getName());
+		return new CommandResponse(true, "invite.success");
+	}
 
-    @Override
-    public String getCommand() {
-        return "invite";
-    }
+	@Override
+	public String getCommand() {
+		return "invite";
+	}
 
-    @Override
-    public int getMinimumArguments() {
-        return 1;
-    }
+	@Override
+	public int getMinimumArguments() {
+		return 1;
+	}
 
-    @Override
-    public String getNode() {
-        return "invite";
-    }
+	@Override
+	public String getNode() {
+		return "invite";
+	}
 
-    @Override
-    public String getHelp() {
-        return "Invite the specified player to your team";
-    }
+	@Override
+	public String getHelp() {
+		return "Invite the specified player to your team";
+	}
 
-    @Override
-    public String getArguments() {
-        return "<player>";
-    }
+	@Override
+	public String getArguments() {
+		return "<player>";
+	}
 
-    @Override
-    public int getMaximumArguments() {
-        return 1;
-    }
+	@Override
+	public int getMaximumArguments() {
+		return 1;
+	}
 
-    @Override
-    public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
-        addPlayerStringList(options, (args.length == 0) ? "" : args[0]);
-    }
+	@Override
+	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
+		addPlayerStringList(options, (args.length == 0) ? "" : args[0]);
+	}
 
-    @Override
-    public PlayerRank getDefaultRank() {
-        return PlayerRank.ADMIN;
-    }
+	@Override
+	public PlayerRank getDefaultRank() {
+		return PlayerRank.ADMIN;
+	}
 
 }

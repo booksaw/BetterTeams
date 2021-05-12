@@ -12,33 +12,33 @@ import org.jetbrains.annotations.NotNull;
  */
 public class BelowNameChangeEvent extends Event {
 
-    private static final HandlerList HANDLERS = new HandlerList();
-    private final Player player;
-    private final ChangeType type;
+	private static final HandlerList HANDLERS = new HandlerList();
+	private final Player player;
+	private final ChangeType type;
 
-    public BelowNameChangeEvent(Player player, ChangeType type) {
-        this.player = player;
-        this.type = type;
-    }
+	public BelowNameChangeEvent(Player player, ChangeType type) {
+		this.player = player;
+		this.type = type;
+	}
 
-    public static HandlerList getHandlerList() {
-        return HANDLERS;
-    }
+	public static HandlerList getHandlerList() {
+		return HANDLERS;
+	}
 
-    public Player getPlayer() {
-        return player;
-    }
+	public Player getPlayer() {
+		return player;
+	}
 
-    public ChangeType getType() {
-        return type;
-    }
+	public ChangeType getType() {
+		return type;
+	}
 
-    @Override
-    public @NotNull HandlerList getHandlers() {
-        return HANDLERS;
-    }
+	@Override
+	public @NotNull HandlerList getHandlers() {
+		return HANDLERS;
+	}
 
-    public enum ChangeType {
-        ADD, REMOVE
-    }
+	public enum ChangeType {
+		ADD, REMOVE
+	}
 }

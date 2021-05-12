@@ -12,65 +12,65 @@ import java.util.List;
 
 public class PvpCommand extends TeamSubCommand {
 
-    @Override
-    public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
+	@Override
+	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 
-        if (team.pvp) {
-            team.pvp = false;
-            for (TeamPlayer p : team.getMembers()) {
-                if (p.getPlayer().isOnline()) {
-                    MessageManager.sendMessage(p.getPlayer().getPlayer(), "pvp.disabled");
-                }
-            }
-        } else {
-            team.pvp = true;
-            for (TeamPlayer p : team.getMembers()) {
-                if (p.getPlayer().isOnline()) {
-                    MessageManager.sendMessage(p.getPlayer().getPlayer(), "pvp.enabled");
-                }
-            }
-        }
+		if (team.pvp) {
+			team.pvp = false;
+			for (TeamPlayer p : team.getMembers()) {
+				if (p.getPlayer().isOnline()) {
+					MessageManager.sendMessage(p.getPlayer().getPlayer(), "pvp.disabled");
+				}
+			}
+		} else {
+			team.pvp = true;
+			for (TeamPlayer p : team.getMembers()) {
+				if (p.getPlayer().isOnline()) {
+					MessageManager.sendMessage(p.getPlayer().getPlayer(), "pvp.enabled");
+				}
+			}
+		}
 
-        return new CommandResponse(true);
-    }
+		return new CommandResponse(true);
+	}
 
-    @Override
-    public String getCommand() {
-        return "pvp";
-    }
+	@Override
+	public String getCommand() {
+		return "pvp";
+	}
 
-    @Override
-    public String getNode() {
-        return "pvp";
-    }
+	@Override
+	public String getNode() {
+		return "pvp";
+	}
 
-    @Override
-    public String getHelp() {
-        return "Toggle if pvp is enabled for your team";
-    }
+	@Override
+	public String getHelp() {
+		return "Toggle if pvp is enabled for your team";
+	}
 
-    @Override
-    public String getArguments() {
-        return "";
-    }
+	@Override
+	public String getArguments() {
+		return "";
+	}
 
-    @Override
-    public int getMinimumArguments() {
-        return 0;
-    }
+	@Override
+	public int getMinimumArguments() {
+		return 0;
+	}
 
-    @Override
-    public int getMaximumArguments() {
-        return 0;
-    }
+	@Override
+	public int getMaximumArguments() {
+		return 0;
+	}
 
-    @Override
-    public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
-    }
+	@Override
+	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
+	}
 
-    @Override
-    public PlayerRank getDefaultRank() {
-        return PlayerRank.ADMIN;
-    }
+	@Override
+	public PlayerRank getDefaultRank() {
+		return PlayerRank.ADMIN;
+	}
 
 }

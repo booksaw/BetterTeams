@@ -19,54 +19,54 @@ import java.util.List;
  */
 public class OpenCommand extends TeamSubCommand {
 
-    @Override
-    public CommandResponse onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
+	@Override
+	public CommandResponse onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
 
-        team.setOpen(!team.isOpen());
+		team.setOpen(!team.isOpen());
 
-        if (team.isOpen()) {
-            return new CommandResponse(true, "open.successopen");
-        }
-        return new CommandResponse(true, "open.successclose");
+		if (team.isOpen()) {
+			return new CommandResponse(true, "open.successopen");
+		}
+		return new CommandResponse(true, "open.successclose");
 
-    }
+	}
 
-    @Override
-    public String getCommand() {
-        return "open";
-    }
+	@Override
+	public String getCommand() {
+		return "open";
+	}
 
-    @Override
-    public int getMinimumArguments() {
-        return 0;
-    }
+	@Override
+	public int getMinimumArguments() {
+		return 0;
+	}
 
-    @Override
-    public String getNode() {
-        return "open";
-    }
+	@Override
+	public String getNode() {
+		return "open";
+	}
 
-    @Override
-    public String getHelp() {
-        return "Toggle if the team is invite only";
-    }
+	@Override
+	public String getHelp() {
+		return "Toggle if the team is invite only";
+	}
 
-    @Override
-    public String getArguments() {
-        return "";
-    }
+	@Override
+	public String getArguments() {
+		return "";
+	}
 
-    @Override
-    public int getMaximumArguments() {
-        return 0;
-    }
+	@Override
+	public int getMaximumArguments() {
+		return 0;
+	}
 
-    @Override
-    public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
-    }
+	@Override
+	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
+	}
 
-    @Override
-    public PlayerRank getDefaultRank() {
-        return PlayerRank.OWNER;
-    }
+	@Override
+	public PlayerRank getDefaultRank() {
+		return PlayerRank.OWNER;
+	}
 }

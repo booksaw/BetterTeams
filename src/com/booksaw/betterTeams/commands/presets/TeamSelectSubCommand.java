@@ -13,34 +13,34 @@ import org.bukkit.command.CommandSender;
  */
 public abstract class TeamSelectSubCommand extends SubCommand {
 
-    @Override
-    public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
+	@Override
+	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
 
-        if (args.length == 0) {
-            return new CommandResponse("help");
-        }
+		if (args.length == 0) {
+			return new CommandResponse("help");
+		}
 
-        Team team = Team.getTeam(args[0]);
+		Team team = Team.getTeam(args[0]);
 
-        if (team == null) {
-            return new CommandResponse("admin.noTeam");
-        }
-        return onCommand(sender, label, args, team);
-    }
+		if (team == null) {
+			return new CommandResponse("admin.noTeam");
+		}
+		return onCommand(sender, label, args, team);
+	}
 
-    /**
-     * This method is run if the player is in a team
-     *
-     * @param sender the player who ran the commnad
-     * @param label  the label for the command
-     * @param args   the arguments for the command
-     * @param team   the team that the player is in
-     * @return the message reference to send to the user
-     */
-    public abstract CommandResponse onCommand(CommandSender sender, String label, String[] args, Team team);
+	/**
+	 * This method is run if the player is in a team
+	 *
+	 * @param sender the player who ran the commnad
+	 * @param label  the label for the command
+	 * @param args   the arguments for the command
+	 * @param team   the team that the player is in
+	 * @return the message reference to send to the user
+	 */
+	public abstract CommandResponse onCommand(CommandSender sender, String label, String[] args, Team team);
 
-    @Override
-    public boolean needPlayer() {
-        return true;
-    }
+	@Override
+	public boolean needPlayer() {
+		return true;
+	}
 }
