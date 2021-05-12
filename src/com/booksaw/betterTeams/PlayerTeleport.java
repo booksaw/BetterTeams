@@ -1,100 +1,92 @@
 package com.booksaw.betterTeams;
 
+import com.booksaw.betterTeams.message.MessageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
-import com.booksaw.betterTeams.message.MessageManager;
-
 /**
  * A class to handle a teleport with a delay
- * 
- * @author booksaw
  *
+ * @author booksaw
  */
 public class PlayerTeleport {
 
-	private Player player;
-	private Location location, playerLoc;
-	String reference;
+    final String reference;
+    private final Player player;
+    private final Location location;
+    private final Location playerLoc;
 
-	/**
-	 * This will start the cooldown (there is no delay)
-	 * 
-	 * @param player    The player to teleport
-	 * @param location  the location to teleport them to
-	 * @param reference the reference for the message that should be sent when the
-	 *                  player is teleported
-	 */
-	public PlayerTeleport(Player player, Location location, String reference) throws Exception {
+    /**
+     * This will start the cooldown (there is no delay)
+     *
+     * @param player    The player to teleport
+     * @param location  the location to teleport them to
+     * @param reference the reference for the message that should be sent when the
+     *                  player is teleported
+     */
+    public PlayerTeleport(Player player, Location location, String reference) {
+        this.player = player;
+        this.location = location;
+        this.reference = reference;
 
-		this.player = player;
-		this.location = location;
-		this.reference = reference;
+        this.playerLoc = player.getLocation();
 
-		if (player.hasPermission("betterteams.warmup.bypass")) {
-			runTp();
-			return;
-		}
+        if (player.hasPermission("betterteams.warmup.bypass")) {
+            runTp();
+            return;
+        }
 
-		int wait = Main.plugin.getConfig().getInt("tpDelay");
-		if (wait <= 0) {
-			runTp();
-			return;
-		}
+        int wait = Main.plugin.getConfig().getInt("tpDelay");
+        if (wait <= 0) {
+            runTp();
+            return;
+        }
 
-		playerLoc = player.getLocation();
-		// sending the wait message
-		MessageManager.sendMessageF(player, "teleport.wait", wait + "");
+        // sending the wait message
+        MessageManager.sendMessageF(player, "teleport.wait", wait + "");
 
-		Bukkit.getScheduler().runTaskLater(Main.plugin, new Runnable() {
-			@Override
-			public void run() {
-				if (canTp()) {
-					try {
-						runTp();
-					} catch (Exception e) {
-						throw new NullPointerException();
-					}
-				} else {
-					cancel();
-				}
-			}
-		}, 20L * wait);
+        Bukkit.getScheduler().runTaskLater(Main.plugin, () -> {
+            if (canTp()) {
+                try {
+                    runTp();
+                } catch (Exception e) {
+                    throw new NullPointerException();
+                }
+            } else {
+                cancel();
+            }
+        }, 20L * wait);
 
-	}
+    }
 
-	public void runTp() throws Exception {
-		if (location == null || location.getWorld() == null) {
-			throw new NullPointerException();
-		}
+    public void runTp() {
+        if (location == null || location.getWorld() == null) {
+            throw new NullPointerException();
+        }
 
-		PlayerTeleportEvent event = new PlayerTeleportEvent(player, player.getLocation(), location);
-		Bukkit.getPluginManager().callEvent(event);
-		if (event.isCancelled()) {
-			return;
-		}
+        PlayerTeleportEvent event = new PlayerTeleportEvent(player, player.getLocation(), location);
+        Bukkit.getPluginManager().callEvent(event);
+        if (event.isCancelled()) {
+            return;
+        }
 
-		player.teleport(location);
-		MessageManager.sendMessage(player, reference);
-	}
+        player.teleport(location);
+        MessageManager.sendMessage(player, reference);
+    }
 
-	public boolean canTp() {
+    public boolean canTp() {
 
-		if (!Main.plugin.getConfig().getBoolean("noMove")) {
-			return true;
-		}
+        if (!Main.plugin.getConfig().getBoolean("noMove")) {
+            return true;
+        }
 
-		if (playerLoc.distance(player.getLocation()) <= Math.abs(Main.plugin.getConfig().getInt("maxMove"))) {
-			return true;
-		}
+        return playerLoc.distance(player.getLocation()) <= Math.abs(Main.plugin.getConfig().getInt("maxMove"));
+    }
 
-		return false;
-	}
-
-	public void cancel() {
-		MessageManager.sendMessage(player, "teleport.fail");
-	}
+    public void cancel() {
+        MessageManager.sendMessage(player, "teleport.fail");
+    }
 
 }
