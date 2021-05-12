@@ -30,11 +30,8 @@ public class MCTeamManagement implements Listener {
 	public MCTeamManagement(BelowNameType type) {
 		this.type = type;
 
-		if (Objects.requireNonNull(Bukkit.getScoreboardManager()).getMainScoreboard() != null) {
-			board = Bukkit.getScoreboardManager().getMainScoreboard();
-		} else {
-			board = Bukkit.getScoreboardManager().getNewScoreboard();
-		}
+		Objects.requireNonNull(Bukkit.getScoreboardManager()).getMainScoreboard();
+		board = Bukkit.getScoreboardManager().getMainScoreboard();
 
 	}
 

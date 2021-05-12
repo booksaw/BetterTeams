@@ -145,8 +145,7 @@ public class ScoreManagement implements Listener {
 			death(killed, killedTeam);
 		}
 
-		if (e.getEntity().getKiller() == null || !(e.getEntity() instanceof Player)
-				|| !(e.getEntity().getKiller() instanceof Player)) {
+		if (e.getEntity().getKiller() == null || !(e.getEntity().getKiller() instanceof Player)) {
 			return;
 		}
 

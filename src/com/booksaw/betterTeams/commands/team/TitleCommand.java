@@ -54,12 +54,6 @@ public class TitleCommand extends TeamSubCommand {
 			return new CommandResponse("title.noPerm");
 		}
 
-		if (args.length == 1) {
-			team.setTitle(toTitle, "");
-			MessageManager.sendMessage(toTitle.getPlayer().getPlayer(), "title.reset");
-			return new CommandResponse("title.success");
-		}
-
 		if (args[1].length() > Main.plugin.getConfig().getInt("maxTitleLength")) {
 			return new CommandResponse("title.tooLong");
 		}

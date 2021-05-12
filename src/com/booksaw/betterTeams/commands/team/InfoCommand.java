@@ -60,16 +60,13 @@ public class InfoCommand extends SubCommand {
 		@SuppressWarnings("deprecation")
 		OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
 
-		if (player != null) {
-			team = Team.getTeam(player);
-			if (team != null) {
-				displayTeamInfo(sender, team);
-				return null;
-			}
-			return new CommandResponse("info.needTeam");
+		team = Team.getTeam(player);
+		if (team != null) {
+			displayTeamInfo(sender, team);
+			return null;
 		}
+		return new CommandResponse("info.needTeam");
 
-		return new CommandResponse("info.fail");
 	}
 
 	private void displayTeamInfo(CommandSender sender, Team team) {
@@ -104,9 +101,7 @@ public class InfoCommand extends SubCommand {
 				for (int i = toTest.length() - 1; i >= 0; i--) {
 					if (toTest.charAt(i) == '§') {
 						returnTo = ChatColor.getByChar(toTest.charAt(i + 1));
-						if (toTest != null) {
-							break;
-						}
+						break;
 					}
 				}
 			}
@@ -127,9 +122,7 @@ public class InfoCommand extends SubCommand {
 				for (int i = toTest.length() - 1; i >= 0; i--) {
 					if (toTest.charAt(i) == '§') {
 						returnTo = ChatColor.getByChar(toTest.charAt(i + 1));
-						if (toTest != null) {
-							break;
-						}
+						break;
 					}
 				}
 			}
@@ -150,9 +143,7 @@ public class InfoCommand extends SubCommand {
 				for (int i = toTest.length() - 1; i >= 0; i--) {
 					if (toTest.charAt(i) == '§') {
 						returnTo = ChatColor.getByChar(toTest.charAt(i + 1));
-						if (toTest != null) {
-							break;
-						}
+						break;
 					}
 				}
 			}

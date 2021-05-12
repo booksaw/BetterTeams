@@ -35,6 +35,7 @@ import com.booksaw.betterTeams.message.MessageManager;
  * @author booksaw
  *
  */
+@SuppressWarnings("SameParameterValue")
 public class Team {
 
 	/**
@@ -1271,9 +1272,7 @@ public class Team {
 			for (int i = value; i >= 0; i--) {
 				if (toTest.charAt(i) == '§') {
 					returnTo = ChatColor.getByChar(toTest.charAt(i + 1));
-					if (toTest != null) {
-						break;
-					}
+					break;
 				}
 			}
 		}
@@ -1317,9 +1316,7 @@ public class Team {
 			for (int i = value; i >= 0; i--) {
 				if (toTest.charAt(i) == '§') {
 					returnTo = ChatColor.getByChar(toTest.charAt(i + 1));
-					if (toTest != null) {
-						break;
-					}
+					break;
 				}
 			}
 		}

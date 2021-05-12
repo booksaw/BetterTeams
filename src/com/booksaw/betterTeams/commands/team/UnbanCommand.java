@@ -27,10 +27,6 @@ public class UnbanCommand extends TeamSubCommand {
 		@SuppressWarnings("deprecation")
 		OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
 
-		if (player == null) {
-			return new CommandResponse("noPlayer");
-		}
-
 		if (!team.isBanned(player)) {
 			return new CommandResponse("unban.not");
 		}

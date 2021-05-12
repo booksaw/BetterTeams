@@ -67,12 +67,9 @@ public class MessageManager {
 	public static void sendMessage(CommandSender sender, String reference) {
 		try {
 			String message = getMessage(sender, reference);
-			if (message == null) {
-				Bukkit.getLogger().log(Level.WARNING, "Message with the reference " + reference + " does not exist");
-				return;
-			} else if (message.equals("")) {
-				return;
-			}
+            if (message.equals("")) {
+                return;
+            }
 
 			sender.sendMessage(prefix + message);
 
@@ -93,12 +90,9 @@ public class MessageManager {
 	public static void sendMessageF(CommandSender sender, String reference, String... replacement) {
 		try {
 			String message = getMessage(sender, reference);
-			if (message == null) {
-				Bukkit.getLogger().log(Level.WARNING, "Message with the reference " + reference + " does not exist");
-				return;
-			} else if (message.equals("")) {
-				return;
-			}
+            if (message.equals("")) {
+                return;
+            }
 
 			try {
 				message = String.format(prefix + message, (Object[]) replacement);
@@ -123,12 +117,9 @@ public class MessageManager {
 	public static void sendMessageF(CommandSender sender, String reference, Object[] replacement) {
 		try {
 			String message = getMessage(sender, reference);
-			if (message == null) {
-				Bukkit.getLogger().log(Level.WARNING, "Message with the reference " + reference + " does not exist");
-				return;
-			} else if (message.equals("")) {
-				return;
-			}
+            if (message.equals("")) {
+                return;
+            }
 
 			try {
 				message = String.format(prefix + message, replacement);

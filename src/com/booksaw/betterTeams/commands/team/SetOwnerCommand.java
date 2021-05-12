@@ -27,11 +27,7 @@ public class SetOwnerCommand extends TeamSubCommand {
 		@SuppressWarnings("deprecation")
 		OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
 
-		if (player == null) {
-			return new CommandResponse("noPlayer");
-		}
-
-		Team otherTeam = Team.getTeam(player);
+        Team otherTeam = Team.getTeam(player);
 		if (team != otherTeam) {
 			return new CommandResponse("needSameTeam");
 		}

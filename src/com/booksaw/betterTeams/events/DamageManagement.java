@@ -57,15 +57,14 @@ public class DamageManagement implements Listener {
 		}
 		try {
 			if (e.getDamager() instanceof Player) {
-				if (temp != null && !Objects.requireNonNull(Team.getTeam((Player) e.getDamager())).canDamage(temp, (Player) e.getDamager())) {
+				if (!Objects.requireNonNull(Team.getTeam((Player) e.getDamager())).canDamage(temp, (Player) e.getDamager())) {
 					// they are on the same team
 					e.setCancelled(true);
 				}
 			} else if (e.getDamager() instanceof Projectile && !(e.getDamager() instanceof ThrownPotion)) {
 				Projectile arrow = (Projectile) e.getDamager();
 				ProjectileSource source = arrow.getShooter();
-				if (source instanceof Player && temp != null
-						&& !Objects.requireNonNull(Team.getTeam((Player) source)).canDamage(temp, (Player) source)) {
+				if (source instanceof Player && !Objects.requireNonNull(Team.getTeam((Player) source)).canDamage(temp, (Player) source)) {
 					// they are on the same team
 					if (disableSelf && source == e.getEntity()) {
 						return;
@@ -75,8 +74,7 @@ public class DamageManagement implements Listener {
 			} else if (e.getDamager() instanceof ThrownPotion && disablePotions) {
 				ThrownPotion arrow = (ThrownPotion) e.getDamager();
 				ProjectileSource source = arrow.getShooter();
-				if (source instanceof Player && temp != null
-						&& !Objects.requireNonNull(Team.getTeam((Player) source)).canDamage(temp, (Player) source)) {
+				if (source instanceof Player && !Objects.requireNonNull(Team.getTeam((Player) source)).canDamage(temp, (Player) source)) {
 					// they are on the same team
 					e.setCancelled(true);
 				}

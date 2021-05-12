@@ -591,7 +591,7 @@ public class Main extends JavaPlugin {
 			return false;
 		}
 		econ = rsp.getProvider();
-		return econ != null;
+		return true;
 	}
 
 	public void reload() {

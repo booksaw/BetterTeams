@@ -23,7 +23,7 @@ public class ChestRemoveCommand extends TeamSubCommand {
 
 		Block block = loc.getBlock();
 		loc = Team.getClaimingLocation(block);
-		if (block == null || block.getType() != Material.CHEST) {
+		if (block.getType() != Material.CHEST) {
 			return new CommandResponse("chest.remove.noChest");
 		} else if (loc == null || Team.getClamingTeam(loc) != team) {
 			return new CommandResponse("chest.remove.notClaimed");

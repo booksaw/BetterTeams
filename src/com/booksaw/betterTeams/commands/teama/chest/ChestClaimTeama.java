@@ -23,7 +23,7 @@ public class ChestClaimTeama extends TeamSelectSubCommand {
 
 		Block block = loc.getBlock();
 		loc = Team.normalise(loc);
-		if (block == null || block.getType() != Material.CHEST) {
+		if (block.getType() != Material.CHEST) {
 			return new CommandResponse("chest.claim.noChest");
 		}
 		Team claimedBy = Team.getClaimingTeam(block);
