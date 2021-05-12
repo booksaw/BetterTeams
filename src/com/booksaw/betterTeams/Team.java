@@ -35,7 +35,6 @@ import com.booksaw.betterTeams.message.MessageManager;
  * @author booksaw
  *
  */
-@SuppressWarnings("SameParameterValue")
 public class Team {
 
 	/**
@@ -381,7 +380,6 @@ public class Team {
 		return null;
 	}
 
-	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 	public static boolean isValidTeamName(String name) {
 		for (String temp : Main.plugin.getConfig().getStringList("blacklist")) {
 			if (temp.equalsIgnoreCase(name)) {
