@@ -96,9 +96,6 @@ permissions:
    betterTeams.rank:
       default: true
       description: Allows access to /team rank
-   betterTeams.title:
-      default: true
-      description: Allows access to /team title
    betterTeams.rankup:
       default: true
       description: Allows access to /team rankup
