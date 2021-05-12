@@ -113,11 +113,11 @@ public class TeamPlayer {
 	 *                 for the rest of the message)
 	 * @return the prefix for messages that the player has sent
 	 */
-	public String getPrefix(ChatColor returnTo) {
+	public String getPrefix() {
 		if (title == null || title.equals("")) {
 			return rank.getPrefix();
 		} else {
-			return rank.getPrefix() + title + returnTo + " ";
+			return rank.getPrefix() + title + " ";
 		}
 	}
 

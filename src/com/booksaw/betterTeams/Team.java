@@ -1273,24 +1273,11 @@ public class Team {
 	 * @param message the message to send to the team chat
 	 */
 	public void sendMessage(TeamPlayer sender, String message) {
-		ChatColor returnTo = ChatColor.RESET;
-		String toTest = MessageManager.getMessage(sender.getPlayer().getPlayer(), "chat.syntax");
-		int value = toTest.indexOf("%s");
-		if (value > 2) {
-			for (int i = value; i >= 0; i--) {
-				if (toTest.charAt(i) == '§') {
-					returnTo = ChatColor.getByChar(toTest.charAt(i + 1));
-					if (toTest != null) {
-						break;
-					}
-				}
-			}
-		}
 
 		String fMessage = String.format(MessageManager.getMessage("chat.syntax"),
-				sender.getPrefix(returnTo) + sender.getPlayer().getPlayer().getDisplayName(), message);
+				sender.getPrefix() + sender.getPlayer().getPlayer().getDisplayName(), message);
 
-		fMessage = fMessage.replace("$name$", sender.getPrefix(returnTo) + sender.getPlayer().getPlayer().getName());
+		fMessage = fMessage.replace("$name$", sender.getPrefix() + sender.getPlayer().getPlayer().getName());
 		fMessage = fMessage.replace("$message$", message);
 
 		for (TeamPlayer player : members) {
@@ -1319,24 +1306,11 @@ public class Team {
 	 * @param message the message that the player sent
 	 */
 	public void sendAllyMessage(TeamPlayer sender, String message) {
-		ChatColor returnTo = ChatColor.RESET;
-		String toTest = MessageManager.getMessage(sender.getPlayer().getPlayer(), "chat.syntax");
-		int value = toTest.indexOf("%s");
-		if (value > 2) {
-			for (int i = value; i >= 0; i--) {
-				if (toTest.charAt(i) == '§') {
-					returnTo = ChatColor.getByChar(toTest.charAt(i + 1));
-					if (toTest != null) {
-						break;
-					}
-				}
-			}
-		}
 
 		String fMessage = String.format(MessageManager.getMessage("allychat.syntax"), getName(),
-				sender.getPrefix(returnTo) + sender.getPlayer().getPlayer().getDisplayName(), message);
+				sender.getPrefix() + sender.getPlayer().getPlayer().getDisplayName(), message);
 
-		fMessage = fMessage.replace("$name$", sender.getPrefix(returnTo) + sender.getPlayer().getPlayer().getName());
+		fMessage = fMessage.replace("$name$", sender.getPrefix() + sender.getPlayer().getPlayer().getName());
 		fMessage = fMessage.replace("$message$", message);
 
 		for (TeamPlayer player : members) {
