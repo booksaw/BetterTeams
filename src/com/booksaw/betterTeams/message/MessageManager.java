@@ -3,7 +3,6 @@ package com.booksaw.betterTeams.message;
 import java.io.File;
 import java.util.MissingFormatArgumentException;
 import java.util.Objects;
-import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;

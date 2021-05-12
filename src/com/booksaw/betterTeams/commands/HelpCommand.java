@@ -1,9 +1,6 @@
 package com.booksaw.betterTeams.commands;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Objects;
@@ -67,7 +64,9 @@ public class HelpCommand extends SubCommand {
 
 		if (!f.exists()) {
 			try {
-				f.createNewFile();
+				if (!f.createNewFile()) {
+					throw new IOException("Could not create file"); // Caught by catch block
+				}
 
 				PrintWriter writer = new PrintWriter(f);
 				for (Entry<String, SubCommand> sub : command.getSubCommands().entrySet()) {
