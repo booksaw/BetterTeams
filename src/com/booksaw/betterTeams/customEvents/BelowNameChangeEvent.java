@@ -3,6 +3,7 @@ package com.booksaw.betterTeams.customEvents;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Used to track the details of a below name change event
@@ -35,7 +36,7 @@ public class BelowNameChangeEvent extends Event {
 	private static final HandlerList HANDLERS = new HandlerList();
 
 	@Override
-	public HandlerList getHandlers() {
+	public @NotNull HandlerList getHandlers() {
 		return HANDLERS;
 	}
 

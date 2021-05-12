@@ -7,6 +7,7 @@ import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.message.MessageManager;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * This class is used to set the placeholder values for placeholder API
@@ -32,22 +33,22 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 	}
 
 	@Override
-	public String getAuthor() {
+	public @NotNull String getAuthor() {
 		return plugin.getDescription().getAuthors().toString();
 	}
 
 	@Override
-	public String getIdentifier() {
+	public @NotNull String getIdentifier() {
 		return "betterTeams";
 	}
 
 	@Override
-	public String getVersion() {
+	public @NotNull String getVersion() {
 		return plugin.getDescription().getVersion();
 	}
 
 	@Override
-	public String onPlaceholderRequest(Player player, String identifier) {
+	public String onPlaceholderRequest(Player player, @NotNull String identifier) {
 
 		if (player == null) {
 			return "";

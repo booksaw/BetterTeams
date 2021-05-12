@@ -4,6 +4,7 @@ import org.bukkit.event.HandlerList;
 
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Called when a player joins a team
@@ -16,7 +17,7 @@ public class PlayerJoinTeamEvent extends TeamPlayerEvent {
 	private static final HandlerList HANDLERS = new HandlerList();
 
 	@Override
-	public HandlerList getHandlers() {
+	public @NotNull HandlerList getHandlers() {
 		return HANDLERS;
 	}
 
