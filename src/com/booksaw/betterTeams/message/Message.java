@@ -17,6 +17,6 @@ public interface Message {
 	 * 
 	 * @param sender the player to send the message to
 	 */
-	void sendMessage(CommandSender sender);
+	public void sendMessage(CommandSender sender);
 
 }
