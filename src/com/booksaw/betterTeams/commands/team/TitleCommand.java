@@ -18,11 +18,9 @@ import com.booksaw.betterTeams.message.MessageManager;
 
 public class TitleCommand extends TeamSubCommand {
 
-	private final char[] bannedChars = new char[] { ',', '§' };
 	private final String[] bannedColor = new String[] { "&1", "&2", "&3", "&4", "&5", "&6", "&7", "&8", "&9", "&a",
 			"&b", "&c", "&d", "&e", "&f" };
 
-	Team team;
 
 	@Override
 	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {

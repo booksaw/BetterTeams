@@ -76,8 +76,8 @@ public abstract class TeamSubCommand extends SubCommand {
 
 	protected CommandResponse checkRank(TeamPlayer player, PlayerRank rank) {
 
-		if (player.getRank() != PlayerRank.OWNER && requiredRank != PlayerRank.DEFAULT) {
-			if (requiredRank == PlayerRank.OWNER) {
+		if (player.getRank() != PlayerRank.OWNER && rank != PlayerRank.DEFAULT) {
+			if (rank == PlayerRank.OWNER) {
 				return new CommandResponse("needOwner");
 			}
 
