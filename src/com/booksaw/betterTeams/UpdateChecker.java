@@ -38,6 +38,7 @@ public class UpdateChecker implements Listener {
 
 	public void checkForUpdate() {
 		(new BukkitRunnable() {
+			@Override
 			public void run() {
 				try {
 					HttpsURLConnection connection = (HttpsURLConnection) (new URL(

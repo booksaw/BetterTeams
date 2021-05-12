@@ -14,6 +14,7 @@ public class PrePurgeEvent extends Event implements Cancellable {
 
 	private static final HandlerList HANDLERS = new HandlerList();
 
+	@Override
 	public HandlerList getHandlers() {
 		return HANDLERS;
 	}

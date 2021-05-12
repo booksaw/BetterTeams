@@ -8,6 +8,7 @@ public class DisbandTeamEvent extends TeamEvent {
 
 	private static final HandlerList HANDLERS = new HandlerList();
 
+	@Override
 	public HandlerList getHandlers() {
 		return HANDLERS;
 	}

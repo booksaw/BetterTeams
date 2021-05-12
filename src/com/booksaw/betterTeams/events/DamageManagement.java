@@ -110,14 +110,14 @@ public class DamageManagement implements Listener {
 
 		for (PotionEffect effect : effects) {
 			String type = effect.getType().getName();
-			if (type.equals(PotionEffectTypeWrapper.BAD_OMEN.getName())
-					|| type.equals(PotionEffectTypeWrapper.BLINDNESS.getName())
-					|| type.equals(PotionEffectTypeWrapper.CONFUSION.getName())
-					|| type.equals(PotionEffectTypeWrapper.HARM.getName())
-					|| type.equals(PotionEffectTypeWrapper.HUNGER.getName())
-					|| type.equals(PotionEffectTypeWrapper.SLOW_DIGGING.getName())
-					|| type.equals(PotionEffectTypeWrapper.UNLUCK.getName())
-					|| type.equals(PotionEffectTypeWrapper.WEAKNESS.getName())
+			if (type.equals(PotionEffectType.BAD_OMEN.getName())
+					|| type.equals(PotionEffectType.BLINDNESS.getName())
+					|| type.equals(PotionEffectType.CONFUSION.getName())
+					|| type.equals(PotionEffectType.HARM.getName())
+					|| type.equals(PotionEffectType.HUNGER.getName())
+					|| type.equals(PotionEffectType.SLOW_DIGGING.getName())
+					|| type.equals(PotionEffectType.UNLUCK.getName())
+					|| type.equals(PotionEffectType.WEAKNESS.getName())
 					|| type.equals(PotionEffectType.POISON.getName())) {
 				cancel = true;
 			}

@@ -16,7 +16,7 @@ public class InventoryManagement implements Listener {
 
 	@EventHandler
 	public void onClose(InventoryCloseEvent e) {
-		Team t = adminViewers.get((Player) e.getPlayer());
+		Team t = adminViewers.get(e.getPlayer());
 
 		if (t == null) {
 			t = Team.getTeam((Player) e.getPlayer());

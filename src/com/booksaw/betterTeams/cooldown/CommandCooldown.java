@@ -51,7 +51,7 @@ public class CommandCooldown {
 
 		Long end = nextTime.get(player);
 
-		if (end == null) {
+		if (end == null) {	
 			return -1;
 		}
 

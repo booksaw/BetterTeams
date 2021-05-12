@@ -15,6 +15,7 @@ public class PlayerJoinTeamEvent extends TeamPlayerEvent {
 
 	private static final HandlerList HANDLERS = new HandlerList();
 
+	@Override
 	public HandlerList getHandlers() {
 		return HANDLERS;
 	}
