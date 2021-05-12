@@ -11,7 +11,7 @@ import org.bukkit.command.CommandSender;
  */
 public class ReferenceMessage implements Message {
 
-	String reference;
+	final String reference;
 
 	/**
 	 * @param reference The reference for the message

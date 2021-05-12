@@ -10,7 +10,8 @@ import org.bukkit.command.CommandSender;
  */
 public class CompositeMessage implements Message {
 
-	Message message1, message2;
+	final Message message1;
+    final Message message2;
 
 	public CompositeMessage(Message message1, Message message2) {
 		this.message1 = message1;

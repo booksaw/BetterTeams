@@ -18,12 +18,12 @@ public class CommandResponse {
 	/**
 	 * Used to track if the command was a success
 	 */
-	boolean success;
+    final boolean success;
 
 	/**
 	 * Used to track the message reference that should be sent to the user
 	 */
-	Message message;
+    final Message message;
 
 	/**
 	 * Used for a basic successful command

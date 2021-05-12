@@ -9,7 +9,7 @@ import com.booksaw.betterTeams.Main;
 
 public class ScoreChange {
 
-	public static List<ScoreChange> spams = new ArrayList<>();
+	public static final List<ScoreChange> spams = new ArrayList<>();
 
 	public static boolean isSpam(ChangeType type, Player source) {
 		return isSpam(type, source, null);
@@ -44,8 +44,9 @@ public class ScoreChange {
 
 	}
 
-	public ChangeType type;
-	public Player source, target;
+	public final ChangeType type;
+	public final Player source;
+    public final Player target;
 	private long expires;
 
 	public ScoreChange(ChangeType type, Player source) {

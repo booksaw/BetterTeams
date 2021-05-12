@@ -9,8 +9,8 @@ import net.md_5.bungee.api.ChatColor;
 
 public class HelpMessage implements Message {
 
-	SubCommand command;
-	String label;
+	final SubCommand command;
+	final String label;
 
 	public HelpMessage(SubCommand command, String label) {
 		this.command = command;

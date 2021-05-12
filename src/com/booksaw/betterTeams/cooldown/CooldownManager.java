@@ -18,7 +18,7 @@ import com.booksaw.betterTeams.Main;
  */
 public class CooldownManager {
 
-	HashMap<String, CommandCooldown> cooldowns;
+	final HashMap<String, CommandCooldown> cooldowns;
 
 	public CooldownManager(String command) {
 		File f = new File("plugins/BetterTeams/" + command + ".yml");

@@ -26,7 +26,7 @@ public enum PlayerRank {
 	 */
 	ADMIN(1);
 
-	public int value;
+	public final int value;
 
 	PlayerRank(int value) {
 		this.value = value;

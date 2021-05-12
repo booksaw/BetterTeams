@@ -11,7 +11,7 @@ import org.bukkit.command.CommandSender;
  */
 public class StaticMessage implements Message {
 
-	String message;
+	final String message;
 
 	/**
 	 * @param message The message to send to users

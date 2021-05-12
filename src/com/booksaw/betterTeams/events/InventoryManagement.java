@@ -12,7 +12,7 @@ import com.booksaw.betterTeams.message.MessageManager;
 
 public class InventoryManagement implements Listener {
 
-	public static HashMap<Player, Team> adminViewers = new HashMap<>();
+	public static final HashMap<Player, Team> adminViewers = new HashMap<>();
 
 	@EventHandler
 	public void onClose(InventoryCloseEvent e) {

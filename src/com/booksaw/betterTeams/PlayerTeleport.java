@@ -18,7 +18,7 @@ public class PlayerTeleport {
 	private final Player player;
 	private final Location location;
 	private final Location playerLoc;
-	String reference;
+	final String reference;
 
 	/**
 	 * This will start the cooldown (there is no delay)

@@ -21,7 +21,7 @@ public class CostManager {
 
 	public static boolean costFromTeam;
 
-	HashMap<String, CommandCost> prices;
+	final HashMap<String, CommandCost> prices;
 
 	public CostManager(String command) {
 		File f = new File("plugins/BetterTeams/" + command + ".yml");

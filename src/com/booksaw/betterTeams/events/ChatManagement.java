@@ -20,7 +20,7 @@ import com.booksaw.betterTeams.message.MessageManager;
 public class ChatManagement implements Listener {
 
 	private static PrefixType doPrefix;
-	public List<CommandSender> spy = new ArrayList<>();
+	public final List<CommandSender> spy = new ArrayList<>();
 
 	public static void enable() {
 		doPrefix = PrefixType.getType(Main.plugin.getConfig().getString("prefix"));

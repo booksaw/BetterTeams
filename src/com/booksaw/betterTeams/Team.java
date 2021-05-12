@@ -425,7 +425,7 @@ public class Team {
 	 * The ID of the team (this is a unique identifier of the team which will never
 	 * change)
 	 */
-	UUID ID;
+	final UUID ID;
 
 	/**
 	 * The name of the team, this can be changed after the creation of a teams, so
@@ -491,7 +491,7 @@ public class Team {
 
 	private String tag;
 
-	HashMap<String, Warp> warps;
+	final HashMap<String, Warp> warps;
 
 	/**
 	 * this is used to load a team from the configuration file

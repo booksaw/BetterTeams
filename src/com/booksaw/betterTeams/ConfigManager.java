@@ -9,7 +9,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 public class ConfigManager {
 
-	public YamlConfiguration config;
+	public final YamlConfiguration config;
 	private final String configName;
 
 	public ConfigManager(String configName) {

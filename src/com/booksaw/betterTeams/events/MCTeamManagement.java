@@ -25,7 +25,7 @@ public class MCTeamManagement implements Listener {
 
 	private final BelowNameType type;
 
-	Scoreboard board;
+	final Scoreboard board;
 
 	public MCTeamManagement(BelowNameType type) {
 		this.type = type;

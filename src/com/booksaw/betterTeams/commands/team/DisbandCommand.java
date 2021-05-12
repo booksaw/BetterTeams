@@ -25,7 +25,7 @@ public class DisbandCommand extends TeamSubCommand {
 	 * This HashMap is used to track all confirm messages, to ensure that the user
 	 * wants to disband the team when they type the command
 	 */
-	HashMap<UUID, Long> confirmation = new HashMap<>();
+    final HashMap<UUID, Long> confirmation = new HashMap<>();
 
 	@Override
 	public CommandResponse onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {

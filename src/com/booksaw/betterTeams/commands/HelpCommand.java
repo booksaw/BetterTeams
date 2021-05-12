@@ -26,7 +26,7 @@ public class HelpCommand extends SubCommand {
 		fullyCustom = Main.plugin.getConfig().getBoolean("fullyCustomHelpMessages");
 	}
 
-	ParentCommand command;
+	final ParentCommand command;
 	public static ChatColor prefix, description;
 
 	public HelpCommand(ParentCommand command) {

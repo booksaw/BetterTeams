@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 
 public class CommandCooldown {
 
-	HashMap<Player, Long> nextTime;
+	final HashMap<Player, Long> nextTime;
 
 	private final int cooldown;
 	private final String command;
