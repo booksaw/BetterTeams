@@ -17,7 +17,7 @@ public class PlayerTeleport {
 
 	private final Player player;
 	private final Location location;
-    private Location playerLoc;
+	private final Location playerLoc;
 	String reference;
 
 	/**
@@ -33,6 +33,8 @@ public class PlayerTeleport {
 		this.location = location;
 		this.reference = reference;
 
+		this.playerLoc = player.getLocation();
+
 		if (player.hasPermission("betterteams.warmup.bypass")) {
 			runTp();
 			return;
@@ -44,7 +46,6 @@ public class PlayerTeleport {
 			return;
 		}
 
-		playerLoc = player.getLocation();
 		// sending the wait message
 		MessageManager.sendMessageF(player, "teleport.wait", wait + "");
 
