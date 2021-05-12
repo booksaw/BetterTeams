@@ -49,8 +49,8 @@ public class TitleCommand extends TeamSubCommand {
 			return new CommandResponse("noPlayer");
 		}
 
-		if (player.getRank().value < getRequiredRank().value
-				&& !(player == toTitle && Objects.requireNonNull(player.getPlayer().getPlayer()).hasPermission("betterteams.title.self"))) {
+		if (player.getRank().value < getRequiredRank().value && !(player == toTitle
+				&& Objects.requireNonNull(player.getPlayer().getPlayer()).hasPermission("betterteams.title.self"))) {
 			return new CommandResponse("title.noPerm");
 		}
 
@@ -58,10 +58,8 @@ public class TitleCommand extends TeamSubCommand {
 			return new CommandResponse("title.tooLong");
 		}
 
-		for (char bannedChar : bannedChars) {
-			if (args[1].contains(bannedChar + "")) {
-				return new CommandResponse("bannedChar");
-			}
+		if (Team.isValidTeamName(args[1])) {
+			return new CommandResponse("bannedChar");
 		}
 
 		Player sender = player.getPlayer().getPlayer();
