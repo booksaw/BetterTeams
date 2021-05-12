@@ -68,9 +68,10 @@ public class Main extends JavaPlugin {
 
 		plugin = this;
 
-		MessageManager.lang = getConfig().getString("language");
-		if (MessageManager.lang.equals("en") || MessageManager.lang.equals("")) {
-			MessageManager.lang = "messages";
+		String language = getConfig().getString("language");
+		MessageManager.setLanguage(language);
+		if (language.equals("en") || language.equals("")) {
+			MessageManager.setLanguage("messages");
 		}
 
 		loadCustomConfigs();
@@ -131,16 +132,16 @@ public class Main extends JavaPlugin {
 	public void loadCustomConfigs() {
 
 		File f = MessageManager.getFile();
-
+		String language = MessageManager.getLanguage();
 		try {
 			if (!f.exists()) {
-				saveResource(MessageManager.lang + ".yml", false);
+				saveResource(language + ".yml", false);
 			}
 		} catch (Exception e) {
-			Bukkit.getLogger().warning("Could not load selected language: " + MessageManager.lang
+			Bukkit.getLogger().warning("Could not load selected language: " + language
 					+ " go to https://github.com/booksaw/BetterTeams/wiki/Language to view a list of supported languages");
 			Bukkit.getLogger().warning("Reverting to english so the plugin can still function");
-			MessageManager.lang = "messages";
+			MessageManager.setLanguage("messages");
 			loadCustomConfigs();
 			return;
 		}
@@ -354,7 +355,6 @@ public class Main extends JavaPlugin {
 
 		case 11:
 			messages.set("placeholder.name", "%s");
-			// messages.set("", "");
 		case 12:
 			messages.set("admin.disband.success", "&6That team has been disbanded successfully");
 			messages.set("admin.color.success", "&6That teams color has been changed");

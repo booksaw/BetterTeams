@@ -30,32 +30,10 @@ import com.songoda.ultimateclaims.member.ClaimRole;
 
 public class UltimateClaimsManager implements Listener {
 
-	/*
-	 * You can listen to ClaimCreateEvent, check who is the owner, and add the
-	 * member with Claim#addMember. For this to persist, you need to save it to the
-	 * database, which can be achieved with
-	 * UltimateClaims.getInstance().getDataManager().createMember(ClaimMember).
-	 * Claim#addMember returns the ClaimMember object you need.
-	 */
-
-	/*
-	 * BUGS: if I delete a powercell in a claim there is no message saying when the
-	 * claim will expire
-	 */
-	/*
-	 * TODO; remove player on team leave, add players on join, name claims, config
-	 * option to disable this manager
-	 */
 	public UltimateClaimsManager() {
 		Bukkit.getPluginManager().registerEvents(this, Main.plugin);
-		System.out.println("Registered UltimateClaims integration");
+		Bukkit.getLogger().info("Registered UltimateClaims integration");
 	}
-
-	// used to check that the event hander is registering events correctly
-//	@EventHandler
-//	public void onMove(PlayerMoveEvent e) {
-//		System.out.println("called move");
-//	}
 
 	@EventHandler(ignoreCancelled = true)
 	public void create(ClaimCreateEvent e) {
@@ -67,6 +45,7 @@ public class UltimateClaimsManager implements Listener {
 				MessageManager.sendMessage(p.getPlayer(), "uclaim.team");
 			}
 			e.setCancelled(true);
+			return;
 		}
 
 		if (team.getTeamPlayer(p).getRank() != PlayerRank.OWNER) {
@@ -168,11 +147,11 @@ public class UltimateClaimsManager implements Listener {
 	public void transferEvent(ClaimTransferOwnershipEvent e) {
 		Team team = Team.getTeam(e.getNewOwner());
 		if (team == null || team.getTeamPlayer(e.getNewOwner()).getRank() != PlayerRank.OWNER) {
-			System.out.println();
-			System.out.println();
-			System.out.println("You cannot transfer ownership to a player who is not an owner of a team");
-			System.out.println();
-			System.out.println();
+			Bukkit.getLogger().info("");
+			Bukkit.getLogger().info("");
+			Bukkit.getLogger().info("You cannot transfer ownership to a player who is not an owner of a team");
+			Bukkit.getLogger().info("");
+			Bukkit.getLogger().info("");
 			e.setCancelled(true);
 		}
 	}

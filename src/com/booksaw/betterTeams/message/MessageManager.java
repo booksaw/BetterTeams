@@ -36,7 +36,15 @@ public class MessageManager {
 	/**
 	 * This is the language reference for the selected language
 	 */
-	public static String lang;
+	private static String lang;
+
+	public static String getLanguage() {
+		return lang;
+	}
+
+	public static void setLanguage(String lang) {
+		MessageManager.lang = lang;
+	}
 
 	/**
 	 * This method is used to provide the configuration file in which all the
@@ -192,6 +200,12 @@ public class MessageManager {
 
 	public static File getFile() {
 		return new File("plugins/BetterTeams/" + lang + ".yml");
+	}
+
+	/**
+	 * Stopping this class being instantiated
+	 */
+	private MessageManager() {
 	}
 
 }
