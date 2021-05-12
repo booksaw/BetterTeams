@@ -1,6 +1,7 @@
 package com.booksaw.betterTeams.events;
 
 import java.util.Collection;
+import java.util.Objects;
 
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -56,7 +57,7 @@ public class DamageManagement implements Listener {
 		}
 		try {
 			if (e.getDamager() instanceof Player) {
-				if (temp != null && !Team.getTeam((Player) e.getDamager()).canDamage(temp, (Player) e.getDamager())) {
+				if (temp != null && !Objects.requireNonNull(Team.getTeam((Player) e.getDamager())).canDamage(temp, (Player) e.getDamager())) {
 					// they are on the same team
 					e.setCancelled(true);
 				}
@@ -64,7 +65,7 @@ public class DamageManagement implements Listener {
 				Projectile arrow = (Projectile) e.getDamager();
 				ProjectileSource source = arrow.getShooter();
 				if (source instanceof Player && temp != null
-						&& !Team.getTeam((Player) source).canDamage(temp, (Player) source)) {
+						&& !Objects.requireNonNull(Team.getTeam((Player) source)).canDamage(temp, (Player) source)) {
 					// they are on the same team
 					if (disableSelf && source == e.getEntity()) {
 						return;
@@ -75,7 +76,7 @@ public class DamageManagement implements Listener {
 				ThrownPotion arrow = (ThrownPotion) e.getDamager();
 				ProjectileSource source = arrow.getShooter();
 				if (source instanceof Player && temp != null
-						&& !Team.getTeam((Player) source).canDamage(temp, (Player) source)) {
+						&& !Objects.requireNonNull(Team.getTeam((Player) source)).canDamage(temp, (Player) source)) {
 					// they are on the same team
 					e.setCancelled(true);
 				}
@@ -125,7 +126,7 @@ public class DamageManagement implements Listener {
 			Collection<LivingEntity> affectedEntities = e.getAffectedEntities();
 			for (LivingEntity entity : affectedEntities) {
 				try {
-					if (entity instanceof Player && Team.getTeam((Player) entity).canDamage(team, thrower)) {
+					if (entity instanceof Player && Objects.requireNonNull(Team.getTeam((Player) entity)).canDamage(team, thrower)) {
 						if (disableSelf && entity == thrower) {
 							continue;
 						}

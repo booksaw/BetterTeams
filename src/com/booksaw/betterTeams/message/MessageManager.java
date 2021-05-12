@@ -2,6 +2,7 @@ package com.booksaw.betterTeams.message;
 
 import java.io.File;
 import java.util.MissingFormatArgumentException;
+import java.util.Objects;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
@@ -54,7 +55,7 @@ public class MessageManager {
 	 */
 	public static void addMessages(FileConfiguration file) {
 		messages = file;
-		prefix = ChatColor.translateAlternateColorCodes('&', Main.plugin.getConfig().getString("prefixFormat"));
+		prefix = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(Main.plugin.getConfig().getString("prefixFormat")));
 	}
 
 	/**
@@ -153,7 +154,7 @@ public class MessageManager {
 
 		try {
 			String msg = messages.getString(reference);
-			return ChatColor.translateAlternateColorCodes('&', msg);
+			return ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(msg));
 		} catch (NullPointerException e) {
 			Bukkit.getLogger().warning("Could not find the message with the reference " + reference);
 			return "";

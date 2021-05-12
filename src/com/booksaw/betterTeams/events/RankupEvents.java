@@ -1,6 +1,7 @@
 package com.booksaw.betterTeams.events;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -34,7 +35,7 @@ public class RankupEvents implements Listener {
 			str = str.replaceAll("%level%", Integer.toString(rank));
 			if (str.contains("%player%")) {
 				for (TeamPlayer p : team.getMembers()) {
-					str = str.replaceAll("%player%", p.getPlayer().getName());
+					str = str.replaceAll("%player%", Objects.requireNonNull(p.getPlayer().getName()));
 					if (Main.placeholderAPI) {
 						str = PlaceholderAPI.setPlaceholders(p.getPlayer(), str);
 					}

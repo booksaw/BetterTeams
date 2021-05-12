@@ -2,6 +2,7 @@ package com.booksaw.betterTeams.commands.team;
 
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -85,7 +86,7 @@ public class InfoCommand extends SubCommand {
 
 		StringBuilder allies = new StringBuilder();
 		for (UUID uuid : team.getAllies()) {
-			allies.append(Team.getTeam(uuid).getDisplayName()).append(ChatColor.WHITE).append(", ");
+			allies.append(Objects.requireNonNull(Team.getTeam(uuid)).getDisplayName()).append(ChatColor.WHITE).append(", ");
 		}
 		if (allies.length() > 2) {
 			allies = new StringBuilder(allies.substring(0, allies.length() - 2));

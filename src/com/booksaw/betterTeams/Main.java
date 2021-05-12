@@ -33,6 +33,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.logging.Level;
 
 /**
@@ -70,7 +71,7 @@ public class Main extends JavaPlugin {
 
 		String language = getConfig().getString("language");
 		MessageManager.setLanguage(language);
-		if (language.equals("en") || language.equals("")) {
+		if (Objects.requireNonNull(language).equals("en") || language.equals("")) {
 			MessageManager.setLanguage("messages");
 		}
 
@@ -79,13 +80,13 @@ public class Main extends JavaPlugin {
 		Team.loadTeams();
 
 		if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null
-				&& Bukkit.getPluginManager().getPlugin("PlaceholderAPI").isEnabled()) {
+				&& Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("PlaceholderAPI")).isEnabled()) {
 			placeholderAPI = true;
 			new TeamPlaceholders(this).register();
 		}
 
 		if (Bukkit.getPluginManager().getPlugin("UltimateClaims") != null
-				&& Bukkit.getPluginManager().getPlugin("UltimateClaims").isEnabled()) {
+				&& Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("UltimateClaims")).isEnabled()) {
 			if (getConfig().getBoolean("ultimateClaims.enabled")) {
 				new UltimateClaimsManager();
 			}
@@ -342,7 +343,7 @@ public class Main extends JavaPlugin {
 			messages.set("admin.score.tooSmall", "&4The score must be greater than 0");
 			messages.set("admin.score.success", "&6That teams score has been changed");
 		case 10:
-			if (messages.getString("invite.invite") == null || messages.getString("invite.invite").equals("")) {
+			if (messages.getString("invite.invite") == null || Objects.requireNonNull(messages.getString("invite.invite")).equals("")) {
 				messages.set("invite.success", "&6That player has been invited");
 				messages.set("invite.invite",
 						"&6You have been invited to join team %s do &b/team join <team> &6 to join the team");
@@ -373,23 +374,23 @@ public class Main extends JavaPlugin {
 			messages.set("admin.chest.all.success", "&6All claims removed from that team");
 		case 14:
 			// fixing a few typos (https://github.com/booksaw/BetterTeams/issues/31)
-			if (messages.getString("neutral.success").contains("wih")) {
-				messages.set("neutral.success", messages.getString("neutral.success").replace("wih", "with"));
+			if (Objects.requireNonNull(messages.getString("neutral.success")).contains("wih")) {
+				messages.set("neutral.success", Objects.requireNonNull(messages.getString("neutral.success")).replace("wih", "with"));
 			}
-			if (messages.getString("chest.remove.success").startsWith("&4your")) {
+			if (Objects.requireNonNull(messages.getString("chest.remove.success")).startsWith("&4your")) {
 				messages.set("chest.remove.success",
-						messages.getString("chest.remove.success").replace("&4your", "&4Your"));
+						Objects.requireNonNull(messages.getString("chest.remove.success")).replace("&4your", "&4Your"));
 			}
-			if (messages.getString("admin.join.success").startsWith("&6that")) {
+			if (Objects.requireNonNull(messages.getString("admin.join.success")).startsWith("&6that")) {
 				messages.set("admin.join.success",
-						messages.getString("admin.join.success").replace("&6your", "&6Your"));
+						Objects.requireNonNull(messages.getString("admin.join.success")).replace("&6your", "&6Your"));
 			}
-			if (messages.getString("admin.promote.owner").contains("&6To")) {
-				messages.set("admin.promote.owner", messages.getString("admin.promote.owner").replace("&6To", "&6to"));
+			if (Objects.requireNonNull(messages.getString("admin.promote.owner")).contains("&6To")) {
+				messages.set("admin.promote.owner", Objects.requireNonNull(messages.getString("admin.promote.owner")).replace("&6To", "&6to"));
 			}
 
-			if (messages.getString("help.delhome").contains("teams")) {
-				messages.set("help.delhome", messages.getString("help.delhome").replace("teams", "team's"));
+			if (Objects.requireNonNull(messages.getString("help.delhome")).contains("teams")) {
+				messages.set("help.delhome", Objects.requireNonNull(messages.getString("help.delhome")).replace("teams", "team's"));
 			}
 
 			messages.set("admin.chest.disable.already", "&4Chest claims are already disabled");
@@ -442,7 +443,7 @@ public class Main extends JavaPlugin {
 			messages.set("uclaim.dissolve", "&4Your team has been disbanded so your claim has been dissolved");
 			messages.set("uclaim.team", "&4You must be in a team to create a claim");
 		case 21:
-			if (messages.getString("prefixSyntax").equals("&b[%s] &r%s")) {
+			if (Objects.requireNonNull(messages.getString("prefixSyntax")).equals("&b[%s] &r%s")) {
 				messages.set("prefixSyntax", "&7[%s&7] &r%s");
 			}
 		case 1000:
@@ -670,7 +671,7 @@ public class Main extends JavaPlugin {
 
 	public void setupListeners() {
 		Bukkit.getLogger().info("Display team name config value: " + getConfig().getString("displayTeamName"));
-		BelowNameType type = BelowNameType.getType(getConfig().getString("displayTeamName"));
+		BelowNameType type = BelowNameType.getType(Objects.requireNonNull(getConfig().getString("displayTeamName")));
 		Bukkit.getLogger().info("Loading below name. Type: " + type);
 		if (getConfig().getBoolean("useTeams")) {
 			if (teamManagement == null) {

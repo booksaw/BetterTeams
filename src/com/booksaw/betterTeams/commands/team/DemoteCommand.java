@@ -1,6 +1,7 @@
 package com.booksaw.betterTeams.commands.team;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -44,7 +45,7 @@ public class DemoteCommand extends TeamSubCommand {
 
 		TeamPlayer demotePlayer = team.getTeamPlayer(player);
 
-		if (demotePlayer.getRank() == PlayerRank.DEFAULT) {
+		if (Objects.requireNonNull(demotePlayer).getRank() == PlayerRank.DEFAULT) {
 			return new CommandResponse("demote.min");
 		}
 

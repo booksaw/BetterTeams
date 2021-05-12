@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Objects;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -63,7 +64,7 @@ public class HologramManager {
 		BukkitScheduler scheduler = Main.plugin.getServer().getScheduler();
 		scheduler.scheduleSyncRepeatingTask(Main.plugin, () -> {
 			if (Bukkit.getPluginManager().getPlugin("HolographicDisplays") == null
-					|| !Bukkit.getPluginManager().getPlugin("HolographicDisplays").isEnabled()) {
+					|| !Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("HolographicDisplays")).isEnabled()) {
 				return;
 			}
 			for (HologramType type : HologramType.values()) {
@@ -146,7 +147,7 @@ public class HologramManager {
 
 	// returns the string of a location
 	public static String getString(Location loc) {
-		return loc.getWorld().getName() + ":" + loc.getX() + ":" + loc.getY() + ":" + loc.getZ();
+		return Objects.requireNonNull(loc.getWorld()).getName() + ":" + loc.getX() + ":" + loc.getY() + ":" + loc.getZ();
 	}
 
 	public void removeHolo(Hologram toRemove) {

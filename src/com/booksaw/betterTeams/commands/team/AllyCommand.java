@@ -1,6 +1,7 @@
 package com.booksaw.betterTeams.commands.team;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import org.bukkit.ChatColor;
@@ -22,7 +23,7 @@ public class AllyCommand extends TeamSubCommand {
 			StringBuilder requests = new StringBuilder();
 
 			for (UUID uuid : team.getRequests()) {
-				requests.append(Team.getTeam(uuid).getDisplayName()).append(ChatColor.WHITE).append(", ");
+				requests.append(Objects.requireNonNull(Team.getTeam(uuid)).getDisplayName()).append(ChatColor.WHITE).append(", ");
 			}
 			if (requests.length() > 2) {
 				requests = new StringBuilder(requests.substring(0, requests.length() - 2));

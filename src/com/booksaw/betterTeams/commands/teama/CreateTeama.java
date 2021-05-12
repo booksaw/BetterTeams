@@ -1,6 +1,7 @@
 package com.booksaw.betterTeams.commands.teama;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -34,7 +35,7 @@ public class CreateTeama extends SubCommand {
 
 		Team.createNewTeam(args[0], (Player) sender);
 		Team team = Team.getTeam(args[0]);
-		team.removePlayer((Player) sender);
+		Objects.requireNonNull(team).removePlayer((Player) sender);
 
 		return new CommandResponse(true, "admin.create.success");
 	}

@@ -1,6 +1,7 @@
 package com.booksaw.betterTeams.commands.team;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.bukkit.command.CommandSender;
 
@@ -18,7 +19,7 @@ public class HomeCommand extends TeamSubCommand {
 
 		if (team.getTeamHome() != null) {
 			try {
-				new PlayerTeleport(player.getPlayer().getPlayer(), team.getTeamHome(), "home.success");
+				new PlayerTeleport(Objects.requireNonNull(player.getPlayer().getPlayer()), team.getTeamHome(), "home.success");
 			} catch (Exception e) {
 				return new CommandResponse("home.world");
 			}

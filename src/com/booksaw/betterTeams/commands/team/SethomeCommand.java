@@ -1,6 +1,7 @@
 package com.booksaw.betterTeams.commands.team;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.bukkit.command.CommandSender;
 
@@ -15,7 +16,7 @@ public class SethomeCommand extends TeamSubCommand {
 	@Override
 	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 
-		team.setTeamHome(player.getPlayer().getPlayer().getLocation());
+		team.setTeamHome(Objects.requireNonNull(player.getPlayer().getPlayer()).getLocation());
 
 		return new CommandResponse(true, "sethome.success");
 

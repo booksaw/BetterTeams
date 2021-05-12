@@ -9,6 +9,8 @@ import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 import com.booksaw.betterTeams.cooldown.CooldownManager;
 import com.booksaw.betterTeams.cost.CostManager;
 
+import java.util.Objects;
+
 public class PermissionParentCommand extends ParentCommand {
 
 	ConfigManager yamlManager;
@@ -40,7 +42,7 @@ public class PermissionParentCommand extends ParentCommand {
 				super.addSubCommand(command);
 
 				if (command instanceof TeamSubCommand) {
-					PlayerRank rank = PlayerRank.getRank(config.getString(command.getCommand() + ".rank"));
+					PlayerRank rank = PlayerRank.getRank(Objects.requireNonNull(config.getString(command.getCommand() + ".rank")));
 					if (rank == null) {
 						Bukkit.getLogger().warning("The command " + command.getCommand()
 								+ " has the rank set to something invalid, using the default rank");

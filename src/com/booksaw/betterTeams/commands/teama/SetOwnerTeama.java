@@ -1,6 +1,7 @@
 package com.booksaw.betterTeams.commands.teama;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -29,7 +30,7 @@ public class SetOwnerTeama extends SubCommand {
 		}
 
 		TeamPlayer tp = team.getTeamPlayer(p);
-		if (tp.getRank() == PlayerRank.OWNER) {
+		if (Objects.requireNonNull(tp).getRank() == PlayerRank.OWNER) {
 			return new CommandResponse("admin.setowner.already");
 		}
 

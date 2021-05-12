@@ -1,6 +1,7 @@
 package com.booksaw.betterTeams.commands.team;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -49,7 +50,7 @@ public class TitleCommand extends TeamSubCommand {
 		}
 
 		if (player.getRank().value < getRequiredRank().value
-				&& !(player == toTitle && player.getPlayer().getPlayer().hasPermission("betterteams.title.self"))) {
+				&& !(player == toTitle && Objects.requireNonNull(player.getPlayer().getPlayer()).hasPermission("betterteams.title.self"))) {
 			return new CommandResponse("title.noPerm");
 		}
 
@@ -71,7 +72,7 @@ public class TitleCommand extends TeamSubCommand {
 
 		Player sender = player.getPlayer().getPlayer();
 
-		if (!sender.hasPermission("betterteams.title.color.format")) {
+		if (!Objects.requireNonNull(sender).hasPermission("betterteams.title.color.format")) {
 			if (args[1].contains("&l") || args[1].contains("&k") || args[1].contains("&n") || args[1].contains("&m")
 					|| args[1].contains("&o")) {
 				return new CommandResponse("title.noFormat");

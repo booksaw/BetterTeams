@@ -1,6 +1,7 @@
 package com.booksaw.betterTeams.commands.team;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.bukkit.command.CommandSender;
 
@@ -38,7 +39,7 @@ public class SetWarpCommand extends TeamSubCommand {
 			}
 		}
 
-		team.addWarp(new Warp(args[0], player.getPlayer().getPlayer().getLocation(), password));
+		team.addWarp(new Warp(args[0], Objects.requireNonNull(player.getPlayer().getPlayer()).getLocation(), password));
 
 		return new CommandResponse("setwarp.success");
 	}

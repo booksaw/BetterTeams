@@ -3,6 +3,7 @@ package com.booksaw.betterTeams.events;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -29,7 +30,7 @@ public class MCTeamManagement implements Listener {
 	public MCTeamManagement(BelowNameType type) {
 		this.type = type;
 
-		if (Bukkit.getScoreboardManager().getMainScoreboard() != null) {
+		if (Objects.requireNonNull(Bukkit.getScoreboardManager()).getMainScoreboard() != null) {
 			board = Bukkit.getScoreboardManager().getMainScoreboard();
 		} else {
 			board = Bukkit.getScoreboardManager().getNewScoreboard();

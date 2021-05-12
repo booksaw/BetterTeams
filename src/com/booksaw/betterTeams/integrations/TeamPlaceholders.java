@@ -9,6 +9,8 @@ import com.booksaw.betterTeams.message.MessageManager;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 /**
  * This class is used to set the placeholder values for placeholder API
  * 
@@ -128,7 +130,7 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 				return MessageManager.getMessage("placeholder.noTeam");
 			}
 
-			switch (team.getTeamPlayer(player).getRank()) {
+			switch (Objects.requireNonNull(team.getTeamPlayer(player)).getRank()) {
 			case ADMIN:
 				return MessageManager.getMessage(player, "placeholder.admin");
 			case DEFAULT:

@@ -1,6 +1,7 @@
 package com.booksaw.betterTeams.commands.team;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -45,7 +46,7 @@ public class PromoteCommand extends TeamSubCommand {
 
 		TeamPlayer promotePlayer = team.getTeamPlayer(player);
 
-		if (promotePlayer.getRank() == PlayerRank.OWNER) {
+		if (Objects.requireNonNull(promotePlayer).getRank() == PlayerRank.OWNER) {
 			return new CommandResponse("promote.max");
 
 		}

@@ -1,6 +1,7 @@
 package com.booksaw.betterTeams.integrations;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -48,7 +49,7 @@ public class UltimateClaimsManager implements Listener {
 			return;
 		}
 
-		if (team.getTeamPlayer(p).getRank() != PlayerRank.OWNER) {
+		if (Objects.requireNonNull(team.getTeamPlayer(p)).getRank() != PlayerRank.OWNER) {
 			if (p.isOnline()) {
 				MessageManager.sendMessage(p.getPlayer(), "needOwner");
 			}
@@ -146,7 +147,7 @@ public class UltimateClaimsManager implements Listener {
 	@EventHandler(ignoreCancelled = true)
 	public void transferEvent(ClaimTransferOwnershipEvent e) {
 		Team team = Team.getTeam(e.getNewOwner());
-		if (team == null || team.getTeamPlayer(e.getNewOwner()).getRank() != PlayerRank.OWNER) {
+		if (team == null || Objects.requireNonNull(team.getTeamPlayer(e.getNewOwner())).getRank() != PlayerRank.OWNER) {
 			Bukkit.getLogger().info("");
 			Bukkit.getLogger().info("");
 			Bukkit.getLogger().info("You cannot transfer ownership to a player who is not an owner of a team");

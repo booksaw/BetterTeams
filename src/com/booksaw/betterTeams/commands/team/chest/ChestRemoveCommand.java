@@ -1,6 +1,7 @@
 package com.booksaw.betterTeams.commands.team.chest;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -18,7 +19,7 @@ public class ChestRemoveCommand extends TeamSubCommand {
 	@Override
 	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 
-		Location loc = player.getPlayer().getPlayer().getLocation();
+		Location loc = Objects.requireNonNull(player.getPlayer().getPlayer()).getLocation();
 
 		Block block = loc.getBlock();
 		loc = Team.getClaimingLocation(block);

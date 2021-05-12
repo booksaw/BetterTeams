@@ -2,6 +2,7 @@ package com.booksaw.betterTeams.events;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -47,7 +48,7 @@ public class ChatManagement implements Listener {
 
 		TeamPlayer teamPlayer = team.getTeamPlayer(p);
 
-		if ((teamPlayer.isInTeamChat() || teamPlayer.isInAllyChat())
+		if ((Objects.requireNonNull(teamPlayer).isInTeamChat() || teamPlayer.isInAllyChat())
 				&& (event.getMessage().startsWith("!") && event.getMessage().length() > 1)) {
 			event.setMessage(event.getMessage().substring(1));
 		} else if (teamPlayer.isInTeamChat()) {

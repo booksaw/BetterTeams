@@ -1,6 +1,7 @@
 package com.booksaw.betterTeams.commands.team;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.bukkit.command.CommandSender;
 
@@ -17,7 +18,7 @@ public class EchestCommand extends TeamSubCommand {
 	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 
 		InventoryManagement.adminViewers.put(player.getPlayer().getPlayer(), team);
-		player.getPlayer().getPlayer().openInventory(team.getEchest());
+		Objects.requireNonNull(player.getPlayer().getPlayer()).openInventory(team.getEchest());
 
 		return new CommandResponse(true);
 	}

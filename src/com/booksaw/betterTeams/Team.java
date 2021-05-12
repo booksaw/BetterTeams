@@ -1,11 +1,8 @@
 package com.booksaw.betterTeams;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.UUID;
 
 import javax.annotation.Nullable;
 
@@ -332,12 +329,12 @@ public class Team {
 
 		if (holder instanceof DoubleChest) {
 			DoubleChest doubleChest = (DoubleChest) holder;
-			Team claimedBy = getClamingTeam(ChestManagement.getLocation((Chest) doubleChest.getLeftSide()));
+			Team claimedBy = getClamingTeam(ChestManagement.getLocation((Chest) Objects.requireNonNull(doubleChest.getLeftSide())));
 			if (claimedBy != null) {
 				return claimedBy;
 			}
 
-			claimedBy = getClamingTeam(ChestManagement.getLocation((Chest) doubleChest.getRightSide()));
+			claimedBy = getClamingTeam(ChestManagement.getLocation((Chest) Objects.requireNonNull(doubleChest.getRightSide())));
 			return claimedBy;
 		} else if (holder instanceof Chest) {
 			// single chest
@@ -361,13 +358,13 @@ public class Team {
 
 		if (holder instanceof DoubleChest) {
 			DoubleChest doubleChest = (DoubleChest) holder;
-			Location loc = ChestManagement.getLocation((Chest) doubleChest.getLeftSide());
+			Location loc = ChestManagement.getLocation((Chest) Objects.requireNonNull(doubleChest.getLeftSide()));
 			Team claimedBy = getClamingTeam(loc);
 			if (claimedBy != null) {
 				return loc;
 			}
 
-			loc = ChestManagement.getLocation((Chest) doubleChest.getRightSide());
+			loc = ChestManagement.getLocation((Chest) Objects.requireNonNull(doubleChest.getRightSide()));
 			claimedBy = getClamingTeam(ChestManagement.getLocation((Chest) doubleChest.getRightSide()));
 			if (claimedBy != null) {
 				return loc;
@@ -391,7 +388,7 @@ public class Team {
 			}
 		}
 
-		for (char temp : Main.plugin.getConfig().getString("bannedChars").toCharArray()) {
+		for (char temp : Objects.requireNonNull(Main.plugin.getConfig().getString("bannedChars")).toCharArray()) {
 			if (name.contains(Character.toString(temp))) {
 				return false;
 			}
@@ -408,7 +405,7 @@ public class Team {
 
 		String allowed = Main.plugin.getConfig().getString("allowedChars");
 
-		if (allowed.length() != 0) {
+		if (Objects.requireNonNull(allowed).length() != 0) {
 			for (char temp : name.toCharArray()) {
 				if (!allowed.contains(Character.toString(temp))) {
 					return false;
@@ -597,8 +594,8 @@ public class Team {
 		money = 0;
 		setValue(config, "home", "");
 		rank = -1;
-		color = ChatColor.getByChar(Main.plugin.getConfig().getString("defaultColor").charAt(0));
-		setValue(config, "color", color.getChar());
+		color = ChatColor.getByChar(Objects.requireNonNull(Main.plugin.getConfig().getString("defaultColor")).charAt(0));
+		setValue(config, "color", Objects.requireNonNull(color).getChar());
 		allies = new ArrayList<>();
 		setValue(config, "allies", allies);
 		requests = new ArrayList<>();
@@ -760,7 +757,7 @@ public class Team {
 			if (team != null) {
 				for (TeamPlayer p : members) {
 					if (p.getPlayer().isOnline()) {
-						team.removeEntry(p.getPlayer().getName());
+						team.removeEntry(Objects.requireNonNull(p.getPlayer().getName()));
 					}
 				}
 				team.unregister();
@@ -770,7 +767,7 @@ public class Team {
 
 			for (TeamPlayer p : members) {
 				if (p.getPlayer().isOnline()) {
-					Main.plugin.teamManagement.displayBelowName(p.getPlayer().getPlayer());
+					Main.plugin.teamManagement.displayBelowName(Objects.requireNonNull(p.getPlayer().getPlayer()));
 				}
 			}
 		}
@@ -838,7 +835,7 @@ public class Team {
 			if (team != null) {
 				for (TeamPlayer p : members) {
 					if (p.getPlayer().isOnline()) {
-						team.removeEntry(p.getPlayer().getName());
+						team.removeEntry(Objects.requireNonNull(p.getPlayer().getName()));
 					}
 				}
 				team.unregister();
@@ -848,7 +845,7 @@ public class Team {
 
 			for (TeamPlayer p : members) {
 				if (p.getPlayer().isOnline()) {
-					Main.plugin.teamManagement.displayBelowName(p.getPlayer().getPlayer());
+					Main.plugin.teamManagement.displayBelowName(Objects.requireNonNull(p.getPlayer().getPlayer()));
 				}
 			}
 		}
@@ -989,7 +986,7 @@ public class Team {
 
 		for (UUID ally : allies) {
 			Team team = Team.getTeam(ally);
-			team.removeAlly(getID());
+			Objects.requireNonNull(team).removeAlly(getID());
 		}
 
 		for (Entry<UUID, Team> team : teamList.entrySet()) {
@@ -1120,7 +1117,7 @@ public class Team {
 			if (team != null) {
 				for (TeamPlayer p : members) {
 					if (p.getPlayer().isOnline()) {
-						team.removeEntry(p.getPlayer().getName());
+						team.removeEntry(Objects.requireNonNull(p.getPlayer().getName()));
 					}
 				}
 				team.unregister();
@@ -1130,7 +1127,7 @@ public class Team {
 
 			for (TeamPlayer p : members) {
 				if (p.getPlayer().isOnline()) {
-					Main.plugin.teamManagement.displayBelowName(p.getPlayer().getPlayer());
+					Main.plugin.teamManagement.displayBelowName(Objects.requireNonNull(p.getPlayer().getPlayer()));
 				}
 			}
 		}
@@ -1205,7 +1202,7 @@ public class Team {
 	 * @return the string which references that location
 	 */
 	public static String getString(Location loc) {
-		return loc.getWorld().getName() + ":" + loc.getX() + ":" + loc.getY() + ":" + loc.getZ() + ":" + loc.getYaw()
+		return Objects.requireNonNull(loc.getWorld()).getName() + ":" + loc.getX() + ":" + loc.getY() + ":" + loc.getZ() + ":" + loc.getYaw()
 				+ ":" + loc.getPitch();
 	}
 
@@ -1282,14 +1279,14 @@ public class Team {
 		}
 
 		String fMessage = String.format(MessageManager.getMessage("chat.syntax"),
-				sender.getPrefix(returnTo) + sender.getPlayer().getPlayer().getDisplayName(), message);
+				sender.getPrefix(returnTo) + Objects.requireNonNull(sender.getPlayer().getPlayer()).getDisplayName(), message);
 
 		fMessage = fMessage.replace("$name$", sender.getPrefix(returnTo) + sender.getPlayer().getPlayer().getName());
 		fMessage = fMessage.replace("$message$", message);
 
 		for (TeamPlayer player : members) {
 			if (player.getPlayer().isOnline()) {
-				player.getPlayer().getPlayer().sendMessage(fMessage);
+				Objects.requireNonNull(player.getPlayer().getPlayer()).sendMessage(fMessage);
 			}
 		}
 
@@ -1328,22 +1325,22 @@ public class Team {
 		}
 
 		String fMessage = String.format(MessageManager.getMessage("allychat.syntax"), getName(),
-				sender.getPrefix(returnTo) + sender.getPlayer().getPlayer().getDisplayName(), message);
+				sender.getPrefix(returnTo) + Objects.requireNonNull(sender.getPlayer().getPlayer()).getDisplayName(), message);
 
 		fMessage = fMessage.replace("$name$", sender.getPrefix(returnTo) + sender.getPlayer().getPlayer().getName());
 		fMessage = fMessage.replace("$message$", message);
 
 		for (TeamPlayer player : members) {
 			if (player.getPlayer().isOnline()) {
-				player.getPlayer().getPlayer().sendMessage(fMessage);
+				Objects.requireNonNull(player.getPlayer().getPlayer()).sendMessage(fMessage);
 			}
 		}
 
 		for (UUID ally : allies) {
 			Team temp = Team.getTeam(ally);
-			for (TeamPlayer player : temp.getMembers()) {
+			for (TeamPlayer player : Objects.requireNonNull(temp).getMembers()) {
 				if (player.getPlayer().isOnline()) {
-					player.getPlayer().getPlayer().sendMessage(fMessage);
+					Objects.requireNonNull(player.getPlayer().getPlayer()).sendMessage(fMessage);
 				}
 			}
 		}
@@ -1493,7 +1490,7 @@ public class Team {
 		for (TeamPlayer p : members) {
 			OfflinePlayer player = p.getPlayer();
 			if (player.isOnline()) {
-				MessageManager.sendMessageF(player.getPlayer(), "ally.ally", team.getDisplayName());
+				MessageManager.sendMessageF(player.getPlayer(), "ally.ally", Objects.requireNonNull(team).getDisplayName());
 			}
 		}
 	}
@@ -1532,7 +1529,7 @@ public class Team {
 		for (TeamPlayer p : members) {
 			OfflinePlayer player = p.getPlayer();
 			if (player.isOnline() && p.getRank() == PlayerRank.OWNER) {
-				MessageManager.sendMessageF(player.getPlayer(), "ally.request", t.getDisplayName());
+				MessageManager.sendMessageF(player.getPlayer(), "ally.request", Objects.requireNonNull(t).getDisplayName());
 			}
 		}
 	}

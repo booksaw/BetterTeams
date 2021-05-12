@@ -1,6 +1,7 @@
 package com.booksaw.betterTeams.commands.team;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -46,7 +47,7 @@ public class BanCommand extends TeamSubCommand {
 		TeamPlayer kickedPlayer = team.getTeamPlayer(player);
 
 		// ensuring the player they are banning has less perms than them
-		if (teamPlayer.getRank().value <= kickedPlayer.getRank().value) {
+		if (teamPlayer.getRank().value <= Objects.requireNonNull(kickedPlayer).getRank().value) {
 			return new CommandResponse("ban.noPerm");
 		}
 

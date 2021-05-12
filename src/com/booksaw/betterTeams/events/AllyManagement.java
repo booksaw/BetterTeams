@@ -9,6 +9,8 @@ import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.message.MessageManager;
 
+import java.util.Objects;
+
 public class AllyManagement implements Listener {
 
 	@EventHandler
@@ -24,7 +26,7 @@ public class AllyManagement implements Listener {
 
 		TeamPlayer player = team.getTeamPlayer(e.getPlayer());
 
-		if (player.getRank() == PlayerRank.OWNER) {
+		if (Objects.requireNonNull(player).getRank() == PlayerRank.OWNER) {
 			MessageManager.sendMessage(e.getPlayer(), "ally.onJoin");
 		}
 	}

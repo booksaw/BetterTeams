@@ -2,6 +2,7 @@ package com.booksaw.betterTeams.commands.team;
 
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.UUID;
 
 import org.bukkit.command.CommandSender;
@@ -30,7 +31,7 @@ public class RankCommand extends SubCommand {
 		}
 
 		String priceStr = Main.plugin.getConfig().getString("levels.l" + (team.getLevel() + 1) + ".price");
-		boolean score = priceStr.contains("s");
+		boolean score = Objects.requireNonNull(priceStr).contains("s");
 
 		return new CommandResponse(true, new ReferencedFormatMessage("rank.info" + ((score) ? "s" : "m"),
 				team.getLevel() + "", priceStr.substring(0, priceStr.length() - 1)));

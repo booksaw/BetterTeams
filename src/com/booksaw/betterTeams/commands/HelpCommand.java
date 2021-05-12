@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
@@ -30,8 +31,8 @@ public class HelpCommand extends SubCommand {
 
 	public HelpCommand(ParentCommand command) {
 		this.command = command;
-		prefix = ChatColor.getByChar(Main.plugin.getConfig().getString("helpCommandColor").charAt(0));
-		description = ChatColor.getByChar(Main.plugin.getConfig().getString("helpDescriptionColor").charAt(0));
+		prefix = ChatColor.getByChar(Objects.requireNonNull(Main.plugin.getConfig().getString("helpCommandColor")).charAt(0));
+		description = ChatColor.getByChar(Objects.requireNonNull(Main.plugin.getConfig().getString("helpDescriptionColor")).charAt(0));
 
 	}
 
