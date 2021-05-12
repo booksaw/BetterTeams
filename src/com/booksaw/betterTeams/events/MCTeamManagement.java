@@ -20,6 +20,8 @@ import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.UUID;
 
+@SuppressWarnings("deprecation")
+// TODO: Fix in 4.0
 public class MCTeamManagement implements Listener {
 
     final Scoreboard board;
