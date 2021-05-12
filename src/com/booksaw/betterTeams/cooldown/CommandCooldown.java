@@ -31,7 +31,7 @@ public class CommandCooldown {
 	 */
 	public void runCommand(Player player) {
 		if (player.hasPermission("betterteams.cooldown.bypass")) {
-
+			return;
 		}
 		nextTime.put(player, System.currentTimeMillis() + cooldown);
 	}
