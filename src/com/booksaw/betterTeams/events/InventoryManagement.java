@@ -16,7 +16,7 @@ public class InventoryManagement implements Listener {
 
 	@EventHandler
 	public void onClose(InventoryCloseEvent e) {
-		Team t = adminViewers.get(e.getPlayer());
+		Team t = adminViewers.get((Player) e.getPlayer());
 
 		if (t == null) {
 			t = Team.getTeam((Player) e.getPlayer());
@@ -29,7 +29,7 @@ public class InventoryManagement implements Listener {
 			return;
 		}
 
-		adminViewers.remove(e.getPlayer());
+		adminViewers.remove((Player) e.getPlayer());
 
 		t.saveEchest();
 
