@@ -70,9 +70,7 @@ public class HelpCommand extends SubCommand {
 
 		if (!f.exists()) {
 			try {
-				if (!f.createNewFile()) {
-					throw new IOException("Could not create file"); // Caught by catch block
-				}
+				f.createNewFile();
 
 				PrintWriter writer = new PrintWriter(f);
 				for (Entry<String, SubCommand> sub : command.getSubCommands().entrySet()) {
