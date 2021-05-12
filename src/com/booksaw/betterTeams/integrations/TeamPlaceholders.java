@@ -145,6 +145,14 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 
 			return team.getColor() + "";
 
+		} else if (identifier.equals("online")) {
+			Team team = Team.getTeam(player);
+
+			if (team == null) {
+				return MessageManager.getMessage("placeholder.noTeam");
+			}
+
+			return String.valueOf(team.getOnlineMemebers().size());
 		} else if (identifier.startsWith("teamscore_")) {
 			identifier = identifier.replaceAll("teamscore_", "");
 			int place;
