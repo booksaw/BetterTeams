@@ -19,7 +19,6 @@ public class WithdrawCommand extends TeamSubCommand {
 	@Override
 	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 
-
 		double amount;
 		try {
 			amount = Double.parseDouble(args[0]);

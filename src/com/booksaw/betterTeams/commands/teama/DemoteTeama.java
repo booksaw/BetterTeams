@@ -27,9 +27,9 @@ public class DemoteTeama extends SubCommand {
 		if (team == null) {
 			return new CommandResponse("admin.inTeam");
 		}
-		
+
 		TeamPlayer tp = team.getTeamPlayer(p);
-		if(tp.getRank() == PlayerRank.DEFAULT) {
+		if (tp.getRank() == PlayerRank.DEFAULT) {
 			return new CommandResponse("admin.demote.min");
 		}
 

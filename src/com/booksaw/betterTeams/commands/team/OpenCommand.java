@@ -42,7 +42,7 @@ public class OpenCommand extends TeamSubCommand {
 	public int getMinimumArguments() {
 		return 0;
 	}
-	
+
 	@Override
 	public String getNode() {
 		return "open";

@@ -187,8 +187,8 @@ public class UltimateClaimsManager implements Listener {
 			}
 
 			c.destroy(ClaimDeleteReason.PLAYER);
-			
-			if(player.getPlayer().isOnline()) {
+
+			if (player.getPlayer().isOnline()) {
 				MessageManager.sendMessage(player.getPlayer().getPlayer(), "uclaim.dissolve");
 			}
 		}

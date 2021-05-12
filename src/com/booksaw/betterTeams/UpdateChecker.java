@@ -65,13 +65,10 @@ public class UpdateChecker implements Listener {
 
 	private boolean isLatestVersion() {
 		try {
-			int[] local = Arrays.stream(this.localPluginVersion.split("\\.")).mapToInt(Integer::parseInt)
-					.toArray();
-			int[] spigot = Arrays.stream(this.spigotPluginVersion.split("\\.")).mapToInt(Integer::parseInt)
-					.toArray();
+			int[] local = Arrays.stream(this.localPluginVersion.split("\\.")).mapToInt(Integer::parseInt).toArray();
+			int[] spigot = Arrays.stream(this.spigotPluginVersion.split("\\.")).mapToInt(Integer::parseInt).toArray();
 			return IntStream.range(0, local.length).filter(i -> (local[i] != spigot[i])).limit(1L)
-					.mapToObj(i -> (local[i] >= spigot[i])).findFirst()
-					.orElse(Boolean.TRUE);
+					.mapToObj(i -> (local[i] >= spigot[i])).findFirst().orElse(Boolean.TRUE);
 		} catch (NumberFormatException ignored) {
 			return this.localPluginVersion.equals(this.spigotPluginVersion);
 		}

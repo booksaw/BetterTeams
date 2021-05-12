@@ -15,7 +15,6 @@ public class ScoreChange {
 		return isSpam(type, source, null);
 	}
 
-	
 	/**
 	 * Used to check if an action is a spam action, this will increase the timer if
 	 * it is Returns false if it is not a spam kill

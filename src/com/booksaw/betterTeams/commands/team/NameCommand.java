@@ -18,7 +18,7 @@ public class NameCommand extends TeamSubCommand {
 	public NameCommand() {
 		checkRank = false;
 	}
-	
+
 	@Override
 	public CommandResponse onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
 

@@ -59,7 +59,9 @@ public class ParentCommand extends SubCommand {
 	}
 
 	/**
-	 * Add multiple subcommands (see {@link ParentCommand#addSubCommand(SubCommand)})
+	 * Add multiple subcommands (see
+	 * {@link ParentCommand#addSubCommand(SubCommand)})
+	 * 
 	 * @param commands The command(s) to add
 	 */
 	public void addSubCommands(SubCommand... commands) {

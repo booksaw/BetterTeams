@@ -608,13 +608,14 @@ public class Main extends JavaPlugin {
 		ParentCommand teamCommand = new PermissionParentCommand(new CostManager("team"), new CooldownManager("team"),
 				"team");
 		// add all sub commands here
-		teamCommand.addSubCommands(new CreateCommand(), new LeaveCommand(), new DisbandCommand(), new DescriptionCommand(),
-				new InviteCommand(), new JoinCommand(), new NameCommand(), new OpenCommand(), new InfoCommand(),
-				new KickCommand(), new PromoteCommand(), new DemoteCommand(), new HomeCommand(), new SethomeCommand(),
-				new BanCommand(), new UnbanCommand(), new ChatCommand(), new ColorCommand(), new TitleCommand(),
-				new TopCommand(), new BaltopCommand(), new RankCommand(), new DelHome(), new AllyCommand(),
-				new NeutralCommand(), new AllyChatCommand(), new ListCommand(), new WarpCommand(), new SetWarpCommand(),
-				new DelwarpCommand(), new WarpsCommand(), new EchestCommand(), new RankupCommand(), new TagCommand());
+		teamCommand.addSubCommands(new CreateCommand(), new LeaveCommand(), new DisbandCommand(),
+				new DescriptionCommand(), new InviteCommand(), new JoinCommand(), new NameCommand(), new OpenCommand(),
+				new InfoCommand(), new KickCommand(), new PromoteCommand(), new DemoteCommand(), new HomeCommand(),
+				new SethomeCommand(), new BanCommand(), new UnbanCommand(), new ChatCommand(), new ColorCommand(),
+				new TitleCommand(), new TopCommand(), new BaltopCommand(), new RankCommand(), new DelHome(),
+				new AllyCommand(), new NeutralCommand(), new AllyChatCommand(), new ListCommand(), new WarpCommand(),
+				new SetWarpCommand(), new DelwarpCommand(), new WarpsCommand(), new EchestCommand(),
+				new RankupCommand(), new TagCommand());
 
 		if (getConfig().getBoolean("disableCombat")) {
 			teamCommand.addSubCommand(new PvpCommand());

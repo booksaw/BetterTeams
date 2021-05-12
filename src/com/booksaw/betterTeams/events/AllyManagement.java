@@ -13,18 +13,18 @@ public class AllyManagement implements Listener {
 
 	@EventHandler
 	public void onJoin(PlayerJoinEvent e) {
-		Team team = Team.getTeam(e.getPlayer()); 
-		if(team == null) {
+		Team team = Team.getTeam(e.getPlayer());
+		if (team == null) {
 			return;
 		}
-		
-		if(team.getRequests().size() == 0) {
+
+		if (team.getRequests().size() == 0) {
 			return;
 		}
-		
-		TeamPlayer player = team.getTeamPlayer(e.getPlayer()); 
-		
-		if(player.getRank() == PlayerRank.OWNER) {
+
+		TeamPlayer player = team.getTeamPlayer(e.getPlayer());
+
+		if (player.getRank() == PlayerRank.OWNER) {
 			MessageManager.sendMessage(e.getPlayer(), "ally.onJoin");
 		}
 	}
