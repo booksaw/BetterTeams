@@ -81,7 +81,7 @@ public class MCTeamManagement implements Listener {
 		BelowNameChangeEvent event = new BelowNameChangeEvent(player, ChangeType.ADD);
 		Bukkit.getPluginManager().callEvent(event);
 
-		team.getScoreboardTeam(board, type).addEntry(player.getName());
+		team.getScoreboardTeam(board).addEntry(player.getName());
 
 		// triggering the listeners
 		for (BelowNameChangeListener listener : listeners) {
@@ -126,7 +126,7 @@ public class MCTeamManagement implements Listener {
 //			}
 			return;
 		}
-		team.getScoreboardTeam(board, type).removeEntry(player.getName());
+		team.getScoreboardTeam(board).removeEntry(player.getName());
 
 		BelowNameChangeEvent event = new BelowNameChangeEvent(player, ChangeType.REMOVE);
 		Bukkit.getPluginManager().callEvent(event);

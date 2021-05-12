@@ -30,7 +30,6 @@ import com.booksaw.betterTeams.customEvents.PlayerJoinTeamEvent;
 import com.booksaw.betterTeams.customEvents.PlayerLeaveTeamEvent;
 import com.booksaw.betterTeams.customEvents.PrePurgeEvent;
 import com.booksaw.betterTeams.events.ChestManagement;
-import com.booksaw.betterTeams.events.MCTeamManagement.BelowNameType;
 import com.booksaw.betterTeams.message.MessageManager;
 
 /**
@@ -1089,8 +1088,7 @@ public class Team {
 
 		for (TeamPlayer player : members) {
 			if (player.getPlayer().isOnline()) {
-				MessageManager.sendMessageF(player.getPlayer().getPlayer(), "join.notify",
-						p.getDisplayName());
+				MessageManager.sendMessageF(player.getPlayer().getPlayer(), "join.notify", p.getDisplayName());
 			}
 		}
 
@@ -1416,7 +1414,7 @@ public class Team {
 	 * @param type  the type of the scoreboard team (mainly for prefix / suffix)
 	 * @return the team that has been created
 	 */
-	public org.bukkit.scoreboard.Team getScoreboardTeam(Scoreboard board, BelowNameType type) {
+	public org.bukkit.scoreboard.Team getScoreboardTeam(Scoreboard board) {
 		if (team != null) {
 			return team;
 		}
