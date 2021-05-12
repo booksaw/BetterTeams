@@ -22,7 +22,7 @@ import com.booksaw.betterTeams.customEvents.BelowNameChangeListener;
 
 public class MCTeamManagement implements Listener {
 
-	private BelowNameType type;
+	private final BelowNameType type;
 
 	Scoreboard board;
 
@@ -42,7 +42,7 @@ public class MCTeamManagement implements Listener {
 	 * 
 	 * @see BelowNameChangeListener
 	 */
-	private List<BelowNameChangeListener> listeners = new ArrayList<>();
+	private final List<BelowNameChangeListener> listeners = new ArrayList<>();
 
 	/**
 	 * @param listener The listener to add to the list of active listeners

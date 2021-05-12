@@ -10,8 +10,8 @@ import net.milkbowl.vault.economy.EconomyResponse;
 
 public class CommandCost {
 
-	private double cost;
-	private String command;
+	private final double cost;
+	private final String command;
 
 	/**
 	 * Used within Cost manager to track a new commands Cost

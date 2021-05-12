@@ -26,7 +26,8 @@ import com.booksaw.betterTeams.Team;
  */
 public class DamageManagement implements Listener {
 
-	private boolean disablePotions, disableSelf;
+	private final boolean disablePotions;
+    private final boolean disableSelf;
 
 	public DamageManagement() {
 		disablePotions = Main.plugin.getConfig().getBoolean("disablePotions");

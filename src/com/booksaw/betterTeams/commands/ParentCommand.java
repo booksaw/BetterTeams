@@ -31,12 +31,12 @@ public class ParentCommand extends SubCommand {
 	/**
 	 * Used to store all applicable sub commands
 	 */
-	private HashMap<String, SubCommand> subCommands = new HashMap<>();
+	private final HashMap<String, SubCommand> subCommands = new HashMap<>();
 
 	/**
 	 * Used to store what the parent command reference is
 	 */
-	private String command;
+	private final String command;
 
 	private CooldownManager cooldowns = null;
 	private CostManager prices = null;

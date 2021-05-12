@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
  *
  */
 public class BooksawCommand extends BukkitCommand {
-	private SubCommand subCommand;
+	private final SubCommand subCommand;
 
 	public BooksawCommand(String command, SubCommand subCommand, String permission, String description,
 			List<String> alises) {

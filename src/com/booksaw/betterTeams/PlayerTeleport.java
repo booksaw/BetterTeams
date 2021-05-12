@@ -15,8 +15,9 @@ import com.booksaw.betterTeams.message.MessageManager;
  */
 public class PlayerTeleport {
 
-	private Player player;
-	private Location location, playerLoc;
+	private final Player player;
+	private final Location location;
+    private Location playerLoc;
 	String reference;
 
 	/**

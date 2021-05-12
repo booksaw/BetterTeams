@@ -5,8 +5,9 @@ import org.bukkit.entity.Player;
 
 public class Warp {
 
-	private Location location;
-	private String name, password;
+	private final Location location;
+	private final String name;
+    private final String password;
 
 	public Warp(String[] args) {
 		name = args[0];

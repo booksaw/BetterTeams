@@ -17,7 +17,7 @@ public class TeamPlayer {
 	/**
 	 * this is used to store the player that the object is associated with
 	 */
-	private UUID playerUUID;
+	private final UUID playerUUID;
 
 	/**
 	 * This stores the players rank within the team

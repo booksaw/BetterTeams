@@ -115,7 +115,7 @@ public class HologramManager {
 	public enum HologramType {
 		MONEY("holo.msyntax"), SCORE("holo.syntax");
 
-		private String syntaxReference;
+		private final String syntaxReference;
 
 		HologramType(String syntaxReference) {
 			this.syntaxReference = syntaxReference;

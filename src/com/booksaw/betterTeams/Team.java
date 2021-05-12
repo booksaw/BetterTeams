@@ -383,6 +383,7 @@ public class Team {
 		return null;
 	}
 
+	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 	public static boolean isValidTeamName(String name) {
 		for (String temp : Main.plugin.getConfig().getStringList("blacklist")) {
 			if (temp.equalsIgnoreCase(name)) {
@@ -449,10 +450,10 @@ public class Team {
 	 * This is a list of invited players to this team since the last restart of the
 	 * server
 	 */
-	private List<UUID> invitedPlayers = new ArrayList<>();
+	private final List<UUID> invitedPlayers = new ArrayList<>();
 
-	private List<TeamPlayer> members;
-	private List<UUID> bannedPlayers;
+	private final List<TeamPlayer> members;
+	private final List<UUID> bannedPlayers;
 
 	/**
 	 * The score for the team
@@ -475,14 +476,14 @@ public class Team {
 	/**
 	 * Used to track the allies of this team
 	 */
-	private List<UUID> allies;
+	private final List<UUID> allies;
 
 	/**
 	 * Used to track which teams have requested to be allies with this team
 	 */
-	private List<UUID> requests;
+	private final List<UUID> requests;
 
-	private Inventory echest;
+	private final Inventory echest;
 
 	private int level;
 
@@ -1411,7 +1412,6 @@ public class Team {
 	 * name)
 	 * 
 	 * @param board the scoreboard to add the team to
-	 * @param type  the type of the scoreboard team (mainly for prefix / suffix)
 	 * @return the team that has been created
 	 */
 	public org.bukkit.scoreboard.Team getScoreboardTeam(Scoreboard board) {

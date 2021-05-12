@@ -8,8 +8,8 @@ public class CommandCooldown {
 
 	HashMap<Player, Long> nextTime;
 
-	private int cooldown;
-	private String command;
+	private final int cooldown;
+	private final String command;
 
 	/**
 	 * Used within cooldown manager to track a new commands cooldown

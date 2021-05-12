@@ -15,7 +15,7 @@ import me.clip.placeholderapi.expansion.PlaceholderExpansion;
  *
  */
 public class TeamPlaceholders extends PlaceholderExpansion {
-	private Plugin plugin;
+	private final Plugin plugin;
 
 	public TeamPlaceholders(Plugin plugin) {
 		this.plugin = plugin;
