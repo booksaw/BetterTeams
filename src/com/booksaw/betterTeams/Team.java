@@ -1,7 +1,9 @@
 package com.booksaw.betterTeams;
 
 import java.text.DecimalFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 
 import javax.annotation.Nullable;
@@ -1268,7 +1270,7 @@ public class Team {
 		int value = toTest.indexOf("%s");
 		if (value > 2) {
 			for (int i = value; i >= 0; i--) {
-				if (toTest.charAt(i) == 'ง') {
+				if (toTest.charAt(i) == 'ยง') {
 					returnTo = ChatColor.getByChar(toTest.charAt(i + 1));
 					break;
 				}
@@ -1312,7 +1314,7 @@ public class Team {
 		int value = toTest.indexOf("%s");
 		if (value > 2) {
 			for (int i = value; i >= 0; i--) {
-				if (toTest.charAt(i) == 'ง') {
+				if (toTest.charAt(i) == 'ยง') {
 					returnTo = ChatColor.getByChar(toTest.charAt(i + 1));
 					break;
 				}
