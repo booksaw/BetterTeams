@@ -97,7 +97,7 @@ public class InfoCommand extends SubCommand {
             String toTest = MessageManager.getMessage("info.owner");
             if (toTest.length() > 1) {
                 for (int i = toTest.length() - 1; i >= 0; i--) {
-                    if (toTest.charAt(i) == '§') {
+                    if (toTest.charAt(i) == 'ï¿½') {
                         returnTo = ChatColor.getByChar(toTest.charAt(i + 1));
                         break;
                     }
@@ -118,7 +118,7 @@ public class InfoCommand extends SubCommand {
             String toTest = MessageManager.getMessage("info.admin");
             if (toTest.length() > 1) {
                 for (int i = toTest.length() - 1; i >= 0; i--) {
-                    if (toTest.charAt(i) == '§') {
+                    if (toTest.charAt(i) == 'ï¿½') {
                         returnTo = ChatColor.getByChar(toTest.charAt(i + 1));
                         break;
                     }
@@ -139,7 +139,7 @@ public class InfoCommand extends SubCommand {
             String toTest = MessageManager.getMessage("info.default");
             if (toTest.length() > 1) {
                 for (int i = toTest.length() - 1; i >= 0; i--) {
-                    if (toTest.charAt(i) == '§') {
+                    if (toTest.charAt(i) == 'ï¿½') {
                         returnTo = ChatColor.getByChar(toTest.charAt(i + 1));
                         break;
                     }
