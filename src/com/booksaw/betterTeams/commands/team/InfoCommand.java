@@ -84,7 +84,7 @@ public class InfoCommand extends SubCommand {
 		MessageManager.sendMessageF(sender, "info.tag", team.getTag() + "");
 
 		String allies = "";
-		for (UUID uuid : team.getAllies()) {
+		for (UUID uuid : team.getAllies().getClone()) {
 			allies = allies + Team.getTeam(uuid).getDisplayName() + ChatColor.WHITE + ", ";
 		}
 		if (allies.length() > 2) {

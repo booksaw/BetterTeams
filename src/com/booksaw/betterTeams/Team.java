@@ -32,6 +32,7 @@ import com.booksaw.betterTeams.message.Message;
 import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
 import com.booksaw.betterTeams.message.StaticMessage;
+import com.booksaw.betterTeams.team.AllyListComponent;
 import com.booksaw.betterTeams.team.MemberListComponent;
 import com.booksaw.betterTeams.team.TeamManager;
 
@@ -177,7 +178,15 @@ public class Team {
 	 */
 	private Location teamHome = null;
 
+	/**
+	 * tracks and provides utility methods relating to the members of this team
+	 */
 	private MemberListComponent members;
+
+	/**
+	 * Used to track the allies of this team
+	 */
+	private AllyListComponent allies;
 
 	/**
 	 * This is a list of invited players to this team since the last restart of the
@@ -214,11 +223,6 @@ public class Team {
 	private int balRank;
 
 	/**
-	 * Used to track the allies of this team
-	 */
-	private List<UUID> allies;
-
-	/**
 	 * Used to track which teams have requested to be allies with this team
 	 */
 	private List<UUID> requests;
@@ -253,6 +257,9 @@ public class Team {
 		members = new MemberListComponent();
 		members.load(config);
 
+		allies = new AllyListComponent();
+		allies.load(config);
+
 		bannedPlayers = new ArrayList<>();
 		for (String string : config.getStringList("bans")) {
 			bannedPlayers.add(UUID.fromString(string));
@@ -261,11 +268,6 @@ public class Team {
 		String teamHomeStr = config.getString("home");
 		if (teamHomeStr != null && !teamHomeStr.equals("")) {
 			teamHome = getLocation(teamHomeStr);
-		}
-
-		allies = new ArrayList<>();
-		for (String string : config.getStringList("allies")) {
-			allies.add(UUID.fromString(string));
 		}
 
 		requests = new ArrayList<>();
@@ -334,9 +336,6 @@ public class Team {
 		color = ChatColor.getByChar(Main.plugin.getConfig().getString("defaultColor").charAt(0));
 		config.set("color", color.getChar());
 
-		allies = new ArrayList<>();
-		config.set("allies", allies);
-
 		requests = new ArrayList<>();
 		config.set("allyrequests", requests);
 
@@ -345,6 +344,8 @@ public class Team {
 
 		claims = new ArrayList<>();
 		config.set("chests", new ArrayList<>());
+
+		allies = new AllyListComponent();
 
 		members = new MemberListComponent();
 		members.add(this, new TeamPlayer(owner, PlayerRank.OWNER));
@@ -610,14 +611,14 @@ public class Team {
 			throw new IllegalArgumentException("Disbanding was cancelled by another plugin");
 		}
 
-		for (UUID ally : allies) {
-			Team team = Team.getTeam(ally);
-			team.removeAlly(getID());
+		for (UUID ally : allies.getClone()) {
+			Team allyTeam = Team.getTeam(ally);
+			allyTeam.removeAlly(getID());
 		}
 
-		for (Entry<UUID, Team> team : getTeamManager().getTeamListClone().entrySet()) {
-			if (team.getValue().hasRequested(getID())) {
-				team.getValue().removeAllyRequest(getID());
+		for (Entry<UUID, Team> requestedTeam : getTeamManager().getTeamListClone().entrySet()) {
+			if (requestedTeam.getValue().hasRequested(getID())) {
+				requestedTeam.getValue().removeAllyRequest(getID());
 			}
 		}
 
@@ -908,7 +909,7 @@ public class Team {
 		Message messageI = new StaticMessage(fMessage);
 		members.broadcastMessage(messageI);
 
-		for (UUID ally : allies) {
+		for (UUID ally : allies.getClone()) {
 			Team temp = Team.getTeam(ally);
 			temp.getMembers().broadcastMessage(messageI);
 		}
@@ -1053,13 +1054,9 @@ public class Team {
 	 * @param ally the UUID of the new ally
 	 */
 	public void addAlly(UUID ally) {
-		allies.add(ally);
+		allies.add(this, ally);
 		saveAllies();
 
-		Team team = Team.getTeam(ally);
-		// notifying all online members of the team
-		Message message = new ReferencedFormatMessage("ally.ally", team.getDisplayName());
-		members.broadcastMessage(message);
 	}
 
 	/**
@@ -1068,7 +1065,7 @@ public class Team {
 	 * @param ally the ally to remove
 	 */
 	public void removeAlly(UUID ally) {
-		allies.remove(ally);
+		allies.remove(this, ally);
 		saveAllies();
 	}
 
@@ -1127,7 +1124,7 @@ public class Team {
 	/**
 	 * @return the list of all UUIDS of teams that are allied with this team
 	 */
-	public List<UUID> getAllies() {
+	public AllyListComponent getAllies() {
 		return allies;
 	}
 
@@ -1135,13 +1132,7 @@ public class Team {
 	 * Used to save the list of allies for this team
 	 */
 	private void saveAllies() {
-		List<String> toSave = new ArrayList<>();
-
-		for (UUID uuid : allies) {
-			toSave.add(uuid.toString());
-		}
-
-		getConfig().set("allies", toSave);
+		allies.save(getConfig());
 		getTeamManager().saveTeamsFile();
 	}
 
