@@ -28,7 +28,10 @@ import org.jetbrains.annotations.NotNull;
 import com.booksaw.betterTeams.customEvents.DisbandTeamEvent;
 import com.booksaw.betterTeams.events.MCTeamManagement.BelowNameType;
 import com.booksaw.betterTeams.exceptions.CancelledEventException;
+import com.booksaw.betterTeams.message.Message;
 import com.booksaw.betterTeams.message.MessageManager;
+import com.booksaw.betterTeams.message.ReferencedFormatMessage;
+import com.booksaw.betterTeams.message.StaticMessage;
 import com.booksaw.betterTeams.team.MemberListComponent;
 import com.booksaw.betterTeams.team.TeamManager;
 
@@ -581,16 +584,7 @@ public class Team {
 	 */
 	@Nullable
 	public TeamPlayer getTeamPlayer(OfflinePlayer player) {
-		if (player == null) {
-			throw new IllegalArgumentException("Provided player cannot be null");
-		}
-
-		for (TeamPlayer teamPlayer : members.getClone()) {
-			if (teamPlayer.getPlayer().getUniqueId().compareTo(player.getUniqueId()) == 0) {
-				return teamPlayer;
-			}
-		}
-		return null;
+		return members.getTeamPlayer(player);
 	}
 
 	/**
@@ -601,15 +595,7 @@ public class Team {
 	 *         that rank]
 	 */
 	public List<TeamPlayer> getRank(PlayerRank rank) {
-		List<TeamPlayer> toReturn = new ArrayList<>();
-
-		for (TeamPlayer player : members.getClone()) {
-			if (player.getRank() == rank) {
-				toReturn.add(player);
-			}
-		}
-
-		return toReturn;
+		return members.getRank(rank);
 	}
 
 	/**
@@ -919,19 +905,12 @@ public class Team {
 		fMessage = fMessage.replace("$name$", sender.getPrefix() + sender.getPlayer().getPlayer().getName());
 		fMessage = fMessage.replace("$message$", message);
 
-		for (TeamPlayer player : members.getClone()) {
-			if (player.getPlayer().isOnline()) {
-				player.getPlayer().getPlayer().sendMessage(fMessage);
-			}
-		}
+		Message messageI = new StaticMessage(fMessage);
+		members.broadcastMessage(messageI);
 
 		for (UUID ally : allies) {
 			Team temp = Team.getTeam(ally);
-			for (TeamPlayer player : temp.getMembers().getClone()) {
-				if (player.getPlayer().isOnline()) {
-					player.getPlayer().getPlayer().sendMessage(fMessage);
-				}
-			}
+			temp.getMembers().broadcastMessage(messageI);
 		}
 
 		for (CommandSender temp : Main.plugin.chatManagement.spy) {
@@ -1079,12 +1058,8 @@ public class Team {
 
 		Team team = Team.getTeam(ally);
 		// notifying all online members of the team
-		for (TeamPlayer p : members.getClone()) {
-			OfflinePlayer player = p.getPlayer();
-			if (player.isOnline()) {
-				MessageManager.sendMessageF(player.getPlayer(), "ally.ally", team.getDisplayName());
-			}
-		}
+		Message message = new ReferencedFormatMessage("ally.ally", team.getDisplayName());
+		members.broadcastMessage(message);
 	}
 
 	/**
@@ -1118,12 +1093,8 @@ public class Team {
 
 		Team t = Team.getTeam(team);
 		// notifying all online owners of the team
-		for (TeamPlayer p : members.getClone()) {
-			OfflinePlayer player = p.getPlayer();
-			if (player.isOnline() && p.getRank() == PlayerRank.OWNER) {
-				MessageManager.sendMessageF(player.getPlayer(), "ally.request", t.getDisplayName());
-			}
-		}
+		Message message = new ReferencedFormatMessage("ally.request", t.getDisplayName());
+		members.broadcastMessage(message);
 	}
 
 	/**

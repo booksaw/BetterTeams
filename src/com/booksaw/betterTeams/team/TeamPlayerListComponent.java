@@ -5,7 +5,10 @@ import java.util.List;
 
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.message.Message;
 
@@ -39,6 +42,34 @@ public abstract class TeamPlayerListComponent extends ListTeamComponent<TeamPlay
 		}
 
 		return online;
+	}
+
+	/**
+	 * Used to get the team player instance of that offline player
+	 * 
+	 * @param p The player to get the team player for
+	 * @return The team player instance
+	 */
+	@Nullable
+	public TeamPlayer getTeamPlayer(@NotNull OfflinePlayer p) {
+		for (TeamPlayer player : getClone()) {
+			if (p.getUniqueId().equals(player.getPlayer().getUniqueId())) {
+				return player;
+			}
+		}
+		return null;
+	}
+
+	public List<TeamPlayer> getRank(PlayerRank rank) {
+		List<TeamPlayer> toReturn = new ArrayList<>();
+
+		for (TeamPlayer player : getClone()) {
+			if (player.getRank() == rank) {
+				toReturn.add(player);
+			}
+		}
+
+		return toReturn;
 	}
 
 	/**
