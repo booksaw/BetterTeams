@@ -30,7 +30,7 @@ import com.booksaw.betterTeams.customEvents.PrePurgeEvent;
 import com.booksaw.betterTeams.events.ChestManagement;
 
 public class TeamManager {
-	// TODO readd team and score change tracking
+	// TODO re do team and score change tracking
 	/**
 	 * A list of all teams
 	 */
