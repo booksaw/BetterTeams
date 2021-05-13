@@ -26,10 +26,10 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.jetbrains.annotations.NotNull;
 
 import com.booksaw.betterTeams.customEvents.DisbandTeamEvent;
-import com.booksaw.betterTeams.customEvents.PlayerJoinTeamEvent;
-import com.booksaw.betterTeams.customEvents.PlayerLeaveTeamEvent;
 import com.booksaw.betterTeams.events.MCTeamManagement.BelowNameType;
+import com.booksaw.betterTeams.exceptions.CancelledEventException;
 import com.booksaw.betterTeams.message.MessageManager;
+import com.booksaw.betterTeams.team.MemberListComponent;
 import com.booksaw.betterTeams.team.TeamManager;
 
 /**
@@ -174,13 +174,14 @@ public class Team {
 	 */
 	private Location teamHome = null;
 
+	private MemberListComponent members;
+
 	/**
 	 * This is a list of invited players to this team since the last restart of the
 	 * server
 	 */
 	private List<UUID> invitedPlayers = new ArrayList<>();
 
-	private List<TeamPlayer> members;
 	private List<UUID> bannedPlayers;
 
 	/**
@@ -245,10 +246,9 @@ public class Team {
 		money = config.getDouble("money");
 		String colorStr = config.getString("color", "6");
 		color = ChatColor.getByChar(colorStr.charAt(0));
-		members = new ArrayList<>();
-		for (String string : config.getStringList("players")) {
-			members.add(new TeamPlayer(string));
-		}
+
+		members = new MemberListComponent();
+		members.load(config);
 
 		bannedPlayers = new ArrayList<>();
 		for (String string : config.getStringList("bans")) {
@@ -343,8 +343,8 @@ public class Team {
 		claims = new ArrayList<>();
 		config.set("chests", new ArrayList<>());
 
-		members = new ArrayList<>();
-		members.add(new TeamPlayer(owner, PlayerRank.OWNER));
+		members = new MemberListComponent();
+		members.add(this, new TeamPlayer(owner, PlayerRank.OWNER));
 
 		savePlayers();
 		bannedPlayers = new ArrayList<>();
@@ -411,7 +411,7 @@ public class Team {
 		if (Main.plugin.teamManagement != null) {
 
 			if (team != null) {
-				for (TeamPlayer p : members) {
+				for (TeamPlayer p : members.getClone()) {
 					if (p.getPlayer().isOnline()) {
 						team.removeEntry(p.getPlayer().getName());
 					}
@@ -421,7 +421,7 @@ public class Team {
 
 			team = null;
 
-			for (TeamPlayer p : members) {
+			for (TeamPlayer p : members.getClone()) {
 				if (p.getPlayer().isOnline()) {
 					Main.plugin.teamManagement.displayBelowName(p.getPlayer().getPlayer());
 				}
@@ -489,7 +489,7 @@ public class Team {
 		if (Main.plugin.teamManagement != null) {
 
 			if (team != null) {
-				for (TeamPlayer p : members) {
+				for (TeamPlayer p : members.getClone()) {
 					if (p.getPlayer().isOnline()) {
 						team.removeEntry(p.getPlayer().getName());
 					}
@@ -499,7 +499,7 @@ public class Team {
 
 			team = null;
 
-			for (TeamPlayer p : members) {
+			for (TeamPlayer p : members.getClone()) {
 				if (p.getPlayer().isOnline()) {
 					Main.plugin.teamManagement.displayBelowName(p.getPlayer().getPlayer());
 				}
@@ -507,7 +507,7 @@ public class Team {
 		}
 	}
 
-	public List<TeamPlayer> getMembers() {
+	public MemberListComponent getMembers() {
 		return members;
 	}
 
@@ -517,16 +517,8 @@ public class Team {
 	 * @param config the configuration file to store the members list to
 	 */
 	private void savePlayers() {
-
 		ConfigurationSection config = getConfig();
-
-		List<String> output = new ArrayList<>();
-
-		for (TeamPlayer player : members) {
-			output.add(player.toString());
-		}
-
-		config.set("players", output);
+		members.save(config);
 		getTeamManager().saveTeamsFile();
 	}
 
@@ -554,22 +546,7 @@ public class Team {
 	 * @param p the player to remove from the team
 	 */
 	public boolean removePlayer(OfflinePlayer p) {
-
-		TeamPlayer teamPlayer = getTeamPlayer(p);
-
-		PlayerLeaveTeamEvent event = new PlayerLeaveTeamEvent(this, teamPlayer);
-		Bukkit.getPluginManager().callEvent(event);
-		if (event.isCancelled()) {
-			return false;
-		}
-
-		if (Main.plugin.teamManagement != null && p.isOnline()) {
-			Main.plugin.teamManagement.remove(p.getPlayer());
-		}
-
-		members.remove(teamPlayer);
-		savePlayers();
-		return true;
+		return removePlayer(getTeamPlayer(p));
 	}
 
 	/**
@@ -579,13 +556,20 @@ public class Team {
 	 * 
 	 * @param p the player to remove from the team
 	 */
-	public void removePlayer(TeamPlayer p) {
-		members.remove(p);
+	public boolean removePlayer(TeamPlayer p) {
+		try {
+			members.remove(this, p);
+		} catch (CancelledEventException e) {
+			return false;
+		}
+
 		savePlayers();
 
 		if (team != null && p.getPlayer().isOnline()) {
 			Main.plugin.teamManagement.remove(p.getPlayer().getPlayer());
 		}
+
+		return true;
 	}
 
 	/**
@@ -601,7 +585,7 @@ public class Team {
 			throw new IllegalArgumentException("Provided player cannot be null");
 		}
 
-		for (TeamPlayer teamPlayer : members) {
+		for (TeamPlayer teamPlayer : members.getClone()) {
 			if (teamPlayer.getPlayer().getUniqueId().compareTo(player.getUniqueId()) == 0) {
 				return teamPlayer;
 			}
@@ -619,7 +603,7 @@ public class Team {
 	public List<TeamPlayer> getRank(PlayerRank rank) {
 		List<TeamPlayer> toReturn = new ArrayList<>();
 
-		for (TeamPlayer player : members) {
+		for (TeamPlayer player : members.getClone()) {
 			if (player.getRank() == rank) {
 				toReturn.add(player);
 			}
@@ -661,7 +645,7 @@ public class Team {
 
 		if (Main.plugin.teamManagement != null) {
 
-			for (TeamPlayer p : members) {
+			for (TeamPlayer p : members.getClone()) {
 				if (p.getPlayer().isOnline()) {
 					Main.plugin.teamManagement.remove(p.getPlayer().getPlayer());
 				}
@@ -726,30 +710,12 @@ public class Team {
 	 * @return true if the player joined the team, else false
 	 */
 	public boolean join(Player p) {
-
-		// calling the event
-		TeamPlayer teamPlayer = new TeamPlayer(p, PlayerRank.DEFAULT);
-		PlayerJoinTeamEvent event = new PlayerJoinTeamEvent(this, teamPlayer);
-		Bukkit.getPluginManager().callEvent(event);
-		if (event.isCancelled()) {
+		try {
+			members.add(this, new TeamPlayer(p, PlayerRank.DEFAULT));
+		} catch (CancelledEventException e) {
 			return false;
 		}
-
-		invitedPlayers.remove(p.getUniqueId());
-
-		for (TeamPlayer player : members) {
-			if (player.getPlayer().isOnline()) {
-				MessageManager.sendMessageF((CommandSender) player.getPlayer().getPlayer(), "join.notify",
-						p.getDisplayName());
-			}
-		}
-
-		members.add(teamPlayer);
 		savePlayers();
-
-		if (Main.plugin.teamManagement != null) {
-			Main.plugin.teamManagement.displayBelowName(p);
-		}
 		return true;
 
 	}
@@ -768,7 +734,7 @@ public class Team {
 		if (Main.plugin.teamManagement != null) {
 
 			if (team != null) {
-				for (TeamPlayer p : members) {
+				for (TeamPlayer p : members.getClone()) {
 					if (p.getPlayer().isOnline()) {
 						team.removeEntry(p.getPlayer().getName());
 					}
@@ -778,7 +744,7 @@ public class Team {
 
 			team = null;
 
-			for (TeamPlayer p : members) {
+			for (TeamPlayer p : members.getClone()) {
 				if (p.getPlayer().isOnline()) {
 					Main.plugin.teamManagement.displayBelowName(p.getPlayer().getPlayer());
 				}
@@ -920,7 +886,7 @@ public class Team {
 		fMessage = fMessage.replace("$name$", sender.getPrefix() + sender.getPlayer().getPlayer().getName());
 		fMessage = fMessage.replace("$message$", message);
 
-		for (TeamPlayer player : members) {
+		for (TeamPlayer player : members.getClone()) {
 			if (player.getPlayer().isOnline()) {
 				player.getPlayer().getPlayer().sendMessage(fMessage);
 			}
@@ -953,7 +919,7 @@ public class Team {
 		fMessage = fMessage.replace("$name$", sender.getPrefix() + sender.getPlayer().getPlayer().getName());
 		fMessage = fMessage.replace("$message$", message);
 
-		for (TeamPlayer player : members) {
+		for (TeamPlayer player : members.getClone()) {
 			if (player.getPlayer().isOnline()) {
 				player.getPlayer().getPlayer().sendMessage(fMessage);
 			}
@@ -961,7 +927,7 @@ public class Team {
 
 		for (UUID ally : allies) {
 			Team temp = Team.getTeam(ally);
-			for (TeamPlayer player : temp.getMembers()) {
+			for (TeamPlayer player : temp.getMembers().getClone()) {
 				if (player.getPlayer().isOnline()) {
 					player.getPlayer().getPlayer().sendMessage(fMessage);
 				}
@@ -1113,7 +1079,7 @@ public class Team {
 
 		Team team = Team.getTeam(ally);
 		// notifying all online members of the team
-		for (TeamPlayer p : members) {
+		for (TeamPlayer p : members.getClone()) {
 			OfflinePlayer player = p.getPlayer();
 			if (player.isOnline()) {
 				MessageManager.sendMessageF(player.getPlayer(), "ally.ally", team.getDisplayName());
@@ -1152,7 +1118,7 @@ public class Team {
 
 		Team t = Team.getTeam(team);
 		// notifying all online owners of the team
-		for (TeamPlayer p : members) {
+		for (TeamPlayer p : members.getClone()) {
 			OfflinePlayer player = p.getPlayer();
 			if (player.isOnline() && p.getRank() == PlayerRank.OWNER) {
 				MessageManager.sendMessageF(player.getPlayer(), "ally.request", t.getDisplayName());
@@ -1346,15 +1312,7 @@ public class Team {
 	 * @return a list of online members for this team
 	 */
 	public List<Player> getOnlineMemebers() {
-		List<Player> online = new ArrayList<>();
-
-		for (TeamPlayer player : members) {
-			if (player.getPlayer().isOnline()) {
-				online.add(player.getPlayer().getPlayer());
-			}
-		}
-
-		return online;
+		return members.getOnlinePlayers();
 	}
 
 	// CHEST CLAIM COMPONENT

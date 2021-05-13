@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.bukkit.configuration.ConfigurationSection;
 
+import com.booksaw.betterTeams.Team;
+
 public abstract class ListTeamComponent<T> implements TeamComponent<List<T>> {
 
 	protected List<T> list;
@@ -18,9 +20,33 @@ public abstract class ListTeamComponent<T> implements TeamComponent<List<T>> {
 		return list;
 	}
 
+	/**
+	 * Used to get a clone of the stored list, this can be used to avoid concurrent
+	 * modification
+	 * 
+	 * @return A clone of the stored list
+	 */
+	public List<T> getClone() {
+		return new ArrayList<>(list);
+	}
+
 	@Override
 	public void set(List<T> list) {
 		this.list = list;
+	}
+
+	/**
+	 * @return The number of members stored within the list
+	 */
+	public int size() {
+		return list.size();
+	}
+
+	/**
+	 * @return If the list is empty
+	 */
+	public boolean isEmpty() {
+		return list.isEmpty();
 	}
 
 	@Override
@@ -49,7 +75,7 @@ public abstract class ListTeamComponent<T> implements TeamComponent<List<T>> {
 	 * 
 	 * @param component The component to add
 	 */
-	public void add(T component) {
+	public void add(Team team, T component) {
 		list.add(component);
 	}
 
@@ -58,7 +84,7 @@ public abstract class ListTeamComponent<T> implements TeamComponent<List<T>> {
 	 * 
 	 * @param component The component to remove
 	 */
-	public void remove(T component) {
+	public void remove(Team team, T component) {
 		list.remove(component);
 	}
 

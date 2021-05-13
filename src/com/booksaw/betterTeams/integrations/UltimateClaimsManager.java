@@ -79,7 +79,7 @@ public class UltimateClaimsManager implements Listener {
 
 		// they are owner of their team, adding the rest of the team members as members
 		// of the claim
-		for (TeamPlayer tp : team.getMembers()) {
+		for (TeamPlayer tp : team.getMembers().getClone()) {
 			if (tp.getPlayer() != p) {
 				ClaimMember member = e.getClaim().addMember(tp.getPlayer(), ClaimRole.MEMBER);
 				UltimateClaims.getInstance().getDataManager().createMember(member);

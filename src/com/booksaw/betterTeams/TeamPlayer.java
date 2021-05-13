@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * This class is used to store all the information about a user in a team
@@ -38,7 +39,7 @@ public class TeamPlayer {
 	 * @param player the player that is associated with this object
 	 * @param rank   the rank that the player has
 	 */
-	public TeamPlayer(OfflinePlayer player, PlayerRank rank) {
+	public TeamPlayer(@NotNull OfflinePlayer player, @NotNull PlayerRank rank) {
 		this.playerUUID = player.getUniqueId();
 		this.rank = rank;
 		teamChat = false;
@@ -49,7 +50,7 @@ public class TeamPlayer {
 	 * 
 	 * @param data the data for the player (uuid,rank,title)
 	 */
-	public TeamPlayer(String data) {
+	public TeamPlayer(@NotNull String data) {
 		String[] split = data.split(",");
 		playerUUID = UUID.fromString(split[0]);
 		rank = PlayerRank.valueOf(split[1]);
@@ -78,6 +79,7 @@ public class TeamPlayer {
 	/**
 	 * @return The player which is associated with this object
 	 */
+	@NotNull
 	public OfflinePlayer getPlayer() {
 		return Bukkit.getOfflinePlayer(playerUUID);
 	}

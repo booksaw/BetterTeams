@@ -9,7 +9,8 @@ import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
-import com.booksaw.betterTeams.message.MessageManager;
+import com.booksaw.betterTeams.message.Message;
+import com.booksaw.betterTeams.message.ReferenceMessage;
 
 public class PvpCommand extends TeamSubCommand {
 
@@ -18,18 +19,12 @@ public class PvpCommand extends TeamSubCommand {
 
 		if (team.isPvp()) {
 			team.setPvp(false);
-			for (TeamPlayer p : team.getMembers()) {
-				if (p.getPlayer().isOnline()) {
-					MessageManager.sendMessage(p.getPlayer().getPlayer(), "pvp.disabled");
-				}
-			}
+			Message message = new ReferenceMessage("pvp.disabled");
+			team.getMembers().broadcastMessage(message);
 		} else {
 			team.setPvp(true);
-			for (TeamPlayer p : team.getMembers()) {
-				if (p.getPlayer().isOnline()) {
-					MessageManager.sendMessage(p.getPlayer().getPlayer(), "pvp.enabled");
-				}
-			}
+			Message message = new ReferenceMessage("pvp.enabled");
+			team.getMembers().broadcastMessage(message);
 		}
 
 		return new CommandResponse(true);

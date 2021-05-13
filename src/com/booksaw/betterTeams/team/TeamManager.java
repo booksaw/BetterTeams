@@ -25,7 +25,6 @@ import org.jetbrains.annotations.Nullable;
 
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.customEvents.PrePurgeEvent;
 import com.booksaw.betterTeams.events.ChestManagement;
 
@@ -116,10 +115,8 @@ public class TeamManager {
 	@Nullable
 	public Team getTeam(@NotNull OfflinePlayer player) {
 		for (Entry<UUID, Team> temp : teamList.entrySet()) {
-			for (TeamPlayer teamPlayer : temp.getValue().getMembers()) {
-				if (teamPlayer.getPlayer().getUniqueId().compareTo(player.getUniqueId()) == 0) {
-					return temp.getValue();
-				}
+			if (temp.getValue().getMembers().contains(player)) {
+				return temp.getValue();
 			}
 		}
 		return null;
