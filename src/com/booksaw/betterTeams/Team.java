@@ -19,7 +19,6 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
 import org.jetbrains.annotations.NotNull;
@@ -33,6 +32,7 @@ import com.booksaw.betterTeams.message.ReferencedFormatMessage;
 import com.booksaw.betterTeams.message.StaticMessage;
 import com.booksaw.betterTeams.team.AllyListComponent;
 import com.booksaw.betterTeams.team.BanListComponent;
+import com.booksaw.betterTeams.team.EChestComponent;
 import com.booksaw.betterTeams.team.MemberListComponent;
 import com.booksaw.betterTeams.team.MoneyComponent;
 import com.booksaw.betterTeams.team.ScoreComponent;
@@ -232,7 +232,7 @@ public class Team {
 	 */
 	private List<UUID> requests;
 
-	private Inventory echest;
+	private final EChestComponent echest;
 
 	private int level;
 
@@ -265,6 +265,7 @@ public class Team {
 
 		score = new ScoreComponent();
 		money = new MoneyComponent();
+		echest = new EChestComponent();
 
 		bannedPlayers = new BanListComponent();
 		bannedPlayers.load(config);
@@ -288,14 +289,6 @@ public class Team {
 		claims = new ArrayList<>();
 		for (String str : config.getStringList("chests")) {
 			claims.add(getLocation(str));
-		}
-
-		echest = Bukkit.createInventory(null, 27, MessageManager.getMessage("echest.echest"));
-		for (int i = 0; i < 27; i++) {
-			ItemStack is = config.getItemStack("echest." + i);
-			if (is != null) {
-				echest.setItem(i, is);
-			}
 		}
 
 		level = config.getInt("level");
@@ -352,10 +345,10 @@ public class Team {
 
 		score = new ScoreComponent();
 		money = new MoneyComponent();
+		echest = new EChestComponent();
 
 		bannedPlayers = new BanListComponent();
 		savePlayers();
-		echest = Bukkit.createInventory(null, 27, MessageManager.getMessage("echest.echest"));
 		level = 1;
 		config.set("level", 1);
 		tag = "";
@@ -1322,18 +1315,15 @@ public class Team {
 	}
 
 	public void saveEchest() {
-		for (int i = 0; i < 27; i++) {
-			ItemStack is = echest.getItem(i);
-			if (is != null) {
-				getConfig().set("echest." + i, is);
-			} else {
-				getConfig().set("echest." + i, null);
-			}
-		}
+		echest.save(getConfig());
 		getTeamManager().saveTeamsFile();
 	}
 
 	public Inventory getEchest() {
+		return echest.get();
+	}
+
+	public EChestComponent getEchestComponent() {
 		return echest;
 	}
 
