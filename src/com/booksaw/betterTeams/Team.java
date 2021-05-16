@@ -1,6 +1,5 @@
 package com.booksaw.betterTeams;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,6 +34,7 @@ import com.booksaw.betterTeams.message.StaticMessage;
 import com.booksaw.betterTeams.team.AllyListComponent;
 import com.booksaw.betterTeams.team.BanListComponent;
 import com.booksaw.betterTeams.team.MemberListComponent;
+import com.booksaw.betterTeams.team.MoneyComponent;
 import com.booksaw.betterTeams.team.ScoreComponent;
 import com.booksaw.betterTeams.team.TeamManager;
 
@@ -209,7 +209,7 @@ public class Team {
 	/**
 	 * The money that the team has
 	 */
-	private double money;
+	private final MoneyComponent money;
 
 	/**
 	 * Tracks if the team has pvp enabled between team members
@@ -254,7 +254,6 @@ public class Team {
 		name = config.getString("name");
 		description = config.getString("description");
 		open = config.getBoolean("open");
-		money = config.getDouble("money");
 		String colorStr = config.getString("color", "6");
 		color = ChatColor.getByChar(colorStr.charAt(0));
 
@@ -265,6 +264,7 @@ public class Team {
 		allies.load(config);
 
 		score = new ScoreComponent();
+		money = new MoneyComponent();
 
 		bannedPlayers = new BanListComponent();
 		bannedPlayers.load(config);
@@ -331,9 +331,6 @@ public class Team {
 		this.description = "";
 		config.set("open", false);
 		open = false;
-		config.set("score", 0);
-		config.set("money", 0);
-		money = 0;
 		config.set("home", "");
 		rank = -1;
 		color = ChatColor.getByChar(Main.plugin.getConfig().getString("defaultColor").charAt(0));
@@ -354,6 +351,7 @@ public class Team {
 		members.add(this, new TeamPlayer(owner, PlayerRank.OWNER));
 
 		score = new ScoreComponent();
+		money = new MoneyComponent();
 
 		bannedPlayers = new BanListComponent();
 		savePlayers();
@@ -932,13 +930,17 @@ public class Team {
 	}
 
 	public double getMoney() {
+		return money.get();
+	}
+
+	public MoneyComponent getMoneyComponent() {
 		return money;
 	}
 
 	public void setMoney(double money) {
-		this.money = money;
-//		moneyChanges = true; TODO
-		getConfig().set("money", money);
+		this.money.set(money);
+//		moneyChanges = true; TODO also removed in setScore
+		this.money.save(getConfig());
 		getTeamManager().saveTeamsFile();
 	}
 
@@ -1025,11 +1027,7 @@ public class Team {
 	}
 
 	public String getBalance() {
-		DecimalFormat df = new DecimalFormat("0.00");
-		df.setGroupingUsed(true);
-		df.setGroupingSize(3);
-		String moneyString = df.format(money);
-		return moneyString;
+		return money.getStringFormatting();
 	}
 
 	public void setTitle(TeamPlayer player, String title) {

@@ -4,7 +4,7 @@ import org.bukkit.configuration.ConfigurationSection;
 
 public abstract class IntTeamComponent implements TeamComponent<Integer>, VariableTeamComponent<Integer> {
 
-	Integer value;
+	protected Integer value;
 
 	@Override
 	public Integer get() {
