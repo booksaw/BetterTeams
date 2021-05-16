@@ -43,6 +43,14 @@ public class HelpCommand extends SubCommand {
 			return null;
 		}
 
+		// Send specific help message if command found
+		if (command.getSubCommands().containsKey(args[0])) {
+			sender.sendMessage(
+					createHelpMessage(label, args[0] + " " + command.getSubCommands().get(args[0]).getArguments(),
+							command.getSubCommands().get(args[0]).getHelpMessage()));
+			return null;
+		}
+
 		for (Entry<String, SubCommand> subCommand : command.getSubCommands().entrySet()) {
 			if (sender.hasPermission("betterTeams." + subCommand.getValue().getNode())) {
 				sender.sendMessage(
