@@ -32,7 +32,9 @@ import com.booksaw.betterTeams.message.ReferencedFormatMessage;
 import com.booksaw.betterTeams.message.StaticMessage;
 import com.booksaw.betterTeams.team.AllyListComponent;
 import com.booksaw.betterTeams.team.BanListComponent;
+import com.booksaw.betterTeams.team.ChestClaimComponent;
 import com.booksaw.betterTeams.team.EChestComponent;
+import com.booksaw.betterTeams.team.LocationListComponent;
 import com.booksaw.betterTeams.team.MemberListComponent;
 import com.booksaw.betterTeams.team.MoneyComponent;
 import com.booksaw.betterTeams.team.ScoreComponent;
@@ -202,6 +204,11 @@ public class Team {
 	private final BanListComponent bannedPlayers;
 
 	/**
+	 * Used to track the chests claimed by this team
+	 */
+	private final ChestClaimComponent claims;
+
+	/**
 	 * The score for the team
 	 */
 	private final ScoreComponent score;
@@ -272,7 +279,7 @@ public class Team {
 
 		String teamHomeStr = config.getString("home");
 		if (teamHomeStr != null && !teamHomeStr.equals("")) {
-			teamHome = getLocation(teamHomeStr);
+			teamHome = LocationListComponent.getLocation(teamHomeStr);
 		}
 
 		requests = new ArrayList<>();
@@ -286,10 +293,8 @@ public class Team {
 			warps.put(split[0], new Warp(split));
 		}
 
-		claims = new ArrayList<>();
-		for (String str : config.getStringList("chests")) {
-			claims.add(getLocation(str));
-		}
+		claims = new ChestClaimComponent();
+		claims.load(getConfig());
 
 		level = config.getInt("level");
 		if (level < 1) {
@@ -335,7 +340,7 @@ public class Team {
 		warps = new HashMap<>();
 		config.set("warps", new ArrayList<>());
 
-		claims = new ArrayList<>();
+		claims = new ChestClaimComponent();
 		config.set("chests", new ArrayList<>());
 
 		allies = new AllyListComponent();
@@ -765,7 +770,7 @@ public class Team {
 
 	public void setTeamHome(Location teamHome) {
 		this.teamHome = teamHome;
-		getConfig().set("home", getString(teamHome));
+		getConfig().set("home", LocationListComponent.getString(teamHome));
 		getTeamManager().saveTeamsFile();
 	}
 
@@ -773,35 +778,6 @@ public class Team {
 		teamHome = null;
 		getConfig().set("home", "");
 		getTeamManager().saveTeamsFile();
-	}
-
-	/**
-	 * This method is used to convert a string into a location which can be stored
-	 * for later use
-	 * 
-	 * @param loc the string to convert into a location
-	 * @return the location which that string reference
-	 */
-	public static Location getLocation(String loc) {
-		String[] split = loc.split(":");
-		return new Location(Bukkit.getWorld(split[0]), Double.parseDouble(split[1]), Double.parseDouble(split[2]),
-				Double.parseDouble(split[3]), Float.parseFloat(split[4]), Float.parseFloat(split[5]));
-	}
-
-	/**
-	 * This method is used to convert a location into a string which can be stored
-	 * in a configuration file
-	 * 
-	 * @param loc the location to convert into a string
-	 * @return the string which references that location
-	 */
-	public static String getString(Location loc) {
-		return loc.getWorld().getName() + ":" + loc.getX() + ":" + loc.getY() + ":" + loc.getZ() + ":" + loc.getYaw()
-				+ ":" + loc.getPitch();
-	}
-
-	public static Location normalise(Location loc) {
-		return new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY(), loc.getBlockZ());
 	}
 
 	/**
@@ -1258,15 +1234,13 @@ public class Team {
 	}
 
 	// CHEST CLAIM COMPONENT
-	private List<Location> claims;
-
 	/**
 	 * Used to add a chest claim to this team
 	 * 
 	 * @param location The location of the chest claim (round to the nearest block)
 	 */
 	public void addClaim(Location location) {
-		claims.add(location);
+		claims.add(this, location);
 		saveClaims();
 	}
 
@@ -1276,17 +1250,12 @@ public class Team {
 	 * @param location The location of the chest claim (round to the nearest block)
 	 */
 	public void removeClaim(Location location) {
-		for (Location loc : new ArrayList<>(claims)) {
-			if (loc.equals(location)) {
-				claims.remove(loc);
-				saveClaims();
-				return;
-			}
-		}
+		claims.remove(this, location);
+		saveClaims();
 	}
 
 	public void clearClaims() {
-		claims = new ArrayList<>();
+		claims.clear();
 		saveClaims();
 	}
 
@@ -1295,22 +1264,11 @@ public class Team {
 	}
 
 	public boolean isClaimed(Location location) {
-		for (Location loc : claims) {
-			if (loc.equals(location)) {
-				return true;
-			}
-		}
-		return false;
+		return claims.contains(location);
 	}
 
 	private void saveClaims() {
-		List<String> toSave = new ArrayList<>();
-
-		for (Location loc : claims) {
-			toSave.add(getString(loc));
-		}
-
-		getConfig().set("chests", toSave);
+		claims.save(getConfig());
 		getTeamManager().saveTeamsFile();
 	}
 

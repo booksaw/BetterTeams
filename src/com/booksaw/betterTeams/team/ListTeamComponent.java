@@ -99,6 +99,13 @@ public abstract class ListTeamComponent<T> implements TeamComponent<List<T>> {
 	}
 
 	/**
+	 * Clears all values from the list.
+	 */
+	public void clear() {
+		list.clear();
+	}
+
+	/**
 	 * @return The reference within the team storage where the data is stored
 	 */
 	public abstract String getSectionHeading();

@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.presets.TeamSelectSubCommand;
+import com.booksaw.betterTeams.team.LocationListComponent;
 
 public class ChestClaimTeama extends TeamSelectSubCommand {
 
@@ -22,7 +23,7 @@ public class ChestClaimTeama extends TeamSelectSubCommand {
 		Location loc = p.getLocation();
 
 		Block block = loc.getBlock();
-		loc = Team.normalise(loc);
+		loc = LocationListComponent.normalise(loc);
 		if (block == null || block.getType() != Material.CHEST) {
 			return new CommandResponse("chest.claim.noChest");
 		}
