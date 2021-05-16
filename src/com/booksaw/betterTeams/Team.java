@@ -33,6 +33,7 @@ import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
 import com.booksaw.betterTeams.message.StaticMessage;
 import com.booksaw.betterTeams.team.AllyListComponent;
+import com.booksaw.betterTeams.team.BanListComponent;
 import com.booksaw.betterTeams.team.MemberListComponent;
 import com.booksaw.betterTeams.team.TeamManager;
 
@@ -194,7 +195,10 @@ public class Team {
 	 */
 	private List<UUID> invitedPlayers = new ArrayList<>();
 
-	private List<UUID> bannedPlayers;
+	/**
+	 * This is used to store all players which are banned from the team
+	 */
+	private BanListComponent bannedPlayers;
 
 	/**
 	 * The score for the team
@@ -260,10 +264,8 @@ public class Team {
 		allies = new AllyListComponent();
 		allies.load(config);
 
-		bannedPlayers = new ArrayList<>();
-		for (String string : config.getStringList("bans")) {
-			bannedPlayers.add(UUID.fromString(string));
-		}
+		bannedPlayers = new BanListComponent();
+		bannedPlayers.load(config);
 
 		String teamHomeStr = config.getString("home");
 		if (teamHomeStr != null && !teamHomeStr.equals("")) {
@@ -350,8 +352,8 @@ public class Team {
 		members = new MemberListComponent();
 		members.add(this, new TeamPlayer(owner, PlayerRank.OWNER));
 
+		bannedPlayers = new BanListComponent();
 		savePlayers();
-		bannedPlayers = new ArrayList<>();
 		echest = Bukkit.createInventory(null, 27, MessageManager.getMessage("echest.echest"));
 		level = 1;
 		config.set("level", 1);
@@ -533,13 +535,7 @@ public class Team {
 	 */
 	private void saveBans() {
 		ConfigurationSection config = getConfig();
-		List<String> output = new ArrayList<>();
-
-		for (UUID uuid : bannedPlayers) {
-			output.add(uuid.toString());
-		}
-
-		config.set("bans", output);
+		bannedPlayers.save(config);
 		getTeamManager().saveTeamsFile();
 	}
 
@@ -821,7 +817,7 @@ public class Team {
 	 * @param player the player to add to the list
 	 */
 	public void banPlayer(OfflinePlayer player) {
-		bannedPlayers.add(player.getUniqueId());
+		bannedPlayers.add(this, player.getUniqueId());
 		saveBans();
 	}
 
@@ -832,15 +828,7 @@ public class Team {
 	 * @param player the player to remove from the list
 	 */
 	public void unbanPlayer(OfflinePlayer player) {
-		// used to avoid concurrent modification error
-		UUID store = null;
-		for (UUID uuid : bannedPlayers) {
-			if (player.getUniqueId().equals(uuid)) {
-				store = uuid;
-			}
-		}
-		bannedPlayers.remove(store);
-
+		bannedPlayers.remove(this, player.getUniqueId());
 		saveBans();
 	}
 
@@ -851,12 +839,7 @@ public class Team {
 	 * @return [true - the player is banned] [false - the player isen't banned]
 	 */
 	public boolean isBanned(OfflinePlayer player) {
-		for (UUID uuid : bannedPlayers) {
-			if (player.getUniqueId().equals(uuid)) {
-				return true;
-			}
-		}
-		return false;
+		return bannedPlayers.contains(player);
 	}
 
 	/**
