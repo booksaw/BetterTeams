@@ -35,6 +35,7 @@ import com.booksaw.betterTeams.message.StaticMessage;
 import com.booksaw.betterTeams.team.AllyListComponent;
 import com.booksaw.betterTeams.team.BanListComponent;
 import com.booksaw.betterTeams.team.MemberListComponent;
+import com.booksaw.betterTeams.team.ScoreComponent;
 import com.booksaw.betterTeams.team.TeamManager;
 
 /**
@@ -187,7 +188,7 @@ public class Team {
 	/**
 	 * Used to track the allies of this team
 	 */
-	private AllyListComponent allies;
+	private final AllyListComponent allies;
 
 	/**
 	 * This is a list of invited players to this team since the last restart of the
@@ -198,12 +199,12 @@ public class Team {
 	/**
 	 * This is used to store all players which are banned from the team
 	 */
-	private BanListComponent bannedPlayers;
+	private final BanListComponent bannedPlayers;
 
 	/**
 	 * The score for the team
 	 */
-	private int score;
+	private final ScoreComponent score;
 
 	/**
 	 * The money that the team has
@@ -253,7 +254,6 @@ public class Team {
 		name = config.getString("name");
 		description = config.getString("description");
 		open = config.getBoolean("open");
-		score = config.getInt("score");
 		money = config.getDouble("money");
 		String colorStr = config.getString("color", "6");
 		color = ChatColor.getByChar(colorStr.charAt(0));
@@ -263,6 +263,8 @@ public class Team {
 
 		allies = new AllyListComponent();
 		allies.load(config);
+
+		score = new ScoreComponent();
 
 		bannedPlayers = new BanListComponent();
 		bannedPlayers.load(config);
@@ -330,7 +332,6 @@ public class Team {
 		config.set("open", false);
 		open = false;
 		config.set("score", 0);
-		score = 0;
 		config.set("money", 0);
 		money = 0;
 		config.set("home", "");
@@ -351,6 +352,8 @@ public class Team {
 
 		members = new MemberListComponent();
 		members.add(this, new TeamPlayer(owner, PlayerRank.OWNER));
+
+		score = new ScoreComponent();
 
 		bannedPlayers = new BanListComponent();
 		savePlayers();
@@ -915,13 +918,16 @@ public class Team {
 	}
 
 	public int getScore() {
+		return score.get();
+	}
+
+	public ScoreComponent getScoreComponent() {
 		return score;
 	}
 
 	public void setScore(int score) {
-		this.score = score;
-//		scoreChanges = true; TODO
-		getConfig().set("score", score);
+		this.score.set(score);
+		this.score.save(getConfig());
 		getTeamManager().saveTeamsFile();
 	}
 
