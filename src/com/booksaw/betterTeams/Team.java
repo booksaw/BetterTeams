@@ -1,31 +1,51 @@
 package com.booksaw.betterTeams;
 
-import com.booksaw.betterTeams.customEvents.DisbandTeamEvent;
-import com.booksaw.betterTeams.customEvents.PlayerJoinTeamEvent;
-import com.booksaw.betterTeams.customEvents.PlayerLeaveTeamEvent;
-import com.booksaw.betterTeams.customEvents.PrePurgeEvent;
-import com.booksaw.betterTeams.events.ChestManagement;
-import com.booksaw.betterTeams.message.MessageManager;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.UUID;
+
+import javax.annotation.Nullable;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.block.Block;
-import org.bukkit.block.Chest;
-import org.bukkit.block.DoubleChest;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
+import org.jetbrains.annotations.NotNull;
+
+
+import com.booksaw.betterTeams.customEvents.DisbandTeamEvent;
+import com.booksaw.betterTeams.events.MCTeamManagement.BelowNameType;
+import com.booksaw.betterTeams.exceptions.CancelledEventException;
+import com.booksaw.betterTeams.message.Message;
+import com.booksaw.betterTeams.message.MessageManager;
+import com.booksaw.betterTeams.message.ReferencedFormatMessage;
+import com.booksaw.betterTeams.message.StaticMessage;
+import com.booksaw.betterTeams.team.AllyListComponent;
+import com.booksaw.betterTeams.team.BanListComponent;
+import com.booksaw.betterTeams.team.ChestClaimComponent;
+import com.booksaw.betterTeams.team.EChestComponent;
+import com.booksaw.betterTeams.team.LocationListComponent;
+import com.booksaw.betterTeams.team.MemberListComponent;
+import com.booksaw.betterTeams.team.MoneyComponent;
+import com.booksaw.betterTeams.team.ScoreComponent;
+import com.booksaw.betterTeams.team.TeamManager;
 
 import javax.annotation.Nullable;
 import java.text.DecimalFormat;
 import java.util.*;
 import java.util.Map.Entry;
+
 
 /**
  * This class is used to manage a team and all of it's participants
@@ -34,444 +54,63 @@ import java.util.Map.Entry;
  */
 public class Team {
 
-	/**
-	 * This is used to track if the score has been changed for any users
-	 */
-	public static boolean scoreChanges = true;
+	private static final TeamManager TEAMMANAGER = new TeamManager();
 
-	/**
-	 * This is used to track if there have been any changes to the teams balance
-	 */
-	public static boolean moneyChanges = true;
-
-	/**
-	 * Used to store all active teams
-	 */
-	private static HashMap<UUID, Team> teamList = new HashMap<>();
-	private static boolean logChat;
-	/**
-	 * The ID of the team (this is a unique identifier of the team which will never
-	 * change)
-	 */
-	final UUID ID;
-	final HashMap<String, Warp> warps;
-	/**
-	 * This is a list of invited players to this team since the last restart of the
-	 * server
-	 */
-	private final List<UUID> invitedPlayers = new ArrayList<>();
-	private final List<TeamPlayer> members;
-	private final List<UUID> bannedPlayers;
-	/**
-	 * Used to track the allies of this team
-	 */
-	private final List<UUID> allies;
-	/**
-	 * Used to track which teams have requested to be allies with this team
-	 */
-	private final List<UUID> requests;
-	private final Inventory echest;
-	public boolean pvp = false;
-	ChatColor color;
-	org.bukkit.scoreboard.Team team;
-	/**
-	 * The name of the team, this can be changed after the creation of a teams, so
-	 * do not store references to it
-	 */
-	private String name;
-	/**
-	 * The description of a team, used in /team info
-	 */
-	private String description;
-	/**
-	 * If the team is open or invite only
-	 */
-	private boolean open;
-	/**
-	 * The location of the teams home (/team home)
-	 */
-	private Location teamHome = null;
-	/**
-	 * The score for the team
-	 */
-	private int score;
-	/**
-	 * The money that the team has
-	 */
-	private double money;
-	/**
-	 * the rank of the team
-	 */
-	private transient int rank, balRank;
-	private int level;
-	private String tag;
-	// CHEST CLAIM COMPONENT
-	private List<Location> claims;
-
-	/**
-	 * this is used to load a team from the configuration file
-	 *
-	 * @param ID the ID of the team to load
-	 */
-	public Team(UUID ID) {
-
-		this.ID = ID;
-		FileConfiguration config = Main.plugin.getTeams();
-
-		name = getString(config, "name");
-		description = getString(config, "description");
-		open = getBoolean(config, "open");
-		score = getInteger(config, "score");
-		money = getDouble(config, "money");
-		String colorStr = getString(config, "color");
-		if (colorStr == null) {
-			this.color = ChatColor.GOLD;
-			setValue(Main.plugin.getTeams(), "color", color.getChar());
-			Main.plugin.saveTeams();
-		} else {
-			color = ChatColor.getByChar(getString(config, "color").charAt(0));
-		}
-		members = new ArrayList<>();
-		for (String string : getStringList(config, "players")) {
-			members.add(new TeamPlayer(string));
-		}
-
-		bannedPlayers = new ArrayList<>();
-		for (String string : getStringList(config, "bans")) {
-			bannedPlayers.add(UUID.fromString(string));
-		}
-
-		String teamHomeStr = getString(config, "home");
-		if (teamHomeStr != null && !teamHomeStr.equals("")) {
-			teamHome = getLocation(teamHomeStr);
-		}
-
-		allies = new ArrayList<>();
-		for (String string : getStringList(config, "allies")) {
-			allies.add(UUID.fromString(string));
-		}
-
-		requests = new ArrayList<>();
-		for (String string : getStringList(config, "allyrequests")) {
-			requests.add(UUID.fromString(string));
-		}
-
-		warps = new HashMap<>();
-		for (String str : getStringList(config, "warps")) {
-			String[] split = str.split(";");
-			warps.put(split[0], new Warp(split));
-		}
-
-		claims = new ArrayList<>();
-		for (String str : getStringList(config, "chests")) {
-			claims.add(getLocation(str));
-		}
-
-		echest = Bukkit.createInventory(null, 27, MessageManager.getMessage("echest.echest"));
-		for (int i = 0; i < 27; i++) {
-			ItemStack is = getItemStack(config, "echest." + i);
-			if (is != null) {
-				echest.setItem(i, is);
-			}
-		}
-
-		level = getInteger(config, "level");
-		if (level < 1) {
-			level = 1;
-		}
-
-		tag = getString(config, "tag");
-
-		rank = -1;
-
+	public static TeamManager getTeamManager() {
+		return TEAMMANAGER;
 	}
 
-	/**
-	 * Creates a new team with the provided name
-	 * <p>
-	 * This is a private method as the creation of a new team should be done by the
-	 * Team.createNewTeam(name) method
-	 * </p>
-	 *
-	 * @param name  The selected name for the team
-	 * @param ID    The UUID of the team
-	 * @param owner The owner of the team (whoever initiated the creation of the
-	 *              team)
-	 */
-	private Team(String name, UUID ID, Player owner) {
-		this.ID = ID;
-
-		FileConfiguration config = Main.plugin.getTeams();
-		setValue(config, "name", name);
-		setValue(config, "description", "");
-		this.name = name;
-		this.description = "";
-		setValue(config, "open", false);
-		open = false;
-		setValue(config, "score", 0);
-		score = 0;
-		setValue(config, "money", 0);
-		money = 0;
-		setValue(config, "home", "");
-		rank = -1;
-		color = ChatColor
-				.getByChar(Objects.requireNonNull(Main.plugin.getConfig().getString("defaultColor")).charAt(0));
-		setValue(config, "color", Objects.requireNonNull(color).getChar());
-		allies = new ArrayList<>();
-		setValue(config, "allies", allies);
-		requests = new ArrayList<>();
-		setValue(config, "allyrequests", requests);
-
-		warps = new HashMap<>();
-		setValue(config, "warps", new ArrayList<>());
-
-		claims = new ArrayList<>();
-		setValue(config, "chests", new ArrayList<>());
-
-		members = new ArrayList<>();
-		members.add(new TeamPlayer(owner, PlayerRank.OWNER));
-		savePlayers(config);
-		bannedPlayers = new ArrayList<>();
-		echest = Bukkit.createInventory(null, 27, MessageManager.getMessage("echest.echest"));
-		level = 1;
-		setValue(config, "level", 1);
-		tag = "";
-		setValue(config, "tag", "");
-		/*
-		 * do not need to save config as createNewTeam saves the config after more
-		 * settings modified
-		 */
-	}
-
-	/**
-	 * Used to get the team with the provided ID
-	 *
-	 * @param ID the ID of the team
-	 * @return the team with that ID [null - the team does not exist]
-	 */
 	@Nullable
-	public static Team getTeam(UUID ID) {
-		return teamList.get(ID);
+	public static Team getTeam(@NotNull UUID uuid) {
+		return TEAMMANAGER.getTeam(uuid);
 	}
 
-	/**
-	 * Used to get the team by it's display name
-	 *
-	 * @param name the display name of the team
-	 * @return the team with that display name [null - no team could be found]
-	 */
 	@Nullable
-	public static Team getTeam(String name) {
-		for (Entry<UUID, Team> temp : teamList.entrySet()) {
-			if (temp.getValue().getName().equalsIgnoreCase(name)) {
-				return temp.getValue();
-			}
-		}
-
-		// trying to get team by a player name
-		OfflinePlayer player = Bukkit.getPlayer(name);
-		if (player == null) {
-			return null;
-		}
-		return getTeam(player);
-
+	public static Team getTeam(@NotNull String name) {
+		return TEAMMANAGER.getTeam(name);
 	}
 
-	/**
-	 * Used to find the team that a specified player is in, this is the highest time
-	 * complexity search to find a team (O(n^2)) so only use when the other provided
-	 * methods are not possible
-	 *
-	 * @param player the player which is in a team
-	 * @return the team they are in [null - they are not in a team]
-	 */
 	@Nullable
-	public static Team getTeam(OfflinePlayer player) {
-		for (Entry<UUID, Team> temp : teamList.entrySet()) {
-			for (TeamPlayer teamPlayer : temp.getValue().getMembers()) {
-				if (teamPlayer.getPlayer().getUniqueId().compareTo(player.getUniqueId()) == 0) {
-					return temp.getValue();
-				}
-			}
-		}
-		return null;
+	public static Team getTeam(@NotNull OfflinePlayer player) {
+		return TEAMMANAGER.getTeam(player);
+	}
+
+	@Nullable
+	public static Team getTeamByName(@NotNull String name) {
+		return TEAMMANAGER.getTeamByName(name);
+	}
+
+	public static Team getClaimingTeam(Block block) {
+		return TEAMMANAGER.getClaimingTeam(block);
+	}
+
+	public static Team getClaimingTeam(InventoryHolder holder) {
+		return TEAMMANAGER.getClaimingTeam(holder);
+	}
+
+	public static Team getClaimingTeam(Location location) {
+		return TEAMMANAGER.getClaimingTeam(location);
+	}
+
+	public static Location getClaimingLocation(Block block) {
+		return TEAMMANAGER.getClaimingLocation(block);
 	}
 
 	/**
-	 * This method is used at the start of the program to load all the teams into
-	 * memory
-	 */
-	public static void loadTeams() {
-
-		logChat = Main.plugin.getConfig().getBoolean("logTeamChat");
-		teamList = new HashMap<>();
-		for (String IDString : Main.plugin.getTeams().getStringList("teams")) {
-			UUID ID = UUID.fromString(IDString);
-			teamList.put(ID, new Team(ID));
-		}
-
-	}
-
-	/**
-	 * This method is used to create a new team with the specified name
-	 * <p>
-	 * Checks are not carried out to ensure that the name is available, so that
-	 * should be done before this method is called
-	 * </p>
-	 *
-	 * @param name  the name of the new team
-	 * @param owner the owner of the new team (the player who ran /team create)
-	 */
-	public static void createNewTeam(String name, Player owner) {
-
-		UUID ID = UUID.randomUUID();
-		// ensuring the ID is unique
-		while (getTeam(ID) != null) {
-			ID = UUID.randomUUID();
-		}
-		teamList.put(ID, new Team(name, ID, owner));
-
-		// updating the list of teams
-		List<String> teams = Main.plugin.getTeams().getStringList("teams");
-		teams.add(ID.toString());
-		Main.plugin.getTeams().set("teams", teams);
-
-		Main.plugin.saveTeams();
-
-		if (Main.plugin.teamManagement != null) {
-			Main.plugin.teamManagement.displayBelowName(owner);
-		}
-	}
-
-	/**
-	 * @return a list of all teams
-	 */
-	public static HashMap<UUID, Team> getTeamList() {
-		return teamList;
-	}
-
-	/**
-	 * Used for legacy support, instead use sortTeamsByScore() or
-	 * sortTeamsByBalance()
-	 *
-	 * @return a sorted list by the team score
-	 * @see Team#sortTeamsByScore()
-	 * @deprecated THIS IS ONLY FOR LEGACY SUPPORT, DO NOT USE
-	 */
-	@Deprecated
-	public static Team[] sortTeams() {
-		return sortTeamsByScore();
-	}
-
-	/**
-	 * This method is used to sort all the teams into an array ranking from highest
-	 * score to lowest
-	 *
-	 * @return the array of teams in order of their rank
-	 */
-	public static Team[] sortTeamsByScore() {
-		Team[] rankedTeams = new Team[teamList.size()];
-
-		int count = 0;
-		// adding them to a list to sort
-		for (Entry<UUID, Team> team : teamList.entrySet()) {
-			rankedTeams[count] = team.getValue();
-			count++;
-		}
-
-		for (int i = 0; i < rankedTeams.length - 1; i++) {
-			boolean changes = false;
-
-			for (int j = 0; j < rankedTeams.length - i - 1; j++) {
-				if (rankedTeams[j + 1] == null) {
-					continue;
-				}
-
-				if (rankedTeams[j].getScore() < rankedTeams[j + 1].getScore()) {
-					Team temp = rankedTeams[j];
-					rankedTeams[j] = rankedTeams[j + 1];
-					rankedTeams[j + 1] = temp;
-					changes = true;
-				}
-			}
-
-			if (!changes) {
-				break;
-			}
-		}
-
-		for (int i = 0; i < rankedTeams.length; i++) {
-			rankedTeams[i].setTeamRank(i);
-		}
-		scoreChanges = false;
-		return rankedTeams;
-	}
-
-	public static Team[] sortTeamsByBalance() {
-		Team[] rankedTeams = new Team[teamList.size()];
-
-		int count = 0;
-		// adding them to a list to sort
-		for (Entry<UUID, Team> team : teamList.entrySet()) {
-			rankedTeams[count] = team.getValue();
-			count++;
-		}
-
-		for (int i = 0; i < rankedTeams.length - 1; i++) {
-			boolean changes = false;
-
-			for (int j = 0; j < rankedTeams.length - i - 1; j++) {
-				if (rankedTeams[j].getMoney() < rankedTeams[j + 1].getMoney()) {
-					Team temp = rankedTeams[j];
-					rankedTeams[j] = rankedTeams[j + 1];
-					rankedTeams[j + 1] = temp;
-					changes = true;
-				}
-			}
-
-			if (!changes) {
-				break;
-			}
-		}
-
-		for (int i = 0; i < rankedTeams.length; i++) {
-			rankedTeams[i].setTeamBalRank(i);
-		}
-		moneyChanges = false;
-		return rankedTeams;
-	}
-
-	public static boolean purge() {
-		// calling custom bukkit event
-		PrePurgeEvent event = new PrePurgeEvent();
-		Bukkit.getPluginManager().callEvent(event);
-		if (event.isCancelled()) {
-			return false;
-		}
-
-		for (Entry<UUID, Team> temp : Team.getTeamList().entrySet()) {
-			temp.getValue().setScore(0);
-		}
-		System.out.println("purging team score");
-		return true;
-	}
-
-	/**
+	 * @see Team#getClaimingTeam(Location)
 	 * Used to get the team which has claimed the provided chest, will return null
 	 * if that location is not claimed
 	 *
 	 * @param location the location of the chest - must already be normalised
 	 * @return The team which has claimed that chest
 	 */
+	@Deprecated
 	public static Team getClamingTeam(Location location) {
+		return getClaimingTeam(location);
+	}
 
-		for (Entry<UUID, Team> team : teamList.entrySet()) {
-			if (team.getValue().isClaimed(location)) {
-				return team.getValue();
-			}
-		}
-		return null;
-
+	public static Map<UUID, Team> getTeamList() {
+		return TEAMMANAGER.getTeamListClone();
 	}
 
 	/**
@@ -484,101 +123,19 @@ public class Team {
 	}
 
 	/**
-	 * Used to get the claiming team of a chest, will check both parts of a double
-	 * chest, it is assumed that the provided block is known to be a chest
-	 *
-	 * @param block The block being checked
-	 * @return The team which has claimed that block
+	 * Used to check if the provided team name is a valid name for a team
+	 * 
+	 * @param name The name of the team
+	 * @return If the team name is valid
 	 */
-	public static Team getClaimingTeam(Block block) {
-		// player is opening a chest
-		if (block.getState() instanceof Chest) {
-			Chest chest = (Chest) block.getState();
-			InventoryHolder holder = chest.getInventory().getHolder();
-			return getClaimingTeam(holder);
-		} else if (block.getState() instanceof DoubleChest) {
-			DoubleChest chest = (DoubleChest) block.getState();
-			InventoryHolder holder = chest.getInventory().getHolder();
-			return getClaimingTeam(holder);
-		}
-
-		return null;
-
-	}
-
-	/**
-	 * Used to get the claiming team of a chest, will check both parts of a double
-	 * chest, it is assumed that the provided block is known to be a chest
-	 *
-	 * @param holder the inventory holder of the block to check
-	 * @return The team which has claimed that block
-	 */
-	public static Team getClaimingTeam(InventoryHolder holder) {
-		// player is opening a chest
-
-		if (holder instanceof DoubleChest) {
-			DoubleChest doubleChest = (DoubleChest) holder;
-			Team claimedBy = getClamingTeam(
-					ChestManagement.getLocation((Chest) Objects.requireNonNull(doubleChest.getLeftSide())));
-			if (claimedBy != null) {
-				return claimedBy;
-			}
-
-			claimedBy = getClamingTeam(
-					ChestManagement.getLocation((Chest) Objects.requireNonNull(doubleChest.getRightSide())));
-			return claimedBy;
-		} else if (holder instanceof Chest) {
-			// single chest
-			return getClamingTeam(ChestManagement.getLocation((Chest) holder));
-		}
-
-		return null;
-	}
-
-	/**
-	 * Used to get the claiming location, will check both parts of a double chest,
-	 * it is assumed that the provided block is known to be a chest
-	 *
-	 * @param block The block to get the claiming location of
-	 * @return The claiming location
-	 */
-	public static Location getClaimingLocation(Block block) {
-		// player is opening a chest
-		Chest chest = (Chest) block.getState();
-		InventoryHolder holder = chest.getInventory().getHolder();
-
-		if (holder instanceof DoubleChest) {
-			DoubleChest doubleChest = (DoubleChest) holder;
-			Location loc = ChestManagement.getLocation((Chest) Objects.requireNonNull(doubleChest.getLeftSide()));
-			Team claimedBy = getClamingTeam(loc);
-			if (claimedBy != null) {
-				return loc;
-			}
-
-			loc = ChestManagement.getLocation((Chest) Objects.requireNonNull(doubleChest.getRightSide()));
-			claimedBy = getClamingTeam(ChestManagement.getLocation((Chest) doubleChest.getRightSide()));
-			if (claimedBy != null) {
-				return loc;
-			}
-		} else {
-			// single chest
-			Team claimedBy = getClamingTeam(block.getLocation());
-			if (claimedBy != null) {
-				return block.getLocation();
-			}
-		}
-
-		return null;
-	}
-
 	public static boolean isValidTeamName(String name) {
 		for (String temp : Main.plugin.getConfig().getStringList("blacklist")) {
-			if (temp.equalsIgnoreCase(name)) {
+			if (temp.equalsIgnoreCase(name.toLowerCase())) {
 				return false;
 			}
 		}
 
-		for (char temp : Objects.requireNonNull(Main.plugin.getConfig().getString("bannedChars")).toCharArray()) {
+		for (char temp : Main.plugin.getConfig().getString("bannedChars").toCharArray()) {
 			if (name.contains(Character.toString(temp))) {
 				return false;
 			}
@@ -595,7 +152,7 @@ public class Team {
 
 		String allowed = Main.plugin.getConfig().getString("allowedChars");
 
-		if (Objects.requireNonNull(allowed).length() != 0) {
+		if (allowed.length() != 0) {
 			for (char temp : name.toCharArray()) {
 				if (!allowed.contains(Character.toString(temp))) {
 					return false;
@@ -607,113 +164,212 @@ public class Team {
 	}
 
 	/**
-	 * This method is used to convert a string into a location which can be stored
-	 * for later use
-	 *
-	 * @param loc the string to convert into a location
-	 * @return the location which that string reference
+	 * The ID of the team (this is a unique identifier of the team which will never
+	 * change)
 	 */
-	public static Location getLocation(String loc) {
-		String[] split = loc.split(":");
-		return new Location(Bukkit.getWorld(split[0]), Double.parseDouble(split[1]), Double.parseDouble(split[2]),
-				Double.parseDouble(split[3]), Float.parseFloat(split[4]), Float.parseFloat(split[5]));
+	private UUID id;
+
+	/**
+	 * The name of the team, this can be changed after the creation of a teams, so
+	 * do not store references to it
+	 */
+	private String name;
+
+	/**
+	 * The description of a team, used in /team info
+	 */
+	private String description;
+
+	/**
+	 * If the team is open or invite only
+	 */
+	private boolean open;
+
+	/**
+	 * The location of the teams home (/team home)
+	 */
+	private Location teamHome = null;
+
+	/**
+	 * tracks and provides utility methods relating to the members of this team
+	 */
+	private MemberListComponent members;
+
+	/**
+	 * Used to track the allies of this team
+	 */
+	private final AllyListComponent allies;
+
+	/**
+	 * This is a list of invited players to this team since the last restart of the
+	 * server
+	 */
+	private List<UUID> invitedPlayers = new ArrayList<>();
+
+	/**
+	 * This is used to store all players which are banned from the team
+	 */
+	private final BanListComponent bannedPlayers;
+
+	/**
+	 * Used to track the chests claimed by this team
+	 */
+	private final ChestClaimComponent claims;
+
+	/**
+	 * The score for the team
+	 */
+	private final ScoreComponent score;
+
+	/**
+	 * The money that the team has
+	 */
+	private final MoneyComponent money;
+
+	/**
+	 * Tracks if the team has pvp enabled between team members
+	 */
+	private boolean pvp = false;
+
+	private ChatColor color;
+	/**
+	 * the rank of the team
+	 */
+	private int rank;
+
+	/**
+	 * The rank on baltop of the team
+	 */
+	private int balRank;
+
+	/**
+	 * Used to track which teams have requested to be allies with this team
+	 */
+	private List<UUID> requests;
+
+	private final EChestComponent echest;
+
+	private int level;
+
+	private String tag;
+
+	HashMap<String, Warp> warps;
+
+	/**
+	 * this is used to load a team from the configuration file
+	 * 
+	 * @param id the ID of the team to load
+	 */
+	public Team(UUID id) {
+
+		ConfigurationSection config = getConfig();
+
+		this.id = id;
+
+		name = config.getString("name");
+		description = config.getString("description");
+		open = config.getBoolean("open");
+		String colorStr = config.getString("color", "6");
+		color = ChatColor.getByChar(colorStr.charAt(0));
+
+		members = new MemberListComponent();
+		members.load(config);
+
+		allies = new AllyListComponent();
+		allies.load(config);
+
+		score = new ScoreComponent();
+		money = new MoneyComponent();
+		echest = new EChestComponent();
+
+		bannedPlayers = new BanListComponent();
+		bannedPlayers.load(config);
+
+		String teamHomeStr = config.getString("home");
+		if (teamHomeStr != null && !teamHomeStr.equals("")) {
+			teamHome = LocationListComponent.getLocation(teamHomeStr);
+		}
+
+		requests = new ArrayList<>();
+		for (String string : config.getStringList("allyrequests")) {
+			requests.add(UUID.fromString(string));
+		}
+
+		warps = new HashMap<>();
+		for (String str : config.getStringList("warps")) {
+			String[] split = str.split(";");
+			warps.put(split[0], new Warp(split));
+		}
+
+		claims = new ChestClaimComponent();
+		claims.load(getConfig());
+
+		level = config.getInt("level");
+		if (level < 1) {
+			level = 1;
+		}
+
+		tag = config.getString("tag");
+
+		rank = -1;
+
 	}
 
 	/**
-	 * This method is used to convert a location into a string which can be stored
-	 * in a configuration file
-	 *
-	 * @param loc the location to convert into a string
-	 * @return the string which references that location
+	 * Creates a new team with the provided name
+	 * <p>
+	 * This is a private method as the creation of a new team should be done by the
+	 * Team.createNewTeam(name) method
+	 * </p>
+	 * 
+	 * @param name  The selected name for the team
+	 * @param id    The UUID of the team
+	 * @param owner The owner of the team (whoever initiated the creation of the
+	 *              team)
 	 */
-	public static String getString(Location loc) {
-		return Objects.requireNonNull(loc.getWorld()).getName() + ":" + loc.getX() + ":" + loc.getY() + ":" + loc.getZ()
-				+ ":" + loc.getYaw() + ":" + loc.getPitch();
-	}
+	public Team(String name, UUID id, Player owner) {
+		this.id = id;
+		ConfigurationSection config = getConfig();
 
-	public static Location normalise(Location loc) {
-		return new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY(), loc.getBlockZ());
-	}
+		config.set("name", name);
+		config.set("description", "");
+		this.name = name;
+		this.description = "";
+		config.set("open", false);
+		open = false;
+		config.set("home", "");
+		rank = -1;
+		color = ChatColor.getByChar(Main.plugin.getConfig().getString("defaultColor").charAt(0));
+		config.set("color", color.getChar());
 
-	/**
-	 * Used to load a string attribute from file, this is used instead of the direct
-	 * call to ensure any changes to the config reading system can be updated
-	 * quickly
-	 *
-	 * @param config    the config which stores the team's information
-	 * @param attribute the reference that the value is stored under
-	 * @return the loaded value
-	 */
-	private String getString(FileConfiguration config, String attribute) {
-		return config.getString("team." + ID + "." + attribute);
-	}
+		requests = new ArrayList<>();
+		config.set("allyrequests", requests);
 
-	/**
-	 * Used to load a boolean attribute from file, this is used instead of the
-	 * direct call to ensure any changes to the config reading system can be updated
-	 * quickly
-	 *
-	 * @param config    the config which stores the team's information
-	 * @param attribute the reference that the value is stored under
-	 * @return the loaded value
-	 */
-	private boolean getBoolean(FileConfiguration config, String attribute) {
-		return config.getBoolean("team." + ID + "." + attribute);
-	}
+		warps = new HashMap<>();
+		config.set("warps", new ArrayList<>());
 
-	/**
-	 * Used to load a integer attribute from file, this is used instead of the
-	 * direct call to ensure any changes to the config reading system can be updated
-	 * quickly
-	 *
-	 * @param config    the config which stores the team's information
-	 * @param attribute the reference that the value is stored under
-	 * @return the loaded value
-	 */
-	private int getInteger(FileConfiguration config, String attribute) {
-		return config.getInt("team." + ID + "." + attribute);
-	}
+		claims = new ChestClaimComponent();
+		config.set("chests", new ArrayList<>());
 
-	/**
-	 * Used to load a double attribute from file, this is used instead of the direct
-	 * call to ensure any changes to the config reading system can be updated
-	 * quickly
-	 *
-	 * @param config    the config which stores the team's information
-	 * @param attribute the reference that the value is stored under
-	 * @return the loaded value
-	 */
-	private double getDouble(FileConfiguration config, String attribute) {
-		return config.getDouble("team." + ID + "." + attribute);
-	}
+		allies = new AllyListComponent();
 
-	/**
-	 * Used to load a string list from file, this is used instead of the direct call
-	 * to ensure any changes to the config reading system can be updated quickly
-	 *
-	 * @param config    the config which stores the team's information
-	 * @param attribute the reference that the value is stored under
-	 * @return the loaded value
-	 */
-	private List<String> getStringList(FileConfiguration config, String attribute) {
-		return config.getStringList("team." + ID + "." + attribute);
-	}
+		members = new MemberListComponent();
+		members.add(this, new TeamPlayer(owner, PlayerRank.OWNER));
 
-	private ItemStack getItemStack(FileConfiguration config, String attribute) {
-		return config.getItemStack("team." + ID + "." + attribute);
-	}
+		score = new ScoreComponent();
+		money = new MoneyComponent();
+		echest = new EChestComponent();
 
-	/**
-	 * Used to store a value to file, this is used instead of the direct call to
-	 * ensure any changes to the config reading system can be updated quickly
-	 *
-	 * @param config    the configuration to save the value to
-	 * @param attribute the attribute to save it under
-	 * @param value     the value of the attribute
-	 */
-	private void setValue(FileConfiguration config, String attribute, Object value) {
-		config.set("team." + ID + "." + attribute, value);
-		Main.plugin.saveTeams();
+		bannedPlayers = new BanListComponent();
+		savePlayers();
+		level = 1;
+		config.set("level", 1);
+		tag = "";
+		config.set("tag", "");
+		/*
+		 * do not need to save config as createNewTeam saves the config after more
+		 * settings modified
+		 */
 	}
 
 	/**
@@ -739,7 +395,7 @@ public class Team {
 		if (Main.plugin.teamManagement != null) {
 
 			if (team != null) {
-				for (TeamPlayer p : members) {
+				for (TeamPlayer p : members.getClone()) {
 					if (p.getPlayer().isOnline()) {
 						team.removeEntry(Objects.requireNonNull(p.getPlayer().getName()));
 					}
@@ -794,13 +450,13 @@ public class Team {
 
 	public void setTag(String tag) {
 		this.tag = tag;
-		setValue(Main.plugin.getTeams(), "tag", tag);
-		Main.plugin.saveTeams();
+		getConfig().set("tag", tag);
+		getTeamManager().saveTeamsFile();
 
 		if (Main.plugin.teamManagement != null) {
 
 			if (team != null) {
-				for (TeamPlayer p : members) {
+				for (TeamPlayer p : members.getClone()) {
 					if (p.getPlayer().isOnline()) {
 						team.removeEntry(Objects.requireNonNull(p.getPlayer().getName()));
 					}
@@ -810,7 +466,7 @@ public class Team {
 
 			team = null;
 
-			for (TeamPlayer p : members) {
+			for (TeamPlayer p : members.getClone()) {
 				if (p.getPlayer().isOnline()) {
 					Main.plugin.teamManagement.displayBelowName(Objects.requireNonNull(p.getPlayer().getPlayer()));
 				}
@@ -829,8 +485,8 @@ public class Team {
 
 	public void setOpen(boolean open) {
 		this.open = open;
-		setValue(Main.plugin.getTeams(), "open", open);
-		Main.plugin.saveTeams();
+		getConfig().set("open", open);
+		getTeamManager().saveTeamsFile();
 	}
 
 	/**
@@ -838,12 +494,6 @@ public class Team {
 	 */
 	public Location getTeamHome() {
 		return teamHome;
-	}
-
-	public void setTeamHome(Location teamHome) {
-		this.teamHome = teamHome;
-		setValue(Main.plugin.getTeams(), "home", getString(teamHome));
-		Main.plugin.saveTeams();
 	}
 
 	/**
@@ -860,8 +510,8 @@ public class Team {
 	 */
 	public void setDescription(String description) {
 		this.description = description;
-		setValue(Main.plugin.getTeams(), "description", description);
-		Main.plugin.saveTeams();
+		getConfig().set("description", description);
+		getTeamManager().saveTeamsFile();
 	}
 
 	/**
@@ -878,13 +528,13 @@ public class Team {
 	 */
 	public void setColor(ChatColor color) {
 		this.color = color;
-		setValue(Main.plugin.getTeams(), "color", color.getChar());
-		Main.plugin.saveTeams();
+		getConfig().set("color", color.getChar());
+		getTeamManager().saveTeamsFile();
 
 		if (Main.plugin.teamManagement != null) {
 
 			if (team != null) {
-				for (TeamPlayer p : members) {
+				for (TeamPlayer p : members.getClone()) {
 					if (p.getPlayer().isOnline()) {
 						team.removeEntry(Objects.requireNonNull(p.getPlayer().getName()));
 					}
@@ -894,7 +544,7 @@ public class Team {
 
 			team = null;
 
-			for (TeamPlayer p : members) {
+			for (TeamPlayer p : members.getClone()) {
 				if (p.getPlayer().isOnline()) {
 					Main.plugin.teamManagement.displayBelowName(Objects.requireNonNull(p.getPlayer().getPlayer()));
 				}
@@ -902,7 +552,7 @@ public class Team {
 		}
 	}
 
-	public List<TeamPlayer> getMembers() {
+	public MemberListComponent getMembers() {
 		return members;
 	}
 
@@ -911,16 +561,10 @@ public class Team {
 	 *
 	 * @param config the configuration file to store the members list to
 	 */
-	private void savePlayers(FileConfiguration config) {
-
-		List<String> output = new ArrayList<>();
-
-		for (TeamPlayer player : members) {
-			output.add(player.toString());
-		}
-
-		setValue(config, "players", output);
-
+	private void savePlayers() {
+		ConfigurationSection config = getConfig();
+		members.save(config);
+		getTeamManager().saveTeamsFile();
 	}
 
 	/**
@@ -928,16 +572,10 @@ public class Team {
 	 *
 	 * @param config the configuration file to store the ban list to
 	 */
-	private void saveBans(FileConfiguration config) {
-
-		List<String> output = new ArrayList<>();
-
-		for (UUID uuid : bannedPlayers) {
-			output.add(uuid.toString());
-		}
-
-		setValue(config, "bans", output);
-
+	private void saveBans() {
+		ConfigurationSection config = getConfig();
+		bannedPlayers.save(config);
+		getTeamManager().saveTeamsFile();
 	}
 
 	/**
@@ -947,23 +585,7 @@ public class Team {
 	 * @param p the player to remove from the team
 	 */
 	public boolean removePlayer(OfflinePlayer p) {
-
-		TeamPlayer teamPlayer = getTeamPlayer(p);
-
-		PlayerLeaveTeamEvent event = new PlayerLeaveTeamEvent(this, teamPlayer);
-		Bukkit.getPluginManager().callEvent(event);
-		if (event.isCancelled()) {
-			return false;
-		}
-
-		if (Main.plugin.teamManagement != null && p.isOnline()) {
-			Main.plugin.teamManagement.remove(p.getPlayer());
-		}
-
-		members.remove(teamPlayer);
-		savePlayers(Main.plugin.getTeams());
-		Main.plugin.saveTeams();
-		return true;
+		return removePlayer(getTeamPlayer(p));
 	}
 
 	/**
@@ -973,14 +595,20 @@ public class Team {
 	 *
 	 * @param p the player to remove from the team
 	 */
-	public void removePlayer(TeamPlayer p) {
-		members.remove(p);
-		savePlayers(Main.plugin.getTeams());
-		Main.plugin.saveTeams();
+	public boolean removePlayer(TeamPlayer p) {
+		try {
+			members.remove(this, p);
+		} catch (CancelledEventException e) {
+			return false;
+		}
+
+		savePlayers();
 
 		if (team != null && p.getPlayer().isOnline()) {
 			Main.plugin.teamManagement.remove(p.getPlayer().getPlayer());
 		}
+
+		return true;
 	}
 
 	/**
@@ -992,16 +620,7 @@ public class Team {
 	 */
 	@Nullable
 	public TeamPlayer getTeamPlayer(OfflinePlayer player) {
-		if (player == null) {
-			throw new IllegalArgumentException("Provided player cannot be null");
-		}
-
-		for (TeamPlayer teamPlayer : members) {
-			if (teamPlayer.getPlayer().getUniqueId().compareTo(player.getUniqueId()) == 0) {
-				return teamPlayer;
-			}
-		}
-		return null;
+		return members.getTeamPlayer(player);
 	}
 
 	/**
@@ -1012,22 +631,14 @@ public class Team {
 	 *         that rank]
 	 */
 	public List<TeamPlayer> getRank(PlayerRank rank) {
-		List<TeamPlayer> toReturn = new ArrayList<>();
-
-		for (TeamPlayer player : members) {
-			if (player.getRank() == rank) {
-				toReturn.add(player);
-			}
-		}
-
-		return toReturn;
+		return members.getRank(rank);
 	}
 
 	/**
 	 * This command is used to disband a team, BE CAREFUL, this is irreversible
 	 */
 	public void disband() {
-
+		ConfigurationSection config = getConfig();
 		DisbandTeamEvent event = new DisbandTeamEvent(this);
 		Bukkit.getPluginManager().callEvent(event);
 
@@ -1035,31 +646,29 @@ public class Team {
 			throw new IllegalArgumentException("Disbanding was cancelled by another plugin");
 		}
 
-		for (UUID ally : allies) {
+		for (UUID ally : allies.getClone()) {
 			Team team = Team.getTeam(ally);
 			Objects.requireNonNull(team).removeAlly(getID());
+
 		}
 
-		for (Entry<UUID, Team> team : teamList.entrySet()) {
-			if (team.getValue().hasRequested(getID())) {
-				team.getValue().removeAllyRequest(getID());
+		for (Entry<UUID, Team> requestedTeam : getTeamManager().getTeamListClone().entrySet()) {
+			if (requestedTeam.getValue().hasRequested(getID())) {
+				requestedTeam.getValue().removeAllyRequest(getID());
 			}
 		}
 
 		// removing it from the team list, the java GC will handle the reset
-		teamList.remove(ID);
+		getTeamManager().removeTeam(id);
 
 		// updating the list of teams
-		List<String> teams = Main.plugin.getTeams().getStringList("teams");
-		teams.remove(ID.toString());
-		Main.plugin.getTeams().set("teams", teams);
-		Main.plugin.getTeams().set("team." + ID, null);
+		config.set("", null);
 
-		Main.plugin.saveTeams();
+		getTeamManager().saveTeamsFile();
 
 		if (Main.plugin.teamManagement != null) {
 
-			for (TeamPlayer p : members) {
+			for (TeamPlayer p : members.getClone()) {
 				if (p.getPlayer().isOnline()) {
 					Main.plugin.teamManagement.remove(p.getPlayer().getPlayer());
 				}
@@ -1124,30 +733,12 @@ public class Team {
 	 * @return true if the player joined the team, else false
 	 */
 	public boolean join(Player p) {
-
-		// calling the event
-		TeamPlayer teamPlayer = new TeamPlayer(p, PlayerRank.DEFAULT);
-		PlayerJoinTeamEvent event = new PlayerJoinTeamEvent(this, teamPlayer);
-		Bukkit.getPluginManager().callEvent(event);
-		if (event.isCancelled()) {
+		try {
+			members.add(this, new TeamPlayer(p, PlayerRank.DEFAULT));
+		} catch (CancelledEventException e) {
 			return false;
 		}
-
-		invitedPlayers.remove(p.getUniqueId());
-
-		for (TeamPlayer player : members) {
-			if (player.getPlayer().isOnline()) {
-				MessageManager.sendMessageF(player.getPlayer().getPlayer(), "join.notify", p.getDisplayName());
-			}
-		}
-
-		members.add(teamPlayer);
-		savePlayers(Main.plugin.getTeams());
-		Main.plugin.saveTeams();
-
-		if (Main.plugin.teamManagement != null) {
-			Main.plugin.teamManagement.displayBelowName(p);
-		}
+		savePlayers();
 		return true;
 
 	}
@@ -1166,8 +757,7 @@ public class Team {
 			promotePlayer.setRank(PlayerRank.OWNER);
 		}
 
-		savePlayers(Main.plugin.getTeams());
-		Main.plugin.saveTeams();
+		savePlayers();
 	}
 
 	/**
@@ -1184,14 +774,20 @@ public class Team {
 			demotePlayer.setRank(PlayerRank.DEFAULT);
 		}
 
-		savePlayers(Main.plugin.getTeams());
-		Main.plugin.saveTeams();
+		savePlayers();
+	}
+
+	public void setTeamHome(Location teamHome) {
+		this.teamHome = teamHome;
+		getConfig().set("home", LocationListComponent.getString(teamHome));
+		getTeamManager().saveTeamsFile();
 	}
 
 	public void deleteTeamHome() {
 		teamHome = null;
-		setValue(Main.plugin.getTeams(), "home", "");
-		Main.plugin.saveTeams();
+		getConfig().set("home", "");
+		getTeamManager().saveTeamsFile();
+
 	}
 
 	/**
@@ -1201,9 +797,8 @@ public class Team {
 	 * @param player the player to add to the list
 	 */
 	public void banPlayer(OfflinePlayer player) {
-		bannedPlayers.add(player.getUniqueId());
-		saveBans(Main.plugin.getTeams());
-		Main.plugin.saveTeams();
+		bannedPlayers.add(this, player.getUniqueId());
+		saveBans();
 	}
 
 	/**
@@ -1213,17 +808,8 @@ public class Team {
 	 * @param player the player to remove from the list
 	 */
 	public void unbanPlayer(OfflinePlayer player) {
-		// used to avoid concurrent modification error
-		UUID store = null;
-		for (UUID uuid : bannedPlayers) {
-			if (player.getUniqueId().equals(uuid)) {
-				store = uuid;
-			}
-		}
-		bannedPlayers.remove(store);
-
-		saveBans(Main.plugin.getTeams());
-		Main.plugin.saveTeams();
+		bannedPlayers.remove(this, player.getUniqueId());
+		saveBans();
 	}
 
 	/**
@@ -1233,12 +819,7 @@ public class Team {
 	 * @return [true - the player is banned] [false - the player isen't banned]
 	 */
 	public boolean isBanned(OfflinePlayer player) {
-		for (UUID uuid : bannedPlayers) {
-			if (player.getUniqueId().equals(uuid)) {
-				return true;
-			}
-		}
-		return false;
+		return bannedPlayers.contains(player);
 	}
 
 	/**
@@ -1267,7 +848,7 @@ public class Team {
 		fMessage = fMessage.replace("$name$", sender.getPrefix(returnTo) + sender.getPlayer().getPlayer().getName());
 		fMessage = fMessage.replace("$message$", message);
 
-		for (TeamPlayer player : members) {
+		for (TeamPlayer player : members.getClone()) {
 			if (player.getPlayer().isOnline()) {
 				Objects.requireNonNull(player.getPlayer().getPlayer()).sendMessage(fMessage);
 			}
@@ -1280,8 +861,7 @@ public class Team {
 
 			MessageManager.sendMessageF(temp, "spy.team", getName(), sender.getPlayer().getPlayer().getName(), message);
 		}
-
-		if (logChat) {
+		if (TEAMMANAGER.isLogChat()) {
 			Bukkit.getLogger().info("[BetterTeams]" + fMessage);
 		}
 	}
@@ -1312,19 +892,13 @@ public class Team {
 		fMessage = fMessage.replace("$name$", sender.getPrefix(returnTo) + sender.getPlayer().getPlayer().getName());
 		fMessage = fMessage.replace("$message$", message);
 
-		for (TeamPlayer player : members) {
-			if (player.getPlayer().isOnline()) {
-				Objects.requireNonNull(player.getPlayer().getPlayer()).sendMessage(fMessage);
-			}
-		}
+		Message messageI = new StaticMessage(fMessage);
+		members.broadcastMessage(messageI);
 
-		for (UUID ally : allies) {
+		for (UUID ally : allies.getClone()) {
 			Team temp = Team.getTeam(ally);
-			for (TeamPlayer player : Objects.requireNonNull(temp).getMembers()) {
-				if (player.getPlayer().isOnline()) {
-					Objects.requireNonNull(player.getPlayer().getPlayer()).sendMessage(fMessage);
-				}
-			}
+			temp.getMembers().broadcastMessage(messageI);
+
 		}
 
 		for (CommandSender temp : Main.plugin.chatManagement.spy) {
@@ -1338,31 +912,37 @@ public class Team {
 			MessageManager.sendMessageF(temp, "spy.ally", getName(), sender.getPlayer().getName(), message);
 		}
 
-		if (logChat) {
+		if (TEAMMANAGER.isLogChat()) {
 			Bukkit.getLogger().info("[BetterTeams]" + fMessage);
 		}
 	}
 
 	public int getScore() {
+		return score.get();
+	}
+
+	public ScoreComponent getScoreComponent() {
 		return score;
 	}
 
 	public void setScore(int score) {
-		this.score = score;
-		scoreChanges = true;
-		setValue(Main.plugin.getTeams(), "score", score);
-		Main.plugin.saveTeams();
+		this.score.set(score);
+		this.score.save(getConfig());
+		getTeamManager().saveTeamsFile();
 	}
 
 	public double getMoney() {
+		return money.get();
+	}
+
+	public MoneyComponent getMoneyComponent() {
 		return money;
 	}
 
 	public void setMoney(double money) {
-		this.money = money;
-		moneyChanges = true;
-		setValue(Main.plugin.getTeams(), "money", money);
-		Main.plugin.saveTeams();
+		this.money.set(money);
+		this.money.save(getConfig());
+		getTeamManager().saveTeamsFile();
 	}
 
 	/**
@@ -1376,11 +956,16 @@ public class Team {
 		this.rank = rank;
 	}
 
+	public void setTeamBalRank(int rank) {
+		this.balRank = rank;
+	}
+
 	public int getTeamBalRank() {
 		return balRank;
 	}
 
-	private void setTeamBalRank(int rank) {
+	private void 
+    (int rank) {
 		this.balRank = rank;
 	}
 
@@ -1445,15 +1030,12 @@ public class Team {
 	}
 
 	public String getBalance() {
-		DecimalFormat df = new DecimalFormat("0.00");
-		df.setGroupingUsed(true);
-		df.setGroupingSize(3);
-		return df.format(money);
+		return money.getStringFormatting();
 	}
 
 	public void setTitle(TeamPlayer player, String title) {
 		player.setTitle(title);
-		savePlayers(Main.plugin.getTeams());
+		savePlayers();
 	}
 
 	/**
@@ -1462,18 +1044,8 @@ public class Team {
 	 * @param ally the UUID of the new ally
 	 */
 	public void addAlly(UUID ally) {
-		allies.add(ally);
+		allies.add(this, ally);
 		saveAllies();
-
-		Team team = Team.getTeam(ally);
-		// notifying all online members of the team
-		for (TeamPlayer p : members) {
-			OfflinePlayer player = p.getPlayer();
-			if (player.isOnline()) {
-				MessageManager.sendMessageF(player.getPlayer(), "ally.ally",
-						Objects.requireNonNull(team).getDisplayName());
-			}
-		}
 	}
 
 	/**
@@ -1482,7 +1054,7 @@ public class Team {
 	 * @param ally the ally to remove
 	 */
 	public void removeAlly(UUID ally) {
-		allies.remove(ally);
+		allies.remove(this, ally);
 		saveAllies();
 	}
 
@@ -1507,13 +1079,8 @@ public class Team {
 
 		Team t = Team.getTeam(team);
 		// notifying all online owners of the team
-		for (TeamPlayer p : members) {
-			OfflinePlayer player = p.getPlayer();
-			if (player.isOnline() && p.getRank() == PlayerRank.OWNER) {
-				MessageManager.sendMessageF(player.getPlayer(), "ally.request",
-						Objects.requireNonNull(t).getDisplayName());
-			}
-		}
+		Message message = new ReferencedFormatMessage("ally.request", t.getDisplayName());
+		members.broadcastMessage(message);
 	}
 
 	/**
@@ -1546,7 +1113,7 @@ public class Team {
 	/**
 	 * @return the list of all UUIDS of teams that are allied with this team
 	 */
-	public List<UUID> getAllies() {
+	public AllyListComponent getAllies() {
 		return allies;
 	}
 
@@ -1554,14 +1121,8 @@ public class Team {
 	 * Used to save the list of allies for this team
 	 */
 	private void saveAllies() {
-		List<String> toSave = new ArrayList<>();
-
-		for (UUID uuid : allies) {
-			toSave.add(uuid.toString());
-		}
-
-		setValue(Main.plugin.getTeams(), "allies", toSave);
-		Main.plugin.saveTeams();
+		allies.save(getConfig());
+		getTeamManager().saveTeamsFile();
 	}
 
 	/**
@@ -1574,12 +1135,12 @@ public class Team {
 			toSave.add(uuid.toString());
 		}
 
-		setValue(Main.plugin.getTeams(), "allyrequests", toSave);
-		Main.plugin.saveTeams();
+		getConfig().set("allyrequests", toSave);
+		getTeamManager().saveTeamsFile();
 	}
 
 	public UUID getID() {
-		return ID;
+		return id;
 	}
 
 	/**
@@ -1664,7 +1225,7 @@ public class Team {
 			toSave.add(temp.getValue().toString());
 		}
 
-		setValue(Main.plugin.getTeams(), "warps", toSave);
+		getConfig().set("warps", toSave);
 	}
 
 	/**
@@ -1687,7 +1248,7 @@ public class Team {
 		saveWarps();
 	}
 
-	public HashMap<String, Warp> getWarps() {
+	public Map<String, Warp> getWarps() {
 		return warps;
 	}
 
@@ -1697,16 +1258,10 @@ public class Team {
 	 * @return a list of online members for this team
 	 */
 	public List<Player> getOnlineMemebers() {
-		List<Player> online = new ArrayList<>();
-
-		for (TeamPlayer player : members) {
-			if (player.getPlayer().isOnline()) {
-				online.add(player.getPlayer().getPlayer());
-			}
-		}
-
-		return online;
+		return members.getOnlinePlayers();
 	}
+
+	// CHEST CLAIM COMPONENT
 
 	/**
 	 * Used to add a chest claim to this team
@@ -1714,7 +1269,7 @@ public class Team {
 	 * @param location The location of the chest claim (round to the nearest block)
 	 */
 	public void addClaim(Location location) {
-		claims.add(location);
+		claims.add(this, location);
 		saveClaims();
 	}
 
@@ -1724,17 +1279,12 @@ public class Team {
 	 * @param location The location of the chest claim (round to the nearest block)
 	 */
 	public void removeClaim(Location location) {
-		for (Location loc : new ArrayList<>(claims)) {
-			if (loc.equals(location)) {
-				claims.remove(loc);
-				saveClaims();
-				return;
-			}
-		}
+		claims.remove(this, location);
+		saveClaims();
 	}
 
 	public void clearClaims() {
-		claims = new ArrayList<>();
+		claims.clear();
 		saveClaims();
 	}
 
@@ -1743,34 +1293,25 @@ public class Team {
 	}
 
 	public boolean isClaimed(Location location) {
-		for (Location loc : claims) {
-			if (loc.equals(location)) {
-				return true;
-			}
-		}
-		return false;
+		return claims.contains(location);
 	}
 
 	private void saveClaims() {
-		List<String> toSave = new ArrayList<>();
-
-		for (Location loc : claims) {
-			toSave.add(getString(loc));
-		}
-
-		setValue(Main.plugin.getTeams(), "chests", toSave);
-		Main.plugin.saveTeams();
+		claims.save(getConfig());
+		getTeamManager().saveTeamsFile();
 	}
 
 	public void saveEchest() {
-		for (int i = 0; i < 27; i++) {
-			ItemStack is = echest.getItem(i);
-			setValue(Main.plugin.getTeams(), "echest." + i, is);
-		}
-		Main.plugin.saveTeams();
+		echest.save(getConfig());
+		getTeamManager().saveTeamsFile();
+
 	}
 
 	public Inventory getEchest() {
+		return echest.get();
+	}
+
+	public EChestComponent getEchestComponent() {
 		return echest;
 	}
 
@@ -1780,12 +1321,24 @@ public class Team {
 
 	public void setLevel(int level) {
 		this.level = level;
-		setValue(Main.plugin.teams, "level", level);
+		getConfig().set("level", level);
 
 	}
 
 	public List<UUID> getInvitedPlayers() {
 		return invitedPlayers;
+	}
+
+	public ConfigurationSection getConfig() {
+		return getTeamManager().getTeamStorage().getConfigurationSection("team." + id);
+	}
+
+	public boolean isPvp() {
+		return pvp;
+	}
+
+	public void setPvp(boolean pvp) {
+		this.pvp = pvp;
 	}
 
 }

@@ -29,10 +29,11 @@ public class RankupEvents implements Listener {
 
 	private void runCommandList(List<String> commands, Team team, int rank, Player source) {
 		for (String str : commands) {
-			str = str.replaceAll("%team%", team.getName());
-			str = str.replaceAll("%level%", Integer.toString(rank));
+			str = str.replace("%team%", team.getName());
+			str = str.replace("%level%", Integer.toString(rank));
 			if (str.contains("%player%")) {
-				for (TeamPlayer p : team.getMembers()) {
+
+				for (TeamPlayer p : team.getMembers().getClone()) {
 					str = str.replaceAll("%player%", Objects.requireNonNull(p.getPlayer().getName()));
 					if (Main.placeholderAPI) {
 						str = PlaceholderAPI.setPlaceholders(p.getPlayer(), str);

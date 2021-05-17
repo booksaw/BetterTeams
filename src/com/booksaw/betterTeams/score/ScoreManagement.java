@@ -42,7 +42,7 @@ public class ScoreManagement implements Listener {
 		}
 
 		// if there are actually purges
-		if (purges.size() != 0) {
+		if (!purges.isEmpty()) {
 			sched();
 		}
 
@@ -58,6 +58,18 @@ public class ScoreManagement implements Listener {
 				if (run) {
 					return;
 				}
+				run = true;
+				Team.getTeamManager().purgeTeams();
+				if (nextPurge + 1 < purges.size()) {
+					nextPurge++;
+				} else {
+					nextPurge = 0;
+				}
+				return;
+			}
+			// clean pass so it can reset the tracker
+			run = false;
+
 
 				run = true;
 				Team.purge();
@@ -181,5 +193,4 @@ public class ScoreManagement implements Listener {
 			return nowDate.isBefore(this);
 		}
 	}
-
 }

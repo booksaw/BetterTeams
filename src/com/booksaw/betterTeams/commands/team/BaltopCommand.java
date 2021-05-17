@@ -21,7 +21,7 @@ public class BaltopCommand extends SubCommand {
 			team = Team.getTeam((Player) sender);
 		}
 
-		Team[] teams = Team.sortTeamsByBalance();
+		Team[] teams = Team.getTeamManager().sortTeamsByBalance();
 		MessageManager.sendMessage(sender, "baltop.leaderboard");
 
 		for (int i = 0; i < 10 && i < teams.length; i++) {

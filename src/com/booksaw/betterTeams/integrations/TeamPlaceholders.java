@@ -165,7 +165,7 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 				return null;
 			}
 
-			Team[] teams = Team.sortTeamsByScore();
+			Team[] teams = Team.getTeamManager().sortTeamsByScore();
 			if (teams.length <= place) {
 				return null;
 			} else {
@@ -184,7 +184,7 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 				return null;
 			}
 
-			Team[] teams = Team.sortTeamsByScore();
+			Team[] teams = Team.getTeamManager().sortTeamsByScore();
 			if (teams.length <= place) {
 				return null;
 			} else {

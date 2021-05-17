@@ -5,30 +5,29 @@ import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
+
+import com.booksaw.betterTeams.message.Message;
+import com.booksaw.betterTeams.message.ReferenceMessage;
+
 import com.booksaw.betterTeams.message.MessageManager;
 import org.bukkit.command.CommandSender;
 
 import java.util.List;
+
 
 public class PvpCommand extends TeamSubCommand {
 
 	@Override
 	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 
-		if (team.pvp) {
-			team.pvp = false;
-			for (TeamPlayer p : team.getMembers()) {
-				if (p.getPlayer().isOnline()) {
-					MessageManager.sendMessage(p.getPlayer().getPlayer(), "pvp.disabled");
-				}
-			}
+		if (team.isPvp()) {
+			team.setPvp(false);
+			Message message = new ReferenceMessage("pvp.disabled");
+			team.getMembers().broadcastMessage(message);
 		} else {
-			team.pvp = true;
-			for (TeamPlayer p : team.getMembers()) {
-				if (p.getPlayer().isOnline()) {
-					MessageManager.sendMessage(p.getPlayer().getPlayer(), "pvp.enabled");
-				}
-			}
+			team.setPvp(true);
+			Message message = new ReferenceMessage("pvp.enabled");
+			team.getMembers().broadcastMessage(message);
 		}
 
 		return new CommandResponse(true);

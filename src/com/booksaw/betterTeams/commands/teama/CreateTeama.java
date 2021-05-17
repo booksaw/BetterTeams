@@ -32,7 +32,7 @@ public class CreateTeama extends SubCommand {
 			return new CommandResponse("create.exists");
 		}
 
-		Team.createNewTeam(args[0], (Player) sender);
+		Team.getTeamManager().createNewTeam(args[0], (Player) sender);
 		Team team = Team.getTeam(args[0]);
 		Objects.requireNonNull(team).removePlayer((Player) sender);
 

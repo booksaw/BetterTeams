@@ -80,7 +80,7 @@ public class InfoCommand extends SubCommand {
 		MessageManager.sendMessageF(sender, "info.tag", team.getTag() + "");
 
 		StringBuilder allies = new StringBuilder();
-		for (UUID uuid : team.getAllies()) {
+		for (UUID uuid : team.getAllies().getClone()) {
 			allies.append(Objects.requireNonNull(Team.getTeam(uuid)).getDisplayName()).append(ChatColor.WHITE)
 					.append(", ");
 		}

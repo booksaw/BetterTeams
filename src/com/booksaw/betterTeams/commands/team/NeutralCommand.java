@@ -1,15 +1,22 @@
 package com.booksaw.betterTeams.commands.team;
 
+import java.util.List;
+
+import org.bukkit.command.CommandSender;
+
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
+
+import com.booksaw.betterTeams.message.Message;
+import com.booksaw.betterTeams.message.ReferencedFormatMessage;
 import com.booksaw.betterTeams.message.MessageManager;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.command.CommandSender;
 
 import java.util.List;
+
 
 public class NeutralCommand extends TeamSubCommand {
 
@@ -30,12 +37,9 @@ public class NeutralCommand extends TeamSubCommand {
 			team.removeAllyRequest(toNeutral.getID());
 
 			// notifying the other team
-			for (TeamPlayer p : toNeutral.getMembers()) {
-				OfflinePlayer pl = p.getPlayer();
-				if (pl.isOnline() && p.getRank() == PlayerRank.OWNER) {
-					MessageManager.sendMessageF(pl.getPlayer(), "neutral.reject", team.getDisplayName());
-				}
-			}
+
+			Message message = new ReferencedFormatMessage("neutral.reject", team.getDisplayName());
+			toNeutral.getMembers().broadcastMessage(message);
 
 			return new CommandResponse(true, "neutral.requestremove");
 		}
@@ -46,20 +50,12 @@ public class NeutralCommand extends TeamSubCommand {
 			team.removeAlly(toNeutral.getID());
 
 			// notifying both teams
-			for (TeamPlayer p : toNeutral.getMembers()) {
-				OfflinePlayer pl = p.getPlayer();
-				if (pl.isOnline()) {
-					MessageManager.sendMessageF(pl.getPlayer(), "neutral.remove", team.getDisplayName());
-				}
-			}
+			Message message = new ReferencedFormatMessage("neutral.remove", team.getDisplayName());
+			toNeutral.getMembers().broadcastMessage(message);
 
 			// notifying the other team
-			for (TeamPlayer p : team.getMembers()) {
-				OfflinePlayer pl = p.getPlayer();
-				if (pl.isOnline()) {
-					MessageManager.sendMessageF(pl.getPlayer(), "neutral.remove", toNeutral.getDisplayName());
-				}
-			}
+			message = new ReferencedFormatMessage("neutral.remove", toNeutral.getDisplayName());
+			team.getMembers().broadcastMessage(message);
 			return new CommandResponse(true);
 		}
 
