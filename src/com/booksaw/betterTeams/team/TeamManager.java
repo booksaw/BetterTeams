@@ -29,7 +29,6 @@ import com.booksaw.betterTeams.customEvents.PrePurgeEvent;
 import com.booksaw.betterTeams.events.ChestManagement;
 
 public class TeamManager {
-	// TODO re do team and score change tracking
 	/**
 	 * A list of all teams
 	 */
@@ -40,10 +39,14 @@ public class TeamManager {
 	 */
 	private final FileConfiguration teamStorage;
 
+	private final boolean logChat;
+
 	/**
 	 * Used to create a new teamManager
 	 */
 	public TeamManager() {
+		logChat = Main.plugin.getConfig().getBoolean("logTeamChat");
+
 		teamList = new HashMap<>();
 
 		// loading the teamStorage variable
@@ -391,6 +394,10 @@ public class TeamManager {
 			UUID id = UUID.fromString(IDString);
 			teamList.put(id, new Team(id));
 		}
+	}
+
+	public boolean isLogChat() {
+		return logChat;
 	}
 
 }

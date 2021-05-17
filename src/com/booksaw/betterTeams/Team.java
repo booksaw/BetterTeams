@@ -102,9 +102,6 @@ public class Team {
 		return TEAMMANAGER.getTeamListClone();
 	}
 
-	// TODO scoreChanges and moneychanges variables to track if score or money of a
-	// team have changed need re adding in the correct location
-
 	/**
 	 * Used to get the config value checking if ally chests can be opened
 	 * 
@@ -839,10 +836,9 @@ public class Team {
 
 			MessageManager.sendMessageF(temp, "spy.team", getName(), sender.getPlayer().getPlayer().getName(), message);
 		}
-// TODO re enable this feature
-//		if (logChat) {
-//			Bukkit.getLogger().info("[BetterTeams]" + fMessage);
-//		}
+		if (TEAMMANAGER.isLogChat()) {
+			Bukkit.getLogger().info("[BetterTeams]" + fMessage);
+		}
 	}
 
 	/**
@@ -878,10 +874,9 @@ public class Team {
 			MessageManager.sendMessageF(temp, "spy.ally", getName(), sender.getPlayer().getName(), message);
 		}
 
-		// TODO re enable this feature
-//		if (logChat) {
-//			Bukkit.getLogger().info("[BetterTeams]" + fMessage);
-//		}
+		if (TEAMMANAGER.isLogChat()) {
+			Bukkit.getLogger().info("[BetterTeams]" + fMessage);
+		}
 	}
 
 	public int getScore() {
@@ -908,7 +903,6 @@ public class Team {
 
 	public void setMoney(double money) {
 		this.money.set(money);
-//		moneyChanges = true; TODO also removed in setScore
 		this.money.save(getConfig());
 		getTeamManager().saveTeamsFile();
 	}
