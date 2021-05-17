@@ -1,19 +1,18 @@
 package com.booksaw.betterTeams.customEvents;
 
+import com.booksaw.betterTeams.Team;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 
-import com.booksaw.betterTeams.Team;
-
 /**
  * Wrapper for all events which contain a team
- * 
- * @author booksaw
  *
+ * @author booksaw
  */
 public abstract class TeamEvent extends Event implements Cancellable {
 
 	protected final Team team;
+	protected boolean cancelled = false;
 
 	public TeamEvent(Team team) {
 		this.team = team;
@@ -22,8 +21,6 @@ public abstract class TeamEvent extends Event implements Cancellable {
 	public Team getTeam() {
 		return team;
 	}
-
-	protected boolean cancelled = false;
 
 	@Override
 	public boolean isCancelled() {

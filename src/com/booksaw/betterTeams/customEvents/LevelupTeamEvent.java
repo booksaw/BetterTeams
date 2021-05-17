@@ -1,22 +1,13 @@
 package com.booksaw.betterTeams.customEvents;
 
+import com.booksaw.betterTeams.Team;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
-
-import com.booksaw.betterTeams.Team;
+import org.jetbrains.annotations.NotNull;
 
 public class LevelupTeamEvent extends TeamEvent {
 
 	private static final HandlerList HANDLERS = new HandlerList();
-
-	public HandlerList getHandlers() {
-		return HANDLERS;
-	}
-
-	public static HandlerList getHandlerList() {
-		return HANDLERS;
-	}
-
 	private final int currentLevel;
 	private final int newLevel;
 	private final int cost;
@@ -30,6 +21,15 @@ public class LevelupTeamEvent extends TeamEvent {
 		this.cost = cost;
 		this.score = score;
 		this.commandSender = commandSender;
+	}
+
+	public static HandlerList getHandlerList() {
+		return HANDLERS;
+	}
+
+	@Override
+	public @NotNull HandlerList getHandlers() {
+		return HANDLERS;
 	}
 
 	public int getCurrentLevel() {

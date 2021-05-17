@@ -1,14 +1,13 @@
 package com.booksaw.betterTeams.commands.team.chest;
 
-import java.util.List;
-
-import org.bukkit.command.CommandSender;
-
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
+import org.bukkit.command.CommandSender;
+
+import java.util.List;
 
 public class ChestRemoveallCommand extends TeamSubCommand {
 
@@ -56,6 +55,7 @@ public class ChestRemoveallCommand extends TeamSubCommand {
 
 	@Override
 	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
+		// no args are required so no tab completion is required
 	}
 
 	@Override

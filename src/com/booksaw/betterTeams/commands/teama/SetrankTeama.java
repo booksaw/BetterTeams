@@ -1,25 +1,23 @@
 package com.booksaw.betterTeams.commands.teama;
 
-import java.util.List;
-
-import org.bukkit.command.CommandSender;
-
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.presets.TeamSelectSubCommand;
 import com.booksaw.betterTeams.message.HelpMessage;
+import org.bukkit.command.CommandSender;
+
+import java.util.List;
 
 public class SetrankTeama extends TeamSelectSubCommand {
 
 	@Override
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args, Team team) {
 
-		int level = 0;
+		int level;
 		try {
 			level = Integer.parseInt(args[1]);
 		} catch (NumberFormatException e) {
-			level = 0;
 			return new CommandResponse(new HelpMessage(this, label));
 		}
 

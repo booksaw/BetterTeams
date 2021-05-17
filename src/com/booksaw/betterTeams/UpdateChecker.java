@@ -1,25 +1,21 @@
 package com.booksaw.betterTeams;
 
+import com.booksaw.betterTeams.message.MessageManager;
+import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Bukkit;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.stream.IntStream;
-
-import javax.net.ssl.HttpsURLConnection;
-
-import org.bukkit.Bukkit;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
-
-import com.booksaw.betterTeams.message.MessageManager;
-
-import net.md_5.bungee.api.ChatColor;
 
 public class UpdateChecker implements Listener {
 	private static final int ID = 17129;
@@ -39,6 +35,7 @@ public class UpdateChecker implements Listener {
 
 	public void checkForUpdate() {
 		(new BukkitRunnable() {
+			@Override
 			public void run() {
 				try {
 					HttpsURLConnection connection = (HttpsURLConnection) (new URL(
@@ -60,18 +57,15 @@ public class UpdateChecker implements Listener {
 				latest = false;
 				cancel();
 			}
-		}).runTaskTimerAsynchronously((Plugin) this.javaPlugin, 0L, 12000L);
+		}).runTaskTimerAsynchronously(this.javaPlugin, 0L, 12000L);
 	}
 
 	private boolean isLatestVersion() {
 		try {
-			int[] local = Arrays.<String>stream(this.localPluginVersion.split("\\.")).mapToInt(Integer::parseInt)
-					.toArray();
-			int[] spigot = Arrays.<String>stream(this.spigotPluginVersion.split("\\.")).mapToInt(Integer::parseInt)
-					.toArray();
-			return ((Boolean) IntStream.range(0, local.length).filter(i -> (local[i] != spigot[i])).limit(1L)
-					.<Boolean>mapToObj(i -> Boolean.valueOf((local[i] >= spigot[i]))).findFirst()
-					.orElse(Boolean.valueOf(true))).booleanValue();
+			int[] local = Arrays.stream(this.localPluginVersion.split("\\.")).mapToInt(Integer::parseInt).toArray();
+			int[] spigot = Arrays.stream(this.spigotPluginVersion.split("\\.")).mapToInt(Integer::parseInt).toArray();
+			return IntStream.range(0, local.length).filter(i -> (local[i] != spigot[i])).limit(1L)
+					.mapToObj(i -> (local[i] >= spigot[i])).findFirst().orElse(Boolean.TRUE);
 		} catch (NumberFormatException ignored) {
 			return this.localPluginVersion.equals(this.spigotPluginVersion);
 		}

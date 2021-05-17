@@ -1,17 +1,17 @@
 package com.booksaw.betterTeams.commands.team;
 
-import java.util.List;
-
-import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.command.CommandSender;
-
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 import com.booksaw.betterTeams.message.MessageManager;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.command.CommandSender;
+
+import java.util.List;
+import java.util.Objects;
 
 public class KickCommand extends TeamSubCommand {
 
@@ -27,10 +27,6 @@ public class KickCommand extends TeamSubCommand {
 		@SuppressWarnings("deprecation")
 		OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
 
-		if (player == null) {
-			return new CommandResponse("noPlayer");
-		}
-
 		Team otherTeam = Team.getTeam(player);
 		if (team != otherTeam) {
 			return new CommandResponse("needSameTeam");
@@ -39,7 +35,7 @@ public class KickCommand extends TeamSubCommand {
 		TeamPlayer kickedPlayer = team.getTeamPlayer(player);
 
 		// ensuring the player they are banning has less perms than them
-		if (teamPlayer.getRank().value <= kickedPlayer.getRank().value) {
+		if (teamPlayer.getRank().value <= Objects.requireNonNull(kickedPlayer).getRank().value) {
 			return new CommandResponse("kick.noPerm");
 		}
 

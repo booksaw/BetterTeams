@@ -1,18 +1,13 @@
 package com.booksaw.betterTeams.commands.team;
 
-import java.util.List;
-
-import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
-
-import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.Main;
-import com.booksaw.betterTeams.PlayerRank;
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.TeamPlayer;
+import com.booksaw.betterTeams.*;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 import com.booksaw.betterTeams.customEvents.LevelupTeamEvent;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
+
+import java.util.List;
 
 public class RankupCommand extends TeamSubCommand {
 
@@ -26,7 +21,7 @@ public class RankupCommand extends TeamSubCommand {
 		}
 
 		boolean score = priceStr.contains("s");
-		int price = 0;
+		int price;
 		try {
 			price = Integer.parseInt(priceStr.substring(0, priceStr.length() - 1));
 		} catch (Exception e) {

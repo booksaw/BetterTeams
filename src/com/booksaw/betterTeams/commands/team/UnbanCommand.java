@@ -1,17 +1,16 @@
 package com.booksaw.betterTeams.commands.team;
 
-import java.util.List;
-
-import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.command.CommandSender;
-
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 import com.booksaw.betterTeams.message.MessageManager;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.command.CommandSender;
+
+import java.util.List;
 
 public class UnbanCommand extends TeamSubCommand {
 
@@ -26,10 +25,6 @@ public class UnbanCommand extends TeamSubCommand {
 		 */
 		@SuppressWarnings("deprecation")
 		OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
-
-		if (player == null) {
-			return new CommandResponse("noPlayer");
-		}
 
 		if (!team.isBanned(player)) {
 			return new CommandResponse("unban.not");

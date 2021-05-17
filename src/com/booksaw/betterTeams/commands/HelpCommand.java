@@ -1,38 +1,38 @@
 package com.booksaw.betterTeams.commands;
 
+import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.Main;
+import com.booksaw.betterTeams.message.MessageManager;
+import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.logging.Level;
-
-import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
-
-import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.Main;
-import com.booksaw.betterTeams.message.MessageManager;
-
-import net.md_5.bungee.api.ChatColor;
 
 public class HelpCommand extends SubCommand {
 
-	private static boolean fullyCustom = false;
-
-	public static void setupHelp() {
-		fullyCustom = Main.plugin.getConfig().getBoolean("fullyCustomHelpMessages");
-	}
-
-	ParentCommand command;
 	public static ChatColor prefix, description;
+	private static boolean fullyCustom = false;
+	final ParentCommand command;
 
 	public HelpCommand(ParentCommand command) {
 		this.command = command;
-		prefix = ChatColor.getByChar(Main.plugin.getConfig().getString("helpCommandColor").charAt(0));
-		description = ChatColor.getByChar(Main.plugin.getConfig().getString("helpDescriptionColor").charAt(0));
+		prefix = ChatColor
+				.getByChar(Objects.requireNonNull(Main.plugin.getConfig().getString("helpCommandColor")).charAt(0));
+		description = ChatColor
+				.getByChar(Objects.requireNonNull(Main.plugin.getConfig().getString("helpDescriptionColor")).charAt(0));
 
+	}
+
+	public static void setupHelp() {
+		fullyCustom = Main.plugin.getConfig().getBoolean("fullyCustomHelpMessages");
 	}
 
 	@Override
@@ -40,6 +40,14 @@ public class HelpCommand extends SubCommand {
 
 		if (fullyCustom) {
 			fullyCustom(sender, label);
+			return null;
+		}
+
+		// Send specific help message if command found
+		if (command.getSubCommands().containsKey(args[0])) {
+			sender.sendMessage(
+					createHelpMessage(label, args[0] + " " + command.getSubCommands().get(args[0]).getArguments(),
+							command.getSubCommands().get(args[0]).getHelpMessage()));
 			return null;
 		}
 
@@ -56,7 +64,7 @@ public class HelpCommand extends SubCommand {
 
 	/**
 	 * Used to send a fully custom help message which is stored in a file
-	 * 
+	 *
 	 * @param sender the CommandSender that called the help message
 	 * @param label  the label for the message (the base command for example for
 	 *               /teamadmin it could be /teama as well)
@@ -87,7 +95,7 @@ public class HelpCommand extends SubCommand {
 		BufferedReader reader = null;
 		try {
 			reader = new BufferedReader(new FileReader(f));
-			String line = "";
+			String line;
 			while ((line = reader.readLine()) != null) {
 				sender.sendMessage(
 						MessageManager.getPrefix() + org.bukkit.ChatColor.translateAlternateColorCodes('&', line));
@@ -114,7 +122,7 @@ public class HelpCommand extends SubCommand {
 	/**
 	 * Used to create a formatted help message to explain what a command does to the
 	 * user
-	 * 
+	 *
 	 * @param label       the base command
 	 * @param commandPath the rest of the command (i.e. help [param])
 	 * @param description the description of the command

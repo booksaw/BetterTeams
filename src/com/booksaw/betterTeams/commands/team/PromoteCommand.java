@@ -1,24 +1,19 @@
 package com.booksaw.betterTeams.commands.team;
 
-import java.util.List;
-
+import com.booksaw.betterTeams.*;
+import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
+import com.booksaw.betterTeams.message.MessageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 
-import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.Main;
-import com.booksaw.betterTeams.PlayerRank;
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
-import com.booksaw.betterTeams.message.MessageManager;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * This class handles the command /team promote [player]
- * 
- * @author booksaw
  *
+ * @author booksaw
  */
 public class PromoteCommand extends TeamSubCommand {
 
@@ -34,10 +29,6 @@ public class PromoteCommand extends TeamSubCommand {
 		@SuppressWarnings("deprecation")
 		OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
 
-		if (player == null) {
-			return new CommandResponse("noPlayer");
-		}
-
 		Team otherTeam = Team.getTeam(player);
 		if (team != otherTeam) {
 			return new CommandResponse("needSameTeam");
@@ -45,7 +36,7 @@ public class PromoteCommand extends TeamSubCommand {
 
 		TeamPlayer promotePlayer = team.getTeamPlayer(player);
 
-		if (promotePlayer.getRank() == PlayerRank.OWNER) {
+		if (Objects.requireNonNull(promotePlayer).getRank() == PlayerRank.OWNER) {
 			return new CommandResponse("promote.max");
 
 		}

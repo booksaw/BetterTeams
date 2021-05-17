@@ -1,14 +1,13 @@
 package com.booksaw.betterTeams.commands.teama;
 
-import java.util.List;
-
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.presets.TeamSelectSubCommand;
 import com.booksaw.betterTeams.events.InventoryManagement;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+import java.util.List;
 
 public class EchestTeama extends TeamSelectSubCommand {
 

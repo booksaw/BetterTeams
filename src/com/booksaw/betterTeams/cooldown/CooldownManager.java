@@ -1,24 +1,22 @@
 package com.booksaw.betterTeams.cooldown;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.List;
-
+import com.booksaw.betterTeams.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-import com.booksaw.betterTeams.Main;
+import java.io.File;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Used to track how long of a cooldown is required for a command
- * 
- * @author booksaw
  *
+ * @author booksaw
  */
 public class CooldownManager {
 
-	HashMap<String, CommandCooldown> cooldowns;
+	final HashMap<String, CommandCooldown> cooldowns;
 
 	public CooldownManager(String command) {
 		File f = new File("plugins/BetterTeams/" + command + ".yml");
@@ -57,11 +55,10 @@ public class CooldownManager {
 	 * This class is returned when a command does not have a cooldown, this is used
 	 * to avoid running many null checks throughout the program. The class is used
 	 * to stop any cooldown tracking for a specific command
-	 * 
-	 * @author booksaw
 	 *
+	 * @author booksaw
 	 */
-	public class NoCooldown extends CommandCooldown {
+	public static class NoCooldown extends CommandCooldown {
 
 		public NoCooldown() {
 			super("", 0);

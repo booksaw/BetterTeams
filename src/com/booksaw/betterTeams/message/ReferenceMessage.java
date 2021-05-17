@@ -5,13 +5,12 @@ import org.bukkit.command.CommandSender;
 /**
  * This type of message is used when you are referencing a message stored in
  * messages.yml
- * 
- * @author booksaw
  *
+ * @author booksaw
  */
 public class ReferenceMessage implements Message {
 
-	String reference;
+	final String reference;
 
 	/**
 	 * @param reference The reference for the message

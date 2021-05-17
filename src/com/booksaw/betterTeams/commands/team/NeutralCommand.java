@@ -9,8 +9,14 @@ import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
+
 import com.booksaw.betterTeams.message.Message;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
+import com.booksaw.betterTeams.message.MessageManager;
+import org.bukkit.OfflinePlayer;
+
+import java.util.List;
+
 
 public class NeutralCommand extends TeamSubCommand {
 

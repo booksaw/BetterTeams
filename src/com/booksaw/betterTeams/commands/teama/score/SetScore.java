@@ -1,12 +1,11 @@
 package com.booksaw.betterTeams.commands.teama.score;
 
-import java.util.List;
-
-import org.bukkit.command.CommandSender;
-
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.presets.ScoreSubCommand;
+import org.bukkit.command.CommandSender;
+
+import java.util.List;
 
 public class SetScore extends ScoreSubCommand {
 

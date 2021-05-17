@@ -1,16 +1,15 @@
 package com.booksaw.betterTeams.commands.team;
 
-import java.util.List;
-import java.util.Map.Entry;
-import java.util.UUID;
-
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.presets.NoTeamSubCommand;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.UUID;
 
 public class JoinCommand extends NoTeamSubCommand {
 
@@ -38,9 +37,10 @@ public class JoinCommand extends NoTeamSubCommand {
 
 		if (team.join(p)) {
 			return new CommandResponse(true, "join.success");
-		} 
-		// join event was cancelled, whatever the cause of the event should handle notifying the user
-		return new CommandResponse(false); 
+		}
+		// join event was cancelled, whatever the cause of the event should handle
+		// notifying the user
+		return new CommandResponse(false);
 	}
 
 	@Override

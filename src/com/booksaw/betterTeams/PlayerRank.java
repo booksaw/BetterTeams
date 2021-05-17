@@ -5,9 +5,8 @@ import com.booksaw.betterTeams.message.MessageManager;
 /**
  * This class is used to define all the possible ranks that a player can be
  * within a team
- * 
- * @author booksaw
  *
+ * @author booksaw
  */
 public enum PlayerRank {
 	/**
@@ -26,17 +25,10 @@ public enum PlayerRank {
 	 */
 	ADMIN(1);
 
-	public int value;
+	public final int value;
 
-	private PlayerRank(int value) {
+	PlayerRank(int value) {
 		this.value = value;
-	}
-
-	/**
-	 * @return the prefix for that player rank
-	 */
-	public String getPrefix() {
-		return MessageManager.getMessage("prefix." + this.toString().toLowerCase());
 	}
 
 	public static PlayerRank getRank(String string) {
@@ -52,6 +44,13 @@ public enum PlayerRank {
 			return null;
 		}
 
+	}
+
+	/**
+	 * @return the prefix for that player rank
+	 */
+	public String getPrefix() {
+		return MessageManager.getMessage("prefix." + this.toString().toLowerCase());
 	}
 
 }

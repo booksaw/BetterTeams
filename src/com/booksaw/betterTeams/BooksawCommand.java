@@ -1,27 +1,26 @@
 package com.booksaw.betterTeams;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
-
+import com.booksaw.betterTeams.commands.ParentCommand;
+import com.booksaw.betterTeams.commands.SubCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
-import com.booksaw.betterTeams.commands.ParentCommand;
-import com.booksaw.betterTeams.commands.SubCommand;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Used to register a command which uses the sub command system
- * 
- * @author booksaw
  *
+ * @author booksaw
  */
 public class BooksawCommand extends BukkitCommand {
-	private SubCommand subCommand;
+	private final SubCommand subCommand;
 
 	public BooksawCommand(String command, SubCommand subCommand, String permission, String description,
 			List<String> alises) {
@@ -45,7 +44,7 @@ public class BooksawCommand extends BukkitCommand {
 	}
 
 	@Override
-	public boolean execute(CommandSender sender, String label, String[] args) {
+	public boolean execute(@NotNull CommandSender sender, @NotNull String label, String[] args) {
 		// running custom command manager
 		if (checkPointers(sender, label, args)) {
 			// if pointers were found and dealt with
@@ -65,7 +64,7 @@ public class BooksawCommand extends BukkitCommand {
 	}
 
 	@Override
-	public List<String> tabComplete(CommandSender sender, String label, String[] args) {
+	public @NotNull List<String> tabComplete(@NotNull CommandSender sender, @NotNull String label, String[] args) {
 		List<String> options = new ArrayList<>();
 		subCommand.onTabComplete(options, sender, label, args);
 

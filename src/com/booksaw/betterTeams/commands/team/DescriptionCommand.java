@@ -1,9 +1,5 @@
 package com.booksaw.betterTeams.commands.team;
 
-import java.util.List;
-
-import org.bukkit.command.CommandSender;
-
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
@@ -11,6 +7,9 @@ import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
+import org.bukkit.command.CommandSender;
+
+import java.util.List;
 
 public class DescriptionCommand extends TeamSubCommand {
 
@@ -41,12 +40,12 @@ public class DescriptionCommand extends TeamSubCommand {
 			return new CommandResponse("description.noPerm");
 		}
 
-		String newDescrip = "";
+		StringBuilder newDescrip = new StringBuilder();
 		for (String temp : args) {
-			newDescrip = newDescrip + temp + " ";
+			newDescrip.append(temp).append(" ");
 		}
 
-		team.setDescription(newDescrip);
+		team.setDescription(newDescrip.toString());
 
 		return new CommandResponse(true, "description.success");
 	}

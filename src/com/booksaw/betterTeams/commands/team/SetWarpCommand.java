@@ -1,16 +1,11 @@
 package com.booksaw.betterTeams.commands.team;
 
-import java.util.List;
-
+import com.booksaw.betterTeams.*;
+import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 import org.bukkit.command.CommandSender;
 
-import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.Main;
-import com.booksaw.betterTeams.PlayerRank;
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.Warp;
-import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
+import java.util.List;
+import java.util.Objects;
 
 public class SetWarpCommand extends TeamSubCommand {
 
@@ -38,7 +33,7 @@ public class SetWarpCommand extends TeamSubCommand {
 			}
 		}
 
-		team.addWarp(new Warp(args[0], player.getPlayer().getPlayer().getLocation(), password));
+		team.addWarp(new Warp(args[0], Objects.requireNonNull(player.getPlayer().getPlayer()).getLocation(), password));
 
 		return new CommandResponse("setwarp.success");
 	}

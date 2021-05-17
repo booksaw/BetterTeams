@@ -1,17 +1,17 @@
 package com.booksaw.betterTeams.commands.team;
 
-import java.util.List;
-import java.util.UUID;
-
-import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
-
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
+import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 
 public class AllyCommand extends TeamSubCommand {
 
@@ -19,15 +19,16 @@ public class AllyCommand extends TeamSubCommand {
 	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 
 		if (args.length == 0) {
-			String requests = "";
+			StringBuilder requests = new StringBuilder();
 
 			for (UUID uuid : team.getRequests()) {
-				requests = requests + Team.getTeam(uuid).getDisplayName() + ChatColor.WHITE + ", ";
+				requests.append(Objects.requireNonNull(Team.getTeam(uuid)).getDisplayName()).append(ChatColor.WHITE)
+						.append(", ");
 			}
 			if (requests.length() > 2) {
-				requests = requests.substring(0, requests.length() - 2);
+				requests = new StringBuilder(requests.substring(0, requests.length() - 2));
 
-				return new CommandResponse(true, new ReferencedFormatMessage("ally.from", requests));
+				return new CommandResponse(true, new ReferencedFormatMessage("ally.from", requests.toString()));
 			} else {
 				return new CommandResponse(true, "ally.noRequests");
 			}

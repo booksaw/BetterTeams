@@ -23,6 +23,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
 import org.jetbrains.annotations.NotNull;
 
+
 import com.booksaw.betterTeams.customEvents.DisbandTeamEvent;
 import com.booksaw.betterTeams.events.MCTeamManagement.BelowNameType;
 import com.booksaw.betterTeams.exceptions.CancelledEventException;
@@ -40,11 +41,16 @@ import com.booksaw.betterTeams.team.MoneyComponent;
 import com.booksaw.betterTeams.team.ScoreComponent;
 import com.booksaw.betterTeams.team.TeamManager;
 
+import javax.annotation.Nullable;
+import java.text.DecimalFormat;
+import java.util.*;
+import java.util.Map.Entry;
+
+
 /**
  * This class is used to manage a team and all of it's participants
- * 
- * @author booksaw
  *
+ * @author booksaw
  */
 public class Team {
 
@@ -92,6 +98,11 @@ public class Team {
 
 	/**
 	 * @see Team#getClaimingTeam(Location)
+	 * Used to get the team which has claimed the provided chest, will return null
+	 * if that location is not claimed
+	 *
+	 * @param location the location of the chest - must already be normalised
+	 * @return The team which has claimed that chest
 	 */
 	@Deprecated
 	public static Team getClamingTeam(Location location) {
@@ -104,8 +115,8 @@ public class Team {
 
 	/**
 	 * Used to get the config value checking if ally chests can be opened
-	 * 
-	 * @return
+	 *
+	 * @return If ally chests can be opened
 	 */
 	public static boolean canOpenAllyChests() {
 		return Main.plugin.getConfig().getBoolean("allowAllyChests");
@@ -363,7 +374,7 @@ public class Team {
 
 	/**
 	 * Used to get the current name of the team
-	 * 
+	 *
 	 * @return the name of the team
 	 */
 	public String getName() {
@@ -371,8 +382,40 @@ public class Team {
 	}
 
 	/**
+	 * This is used to set the name of the team, it is important that you check that
+	 * the name is unique before running this method
+	 *
+	 * @param name the new team name
+	 */
+	public void setName(String name) {
+		this.name = name;
+		setValue(Main.plugin.getTeams(), "name", name);
+		Main.plugin.saveTeams();
+
+		if (Main.plugin.teamManagement != null) {
+
+			if (team != null) {
+				for (TeamPlayer p : members.getClone()) {
+					if (p.getPlayer().isOnline()) {
+						team.removeEntry(Objects.requireNonNull(p.getPlayer().getName()));
+					}
+				}
+				team.unregister();
+			}
+
+			team = null;
+
+			for (TeamPlayer p : members) {
+				if (p.getPlayer().isOnline()) {
+					Main.plugin.teamManagement.displayBelowName(Objects.requireNonNull(p.getPlayer().getPlayer()));
+				}
+			}
+		}
+	}
+
+	/**
 	 * Used to get the current name of the team
-	 * 
+	 *
 	 * @param resetTo the color to return to at the end of the string
 	 * @return the name of the team
 	 */
@@ -415,7 +458,7 @@ public class Team {
 			if (team != null) {
 				for (TeamPlayer p : members.getClone()) {
 					if (p.getPlayer().isOnline()) {
-						team.removeEntry(p.getPlayer().getName());
+						team.removeEntry(Objects.requireNonNull(p.getPlayer().getName()));
 					}
 				}
 				team.unregister();
@@ -425,7 +468,7 @@ public class Team {
 
 			for (TeamPlayer p : members.getClone()) {
 				if (p.getPlayer().isOnline()) {
-					Main.plugin.teamManagement.displayBelowName(p.getPlayer().getPlayer());
+					Main.plugin.teamManagement.displayBelowName(Objects.requireNonNull(p.getPlayer().getPlayer()));
 				}
 			}
 		}
@@ -433,7 +476,7 @@ public class Team {
 
 	/**
 	 * Returns if the team is open
-	 * 
+	 *
 	 * @return [true - anyone can join the team] [false - the team is invite only]
 	 */
 	public boolean isOpen() {
@@ -462,7 +505,7 @@ public class Team {
 
 	/**
 	 * Used to change the team description
-	 * 
+	 *
 	 * @param description the new team description
 	 */
 	public void setDescription(String description) {
@@ -480,7 +523,7 @@ public class Team {
 
 	/**
 	 * Used to change the team color
-	 * 
+	 *
 	 * @param color the new team color
 	 */
 	public void setColor(ChatColor color) {
@@ -493,7 +536,7 @@ public class Team {
 			if (team != null) {
 				for (TeamPlayer p : members.getClone()) {
 					if (p.getPlayer().isOnline()) {
-						team.removeEntry(p.getPlayer().getName());
+						team.removeEntry(Objects.requireNonNull(p.getPlayer().getName()));
 					}
 				}
 				team.unregister();
@@ -503,7 +546,7 @@ public class Team {
 
 			for (TeamPlayer p : members.getClone()) {
 				if (p.getPlayer().isOnline()) {
-					Main.plugin.teamManagement.displayBelowName(p.getPlayer().getPlayer());
+					Main.plugin.teamManagement.displayBelowName(Objects.requireNonNull(p.getPlayer().getPlayer()));
 				}
 			}
 		}
@@ -515,7 +558,7 @@ public class Team {
 
 	/**
 	 * Used to save the members list to the configuration file
-	 * 
+	 *
 	 * @param config the configuration file to store the members list to
 	 */
 	private void savePlayers() {
@@ -526,7 +569,7 @@ public class Team {
 
 	/**
 	 * Used to save the bans list to the configuration file
-	 * 
+	 *
 	 * @param config the configuration file to store the ban list to
 	 */
 	private void saveBans() {
@@ -538,7 +581,7 @@ public class Team {
 	/**
 	 * Used to remove the given player from the team, you must firstly be sure that
 	 * the player is in this team (as it is not checked or caught in this method)
-	 * 
+	 *
 	 * @param p the player to remove from the team
 	 */
 	public boolean removePlayer(OfflinePlayer p) {
@@ -549,7 +592,7 @@ public class Team {
 	 * Used to remove the given teamPlayer from the team, you must firstly be sure
 	 * that the player is in this team (as it is not checked or caught in this
 	 * method)
-	 * 
+	 *
 	 * @param p the player to remove from the team
 	 */
 	public boolean removePlayer(TeamPlayer p) {
@@ -570,7 +613,7 @@ public class Team {
 
 	/**
 	 * Used to get the teamPlayer version of an included player
-	 * 
+	 *
 	 * @param player the player to search for
 	 * @return the team player object for that player [null - player is not in the
 	 *         team]
@@ -582,7 +625,7 @@ public class Team {
 
 	/**
 	 * Used to get all players which have the specified rank within the team
-	 * 
+	 *
 	 * @param rank the rank to search for
 	 * @return a list of players which have that rank [emtpy list - no players have
 	 *         that rank]
@@ -604,8 +647,9 @@ public class Team {
 		}
 
 		for (UUID ally : allies.getClone()) {
-			Team allyTeam = Team.getTeam(ally);
-			allyTeam.removeAlly(getID());
+			Team team = Team.getTeam(ally);
+			Objects.requireNonNull(team).removeAlly(getID());
+
 		}
 
 		for (Entry<UUID, Team> requestedTeam : getTeamManager().getTeamListClone().entrySet()) {
@@ -639,7 +683,7 @@ public class Team {
 
 	/**
 	 * Used to check if a player is invited to this team
-	 * 
+	 *
 	 * @param uuid the UUID of the player to check
 	 * @return [true - the player is invited] [false - the player is not invited]
 	 */
@@ -654,7 +698,7 @@ public class Team {
 
 	/**
 	 * Used to create an invite for the included player to this team
-	 * 
+	 *
 	 * @param uniqueId the UUID of the player being invited
 	 */
 	public void invite(UUID uniqueId) {
@@ -684,7 +728,7 @@ public class Team {
 
 	/**
 	 * This is used when a player is joining the team
-	 * 
+	 *
 	 * @param p the player who is joining the team
 	 * @return true if the player joined the team, else false
 	 */
@@ -700,42 +744,10 @@ public class Team {
 	}
 
 	/**
-	 * This is used to set the name of the team, it is important that you check that
-	 * the name is unique before running this method
-	 * 
-	 * @param name the new team name
-	 */
-	public void setName(String name) {
-		this.name = name;
-		getConfig().set("name", name);
-		getTeamManager().saveTeamsFile();
-
-		if (Main.plugin.teamManagement != null) {
-
-			if (team != null) {
-				for (TeamPlayer p : members.getClone()) {
-					if (p.getPlayer().isOnline()) {
-						team.removeEntry(p.getPlayer().getName());
-					}
-				}
-				team.unregister();
-			}
-
-			team = null;
-
-			for (TeamPlayer p : members.getClone()) {
-				if (p.getPlayer().isOnline()) {
-					Main.plugin.teamManagement.displayBelowName(p.getPlayer().getPlayer());
-				}
-			}
-		}
-	}
-
-	/**
 	 * This method is used to promote a player to the next applicable rank, this
 	 * method does not check the promotion is valid but instead only promotes the
 	 * player, see PromoteCommand to see validation
-	 * 
+	 *
 	 * @param promotePlayer the player to be promoted
 	 */
 	public void promotePlayer(TeamPlayer promotePlayer) {
@@ -752,7 +764,7 @@ public class Team {
 	 * This method is used to demote a player to the next applicable rank, this
 	 * method does not check the demotion is valid but instead only promotes the
 	 * player, see DemoteCommand to see validation
-	 * 
+	 *
 	 * @param demotePlayer the player to be demoted
 	 */
 	public void demotePlayer(TeamPlayer demotePlayer) {
@@ -775,12 +787,13 @@ public class Team {
 		teamHome = null;
 		getConfig().set("home", "");
 		getTeamManager().saveTeamsFile();
+
 	}
 
 	/**
 	 * This method is used to add a player to the list of players which are banned
 	 * from the team
-	 * 
+	 *
 	 * @param player the player to add to the list
 	 */
 	public void banPlayer(OfflinePlayer player) {
@@ -791,7 +804,7 @@ public class Team {
 	/**
 	 * This method is used to remove a player from the list of players which are
 	 * banned from the team
-	 * 
+	 *
 	 * @param player the player to remove from the list
 	 */
 	public void unbanPlayer(OfflinePlayer player) {
@@ -801,7 +814,7 @@ public class Team {
 
 	/**
 	 * This method searches the ban list to check if the player is banned
-	 * 
+	 *
 	 * @param player the player to check
 	 * @return [true - the player is banned] [false - the player isen't banned]
 	 */
@@ -811,21 +824,33 @@ public class Team {
 
 	/**
 	 * Used when a player sends a message to the team chat
-	 * 
+	 *
 	 * @param sender  the player which sent the message to the team chat
 	 * @param message the message to send to the team chat
 	 */
 	public void sendMessage(TeamPlayer sender, String message) {
+		ChatColor returnTo = ChatColor.RESET;
+		String toTest = MessageManager.getMessage(sender.getPlayer().getPlayer(), "chat.syntax");
+		int value = toTest.indexOf("%s");
+		if (value > 2) {
+			for (int i = value; i >= 0; i--) {
+				if (toTest.charAt(i) == '\u00A7') {
+					returnTo = ChatColor.getByChar(toTest.charAt(i + 1));
+					break;
+				}
+			}
+		}
 
 		String fMessage = String.format(MessageManager.getMessage("chat.syntax"),
-				sender.getPrefix() + sender.getPlayer().getPlayer().getDisplayName(), message);
+				sender.getPrefix(returnTo) + Objects.requireNonNull(sender.getPlayer().getPlayer()).getDisplayName(),
+				message);
 
-		fMessage = fMessage.replace("$name$", sender.getPrefix() + sender.getPlayer().getPlayer().getName());
+		fMessage = fMessage.replace("$name$", sender.getPrefix(returnTo) + sender.getPlayer().getPlayer().getName());
 		fMessage = fMessage.replace("$message$", message);
 
 		for (TeamPlayer player : members.getClone()) {
 			if (player.getPlayer().isOnline()) {
-				player.getPlayer().getPlayer().sendMessage(fMessage);
+				Objects.requireNonNull(player.getPlayer().getPlayer()).sendMessage(fMessage);
 			}
 		}
 
@@ -843,16 +868,28 @@ public class Team {
 
 	/**
 	 * Used to send a message to all of the teams allies
-	 * 
+	 *
 	 * @param sender  the player who sent the message
 	 * @param message the message that the player sent
 	 */
 	public void sendAllyMessage(TeamPlayer sender, String message) {
+		ChatColor returnTo = ChatColor.RESET;
+		String toTest = MessageManager.getMessage(sender.getPlayer().getPlayer(), "chat.syntax");
+		int value = toTest.indexOf("%s");
+		if (value > 2) {
+			for (int i = value; i >= 0; i--) {
+				if (toTest.charAt(i) == '\u00A7') {
+					returnTo = ChatColor.getByChar(toTest.charAt(i + 1));
+					break;
+				}
+			}
+		}
 
 		String fMessage = String.format(MessageManager.getMessage("allychat.syntax"), getName(),
-				sender.getPrefix() + sender.getPlayer().getPlayer().getDisplayName(), message);
+				sender.getPrefix(returnTo) + Objects.requireNonNull(sender.getPlayer().getPlayer()).getDisplayName(),
+				message);
 
-		fMessage = fMessage.replace("$name$", sender.getPrefix() + sender.getPlayer().getPlayer().getName());
+		fMessage = fMessage.replace("$name$", sender.getPrefix(returnTo) + sender.getPlayer().getPlayer().getName());
 		fMessage = fMessage.replace("$message$", message);
 
 		Message messageI = new StaticMessage(fMessage);
@@ -861,6 +898,7 @@ public class Team {
 		for (UUID ally : allies.getClone()) {
 			Team temp = Team.getTeam(ally);
 			temp.getMembers().broadcastMessage(messageI);
+
 		}
 
 		for (CommandSender temp : Main.plugin.chatManagement.spy) {
@@ -926,17 +964,19 @@ public class Team {
 		return balRank;
 	}
 
-	org.bukkit.scoreboard.Team team;
+	private void 
+    (int rank) {
+		this.balRank = rank;
+	}
 
 	/**
 	 * Used throughout all below name management (showing team name above player
 	 * name)
-	 * 
+	 *
 	 * @param board the scoreboard to add the team to
-	 * @param type  the type of the scoreboard team (mainly for prefix / suffix)
 	 * @return the team that has been created
 	 */
-	public org.bukkit.scoreboard.Team getScoreboardTeam(Scoreboard board, BelowNameType type) {
+	public org.bukkit.scoreboard.Team getScoreboardTeam(Scoreboard board) {
 		if (team != null) {
 			return team;
 		}
@@ -982,7 +1022,7 @@ public class Team {
 	/**
 	 * Used to return the scoreboard team, and not create a new one if it does not
 	 * exist
-	 * 
+	 *
 	 * @return The scoreboard team (if already created)
 	 */
 	public org.bukkit.scoreboard.Team getScoreboardTeamOrNull() {
@@ -1000,18 +1040,17 @@ public class Team {
 
 	/**
 	 * Used to add an ally for this team
-	 * 
+	 *
 	 * @param ally the UUID of the new ally
 	 */
 	public void addAlly(UUID ally) {
 		allies.add(this, ally);
 		saveAllies();
-
 	}
 
 	/**
 	 * Used to remove an ally from this team
-	 * 
+	 *
 	 * @param ally the ally to remove
 	 */
 	public void removeAlly(UUID ally) {
@@ -1021,7 +1060,7 @@ public class Team {
 
 	/**
 	 * Used to check if a team is in alliance with this team
-	 * 
+	 *
 	 * @param team the team to check for allies
 	 * @return if the team is an ally
 	 */
@@ -1031,7 +1070,7 @@ public class Team {
 
 	/**
 	 * Used to add an ally request to this team
-	 * 
+	 *
 	 * @param team the team that has sent the request
 	 */
 	public void addAllyRequest(UUID team) {
@@ -1046,7 +1085,7 @@ public class Team {
 
 	/**
 	 * Used to remove an ally request from this team
-	 * 
+	 *
 	 * @param team the team to remove the ally request for
 	 */
 	public void removeAllyRequest(UUID team) {
@@ -1056,7 +1095,7 @@ public class Team {
 
 	/**
 	 * Used to check if a team has sent an ally request for this team
-	 * 
+	 *
 	 * @param team the team to check for
 	 * @return if they have sent an ally request
 	 */
@@ -1106,7 +1145,7 @@ public class Team {
 
 	/**
 	 * Used to check if a member of this team can damage the specified player
-	 * 
+	 *
 	 * @param player the player to check for
 	 * @return if this team can damage that player
 	 */
@@ -1120,7 +1159,7 @@ public class Team {
 
 	/**
 	 * Used to check if this team can damage members of the specified team
-	 * 
+	 *
 	 * @param team the team to test
 	 * @return if players of this team can damage members of the other team
 	 */
@@ -1142,7 +1181,7 @@ public class Team {
 
 	/**
 	 * Used to check if a member of this team can damage the specified player
-	 * 
+	 *
 	 * @param player the player to check for
 	 * @return if this team can damage that player
 	 */
@@ -1156,18 +1195,13 @@ public class Team {
 
 	/**
 	 * Used to check if this team can damage members of the specified team
-	 * 
+	 *
 	 * @param team the team to test
 	 * @return if players of this team can damage members of the other team
 	 */
 	public boolean canDamage(Team team) {
 		if (team.isAlly(getID()) || team == this) {
-
-			if (pvp && team.pvp) {
-				return true;
-			}
-
-			return false;
+			return pvp && team.pvp;
 		}
 		return true;
 	}
@@ -1196,7 +1230,7 @@ public class Team {
 
 	/**
 	 * Used to get a warp with the specified name
-	 * 
+	 *
 	 * @param name the name of the warp
 	 * @return the warp with that name
 	 */
@@ -1220,7 +1254,7 @@ public class Team {
 
 	/**
 	 * Used to get a list of all the online players that are on this team
-	 * 
+	 *
 	 * @return a list of online members for this team
 	 */
 	public List<Player> getOnlineMemebers() {
@@ -1228,9 +1262,10 @@ public class Team {
 	}
 
 	// CHEST CLAIM COMPONENT
+
 	/**
 	 * Used to add a chest claim to this team
-	 * 
+	 *
 	 * @param location The location of the chest claim (round to the nearest block)
 	 */
 	public void addClaim(Location location) {
@@ -1240,7 +1275,7 @@ public class Team {
 
 	/**
 	 * Used to remove a chest claim from this team
-	 * 
+	 *
 	 * @param location The location of the chest claim (round to the nearest block)
 	 */
 	public void removeClaim(Location location) {
@@ -1269,6 +1304,7 @@ public class Team {
 	public void saveEchest() {
 		echest.save(getConfig());
 		getTeamManager().saveTeamsFile();
+
 	}
 
 	public Inventory getEchest() {

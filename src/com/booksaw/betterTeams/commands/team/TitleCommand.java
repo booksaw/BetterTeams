@@ -1,32 +1,25 @@
 package com.booksaw.betterTeams.commands.team;
 
-import java.util.List;
-
+import com.booksaw.betterTeams.*;
+import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
+import com.booksaw.betterTeams.message.MessageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.Main;
-import com.booksaw.betterTeams.PlayerRank;
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
-import com.booksaw.betterTeams.message.MessageManager;
+import java.util.List;
+import java.util.Objects;
 
 public class TitleCommand extends TeamSubCommand {
 
-	private final char[] bannedChars = new char[] { ',', '§' };
 	private final String[] bannedColor = new String[] { "&1", "&2", "&3", "&4", "&5", "&6", "&7", "&8", "&9", "&a",
 			"&b", "&c", "&d", "&e", "&f" };
-
-	Team team;
 
 	@Override
 	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 
-		TeamPlayer toTitle = null;
+		TeamPlayer toTitle;
 
 		if (args.length == 1) {
 			args = new String[] { "me", args[0] };
@@ -48,30 +41,22 @@ public class TitleCommand extends TeamSubCommand {
 			return new CommandResponse("noPlayer");
 		}
 
-		if (player.getRank().value < getRequiredRank().value
-				&& !(player == toTitle && player.getPlayer().getPlayer().hasPermission("betterteams.title.self"))) {
+		if (player.getRank().value < getRequiredRank().value && !(player == toTitle
+				&& Objects.requireNonNull(player.getPlayer().getPlayer()).hasPermission("betterteams.title.self"))) {
 			return new CommandResponse("title.noPerm");
-		}
-
-		if (args.length == 1) {
-			team.setTitle(toTitle, "");
-			MessageManager.sendMessage(toTitle.getPlayer().getPlayer(), "title.reset");
-			return new CommandResponse("title.success");
 		}
 
 		if (args[1].length() > Main.plugin.getConfig().getInt("maxTitleLength")) {
 			return new CommandResponse("title.tooLong");
 		}
 
-		for (char bannedChar : bannedChars) {
-			if (args[1].contains(bannedChar + "")) {
-				return new CommandResponse("bannedChar");
-			}
+		if (Team.isValidTeamName(args[1])) {
+			return new CommandResponse("bannedChar");
 		}
 
 		Player sender = player.getPlayer().getPlayer();
 
-		if (!sender.hasPermission("betterteams.title.color.format")) {
+		if (!Objects.requireNonNull(sender).hasPermission("betterteams.title.color.format")) {
 			if (args[1].contains("&l") || args[1].contains("&k") || args[1].contains("&n") || args[1].contains("&m")
 					|| args[1].contains("&o")) {
 				return new CommandResponse("title.noFormat");

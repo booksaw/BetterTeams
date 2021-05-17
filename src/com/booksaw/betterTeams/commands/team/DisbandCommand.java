@@ -1,23 +1,21 @@
 package com.booksaw.betterTeams.commands.team;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map.Entry;
-import java.util.UUID;
-
-import org.bukkit.command.CommandSender;
-
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
+import org.bukkit.command.CommandSender;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.UUID;
 
 /**
  * This class handles the /team disband command
- * 
- * @author booksaw
  *
+ * @author booksaw
  */
 public class DisbandCommand extends TeamSubCommand {
 
@@ -25,7 +23,7 @@ public class DisbandCommand extends TeamSubCommand {
 	 * This HashMap is used to track all confirm messages, to ensure that the user
 	 * wants to disband the team when they type the command
 	 */
-	HashMap<UUID, Long> confirmation = new HashMap<>();
+	final HashMap<UUID, Long> confirmation = new HashMap<>();
 
 	@Override
 	public CommandResponse onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
@@ -59,7 +57,7 @@ public class DisbandCommand extends TeamSubCommand {
 	public int getMinimumArguments() {
 		return 0;
 	}
-	
+
 	@Override
 	public String getNode() {
 		return "disband";

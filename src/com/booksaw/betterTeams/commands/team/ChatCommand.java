@@ -1,16 +1,11 @@
 package com.booksaw.betterTeams.commands.team;
 
-import java.util.List;
-
-import org.bukkit.command.CommandSender;
-
-import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.Main;
-import com.booksaw.betterTeams.PlayerRank;
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.TeamPlayer;
+import com.booksaw.betterTeams.*;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 import com.booksaw.betterTeams.message.HelpMessage;
+import org.bukkit.command.CommandSender;
+
+import java.util.List;
 
 public class ChatCommand extends TeamSubCommand {
 
@@ -33,12 +28,12 @@ public class ChatCommand extends TeamSubCommand {
 			}
 		}
 
-		String message = "";
-		for (int i = 0; i < args.length; i++) {
-			message = message + args[i] + " ";
+		StringBuilder message = new StringBuilder();
+		for (String arg : args) {
+			message.append(arg).append(" ");
 		}
 
-		team.sendMessage(player, message);
+		team.sendMessage(player, message.toString());
 		return new CommandResponse(true);
 	}
 

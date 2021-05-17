@@ -1,7 +1,7 @@
 package com.booksaw.betterTeams.events;
 
-import java.util.Iterator;
-
+import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.message.MessageManager;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -17,12 +17,15 @@ import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.message.MessageManager;
+import java.util.Iterator;
 
 public class ChestManagement implements Listener {
 
 	public static boolean enableClaims = true;
+
+	public static Location getLocation(Chest chest) {
+		return new Location(chest.getWorld(), chest.getX(), chest.getY(), chest.getZ());
+	}
 
 	@EventHandler
 	public void onOpen(PlayerInteractEvent e) {
@@ -98,10 +101,6 @@ public class ChestManagement implements Listener {
 	private void cancelChestEvent(BlockBreakEvent e, Team claimedBy) {
 		MessageManager.sendMessageF(e.getPlayer(), "chest.claimed", claimedBy.getName());
 		((Cancellable) e).setCancelled(true);
-	}
-
-	public static Location getLocation(Chest chest) {
-		return new Location(chest.getWorld(), chest.getX(), chest.getY(), chest.getZ());
 	}
 
 	@EventHandler

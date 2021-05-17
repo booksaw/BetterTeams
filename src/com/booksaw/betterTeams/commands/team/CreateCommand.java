@@ -1,20 +1,18 @@
 package com.booksaw.betterTeams.commands.team;
 
-import java.util.List;
-
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.presets.NoTeamSubCommand;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+import java.util.List;
 
 /**
  * This class handles the /team create [team] command
- * 
- * @author booksaw
  *
+ * @author booksaw
  */
 public class CreateCommand extends NoTeamSubCommand {
 
@@ -39,7 +37,7 @@ public class CreateCommand extends NoTeamSubCommand {
 			return new CommandResponse("create.exists");
 		}
 
-		Team.getTeamManager().createNewTeam(args[0], (Player) sender);
+		Team.getTeamManager().createNewTeam(args[0], sender);
 
 		return new CommandResponse(true, "create.success");
 

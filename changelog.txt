@@ -312,7 +312,12 @@ Bug Fixes:
 - Fixed bug with /team title when the player is not recognised (#112)
 
 3.1.26:
-- Fixed problem with permissions
+Improvements: 
+- Added placeholder for the number of online players on your team (online) (#110) 
+
+Bug Fixes: 
+- Fixed problem with rank permissions
+
 
 4.0: 
 

@@ -4,13 +4,13 @@ import org.bukkit.command.CommandSender;
 
 /**
  * Used when the program needs to send multiple messages to the user
- * 
- * @author booksaw
  *
+ * @author booksaw
  */
 public class CompositeMessage implements Message {
 
-	Message message1, message2;
+	final Message message1;
+	final Message message2;
 
 	public CompositeMessage(Message message1, Message message2) {
 		this.message1 = message1;

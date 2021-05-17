@@ -1,24 +1,23 @@
 package com.booksaw.betterTeams.commands.team;
 
-import java.util.List;
-
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 import com.booksaw.betterTeams.events.InventoryManagement;
+import org.bukkit.command.CommandSender;
+
+import java.util.List;
+import java.util.Objects;
 
 public class EchestCommand extends TeamSubCommand {
 
 	@Override
 	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 
-		InventoryManagement.adminViewers.put((Player) player.getPlayer().getPlayer(), team);
-		player.getPlayer().getPlayer().openInventory(team.getEchest());
+		InventoryManagement.adminViewers.put(player.getPlayer().getPlayer(), team);
+		Objects.requireNonNull(player.getPlayer().getPlayer()).openInventory(team.getEchest());
 
 		return new CommandResponse(true);
 	}

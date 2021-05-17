@@ -1,10 +1,5 @@
 package com.booksaw.betterTeams.integrations;
 
-import java.util.logging.Level;
-
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-
 import com.sk89q.worldedit.bukkit.BukkitWorld;
 import com.sk89q.worldedit.util.Location;
 import com.sk89q.worldguard.LocalPlayer;
@@ -17,6 +12,10 @@ import com.sk89q.worldguard.protection.flags.registry.FlagConflictException;
 import com.sk89q.worldguard.protection.flags.registry.FlagRegistry;
 import com.sk89q.worldguard.protection.regions.RegionContainer;
 import com.sk89q.worldguard.protection.regions.RegionQuery;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+
+import java.util.logging.Level;
 
 public class WorldGaurdManager {
 
@@ -47,8 +46,8 @@ public class WorldGaurdManager {
 	public boolean canTeamPvp(Player p) {
 		LocalPlayer localPlayer = WorldGuardPlugin.inst().wrapPlayer(p);
 
-		Location loc = new Location((com.sk89q.worldedit.world.World) new BukkitWorld(p.getWorld()),
-				p.getLocation().getX(), p.getLocation().getY(), p.getLocation().getZ());
+		Location loc = new Location(new BukkitWorld(p.getWorld()), p.getLocation().getX(), p.getLocation().getY(),
+				p.getLocation().getZ());
 		RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
 		RegionQuery query = container.createQuery();
 		ApplicableRegionSet set = query.getApplicableRegions(loc);

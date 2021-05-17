@@ -1,5 +1,6 @@
 package com.booksaw.betterTeams;
 
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,124 +15,63 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
+
 import com.booksaw.betterTeams.commands.HelpCommand;
 import com.booksaw.betterTeams.commands.ParentCommand;
 import com.booksaw.betterTeams.commands.PermissionParentCommand;
-import com.booksaw.betterTeams.commands.team.AllyChatCommand;
-import com.booksaw.betterTeams.commands.team.AllyCommand;
-import com.booksaw.betterTeams.commands.team.BalCommand;
-import com.booksaw.betterTeams.commands.team.BaltopCommand;
-import com.booksaw.betterTeams.commands.team.BanCommand;
-import com.booksaw.betterTeams.commands.team.ChatCommand;
-import com.booksaw.betterTeams.commands.team.ColorCommand;
-import com.booksaw.betterTeams.commands.team.CreateCommand;
-import com.booksaw.betterTeams.commands.team.DelHome;
-import com.booksaw.betterTeams.commands.team.DelwarpCommand;
-import com.booksaw.betterTeams.commands.team.DemoteCommand;
-import com.booksaw.betterTeams.commands.team.DepositCommand;
-import com.booksaw.betterTeams.commands.team.DescriptionCommand;
-import com.booksaw.betterTeams.commands.team.DisbandCommand;
-import com.booksaw.betterTeams.commands.team.EchestCommand;
-import com.booksaw.betterTeams.commands.team.HomeCommand;
-import com.booksaw.betterTeams.commands.team.InfoCommand;
-import com.booksaw.betterTeams.commands.team.InviteCommand;
-import com.booksaw.betterTeams.commands.team.JoinCommand;
-import com.booksaw.betterTeams.commands.team.KickCommand;
-import com.booksaw.betterTeams.commands.team.LeaveCommand;
-import com.booksaw.betterTeams.commands.team.ListCommand;
-import com.booksaw.betterTeams.commands.team.NameCommand;
-import com.booksaw.betterTeams.commands.team.NeutralCommand;
-import com.booksaw.betterTeams.commands.team.OpenCommand;
-import com.booksaw.betterTeams.commands.team.PromoteCommand;
-import com.booksaw.betterTeams.commands.team.PvpCommand;
-import com.booksaw.betterTeams.commands.team.RankCommand;
-import com.booksaw.betterTeams.commands.team.RankupCommand;
-import com.booksaw.betterTeams.commands.team.SetOwnerCommand;
-import com.booksaw.betterTeams.commands.team.SetWarpCommand;
-import com.booksaw.betterTeams.commands.team.SethomeCommand;
-import com.booksaw.betterTeams.commands.team.TagCommand;
-import com.booksaw.betterTeams.commands.team.TitleCommand;
-import com.booksaw.betterTeams.commands.team.TopCommand;
-import com.booksaw.betterTeams.commands.team.UnbanCommand;
-import com.booksaw.betterTeams.commands.team.WarpCommand;
-import com.booksaw.betterTeams.commands.team.WarpsCommand;
-import com.booksaw.betterTeams.commands.team.WithdrawCommand;
+import com.booksaw.betterTeams.commands.team.*;
 import com.booksaw.betterTeams.commands.team.chest.ChestClaimCommand;
 import com.booksaw.betterTeams.commands.team.chest.ChestRemoveCommand;
 import com.booksaw.betterTeams.commands.team.chest.ChestRemoveallCommand;
-import com.booksaw.betterTeams.commands.teama.ChatSpyTeama;
-import com.booksaw.betterTeams.commands.teama.ColorTeama;
-import com.booksaw.betterTeams.commands.teama.CreateHoloTeama;
-import com.booksaw.betterTeams.commands.teama.CreateTeama;
-import com.booksaw.betterTeams.commands.teama.DelwarpTeama;
-import com.booksaw.betterTeams.commands.teama.DemoteTeama;
-import com.booksaw.betterTeams.commands.teama.DescriptionTeama;
-import com.booksaw.betterTeams.commands.teama.DisbandTeama;
-import com.booksaw.betterTeams.commands.teama.EchestTeama;
-import com.booksaw.betterTeams.commands.teama.HomeTeama;
-import com.booksaw.betterTeams.commands.teama.InviteTeama;
-import com.booksaw.betterTeams.commands.teama.JoinTeama;
-import com.booksaw.betterTeams.commands.teama.LeaveTeama;
-import com.booksaw.betterTeams.commands.teama.NameTeama;
-import com.booksaw.betterTeams.commands.teama.OpenTeama;
-import com.booksaw.betterTeams.commands.teama.PromoteTeama;
-import com.booksaw.betterTeams.commands.teama.PurgeTeama;
-import com.booksaw.betterTeams.commands.teama.ReloadTeama;
-import com.booksaw.betterTeams.commands.teama.RemoveHoloTeama;
-import com.booksaw.betterTeams.commands.teama.SetOwnerTeama;
-import com.booksaw.betterTeams.commands.teama.SetrankTeama;
-import com.booksaw.betterTeams.commands.teama.SetwarpTeama;
-import com.booksaw.betterTeams.commands.teama.TagTeama;
-import com.booksaw.betterTeams.commands.teama.TitleTeama;
-import com.booksaw.betterTeams.commands.teama.VersionTeama;
-import com.booksaw.betterTeams.commands.teama.WarpTeama;
-import com.booksaw.betterTeams.commands.teama.chest.ChestClaimTeama;
-import com.booksaw.betterTeams.commands.teama.chest.ChestDisableClaims;
-import com.booksaw.betterTeams.commands.teama.chest.ChestEnableClaims;
-import com.booksaw.betterTeams.commands.teama.chest.ChestRemoveTeama;
-import com.booksaw.betterTeams.commands.teama.chest.ChestRemoveallTeama;
+import com.booksaw.betterTeams.commands.teama.*;
+import com.booksaw.betterTeams.commands.teama.chest.*;
 import com.booksaw.betterTeams.commands.teama.score.AddScore;
 import com.booksaw.betterTeams.commands.teama.score.RemoveScore;
 import com.booksaw.betterTeams.commands.teama.score.SetScore;
 import com.booksaw.betterTeams.cooldown.CooldownManager;
 import com.booksaw.betterTeams.cost.CostManager;
-import com.booksaw.betterTeams.events.AllyManagement;
-import com.booksaw.betterTeams.events.ChatManagement;
-import com.booksaw.betterTeams.events.ChestManagement;
-import com.booksaw.betterTeams.events.DamageManagement;
-import com.booksaw.betterTeams.events.InventoryManagement;
-import com.booksaw.betterTeams.events.MCTeamManagement;
+import com.booksaw.betterTeams.events.*;
 import com.booksaw.betterTeams.events.MCTeamManagement.BelowNameType;
-import com.booksaw.betterTeams.events.RankupEvents;
-import com.booksaw.betterTeams.integrations.HologramManager;
-import com.booksaw.betterTeams.integrations.TeamPlaceholders;
-import com.booksaw.betterTeams.integrations.UltimateClaimsManager;
-import com.booksaw.betterTeams.integrations.WorldGaurdManager;
-import com.booksaw.betterTeams.integrations.ZKothManager;
+import com.booksaw.betterTeams.integrations.*;
 import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.metrics.Metrics;
 import com.booksaw.betterTeams.score.ScoreManagement;
-
 import net.milkbowl.vault.economy.Economy;
+import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.RegisteredServiceProvider;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Map.Entry;
+import java.util.Objects;
+import java.util.logging.Level;
 
 /**
  * Main class of the plugin, extends JavaPlugin
- * 
- * @author booksaw
  *
+ * @author booksaw
  */
 public class Main extends JavaPlugin {
 
 	public static Main plugin;
-	public boolean useHolographicDisplays;
 	public static Economy econ = null;
 	public static boolean placeholderAPI = false;
-
-	private DamageManagement damageManagement;
+	public boolean useHolographicDisplays;
 	public MCTeamManagement teamManagement;
 	public ChatManagement chatManagement;
 	public WorldGaurdManager wgManagement;
 	Metrics metrics = null;
+	/**
+	 * This is used to store the config file in which the the teams data is stored
+	 */
+	FileConfiguration teams;
+	private DamageManagement damageManagement;
 
 	@Override
 	public void onLoad() {
@@ -147,22 +87,23 @@ public class Main extends JavaPlugin {
 
 		plugin = this;
 
-		MessageManager.lang = getConfig().getString("language");
-		if (MessageManager.lang.equals("en") || MessageManager.lang.equals("")) {
-			MessageManager.lang = "messages";
+		String language = getConfig().getString("language");
+		MessageManager.setLanguage(language);
+		if (Objects.requireNonNull(language).equals("en") || language.equals("")) {
+			MessageManager.setLanguage("messages");
 		}
 
 		loadCustomConfigs();
 		ChatManagement.enable();
 
 		if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null
-				&& Bukkit.getPluginManager().getPlugin("PlaceholderAPI").isEnabled()) {
+				&& Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("PlaceholderAPI")).isEnabled()) {
 			placeholderAPI = true;
 			new TeamPlaceholders(this).register();
 		}
 
 		if (Bukkit.getPluginManager().getPlugin("UltimateClaims") != null
-				&& Bukkit.getPluginManager().getPlugin("UltimateClaims").isEnabled()) {
+				&& Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("UltimateClaims")).isEnabled()) {
 			if (getConfig().getBoolean("ultimateClaims.enabled")) {
 				new UltimateClaimsManager();
 			}
@@ -204,16 +145,16 @@ public class Main extends JavaPlugin {
 	public void loadCustomConfigs() {
 
 		File f = MessageManager.getFile();
-
+		String language = MessageManager.getLanguage();
 		try {
 			if (!f.exists()) {
-				saveResource(MessageManager.lang + ".yml", false);
+				saveResource(language + ".yml", false);
 			}
 		} catch (Exception e) {
-			Bukkit.getLogger().warning("Could not load selected language: " + MessageManager.lang
+			Bukkit.getLogger().warning("Could not load selected language: " + language
 					+ " go to https://github.com/booksaw/BetterTeams/wiki/Language to view a list of supported languages");
 			Bukkit.getLogger().warning("Reverting to english so the plugin can still function");
-			MessageManager.lang = "messages";
+			MessageManager.setLanguage("messages");
 			loadCustomConfigs();
 			return;
 		}
@@ -247,8 +188,8 @@ public class Main extends JavaPlugin {
 
 	/**
 	 * This method is used to add any config values which are required post 3.0
-	 * 
-	 * @param messages
+	 *
+	 * @param messages The messages config file
 	 */
 	private void addDefaults(YamlConfiguration messages) {
 
@@ -406,7 +347,8 @@ public class Main extends JavaPlugin {
 			messages.set("admin.score.tooSmall", "&4The score must be greater than 0");
 			messages.set("admin.score.success", "&6That teams score has been changed");
 		case 10:
-			if (messages.getString("invite.invite") == null || messages.getString("invite.invite").equals("")) {
+			if (messages.getString("invite.invite") == null
+					|| Objects.requireNonNull(messages.getString("invite.invite")).equals("")) {
 				messages.set("invite.success", "&6That player has been invited");
 				messages.set("invite.invite",
 						"&6You have been invited to join team %s do &b/team join <team> &6 to join the team");
@@ -419,7 +361,6 @@ public class Main extends JavaPlugin {
 
 		case 11:
 			messages.set("placeholder.name", "%s");
-			// messages.set("", "");
 		case 12:
 			messages.set("admin.disband.success", "&6That team has been disbanded successfully");
 			messages.set("admin.color.success", "&6That teams color has been changed");
@@ -438,23 +379,26 @@ public class Main extends JavaPlugin {
 			messages.set("admin.chest.all.success", "&6All claims removed from that team");
 		case 14:
 			// fixing a few typos (https://github.com/booksaw/BetterTeams/issues/31)
-			if (messages.getString("neutral.success").contains("wih")) {
-				messages.set("neutral.success", messages.getString("neutral.success").replace("wih", "with"));
+			if (Objects.requireNonNull(messages.getString("neutral.success")).contains("wih")) {
+				messages.set("neutral.success",
+						Objects.requireNonNull(messages.getString("neutral.success")).replace("wih", "with"));
 			}
-			if (messages.getString("chest.remove.success").startsWith("&4your")) {
+			if (Objects.requireNonNull(messages.getString("chest.remove.success")).startsWith("&4your")) {
 				messages.set("chest.remove.success",
-						messages.getString("chest.remove.success").replace("&4your", "&4Your"));
+						Objects.requireNonNull(messages.getString("chest.remove.success")).replace("&4your", "&4Your"));
 			}
-			if (messages.getString("admin.join.success").startsWith("&6that")) {
+			if (Objects.requireNonNull(messages.getString("admin.join.success")).startsWith("&6that")) {
 				messages.set("admin.join.success",
-						messages.getString("admin.join.success").replace("&6your", "&6Your"));
+						Objects.requireNonNull(messages.getString("admin.join.success")).replace("&6your", "&6Your"));
 			}
-			if (messages.getString("admin.promote.owner").contains("&6To")) {
-				messages.set("admin.promote.owner", messages.getString("admin.promote.owner").replace("&6To", "&6to"));
+			if (Objects.requireNonNull(messages.getString("admin.promote.owner")).contains("&6To")) {
+				messages.set("admin.promote.owner",
+						Objects.requireNonNull(messages.getString("admin.promote.owner")).replace("&6To", "&6to"));
 			}
 
-			if (messages.getString("help.delhome").contains("teams")) {
-				messages.set("help.delhome", messages.getString("help.delhome").replace("teams", "team's"));
+			if (Objects.requireNonNull(messages.getString("help.delhome")).contains("teams")) {
+				messages.set("help.delhome",
+						Objects.requireNonNull(messages.getString("help.delhome")).replace("teams", "team's"));
 			}
 
 			messages.set("admin.chest.disable.already", "&4Chest claims are already disabled");
@@ -507,7 +451,7 @@ public class Main extends JavaPlugin {
 			messages.set("uclaim.dissolve", "&4Your team has been disbanded so your claim has been dissolved");
 			messages.set("uclaim.team", "&4You must be in a team to create a claim");
 		case 21:
-			if (messages.getString("prefixSyntax").equals("&b[%s] &r%s")) {
+			if (Objects.requireNonNull(messages.getString("prefixSyntax")).equals("&b[%s] &r%s")) {
 				messages.set("prefixSyntax", "&7[%s&7] &r%s");
 			}
 		case 1000:
@@ -522,7 +466,7 @@ public class Main extends JavaPlugin {
 		if (changes) {
 			Bukkit.getLogger().info("Saving new messages to messages.yml");
 			File f = MessageManager.getFile();
-			;
+
 			try {
 				messages.save(f);
 			} catch (IOException ex) {
@@ -530,7 +474,6 @@ public class Main extends JavaPlugin {
 			}
 		}
 
-		version = 0;
 		version = getConfig().getInt("version");
 		changes = false;
 		// use the case as the previous version of the config
@@ -564,7 +507,7 @@ public class Main extends JavaPlugin {
 			getConfig().set("allowPassword", true);
 		case 7:
 			getConfig().set("zkoth.pointsPerCapture", 5);
-			getConfig().set("purgeCommands", Arrays.asList(new String[] { "minecraft:give @a minecraft:dirt 1" }));
+			getConfig().set("purgeCommands", Collections.singletonList("minecraft:give @a minecraft:dirt 1"));
 			getConfig().set("autoPurge", new ArrayList<>());
 		case 8:
 			getConfig().set("pointsLostByDeath", 0);
@@ -584,7 +527,7 @@ public class Main extends JavaPlugin {
 			getConfig().set("language", "en");
 		case 12:
 			getConfig().set("command.team", new ArrayList<String>());
-			getConfig().set("command.teama", new ArrayList<String>(Arrays.asList("teama")));
+			getConfig().set("command.teama", new ArrayList<>(Collections.singletonList("teama")));
 		case 13:
 			getConfig().set("events.death.score", 0);
 			getConfig().set("events.death.spam", -1);
@@ -602,7 +545,7 @@ public class Main extends JavaPlugin {
 			getConfig().set("maxChests", null);
 			getConfig().set("levels.l1.maxWarps", 2);
 			getConfig().set("levels.l2.maxWarps", 2);
-			getConfig().set("command.teama", new ArrayList<String>(Arrays.asList("teama")));
+			getConfig().set("command.teama", new ArrayList<>(Collections.singletonList("teama")));
 			getConfig().set("maxTagLength", 12);
 		case 15:
 			getConfig().set("invite", 120);
@@ -640,7 +583,7 @@ public class Main extends JavaPlugin {
 			return false;
 		}
 		econ = rsp.getProvider();
-		return econ != null;
+		return true;
 	}
 
 	public void reload() {
@@ -658,40 +601,14 @@ public class Main extends JavaPlugin {
 		ParentCommand teamCommand = new PermissionParentCommand(new CostManager("team"), new CooldownManager("team"),
 				"team");
 		// add all sub commands here
-		teamCommand.addSubCommand(new CreateCommand());
-		teamCommand.addSubCommand(new LeaveCommand());
-		teamCommand.addSubCommand(new DisbandCommand());
-		teamCommand.addSubCommand(new DescriptionCommand());
-		teamCommand.addSubCommand(new InviteCommand());
-		teamCommand.addSubCommand(new JoinCommand());
-		teamCommand.addSubCommand(new NameCommand());
-		teamCommand.addSubCommand(new OpenCommand());
-		teamCommand.addSubCommand(new InfoCommand());
-		teamCommand.addSubCommand(new KickCommand());
-		teamCommand.addSubCommand(new PromoteCommand());
-		teamCommand.addSubCommand(new DemoteCommand());
-		teamCommand.addSubCommand(new HomeCommand());
-		teamCommand.addSubCommand(new SethomeCommand());
-		teamCommand.addSubCommand(new BanCommand());
-		teamCommand.addSubCommand(new UnbanCommand());
-		teamCommand.addSubCommand(new ChatCommand());
-		teamCommand.addSubCommand(new ColorCommand());
-		teamCommand.addSubCommand(new TitleCommand());
-		teamCommand.addSubCommand(new TopCommand());
-		teamCommand.addSubCommand(new BaltopCommand());
-		teamCommand.addSubCommand(new RankCommand());
-		teamCommand.addSubCommand(new DelHome());
-		teamCommand.addSubCommand(new AllyCommand());
-		teamCommand.addSubCommand(new NeutralCommand());
-		teamCommand.addSubCommand(new AllyChatCommand());
-		teamCommand.addSubCommand(new ListCommand());
-		teamCommand.addSubCommand(new WarpCommand());
-		teamCommand.addSubCommand(new SetWarpCommand());
-		teamCommand.addSubCommand(new DelwarpCommand());
-		teamCommand.addSubCommand(new WarpsCommand());
-		teamCommand.addSubCommand(new EchestCommand());
-		teamCommand.addSubCommand(new RankupCommand());
-		teamCommand.addSubCommand(new TagCommand());
+		teamCommand.addSubCommands(new CreateCommand(), new LeaveCommand(), new DisbandCommand(),
+				new DescriptionCommand(), new InviteCommand(), new JoinCommand(), new NameCommand(), new OpenCommand(),
+				new InfoCommand(), new KickCommand(), new PromoteCommand(), new DemoteCommand(), new HomeCommand(),
+				new SethomeCommand(), new BanCommand(), new UnbanCommand(), new ChatCommand(), new ColorCommand(),
+				new TitleCommand(), new TopCommand(), new BaltopCommand(), new RankCommand(), new DelHome(),
+				new AllyCommand(), new NeutralCommand(), new AllyChatCommand(), new ListCommand(), new WarpCommand(),
+				new SetWarpCommand(), new DelwarpCommand(), new WarpsCommand(), new EchestCommand(),
+				new RankupCommand(), new TagCommand());
 
 		if (getConfig().getBoolean("disableCombat")) {
 			teamCommand.addSubCommand(new PvpCommand());
@@ -702,9 +619,7 @@ public class Main extends JavaPlugin {
 		}
 
 		ParentCommand chest = new PermissionParentCommand("chest");
-		chest.addSubCommand(new ChestClaimCommand());
-		chest.addSubCommand(new ChestRemoveCommand());
-		chest.addSubCommand(new ChestRemoveallCommand());
+		chest.addSubCommands(new ChestClaimCommand(), new ChestRemoveCommand(), new ChestRemoveallCommand());
 		teamCommand.addSubCommand(chest);
 
 		new BooksawCommand("team", teamCommand, "betterteams.standard", "All commands for teams",
@@ -712,59 +627,33 @@ public class Main extends JavaPlugin {
 
 		ParentCommand teamaCommand = new ParentCommand("teamadmin");
 
-		teamaCommand.addSubCommand(new ReloadTeama());
-		teamaCommand.addSubCommand(new ChatSpyTeama());
-		teamaCommand.addSubCommand(new TitleTeama());
-		teamaCommand.addSubCommand(new VersionTeama());
-		teamaCommand.addSubCommand(new HomeTeama());
-		teamaCommand.addSubCommand(new NameTeama());
-		teamaCommand.addSubCommand(new DescriptionTeama());
-		teamaCommand.addSubCommand(new OpenTeama());
-		teamaCommand.addSubCommand(new InviteTeama());
-		teamaCommand.addSubCommand(new CreateTeama());
-		teamaCommand.addSubCommand(new JoinTeama());
-		teamaCommand.addSubCommand(new LeaveTeama());
-		teamaCommand.addSubCommand(new PromoteTeama());
-		teamaCommand.addSubCommand(new DemoteTeama());
-		teamaCommand.addSubCommand(new WarpTeama());
-		teamaCommand.addSubCommand(new SetwarpTeama());
-		teamaCommand.addSubCommand(new DelwarpTeama());
-		teamaCommand.addSubCommand(new PurgeTeama());
-		teamaCommand.addSubCommand(new DisbandTeama());
-		teamaCommand.addSubCommand(new ColorTeama());
-		teamaCommand.addSubCommand(new EchestTeama());
-		teamaCommand.addSubCommand(new SetrankTeama());
-		teamaCommand.addSubCommand(new TagTeama());
+		teamaCommand.addSubCommands(new ReloadTeama(), new ChatSpyTeama(), new TitleTeama(), new VersionTeama(),
+				new HomeTeama(), new NameTeama(), new DescriptionTeama(), new OpenTeama(), new InviteTeama(),
+				new CreateTeama(), new JoinTeama(), new LeaveTeama(), new PromoteTeama(), new DemoteTeama(),
+				new WarpTeama(), new SetwarpTeama(), new DelwarpTeama(), new PurgeTeama(), new DisbandTeama(),
+				new ColorTeama(), new EchestTeama(), new SetrankTeama(), new TagTeama());
 
 		if (getConfig().getBoolean("singleOwner")) {
 			teamaCommand.addSubCommand(new SetOwnerTeama());
 		}
 
 		ParentCommand teamaScoreCommand = new ParentCommand("score");
-		teamaScoreCommand.addSubCommand(new AddScore());
-		teamaScoreCommand.addSubCommand(new SetScore());
-		teamaScoreCommand.addSubCommand(new RemoveScore());
+		teamaScoreCommand.addSubCommands(new AddScore(), new SetScore(), new RemoveScore());
 		teamaCommand.addSubCommand(teamaScoreCommand);
 
 		ParentCommand teamaChestCommand = new ParentCommand("chest");
-		teamaChestCommand.addSubCommand(new ChestClaimTeama());
-		teamaChestCommand.addSubCommand(new ChestRemoveTeama());
-		teamaChestCommand.addSubCommand(new ChestRemoveallTeama());
-		teamaChestCommand.addSubCommand(new ChestEnableClaims());
-		teamaChestCommand.addSubCommand(new ChestDisableClaims());
+		teamaChestCommand.addSubCommands(new ChestClaimTeama(), new ChestRemoveTeama(), new ChestRemoveallTeama(),
+				new ChestEnableClaims(), new ChestDisableClaims());
 		teamaCommand.addSubCommand(teamaChestCommand);
 
 		if (useHolographicDisplays) {
 			ParentCommand teamaHoloCommand = new ParentCommand("holo");
-			teamaHoloCommand.addSubCommand(new CreateHoloTeama());
-			teamaHoloCommand.addSubCommand(new RemoveHoloTeama());
+			teamaHoloCommand.addSubCommands(new CreateHoloTeama(), new RemoveHoloTeama());
 			teamaCommand.addSubCommand(teamaHoloCommand);
 		}
 
 		if (econ != null) {
-			teamCommand.addSubCommand(new DepositCommand());
-			teamCommand.addSubCommand(new BalCommand());
-			teamCommand.addSubCommand(new WithdrawCommand());
+			teamCommand.addSubCommands(new DepositCommand(), new BalCommand(), new WithdrawCommand());
 		}
 
 		new BooksawCommand("teamadmin", teamaCommand, "betterteams.admin", "All admin commands for teams",
@@ -774,7 +663,7 @@ public class Main extends JavaPlugin {
 
 	public void setupListeners() {
 		Bukkit.getLogger().info("Display team name config value: " + getConfig().getString("displayTeamName"));
-		BelowNameType type = BelowNameType.getType(getConfig().getString("displayTeamName"));
+		BelowNameType type = BelowNameType.getType(Objects.requireNonNull(getConfig().getString("displayTeamName")));
 		Bukkit.getLogger().info("Loading below name. Type: " + type);
 		if (getConfig().getBoolean("useTeams")) {
 			if (teamManagement == null) {
@@ -811,14 +700,7 @@ public class Main extends JavaPlugin {
 		if (metrics == null) {
 			int pluginId = 7855;
 			metrics = new Metrics(this, pluginId);
-			metrics.addCustomChart(new Metrics.SimplePie("language", new Callable<String>() {
-
-				@Override
-				public String call() throws Exception {
-					return getConfig().getString("language");
-				}
-			}));
-
+			metrics.addCustomChart(new Metrics.SimplePie("language", () -> getConfig().getString("language")));
 		}
 	}
 }

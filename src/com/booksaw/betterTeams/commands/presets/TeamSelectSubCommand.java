@@ -1,17 +1,15 @@
 package com.booksaw.betterTeams.commands.presets;
 
-import org.bukkit.command.CommandSender;
-
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.SubCommand;
+import org.bukkit.command.CommandSender;
 
 /**
  * This class is used for admin commands which reference a specific team
  * remember args[0] will be the team name
- * 
- * @author nfgg2
  *
+ * @author nfgg2
  */
 public abstract class TeamSelectSubCommand extends SubCommand {
 
@@ -32,7 +30,7 @@ public abstract class TeamSelectSubCommand extends SubCommand {
 
 	/**
 	 * This method is run if the player is in a team
-	 * 
+	 *
 	 * @param sender the player who ran the commnad
 	 * @param label  the label for the command
 	 * @param args   the arguments for the command

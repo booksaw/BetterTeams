@@ -1,8 +1,9 @@
 package com.booksaw.betterTeams.events;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.booksaw.betterTeams.Main;
+import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.TeamPlayer;
+import com.booksaw.betterTeams.message.MessageManager;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -11,15 +12,14 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import com.booksaw.betterTeams.Main;
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.message.MessageManager;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class ChatManagement implements Listener {
 
 	private static PrefixType doPrefix;
-	public List<CommandSender> spy = new ArrayList<>();
+	public final List<CommandSender> spy = new ArrayList<>();
 
 	public static void enable() {
 		doPrefix = PrefixType.getType(Main.plugin.getConfig().getString("prefix"));
@@ -28,7 +28,7 @@ public class ChatManagement implements Listener {
 	/**
 	 * This detects when the player speaks and either adds a prefix or puts the
 	 * message in the team chat
-	 * 
+	 *
 	 * @param event the chat event
 	 */
 	@EventHandler(priority = EventPriority.HIGH)
@@ -47,7 +47,7 @@ public class ChatManagement implements Listener {
 
 		TeamPlayer teamPlayer = team.getTeamPlayer(p);
 
-		if ((teamPlayer.isInTeamChat() || teamPlayer.isInAllyChat())
+		if ((Objects.requireNonNull(teamPlayer).isInTeamChat() || teamPlayer.isInAllyChat())
 				&& (event.getMessage().startsWith("!") && event.getMessage().length() > 1)) {
 			event.setMessage(event.getMessage().substring(1));
 		} else if (teamPlayer.isInTeamChat()) {
@@ -75,32 +75,15 @@ public class ChatManagement implements Listener {
 //				event.setFormat(ChatColor.AQUA + "[" + team.getName() + "] " + ChatColor.WHITE + event.getFormat());
 		}
 
-		return;
-
 	}
 
 	@EventHandler
 	public void spyQuit(PlayerQuitEvent e) {
-		if (spy.contains(e.getPlayer())) {
-			spy.remove(e.getPlayer());
-		}
+		spy.remove(e.getPlayer());
 	}
 
 	enum PrefixType {
 		NONE, NAME, TAG;
-
-		public String getUpdatedFormat(Player p, String format, Team team) {
-			switch (this) {
-			case NAME:
-				String syntax = MessageManager.getMessage(p, "prefixSyntax");
-				return String.format(syntax, team.getDisplayName(), format);
-			case TAG:
-				syntax = MessageManager.getMessage(p, "prefixSyntax");
-				return String.format(syntax, team.getColor() + team.getTag(), format);
-			default:
-				return format;
-			}
-		}
 
 		public static PrefixType getType(String str) {
 			str = str.toLowerCase().trim();
@@ -112,6 +95,19 @@ public class ChatManagement implements Listener {
 				return TAG;
 			default:
 				return NONE;
+			}
+		}
+
+		public String getUpdatedFormat(Player p, String format, Team team) {
+			switch (this) {
+			case NAME:
+				String syntax = MessageManager.getMessage(p, "prefixSyntax");
+				return String.format(syntax, team.getDisplayName(), format);
+			case TAG:
+				syntax = MessageManager.getMessage(p, "prefixSyntax");
+				return String.format(syntax, team.getColor() + team.getTag(), format);
+			default:
+				return format;
 			}
 		}
 

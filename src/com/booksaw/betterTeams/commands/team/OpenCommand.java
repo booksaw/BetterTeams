@@ -1,23 +1,21 @@
 package com.booksaw.betterTeams.commands.team;
 
-import java.util.List;
-
-import org.bukkit.command.CommandSender;
-
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
+import org.bukkit.command.CommandSender;
+
+import java.util.List;
 
 /**
  * This handles the command /team open
  * <p>
  * This toggles the team from being open to closed and back
  * </p>
- * 
- * @author booksaw
  *
+ * @author booksaw
  */
 public class OpenCommand extends TeamSubCommand {
 
@@ -42,7 +40,7 @@ public class OpenCommand extends TeamSubCommand {
 	public int getMinimumArguments() {
 		return 0;
 	}
-	
+
 	@Override
 	public String getNode() {
 		return "open";

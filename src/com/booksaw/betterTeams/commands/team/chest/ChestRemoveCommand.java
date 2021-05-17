@@ -1,28 +1,28 @@
 package com.booksaw.betterTeams.commands.team.chest;
 
-import java.util.List;
-
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.command.CommandSender;
-
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.command.CommandSender;
+
+import java.util.List;
+import java.util.Objects;
 
 public class ChestRemoveCommand extends TeamSubCommand {
 
 	@Override
 	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 
-		Location loc = player.getPlayer().getPlayer().getLocation();
+		Location loc = Objects.requireNonNull(player.getPlayer().getPlayer()).getLocation();
 
 		Block block = loc.getBlock();
 		loc = Team.getClaimingLocation(block);
-		if (block == null || block.getType() != Material.CHEST) {
+		if (block.getType() != Material.CHEST) {
 			return new CommandResponse("chest.remove.noChest");
 		} else if (loc == null || Team.getClaimingTeam(loc) != team) {
 			return new CommandResponse("chest.remove.notClaimed");

@@ -1,16 +1,14 @@
 package com.booksaw.betterTeams.message;
 
-import org.bukkit.command.CommandSender;
-
 import com.booksaw.betterTeams.commands.HelpCommand;
 import com.booksaw.betterTeams.commands.SubCommand;
-
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.command.CommandSender;
 
 public class HelpMessage implements Message {
 
-	SubCommand command;
-	String label;
+	final SubCommand command;
+	final String label;
 
 	public HelpMessage(SubCommand command, String label) {
 		this.command = command;
@@ -26,7 +24,7 @@ public class HelpMessage implements Message {
 	/**
 	 * Used to create a formatted help message to explain what a command does to the
 	 * user
-	 * 
+	 *
 	 * @param label       the base command
 	 * @param commandPath the rest of the command (i.e. help [param])
 	 * @param description the description of the command

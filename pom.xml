@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.booksaw.betterTeams</groupId>
   <artifactId>BetterTeams</artifactId>
-  <version>3.1.25</version>
+  <version>3.1.26</version>
   <name>BetterTeams</name>
   <packaging>jar</packaging>
   <description>Create teams to fight to be the best</description>
@@ -65,7 +65,8 @@
     <sourceDirectory>src</sourceDirectory>
     <plugins>
       <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.0</version>
         <configuration>
           <source>1.8</source>

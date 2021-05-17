@@ -1,17 +1,16 @@
 package com.booksaw.betterTeams.commands.teama;
 
-import java.util.List;
-import java.util.Map.Entry;
-
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.Warp;
 import com.booksaw.betterTeams.commands.SubCommand;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+import java.util.List;
+import java.util.Map.Entry;
 
 public class WarpTeama extends SubCommand {
 
@@ -25,18 +24,18 @@ public class WarpTeama extends SubCommand {
 
 		if (args.length == 1) {
 
-			String replace = "";
+			StringBuilder replace = new StringBuilder();
 			for (Entry<String, Warp> warp : team.getWarps().entrySet()) {
-				replace = replace + warp.getKey() + ", ";
+				replace.append(warp.getKey()).append(", ");
 			}
 
 			if (replace.length() == 0) {
 				return new CommandResponse("admin.warps.none");
 			}
 
-			replace = replace.substring(0, replace.length() - 2);
+			replace = new StringBuilder(replace.substring(0, replace.length() - 2));
 
-			return new CommandResponse(new ReferencedFormatMessage("warps.syntax", replace));
+			return new CommandResponse(new ReferencedFormatMessage("warps.syntax", replace.toString()));
 		}
 
 		Warp warp = team.getWarp(args[1]);

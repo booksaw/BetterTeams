@@ -1,16 +1,15 @@
 package com.booksaw.betterTeams.commands.teama.chest;
 
-import java.util.List;
-
+import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.commands.SubCommand;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.commands.SubCommand;
+import java.util.List;
 
 public class ChestRemoveTeama extends SubCommand {
 
@@ -23,7 +22,7 @@ public class ChestRemoveTeama extends SubCommand {
 		Block block = loc.getBlock();
 		loc = Team.getClaimingLocation(block);
 
-		if (block == null || block.getType() != Material.CHEST) {
+		if (block.getType() != Material.CHEST) {
 			return new CommandResponse("chest.remove.noChest");
 		}
 

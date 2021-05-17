@@ -1,27 +1,25 @@
 package com.booksaw.betterTeams.cost;
 
+import com.booksaw.betterTeams.Main;
+import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
-import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
-
-import com.booksaw.betterTeams.Main;
-
 /**
  * Used to track how long of a cost is required for a command
- * 
- * @author booksaw
  *
+ * @author booksaw
  */
 public class CostManager {
 
 	public static boolean costFromTeam;
 
-	HashMap<String, CommandCost> prices;
+	final HashMap<String, CommandCost> prices;
 
 	public CostManager(String command) {
 		File f = new File("plugins/BetterTeams/" + command + ".yml");
@@ -71,11 +69,10 @@ public class CostManager {
 	 * This class is returned when a command does not have a cost, this is used to
 	 * avoid running many null checks throughout the program. The class is used to
 	 * stop any cost tracking for a specific command
-	 * 
-	 * @author booksaw
 	 *
+	 * @author booksaw
 	 */
-	public class NoCost extends CommandCost {
+	public static class NoCost extends CommandCost {
 
 		public NoCost() {
 			super("", 0);

@@ -1,20 +1,19 @@
 package com.booksaw.betterTeams.commands.team;
 
-import java.util.Arrays;
-import java.util.List;
-
-import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
-
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
+import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class ColorCommand extends TeamSubCommand {
 
-	List<Character> banned = Arrays.asList(new Character[] { 'l', 'n', 'o', 'k', 'n', 'r' });
+	final List<Character> banned = Arrays.asList('l', 'n', 'o', 'k', 'n', 'r');
 
 	@Override
 	public CommandResponse onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {

@@ -1,21 +1,19 @@
 package com.booksaw.betterTeams.cost;
 
+import com.booksaw.betterTeams.Main;
+import com.booksaw.betterTeams.Team;
+import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import com.booksaw.betterTeams.Main;
-import com.booksaw.betterTeams.Team;
-
-import net.milkbowl.vault.economy.EconomyResponse;
-
 public class CommandCost {
 
-	private double cost;
-	private String command;
+	private final double cost;
+	private final String command;
 
 	/**
 	 * Used within Cost manager to track a new commands Cost
-	 * 
+	 *
 	 * @param command the reference for the command
 	 * @param Cost    how long of a Cost that command has (in seconds)
 	 */
@@ -26,7 +24,7 @@ public class CommandCost {
 
 	/**
 	 * Run when a player runs the command to subtract the cost of the command
-	 * 
+	 *
 	 * @param player the player to add a Cost for
 	 * @return If the player can run the command (if the transaction is a success or
 	 *         failure)
@@ -69,7 +67,6 @@ public class CommandCost {
 	}
 
 	/**
-	 * 
 	 * @param player the player to check for
 	 * @return if a player has the money to run that command (to check before
 	 *         executing the command)
@@ -97,11 +94,7 @@ public class CommandCost {
 			}
 		}
 
-		if (Main.econ.has(player, cost)) {
-			return true;
-		}
-
-		return false;
+		return Main.econ.has(player, cost);
 	}
 
 }

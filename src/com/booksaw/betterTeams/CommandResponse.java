@@ -1,33 +1,31 @@
 package com.booksaw.betterTeams;
 
-import org.bukkit.command.CommandSender;
-
 import com.booksaw.betterTeams.message.Message;
 import com.booksaw.betterTeams.message.ReferenceMessage;
+import org.bukkit.command.CommandSender;
 
 /**
  * This class is used to the the response for a command, this tracks if the
  * command was successful and what the message being sent to the user should be
- * 
- * @since 3.1.0
- * @author booksaw
  *
+ * @author booksaw
+ * @since 3.1.0
  */
 public class CommandResponse {
 
 	/**
 	 * Used to track if the command was a success
 	 */
-	boolean success;
+	final boolean success;
 
 	/**
 	 * Used to track the message reference that should be sent to the user
 	 */
-	Message message;
+	final Message message;
 
 	/**
 	 * Used for a basic successful command
-	 * 
+	 *
 	 * @param success if the command was successful
 	 * @param message the reference for the message to send to the user
 	 */
@@ -38,7 +36,7 @@ public class CommandResponse {
 
 	/**
 	 * This method assumes that the command is not a success
-	 * 
+	 *
 	 * @param message the message to send to the user
 	 */
 	public CommandResponse(String message) {
@@ -47,7 +45,7 @@ public class CommandResponse {
 
 	/**
 	 * Used when you want to send a more complex message to the user
-	 * 
+	 *
 	 * @param success if the command was successful
 	 * @param message the message to send to the user
 	 */
@@ -58,7 +56,7 @@ public class CommandResponse {
 
 	/**
 	 * Used when you want to send a more complex message to the user
-	 * 
+	 *
 	 * @param message the message to send to the user
 	 */
 	public CommandResponse(Message message) {
@@ -67,7 +65,7 @@ public class CommandResponse {
 
 	/**
 	 * Used when no message should be sent to the user
-	 * 
+	 *
 	 * @param success if the command was a success or not
 	 */
 	public CommandResponse(boolean success) {
@@ -77,7 +75,7 @@ public class CommandResponse {
 
 	/**
 	 * This method is used to send the message which has been set by the command
-	 * 
+	 *
 	 * @param sender the player who sent the command
 	 */
 	public void sendResponseMessage(CommandSender sender) {

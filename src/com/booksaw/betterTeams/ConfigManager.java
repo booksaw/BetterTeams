@@ -1,15 +1,15 @@
 package com.booksaw.betterTeams;
 
+import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.YamlConfiguration;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 
-import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.YamlConfiguration;
-
 public class ConfigManager {
 
-	public YamlConfiguration config;
+	public final YamlConfiguration config;
 	private final String configName;
 
 	public ConfigManager(String configName) {

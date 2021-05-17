@@ -1,9 +1,10 @@
 package com.booksaw.betterTeams.score;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
+import com.booksaw.betterTeams.Main;
+import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.customEvents.PrePurgeEvent;
+import com.booksaw.betterTeams.score.ScoreChange.ChangeType;
+import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -11,18 +12,15 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.scheduler.BukkitScheduler;
 
-import com.booksaw.betterTeams.Main;
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.customEvents.PrePurgeEvent;
-import com.booksaw.betterTeams.score.ScoreChange.ChangeType;
-
-import me.clip.placeholderapi.PlaceholderAPI;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ScoreManagement implements Listener {
 
-	private int nextPurge;
 	private final List<Date> purges;
-	private boolean run = false;
+	private int nextPurge;
+	private boolean run;
 
 	public ScoreManagement() {
 		purges = new ArrayList<>();
@@ -56,12 +54,10 @@ public class ScoreManagement implements Listener {
 	private void sched() {
 		BukkitScheduler scheduler = Main.plugin.getServer().getScheduler();
 		scheduler.scheduleSyncRepeatingTask(Main.plugin, () -> {
-
 			if (purges.get(nextPurge).isNow()) {
 				if (run) {
 					return;
 				}
-
 				run = true;
 				Team.getTeamManager().purgeTeams();
 				if (nextPurge + 1 < purges.size()) {
@@ -74,6 +70,18 @@ public class ScoreManagement implements Listener {
 			// clean pass so it can reset the tracker
 			run = false;
 
+
+				run = true;
+				Team.purge();
+				if (nextPurge + 1 < purges.size()) {
+					nextPurge++;
+				} else {
+					nextPurge = 0;
+				}
+				return;
+			}
+			// clean pass so it can reset the tracker
+			run = false;
 		}, 0L, 20 * 60L);
 	}
 
@@ -87,50 +95,6 @@ public class ScoreManagement implements Listener {
 		});
 	}
 
-	private class Date {
-		private final int days;
-		private final int hours;
-
-		public Date(int date, int hours) {
-			this.days = date;
-			this.hours = hours;
-		}
-
-		/**
-		 * @param date the date to check if this date is before
-		 * @return if the event is before now
-		 */
-		public boolean isBefore(Date date) {
-			if (date.days < this.days) {
-				return false;
-			} else if (date.days > this.days) {
-				return true;
-			} else {
-				return date.hours > hours;
-			}
-
-		}
-
-		/**
-		 * @return if the event is now
-		 */
-		public boolean isNow() {
-			LocalDateTime now = LocalDateTime.now();
-			return days == now.getDayOfMonth() && now.getHour() == hours;
-		}
-
-		/**
-		 * Used to check if the date is after the current time
-		 * 
-		 * @return
-		 */
-		public boolean isAfterNow() {
-			LocalDateTime now = LocalDateTime.now();
-			Date nowDate = new Date(now.getDayOfMonth(), now.getHour());
-			return nowDate.isBefore(this);
-		}
-	}
-
 	@EventHandler
 	public void onKill(PlayerDeathEvent e) {
 		Player killed = e.getEntity().getPlayer();
@@ -140,8 +104,7 @@ public class ScoreManagement implements Listener {
 			death(killed, killedTeam);
 		}
 
-		if (e.getEntity().getKiller() == null || !(e.getEntity() instanceof Player)
-				|| !(e.getEntity().getKiller() instanceof Player)) {
+		if (e.getEntity().getKiller() == null) {
 			return;
 		}
 
@@ -188,4 +151,46 @@ public class ScoreManagement implements Listener {
 		souceTeam.setScore(souceTeam.getScore() + scoreForDeath);
 	}
 
+	private static class Date {
+		private final int date, hours;
+
+		public Date(int date, int hours) {
+			this.date = date;
+			this.hours = hours;
+		}
+
+		/**
+		 * @param date the date to check if this date is before
+		 * @return if the event is before now
+		 */
+		public boolean isBefore(Date date) {
+			if (date.date < this.date) {
+				return false;
+			} else if (date.date > this.date) {
+				return true;
+			} else {
+				return date.hours > hours;
+			}
+
+		}
+
+		/**
+		 * @return if the event is now
+		 */
+		public boolean isNow() {
+			LocalDateTime now = LocalDateTime.now();
+			return date == now.getDayOfMonth() && now.getHour() == hours;
+		}
+
+		/**
+		 * Used to check if the date is after the current time
+		 *
+		 * @return If the date is after the current time
+		 */
+		public boolean isAfterNow() {
+			LocalDateTime now = LocalDateTime.now();
+			Date nowDate = new Date(now.getDayOfMonth(), now.getHour());
+			return nowDate.isBefore(this);
+		}
+	}
 }

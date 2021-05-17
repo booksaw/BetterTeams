@@ -1,35 +1,30 @@
 package com.booksaw.betterTeams.commands.team;
 
-import java.util.List;
-import java.util.Map.Entry;
-
-import org.bukkit.command.CommandSender;
-
-import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.PlayerRank;
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.Warp;
+import com.booksaw.betterTeams.*;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
+import org.bukkit.command.CommandSender;
+
+import java.util.List;
+import java.util.Map.Entry;
 
 public class WarpsCommand extends TeamSubCommand {
 
 	@Override
 	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 
-		String replace = "";
+		StringBuilder replace = new StringBuilder();
 		for (Entry<String, Warp> warp : team.getWarps().entrySet()) {
-			replace = replace + warp.getKey() + ", ";
+			replace.append(warp.getKey()).append(", ");
 		}
 
 		if (replace.length() == 0) {
 			return new CommandResponse("warps.none");
 		}
 
-		replace = replace.substring(0, replace.length() - 2);
+		replace = new StringBuilder(replace.substring(0, replace.length() - 2));
 
-		return new CommandResponse(new ReferencedFormatMessage("warps.syntax", replace));
+		return new CommandResponse(new ReferencedFormatMessage("warps.syntax", replace.toString()));
 	}
 
 	@Override

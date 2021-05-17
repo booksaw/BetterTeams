@@ -1,17 +1,17 @@
 package com.booksaw.betterTeams.commands.teama;
 
-import java.util.List;
-
-import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.SubCommand;
 import com.booksaw.betterTeams.message.MessageManager;
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+import java.util.List;
+import java.util.Objects;
 
 public class DemoteTeama extends SubCommand {
 
@@ -27,9 +27,9 @@ public class DemoteTeama extends SubCommand {
 		if (team == null) {
 			return new CommandResponse("admin.inTeam");
 		}
-		
+
 		TeamPlayer tp = team.getTeamPlayer(p);
-		if(tp.getRank() == PlayerRank.DEFAULT) {
+		if (Objects.requireNonNull(tp).getRank() == PlayerRank.DEFAULT) {
 			return new CommandResponse("admin.demote.min");
 		}
 

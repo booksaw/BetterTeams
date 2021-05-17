@@ -1,21 +1,21 @@
 package com.booksaw.betterTeams.integrations;
 
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
-
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.message.MessageManager;
-
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 /**
  * This class is used to set the placeholder values for placeholder API
- * 
- * @author booksaw
  *
+ * @author booksaw
  */
 public class TeamPlaceholders extends PlaceholderExpansion {
-	private Plugin plugin;
+	private final Plugin plugin;
 
 	public TeamPlaceholders(Plugin plugin) {
 		this.plugin = plugin;
@@ -32,22 +32,22 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 	}
 
 	@Override
-	public String getAuthor() {
+	public @NotNull String getAuthor() {
 		return plugin.getDescription().getAuthors().toString();
 	}
 
 	@Override
-	public String getIdentifier() {
+	public @NotNull String getIdentifier() {
 		return "betterTeams";
 	}
 
 	@Override
-	public String getVersion() {
+	public @NotNull String getVersion() {
 		return plugin.getDescription().getVersion();
 	}
 
 	@Override
-	public String onPlaceholderRequest(Player player, String identifier) {
+	public String onPlaceholderRequest(Player player, @NotNull String identifier) {
 
 		if (player == null) {
 			return "";
@@ -127,7 +127,7 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 				return MessageManager.getMessage("placeholder.noTeam");
 			}
 
-			switch (team.getTeamPlayer(player).getRank()) {
+			switch (Objects.requireNonNull(team.getTeamPlayer(player)).getRank()) {
 			case ADMIN:
 				return MessageManager.getMessage(player, "placeholder.admin");
 			case DEFAULT:
@@ -145,9 +145,17 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 
 			return team.getColor() + "";
 
+		} else if (identifier.equals("online")) {
+			Team team = Team.getTeam(player);
+
+			if (team == null) {
+				return MessageManager.getMessage("placeholder.noTeam");
+			}
+
+			return String.valueOf(team.getOnlineMemebers().size());
 		} else if (identifier.startsWith("teamscore_")) {
 			identifier = identifier.replaceAll("teamscore_", "");
-			int place = -1;
+			int place;
 			try {
 				place = Integer.parseInt(identifier) - 1;
 			} catch (NumberFormatException e) {
@@ -166,7 +174,7 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 
 		} else if (identifier.startsWith("teamscoreno_")) {
 			identifier = identifier.replaceAll("teamscoreno_", "");
-			int place = -1;
+			int place;
 			try {
 				place = Integer.parseInt(identifier) - 1;
 			} catch (NumberFormatException e) {

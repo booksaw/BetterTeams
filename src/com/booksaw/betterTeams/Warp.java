@@ -7,8 +7,9 @@ import com.booksaw.betterTeams.team.LocationListComponent;
 
 public class Warp {
 
-	private Location location;
-	private String name, password;
+	private final Location location;
+	private final String name;
+	private final String password;
 
 	public Warp(String[] args) {
 		name = args[0];
@@ -49,7 +50,7 @@ public class Warp {
 		}
 	}
 
-	public void execute(Player player) throws Exception {
+	public void execute(Player player) {
 		try {
 			new PlayerTeleport(player, location, "warp.success");
 		} catch (Exception e) {

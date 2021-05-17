@@ -1,9 +1,8 @@
 package com.booksaw.betterTeams.customEvents;
 
-import org.bukkit.OfflinePlayer;
-
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
+import org.bukkit.OfflinePlayer;
 
 public abstract class TeamPlayerEvent extends TeamEvent {
 

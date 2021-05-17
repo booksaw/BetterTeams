@@ -1,28 +1,27 @@
 package com.booksaw.betterTeams.commands.teama;
 
-import java.util.List;
-
-import org.bukkit.command.CommandSender;
-
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.presets.TeamSelectSubCommand;
+import org.bukkit.command.CommandSender;
+
+import java.util.List;
 
 public class DescriptionTeama extends TeamSelectSubCommand {
 
 	@Override
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args, Team team) {
-		String newDescrip = "";
+		StringBuilder newDescrip = new StringBuilder();
 		int i = 0;
 		for (String temp : args) {
 			if (i == 0) {
 				i++;
 				continue;
 			}
-			newDescrip = newDescrip + temp + " ";
+			newDescrip.append(temp).append(" ");
 		}
 
-		team.setDescription(newDescrip);
+		team.setDescription(newDescrip.toString());
 
 		return new CommandResponse(true, "admin.description.success");
 	}

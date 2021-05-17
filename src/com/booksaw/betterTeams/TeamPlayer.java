@@ -1,23 +1,23 @@
 package com.booksaw.betterTeams;
 
-import java.util.UUID;
-
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.UUID;
+
 /**
  * This class is used to store all the information about a user in a team
- * 
- * @author booksaw
  *
+ * @author booksaw
  */
 public class TeamPlayer {
 
 	/**
 	 * this is used to store the player that the object is associated with
 	 */
-	private UUID playerUUID;
+	private final UUID playerUUID;
 
 	/**
 	 * This stores the players rank within the team
@@ -27,7 +27,7 @@ public class TeamPlayer {
 	/**
 	 * This stores if the team is messaging to the team chat or the global chat
 	 */
-	private boolean teamChat = false;
+	private boolean teamChat;
 
 	private boolean allyChat = false;
 
@@ -35,7 +35,7 @@ public class TeamPlayer {
 
 	/**
 	 * Used to create a new player
-	 * 
+	 *
 	 * @param player the player that is associated with this object
 	 * @param rank   the rank that the player has
 	 */
@@ -47,7 +47,7 @@ public class TeamPlayer {
 
 	/**
 	 * Used to load player information relating to that player
-	 * 
+	 *
 	 * @param data the data for the player (uuid,rank,title)
 	 */
 	public TeamPlayer(@NotNull String data) {
@@ -69,7 +69,7 @@ public class TeamPlayer {
 
 	/**
 	 * Set the rank of the player (used for promotions and demotions)
-	 * 
+	 *
 	 * @param rank the rank of the player
 	 */
 	public void setRank(PlayerRank rank) {
@@ -114,11 +114,11 @@ public class TeamPlayer {
 	 *                 for the rest of the message)
 	 * @return the prefix for messages that the player has sent
 	 */
-	public String getPrefix() {
+	public String getPrefix(ChatColor returnTo) {
 		if (title == null || title.equals("")) {
 			return rank.getPrefix();
 		} else {
-			return rank.getPrefix() + title + " ";
+			return rank.getPrefix() + title + returnTo + " ";
 		}
 	}
 
@@ -129,9 +129,9 @@ public class TeamPlayer {
 	/**
 	 * Do not use this method (only should be used in the class Team, instead use
 	 * Team.setTitle() as that will save the updated value)
-	 * 
-	 * @see com.booksaw.betterTeams.Team#setTitle
+	 *
 	 * @param title the new title for that player
+	 * @see com.booksaw.betterTeams.Team#setTitle
 	 */
 	public void setTitle(String title) {
 		this.title = title;

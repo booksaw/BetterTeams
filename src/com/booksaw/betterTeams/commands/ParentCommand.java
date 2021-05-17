@@ -1,5 +1,16 @@
 package com.booksaw.betterTeams.commands;
 
+import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.cooldown.CommandCooldown;
+import com.booksaw.betterTeams.cooldown.CooldownManager;
+import com.booksaw.betterTeams.cost.CommandCost;
+import com.booksaw.betterTeams.cost.CostManager;
+import com.booksaw.betterTeams.message.MessageManager;
+import com.booksaw.betterTeams.message.ReferencedFormatMessage;
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.NumberFormat;
@@ -8,42 +19,29 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 
-import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
-import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.cooldown.CommandCooldown;
-import com.booksaw.betterTeams.cooldown.CooldownManager;
-import com.booksaw.betterTeams.cost.CommandCost;
-import com.booksaw.betterTeams.cost.CostManager;
-import com.booksaw.betterTeams.message.MessageManager;
-import com.booksaw.betterTeams.message.ReferencedFormatMessage;
-
 /**
  * This is used for any parent commands across the system
- * 
- * @author booksaw
  *
+ * @author booksaw
  */
 public class ParentCommand extends SubCommand {
 
 	/**
 	 * Used to store all applicable sub commands
 	 */
-	private HashMap<String, SubCommand> subCommands = new HashMap<>();
+	private final HashMap<String, SubCommand> subCommands = new HashMap<>();
 
 	/**
 	 * Used to store what the parent command reference is
 	 */
-	private String command;
+	private final String command;
 
 	private CooldownManager cooldowns = null;
 	private CostManager prices = null;
 
 	/**
 	 * Creates a new parent command with a set of sub commands
-	 * 
+	 *
 	 * @param command the command which will be defaulted to if the user enters an
 	 *                incorrect command
 	 */
@@ -59,8 +57,20 @@ public class ParentCommand extends SubCommand {
 	}
 
 	/**
+	 * Add multiple subcommands (see
+	 * {@link ParentCommand#addSubCommand(SubCommand)})
+	 *
+	 * @param commands The command(s) to add
+	 */
+	public void addSubCommands(SubCommand... commands) {
+		for (SubCommand command : commands) {
+			addSubCommand(command);
+		}
+	}
+
+	/**
 	 * this method adds another command to the parent command
-	 * 
+	 *
 	 * @param command the command to add
 	 */
 	public void addSubCommand(SubCommand command) {
@@ -149,7 +159,7 @@ public class ParentCommand extends SubCommand {
 
 	/**
 	 * Used to display the help information to the user
-	 * 
+	 *
 	 * @param sender the user which called the command
 	 * @param label  the label of the command
 	 * @param args   the arguments that the user entered
@@ -164,11 +174,7 @@ public class ParentCommand extends SubCommand {
 	 */
 	private String[] removeFirstElement(String[] args) {
 		String[] toReturn = new String[args.length - 1];
-
-		for (int i = 0; i < toReturn.length; i++) {
-			toReturn[i] = args[i + 1];
-		}
-
+		System.arraycopy(args, 1, toReturn, 0, toReturn.length);
 		return toReturn;
 
 	}
@@ -224,7 +230,6 @@ public class ParentCommand extends SubCommand {
 		}
 
 		command.onTabComplete(options, sender, label, removeFirstElement(args));
-		return;
 	}
 
 	@Override
@@ -233,9 +238,8 @@ public class ParentCommand extends SubCommand {
 	}
 
 	public String getReference(SubCommand subCommand) {
-
 		String toReturn = MessageManager.getMessage("command." + subCommand.getCommand());
-		if (toReturn != null && !toReturn.equals("")) {
+		if (!toReturn.equals("")) {
 			return toReturn;
 		}
 

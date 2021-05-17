@@ -1,18 +1,16 @@
 package com.booksaw.betterTeams.integrations;
 
-import java.util.List;
-
+import com.booksaw.betterTeams.Main;
+import com.booksaw.betterTeams.Team;
+import fr.maxlego08.koth.FactionListener;
+import fr.maxlego08.koth.event.KothRegisterEvent;
+import fr.maxlego08.koth.event.KothWinEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-import com.booksaw.betterTeams.Main;
-import com.booksaw.betterTeams.Team;
-
-import fr.maxlego08.koth.FactionListener;
-import fr.maxlego08.koth.event.KothRegisterEvent;
-import fr.maxlego08.koth.event.KothWinEvent;
+import java.util.List;
 
 public class ZKothManager implements Listener {
 
@@ -31,7 +29,7 @@ public class ZKothManager implements Listener {
 		team.setScore(team.getScore() + Main.plugin.getConfig().getInt("zkoth.pointsPerCapture"));
 	}
 
-	public class TeamListener implements FactionListener {
+	public static class TeamListener implements FactionListener {
 
 		@Override
 		public String getFactionTag(Player p) {
