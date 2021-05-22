@@ -54,10 +54,12 @@ public class ScoreManagement implements Listener {
 	private void sched() {
 		BukkitScheduler scheduler = Main.plugin.getServer().getScheduler();
 		scheduler.scheduleSyncRepeatingTask(Main.plugin, () -> {
+
 			if (purges.get(nextPurge).isNow()) {
 				if (run) {
 					return;
 				}
+
 				run = true;
 				Team.getTeamManager().purgeTeams();
 				if (nextPurge + 1 < purges.size()) {
@@ -70,19 +72,8 @@ public class ScoreManagement implements Listener {
 			// clean pass so it can reset the tracker
 			run = false;
 
-
-				run = true;
-				Team.purge();
-				if (nextPurge + 1 < purges.size()) {
-					nextPurge++;
-				} else {
-					nextPurge = 0;
-				}
-				return;
-			}
-			// clean pass so it can reset the tracker
-			run = false;
 		}, 0L, 20 * 60L);
+
 	}
 
 	@EventHandler

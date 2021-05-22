@@ -1,8 +1,7 @@
 package com.booksaw.betterTeams.commands.teama.chest;
 
-import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.commands.presets.TeamSelectSubCommand;
+import java.util.List;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -13,7 +12,6 @@ import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.presets.TeamSelectSubCommand;
 import com.booksaw.betterTeams.team.LocationListComponent;
-import java.util.List;
 
 public class ChestClaimTeama extends TeamSelectSubCommand {
 

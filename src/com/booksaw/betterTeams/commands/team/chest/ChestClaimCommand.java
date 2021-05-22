@@ -1,7 +1,8 @@
 package com.booksaw.betterTeams.commands.team.chest;
 
-import com.booksaw.betterTeams.*;
-import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
+import java.util.List;
+import java.util.Objects;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -14,9 +15,6 @@ import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 import com.booksaw.betterTeams.team.LocationListComponent;
-
-import java.util.List;
-import java.util.Objects;
 
 
 public class ChestClaimCommand extends TeamSubCommand {

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
@@ -23,9 +24,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
 import org.jetbrains.annotations.NotNull;
 
-
 import com.booksaw.betterTeams.customEvents.DisbandTeamEvent;
-import com.booksaw.betterTeams.events.MCTeamManagement.BelowNameType;
 import com.booksaw.betterTeams.exceptions.CancelledEventException;
 import com.booksaw.betterTeams.message.Message;
 import com.booksaw.betterTeams.message.MessageManager;
@@ -40,12 +39,6 @@ import com.booksaw.betterTeams.team.MemberListComponent;
 import com.booksaw.betterTeams.team.MoneyComponent;
 import com.booksaw.betterTeams.team.ScoreComponent;
 import com.booksaw.betterTeams.team.TeamManager;
-
-import javax.annotation.Nullable;
-import java.text.DecimalFormat;
-import java.util.*;
-import java.util.Map.Entry;
-
 
 /**
  * This class is used to manage a team and all of it's participants
@@ -97,9 +90,8 @@ public class Team {
 	}
 
 	/**
-	 * @see Team#getClaimingTeam(Location)
-	 * Used to get the team which has claimed the provided chest, will return null
-	 * if that location is not claimed
+	 * @see Team#getClaimingTeam(Location) Used to get the team which has claimed
+	 *      the provided chest, will return null if that location is not claimed
 	 *
 	 * @param location the location of the chest - must already be normalised
 	 * @return The team which has claimed that chest
@@ -255,6 +247,8 @@ public class Team {
 
 	HashMap<String, Warp> warps;
 
+	private org.bukkit.scoreboard.Team team;
+
 	/**
 	 * this is used to load a team from the configuration file
 	 * 
@@ -389,8 +383,8 @@ public class Team {
 	 */
 	public void setName(String name) {
 		this.name = name;
-		setValue(Main.plugin.getTeams(), "name", name);
-		Main.plugin.saveTeams();
+		getConfig().set("name", name);
+		TEAMMANAGER.saveTeamsFile();
 
 		if (Main.plugin.teamManagement != null) {
 
@@ -405,7 +399,7 @@ public class Team {
 
 			team = null;
 
-			for (TeamPlayer p : members) {
+			for (TeamPlayer p : members.getClone()) {
 				if (p.getPlayer().isOnline()) {
 					Main.plugin.teamManagement.displayBelowName(Objects.requireNonNull(p.getPlayer().getPlayer()));
 				}
@@ -962,11 +956,6 @@ public class Team {
 
 	public int getTeamBalRank() {
 		return balRank;
-	}
-
-	private void 
-    (int rank) {
-		this.balRank = rank;
 	}
 
 	/**
