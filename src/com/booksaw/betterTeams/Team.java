@@ -255,10 +255,8 @@ public class Team {
 	 * @param id the ID of the team to load
 	 */
 	public Team(UUID id) {
-
-		ConfigurationSection config = getConfig();
-
 		this.id = id;
+		ConfigurationSection config = getConfig();
 
 		name = config.getString("name");
 		description = config.getString("description");

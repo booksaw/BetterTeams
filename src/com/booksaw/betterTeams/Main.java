@@ -145,10 +145,11 @@ public class Main extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
+		plugin = this;
 		saveDefaultConfig();
 		setupMetrics();
 
-		plugin = this;
+		Team.getTeamManager().loadTeams();
 
 		String language = getConfig().getString("language");
 		MessageManager.setLanguage(language);

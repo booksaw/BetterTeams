@@ -58,8 +58,6 @@ public class TeamManager {
 
 		teamStorage = YamlConfiguration.loadConfiguration(f);
 
-		// loading the team information
-		loadTeams();
 	}
 
 	/**

@@ -320,6 +320,9 @@ Bug Fixes:
 
 
 4.0: 
+Features: 
+- Added support for Traditional Chinese 
+
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
