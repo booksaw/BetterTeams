@@ -1,0 +1,460 @@
+# All translations in this file are community made, this means there may be errors / missed translations, if you are able to improve upon any translation it would be greatly appreciated
+
+# Able to help with translations? Either improving a already existing language, or adding a whole new one. Join the discord server: https://discord.gg/JF9DNs3 
+# or message me on spigot: https://www.spigotmc.org/members/booksaw123.120955/
+
+# Any placeholders from placeholder API will work in this file
+# general errors
+invalidArg: '&4無效的參數，幫助'
+inTeam: '&4您必須在公會中才能執行此操作'
+notInTeam: '&4您必須先離開公會'
+needOwner: '&4您必須是公會的所有者才能執行此操作'
+needAdmin: '&4您必須是管理員或公會所有者才能執行此操作'
+needPlayer: '&4您必須是一名玩家才能執行此操作'
+noPlayer: '&4找不到指定的玩家'
+notTeam: '&6&4那支公會不存在, 試試 &b/team create <工會名稱>'
+needSameTeam: '&6您與該人不在同一個公會中'
+noPerm: '&4您無權執行此操作'
+prefixSyntax: '&7[%s&7] &r%s'
+bannedChar: '&4您嘗試使用的字符被禁止"'
+noTeam: '&4那支公會不存在'
+version: 22
+cooldown:
+  wait: '&4你需要等待額外 %s 秒以再次執行!'
+cost:
+  tooPoor: '&4交易金幣不足'
+  run: '&4&l-%s'
+placeholder:
+  noTeam: ''
+  noDescription: ''
+  money: '%s'
+  owner: 會長
+  admin: 管理者
+  default: 成員
+  name: '%s '
+  tag: '%s'
+  displayname: '%s'
+prefix:
+  owner: ' **'
+  admin: ' *'
+  default: ' '
+create:
+  exists: '&6那支公會已經存在'
+  success: '&6您的公會已創建'
+  banned: '&4該公會名被禁止'
+  maxLength: '&4那個公會名太長了'
+leave:
+  success: '&6你離開了公會'
+  lastOwner: '&6您是公會中唯一的所有者級別，提拔他人 或使用 &b/team disband &6來解散公會'
+rank:
+  noTeam: '&4找不到此公會'
+  info: '&6公會定位:'
+  infos: '&6公會等級: &b%s &7(%s 分以升級)'
+  infom: '&6公會等級: &b%s &7($%s 以升級)'
+  syntax: '&b%s: &6%s &7(%s)'
+delhome:
+  success: '&6您的公會傳點已被刪除'
+  noHome: '&4您的公會還沒有建立傳點'
+disband:
+  success: '&6你解散了公會'
+  confirm: '&6再次使用 &b/team disband &6來確認'
+description:
+  success: '&6您已更改公會說明'
+  view: '&6公會描述: %s'
+  noDesc: '&6未設置公會描述'
+  noPerm: '&4您無權編輯公會說明'
+name:
+  success: '&6您已更改公會名稱'
+  view: '&6公會名稱: %s'
+  exists: '&4那支公會已經存在'
+  noPerm: '&4您無權更改公會名稱'
+invite:
+  success: '&6該玩家已被邀請'
+  invite: '&6您已受邀加入公會 %s 使用 &b/team join <公會名稱> &6 來加入該公會'
+  inTeam: '&6那個玩家已經在公會裡了'
+  banned: '&6該玩家已被你的公會禁止'
+  full: '&6以達到人數上限, 請升級公會'
+  expired: '&4此邀請 &b%s 已經過期'
+join:
+  success: '&6您已加入該公會'
+  notify: '&6歡迎 &b%s &6加入本公會!'
+  notInvited: '&6&4您尚未受邀加入該公會'
+  banned: '&6&4您被禁止加入該公會'
+  full: '&4該公會已達人數上限'
+open:
+  successopen: '&6您的公會現在向所有人開放'
+  successclose: '&6您的公會現在已設為邀請制'
+title:
+  change: '&6您的頭銜已更改為 &b%s'
+  success: '&6該頭銜已更改'
+  tooLong: '&4那個頭銜太長了'
+  noFormat: '&4你無權更改頭銜格式'
+  noColor: '&4你無權更改頭銜顏色'
+  reset: '&6你的頭銜已重置'
+info:
+  needTeam: '&6找不到以該名字命名的公會或玩家'
+  name: '&6名稱: &b%s'
+  description: '&6簡介: &b%s'
+  open: '&6公開制: &b%s'
+  level: '&6等級: &b%s'
+  owner: '&6會長: &b%s'
+  admin: '&6管理者: &b%s'
+  default: '&6成員: &b%s'
+  tag: '&6標籤: &b%s'
+  fail: '&6找不到以該名字命名的公會或玩家'
+  score: '&6公會分數: &b%s'
+  money: '&6公會金幣: &b%s'
+  ally: '&6聯盟: &b%s'
+kick:
+  success: '&6那名成員被踢了'
+  notify: '&6你已被踢出以下公會 %s'
+  noPerm: '&6您無權踢除該玩家'
+ban:
+  success: '&6該玩家已被封禁'
+  notify: '&6你已被以下公會封禁 %s'
+  noPerm: '&6您無權封禁該玩家'
+  already: '&6該玩家已被封禁'
+unban:
+  success: '&6該玩家已被解除封禁'
+  notify: '&6你已被以下公會解除封禁 %s'
+  noPerm: '&6您無權解除封禁該玩家'
+  not: '&6該玩家沒有被封禁'
+promote:
+  success: '&6該玩家已晉升'
+  noPerm: '&6您無權提拔該玩家'
+  max: '&6該玩家已是最高管理者!'
+  notify: '&6你已被提拔!'
+demote:
+  success: '&6該玩家已降級'
+  noPerm: '&6您無權降級該玩家'
+  min: '&6該玩家已是最低權限'
+  notify: '&6你已被降級'
+  lastOwner: '&6你無法降級最後的公會擁有者, 你必須先提拔他人'
+home:
+  success: '&6傳送成功'
+  noHome: '&6你的公會沒有設置傳點'
+  world: '&4找不到你的公會傳點'
+sethome:
+  success: '&6已設置公會傳點'
+  noPerm: '&6你無權設置公會傳點'
+chat:
+  enabled: '&6你的訊息將發送至公會頻道'
+  disabled: '&6你的訊息將發送至公共頻道'
+  syntax: '&6&b[公會]&f%s: %s'
+color:
+  success: '&6您的公會顏色已更改'
+  fail: '&6那不是可使用的聊天室顏色'
+  banned: '&4您只能使用顏色，不能使用格式代碼'
+deposit:
+  tooLittle: '&4您不能存入負數金額'
+  fail: '&4存款失敗'
+  success: '&6存款成功'
+withdraw:
+  tooLittle: '&4您不能提取負數金額'
+  fail: '&4提取失敗'
+  success: '&6提取成功'
+  notEnough: '&6您的公會沒有足夠的資金'
+ally:
+  already: '&4你已經是盟友'
+  success: '&6您的公會現在是盟友'
+  ally: '&6您的公會現在與以下公會結為盟友 &b%s'
+  requested: '&6盟友請求已發送給該公會'
+  request: '&b%s &6已發送盟友請求, 使用 &b/team ally <team> &6來接受邀請'
+  self: '&4您不能結盟自己的公會'
+  from: '&6來自其他公會的盟友請求: %s'
+  noRequests: '&4您沒有任何盟友請求'
+  onJoin: '&6您有新的盟友請求, 使用 &b/team ally &6來查看'
+  limit: '&4已達到盟友數量限制'
+allychat:
+  disabled: '&6您的消息將不再發送給盟友'
+  enabled: '&6您的消息將發送給盟友'
+  syntax: '&d[%s]&f%s: %s'
+neutral:
+  self: '&6那是你自己的公會'
+  requestremove: '&6該盟友請求已被刪除'
+  reject: '&4你發送給 &b%s &4的盟友請求已被拒絕'
+  notAlly: '&4您沒有與那個公會結盟'
+  success: '&4您不再與那個公會結盟'
+  remove: '&4您不再與以下公會結盟 &b%s'
+list:
+  noPage: '&6找不到該頁面'
+  header: '&7--- &b公會清單 %s &7---'
+  body: '&6%s: &b%s'
+  footer: '&7--- &6使用 &b/team list [page] &6來查看更多 &7---'
+setowner:
+  use: '&6您不能晉升該玩家, 使用 &b/team setowner <player> &6來提拔該玩家至會長'
+  success: '&6該玩家現在是會長'
+  notify: '&6你現在是公會會場'
+  max: '&4該玩家已是會長'
+setwarp:
+  exist: '&4該傳點已存在'
+  max: '&4已達傳點數量上限,請升級公會'
+  success: '&6該傳點已建立'
+  char: '&4該傳點存在不允許的單字'
+warp:
+  nowarp: '&4該傳點不存在'
+  invalidPassword: '&4傳點密碼輸入錯誤'
+  success: '&6已成功傳送'
+  world: '&4找不到該傳點的位置'
+warps:
+  syntax: '&6公會傳點: &b%s'
+  none: '&4你的公會未設任何傳點'
+delwarp:
+  success: '&4該傳點已被刪除'
+teleport:
+  fail: '&4傳送失敗'
+  wait: '&6需等待 &b%s &6秒'
+chest:
+  claim:
+    noChest: '&4你沒有站在箱子上'
+    limit: '&4已達公會箱子數量上限'
+    claimed: '&4該箱子已是公會箱子'
+    success: '&6你已設置該箱子為公會箱子'
+  remove:
+    noChest: '&4你沒有站在箱子上'
+    notClaimed: '&4你的公會沒有設置該箱子為公會箱子'
+    success: '&4已刪除該公會箱子'
+  all:
+    success: '&6已刪除所有公會箱子'
+  claimed: '&4該箱子為以下公會所有 &a%s'
+echest:
+  echest: 終界箱子
+pvp:
+  enabled: '&6公會Pvp 已開啟'
+  disabled: '&6公會Pvp 已關閉'
+rankup:
+  max: '&4你的公會已達等級上限'
+  score: '&4你需要 %s 分公會分數以升級'
+  money: '&4你需要 %s 交易金幣以升級, 需存入公會存款'
+  success: '&6你的公會已升級'
+tag:
+  banned: '&4該標籤已被禁止'
+  success: '&6你的標籤已更改'
+  maxLength: '&4該標籤已達字數上限'
+  noPerm: '&4你無權更改公會標籤'
+admin:
+  tag:
+    success: '&6該公會標籤已更改'
+  setrank:
+    success: '&6That teams rank has been set'
+    'no': '&4That rank either does not exist or is not setup correctly'
+  config:
+    reload: '&6BetterTeams has been reloaded (If you are having problems when using
+      this command, restart the server)'
+  holo:
+    create:
+      success: '&6Hologram created'
+    remove:
+      noHolo: '&4No holograms found'
+      success: '&6Hologram deleted'
+  title:
+    success: '&6that players title has been changed'
+    reset: '&6That players title has been reset'
+  version: '&6Current plugin version: %s'
+  noTeam: '&4That is not a team'
+  home:
+    success: '&6You have been teleported to that teams home'
+    noHome: '&4That team does not have a home set'
+  name:
+    success: '&6The team name has been changed'
+  description:
+    success: '&6That teams name has been changed'
+  open:
+    successopen: '&6That team is now open for everyone'
+    successclose: '&6That team is now invite only'
+  invite:
+    success: '&6That player has been invited to that team'
+  create:
+    success: '&6That team has been created'
+  join:
+    banned: '&4That player is banned from that team'
+    success: '&6That player has joined the team'
+    notify: '&6You have joined the team &b%s'
+    full: '&4That team is full'
+  notInTeam: '&6That player cannot be in a team before doing that'
+  inTeam: '&4That player is not in a team'
+  leave:
+    success: '&6That player has left that team'
+    notify: '&6You have left that team'
+  demote:
+    notify: '&6You have been demoted'
+    success: '&6That player has been demoted'
+    min: '&4That player cannot be demoted any more'
+  promote:
+    max: '&6That player is already the maximum rank'
+    notify: '&6You have been promoted'
+    success: '&6That player has been promoted'
+    owner: '&6It is configured that teams can only have a single owner, do &b/teama
+      setowner <player> &6to set the player as the owner'
+  setowner:
+    already: '&4That player is already an owner'
+    nonotify: '&6You are no longer owner of the team'
+    success: '&6That player is the new team owner'
+    notify: '&6You are now the owner of your team'
+  warps:
+    none: '&4That team has not set any warps'
+  setwarp:
+    success: '&6That warp has been set'
+    max: '&6That team has already set the maximum number of warps'
+  purge:
+    confirm: '&6Run that command in the next 10 seconds to confirm, &4THIS CANNOT
+      BE UNDONE AND WILL RESET SCORES FOR ALL TEAMS'
+    success: '&6The teams have been purged'
+  score:
+    tooSmall: '&4The score must be greater than 0'
+    success: '&6That teams score has been changed'
+  update: '&4There is a new version of better teams released update here: (https://www.spigotmc.org/resources/better-teams.17129/)'
+  disband:
+    success: '&6That team has been disbanded successfully'
+  color:
+    success: '&6That teams color has been changed'
+  chest:
+    claim:
+      success: '&6You have claimed that chest on behalf of the team'
+    remove:
+      success: '&6You have successfully removed the claim from that chest'
+      notClaimed: '&4No team has claimed that chest'
+    all:
+      success: '&6All claims removed from that team'
+    disable:
+      already: '&4Chest claims are already disabled'
+      success: '&6Chest claiming has been disabled'
+    disabled:
+      bc: '&6&lAll claimed chests are able to be opened'
+    enable:
+      already: '&4Chest claims are already enabled'
+      success: '&6Chest claiming has been enabled'
+    enabled:
+      bc: '&6&lAll claimed chests are locked'
+nametag:
+  syntax: '&6&l%s&r '
+holo:
+  leaderboard: '&6公會排行榜'
+  syntax: '&6%s: &b%s'
+  msyntax: '&6%s: &b$%s'
+top:
+  leaderboard: '&6公會排行榜'
+  syntax: '&b%s: &6%s &7(%s)'
+  divide: '&f...'
+baltop:
+  leaderboard: '&6公會財富榜'
+  syntax: '&b%s: &6%s &7(%s)'
+  divide: '&f...'
+spy:
+  stop: '&6You are no longer spying on team messages'
+  start: '&6You are now spying on team messages'
+  team: '&7[&b%s&7]&f%s&f: %s'
+  ally: '&7[&d%s&7]&f%s&f: %s'
+help:
+  description: 查看你的公會簡介
+  ban: 禁止踢出公會的團員（團員只能禁止用戶）
+  home: 傳送到公會的位置
+  help: 提供個性化的幫助頁面，該頁面僅給有訪問權用戶使用的指令
+  promote: 將玩家提升到下一個等級 (有3個階級 擁有者/管理員/成員)
+  demote: 將一名玩家降級
+  unban: 允許指定的玩家重新加入該公會
+  kick: 踢出公會中的指定團員（團員只能踢出比自己低的成員等級）
+  leave: 離開當前公會
+  chat: 如果含訊息，將向公會聊天室發送一條消息，如果不包括訊息，則玩家訊息將被移至公會聊天室（所有其他訊息都將移至公會聊天室）
+  name: 更改公會名稱
+  sethome: 設置公會home點的位置（通過/ team home傳送）
+  create: 創建一個你所命名的新公會
+  invite: 邀請指定的玩家加入公會
+  disband: 強制公會中的所有成員離開並解散（無法撤消）
+  open: 邀請制及開放制的切換
+  info: 提供有關“公會或指定成員”所在的公會的資訊
+  color: 改公會名的顏色
+  deposit: 將資金存入公會的經費
+  bal: 查看公會的經費
+  withdraw: 從公會現有的經費中提款 (團員只能提出你曾經存過的錢 但會長能動用公會所有的錢)
+  title: 在公會中更改該團員的頭銜
+  top: 查看頂尖公會
+  rank: 查看公會排名
+  join: 加入指定的公會
+  delhome: 刪除公會home點
+  ally: 請求/接受與另一個公會的聯盟
+  neutral: 刪除與另一個公會的聯盟
+  allychat: 發送一條消息，只有公會盟友可以看到
+  echest: 打開您公會的中界箱
+  setwarp: 為您的公會設定一個新的傳點
+  warps: 傳送到您的公會設置的傳點
+  rankup: 晉升到下一個等級
+  tag: 更改公會標籤 (會顯示在頭上)
+  delwarp: 從您的公會中刪除一個傳點，會長不需要密碼
+  chest: ''
+  pvp: 切換公會成員之間pvp啟用
+  baltop: 查看最富有的公會
+  list: 公會清單
+  warp: 傳送到您的公會設置的傳點
+  purge: 重置所有公會分數
+  setrank: Set the level of the team specified
+  score: ''
+  reload: Reload the BetterTeams configs
+  chatspy: Spy on messages sent to team chats
+  version: Check the plugin version
+  holo: ''
+  remove: Remove the leaderboard hologram closest to you
+  add: Add the specified amount to that players score
+  set: Set the specified teams score
+  removeall: 移除所有公會箱子
+  claim: 認領您腳下的箱子
+command:
+  create: create
+  leave: leave
+  disband: disband
+  description: description
+  invite: invite
+  join: join
+  name: name
+  open: open
+  info: info
+  kick: kick
+  promote: promote
+  demote: demote
+  home: home
+  sethome: sethome
+  ban: ban
+  unban: unban
+  chat: chat
+  color: color
+  title: title
+  top: top
+  baltop: baltop
+  rank: rank
+  delhome: delhome
+  ally: ally
+  neutral: neutral
+  allychat: allychat
+  list: list
+  warp: warp
+  setwarp: setwarp
+  delwarp: delwarp
+  warps: warps
+  echest: echest
+  rankup: rankup
+  tag: tag
+  pvp: pvp
+  claim: claim
+  remove: remove
+  removeall: removeall
+  chest: chest
+  reload: reload
+  chatspy: chatspy
+  version: version
+  purge: purge
+  setrank: setrank
+  add: add
+  set: set
+  score: score
+  enableclaims: enableclaims
+  disableclaims: disableclaims
+  holo: holo
+  deposit: deposit
+  bal: bal
+  withdraw: withdraw
+uclaim:
+  member: '&4You cannot leave your teams claim'
+  kick: '&4You cannot kick members of your own team from your claim'
+  ban: '&4You cannot ban members of your own team from your claim'
+  dissolve: '&4Your team has been disbanded so your claim has been dissolved'
+  team: '&4You must be in a team to create a claim'
