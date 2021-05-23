@@ -38,9 +38,4 @@ public abstract class TeamSelectSubCommand extends SubCommand {
 	 * @return the message reference to send to the user
 	 */
 	public abstract CommandResponse onCommand(CommandSender sender, String label, String[] args, Team team);
-
-	@Override
-	public boolean needPlayer() {
-		return true;
-	}
 }
