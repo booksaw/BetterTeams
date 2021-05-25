@@ -18,6 +18,9 @@ permissions:
    betterTeams.join:
       default: true
       description: Allows access to /team join
+   betterTeams.echest:
+      default: true
+      description: Allows access to /team echest
    betterTeams.ban:
       default: true
       description: Allows access to /team ban
