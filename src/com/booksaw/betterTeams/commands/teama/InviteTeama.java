@@ -72,6 +72,11 @@ public class InviteTeama extends TeamSelectSubCommand {
 	}
 
 	@Override
+	public boolean needPlayer() {
+		return true;
+	}
+
+	@Override
 	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
 
 		if (args.length == 1) {
