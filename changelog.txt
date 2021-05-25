@@ -323,6 +323,9 @@ Bug Fixes:
 Features: 
 - Added support for Traditional Chinese 
 
+Bug Fixes:
+- Fixed permission issue with /team echest	
+
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
