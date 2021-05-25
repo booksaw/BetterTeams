@@ -1,10 +1,9 @@
 package com.booksaw.betterTeams.events;
 
-import com.booksaw.betterTeams.Main;
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.customEvents.BelowNameChangeEvent;
-import com.booksaw.betterTeams.customEvents.BelowNameChangeEvent.ChangeType;
-import com.booksaw.betterTeams.customEvents.BelowNameChangeListener;
+import java.util.Map.Entry;
+import java.util.Objects;
+import java.util.UUID;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -14,45 +13,27 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team.Option;
 import org.bukkit.scoreboard.Team.OptionStatus;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map.Entry;
-import java.util.Objects;
-import java.util.UUID;
+import com.booksaw.betterTeams.Main;
+import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.customEvents.BelowNameChangeEvent;
+import com.booksaw.betterTeams.customEvents.BelowNameChangeEvent.ChangeType;
 
-@SuppressWarnings("deprecation")
-// TODO: Fix in 4.0
 public class MCTeamManagement implements Listener {
 
 	final Scoreboard board;
 	private final BelowNameType type;
+
 	/**
 	 * Used to track a list of all listeners
 	 *
 	 * @see BelowNameChangeListener
 	 */
-	private final List<BelowNameChangeListener> listeners = new ArrayList<>();
-
 	public MCTeamManagement(BelowNameType type) {
 		this.type = type;
 
 		Objects.requireNonNull(Bukkit.getScoreboardManager()).getMainScoreboard();
 		board = Bukkit.getScoreboardManager().getMainScoreboard();
 
-	}
-
-	/**
-	 * @param listener The listener to add to the list of active listeners
-	 */
-	public void addListener(BelowNameChangeListener listener) {
-		listeners.add(listener);
-	}
-
-	/**
-	 * @param listener The listener to remove from the list of active listeners
-	 */
-	public void removeListener(BelowNameChangeListener listener) {
-		listeners.remove(listener);
 	}
 
 	public void displayBelowNameForAll() {
@@ -79,11 +60,6 @@ public class MCTeamManagement implements Listener {
 		Bukkit.getPluginManager().callEvent(event);
 
 		team.getScoreboardTeam(board).addEntry(player.getName());
-
-		// triggering the listeners
-		for (BelowNameChangeListener listener : listeners) {
-			listener.run(event);
-		}
 
 	}
 
@@ -124,11 +100,6 @@ public class MCTeamManagement implements Listener {
 
 		BelowNameChangeEvent event = new BelowNameChangeEvent(player, ChangeType.REMOVE);
 		Bukkit.getPluginManager().callEvent(event);
-
-		// triggering the listeners
-		for (BelowNameChangeListener listener : listeners) {
-			listener.run(new BelowNameChangeEvent(player, ChangeType.REMOVE));
-		}
 
 	}
 
@@ -176,9 +147,9 @@ public class MCTeamManagement implements Listener {
 				return PREFIX;
 			case "suffix":
 				return SUFFIX;
+			default:
+				return FALSE;
 			}
-
-			return FALSE;
 		}
 	}
 

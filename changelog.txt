@@ -324,7 +324,11 @@ Features:
 - Added support for Traditional Chinese 
 
 Bug Fixes:
-- Fixed permission issue with /team echest	
+- Fixed permission issue with /team echest (#142)
+
+Development changes: 
+- Reworked Team class to avoid code reuse
+- Removed support for the depreciated event listener BelowNameChangeListener, Use spigot event observer pattern instead (#131)
 
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
