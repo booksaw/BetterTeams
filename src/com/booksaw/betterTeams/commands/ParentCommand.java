@@ -243,11 +243,11 @@ public class ParentCommand extends SubCommand {
 			return toReturn;
 		}
 
-		MessageManager.getMessages().set("command." + subCommand.getCommand(), subCommand.getCommand());
+		MessageManager.getDefaultMessages().set("command." + subCommand.getCommand(), subCommand.getCommand());
 
 		File f = MessageManager.getFile();
 		try {
-			MessageManager.getMessages().save(f);
+			MessageManager.getDefaultMessages().save(f);
 		} catch (IOException ex) {
 			Bukkit.getLogger().log(Level.SEVERE, "Could not save config to " + f, ex);
 		}

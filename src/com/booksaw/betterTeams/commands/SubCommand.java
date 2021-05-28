@@ -29,14 +29,14 @@ public abstract class SubCommand {
 	 * @return the help message for the subcommand
 	 */
 	public String getHelpMessage() {
-		String message = MessageManager.getMessages().getString("help." + getCommand());
+		String message = MessageManager.getDefaultMessages().getString("help." + getCommand());
 		if (message == null || message.equals("")) {
 			message = getHelp();
-			MessageManager.getMessages().set("help." + getCommand(), getHelp());
+			MessageManager.getDefaultMessages().set("help." + getCommand(), getHelp());
 
 			File f = MessageManager.getFile();
 			try {
-				MessageManager.getMessages().save(f);
+				MessageManager.getDefaultMessages().save(f);
 			} catch (IOException ex) {
 				Bukkit.getLogger().log(Level.SEVERE, "Could not save config to " + f, ex);
 			}
