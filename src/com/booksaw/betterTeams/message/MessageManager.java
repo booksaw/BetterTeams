@@ -1,16 +1,25 @@
 package com.booksaw.betterTeams.message;
 
-import com.booksaw.betterTeams.Main;
-import me.clip.placeholderapi.PlaceholderAPI;
-import net.md_5.bungee.api.ChatColor;
-import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
-
 import java.io.File;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.MissingFormatArgumentException;
 import java.util.Objects;
+import java.util.logging.Logger;
+
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
+
+import com.booksaw.betterTeams.Main;
+
+import me.clip.placeholderapi.PlaceholderAPI;
+import net.md_5.bungee.api.ChatColor;
 
 /**
  * Used to control all communications to the user
@@ -20,10 +29,11 @@ import java.util.Objects;
 public class MessageManager {
 
 	/**
-	 * This is used to store the configuration file which has all the messages
-	 * within
+	 * Used to store all loaded messages
 	 */
-	private static FileConfiguration messages;
+	private static HashMap<String, String> messages = new HashMap<>();
+
+	private static FileConfiguration defaultMessages;
 
 	/**
 	 * This is the prefix which goes before all messages related to this plugin
@@ -56,9 +66,86 @@ public class MessageManager {
 	 * @param file the configuration file
 	 */
 	public static void addMessages(FileConfiguration file) {
-		messages = file;
 		prefix = ChatColor.translateAlternateColorCodes('&',
 				Objects.requireNonNull(Main.plugin.getConfig().getString("prefixFormat")));
+		defaultMessages = file;
+		addMessages(file, false);
+
+	}
+
+	/**
+	 * Used to select a file to contain backup messages in the event that the
+	 * community translations are incomplete
+	 * 
+	 * @param file The file to load the backup messages from
+	 */
+	public static void addBackupMessages(YamlConfiguration file) {
+		addMessages(file, true);
+	}
+
+	private static void addMessages(FileConfiguration file, boolean backup) {
+
+		List<String> backupMessages = new ArrayList<>();
+
+		for (String str : file.getKeys(true)) {
+			if (!messages.containsKey(str)) {
+				String toSave = file.getString(str);
+				if (toSave == null || file.get(str) instanceof ConfigurationSection) {
+					continue;
+				}
+
+				messages.put(str, toSave);
+
+				if (backup) {
+					backupMessages.add(str);
+				}
+			}
+		}
+		if (!backupMessages.isEmpty()) {
+
+			saveMissingMessages(backupMessages);
+
+			Logger logger = Bukkit.getLogger();
+			logger.info("[BetterTeams] ==================================================================");
+			logger.info(
+					"[BetterTeams] Messages are missing from your selected language, the following messages are using english:");
+
+			for (String str : backupMessages) {
+				logger.info("[BetterTeams] - " + str + ": " + messages.get(str));
+			}
+
+			logger.info(
+					"[BetterTeams] If you are able to help with translation please join the discord server and make yourself known (https://discord.gg/JF9DNs3)");
+			logger.info(
+					"[BetterTeams] A file called `missingMessages.txt` has been created within this plugins folder. To contribute to the community translations, translate the messages within it and submit it to the discord");
+			logger.info("[BetterTeams] ==================================================================");
+		}
+
+	}
+
+	private static void saveMissingMessages(List<String> missingMessages) {
+
+		File f = new File(Main.plugin.getDataFolder() + File.separator + "missingMessages.txt");
+
+		if (!f.exists()) {
+			try {
+				f.createNewFile();
+			} catch (Exception e) {
+				e.printStackTrace();
+				return;
+			}
+		}
+
+		try (PrintWriter writer = new PrintWriter(f)) {
+
+			for (String str : missingMessages) {
+				writer.println(str + ": " + messages.get(str));
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	/**
@@ -146,13 +233,14 @@ public class MessageManager {
 	 */
 	public static String getMessage(String reference) {
 
-		try {
-			String msg = messages.getString(reference);
-			return ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(msg));
-		} catch (NullPointerException e) {
+		if (!messages.containsKey(reference)) {
 			Bukkit.getLogger().warning("Could not find the message with the reference " + reference);
 			return "";
 		}
+
+		String msg = messages.get(reference);
+
+		return ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(msg));
 	}
 
 	public static String getMessage(CommandSender sender, String reference) {
@@ -168,7 +256,7 @@ public class MessageManager {
 		}
 	}
 
-	public static FileConfiguration getMessages() {
+	public static HashMap<String, String> getMessages() {
 		return messages;
 	}
 
@@ -194,6 +282,10 @@ public class MessageManager {
 
 	public static File getFile() {
 		return new File("plugins/BetterTeams/" + lang + ".yml");
+	}
+
+	public static FileConfiguration getDefaultMessages() {
+		return defaultMessages;
 	}
 
 }

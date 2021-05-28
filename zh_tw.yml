@@ -18,7 +18,6 @@ noPerm: '&4您無權執行此操作'
 prefixSyntax: '&7[%s&7] &r%s'
 bannedChar: '&4您嘗試使用的字符被禁止"'
 noTeam: '&4那支公會不存在'
-version: 22
 cooldown:
   wait: '&4你需要等待額外 %s 秒以再次執行!'
 cost:
