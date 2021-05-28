@@ -323,12 +323,17 @@ Bug Fixes:
 Features: 
 - Added support for Traditional Chinese 
 
+Improvements: 
+- Config updating is now completely automated
+- Missing translations will be saved to a file to try and encourage community translations
+
 Bug Fixes:
 - Fixed permission issue with /team echest (#142)
 
 Development changes: 
 - Reworked Team class to avoid code reuse
 - Removed support for the depreciated event listener BelowNameChangeListener, Use spigot event observer pattern instead (#131)
+- Removed hardcoding for config updating
 
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
