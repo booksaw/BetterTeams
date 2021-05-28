@@ -27,7 +27,7 @@ public class PermissionParentCommand extends ParentCommand {
 	}
 
 	private void loadConfig(String command) {
-		yamlManager = new ConfigManager(command + "permissions");
+		yamlManager = new ConfigManager(command + "permissions", false);
 		config = yamlManager.config;
 	}
 

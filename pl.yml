@@ -18,7 +18,6 @@ noPerm: '&4Nie masz permisji aby to zrobić'
 prefixSyntax: '&b[%s] &r%s'
 bannedChar: '&4Ta nazwa jest zakazana"'
 noTeam: '&4Ten team nie istnieje'
-version: 16
 cooldown:
   wait: '&4Musisz poczekać %s sekund zanim tego użyjesz!'
 cost:
