@@ -137,7 +137,9 @@ public class MessageManager {
 		}
 
 		try (PrintWriter writer = new PrintWriter(f)) {
-
+			writer.println(
+					"# Please translate these messages and then submit them to the Booksaw Development (https://discord.gg/JF9DNs3) in the #messages-submissions channel for a special rank");
+			writer.println("# Your translations will be included in the next update");
 			for (String str : missingMessages) {
 				writer.println(str + ": " + messages.get(str));
 			}

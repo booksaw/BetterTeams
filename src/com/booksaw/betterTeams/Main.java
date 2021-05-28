@@ -125,12 +125,16 @@ public class Main extends JavaPlugin {
 	public MCTeamManagement teamManagement;
 	public ChatManagement chatManagement;
 	public WorldGaurdManager wgManagement;
-	Metrics metrics = null;
+
+	private Metrics metrics = null;
+
 	/**
 	 * This is used to store the config file in which the the teams data is stored
 	 */
 	FileConfiguration teams;
 	private DamageManagement damageManagement;
+
+	private ConfigManager configManager;
 
 	@Override
 	public void onLoad() {
@@ -142,7 +146,9 @@ public class Main extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		plugin = this;
-		saveDefaultConfig();
+
+		configManager = new ConfigManager("config", true);
+
 		setupMetrics();
 
 		Team.getTeamManager().loadTeams();
@@ -223,11 +229,11 @@ public class Main extends JavaPlugin {
 
 		MessageManager.addMessages(messagesConfigManager.config);
 
-		if(!language.equals("messages")) {
+		if (!language.equals("messages")) {
 			messagesConfigManager = new ConfigManager("messages", true);
 			MessageManager.addBackupMessages(messagesConfigManager.config);
 		}
-		
+
 		if (getConfig().getBoolean("disableCombat")) {
 			if (damageManagement == null) {
 				damageManagement = new DamageManagement();
@@ -380,5 +386,10 @@ public class Main extends JavaPlugin {
 			metrics = new Metrics(this, pluginId);
 			metrics.addCustomChart(new Metrics.SimplePie("language", () -> getConfig().getString("language")));
 		}
+	}
+
+	@Override
+	public FileConfiguration getConfig() {
+		return configManager.config;
 	}
 }
