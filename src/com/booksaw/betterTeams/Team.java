@@ -630,7 +630,7 @@ public class Team {
 	 * This command is used to disband a team, BE CAREFUL, this is irreversible
 	 */
 	public void disband() {
-		ConfigurationSection config = getConfig();
+//		ConfigurationSection config = getConfig();
 		DisbandTeamEvent event = new DisbandTeamEvent(this);
 		Bukkit.getPluginManager().callEvent(event);
 
@@ -654,7 +654,7 @@ public class Team {
 		getTeamManager().removeTeam(id);
 
 		// updating the list of teams
-		config.set("", null);
+		TEAMMANAGER.getTeamStorage().set(getConfigPath(), null);
 
 		getTeamManager().saveTeamsFile();
 
@@ -1317,7 +1317,15 @@ public class Team {
 	}
 
 	public ConfigurationSection getConfig() {
-		return getTeamManager().getTeamStorage().getConfigurationSection("team." + id);
+		ConfigurationSection section = getTeamManager().getTeamStorage().getConfigurationSection(getConfigPath());
+		if (section == null) {
+			section = getTeamManager().getTeamStorage().createSection(getConfigPath());
+		}
+		return section;
+	}
+
+	private String getConfigPath() {
+		return "team." + id;
 	}
 
 	public boolean isPvp() {
