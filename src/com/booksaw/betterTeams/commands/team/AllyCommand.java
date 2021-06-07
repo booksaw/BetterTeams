@@ -51,6 +51,11 @@ public class AllyCommand extends TeamSubCommand {
 			return new CommandResponse("ally.limit");
 		}
 
+		// checking if they have already sent an ally request
+		if (toAlly.hasRequested(team.getID())) {
+			return new CommandResponse("ally.alreadyrequest");
+		}
+
 		// checking if an ally request has been sent
 		if (team.hasRequested(toAlly.getID())) {
 

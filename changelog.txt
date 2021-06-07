@@ -326,6 +326,7 @@ Features:
 Improvements: 
 - Config updating is now completely automated
 - Missing translations will be saved to a file to try and encourage community translations
+- Teams can no longer spam ally requests (#148)
 
 Bug Fixes:
 - Fixed permission issue with /team echest (#142)
