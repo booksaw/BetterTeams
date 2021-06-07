@@ -38,8 +38,12 @@ public class EChestComponent implements TeamComponent<Inventory> {
 
 	@Override
 	public void save(ConfigurationSection section) {
-		// TODO Auto-generated method stub
+		for (int i = 0; i < 27; i++) {
 
+			if (inventory.getItem(i) != null) {
+				section.set("echest." + i, inventory.getItem(i));
+			}
+		}
 	}
 
 }

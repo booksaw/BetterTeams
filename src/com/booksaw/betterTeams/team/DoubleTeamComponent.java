@@ -4,7 +4,7 @@ import org.bukkit.configuration.ConfigurationSection;
 
 public abstract class DoubleTeamComponent implements TeamComponent<Double>, VariableTeamComponent<Double> {
 
-	protected double value;
+	protected double value = 0;
 
 	@Override
 	public void add(Double amount) {

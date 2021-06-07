@@ -271,8 +271,13 @@ public class Team {
 		allies.load(config);
 
 		score = new ScoreComponent();
+		score.load(config);
+
 		money = new MoneyComponent();
+		money.load(config);
+
 		echest = new EChestComponent();
+		echest.load(config);
 
 		bannedPlayers = new BanListComponent();
 		bannedPlayers.load(config);
