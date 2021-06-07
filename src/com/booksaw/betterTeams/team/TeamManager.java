@@ -133,7 +133,7 @@ public class TeamManager {
 	@Nullable
 	public Team getTeamByName(@NotNull String name) {
 		for (Entry<UUID, Team> temp : teamList.entrySet()) {
-			if (temp.getValue().getName().equalsIgnoreCase(name)) {
+			if (name.equalsIgnoreCase(temp.getValue().getName())) {
 				return temp.getValue();
 			}
 		}

@@ -654,7 +654,11 @@ public class Team {
 		getTeamManager().removeTeam(id);
 
 		// updating the list of teams
-		TEAMMANAGER.getTeamStorage().set(getConfigPath(), null);
+		getTeamManager().getTeamStorage().set(getConfigPath(), null);
+
+		List<String> teams = getTeamManager().getTeamStorage().getStringList("teams");
+		teams.remove(id.toString());
+		getTeamManager().getTeamStorage().set("teams", teams);
 
 		getTeamManager().saveTeamsFile();
 
