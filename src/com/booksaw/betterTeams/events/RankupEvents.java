@@ -34,12 +34,12 @@ public class RankupEvents implements Listener {
 			if (str.contains("%player%")) {
 
 				for (TeamPlayer p : team.getMembers().getClone()) {
-					str = str.replaceAll("%player%", Objects.requireNonNull(p.getPlayer().getName()));
+					String newStr = str.replace("%player%", Objects.requireNonNull(p.getPlayer().getName()));
 					if (Main.placeholderAPI) {
-						str = PlaceholderAPI.setPlaceholders(p.getPlayer(), str);
+						newStr = PlaceholderAPI.setPlaceholders(p.getPlayer(), newStr);
 					}
 
-					Bukkit.dispatchCommand(Bukkit.getConsoleSender(), str);
+					Bukkit.dispatchCommand(Bukkit.getConsoleSender(), newStr);
 				}
 			} else {
 				if (Main.placeholderAPI) {
