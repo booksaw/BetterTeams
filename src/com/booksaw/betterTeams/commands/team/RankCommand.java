@@ -30,6 +30,11 @@ public class RankCommand extends SubCommand {
 		}
 
 		String priceStr = Main.plugin.getConfig().getString("levels.l" + (team.getLevel() + 1) + ".price");
+
+		if (priceStr == null || priceStr.length() == 0) {
+			return new CommandResponse(true, new ReferencedFormatMessage("rank.infomm", team.getLevel() + ""));
+		}
+
 		boolean score = Objects.requireNonNull(priceStr).contains("s");
 
 		return new CommandResponse(true, new ReferencedFormatMessage("rank.info" + ((score) ? "s" : "m"),

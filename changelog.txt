@@ -329,6 +329,7 @@ Improvements:
 
 Bug Fixes:
 - Fixed permission issue with /team echest (#142)
+- Fixed error with command /team rank (#147)
 
 Development changes: 
 - Reworked Team class to avoid code reuse
