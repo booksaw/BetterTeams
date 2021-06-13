@@ -117,7 +117,7 @@ public class MCTeamManagement implements Listener {
 		if (type == BelowNameType.PREFIX) {
 			team.setPrefix(teamName);
 		} else if (type == BelowNameType.SUFFIX) {
-			team.setSuffix(teamName);
+			team.setSuffix(teamName + " ");
 		}
 
 		if (!Main.plugin.getConfig().getBoolean("collide")) {
