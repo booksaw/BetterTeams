@@ -661,12 +661,7 @@ public class Team {
 		// updating the list of teams
 		getTeamManager().getTeamStorage().set(getConfigPath(), null);
 
-		List<String> teams = getTeamManager().getTeamStorage().getStringList("teams");
-		teams.remove(id.toString());
-		getTeamManager().getTeamStorage().set("teams", teams);
-
-		getTeamManager().saveTeamsFile();
-
+		// TODO interact with storage manager
 		if (Main.plugin.teamManagement != null) {
 
 			for (TeamPlayer p : members.getClone()) {

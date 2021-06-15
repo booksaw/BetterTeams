@@ -69,7 +69,7 @@ public abstract class TeamManager {
 			return null;
 		}
 
-		return loadTeam(uuid);
+		return new Team(uuid);
 	}
 
 	/**
@@ -160,7 +160,8 @@ public abstract class TeamManager {
 			id = UUID.randomUUID();
 		}
 		Team team = new Team(name, id, owner);
-		registerNewTeam(team);
+		loadedTeams.put(id, team);
+		registerNewTeam(team, owner);
 
 		if (Main.plugin.teamManagement != null) {
 			Main.plugin.teamManagement.displayBelowName(owner);
@@ -332,24 +333,26 @@ public abstract class TeamManager {
 	 * @param team The new team
 	 */
 	// TODO CALL
-	protected abstract void registerNewTeam(Team team);
+	protected abstract void registerNewTeam(Team team, Player player);
 
 	/**
-	 * Used to load a team from storage
+	 * Used to disband a team
 	 * 
-	 * @param uuid
-	 * @return
+	 * @param team The team that is being disbanded
 	 */
-	protected abstract Team loadTeam(UUID uuid);
+	// TODO call
+	public void disbandTeam(Team team) {
+		loadedTeams.remove(team.getID());
+		deleteTeamStorage(team);
+	}
 
 	/**
 	 * Used when a team is disbanded, can be used to remove it from any team
 	 * trackers
 	 * 
-	 * @param team The new team
+	 * @param team The team that is being disbanded
 	 */
-	// TODO CALL
-	public abstract void unregisterTeam(Team team);
+	protected abstract void deleteTeamStorage(Team team);
 
 	/**
 	 * Called when a team changes its name as this will effect the getTeam(String
