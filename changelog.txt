@@ -328,11 +328,13 @@ Improvements:
 - Missing translations will be saved to a file to try and encourage community translations
 - Teams can no longer spam ally requests (#148)
 - Updated polish language file to contain more translations
+- Added a way to remove a title with /team title (#127)
 
 Bug Fixes:
 - Fixed permission issue with /team echest (#142)
 - Fixed error with command /team rank (#147)
 - Fixed endCommands in /team rankup not working as expected (#152)
+- Fixed bug meaning there was not a space at the start of a suffix (#158)
 
 Development changes: 
 - Reworked Team class to avoid code reuse
