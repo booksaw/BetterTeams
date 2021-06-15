@@ -21,6 +21,10 @@ public class TitleCommand extends TeamSubCommand {
 
 		TeamPlayer toTitle;
 
+		if (args.length == 0) {
+			args = new String[] { "me", null };
+		}
+
 		if (args.length == 1) {
 			args = new String[] { "me", args[0] };
 		}
@@ -46,7 +50,7 @@ public class TitleCommand extends TeamSubCommand {
 			return new CommandResponse("title.noPerm");
 		}
 
-		if (args[1].length() > Main.plugin.getConfig().getInt("maxTitleLength")) {
+		if (args[1] != null && args[1].length() > Main.plugin.getConfig().getInt("maxTitleLength")) {
 			return new CommandResponse("title.tooLong");
 		}
 
@@ -79,7 +83,11 @@ public class TitleCommand extends TeamSubCommand {
 		team.setTitle(toTitle, args[1]);
 
 		if (player != toTitle && toTitle.getPlayer().isOnline()) {
-			MessageManager.sendMessageF(toTitle.getPlayer().getPlayer(), "title.change", args[1]);
+			if (args[1] != null) {
+				MessageManager.sendMessageF(toTitle.getPlayer().getPlayer(), "title.change", args[1]);
+			} else {
+				MessageManager.sendMessage(toTitle.getPlayer().getPlayer(), "title.remove");
+			}
 		}
 
 		return new CommandResponse(true, "title.success");
@@ -97,17 +105,17 @@ public class TitleCommand extends TeamSubCommand {
 
 	@Override
 	public String getHelp() {
-		return "Change that players title within the team";
+		return "Change that players title or remove it within the team";
 	}
 
 	@Override
 	public String getArguments() {
-		return "[player/me] <title>";
+		return "[player/me] [title]";
 	}
 
 	@Override
 	public int getMinimumArguments() {
-		return 1;
+		return 0;
 	}
 
 	@Override
