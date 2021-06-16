@@ -21,13 +21,14 @@ public class TopCommand extends SubCommand {
 			team = Team.getTeam((Player) sender);
 		}
 
-		Team[] teams = Team.getTeamManager().sortTeamsByScore();
+		String[] teams = Team.getTeamManager().sortTeamsByScore();
 		MessageManager.sendMessage(sender, "top.leaderboard");
 
 		for (int i = 0; i < 10 && i < teams.length; i++) {
-			MessageManager.sendMessageF(sender, "top.syntax", (i + 1) + "", teams[i].getName(),
-					teams[i].getScore() + "");
-			if (team == teams[i]) {
+			Team tempTeam = Team.getTeam(teams[i]);
+			MessageManager.sendMessageF(sender, "top.syntax", (i + 1) + "", tempTeam.getName(),
+					tempTeam.getScore() + "");
+			if (team == tempTeam) {
 				contained = true;
 			}
 		}
@@ -36,7 +37,7 @@ public class TopCommand extends SubCommand {
 			try {
 				int rank = 0;
 				for (int i = 10; i < teams.length; i++) {
-					if (teams[i] == team) {
+					if (teams[i].equals(team.getName())) {
 						rank = i + 1;
 						break;
 					}
@@ -44,19 +45,18 @@ public class TopCommand extends SubCommand {
 				if (rank != 0) {
 					MessageManager.sendMessage(sender, "top.divide");
 					if (rank - 2 > 9) {
-						sender.sendMessage(
-								MessageManager.getPrefix() + String.format(MessageManager.getMessage("top.syntax"),
-										(rank - 1) + "", teams[rank - 2].getName(), teams[rank - 2].getScore()));
-						MessageManager.sendMessageF(sender, "top.syntax", (rank - 1) + "", teams[rank - 2].getName(),
-								teams[rank - 2].getScore() + "");
+						Team tm2 = Team.getTeam(teams[rank - 2]);
+						MessageManager.sendMessageF(sender, "top.syntax", (rank - 1) + "", tm2.getName(),
+								tm2.getScore() + "");
 					}
 
 					MessageManager.sendMessageF(sender, "top.syntax", (rank) + "", team.getName(),
 							team.getScore() + "");
 
 					if (teams.length > rank) {
-						MessageManager.sendMessageF(sender, "top.syntax", (rank + 1) + "", teams[rank].getName(),
-								teams[rank].getScore() + "");
+						Team tm = Team.getTeam(teams[rank]);
+						MessageManager.sendMessageF(sender, "top.syntax", (rank + 1) + "", tm.getName(),
+								tm.getScore() + "");
 					}
 				}
 			} catch (ArrayIndexOutOfBoundsException e) {

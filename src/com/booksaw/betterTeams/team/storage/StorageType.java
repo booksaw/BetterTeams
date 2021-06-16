@@ -1,6 +1,7 @@
 package com.booksaw.betterTeams.team.storage;
 
-import com.booksaw.betterTeams.team.storage.storageManager.TeamStorageManager;
+import com.booksaw.betterTeams.team.TeamManager;
+import com.booksaw.betterTeams.team.storage.storageManager.FlatfileStorageManager;
 
 public enum StorageType {
 
@@ -19,11 +20,10 @@ public enum StorageType {
 	/**
 	 * @return the teamStorageManager relevant to the storageType
 	 */
-	public TeamStorageManager getNewStorageManager() {
+	public TeamManager getNewTeamManager() {
 		switch (this) {
 		case FLATFILE:
-			// TODO
-			return null;
+			return new FlatfileStorageManager();
 		case YAML:
 			// TODO
 			return null;

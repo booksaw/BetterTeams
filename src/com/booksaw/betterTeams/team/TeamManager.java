@@ -1,6 +1,7 @@
 package com.booksaw.betterTeams.team;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -17,6 +18,7 @@ import org.jetbrains.annotations.Nullable;
 
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.customEvents.PrePurgeEvent;
 import com.booksaw.betterTeams.events.ChestManagement;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
 
@@ -35,9 +37,6 @@ public abstract class TeamManager {
 		logChat = Main.plugin.getConfig().getBoolean("logTeamChat");
 
 		loadedTeams = new HashMap<>();
-
-		// loading the teamStorage variable
-		loadTeams();
 
 	}
 
@@ -280,6 +279,24 @@ public abstract class TeamManager {
 	}
 
 	/**
+	 * Used to reset all teams scores to 0
+	 * 
+	 * @return
+	 */
+	public boolean purgeTeams() {
+		// calling custom bukkit event
+		PrePurgeEvent event = new PrePurgeEvent();
+		Bukkit.getPluginManager().callEvent(event);
+		if (event.isCancelled()) {
+			return false;
+		}
+
+		Bukkit.getLogger().info("purging team score");
+		purgeTeamScore();
+		return true;
+	}
+
+	/**
 	 * Used to check if a team exists with that uuid
 	 * 
 	 * @param uuid the UUID to check
@@ -323,7 +340,7 @@ public abstract class TeamManager {
 	/**
 	 * Used to load the stored values into the storage manager
 	 */
-	protected abstract void loadTeams();
+	public abstract void loadTeams();
 
 	/**
 	 * Called when a new team is registered, this can be used to register it in any
@@ -418,5 +435,24 @@ public abstract class TeamManager {
 	 * @return
 	 */
 	public abstract String[] sortTeamsByBalance();
+
+	/**
+	 * Used to reset the score of all teams
+	 * 
+	 * @return if the purge was successful
+	 */
+	protected abstract void purgeTeamScore();
+
+	/**
+	 * @return The stored hologram details
+	 */
+	public abstract List<String> getHoloDetails();
+
+	/**
+	 * Used to store and save the updated hologram details
+	 * 
+	 * @param details the details to save
+	 */
+	public abstract void setHoloDetails(List<String> details);
 
 }

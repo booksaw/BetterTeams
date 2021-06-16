@@ -21,13 +21,14 @@ public class BaltopCommand extends SubCommand {
 			team = Team.getTeam((Player) sender);
 		}
 
-		Team[] teams = Team.getTeamManager().sortTeamsByBalance();
+		String[] teams = Team.getTeamManager().sortTeamsByBalance();
 		MessageManager.sendMessage(sender, "baltop.leaderboard");
 
 		for (int i = 0; i < 10 && i < teams.length; i++) {
-			MessageManager.sendMessageF(sender, "baltop.syntax", (i + 1) + "", teams[i].getName(),
-					teams[i].getBalance() + "");
-			if (team == teams[i]) {
+			Team tempTeam = Team.getTeam(teams[i]);
+			MessageManager.sendMessageF(sender, "baltop.syntax", (i + 1) + "", tempTeam.getName(),
+					tempTeam.getBalance() + "");
+			if (team == tempTeam) {
 				contained = true;
 			}
 		}
@@ -36,7 +37,7 @@ public class BaltopCommand extends SubCommand {
 			try {
 				int rank = 0;
 				for (int i = 10; i < teams.length; i++) {
-					if (teams[i] == team) {
+					if (teams[i].equals(team.getName())) {
 						rank = i + 1;
 						break;
 					}
@@ -44,19 +45,18 @@ public class BaltopCommand extends SubCommand {
 				if (rank != 0) {
 					MessageManager.sendMessage(sender, "baltop.divide");
 					if (rank - 2 > 9) {
-						sender.sendMessage(
-								MessageManager.getPrefix() + String.format(MessageManager.getMessage("baltop.syntax"),
-										(rank - 1) + "", teams[rank - 2].getName(), teams[rank - 2].getBalance()));
-						MessageManager.sendMessageF(sender, "baltop.syntax", (rank - 1) + "", teams[rank - 2].getName(),
-								teams[rank - 2].getBalance() + "");
+						Team tm2 = Team.getTeam(teams[rank - 2]);
+						MessageManager.sendMessageF(sender, "baltop.syntax", (rank - 1) + "", tm2.getName(),
+								tm2.getBalance() + "");
 					}
 
 					MessageManager.sendMessageF(sender, "baltop.syntax", (rank) + "", team.getName(),
 							team.getBalance() + "");
 
 					if (teams.length > rank) {
-						MessageManager.sendMessageF(sender, "baltop.syntax", (rank + 1) + "", teams[rank].getName(),
-								teams[rank].getBalance() + "");
+						Team tm = Team.getTeam(teams[rank]);
+						MessageManager.sendMessageF(sender, "baltop.syntax", (rank + 1) + "", tm.getName(),
+								tm.getBalance() + "");
 					}
 				}
 			} catch (ArrayIndexOutOfBoundsException e) {

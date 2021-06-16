@@ -88,7 +88,7 @@ public class FlatfileStorageManager extends TeamManager {
 	}
 
 	@Override
-	protected void loadTeams() {
+	public void loadTeams() {
 
 		for (String IDString : teamStorage.getStringList(TEAMLISTSTORAGELOC)) {
 			UUID id = UUID.fromString(IDString);
@@ -202,6 +202,26 @@ public class FlatfileStorageManager extends TeamManager {
 		}
 
 		return rankedTeamsStr;
+	}
+
+	@Override
+	protected void purgeTeamScore() {
+		for (Entry<UUID, Team> team : getLoadedTeamListClone().entrySet()) {
+			team.getValue().setScore(0);
+		}
+	}
+
+	private final String HOlOPATH = "holos";
+
+	@Override
+	public List<String> getHoloDetails() {
+		return teamStorage.getStringList(HOlOPATH);
+	}
+
+	@Override
+	public void setHoloDetails(List<String> details) {
+		teamStorage.set(HOlOPATH, details);
+		saveTeamsFile();
 	}
 
 }
