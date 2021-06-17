@@ -400,7 +400,7 @@ public class Team {
 	 * This is used to set the name of the team, it is important that you check that
 	 * the name is unique before running this method
 	 *
-	 * @param name the new team name
+	 * @param name the new team namexg
 	 */
 	public void setName(String name) {
 		this.name = name;
