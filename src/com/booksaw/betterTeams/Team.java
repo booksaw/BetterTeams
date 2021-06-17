@@ -39,6 +39,7 @@ import com.booksaw.betterTeams.team.MemberListComponent;
 import com.booksaw.betterTeams.team.MoneyComponent;
 import com.booksaw.betterTeams.team.ScoreComponent;
 import com.booksaw.betterTeams.team.TeamManager;
+import com.booksaw.betterTeams.team.storage.StorageType;
 
 /**
  * This class is used to manage a team and all of it's participants
@@ -47,7 +48,16 @@ import com.booksaw.betterTeams.team.TeamManager;
  */
 public class Team {
 
-	private static final TeamManager TEAMMANAGER = new TeamManager();
+	private static TeamManager TEAMMANAGER;
+
+	public static final void setupTeamManager(StorageType storageType) {
+		if (TEAMMANAGER != null) {
+			throw new IllegalArgumentException("The team manager has already been setup");
+		}
+
+		TEAMMANAGER = storageType.getNewTeamManager();
+
+	}
 
 	public static TeamManager getTeamManager() {
 		return TEAMMANAGER;
@@ -101,8 +111,16 @@ public class Team {
 		return getClaimingTeam(location);
 	}
 
+	/**
+	 * This no longer produces the expected result when the team manager is using
+	 * anything but the flatfile storage method. Other methods should be used This
+	 * is as not all teams are loaded at any point in time.
+	 * 
+	 * @return A list of loaded teams
+	 */
+	@Deprecated
 	public static Map<UUID, Team> getTeamList() {
-		return TEAMMANAGER.getTeamListClone();
+		return TEAMMANAGER.getLoadedTeamListClone();
 	}
 
 	/**

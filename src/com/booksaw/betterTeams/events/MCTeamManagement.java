@@ -71,7 +71,8 @@ public class MCTeamManagement implements Listener {
 			remove(p);
 		}
 
-		for (Entry<UUID, Team> t : Team.getTeamList().entrySet()) {
+		// only loaded teams will have a team manager
+		for (Entry<UUID, Team> t : Team.getTeamManager().getLoadedTeamListClone().entrySet()) {
 			org.bukkit.scoreboard.Team team = t.getValue().getScoreboardTeamOrNull();
 
 			if (team != null) {

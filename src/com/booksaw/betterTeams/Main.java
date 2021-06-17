@@ -108,6 +108,7 @@ import com.booksaw.betterTeams.integrations.ZKothManager;
 import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.metrics.Metrics;
 import com.booksaw.betterTeams.score.ScoreManagement;
+import com.booksaw.betterTeams.team.storage.StorageType;
 
 import net.milkbowl.vault.economy.Economy;
 
@@ -151,6 +152,8 @@ public class Main extends JavaPlugin {
 
 		setupMetrics();
 
+		// TODO FIX
+		Team.setupTeamManager(StorageType.FLATFILE);
 		Team.getTeamManager().loadTeams();
 
 		String language = getConfig().getString("language");
