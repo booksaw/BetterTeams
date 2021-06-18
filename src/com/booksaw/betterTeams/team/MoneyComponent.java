@@ -2,11 +2,13 @@ package com.booksaw.betterTeams.team;
 
 import java.text.DecimalFormat;
 
+import com.booksaw.betterTeams.team.storage.team.StoredTeamValue;
+
 public class MoneyComponent extends DoubleTeamComponent {
 
 	@Override
-	public String getSectionHeading() {
-		return "money";
+	public StoredTeamValue getSectionHeading() {
+		return StoredTeamValue.MONEY;
 	}
 
 	public String getStringFormatting() {

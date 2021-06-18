@@ -1,11 +1,11 @@
 package com.booksaw.betterTeams.team;
 
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import com.booksaw.betterTeams.message.MessageManager;
+import com.booksaw.betterTeams.team.storage.team.TeamStorage;
 
 public class EChestComponent implements TeamComponent<Inventory> {
 
@@ -26,7 +26,7 @@ public class EChestComponent implements TeamComponent<Inventory> {
 	}
 
 	@Override
-	public void load(ConfigurationSection section) {
+	public void load(TeamStorage section) {
 
 		for (int i = 0; i < 27; i++) {
 			ItemStack is = section.getItemStack("echest." + i);
@@ -37,7 +37,7 @@ public class EChestComponent implements TeamComponent<Inventory> {
 	}
 
 	@Override
-	public void save(ConfigurationSection section) {
+	public void save(TeamStorage section) {
 		for (int i = 0; i < 27; i++) {
 
 			if (inventory.getItem(i) != null) {

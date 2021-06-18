@@ -40,6 +40,8 @@ import com.booksaw.betterTeams.team.MoneyComponent;
 import com.booksaw.betterTeams.team.ScoreComponent;
 import com.booksaw.betterTeams.team.TeamManager;
 import com.booksaw.betterTeams.team.storage.StorageType;
+import com.booksaw.betterTeams.team.storage.team.StoredTeamValue;
+import com.booksaw.betterTeams.team.storage.team.TeamStorage;
 
 /**
  * This class is used to manage a team and all of it's participants
@@ -173,6 +175,8 @@ public class Team {
 		return true;
 	}
 
+	private final TeamStorage storage;
+
 	/**
 	 * The ID of the team (this is a unique identifier of the team which will never
 	 * change)
@@ -274,12 +278,18 @@ public class Team {
 	 */
 	public Team(UUID id) {
 		this.id = id;
-		ConfigurationSection config = getConfig();
 
-		name = config.getString("name");
-		description = config.getString("description");
-		open = config.getBoolean("open");
-		String colorStr = config.getString("color", "6");
+		storage = TEAMMANAGER.createTeamStorage(this);
+
+		name = storage.getString(StoredTeamValue.NAME);
+		description = storage.getString(StoredTeamValue.DESCRIPTION);
+		open = storage.getBoolean(StoredTeamValue.OPEN);
+		String colorStr = storage.getString(StoredTeamValue.COLOR);
+
+		if (colorStr.length() == 0) {
+			colorStr = "6";
+		}
+
 		color = ChatColor.getByChar(colorStr.charAt(0));
 
 		members = new MemberListComponent();
@@ -300,7 +310,7 @@ public class Team {
 		bannedPlayers = new BanListComponent();
 		bannedPlayers.load(config);
 
-		String teamHomeStr = config.getString("home");
+		String teamHomeStr = storage.getString(StoredTeamValue.HOME);
 		if (teamHomeStr != null && !teamHomeStr.equals("")) {
 			teamHome = LocationListComponent.getLocation(teamHomeStr);
 		}
@@ -319,12 +329,12 @@ public class Team {
 		claims = new ChestClaimComponent();
 		claims.load(getConfig());
 
-		level = config.getInt("level");
+		level = storage.getInt(StoredTeamValue.LEVEL);
 		if (level < 1) {
 			level = 1;
 		}
 
-		tag = config.getString("tag");
+		tag = storage.getString(StoredTeamValue.TAG);
 
 		rank = -1;
 
@@ -344,18 +354,21 @@ public class Team {
 	 */
 	public Team(String name, UUID id, Player owner) {
 		this.id = id;
-		ConfigurationSection config = getConfig();
 
-		config.set("name", name);
-		config.set("description", "");
+		storage = TEAMMANAGER.createNewTeamStorage(this);
+
+		storage.set(StoredTeamValue.NAME, name);
+		storage.set(StoredTeamValue.DESCRIPTION, "");
 		this.name = name;
 		this.description = "";
-		config.set("open", false);
+
+		storage.set(StoredTeamValue.OPEN, false);
 		open = false;
-		config.set("home", "");
+
+		storage.set(StoredTeamValue.HOME, "");
 		rank = -1;
 		color = ChatColor.getByChar(Main.plugin.getConfig().getString("defaultColor").charAt(0));
-		config.set("color", color.getChar());
+		storage.set(StoredTeamValue.COLOR, color.getChar());
 
 		requests = new ArrayList<>();
 		config.set("allyrequests", requests);
@@ -378,9 +391,9 @@ public class Team {
 		bannedPlayers = new BanListComponent();
 		savePlayers();
 		level = 1;
-		config.set("level", 1);
+		storage.set(StoredTeamValue.LEVEL, 1);
 		tag = "";
-		config.set("tag", "");
+		storage.set(StoredTeamValue.TAG, "");
 		/*
 		 * do not need to save config as createNewTeam saves the config after more
 		 * settings modified
@@ -404,8 +417,7 @@ public class Team {
 	 */
 	public void setName(String name) {
 		this.name = name;
-		getConfig().set("name", name);
-		TEAMMANAGER.saveTeamsFile();
+		getStorage().set(StoredTeamValue.NAME, name);
 
 		if (Main.plugin.teamManagement != null) {
 
@@ -465,8 +477,7 @@ public class Team {
 
 	public void setTag(String tag) {
 		this.tag = tag;
-		getConfig().set("tag", tag);
-		getTeamManager().saveTeamsFile();
+		getStorage().set(StoredTeamValue.TAG, tag);
 
 		if (Main.plugin.teamManagement != null) {
 
@@ -500,8 +511,7 @@ public class Team {
 
 	public void setOpen(boolean open) {
 		this.open = open;
-		getConfig().set("open", open);
-		getTeamManager().saveTeamsFile();
+		getStorage().set(StoredTeamValue.OPEN, open);
 	}
 
 	/**
@@ -525,8 +535,7 @@ public class Team {
 	 */
 	public void setDescription(String description) {
 		this.description = description;
-		getConfig().set("description", description);
-		getTeamManager().saveTeamsFile();
+		getStorage().set(StoredTeamValue.DESCRIPTION, description);
 	}
 
 	/**
@@ -543,8 +552,7 @@ public class Team {
 	 */
 	public void setColor(ChatColor color) {
 		this.color = color;
-		getConfig().set("color", color.getChar());
-		getTeamManager().saveTeamsFile();
+		getStorage().set(StoredTeamValue.COLOR, color.getChar());
 
 		if (Main.plugin.teamManagement != null) {
 
@@ -577,9 +585,7 @@ public class Team {
 	 * @param config the configuration file to store the members list to
 	 */
 	private void savePlayers() {
-		ConfigurationSection config = getConfig();
-		members.save(config);
-		getTeamManager().saveTeamsFile();
+		members.save(getStorage());
 	}
 
 	/**
@@ -588,9 +594,7 @@ public class Team {
 	 * @param config the configuration file to store the ban list to
 	 */
 	private void saveBans() {
-		ConfigurationSection config = getConfig();
-		bannedPlayers.save(config);
-		getTeamManager().saveTeamsFile();
+		bannedPlayers.save(getStorage());
 	}
 
 	/**
@@ -653,7 +657,6 @@ public class Team {
 	 * This command is used to disband a team, BE CAREFUL, this is irreversible
 	 */
 	public void disband() {
-//		ConfigurationSection config = getConfig();
 		DisbandTeamEvent event = new DisbandTeamEvent(this);
 		Bukkit.getPluginManager().callEvent(event);
 
@@ -793,14 +796,12 @@ public class Team {
 
 	public void setTeamHome(Location teamHome) {
 		this.teamHome = teamHome;
-		getConfig().set("home", LocationListComponent.getString(teamHome));
-		getTeamManager().saveTeamsFile();
+		getStorage().set(StoredTeamValue.HOME, LocationListComponent.getString(teamHome));
 	}
 
 	public void deleteTeamHome() {
 		teamHome = null;
-		getConfig().set("home", "");
-		getTeamManager().saveTeamsFile();
+		getStorage().set(StoredTeamValue.HOME, "");
 
 	}
 
@@ -941,8 +942,7 @@ public class Team {
 
 	public void setScore(int score) {
 		this.score.set(score);
-		this.score.save(getConfig());
-		getTeamManager().saveTeamsFile();
+		this.score.save(getStorage());
 	}
 
 	public double getMoney() {
@@ -955,8 +955,7 @@ public class Team {
 
 	public void setMoney(double money) {
 		this.money.set(money);
-		this.money.save(getConfig());
-		getTeamManager().saveTeamsFile();
+		this.money.save(getStorage());
 	}
 
 	/**
@@ -1130,8 +1129,7 @@ public class Team {
 	 * Used to save the list of allies for this team
 	 */
 	private void saveAllies() {
-		allies.save(getConfig());
-		getTeamManager().saveTeamsFile();
+		allies.save(getStorage());
 	}
 
 	/**
@@ -1143,9 +1141,8 @@ public class Team {
 		for (UUID uuid : requests) {
 			toSave.add(uuid.toString());
 		}
-
+		// TODO switch to new system
 		getConfig().set("allyrequests", toSave);
-		getTeamManager().saveTeamsFile();
 	}
 
 	public UUID getID() {
@@ -1306,14 +1303,11 @@ public class Team {
 	}
 
 	private void saveClaims() {
-		claims.save(getConfig());
-		getTeamManager().saveTeamsFile();
+		claims.save(getStorage());
 	}
 
 	public void saveEchest() {
-		echest.save(getConfig());
-		getTeamManager().saveTeamsFile();
-
+		echest.save(getStorage());
 	}
 
 	public Inventory getEchest() {
@@ -1330,7 +1324,7 @@ public class Team {
 
 	public void setLevel(int level) {
 		this.level = level;
-		getConfig().set("level", level);
+		getStorage().set(StoredTeamValue.LEVEL, level);
 
 	}
 
@@ -1338,17 +1332,17 @@ public class Team {
 		return invitedPlayers;
 	}
 
-	public ConfigurationSection getConfig() {
-		ConfigurationSection section = getTeamManager().getTeamStorage().getConfigurationSection(getConfigPath());
-		if (section == null) {
-			section = getTeamManager().getTeamStorage().createSection(getConfigPath());
-		}
-		return section;
-	}
+//	public ConfigurationSection getConfig() {
+//		ConfigurationSection section = getTeamManager().getTeamStorage().getConfigurationSection(getConfigPath());
+//		if (section == null) {
+//			section = getTeamManager().getTeamStorage().createSection(getConfigPath());
+//		}
+//		return section;
+//	}
 
-	private String getConfigPath() {
-		return "team." + id;
-	}
+//	private String getConfigPath() {
+//		return "team." + id;
+//	}
 
 	public boolean isPvp() {
 		return pvp;
@@ -1356,6 +1350,10 @@ public class Team {
 
 	public void setPvp(boolean pvp) {
 		this.pvp = pvp;
+	}
+
+	public TeamStorage getStorage() {
+		return storage;
 	}
 
 }

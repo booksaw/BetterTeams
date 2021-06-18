@@ -1,6 +1,6 @@
 package com.booksaw.betterTeams.team;
 
-import org.bukkit.configuration.ConfigurationSection;
+import com.booksaw.betterTeams.team.storage.team.TeamStorage;
 
 public interface TeamComponent<T> {
 
@@ -19,13 +19,13 @@ public interface TeamComponent<T> {
 	 * 
 	 * @param section The configuration section where all the team data is stored
 	 */
-	public void load(ConfigurationSection section);
+	public void load(TeamStorage section);
 
 	/**
 	 * Store the loaded value to the configuration section
 	 * 
-	 * @param section The configuration section where all the team data is stored
+	 * @param storage The storage class where all team storage takes place
 	 */
-	public void save(ConfigurationSection section);
+	public void save(TeamStorage storage);
 
 }

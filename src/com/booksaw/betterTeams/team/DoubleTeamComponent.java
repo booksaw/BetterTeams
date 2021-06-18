@@ -1,6 +1,7 @@
 package com.booksaw.betterTeams.team;
 
-import org.bukkit.configuration.ConfigurationSection;
+import com.booksaw.betterTeams.team.storage.team.StoredTeamValue;
+import com.booksaw.betterTeams.team.storage.team.TeamStorage;
 
 public abstract class DoubleTeamComponent implements TeamComponent<Double>, VariableTeamComponent<Double> {
 
@@ -37,15 +38,15 @@ public abstract class DoubleTeamComponent implements TeamComponent<Double>, Vari
 	}
 
 	@Override
-	public void load(ConfigurationSection section) {
-		value = section.getDouble(getSectionHeading(), 0);
+	public void load(TeamStorage section) {
+		value = section.getDouble(getSectionHeading());
 	}
 
 	@Override
-	public void save(ConfigurationSection section) {
-		section.set(getSectionHeading(), value);
+	public void save(TeamStorage storage) {
+		storage.set(getSectionHeading(), value);
 	}
 
-	public abstract String getSectionHeading();
+	public abstract StoredTeamValue getSectionHeading();
 
 }

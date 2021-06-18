@@ -44,7 +44,12 @@ public enum StoredTeamValue {
 	/**
 	 * The balance of the team
 	 */
-	MONEY("money", TeamStorageType.DOUBLE);
+	MONEY("money", TeamStorageType.DOUBLE),
+	
+	/**
+	 * The level of the team
+	 */
+	LEVEL("level", TeamStorageType.INTEGER);
 
 	/**
 	 * Used to store the reference that the value is saved by
