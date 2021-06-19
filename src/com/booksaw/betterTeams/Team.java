@@ -293,22 +293,22 @@ public class Team {
 		color = ChatColor.getByChar(colorStr.charAt(0));
 
 		members = new MemberListComponent();
-		members.load(config);
+		members.load(storage);
 
 		allies = new AllyListComponent();
-		allies.load(config);
+		allies.load(storage);
 
 		score = new ScoreComponent();
-		score.load(config);
+		score.load(storage);
 
 		money = new MoneyComponent();
-		money.load(config);
+		money.load(storage);
 
 		echest = new EChestComponent();
-		echest.load(config);
+		echest.load(storage);
 
 		bannedPlayers = new BanListComponent();
-		bannedPlayers.load(config);
+		bannedPlayers.load(storage);
 
 		String teamHomeStr = storage.getString(StoredTeamValue.HOME);
 		if (teamHomeStr != null && !teamHomeStr.equals("")) {
@@ -327,7 +327,7 @@ public class Team {
 		}
 
 		claims = new ChestClaimComponent();
-		claims.load(getConfig());
+		claims.load(storage);
 
 		level = storage.getInt(StoredTeamValue.LEVEL);
 		if (level < 1) {
@@ -377,7 +377,7 @@ public class Team {
 		config.set("warps", new ArrayList<>());
 
 		claims = new ChestClaimComponent();
-		config.set("chests", new ArrayList<>());
+		claims.save(storage);
 
 		allies = new AllyListComponent();
 
@@ -666,21 +666,22 @@ public class Team {
 
 		for (UUID ally : allies.getClone()) {
 			Team team = Team.getTeam(ally);
+			if (team == null) {
+				// this should not occur but is a failsafe
+				continue;
+			}
 			Objects.requireNonNull(team).removeAlly(getID());
 
 		}
 
-		for (Entry<UUID, Team> requestedTeam : getTeamManager().getTeamListClone().entrySet()) {
-			if (requestedTeam.getValue().hasRequested(getID())) {
-				requestedTeam.getValue().removeAllyRequest(getID());
-			}
-		}
+//		for (Entry<UUID, Team> requestedTeam : getTeamManager().getTeamListClone().entrySet()) {
+//			if (requestedTeam.getValue().hasRequested(getID())) {
+//				requestedTeam.getValue().removeAllyRequest(getID());
+//			}
+//		}
 
 		// removing it from the team list, the java GC will handle the reset
-		getTeamManager().removeTeam(id);
-
-		// updating the list of teams
-		getTeamManager().getTeamStorage().set(getConfigPath(), null);
+		getTeamManager().disbandTeam(this);
 
 		// TODO interact with storage manager
 		if (Main.plugin.teamManagement != null) {
@@ -1331,18 +1332,6 @@ public class Team {
 	public List<UUID> getInvitedPlayers() {
 		return invitedPlayers;
 	}
-
-//	public ConfigurationSection getConfig() {
-//		ConfigurationSection section = getTeamManager().getTeamStorage().getConfigurationSection(getConfigPath());
-//		if (section == null) {
-//			section = getTeamManager().getTeamStorage().createSection(getConfigPath());
-//		}
-//		return section;
-//	}
-
-//	private String getConfigPath() {
-//		return "team." + id;
-//	}
 
 	public boolean isPvp() {
 		return pvp;

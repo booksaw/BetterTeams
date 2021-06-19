@@ -2,6 +2,8 @@ package com.booksaw.betterTeams.team.storage.team;
 
 import java.util.List;
 
+import org.bukkit.inventory.Inventory;
+
 import com.booksaw.betterTeams.Team;
 
 /**
@@ -128,4 +130,8 @@ public abstract class TeamStorage {
 	public abstract List<String> getAllyList();
 
 	public abstract void setAllyList(List<String> players);
+
+	public abstract void getEchestContents(Inventory inventory);
+
+	public abstract void setEchestContents(Inventory inventory);
 }

@@ -2,6 +2,8 @@ package com.booksaw.betterTeams.team.storage.team;
 
 import java.util.List;
 
+import org.bukkit.inventory.Inventory;
+
 import com.booksaw.betterTeams.Team;
 
 public class FlatfileTeamStorage extends TeamStorage {
@@ -10,6 +12,18 @@ public class FlatfileTeamStorage extends TeamStorage {
 		super(team);
 	}
 
+//	public ConfigurationSection getConfig() {
+//	ConfigurationSection section = getTeamManager().getTeamStorage().getConfigurationSection(getConfigPath());
+//	if (section == null) {
+//		section = getTeamManager().getTeamStorage().createSection(getConfigPath());
+//	}
+//	return section;
+//}
+
+//private String getConfigPath() {
+//	return "team." + id;
+//}
+	
 	@Override
 	protected void setValue(String location, TeamStorageType storageType, Object value) {
 		// TODO Auto-generated method stub
@@ -72,6 +86,18 @@ public class FlatfileTeamStorage extends TeamStorage {
 
 	@Override
 	public void setAllyList(List<String> players) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void getEchestContents(Inventory inventory) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setEchestContents(Inventory inventory) {
 		// TODO Auto-generated method stub
 		
 	}
