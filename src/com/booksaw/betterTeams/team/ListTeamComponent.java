@@ -3,8 +3,6 @@ package com.booksaw.betterTeams.team;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.configuration.ConfigurationSection;
-
 import com.booksaw.betterTeams.Team;
 
 public abstract class ListTeamComponent<T> implements TeamComponent<List<T>> {
@@ -49,25 +47,22 @@ public abstract class ListTeamComponent<T> implements TeamComponent<List<T>> {
 		return list.isEmpty();
 	}
 
-	@Override
-	public void load(ConfigurationSection section) {
-		List<String> componentStrings = section.getStringList(getSectionHeading());
+	public void load(List<String> strList) {
 		list = new ArrayList<>();
 
-		for (String str : componentStrings) {
+		for (String str : strList) {
 			list.add(fromString(str));
 		}
 	}
 
-	@Override
-	public void save(ConfigurationSection section) {
+	public List<String> getConvertedList() {
 		List<String> componentStrings = new ArrayList<>();
 
 		for (T component : list) {
 			componentStrings.add(toString(component));
 		}
 
-		section.set(getSectionHeading(), componentStrings);
+		return componentStrings;
 	}
 
 	/**

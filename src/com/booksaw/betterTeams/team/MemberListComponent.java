@@ -11,6 +11,7 @@ import com.booksaw.betterTeams.customEvents.PlayerJoinTeamEvent;
 import com.booksaw.betterTeams.customEvents.PlayerLeaveTeamEvent;
 import com.booksaw.betterTeams.exceptions.CancelledEventException;
 import com.booksaw.betterTeams.message.MessageManager;
+import com.booksaw.betterTeams.team.storage.team.TeamStorage;
 
 public class MemberListComponent extends TeamPlayerListComponent {
 
@@ -67,6 +68,16 @@ public class MemberListComponent extends TeamPlayerListComponent {
 	@Override
 	public String getSectionHeading() {
 		return "players";
+	}
+
+	@Override
+	public void load(TeamStorage section) {
+		load(section.getPlayerList());
+	}
+
+	@Override
+	public void save(TeamStorage storage) {
+		storage.setPlayerList(getConvertedList());
 	}
 
 }

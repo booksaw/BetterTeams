@@ -1,5 +1,7 @@
 package com.booksaw.betterTeams.team.storage.team;
 
+import java.util.List;
+
 import com.booksaw.betterTeams.Team;
 
 /**
@@ -115,4 +117,15 @@ public abstract class TeamStorage {
 
 	public abstract int getInt(String reference);
 
+	public abstract List<String> getPlayerList();
+
+	public abstract void setPlayerList(List<String> players);
+
+	public abstract List<String> getBanList();
+
+	public abstract void setBanList(List<String> players);
+
+	public abstract List<String> getAllyList();
+
+	public abstract void setAllyList(List<String> players);
 }
