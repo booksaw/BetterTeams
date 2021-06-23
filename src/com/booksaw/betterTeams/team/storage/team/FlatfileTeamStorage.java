@@ -102,4 +102,28 @@ public class FlatfileTeamStorage extends TeamStorage {
 		
 	}
 
+	@Override
+	public List<String> getAllyRequestList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setAllyRequestList(List<String> players) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<String> getWarps() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setWarps(List<String> warps) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

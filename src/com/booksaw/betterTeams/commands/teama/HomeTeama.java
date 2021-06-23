@@ -1,14 +1,13 @@
 package com.booksaw.betterTeams.commands.teama;
 
-import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.commands.SubCommand;
+import java.util.List;
+
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.List;
-import java.util.Map.Entry;
-import java.util.UUID;
+import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.commands.SubCommand;
 
 public class HomeTeama extends SubCommand {
 
@@ -68,9 +67,7 @@ public class HomeTeama extends SubCommand {
 	@Override
 	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
 
-		for (Entry<UUID, Team> team : Team.getTeamList().entrySet()) {
-			options.add(team.getValue().getName());
-		}
+		addTeamStringList(options, args[0]);
 
 	}
 

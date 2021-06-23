@@ -131,7 +131,19 @@ public abstract class TeamStorage {
 
 	public abstract void setAllyList(List<String> players);
 
+	public abstract List<String> getAllyRequestList();
+
+	public abstract void setAllyRequestList(List<String> players);
+
 	public abstract void getEchestContents(Inventory inventory);
 
 	public abstract void setEchestContents(Inventory inventory);
+
+	public abstract List<String> getWarps();
+
+	public abstract void setWarps(List<String> warps);
+
+	public abstract List<String> getClaimedChests();
+
+	public abstract void setClaimedChests(List<String> chests);
 }

@@ -1,10 +1,8 @@
 package com.booksaw.betterTeams;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -16,7 +14,6 @@ import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
@@ -28,9 +25,9 @@ import com.booksaw.betterTeams.customEvents.DisbandTeamEvent;
 import com.booksaw.betterTeams.exceptions.CancelledEventException;
 import com.booksaw.betterTeams.message.Message;
 import com.booksaw.betterTeams.message.MessageManager;
-import com.booksaw.betterTeams.message.ReferencedFormatMessage;
 import com.booksaw.betterTeams.message.StaticMessage;
 import com.booksaw.betterTeams.team.AllyListComponent;
+import com.booksaw.betterTeams.team.AllyRequestComponent;
 import com.booksaw.betterTeams.team.BanListComponent;
 import com.booksaw.betterTeams.team.ChestClaimComponent;
 import com.booksaw.betterTeams.team.EChestComponent;
@@ -39,6 +36,7 @@ import com.booksaw.betterTeams.team.MemberListComponent;
 import com.booksaw.betterTeams.team.MoneyComponent;
 import com.booksaw.betterTeams.team.ScoreComponent;
 import com.booksaw.betterTeams.team.TeamManager;
+import com.booksaw.betterTeams.team.WarpListComponent;
 import com.booksaw.betterTeams.team.storage.StorageType;
 import com.booksaw.betterTeams.team.storage.team.StoredTeamValue;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
@@ -259,7 +257,7 @@ public class Team {
 	/**
 	 * Used to track which teams have requested to be allies with this team
 	 */
-	private List<UUID> requests;
+	private AllyRequestComponent requests;
 
 	private final EChestComponent echest;
 
@@ -267,7 +265,7 @@ public class Team {
 
 	private String tag;
 
-	HashMap<String, Warp> warps;
+	private WarpListComponent warps;
 
 	private org.bukkit.scoreboard.Team team;
 
@@ -315,16 +313,11 @@ public class Team {
 			teamHome = LocationListComponent.getLocation(teamHomeStr);
 		}
 
-		requests = new ArrayList<>();
-		for (String string : config.getStringList("allyrequests")) {
-			requests.add(UUID.fromString(string));
-		}
+		requests = new AllyRequestComponent();
+		requests.load(storage);
 
-		warps = new HashMap<>();
-		for (String str : config.getStringList("warps")) {
-			String[] split = str.split(";");
-			warps.put(split[0], new Warp(split));
-		}
+		warps = new WarpListComponent();
+		warps.load(storage);
 
 		claims = new ChestClaimComponent();
 		claims.load(storage);
@@ -370,11 +363,9 @@ public class Team {
 		color = ChatColor.getByChar(Main.plugin.getConfig().getString("defaultColor").charAt(0));
 		storage.set(StoredTeamValue.COLOR, color.getChar());
 
-		requests = new ArrayList<>();
-		config.set("allyrequests", requests);
+		requests = new AllyRequestComponent();
 
-		warps = new HashMap<>();
-		config.set("warps", new ArrayList<>());
+		warps = new WarpListComponent();
 
 		claims = new ChestClaimComponent();
 		claims.save(storage);
@@ -1083,13 +1074,8 @@ public class Team {
 	 * @param team the team that has sent the request
 	 */
 	public void addAllyRequest(UUID team) {
-		requests.add(team);
+		requests.add(this, team);
 		saveAllyRequests();
-
-		Team t = Team.getTeam(team);
-		// notifying all online owners of the team
-		Message message = new ReferencedFormatMessage("ally.request", t.getDisplayName());
-		members.broadcastMessage(message);
 	}
 
 	/**
@@ -1098,7 +1084,7 @@ public class Team {
 	 * @param team the team to remove the ally request for
 	 */
 	public void removeAllyRequest(UUID team) {
-		requests.remove(team);
+		requests.remove(this, team);
 		saveAllyRequests();
 	}
 
@@ -1116,7 +1102,7 @@ public class Team {
 	 * @return the list of all UUIDS of teams that have sent ally requests
 	 */
 	public List<UUID> getRequests() {
-		return requests;
+		return requests.get();
 	}
 
 	/**
@@ -1137,13 +1123,7 @@ public class Team {
 	 * Used to save the list of requests for allies for this team
 	 */
 	private void saveAllyRequests() {
-		List<String> toSave = new ArrayList<>();
-
-		for (UUID uuid : requests) {
-			toSave.add(uuid.toString());
-		}
-		// TODO switch to new system
-		getConfig().set("allyrequests", toSave);
+		requests.save(storage);
 	}
 
 	public UUID getID() {
@@ -1226,13 +1206,7 @@ public class Team {
 	 * Used to save all warps that this team has set
 	 */
 	public void saveWarps() {
-		List<String> toSave = new ArrayList<>();
-
-		for (Entry<String, Warp> temp : warps.entrySet()) {
-			toSave.add(temp.getValue().toString());
-		}
-
-		getConfig().set("warps", toSave);
+		warps.save(storage);
 	}
 
 	/**
@@ -1246,16 +1220,16 @@ public class Team {
 	}
 
 	public void addWarp(Warp warp) {
-		warps.put(warp.getName(), warp);
+		warps.add(this, warp);
 		saveWarps();
 	}
 
 	public void delWarp(String name) {
-		warps.remove(name);
+		warps.remove(this, getWarp(name));
 		saveWarps();
 	}
 
-	public Map<String, Warp> getWarps() {
+	public WarpListComponent getWarps() {
 		return warps;
 	}
 

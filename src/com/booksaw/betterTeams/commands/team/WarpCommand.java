@@ -1,13 +1,18 @@
 package com.booksaw.betterTeams.commands.team;
 
-import com.booksaw.betterTeams.*;
-import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
-import com.booksaw.betterTeams.message.ReferencedFormatMessage;
+import java.util.List;
+
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.List;
-import java.util.Map.Entry;
+import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.Main;
+import com.booksaw.betterTeams.PlayerRank;
+import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.TeamPlayer;
+import com.booksaw.betterTeams.Warp;
+import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
+import com.booksaw.betterTeams.message.ReferencedFormatMessage;
 
 public class WarpCommand extends TeamSubCommand {
 
@@ -16,8 +21,8 @@ public class WarpCommand extends TeamSubCommand {
 		if (args.length == 0) {
 
 			StringBuilder replace = new StringBuilder();
-			for (Entry<String, Warp> warp : team.getWarps().entrySet()) {
-				replace.append(warp.getKey()).append(", ");
+			for (Warp warp : team.getWarps().get()) {
+				replace.append(warp.getName()).append(", ");
 			}
 
 			if (replace.length() == 0) {
@@ -93,9 +98,9 @@ public class WarpCommand extends TeamSubCommand {
 					return;
 				}
 
-				for (String temp : team.getWarps().keySet()) {
-					if (temp.startsWith(args[0])) {
-						options.add(temp);
+				for (Warp temp : team.getWarps().get()) {
+					if (temp.getName().startsWith(args[0])) {
+						options.add(temp.getName());
 					}
 				}
 				return;
