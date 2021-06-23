@@ -2,128 +2,145 @@ package com.booksaw.betterTeams.team.storage.team;
 
 import java.util.List;
 
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.team.storage.storageManager.FlatfileStorageManager;
 
 public class FlatfileTeamStorage extends TeamStorage {
 
-	public FlatfileTeamStorage(Team team, boolean newTeam) {
+	private final FlatfileStorageManager teamStorage;
+
+	public FlatfileTeamStorage(Team team, boolean newTeam, FlatfileStorageManager teamStorage) {
 		super(team);
+		this.teamStorage = teamStorage;
 	}
 
-//	public ConfigurationSection getConfig() {
-//	ConfigurationSection section = getTeamManager().getTeamStorage().getConfigurationSection(getConfigPath());
-//	if (section == null) {
-//		section = getTeamManager().getTeamStorage().createSection(getConfigPath());
-//	}
-//	return section;
-//}
+	public ConfigurationSection getConfig() {
+		ConfigurationSection section = teamStorage.getTeamStorage().getConfigurationSection(getConfigPath());
+		if (section == null) {
+			section = teamStorage.getTeamStorage().createSection(getConfigPath());
+		}
+		return section;
+	}
 
-//private String getConfigPath() {
-//	return "team." + id;
-//}
-	
+	private String getConfigPath() {
+		return "team." + team.getID();
+	}
+
 	@Override
 	protected void setValue(String location, TeamStorageType storageType, Object value) {
-		// TODO Auto-generated method stub
-		
+		getConfig().set(location, value);
+		teamStorage.saveTeamsFile();
 	}
 
 	@Override
 	public String getString(String reference) {
-		// TODO Auto-generated method stub
-		return null;
+		return getConfig().getString(reference);
 	}
 
 	@Override
 	public boolean getBoolean(String reference) {
-		// TODO Auto-generated method stub
-		return false;
+		return getConfig().getBoolean(reference);
 	}
 
 	@Override
 	public double getDouble(String reference) {
-		// TODO Auto-generated method stub
-		return 0;
+		return getConfig().getDouble(reference);
 	}
 
 	@Override
 	public int getInt(String reference) {
-		// TODO Auto-generated method stub
-		return 0;
+		return getConfig().getInt(reference);
 	}
 
 	@Override
 	public List<String> getPlayerList() {
-		// TODO Auto-generated method stub
-		return null;
+		return getConfig().getStringList("players");
 	}
 
 	@Override
 	public void setPlayerList(List<String> players) {
-		// TODO Auto-generated method stub
-		
+		setValue("players", TeamStorageType.STRING, players);
 	}
 
 	@Override
 	public List<String> getBanList() {
-		// TODO Auto-generated method stub
-		return null;
+		return getConfig().getStringList("bans");
 	}
 
 	@Override
 	public void setBanList(List<String> players) {
-		// TODO Auto-generated method stub
-		
+		setValue("bans", TeamStorageType.STRING, players);
 	}
 
 	@Override
 	public List<String> getAllyList() {
-		// TODO Auto-generated method stub
-		return null;
+		return getConfig().getStringList("allies");
 	}
 
 	@Override
 	public void setAllyList(List<String> players) {
-		// TODO Auto-generated method stub
-		
+		setValue("allies", TeamStorageType.STRING, players);
 	}
 
 	@Override
 	public void getEchestContents(Inventory inventory) {
-		// TODO Auto-generated method stub
-		
+
+		ConfigurationSection section = getConfig();
+
+		for (int i = 0; i < 27; i++) {
+			ItemStack is = section.getItemStack("echest." + i);
+			if (is != null) {
+				inventory.setItem(i, is);
+			}
+		}
 	}
 
 	@Override
 	public void setEchestContents(Inventory inventory) {
-		// TODO Auto-generated method stub
-		
+
+		ConfigurationSection section = getConfig();
+
+		for (int i = 0; i < 27; i++) {
+
+			if (inventory.getItem(i) != null) {
+				section.set("echest." + i, inventory.getItem(i));
+			}
+		}
 	}
 
 	@Override
 	public List<String> getAllyRequestList() {
-		// TODO Auto-generated method stub
-		return null;
+		return getConfig().getStringList("allyrequests");
 	}
 
 	@Override
 	public void setAllyRequestList(List<String> players) {
-		// TODO Auto-generated method stub
-		
+		setValue("allyrequests", TeamStorageType.STRING, players);
 	}
 
 	@Override
 	public List<String> getWarps() {
-		// TODO Auto-generated method stub
-		return null;
+		return getConfig().getStringList("warps");
 	}
 
 	@Override
 	public void setWarps(List<String> warps) {
-		// TODO Auto-generated method stub
-		
+		setValue("warps", TeamStorageType.STRING, warps);
+	}
+
+	@Override
+	public List<String> getClaimedChests() {
+		return getConfig().getStringList("chests");
+	}
+
+	@Override
+	public void setClaimedChests(List<String> chests) {
+		setValue("chests", TeamStorageType.STRING, chests);
+
 	}
 
 }

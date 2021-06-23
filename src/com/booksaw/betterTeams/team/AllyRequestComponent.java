@@ -21,7 +21,7 @@ public class AllyRequestComponent extends UuidListComponent {
 
 	@Override
 	public String getSectionHeading() {
-		return null;
+		return "allyrequests";
 	}
 
 	@Override

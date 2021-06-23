@@ -27,24 +27,11 @@ public class EChestComponent implements TeamComponent<Inventory> {
 	@Override
 	public void load(TeamStorage section) {
 		section.getEchestContents(inventory);
-//		for (int i = 0; i < 27; i++) {
-//			ItemStack is = section.getItemStack("echest." + i);
-//			if (is != null) {
-//				inventory.setItem(i, is);
-//			}
-//		}
 	}
 
 	@Override
 	public void save(TeamStorage section) {
 		section.setEchestContents(inventory);
-
-//		for (int i = 0; i < 27; i++) {
-//
-//			if (inventory.getItem(i) != null) {
-//				section.set("echest." + i, inventory.getItem(i));
-//			}
-//		}
 	}
 
 }

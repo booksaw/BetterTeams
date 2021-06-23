@@ -138,12 +138,12 @@ public class FlatfileStorageManager extends TeamManager {
 
 	@Override
 	public TeamStorage createTeamStorage(Team team) {
-		return new FlatfileTeamStorage(team, false);
+		return new FlatfileTeamStorage(team, false, this);
 	}
 
 	@Override
 	public TeamStorage createNewTeamStorage(Team team) {
-		return new FlatfileTeamStorage(team, true);
+		return new FlatfileTeamStorage(team, true, this);
 	}
 
 	@Override
@@ -211,17 +211,21 @@ public class FlatfileStorageManager extends TeamManager {
 		}
 	}
 
-	private final String HOlOPATH = "holos";
+	private final String HOLOPATH = "holos";
 
 	@Override
 	public List<String> getHoloDetails() {
-		return teamStorage.getStringList(HOlOPATH);
+		return teamStorage.getStringList(HOLOPATH);
 	}
 
 	@Override
 	public void setHoloDetails(List<String> details) {
-		teamStorage.set(HOlOPATH, details);
+		teamStorage.set(HOLOPATH, details);
 		saveTeamsFile();
+	}
+
+	public FileConfiguration getTeamStorage() {
+		return teamStorage;
 	}
 
 }

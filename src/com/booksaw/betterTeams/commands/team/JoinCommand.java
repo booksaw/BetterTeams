@@ -80,7 +80,7 @@ public class JoinCommand extends NoTeamSubCommand {
 
 	@Override
 	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
-		for (Entry<UUID, Team> team : Team.getTeamList().entrySet()) {
+		for (Entry<UUID, Team> team : Team.getTeamManager().getLoadedTeamListClone().entrySet()) {
 			if ((team.getValue().isOpen() || team.getValue().isInvited(((Player) sender).getUniqueId()))
 					&& team.getValue().getName().startsWith(args[0])) {
 				options.add(team.getValue().getName());
