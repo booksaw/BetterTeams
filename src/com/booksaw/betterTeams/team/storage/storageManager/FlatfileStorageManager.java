@@ -227,7 +227,7 @@ public class FlatfileStorageManager extends TeamManager {
 			rankedTeamsStr[i] = rankedTeams[i].getName();
 		}
 
-		return null;
+		return rankedTeamsStr;
 	}
 
 	@Override
