@@ -205,7 +205,33 @@ public class FlatfileStorageManager extends TeamManager {
 	}
 
 	@Override
-	protected void purgeTeamScore() {
+	public String[] sortTeamsByMembers() {
+
+		Map<UUID, Team> loadedTeams = getLoadedTeamListClone();
+
+		Team[] rankedTeams = new Team[loadedTeams.size()];
+
+		int count = 0;
+
+		// adding them to a list to sort
+		for (Entry<UUID, Team> team : loadedTeams.entrySet()) {
+			rankedTeams[count] = team.getValue();
+			count++;
+		}
+
+		Arrays.sort(rankedTeams, (t1, t2) -> t2.getMembers().size() - t1.getMembers().size());
+
+		String[] rankedTeamsStr = new String[loadedTeams.size()];
+
+		for (int i = 0; i < rankedTeams.length; i++) {
+			rankedTeamsStr[i] = rankedTeams[i].getName();
+		}
+
+		return null;
+	}
+
+	@Override
+	public void purgeTeamScore() {
 		for (Entry<UUID, Team> team : getLoadedTeamListClone().entrySet()) {
 			team.getValue().setScore(0);
 		}

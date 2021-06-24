@@ -432,16 +432,23 @@ public abstract class TeamManager {
 	 * This method is used to sort all the team names into an array ranking from
 	 * highest to lowest
 	 * 
-	 * @return
+	 * @return The sorted array
 	 */
 	public abstract String[] sortTeamsByBalance();
+
+	/**
+	 * Used to sort all members from largest to smallest by number of members
+	 * 
+	 * @return the sorted array
+	 */
+	public abstract String[] sortTeamsByMembers();
 
 	/**
 	 * Used to reset the score of all teams
 	 * 
 	 * @return if the purge was successful
 	 */
-	protected abstract void purgeTeamScore();
+	public abstract void purgeTeamScore();
 
 	/**
 	 * @return The stored hologram details

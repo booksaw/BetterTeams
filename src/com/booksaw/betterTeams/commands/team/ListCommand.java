@@ -1,14 +1,13 @@
 package com.booksaw.betterTeams.commands.team;
 
+import java.util.List;
+
+import org.bukkit.command.CommandSender;
+
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.SubCommand;
 import com.booksaw.betterTeams.message.MessageManager;
-import org.bukkit.command.CommandSender;
-
-import java.util.List;
-import java.util.Map.Entry;
-import java.util.UUID;
 
 public class ListCommand extends SubCommand {
 
@@ -26,31 +25,7 @@ public class ListCommand extends SubCommand {
 			}
 		}
 
-		Team[] teams = new Team[Team.getTeamList().size()];
-		int y = 0;
-
-		for (Entry<UUID, Team> temp : Team.getTeamList().entrySet()) {
-			teams[y] = temp.getValue();
-			y++;
-		}
-
-		// bubble sort
-		for (int i = 0; i < teams.length - 1; i++) {
-			boolean changes = false;
-
-			for (int j = 0; j < teams.length - i - 1; j++) {
-				if (teams[j].getMembers().size() < teams[j + 1].getMembers().size()) {
-					Team temp = teams[j];
-					teams[j] = teams[j + 1];
-					teams[j + 1] = temp;
-					changes = true;
-				}
-			}
-
-			if (!changes) {
-				break;
-			}
-		}
+		String[] teams = Team.getTeamManager().sortTeamsByMembers();
 
 		// displaying the page
 		if (page * 10 > teams.length) {
@@ -59,7 +34,7 @@ public class ListCommand extends SubCommand {
 
 		MessageManager.sendMessageF(sender, "list.header", (page + 1) + "");
 		for (int i = page * 10; i < (page + 1) * 10 && i < teams.length; i++) {
-			MessageManager.sendMessageF(sender, "list.body", (i + 1) + "", teams[i].getDisplayName());
+			MessageManager.sendMessageF(sender, "list.body", (i + 1) + "", teams[i]);
 		}
 
 		MessageManager.sendMessage(sender, "list.footer");
