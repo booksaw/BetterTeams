@@ -321,6 +321,8 @@ Bug Fixes:
 
 4.0: 
 Features: 
+- Included a new saving system (#134) (#163)
+  - this saving system will massively improve performance on your server
 - Added support for Traditional Chinese 
 
 Improvements: 
@@ -335,6 +337,7 @@ Bug Fixes:
 - Fixed error with command /team rank (#147)
 - Fixed endCommands in /team rankup not working as expected (#152)
 - Fixed bug meaning there was not a space at the start of a suffix (#158)
+- Fixed error tree being displayed when update checker fails (#164)
 
 Development changes: 
 - Reworked Team class to avoid code reuse

@@ -46,7 +46,6 @@ public class UpdateChecker implements Listener {
 				} catch (IOException e) {
 					Bukkit.getServer().getConsoleSender().sendMessage(
 							ChatColor.translateAlternateColorCodes('&', "&cUpdate checker failed! Disabling."));
-					e.printStackTrace();
 					cancel();
 					return;
 				}
