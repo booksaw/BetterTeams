@@ -66,4 +66,8 @@ public class PermissionParentCommand extends ParentCommand {
 		}
 	}
 
+	public boolean isEnabled(String command) {
+		return config.getBoolean(command + ".enabled");
+	}
+
 }

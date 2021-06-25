@@ -331,6 +331,7 @@ Improvements:
 - Teams can no longer spam ally requests (#148)
 - Updated polish language file to contain more translations
 - Added a way to remove a title with /team title (#127)
+- If chest commands are disabled checks on hoppers are also disabled (#162)
 
 Bug Fixes:
 - Fixed permission issue with /team echest (#142)
@@ -338,6 +339,7 @@ Bug Fixes:
 - Fixed endCommands in /team rankup not working as expected (#152)
 - Fixed bug meaning there was not a space at the start of a suffix (#158)
 - Fixed error tree being displayed when update checker fails (#164)
+- Fixed bug which caused an internal error to be thrown when help messages are displayed
 
 Development changes: 
 - Reworked Team class to avoid code reuse

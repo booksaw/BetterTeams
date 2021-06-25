@@ -44,7 +44,7 @@ public class HelpCommand extends SubCommand {
 		}
 
 		// Send specific help message if command found
-		if (command.getSubCommands().containsKey(args[0])) {
+		if (args.length != 0 && command.getSubCommands().containsKey(args[0])) {
 			sender.sendMessage(
 					createHelpMessage(label, args[0] + " " + command.getSubCommands().get(args[0]).getArguments(),
 							command.getSubCommands().get(args[0]).getHelpMessage()));

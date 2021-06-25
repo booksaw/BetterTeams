@@ -129,6 +129,7 @@ public class Main extends JavaPlugin {
 	public MCTeamManagement teamManagement;
 	public ChatManagement chatManagement;
 	public WorldGaurdManager wgManagement;
+	private PermissionParentCommand teamCommand;
 
 	private Metrics metrics = null;
 
@@ -191,8 +192,8 @@ public class Main extends JavaPlugin {
 			econ = null;
 		}
 
-		setupListeners();
 		setupCommands();
+		setupListeners();
 	}
 
 	@Override
@@ -287,8 +288,7 @@ public class Main extends JavaPlugin {
 	}
 
 	public void setupCommands() {
-		ParentCommand teamCommand = new PermissionParentCommand(new CostManager("team"), new CooldownManager("team"),
-				"team");
+		teamCommand = new PermissionParentCommand(new CostManager("team"), new CooldownManager("team"), "team");
 		// add all sub commands here
 		teamCommand.addSubCommands(new CreateCommand(), new LeaveCommand(), new DisbandCommand(),
 				new DescriptionCommand(), new InviteCommand(), new JoinCommand(), new NameCommand(), new OpenCommand(),
@@ -379,7 +379,13 @@ public class Main extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new ScoreManagement(), this);
 		getServer().getPluginManager().registerEvents(new AllyManagement(), this);
 		getServer().getPluginManager().registerEvents(new UpdateChecker(this), this);
-		getServer().getPluginManager().registerEvents(new ChestManagement(), this);
+
+		// disabling the chest checks (hoppers most importantly) to reduce needless
+		// performance cost
+		if (teamCommand.isEnabled("chest")) {
+			getServer().getPluginManager().registerEvents(new ChestManagement(), this);
+		}
+
 		getServer().getPluginManager().registerEvents(new InventoryManagement(), this);
 		getServer().getPluginManager().registerEvents(new RankupEvents(), this);
 
