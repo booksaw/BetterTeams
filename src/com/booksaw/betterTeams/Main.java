@@ -155,8 +155,6 @@ public class Main extends JavaPlugin {
 
 		setupMetrics();
 
-		setupStorage();
-
 		String language = getConfig().getString("language");
 		MessageManager.setLanguage(language);
 		if (Objects.requireNonNull(language).equals("en") || language.equals("")) {
@@ -164,6 +162,9 @@ public class Main extends JavaPlugin {
 		}
 
 		loadCustomConfigs();
+
+		setupStorage();
+
 		ChatManagement.enable();
 
 		if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null

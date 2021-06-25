@@ -176,10 +176,27 @@ public abstract class TeamManager {
 	 * @return The team which has claimed that chest
 	 */
 	public Team getClaimingTeam(Location location) {
-		// TODO
-		return null;
+		UUID claimingTeam = getClaimingTeamUUID(location);
 
+		if (claimingTeam == null) {
+			return null;
+		}
+
+		if (!isTeam(claimingTeam)) {
+			return null;
+		}
+
+		return getTeam(claimingTeam);
 	}
+
+	/**
+	 * Used to ghet the UUID of the team which has claimed the provided chest, will
+	 * return null if that location is not claimed
+	 * 
+	 * @param location The location of the chest - must already be normalised
+	 * @return the team which has claimed that chest
+	 */
+	public abstract UUID getClaimingTeamUUID(Location location);
 
 	/**
 	 * Used to get the claiming team of a chest, will check both parts of a double
@@ -458,5 +475,9 @@ public abstract class TeamManager {
 	 * @param details the details to save
 	 */
 	public abstract void setHoloDetails(List<String> details);
+
+	public abstract void addChestClaim(Team team, Location loc);
+
+	public abstract void removeChestclaim(Location loc);
 
 }

@@ -71,6 +71,7 @@ public class FlatFileToYaml extends Converter {
 
 		List<String> playerLookup = new ArrayList<>();
 		List<String> teamLookup = new ArrayList<>();
+		List<String> chestClaims = new ArrayList<>();
 
 		int i = 1;
 
@@ -100,6 +101,10 @@ public class FlatFileToYaml extends Converter {
 				playerLookup.add(UUID.fromString(split[0]) + ":" + teamUUID);
 			}
 
+			for (String claimLoc : configManager.config.getStringList("chests")) {
+				chestClaims.add(claimLoc + ";" + teamUUID);
+			}
+
 			configManager.save(false);
 
 			log("Saved team " + team + " (" + i + "/" + teams.size() + ")");
@@ -110,6 +115,7 @@ public class FlatFileToYaml extends Converter {
 
 		teamStorage.set("teamNameLookup", teamLookup);
 		teamStorage.set("playerLookup", playerLookup);
+		teamStorage.set("chestClaims", chestClaims);
 
 		teamStorage.set("teams", null);
 		teamStorage.set("team", null);

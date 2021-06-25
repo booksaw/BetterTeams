@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
 
+import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
@@ -57,6 +58,26 @@ public class FlatfileStorageManager extends YamlStorageManager {
 			}
 		}
 
+		return null;
+	}
+
+	@Override
+	public Team getClaimingTeam(Location location) {
+		for (Entry<UUID, Team> team : getLoadedTeamListClone().entrySet()) {
+			if (team.getValue().isClaimed(location)) {
+				return team.getValue();
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public UUID getClaimingTeamUUID(Location location) {
+		for (Entry<UUID, Team> team : getLoadedTeamListClone().entrySet()) {
+			if (team.getValue().isClaimed(location)) {
+				return team.getValue().getID();
+			}
+		}
 		return null;
 	}
 
@@ -208,6 +229,16 @@ public class FlatfileStorageManager extends YamlStorageManager {
 		for (Entry<UUID, Team> team : getLoadedTeamListClone().entrySet()) {
 			team.getValue().setScore(0);
 		}
+	}
+
+	@Override
+	public void addChestClaim(Team team, Location loc) {
+		// not needed
+	}
+
+	@Override
+	public void removeChestclaim(Location loc) {
+		// not needed
 	}
 
 }

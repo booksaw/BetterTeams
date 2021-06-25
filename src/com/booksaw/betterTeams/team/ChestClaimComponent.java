@@ -1,5 +1,8 @@
 package com.booksaw.betterTeams.team;
 
+import org.bukkit.Location;
+
+import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
 
 public class ChestClaimComponent extends LocationListComponent {
@@ -17,6 +20,18 @@ public class ChestClaimComponent extends LocationListComponent {
 	@Override
 	public void save(TeamStorage storage) {
 		storage.setClaimedChests(getConvertedList());
+	}
+
+	@Override
+	public void add(Team team, Location component) {
+		super.add(team, component);
+		Team.getTeamManager().removeChestclaim(component);
+	}
+
+	@Override
+	public void remove(Team team, Location component) {
+		super.remove(team, component);
+		Team.getTeamManager().removeChestclaim(component);
 	}
 
 }

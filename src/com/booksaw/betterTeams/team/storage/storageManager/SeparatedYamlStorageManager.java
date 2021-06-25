@@ -11,6 +11,7 @@ import java.util.Map.Entry;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -23,6 +24,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
+import com.booksaw.betterTeams.team.LocationListComponent;
 import com.booksaw.betterTeams.team.storage.team.SeparatedYamlTeamStorage;
 import com.booksaw.betterTeams.team.storage.team.StoredTeamValue;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
@@ -31,6 +33,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 
 	private final Map<String, UUID> teamNameLookup = new HashMap<>();
 	private final Map<UUID, UUID> playerLookup = new HashMap<>();
+	private final Map<String, UUID> chestClaims = new HashMap<>();
 
 	private final File teamStorageDir;
 
@@ -50,6 +53,11 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 		for (String str : teamStorage.getStringList("teamNameLookup")) {
 			String[] split = str.split(":");
 			teamNameLookup.put(split[0], UUID.fromString(split[1]));
+		}
+
+		for (String str : teamStorage.getStringList("chestClaims")) {
+			String[] split = str.split(";");
+			chestClaims.put(split[0], UUID.fromString(split[1]));
 		}
 
 		Main.plugin.getServer().getPluginManager().registerEvents(this, Main.plugin);
@@ -80,6 +88,11 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 	@Override
 	public UUID getTeamUUID(String name) {
 		return teamNameLookup.get(name);
+	}
+
+	@Override
+	public UUID getClaimingTeamUUID(Location location) {
+		return chestClaims.get(LocationListComponent.getString(location));
 	}
 
 	@Override
@@ -125,6 +138,11 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 	public void addToPlayerLookup(UUID playerUUID, UUID teamUUID) {
 		playerLookup.put(playerUUID, teamUUID);
 		savePlayerLookup();
+	}
+
+	public void addToChestClaims(String claim, UUID teamUUID) {
+		chestClaims.put(claim, teamUUID);
+		saveChestClaims();
 	}
 
 	@Override
@@ -317,6 +335,17 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 		saveTeamsFile();
 	}
 
+	public void saveChestClaims() {
+		List<String> toSave = new ArrayList<>();
+
+		for (Entry<String, UUID> str : chestClaims.entrySet()) {
+			toSave.add(str.getKey() + ":" + str.getValue().toString());
+		}
+
+		teamStorage.set("chestClaims", toSave);
+		saveTeamsFile();
+	}
+
 	@EventHandler
 	public void onJoin(PlayerJoinEvent e) {
 		if (!isInTeam(e.getPlayer())) {
@@ -354,6 +383,17 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 			this.name = name;
 			this.value = value;
 		}
+	}
+
+	@Override
+	public void addChestClaim(Team team, Location loc) {
+		addToChestClaims(LocationListComponent.getString(loc), team.getID());
+	}
+
+	@Override
+	public void removeChestclaim(Location loc) {
+		chestClaims.remove(LocationListComponent.getString(loc));
+		saveChestClaims();
 	}
 
 }
