@@ -342,6 +342,10 @@ public abstract class TeamManager {
 	 */
 	public abstract void loadTeams();
 
+	public boolean isLoaded(UUID teamUUID) {
+		return loadedTeams.containsKey(teamUUID);
+	}
+
 	/**
 	 * Called when a new team is registered, this can be used to register it in any
 	 * full team trackers The team file will be fully prepared with the members

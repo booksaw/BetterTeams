@@ -3,8 +3,10 @@ package com.booksaw.betterTeams.commands.team;
 import java.util.List;
 
 import org.bukkit.command.CommandSender;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.SubCommand;
 import com.booksaw.betterTeams.message.MessageManager;
@@ -25,20 +27,27 @@ public class ListCommand extends SubCommand {
 			}
 		}
 
-		String[] teams = Team.getTeamManager().sortTeamsByMembers();
+		new BukkitRunnable() {
 
-		// displaying the page
-		if (page * 10 > teams.length) {
-			return new CommandResponse("list.noPage");
-		}
+			@Override
+			public void run() {
 
-		MessageManager.sendMessageF(sender, "list.header", (page + 1) + "");
-		for (int i = page * 10; i < (page + 1) * 10 && i < teams.length; i++) {
-			MessageManager.sendMessageF(sender, "list.body", (i + 1) + "", teams[i]);
-		}
+				String[] teams = Team.getTeamManager().sortTeamsByMembers();
 
-		MessageManager.sendMessage(sender, "list.footer");
+				// displaying the page
+				if (page * 10 > teams.length) {
+					MessageManager.sendMessage(sender, "list.noPage");
+					return;
+				}
 
+				MessageManager.sendMessageF(sender, "list.header", (page + 1) + "");
+				for (int i = page * 10; i < (page + 1) * 10 && i < teams.length; i++) {
+					MessageManager.sendMessageF(sender, "list.body", (i + 1) + "", teams[i]);
+				}
+
+				MessageManager.sendMessage(sender, "list.footer");
+			}
+		}.runTaskAsynchronously(Main.plugin);
 		return new CommandResponse(true);
 	}
 

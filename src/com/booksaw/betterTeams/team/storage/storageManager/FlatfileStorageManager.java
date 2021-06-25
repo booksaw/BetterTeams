@@ -1,51 +1,23 @@
 package com.booksaw.betterTeams.team.storage.storageManager;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
-import java.util.logging.Level;
 
-import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.team.TeamManager;
 import com.booksaw.betterTeams.team.storage.team.FlatfileTeamStorage;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
 
-public class FlatfileStorageManager extends TeamManager {
-
-	private FileConfiguration teamStorage;
-
-	private static final String TEAMLISTSTORAGELOC = "teams";
+public class FlatfileStorageManager extends YamlStorageManager {
 
 	public FlatfileStorageManager() {
-		// loading the teamStorage variable
-		File f = new File("plugins/BetterTeams/teams.yml");
-
-		if (!f.exists()) {
-			Main.plugin.saveResource("teams.yml", false);
-		}
-
-		teamStorage = YamlConfiguration.loadConfiguration(f);
-
-	}
-
-	public void saveTeamsFile() {
-		File f = new File("plugins/BetterTeams/teams.yml");
-		try {
-			teamStorage.save(f);
-		} catch (IOException ex) {
-			Bukkit.getLogger().log(Level.SEVERE, "Could not save config to " + f, ex);
-		}
+		super();
 	}
 
 	@Override
@@ -138,12 +110,12 @@ public class FlatfileStorageManager extends TeamManager {
 
 	@Override
 	public TeamStorage createTeamStorage(Team team) {
-		return new FlatfileTeamStorage(team, false, this);
+		return new FlatfileTeamStorage(team, this);
 	}
 
 	@Override
 	public TeamStorage createNewTeamStorage(Team team) {
-		return new FlatfileTeamStorage(team, true, this);
+		return createTeamStorage(team);
 	}
 
 	@Override
@@ -235,23 +207,6 @@ public class FlatfileStorageManager extends TeamManager {
 		for (Entry<UUID, Team> team : getLoadedTeamListClone().entrySet()) {
 			team.getValue().setScore(0);
 		}
-	}
-
-	private final String HOLOPATH = "holos";
-
-	@Override
-	public List<String> getHoloDetails() {
-		return teamStorage.getStringList(HOLOPATH);
-	}
-
-	@Override
-	public void setHoloDetails(List<String> details) {
-		teamStorage.set(HOLOPATH, details);
-		saveTeamsFile();
-	}
-
-	public FileConfiguration getTeamStorage() {
-		return teamStorage;
 	}
 
 }
