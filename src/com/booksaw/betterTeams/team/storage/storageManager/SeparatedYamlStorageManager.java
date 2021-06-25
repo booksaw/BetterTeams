@@ -109,12 +109,22 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 
 	@Override
 	protected void registerNewTeam(Team team, Player player) {
-		teamNameLookup.put(team.getName(), team.getID());
+		addToTeamLookup(team.getName(), team.getID());
+
+		if (player != null) {
+			addToPlayerLookup(player.getUniqueId(), team.getID());
+		}
+
+	}
+
+	public void addToTeamLookup(String name, UUID uuid) {
+		teamNameLookup.put(name, uuid);
 		saveTeamNameLookup();
+	}
 
-		playerLookup.put(player.getUniqueId(), team.getID());
+	public void addToPlayerLookup(UUID playerUUID, UUID teamUUID) {
+		playerLookup.put(playerUUID, teamUUID);
 		savePlayerLookup();
-
 	}
 
 	@Override
@@ -139,8 +149,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 
 	@Override
 	public void playerJoinTeam(Team team, TeamPlayer player) {
-		playerLookup.put(player.getPlayer().getUniqueId(), team.getID());
-		savePlayerLookup();
+		addToPlayerLookup(player.getPlayer().getUniqueId(), team.getID());
 	}
 
 	@Override
@@ -175,7 +184,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 
 		teams.sort((t1, t2) -> t2.value - t1.value);
 
-		String[] rankedTeamsStr = new String[loadedTeams.size()];
+		String[] rankedTeamsStr = new String[teams.size()];
 
 		for (int i = 0; i < teams.size(); i++) {
 			rankedTeamsStr[i] = teams.get(i).name;
@@ -209,7 +218,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 			return -1;
 		});
 
-		String[] rankedTeamsStr = new String[loadedTeams.size()];
+		String[] rankedTeamsStr = new String[teams.size()];
 
 		for (int i = 0; i < teams.size(); i++) {
 			rankedTeamsStr[i] = teams.get(i).name;
@@ -238,7 +247,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 
 		teams.sort((t1, t2) -> t2.value - t1.value);
 
-		String[] rankedTeamsStr = new String[loadedTeams.size()];
+		String[] rankedTeamsStr = new String[teams.size()];
 
 		for (int i = 0; i < teams.size(); i++) {
 			rankedTeamsStr[i] = teams.get(i).name;

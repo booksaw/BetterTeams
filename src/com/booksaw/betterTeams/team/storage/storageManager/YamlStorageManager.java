@@ -16,7 +16,7 @@ public abstract class YamlStorageManager extends TeamManager {
 
 	protected FileConfiguration teamStorage;
 
-	protected static final String TEAMLISTSTORAGELOC = "teams";
+	public static final String TEAMLISTSTORAGELOC = "teams";
 
 	protected YamlStorageManager() {
 		// loading the teamStorage variable
