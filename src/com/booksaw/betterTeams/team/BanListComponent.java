@@ -2,6 +2,8 @@ package com.booksaw.betterTeams.team;
 
 import org.bukkit.OfflinePlayer;
 
+import com.booksaw.betterTeams.team.storage.team.TeamStorage;
+
 public class BanListComponent extends UuidListComponent {
 
 	@Override
@@ -18,6 +20,16 @@ public class BanListComponent extends UuidListComponent {
 	 */
 	public boolean contains(OfflinePlayer player) {
 		return contains(player.getUniqueId());
+	}
+
+	@Override
+	public void load(TeamStorage section) {
+		load(section.getBanList());
+	}
+
+	@Override
+	public void save(TeamStorage storage) {
+		storage.setBanList(getConvertedList());
 	}
 
 }

@@ -1,17 +1,16 @@
 package com.booksaw.betterTeams.commands.team;
 
+import java.util.List;
+import java.util.Objects;
+
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.SubCommand;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
-import java.util.List;
-import java.util.Map.Entry;
-import java.util.Objects;
-import java.util.UUID;
 
 public class RankCommand extends SubCommand {
 
@@ -73,10 +72,7 @@ public class RankCommand extends SubCommand {
 
 	@Override
 	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
-
-		for (Entry<UUID, Team> team : Team.getTeamList().entrySet()) {
-			options.add(team.getValue().getName());
-		}
+		addTeamStringList(options, args[0]);
 
 	}
 

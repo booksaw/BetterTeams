@@ -165,11 +165,11 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 				return null;
 			}
 
-			Team[] teams = Team.getTeamManager().sortTeamsByScore();
+			String[] teams = Team.getTeamManager().sortTeamsByScore();
 			if (teams.length <= place) {
 				return null;
 			} else {
-				return teams[place].getName();
+				return Team.getTeam(teams[place]).getName();
 			}
 
 		} else if (identifier.startsWith("teamscoreno_")) {
@@ -184,11 +184,11 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 				return null;
 			}
 
-			Team[] teams = Team.getTeamManager().sortTeamsByScore();
+			String[] teams = Team.getTeamManager().sortTeamsByScore();
 			if (teams.length <= place) {
 				return null;
 			} else {
-				return teams[place].getScore() + "";
+				return Team.getTeam(teams[place]).getScore() + "";
 			}
 
 		}

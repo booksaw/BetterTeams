@@ -1,14 +1,9 @@
 package com.booksaw.betterTeams.team;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.UUID;
-import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -16,8 +11,6 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
 import org.bukkit.block.DoubleChest;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.InventoryHolder;
 import org.jetbrains.annotations.NotNull;
@@ -25,50 +18,38 @@ import org.jetbrains.annotations.Nullable;
 
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.customEvents.PrePurgeEvent;
 import com.booksaw.betterTeams.events.ChestManagement;
+import com.booksaw.betterTeams.team.storage.team.TeamStorage;
 
-public class TeamManager {
+public abstract class TeamManager {
 	/**
 	 * A list of all teams
 	 */
-	private final HashMap<UUID, Team> teamList;
-
-	/**
-	 * This is used to store the config file in which the the teams data is stored
-	 */
-	private final FileConfiguration teamStorage;
+	protected final HashMap<UUID, Team> loadedTeams;
 
 	private final boolean logChat;
 
 	/**
 	 * Used to create a new teamManager
 	 */
-	public TeamManager() {
+	protected TeamManager() {
 		logChat = Main.plugin.getConfig().getBoolean("logTeamChat");
 
-		teamList = new HashMap<>();
-
-		// loading the teamStorage variable
-		File f = new File("plugins/BetterTeams/teams.yml");
-
-		if (!f.exists()) {
-			Main.plugin.saveResource("teams.yml", false);
-		}
-
-		teamStorage = YamlConfiguration.loadConfiguration(f);
+		loadedTeams = new HashMap<>();
 
 	}
 
 	/**
-	 * Used to get an clone of the team list. The team objects are not cloned, just
-	 * the hashmap to avoid concurrent modification
+	 * Used to get an clone of the loaded team list. The team objects are not
+	 * cloned, just the hashmap to avoid concurrent modification
 	 * 
 	 * @return A clone of the team list
 	 */
 	@SuppressWarnings("unchecked")
-	public Map<UUID, Team> getTeamListClone() {
-		return (HashMap<UUID, Team>) teamList.clone();
+	public Map<UUID, Team> getLoadedTeamListClone() {
+		return (HashMap<UUID, Team>) loadedTeams.clone();
 	}
 
 	/**
@@ -79,7 +60,16 @@ public class TeamManager {
 	 */
 	@Nullable
 	public Team getTeam(@NotNull UUID uuid) {
-		return teamList.get(uuid);
+
+		if (loadedTeams.containsKey(uuid)) {
+			return loadedTeams.get(uuid);
+		}
+
+		if (!isTeam(uuid)) {
+			return null;
+		}
+
+		return new Team(uuid);
 	}
 
 	/**
@@ -90,7 +80,6 @@ public class TeamManager {
 	 */
 	@Nullable
 	public Team getTeam(@NotNull String name) {
-
 		Team team = getTeamByName(name);
 		if (team != null) {
 			return team;
@@ -115,12 +104,19 @@ public class TeamManager {
 	 */
 	@Nullable
 	public Team getTeam(@NotNull OfflinePlayer player) {
-		for (Entry<UUID, Team> temp : teamList.entrySet()) {
-			if (temp.getValue().getMembers().contains(player)) {
-				return temp.getValue();
-			}
+
+		if (!isInTeam(player)) {
+			return null;
 		}
-		return null;
+
+		UUID uuid = getTeamUUID(player);
+
+		if (uuid == null) {
+			return null;
+		}
+
+		return getTeam(uuid);
+
 	}
 
 	/**
@@ -132,12 +128,18 @@ public class TeamManager {
 	 */
 	@Nullable
 	public Team getTeamByName(@NotNull String name) {
-		for (Entry<UUID, Team> temp : teamList.entrySet()) {
-			if (name.equalsIgnoreCase(temp.getValue().getName())) {
-				return temp.getValue();
-			}
+		if (!isTeam(name)) {
+			return null;
 		}
-		return null;
+
+		UUID uuid = getTeamUUID(name);
+
+		if (uuid == null) {
+			return null;
+		}
+
+		return getTeam(uuid);
+
 	}
 
 	/**
@@ -157,14 +159,9 @@ public class TeamManager {
 		while (getTeam(id) != null) {
 			id = UUID.randomUUID();
 		}
-		teamList.put(id, new Team(name, id, owner));
-		String saveLoc = "teams";
-		// updating the list of teams
-		List<String> teams = teamStorage.getStringList(saveLoc);
-		teams.add(id.toString());
-		teamStorage.set(saveLoc, teams);
-
-		saveTeamsFile();
+		Team team = new Team(name, id, owner);
+		loadedTeams.put(id, team);
+		registerNewTeam(team, owner);
 
 		if (Main.plugin.teamManagement != null) {
 			Main.plugin.teamManagement.displayBelowName(owner);
@@ -179,15 +176,27 @@ public class TeamManager {
 	 * @return The team which has claimed that chest
 	 */
 	public Team getClaimingTeam(Location location) {
+		UUID claimingTeam = getClaimingTeamUUID(location);
 
-		for (Entry<UUID, Team> team : teamList.entrySet()) {
-			if (team.getValue().isClaimed(location)) {
-				return team.getValue();
-			}
+		if (claimingTeam == null) {
+			return null;
 		}
-		return null;
 
+		if (!isTeam(claimingTeam)) {
+			return null;
+		}
+
+		return getTeam(claimingTeam);
 	}
+
+	/**
+	 * Used to ghet the UUID of the team which has claimed the provided chest, will
+	 * return null if that location is not claimed
+	 * 
+	 * @param location The location of the chest - must already be normalised
+	 * @return the team which has claimed that chest
+	 */
+	public abstract UUID getClaimingTeamUUID(Location location);
 
 	/**
 	 * Used to get the claiming team of a chest, will check both parts of a double
@@ -281,58 +290,16 @@ public class TeamManager {
 	}
 
 	/**
-	 * This method is used to sort all the teams into an array ranking from highest
-	 * score to lowest
-	 * 
-	 * @return the array of teams in order of their rank
+	 * @return If chat is being logged to the console
 	 */
-	public Team[] sortTeamsByScore() {
-		Team[] rankedTeams = new Team[teamList.size()];
-
-		int count = 0;
-		// adding them to a list to sort
-		for (Entry<UUID, Team> team : teamList.entrySet()) {
-			rankedTeams[count] = team.getValue();
-			count++;
-		}
-
-		Arrays.sort(rankedTeams, (t1, t2) -> t2.getScore() - t1.getScore());
-
-		for (int i = 0; i < rankedTeams.length; i++) {
-			rankedTeams[i].setTeamRank(i);
-		}
-		return rankedTeams;
-	}
-
-	public Team[] sortTeamsByBalance() {
-		Team[] rankedTeams = new Team[teamList.size()];
-
-		int count = 0;
-		// adding them to a list to sort
-		for (Entry<UUID, Team> team : teamList.entrySet()) {
-			rankedTeams[count] = team.getValue();
-			count++;
-		}
-
-		Arrays.sort(rankedTeams, (t1, t2) -> {
-			if (t1.getMoney() == t2.getMoney()) {
-				return 0;
-			} else if (t1.getMoney() < t2.getMoney()) {
-				return 1;
-			}
-			return -1;
-		});
-
-		for (int i = 0; i < rankedTeams.length; i++) {
-			rankedTeams[i].setTeamBalRank(i);
-		}
-		return rankedTeams;
+	public boolean isLogChat() {
+		return logChat;
 	}
 
 	/**
-	 * Used to reset all team scores to 0
+	 * Used to reset all teams scores to 0
 	 * 
-	 * @return if the purge was successful (false - PrePurgeEvent was cancelled)
+	 * @return
 	 */
 	public boolean purgeTeams() {
 		// calling custom bukkit event
@@ -342,60 +309,175 @@ public class TeamManager {
 			return false;
 		}
 
-		for (Entry<UUID, Team> temp : getTeamListClone().entrySet()) {
-			temp.getValue().setScore(0);
-		}
 		Bukkit.getLogger().info("purging team score");
+		purgeTeamScore();
 		return true;
 	}
 
 	/**
-	 * Used to add a new team to the team list
+	 * Used to check if a team exists with that uuid
 	 * 
-	 * @param team The team to add to the team list
+	 * @param uuid the UUID to check
+	 * @return If a team exists with that uuid
 	 */
-	public void addTeam(Team team) {
-		teamList.put(team.getID(), team);
-	}
+	public abstract boolean isTeam(UUID uuid);
 
 	/**
-	 * Used to remove a team from the team list
+	 * Used to check if a team exists with that name
 	 * 
-	 * @param id The id of the team to remove
+	 * @param name the name to check
+	 * @return If a team exists with that name
 	 */
-	public void removeTeam(UUID id) {
-		teamList.remove(id);
-	}
+	public abstract boolean isTeam(String name);
 
-	public void saveTeamsFile() {
-		File f = new File("plugins/BetterTeams/teams.yml");
-		try {
-			teamStorage.save(f);
-		} catch (IOException ex) {
-			Bukkit.getLogger().log(Level.SEVERE, "Could not save config to " + f, ex);
-		}
+	/**
+	 * Used to check if the specified player is in a team
+	 * 
+	 * @param player The player to check
+	 * @return If they are in a team
+	 */
+	public abstract boolean isInTeam(OfflinePlayer player);
+
+	/**
+	 * Used to get the uuid of the team that the specified player is in
+	 * 
+	 * @param player the plyaer to check for
+	 * @return The team uuid
+	 */
+	public abstract UUID getTeamUUID(OfflinePlayer player);
+
+	/**
+	 * Used to get the team uuid from the team name
+	 * 
+	 * @param name The name of the team
+	 * @return The UUID of the specified team
+	 */
+	public abstract UUID getTeamUUID(String name);
+
+	/**
+	 * Used to load the stored values into the storage manager
+	 */
+	public abstract void loadTeams();
+
+	public boolean isLoaded(UUID teamUUID) {
+		return loadedTeams.containsKey(teamUUID);
 	}
 
 	/**
-	 * The FileConfiguration that is used to store team information
+	 * Called when a new team is registered, this can be used to register it in any
+	 * full team trackers The team file will be fully prepared with the members
+	 * within the team
+	 * 
+	 * @param team The new team
 	 */
-	public FileConfiguration getTeamStorage() {
-		return teamStorage;
+	protected abstract void registerNewTeam(Team team, Player player);
+
+	/**
+	 * Used to disband a team
+	 * 
+	 * @param team The team that is being disbanded
+	 */
+	public void disbandTeam(Team team) {
+		loadedTeams.remove(team.getID());
+		deleteTeamStorage(team);
 	}
 
 	/**
-	 * Loads the stored team information into the teamManager
+	 * Used when a team is disbanded, can be used to remove it from any team
+	 * trackers
+	 * 
+	 * @param team The team that is being disbanded
 	 */
-	public void loadTeams() {
+	protected abstract void deleteTeamStorage(Team team);
 
-		for (String IDString : teamStorage.getStringList("teams")) {
-			UUID id = UUID.fromString(IDString);
-			teamList.put(id, new Team(id));
-		}
-	}
+	/**
+	 * Called when a team changes its name as this will effect the getTeam(String
+	 * teamName) method
+	 * 
+	 * @param team    The new team
+	 * @param oldName The old name of the team
+	 * @param newName The name the team has changed to
+	 */
+	public abstract void teamNameChange(Team team, String newName);
 
-	public boolean isLogChat() {
-		return logChat;
-	}
+	/**
+	 * Called when a player joins a team, this can be used to track the players
+	 * location
+	 * 
+	 * @param team   The team that the player has joined
+	 * @param player The player that has joined the team
+	 */
+	public abstract void playerJoinTeam(Team team, TeamPlayer player);
+
+	/**
+	 * Called when a player leaves a team
+	 * 
+	 * @param team   The team that the player has left
+	 * @param player The team that the player has left
+	 */
+	public abstract void playerLeaveTeam(Team team, TeamPlayer player);
+
+	/**
+	 * Called when a team needs a storage manager to manage all information, this is
+	 * called for preexisting teams
+	 * 
+	 * @param team The team instance
+	 * @return
+	 */
+	public abstract TeamStorage createTeamStorage(Team team);
+
+	/**
+	 * Called when a new team is made
+	 * 
+	 * @param teamUUID The UUID of the new team
+	 * @return The created team storage
+	 */
+	public abstract TeamStorage createNewTeamStorage(Team team);
+
+	/**
+	 * This method is used to sort all the teams into an array ranking from highest
+	 * score to lowest
+	 * 
+	 * @return the array of teams in order of their rank
+	 */
+	public abstract String[] sortTeamsByScore();
+
+	/**
+	 * This method is used to sort all the team names into an array ranking from
+	 * highest to lowest
+	 * 
+	 * @return The sorted array
+	 */
+	public abstract String[] sortTeamsByBalance();
+
+	/**
+	 * Used to sort all members from largest to smallest by number of members
+	 * 
+	 * @return the sorted array
+	 */
+	public abstract String[] sortTeamsByMembers();
+
+	/**
+	 * Used to reset the score of all teams
+	 * 
+	 * @return if the purge was successful
+	 */
+	public abstract void purgeTeamScore();
+
+	/**
+	 * @return The stored hologram details
+	 */
+	public abstract List<String> getHoloDetails();
+
+	/**
+	 * Used to store and save the updated hologram details
+	 * 
+	 * @param details the details to save
+	 */
+	public abstract void setHoloDetails(List<String> details);
+
+	public abstract void addChestClaim(Team team, Location loc);
+
+	public abstract void removeChestclaim(Location loc);
 
 }

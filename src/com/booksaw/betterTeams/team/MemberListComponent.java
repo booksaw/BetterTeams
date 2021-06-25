@@ -11,6 +11,7 @@ import com.booksaw.betterTeams.customEvents.PlayerJoinTeamEvent;
 import com.booksaw.betterTeams.customEvents.PlayerLeaveTeamEvent;
 import com.booksaw.betterTeams.exceptions.CancelledEventException;
 import com.booksaw.betterTeams.message.MessageManager;
+import com.booksaw.betterTeams.team.storage.team.TeamStorage;
 
 public class MemberListComponent extends TeamPlayerListComponent {
 
@@ -42,6 +43,7 @@ public class MemberListComponent extends TeamPlayerListComponent {
 			}
 		}
 
+		Team.getTeamManager().playerJoinTeam(team, teamPlayer);
 		list.add(teamPlayer);
 
 	}
@@ -60,13 +62,23 @@ public class MemberListComponent extends TeamPlayerListComponent {
 		if (Main.plugin.teamManagement != null && p.isOnline()) {
 			Main.plugin.teamManagement.remove(p.getPlayer());
 		}
-
+		Team.getTeamManager().playerLeaveTeam(team, teamPlayer);
 		list.remove(teamPlayer);
 	}
 
 	@Override
 	public String getSectionHeading() {
 		return "players";
+	}
+
+	@Override
+	public void load(TeamStorage section) {
+		load(section.getPlayerList());
+	}
+
+	@Override
+	public void save(TeamStorage storage) {
+		storage.setPlayerList(getConvertedList());
 	}
 
 }

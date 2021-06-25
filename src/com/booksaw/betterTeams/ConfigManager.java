@@ -2,9 +2,11 @@ package com.booksaw.betterTeams;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -18,14 +20,20 @@ import org.jetbrains.annotations.NotNull;
 public class ConfigManager {
 
 	public final YamlConfiguration config;
-	private final String configName;
+	private final String resourceName, filePath;
 
-	public ConfigManager(String configName, boolean updateChecks) {
-		this.configName = configName;
-		File f = new File(Main.plugin.getDataFolder() + File.separator + configName + ".yml");
+	public ConfigManager(String resourceName, boolean updateChecks) {
+		if (!resourceName.endsWith(".yml")) {
+			resourceName = resourceName + ".yml";
+		}
+
+		this.resourceName = resourceName;
+
+		File f = new File(Main.plugin.getDataFolder() + File.separator + resourceName);
+		this.filePath = f.getPath();
 
 		if (!f.exists()) {
-			Main.plugin.saveResource(configName + ".yml", false);
+			Main.plugin.saveResource(resourceName, false);
 		}
 
 		config = YamlConfiguration.loadConfiguration(f);
@@ -36,15 +44,43 @@ public class ConfigManager {
 
 	}
 
+	/**
+	 * Used to load / create a config file where the resource name is different from
+	 * the destination path
+	 * 
+	 * @param resourceName The name of the resource within the jar file
+	 * @param filePath     The path to save the resource to
+	 */
+	public ConfigManager(String resourceName, String filePath) {
+		if (!resourceName.endsWith(".yml")) {
+			resourceName = resourceName + ".yml";
+		}
+
+		this.resourceName = resourceName;
+
+		if (!filePath.endsWith(".yml")) {
+			filePath = filePath + ".yml";
+		}
+		this.filePath = Main.plugin.getDataFolder().getPath() + File.separator + filePath;
+		File f = new File(Main.plugin.getDataFolder(), filePath);
+
+		if (!f.exists()) {
+			saveResource(resourceName, this.filePath, false);
+		}
+		config = YamlConfiguration.loadConfiguration(f);
+
+	}
+
 	public void save() {
 		save(true);
 	}
 
 	public void save(boolean log) {
 		if (log) {
-			Bukkit.getLogger().info("Saving new values to " + configName + ".yml");
+			Bukkit.getLogger().info("Saving new values to " + filePath);
 		}
-		File f = new File(Main.plugin.getDataFolder() + File.separator + configName + ".yml");
+
+		File f = new File(filePath);
 		try {
 			config.save(f);
 		} catch (IOException ex) {
@@ -61,10 +97,10 @@ public class ConfigManager {
 		Logger logger = Bukkit.getLogger();
 
 		if (log) {
-			logger.info("[BetterTeams] Checking if the file " + configName + " is up to date");
+			logger.info("[BetterTeams] Checking if the file " + resourceName + " is up to date");
 		}
 
-		List<String> changes = updateFileConfig(Main.plugin.getResource(configName + ".yml"));
+		List<String> changes = updateFileConfig(Main.plugin.getResource(resourceName));
 
 		if (log) {
 			if (changes.isEmpty()) {
@@ -77,7 +113,7 @@ public class ConfigManager {
 					logger.info("[BetterTeams] - " + str);
 				}
 
-				logger.info("[BetterTeams] " + configName
+				logger.info("[BetterTeams] " + resourceName
 						+ " is now upated to the latest version, thank you for using BetterTeams");
 				logger.info("[BetterTeams] ==================================================================");
 
@@ -116,4 +152,54 @@ public class ConfigManager {
 		return addedPaths;
 
 	}
+
+	public void saveResource(String resourcePath, String resultPath, boolean replace) {
+		if (resourcePath == null || resourcePath.equals(""))
+			throw new IllegalArgumentException("ResourcePath cannot be null or empty");
+		if (resultPath == null || resultPath.equals(""))
+			throw new IllegalArgumentException("ResultPath cannot be null or empty");
+
+		resourcePath = resourcePath.replace('\\', '/');
+		InputStream in = Main.plugin.getResource(resourcePath);
+
+		if (in == null)
+			throw new IllegalArgumentException(
+					"The embedded resource '" + resourcePath + "' cannot be found in " + Main.plugin.getDataFolder());
+		File outFile = new File(resultPath);
+		int lastIndex = resourcePath.lastIndexOf('/');
+		File outDir = new File(resultPath.substring(0, (lastIndex >= 0) ? lastIndex : 0));
+
+		if (!outDir.exists())
+			outDir.mkdirs();
+
+		try {
+			if (!outFile.exists() || replace) {
+				if (!outFile.exists()) {
+					outFile.createNewFile();
+				}
+
+				OutputStream out = new FileOutputStream(outFile);
+				byte[] buf = new byte[1024];
+				int len;
+				while ((len = in.read(buf)) > 0)
+					out.write(buf, 0, len);
+				out.close();
+				in.close();
+			} else {
+				Main.plugin.getLogger().log(Level.WARNING, "Could not save " + resourcePath + " to " + outFile
+						+ " because " + outFile.getName() + " already exists.");
+			}
+		} catch (IOException ex) {
+			Main.plugin.getLogger().log(Level.SEVERE, "Could not save " + resourcePath + " to " + resultPath, ex);
+		}
+	}
+
+	public String getResourceName() {
+		return resourceName;
+	}
+
+	public String getFilePath() {
+		return filePath;
+	}
+
 }

@@ -1,6 +1,7 @@
 package com.booksaw.betterTeams.team;
 
-import org.bukkit.configuration.ConfigurationSection;
+import com.booksaw.betterTeams.team.storage.team.StoredTeamValue;
+import com.booksaw.betterTeams.team.storage.team.TeamStorage;
 
 public abstract class IntTeamComponent implements TeamComponent<Integer>, VariableTeamComponent<Integer> {
 
@@ -17,16 +18,16 @@ public abstract class IntTeamComponent implements TeamComponent<Integer>, Variab
 	}
 
 	@Override
-	public void save(ConfigurationSection section) {
+	public void save(TeamStorage section) {
 		section.set(getSectionHeading(), value);
 	}
 
 	@Override
-	public void load(ConfigurationSection section) {
-		value = section.getInt(getSectionHeading(), 0);
+	public void load(TeamStorage section) {
+		value = section.getInt(getSectionHeading());
 	}
 
-	public abstract String getSectionHeading();
+	public abstract StoredTeamValue getSectionHeading();
 
 	@Override
 	public void add(Integer amount) {

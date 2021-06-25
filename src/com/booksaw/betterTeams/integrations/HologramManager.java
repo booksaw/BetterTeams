@@ -25,7 +25,7 @@ public class HologramManager {
 		holoManager = this;
 		holos = new HashMap<>();
 
-		List<String> stored = Team.getTeamManager().getTeamStorage().getStringList("holos");
+		List<String> stored = Team.getTeamManager().getHoloDetails();
 		for (String temp : stored) {
 			String[] split = temp.split(";");
 			if (split.length == 1) {
@@ -58,7 +58,7 @@ public class HologramManager {
 	}
 
 	public void reloadHolo(Hologram holo, HologramType type) {
-		Team[] teams = getSortedArray(type);
+		String[] teams = getSortedArray(type);
 		holo.clearLines();
 
 		int maxHologramLines = Main.plugin.getConfig().getInt("maxHologramLines");
@@ -66,8 +66,9 @@ public class HologramManager {
 		holo.appendTextLine(MessageManager.getMessage("holo.leaderboard"));
 
 		for (int i = 0; i < maxHologramLines && i < teams.length; i++) {
-			holo.appendTextLine(String.format(MessageManager.getMessage(type.getSyntaxReference()), teams[i].getName(),
-					getValue(type, teams[i])));
+			Team team = Team.getTeam(teams[i]);
+			holo.appendTextLine(String.format(MessageManager.getMessage(type.getSyntaxReference()), team.getName(),
+					getValue(type, team)));
 		}
 
 	}
@@ -97,12 +98,12 @@ public class HologramManager {
 			return team.getBalance();
 		case SCORE:
 			return team.getScore() + "";
-
+		default:
+			return "";
 		}
-		return "";
 	}
 
-	public Team[] getSortedArray(HologramType type) {
+	public String[] getSortedArray(HologramType type) {
 		if (type == HologramType.MONEY) {
 			return Team.getTeamManager().sortTeamsByBalance();
 		} else {
@@ -129,8 +130,7 @@ public class HologramManager {
 			holostr.add(getString(holo.getKey().getLocation()) + ";" + holo.getValue());
 			holo.getKey().delete();
 		}
-		Team.getTeamManager().getTeamStorage().set("holos", holostr);
-		Team.getTeamManager().saveTeamsFile();
+		Team.getTeamManager().setHoloDetails(holostr);
 		holos = new HashMap<>();
 	}
 

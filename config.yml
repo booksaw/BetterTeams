@@ -33,6 +33,13 @@
 # For a list of supported languages, use this link: https://github.com/booksaw/BetterTeams/wiki/Language
 language: en
 
+# Determines how team data is stored
+# Possible values: 
+# * YAML - this is the default storage method and is recommended
+# * FLATFILE - This is a legacy storage method and should only be used if YAML is causing problems
+# More storage types to come in the future 
+storageType: YAML
+
 # This is the value to determine if the chat prefix is enabled
 # - If this is enabled (true / name) a prefix [TeamName] will be displayed at the begining of chat messages.
 # - If the player is not in a team, nothing will be displayed

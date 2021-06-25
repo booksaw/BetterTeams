@@ -1,12 +1,16 @@
 package com.booksaw.betterTeams.commands.team;
 
-import com.booksaw.betterTeams.*;
-import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
-import com.booksaw.betterTeams.message.ReferencedFormatMessage;
+import java.util.List;
+
 import org.bukkit.command.CommandSender;
 
-import java.util.List;
-import java.util.Map.Entry;
+import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.PlayerRank;
+import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.TeamPlayer;
+import com.booksaw.betterTeams.Warp;
+import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
+import com.booksaw.betterTeams.message.ReferencedFormatMessage;
 
 public class WarpsCommand extends TeamSubCommand {
 
@@ -14,8 +18,8 @@ public class WarpsCommand extends TeamSubCommand {
 	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 
 		StringBuilder replace = new StringBuilder();
-		for (Entry<String, Warp> warp : team.getWarps().entrySet()) {
-			replace.append(warp.getKey()).append(", ");
+		for (Warp warp : team.getWarps().get()) {
+			replace.append(warp.getName()).append(", ");
 		}
 
 		if (replace.length() == 0) {

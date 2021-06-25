@@ -1,5 +1,15 @@
 package com.booksaw.betterTeams.commands.team;
 
+import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
@@ -7,16 +17,6 @@ import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.SubCommand;
 import com.booksaw.betterTeams.message.HelpMessage;
 import com.booksaw.betterTeams.message.MessageManager;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
-import java.util.List;
-import java.util.Map.Entry;
-import java.util.Objects;
-import java.util.UUID;
 
 /**
  * This class handles the command /team info [team/player]
@@ -188,10 +188,7 @@ public class InfoCommand extends SubCommand {
 	@Override
 	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
 
-		for (Entry<UUID, Team> team : Team.getTeamList().entrySet()) {
-			if (team.getValue().getName().startsWith(args[0]))
-				options.add(team.getValue().getName());
-		}
+		addTeamStringList(options, (args.length == 0) ? "" : args[0]);
 		addPlayerStringList(options, (args.length == 0) ? "" : args[0]);
 
 	}

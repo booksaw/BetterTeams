@@ -7,6 +7,7 @@ import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -108,6 +109,9 @@ import com.booksaw.betterTeams.integrations.ZKothManager;
 import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.metrics.Metrics;
 import com.booksaw.betterTeams.score.ScoreManagement;
+import com.booksaw.betterTeams.team.storage.StorageType;
+import com.booksaw.betterTeams.team.storage.convert.Converter;
+import com.booksaw.betterTeams.team.storage.storageManager.YamlStorageManager;
 
 import net.milkbowl.vault.economy.Economy;
 
@@ -151,8 +155,6 @@ public class Main extends JavaPlugin {
 
 		setupMetrics();
 
-		Team.getTeamManager().loadTeams();
-
 		String language = getConfig().getString("language");
 		MessageManager.setLanguage(language);
 		if (Objects.requireNonNull(language).equals("en") || language.equals("")) {
@@ -160,6 +162,9 @@ public class Main extends JavaPlugin {
 		}
 
 		loadCustomConfigs();
+
+		setupStorage();
+
 		ChatManagement.enable();
 
 		if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null
@@ -391,5 +396,33 @@ public class Main extends JavaPlugin {
 	@Override
 	public FileConfiguration getConfig() {
 		return configManager.config;
+	}
+
+	public void setupStorage() {
+		File f = new File("plugins/BetterTeams/" + YamlStorageManager.TEAMLISTSTORAGELOC + ".yml");
+
+		if (!f.exists()) {
+			Main.plugin.saveResource("teams.yml", false);
+		}
+
+		YamlConfiguration teamStorage = YamlConfiguration.loadConfiguration(f);
+
+		StorageType from = StorageType.getStorageType(teamStorage.getString("storageType", "FLATFILE"));
+		StorageType to = StorageType.getStorageType(getConfig().getString("storageType", ""));
+
+		if (from != to) {
+			Converter converter = Converter.getConverter(from, to);
+
+			if (converter == null) {
+				Bukkit.getLogger().info(
+						"[BetterTeams] Cannot convert to the selected storage type, continuing with preexisting one");
+				to = from;
+			} else {
+				converter.convertStorage();
+			}
+		}
+
+		Team.setupTeamManager(to);
+		Team.getTeamManager().loadTeams();
 	}
 }

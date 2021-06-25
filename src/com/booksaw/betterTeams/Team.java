@@ -1,10 +1,8 @@
 package com.booksaw.betterTeams;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -16,7 +14,6 @@ import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
@@ -28,9 +25,9 @@ import com.booksaw.betterTeams.customEvents.DisbandTeamEvent;
 import com.booksaw.betterTeams.exceptions.CancelledEventException;
 import com.booksaw.betterTeams.message.Message;
 import com.booksaw.betterTeams.message.MessageManager;
-import com.booksaw.betterTeams.message.ReferencedFormatMessage;
 import com.booksaw.betterTeams.message.StaticMessage;
 import com.booksaw.betterTeams.team.AllyListComponent;
+import com.booksaw.betterTeams.team.AllyRequestComponent;
 import com.booksaw.betterTeams.team.BanListComponent;
 import com.booksaw.betterTeams.team.ChestClaimComponent;
 import com.booksaw.betterTeams.team.EChestComponent;
@@ -39,6 +36,10 @@ import com.booksaw.betterTeams.team.MemberListComponent;
 import com.booksaw.betterTeams.team.MoneyComponent;
 import com.booksaw.betterTeams.team.ScoreComponent;
 import com.booksaw.betterTeams.team.TeamManager;
+import com.booksaw.betterTeams.team.WarpListComponent;
+import com.booksaw.betterTeams.team.storage.StorageType;
+import com.booksaw.betterTeams.team.storage.team.StoredTeamValue;
+import com.booksaw.betterTeams.team.storage.team.TeamStorage;
 
 /**
  * This class is used to manage a team and all of it's participants
@@ -47,7 +48,16 @@ import com.booksaw.betterTeams.team.TeamManager;
  */
 public class Team {
 
-	private static final TeamManager TEAMMANAGER = new TeamManager();
+	private static TeamManager TEAMMANAGER;
+
+	public static final void setupTeamManager(StorageType storageType) {
+		if (TEAMMANAGER != null) {
+			throw new IllegalArgumentException("The team manager has already been setup");
+		}
+
+		TEAMMANAGER = storageType.getNewTeamManager();
+
+	}
 
 	public static TeamManager getTeamManager() {
 		return TEAMMANAGER;
@@ -101,8 +111,16 @@ public class Team {
 		return getClaimingTeam(location);
 	}
 
+	/**
+	 * This no longer produces the expected result when the team manager is using
+	 * anything but the flatfile storage method. Other methods should be used This
+	 * is as not all teams are loaded at any point in time.
+	 * 
+	 * @return A list of loaded teams
+	 */
+	@Deprecated
 	public static Map<UUID, Team> getTeamList() {
-		return TEAMMANAGER.getTeamListClone();
+		return TEAMMANAGER.getLoadedTeamListClone();
 	}
 
 	/**
@@ -154,6 +172,8 @@ public class Team {
 
 		return true;
 	}
+
+	private final TeamStorage storage;
 
 	/**
 	 * The ID of the team (this is a unique identifier of the team which will never
@@ -237,7 +257,7 @@ public class Team {
 	/**
 	 * Used to track which teams have requested to be allies with this team
 	 */
-	private List<UUID> requests;
+	private AllyRequestComponent requests;
 
 	private final EChestComponent echest;
 
@@ -245,7 +265,7 @@ public class Team {
 
 	private String tag;
 
-	HashMap<String, Warp> warps;
+	private WarpListComponent warps;
 
 	private org.bukkit.scoreboard.Team team;
 
@@ -256,57 +276,58 @@ public class Team {
 	 */
 	public Team(UUID id) {
 		this.id = id;
-		ConfigurationSection config = getConfig();
 
-		name = config.getString("name");
-		description = config.getString("description");
-		open = config.getBoolean("open");
-		String colorStr = config.getString("color", "6");
+		storage = TEAMMANAGER.createTeamStorage(this);
+
+		name = storage.getString(StoredTeamValue.NAME);
+		description = storage.getString(StoredTeamValue.DESCRIPTION);
+		open = storage.getBoolean(StoredTeamValue.OPEN);
+		String colorStr = storage.getString(StoredTeamValue.COLOR);
+
+		if (colorStr.length() == 0) {
+			colorStr = "6";
+		}
+
 		color = ChatColor.getByChar(colorStr.charAt(0));
 
 		members = new MemberListComponent();
-		members.load(config);
+		members.load(storage);
 
 		allies = new AllyListComponent();
-		allies.load(config);
+		allies.load(storage);
 
 		score = new ScoreComponent();
-		score.load(config);
+		score.load(storage);
 
 		money = new MoneyComponent();
-		money.load(config);
+		money.load(storage);
 
 		echest = new EChestComponent();
-		echest.load(config);
+		echest.load(storage);
 
 		bannedPlayers = new BanListComponent();
-		bannedPlayers.load(config);
+		bannedPlayers.load(storage);
 
-		String teamHomeStr = config.getString("home");
+		String teamHomeStr = storage.getString(StoredTeamValue.HOME);
 		if (teamHomeStr != null && !teamHomeStr.equals("")) {
 			teamHome = LocationListComponent.getLocation(teamHomeStr);
 		}
 
-		requests = new ArrayList<>();
-		for (String string : config.getStringList("allyrequests")) {
-			requests.add(UUID.fromString(string));
-		}
+		requests = new AllyRequestComponent();
+		requests.load(storage);
 
-		warps = new HashMap<>();
-		for (String str : config.getStringList("warps")) {
-			String[] split = str.split(";");
-			warps.put(split[0], new Warp(split));
-		}
+		warps = new WarpListComponent();
+		warps.load(storage);
 
 		claims = new ChestClaimComponent();
-		claims.load(getConfig());
+		claims.load(storage);
 
-		level = config.getInt("level");
+		level = storage.getInt(StoredTeamValue.LEVEL);
 		if (level < 1) {
 			level = 1;
 		}
 
-		tag = config.getString("tag");
+		tag = storage.getString(StoredTeamValue.TAG);
 
 		rank = -1;
 
@@ -326,27 +347,28 @@ public class Team {
 	 */
 	public Team(String name, UUID id, Player owner) {
 		this.id = id;
-		ConfigurationSection config = getConfig();
 
-		config.set("name", name);
-		config.set("description", "");
+		storage = TEAMMANAGER.createNewTeamStorage(this);
+
+		storage.set(StoredTeamValue.NAME, name);
+		storage.set(StoredTeamValue.DESCRIPTION, "");
 		this.name = name;
 		this.description = "";
-		config.set("open", false);
+
+		storage.set(StoredTeamValue.OPEN, false);
 		open = false;
-		config.set("home", "");
+
+		storage.set(StoredTeamValue.HOME, "");
 		rank = -1;
 		color = ChatColor.getByChar(Main.plugin.getConfig().getString("defaultColor").charAt(0));
-		config.set("color", color.getChar());
+		storage.set(StoredTeamValue.COLOR, color.getChar());
 
-		requests = new ArrayList<>();
-		config.set("allyrequests", requests);
+		requests = new AllyRequestComponent();
 
-		warps = new HashMap<>();
-		config.set("warps", new ArrayList<>());
+		warps = new WarpListComponent();
 
 		claims = new ChestClaimComponent();
-		config.set("chests", new ArrayList<>());
+		claims.save(storage);
 
 		allies = new AllyListComponent();
 
@@ -360,9 +382,9 @@ public class Team {
 		bannedPlayers = new BanListComponent();
 		savePlayers();
 		level = 1;
-		config.set("level", 1);
+		storage.set(StoredTeamValue.LEVEL, 1);
 		tag = "";
-		config.set("tag", "");
+		storage.set(StoredTeamValue.TAG, "");
 		/*
 		 * do not need to save config as createNewTeam saves the config after more
 		 * settings modified
@@ -382,12 +404,12 @@ public class Team {
 	 * This is used to set the name of the team, it is important that you check that
 	 * the name is unique before running this method
 	 *
-	 * @param name the new team name
+	 * @param name the new team namexg
 	 */
 	public void setName(String name) {
+		TEAMMANAGER.teamNameChange(this, name);
 		this.name = name;
-		getConfig().set("name", name);
-		TEAMMANAGER.saveTeamsFile();
+		getStorage().set(StoredTeamValue.NAME, name);
 
 		if (Main.plugin.teamManagement != null) {
 
@@ -447,8 +469,7 @@ public class Team {
 
 	public void setTag(String tag) {
 		this.tag = tag;
-		getConfig().set("tag", tag);
-		getTeamManager().saveTeamsFile();
+		getStorage().set(StoredTeamValue.TAG, tag);
 
 		if (Main.plugin.teamManagement != null) {
 
@@ -482,8 +503,7 @@ public class Team {
 
 	public void setOpen(boolean open) {
 		this.open = open;
-		getConfig().set("open", open);
-		getTeamManager().saveTeamsFile();
+		getStorage().set(StoredTeamValue.OPEN, open);
 	}
 
 	/**
@@ -507,8 +527,7 @@ public class Team {
 	 */
 	public void setDescription(String description) {
 		this.description = description;
-		getConfig().set("description", description);
-		getTeamManager().saveTeamsFile();
+		getStorage().set(StoredTeamValue.DESCRIPTION, description);
 	}
 
 	/**
@@ -525,8 +544,7 @@ public class Team {
 	 */
 	public void setColor(ChatColor color) {
 		this.color = color;
-		getConfig().set("color", color.getChar());
-		getTeamManager().saveTeamsFile();
+		getStorage().set(StoredTeamValue.COLOR, color.getChar());
 
 		if (Main.plugin.teamManagement != null) {
 
@@ -559,9 +577,7 @@ public class Team {
 	 * @param config the configuration file to store the members list to
 	 */
 	private void savePlayers() {
-		ConfigurationSection config = getConfig();
-		members.save(config);
-		getTeamManager().saveTeamsFile();
+		members.save(getStorage());
 	}
 
 	/**
@@ -570,9 +586,7 @@ public class Team {
 	 * @param config the configuration file to store the ban list to
 	 */
 	private void saveBans() {
-		ConfigurationSection config = getConfig();
-		bannedPlayers.save(config);
-		getTeamManager().saveTeamsFile();
+		bannedPlayers.save(getStorage());
 	}
 
 	/**
@@ -635,7 +649,6 @@ public class Team {
 	 * This command is used to disband a team, BE CAREFUL, this is irreversible
 	 */
 	public void disband() {
-//		ConfigurationSection config = getConfig();
 		DisbandTeamEvent event = new DisbandTeamEvent(this);
 		Bukkit.getPluginManager().callEvent(event);
 
@@ -645,27 +658,22 @@ public class Team {
 
 		for (UUID ally : allies.getClone()) {
 			Team team = Team.getTeam(ally);
+			if (team == null) {
+				// this should not occur but is a failsafe
+				continue;
+			}
 			Objects.requireNonNull(team).removeAlly(getID());
 
 		}
 
-		for (Entry<UUID, Team> requestedTeam : getTeamManager().getTeamListClone().entrySet()) {
-			if (requestedTeam.getValue().hasRequested(getID())) {
-				requestedTeam.getValue().removeAllyRequest(getID());
-			}
-		}
+//		for (Entry<UUID, Team> requestedTeam : getTeamManager().getTeamListClone().entrySet()) {
+//			if (requestedTeam.getValue().hasRequested(getID())) {
+//				requestedTeam.getValue().removeAllyRequest(getID());
+//			}
+//		}
 
 		// removing it from the team list, the java GC will handle the reset
-		getTeamManager().removeTeam(id);
-
-		// updating the list of teams
-		getTeamManager().getTeamStorage().set(getConfigPath(), null);
-
-		List<String> teams = getTeamManager().getTeamStorage().getStringList("teams");
-		teams.remove(id.toString());
-		getTeamManager().getTeamStorage().set("teams", teams);
-
-		getTeamManager().saveTeamsFile();
+		getTeamManager().disbandTeam(this);
 
 		if (Main.plugin.teamManagement != null) {
 
@@ -780,14 +788,12 @@ public class Team {
 
 	public void setTeamHome(Location teamHome) {
 		this.teamHome = teamHome;
-		getConfig().set("home", LocationListComponent.getString(teamHome));
-		getTeamManager().saveTeamsFile();
+		getStorage().set(StoredTeamValue.HOME, LocationListComponent.getString(teamHome));
 	}
 
 	public void deleteTeamHome() {
 		teamHome = null;
-		getConfig().set("home", "");
-		getTeamManager().saveTeamsFile();
+		getStorage().set(StoredTeamValue.HOME, "");
 
 	}
 
@@ -928,8 +934,7 @@ public class Team {
 
 	public void setScore(int score) {
 		this.score.set(score);
-		this.score.save(getConfig());
-		getTeamManager().saveTeamsFile();
+		this.score.save(getStorage());
 	}
 
 	public double getMoney() {
@@ -942,8 +947,7 @@ public class Team {
 
 	public void setMoney(double money) {
 		this.money.set(money);
-		this.money.save(getConfig());
-		getTeamManager().saveTeamsFile();
+		this.money.save(getStorage());
 	}
 
 	/**
@@ -1070,13 +1074,8 @@ public class Team {
 	 * @param team the team that has sent the request
 	 */
 	public void addAllyRequest(UUID team) {
-		requests.add(team);
+		requests.add(this, team);
 		saveAllyRequests();
-
-		Team t = Team.getTeam(team);
-		// notifying all online owners of the team
-		Message message = new ReferencedFormatMessage("ally.request", t.getDisplayName());
-		members.broadcastMessage(message);
 	}
 
 	/**
@@ -1085,7 +1084,7 @@ public class Team {
 	 * @param team the team to remove the ally request for
 	 */
 	public void removeAllyRequest(UUID team) {
-		requests.remove(team);
+		requests.remove(this, team);
 		saveAllyRequests();
 	}
 
@@ -1103,7 +1102,7 @@ public class Team {
 	 * @return the list of all UUIDS of teams that have sent ally requests
 	 */
 	public List<UUID> getRequests() {
-		return requests;
+		return requests.get();
 	}
 
 	/**
@@ -1117,22 +1116,14 @@ public class Team {
 	 * Used to save the list of allies for this team
 	 */
 	private void saveAllies() {
-		allies.save(getConfig());
-		getTeamManager().saveTeamsFile();
+		allies.save(getStorage());
 	}
 
 	/**
 	 * Used to save the list of requests for allies for this team
 	 */
 	private void saveAllyRequests() {
-		List<String> toSave = new ArrayList<>();
-
-		for (UUID uuid : requests) {
-			toSave.add(uuid.toString());
-		}
-
-		getConfig().set("allyrequests", toSave);
-		getTeamManager().saveTeamsFile();
+		requests.save(storage);
 	}
 
 	public UUID getID() {
@@ -1215,13 +1206,7 @@ public class Team {
 	 * Used to save all warps that this team has set
 	 */
 	public void saveWarps() {
-		List<String> toSave = new ArrayList<>();
-
-		for (Entry<String, Warp> temp : warps.entrySet()) {
-			toSave.add(temp.getValue().toString());
-		}
-
-		getConfig().set("warps", toSave);
+		warps.save(storage);
 	}
 
 	/**
@@ -1235,16 +1220,16 @@ public class Team {
 	}
 
 	public void addWarp(Warp warp) {
-		warps.put(warp.getName(), warp);
+		warps.add(this, warp);
 		saveWarps();
 	}
 
 	public void delWarp(String name) {
-		warps.remove(name);
+		warps.remove(this, getWarp(name));
 		saveWarps();
 	}
 
-	public Map<String, Warp> getWarps() {
+	public WarpListComponent getWarps() {
 		return warps;
 	}
 
@@ -1293,14 +1278,11 @@ public class Team {
 	}
 
 	private void saveClaims() {
-		claims.save(getConfig());
-		getTeamManager().saveTeamsFile();
+		claims.save(getStorage());
 	}
 
 	public void saveEchest() {
-		echest.save(getConfig());
-		getTeamManager().saveTeamsFile();
-
+		echest.save(getStorage());
 	}
 
 	public Inventory getEchest() {
@@ -1317,24 +1299,12 @@ public class Team {
 
 	public void setLevel(int level) {
 		this.level = level;
-		getConfig().set("level", level);
+		getStorage().set(StoredTeamValue.LEVEL, level);
 
 	}
 
 	public List<UUID> getInvitedPlayers() {
 		return invitedPlayers;
-	}
-
-	public ConfigurationSection getConfig() {
-		ConfigurationSection section = getTeamManager().getTeamStorage().getConfigurationSection(getConfigPath());
-		if (section == null) {
-			section = getTeamManager().getTeamStorage().createSection(getConfigPath());
-		}
-		return section;
-	}
-
-	private String getConfigPath() {
-		return "team." + id;
 	}
 
 	public boolean isPvp() {
@@ -1343,6 +1313,10 @@ public class Team {
 
 	public void setPvp(boolean pvp) {
 		this.pvp = pvp;
+	}
+
+	public TeamStorage getStorage() {
+		return storage;
 	}
 
 }
