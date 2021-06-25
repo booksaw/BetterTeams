@@ -407,6 +407,7 @@ public class Team {
 	 * @param name the new team namexg
 	 */
 	public void setName(String name) {
+		TEAMMANAGER.teamNameChange(this, name);
 		this.name = name;
 		getStorage().set(StoredTeamValue.NAME, name);
 
@@ -674,7 +675,6 @@ public class Team {
 		// removing it from the team list, the java GC will handle the reset
 		getTeamManager().disbandTeam(this);
 
-		// TODO interact with storage manager
 		if (Main.plugin.teamManagement != null) {
 
 			for (TeamPlayer p : members.getClone()) {

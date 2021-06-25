@@ -27,11 +27,12 @@ public class ListCommand extends SubCommand {
 			}
 		}
 
+		MessageManager.sendMessage(sender, "loading");
+
 		new BukkitRunnable() {
 
 			@Override
 			public void run() {
-
 				String[] teams = Team.getTeamManager().sortTeamsByMembers();
 
 				// displaying the page

@@ -1,6 +1,7 @@
 package com.booksaw.betterTeams.commands.team;
 
 import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.SubCommand;
 import com.booksaw.betterTeams.message.MessageManager;
@@ -22,6 +23,8 @@ public class BaltopCommand extends SubCommand {
 		}
 
 		Team team = teamPre;
+
+		MessageManager.sendMessage(sender, "loading");
 
 		new BukkitRunnable() {
 
@@ -71,7 +74,7 @@ public class BaltopCommand extends SubCommand {
 					}
 				}
 			}
-		};
+		}.runTaskAsynchronously(Main.plugin);
 
 		return new CommandResponse(true);
 	}

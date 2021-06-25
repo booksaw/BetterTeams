@@ -152,8 +152,7 @@ public class Main extends JavaPlugin {
 
 		setupMetrics();
 
-		// TODO FIX
-		Team.setupTeamManager(StorageType.FLATFILE);
+		Team.setupTeamManager(StorageType.getStorageType(getConfig().getString("storageType")));
 		Team.getTeamManager().loadTeams();
 
 		String language = getConfig().getString("language");

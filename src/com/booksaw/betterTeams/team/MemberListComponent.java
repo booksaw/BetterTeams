@@ -43,6 +43,7 @@ public class MemberListComponent extends TeamPlayerListComponent {
 			}
 		}
 
+		Team.getTeamManager().playerJoinTeam(team, teamPlayer);
 		list.add(teamPlayer);
 
 	}
@@ -61,7 +62,7 @@ public class MemberListComponent extends TeamPlayerListComponent {
 		if (Main.plugin.teamManagement != null && p.isOnline()) {
 			Main.plugin.teamManagement.remove(p.getPlayer());
 		}
-
+		Team.getTeamManager().playerLeaveTeam(team, teamPlayer);
 		list.remove(teamPlayer);
 	}
 

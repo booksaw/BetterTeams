@@ -23,4 +23,9 @@ public class FlatfileTeamStorage extends YamlTeamStorage {
 		return "team." + team.getID();
 	}
 
+	@Override
+	protected void saveFile() {
+		teamStorage.saveTeamsFile();
+	}
+
 }

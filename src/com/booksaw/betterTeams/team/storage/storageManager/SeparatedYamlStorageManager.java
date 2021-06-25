@@ -22,6 +22,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.team.storage.team.SeparatedYamlTeamStorage;
 import com.booksaw.betterTeams.team.storage.team.StoredTeamValue;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
@@ -36,7 +37,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 	public SeparatedYamlStorageManager() {
 		super();
 
-		teamStorageDir = new File(SeparatedYamlTeamStorage.TEAMSAVEPATH);
+		teamStorageDir = SeparatedYamlTeamStorage.getTeamSaveFile();
 		if (!teamStorageDir.isDirectory()) {
 			teamStorageDir.mkdir();
 		}
@@ -57,7 +58,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 	@Override
 	public boolean isTeam(UUID uuid) {
 		// if the file exists for that uuid, it must be a team
-		File file = new File(SeparatedYamlTeamStorage.TEAMSAVEPATH + uuid.toString() + ".yml");
+		File file = new File(SeparatedYamlTeamStorage.getTeamSaveFile(), uuid.toString() + ".yml");
 		return file.exists();
 	}
 
@@ -113,11 +114,12 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 
 		playerLookup.put(player.getUniqueId(), team.getID());
 		savePlayerLookup();
+
 	}
 
 	@Override
 	protected void deleteTeamStorage(Team team) {
-		File f = new File(SeparatedYamlTeamStorage.TEAMSAVEPATH + team.getID() + ".yml");
+		File f = new File(SeparatedYamlTeamStorage.getTeamSaveFile(), team.getID() + ".yml");
 
 		try {
 			Files.delete(f.toPath());
@@ -136,14 +138,14 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 	}
 
 	@Override
-	public void playerJoinTeam(Team team, Player player) {
-		playerLookup.put(player.getUniqueId(), team.getID());
+	public void playerJoinTeam(Team team, TeamPlayer player) {
+		playerLookup.put(player.getPlayer().getUniqueId(), team.getID());
 		savePlayerLookup();
 	}
 
 	@Override
-	public void playerLeaveTeam(Team team, Player player) {
-		playerLookup.remove(player.getUniqueId());
+	public void playerLeaveTeam(Team team, TeamPlayer player) {
+		playerLookup.remove(player.getPlayer().getUniqueId());
 		savePlayerLookup();
 	}
 
@@ -154,12 +156,14 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 
 	@Override
 	public TeamStorage createNewTeamStorage(Team team) {
-		return new SeparatedYamlTeamStorage(team, this);
+		SeparatedYamlTeamStorage teamStorage = new SeparatedYamlTeamStorage(team, this);
+
+		return teamStorage;
 	}
 
 	@Override
 	public String[] sortTeamsByScore() {
-		File folder = new File(SeparatedYamlTeamStorage.TEAMSAVEPATH);
+		File folder = SeparatedYamlTeamStorage.getTeamSaveFile();
 		List<IntCrossReference> teams = new ArrayList<>();
 
 		for (File f : folder.listFiles()) {
@@ -186,7 +190,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 
 	@Override
 	public String[] sortTeamsByBalance() {
-		File folder = new File(SeparatedYamlTeamStorage.TEAMSAVEPATH);
+		File folder = SeparatedYamlTeamStorage.getTeamSaveFile();
 		List<DoubleCrossReference> teams = new ArrayList<>();
 
 		for (File f : folder.listFiles()) {
@@ -221,12 +225,13 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 
 	@Override
 	public String[] sortTeamsByMembers() {
-		File folder = new File(SeparatedYamlTeamStorage.TEAMSAVEPATH);
+		File folder = SeparatedYamlTeamStorage.getTeamSaveFile();
 		List<IntCrossReference> teams = new ArrayList<>();
-
 		for (File f : folder.listFiles()) {
 			// team has already been resetS
+
 			YamlConfiguration yamlConfig = YamlConfiguration.loadConfiguration(f);
+
 			teams.add(new IntCrossReference(yamlConfig.getString(StoredTeamValue.NAME.getReference()),
 					yamlConfig.getStringList("players").size()));
 		}

@@ -18,6 +18,7 @@ import org.jetbrains.annotations.Nullable;
 
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.customEvents.PrePurgeEvent;
 import com.booksaw.betterTeams.events.ChestManagement;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
@@ -336,7 +337,6 @@ public abstract class TeamManager {
 	 */
 	public abstract UUID getTeamUUID(String name);
 
-	// TODO CALL
 	/**
 	 * Used to load the stored values into the storage manager
 	 */
@@ -353,7 +353,6 @@ public abstract class TeamManager {
 	 * 
 	 * @param team The new team
 	 */
-	// TODO CALL
 	protected abstract void registerNewTeam(Team team, Player player);
 
 	/**
@@ -361,7 +360,6 @@ public abstract class TeamManager {
 	 * 
 	 * @param team The team that is being disbanded
 	 */
-	// TODO call
 	public void disbandTeam(Team team) {
 		loadedTeams.remove(team.getID());
 		deleteTeamStorage(team);
@@ -383,7 +381,6 @@ public abstract class TeamManager {
 	 * @param oldName The old name of the team
 	 * @param newName The name the team has changed to
 	 */
-	// TODO CALL
 	public abstract void teamNameChange(Team team, String newName);
 
 	/**
@@ -393,8 +390,7 @@ public abstract class TeamManager {
 	 * @param team   The team that the player has joined
 	 * @param player The player that has joined the team
 	 */
-	// TODO CALL
-	public abstract void playerJoinTeam(Team team, Player player);
+	public abstract void playerJoinTeam(Team team, TeamPlayer player);
 
 	/**
 	 * Called when a player leaves a team
@@ -402,10 +398,8 @@ public abstract class TeamManager {
 	 * @param team   The team that the player has left
 	 * @param player The team that the player has left
 	 */
-	// TODO CALL
-	public abstract void playerLeaveTeam(Team team, Player player);
+	public abstract void playerLeaveTeam(Team team, TeamPlayer player);
 
-	// TODO CALL
 	/**
 	 * Called when a team needs a storage manager to manage all information, this is
 	 * called for preexisting teams
@@ -415,7 +409,6 @@ public abstract class TeamManager {
 	 */
 	public abstract TeamStorage createTeamStorage(Team team);
 
-	// TODO CALL
 	/**
 	 * Called when a new team is made
 	 * 

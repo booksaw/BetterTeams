@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.team.storage.team.FlatfileTeamStorage;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
 
@@ -99,12 +100,12 @@ public class FlatfileStorageManager extends YamlStorageManager {
 	}
 
 	@Override
-	public void playerJoinTeam(Team team, Player player) {
+	public void playerJoinTeam(Team team, TeamPlayer player) {
 		// not needed
 	}
 
 	@Override
-	public void playerLeaveTeam(Team team, Player player) {
+	public void playerLeaveTeam(Team team, TeamPlayer player) {
 		// not needed
 	}
 
