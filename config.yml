@@ -112,12 +112,12 @@ playerDamageSelf: true
 blacklist:
    - 'betterteamsisbad'
   
-# This is a list of characters wich will not be allowed in team names
+# This is a list of characters wich will not be allowed in team names or tags
 #
 # Possible values: [Any characters]
 bannedChars: ',.!"�$%^&*()[]{};:#~\|`�'
 
-# This is a list of all characters to be allowed in team names
+# This is a list of all characters to be allowed in team names or tags
 # - If this is left blank, all characters (except those in bannedChars or color codes) will be allowed in team name
 # 
 # Possible values: [Any characters]

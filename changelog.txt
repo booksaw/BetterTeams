@@ -332,6 +332,7 @@ Improvements:
 - Updated polish language file to contain more translations
 - Added a way to remove a title with /team title (#127)
 - If chest commands are disabled checks on hoppers are also disabled (#162)
+- Added clarification to some config.yml comments (#141)
 
 Bug Fixes:
 - Fixed permission issue with /team echest (#142)
