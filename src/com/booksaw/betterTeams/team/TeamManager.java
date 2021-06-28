@@ -152,7 +152,7 @@ public abstract class TeamManager {
 	 * @param name  the name of the new team
 	 * @param owner the owner of the new team (the player who ran /team create)
 	 */
-	public void createNewTeam(String name, Player owner) {
+	public Team createNewTeam(String name, Player owner) {
 
 		UUID id = UUID.randomUUID();
 		// ensuring the ID is unique
@@ -166,6 +166,8 @@ public abstract class TeamManager {
 		if (Main.plugin.teamManagement != null) {
 			Main.plugin.teamManagement.displayBelowName(owner);
 		}
+		
+		return team;
 	}
 
 	/**

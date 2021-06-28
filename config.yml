@@ -206,6 +206,13 @@ maxMove: 0
 # Possible values: [true, false]
 singleOwner: false
 
+# Used to set if when creating a new team, players must provide a tag for the team as well as the team name
+# - If this is set to false, the team name will be used instead of the team tag if one is not set
+# - If this is set to true, all teams will have to have a tag set
+# 
+# Possible Values: [true, false]
+enforceTag: false
+
 # This is used to determine if a warp is allowed to have a password set which can be used to limit usage across the team
 # - If this is true, a password can be set for a warp, so only users with that password can teleport to it
 # 

@@ -16,11 +16,32 @@ import java.util.List;
  */
 public class CreateCommand extends NoTeamSubCommand {
 
+	boolean enforceTag;
+
+	public CreateCommand() {
+		enforceTag = Main.plugin.getConfig().getBoolean("enforceTag");
+	}
+
 	@Override
 	public CommandResponse onCommand(Player sender, String label, String[] args) {
 
 		if (!Team.isValidTeamName(args[0])) {
 			return new CommandResponse("create.banned");
+		}
+
+		if (args.length > 1) {
+			if (!Team.isValidTeamName(args[1])) {
+				return new CommandResponse("tag.banned");
+			}
+
+			int max = Main.plugin.getConfig().getInt("maxTagLength");
+			if (max > 55) {
+				max = 55;
+			}
+			if (max != -1 && max < args[1].length()) {
+				return new CommandResponse("tag.maxLength");
+			}
+
 		}
 
 		int max = Main.plugin.getConfig().getInt("maxTeamLength");
@@ -37,7 +58,11 @@ public class CreateCommand extends NoTeamSubCommand {
 			return new CommandResponse("create.exists");
 		}
 
-		Team.getTeamManager().createNewTeam(args[0], sender);
+		Team team = Team.getTeamManager().createNewTeam(args[0], sender);
+
+		if (args.length > 1) {
+			team.setTag(args[1]);
+		}
 
 		return new CommandResponse(true, "create.success");
 
@@ -65,7 +90,10 @@ public class CreateCommand extends NoTeamSubCommand {
 
 	@Override
 	public String getArguments() {
-		return "<name";
+		if (enforceTag) {
+			return "<name> <tag>";
+		}
+		return "<name> [tag]";
 	}
 
 	@Override
