@@ -264,7 +264,12 @@ levels:
       #
       # Possible values: [Any positive whole number, 0, -1]
       maxWarps: 2
-
+      # Used to limit the balance the team can have in their team bank
+      # - If this is set to -1 there will be no limit on team balance 
+      # - If this is set to 0, teams of that level will not have a team bank (to completely disable use teampermissions.yml)
+      #
+      # Possible values [-1, 0, any positive number]
+      maxBal: -1
       # This is a list of commands that are run when a team 
       # Any player which contains %player% will be run for every player on the team
       # Placeholders:
@@ -285,6 +290,7 @@ levels:
       teamLimit: 20
       maxChests: 2
       maxWarps: 2
+      maxBal: -1
       
 #####################################################################
 #                                                                   #

@@ -1319,4 +1319,8 @@ public class Team {
 		return storage;
 	}
 
+	public double getMaxMoney() {
+		return Main.plugin.getConfig().getDouble("levels.l" + getLevel() + ".maxBal");
+	}
+
 }

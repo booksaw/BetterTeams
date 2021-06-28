@@ -30,6 +30,12 @@ public class DepositCommand extends TeamSubCommand {
 			return new CommandResponse("deposit.fail");
 		}
 
+		double result = team.getMoney() + amount;
+
+		if (result > team.getMaxMoney() && team.getMaxMoney() >= 0) {
+			return new CommandResponse("deposit.max");
+		}
+
 		team.setMoney(team.getMoney() + amount);
 
 		return new CommandResponse(true, "deposit.success");
