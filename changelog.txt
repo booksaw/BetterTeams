@@ -325,6 +325,8 @@ Features:
 - Included a new saving system (#134) (#163)
   - this saving system will massively improve performance on your server
 - Added support for Traditional Chinese 
+- Added the ability to set a max balance a team bank can have per team level (#151)
+- Added the option for all teams to require a tag (#114)
 
 Improvements: 
 - Config updating is now completely automated
@@ -334,7 +336,6 @@ Improvements:
 - Added a way to remove a title with /team title (#127)
 - If chest commands are disabled checks on hoppers are also disabled (#162)
 - Added clarification to some config.yml comments (#141)
-- Added the option for all teams to require a tag (#114)
 
 Bug Fixes:
 - Fixed permission issue with /team echest (#142)

@@ -26,10 +26,12 @@ public class AllyRequestComponent extends UuidListComponent {
 
 	@Override
 	public void add(Team team, UUID component) {
+		super.add(team, component);
+
 		Team t = Team.getTeam(component);
 		// notifying all online owners of the team
 		Message message = new ReferencedFormatMessage("ally.request", t.getDisplayName());
-		t.getMembers().broadcastMessage(message);
+		team.getMembers().broadcastMessage(message);
 
 	}
 
