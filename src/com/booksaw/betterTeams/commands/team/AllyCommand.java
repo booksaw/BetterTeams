@@ -20,7 +20,6 @@ public class AllyCommand extends TeamSubCommand {
 
 		if (args.length == 0) {
 			StringBuilder requests = new StringBuilder();
-			System.out.println(team.getRequests());
 			for (UUID uuid : team.getRequests()) {
 				requests.append(Objects.requireNonNull(Team.getTeam(uuid)).getDisplayName()).append(ChatColor.WHITE)
 						.append(", ");
