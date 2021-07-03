@@ -143,16 +143,17 @@ public class Main extends JavaPlugin {
 
 	@Override
 	public void onLoad() {
-		if (Bukkit.getPluginManager().getPlugin("WorldGuard") != null) {
+		plugin = this;
+		configManager = new ConfigManager("config", true);
+
+		if (Bukkit.getPluginManager().getPlugin("WorldGuard") != null
+				&& configManager.config.getBoolean("worldGuard.enabled")) {
 			wgManagement = new WorldGaurdManager();
 		}
 	}
 
 	@Override
 	public void onEnable() {
-		plugin = this;
-
-		configManager = new ConfigManager("config", true);
 
 		setupMetrics();
 
