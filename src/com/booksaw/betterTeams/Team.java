@@ -284,7 +284,7 @@ public class Team {
 		open = storage.getBoolean(StoredTeamValue.OPEN);
 		String colorStr = storage.getString(StoredTeamValue.COLOR);
 
-		if (colorStr.length() == 0) {
+		if (colorStr == null || colorStr.length() == 0) {
 			colorStr = "6";
 		}
 
