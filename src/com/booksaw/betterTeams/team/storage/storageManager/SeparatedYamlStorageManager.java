@@ -57,7 +57,12 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 
 		for (String str : teamStorage.getStringList("chestClaims")) {
 			String[] split = str.split(";");
-			chestClaims.put(split[0], UUID.fromString(split[1]));
+			if (split.length == 2) {
+				chestClaims.put(split[0], UUID.fromString(split[1]));
+			} else {
+				Bukkit.getLogger().warning("[BetterTeams] A chest claim is found to have the details  " + str
+						+ " which should be impossible. This chest claim will be ignored");
+			}
 		}
 
 		Main.plugin.getServer().getPluginManager().registerEvents(this, Main.plugin);

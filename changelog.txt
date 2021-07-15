@@ -356,6 +356,10 @@ Development changes:
 Bug fixes: 
 - fixed bug causing teams to load details incorrectly when a color is not set (#175) (#174)
 
+4.0.2: 
+Bug Fixes: 
+- Fixed bug causing betterteams to not start if there is problems with teamStorage (#184)
+
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
 Headings: 
