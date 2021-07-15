@@ -24,19 +24,19 @@ public class DepositCommand extends TeamSubCommand {
 			return new CommandResponse("deposit.tooLittle");
 		}
 
-		EconomyResponse response = Main.econ.withdrawPlayer(player.getPlayer(), amount);
-
-		if (!response.transactionSuccess()) {
-			return new CommandResponse("deposit.fail");
-		}
-
 		double result = team.getMoney() + amount;
 
 		if (result > team.getMaxMoney() && team.getMaxMoney() >= 0) {
 			return new CommandResponse("deposit.max");
 		}
 
-		team.setMoney(team.getMoney() + amount);
+		EconomyResponse response = Main.econ.withdrawPlayer(player.getPlayer(), amount);
+
+		if (!response.transactionSuccess()) {
+			return new CommandResponse("deposit.fail");
+		}
+
+		team.setMoney(result);
 
 		return new CommandResponse(true, "deposit.success");
 	}
