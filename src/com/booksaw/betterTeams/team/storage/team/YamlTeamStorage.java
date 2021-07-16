@@ -89,7 +89,6 @@ public abstract class YamlTeamStorage extends TeamStorage {
 
 	@Override
 	public void setEchestContents(Inventory inventory) {
-
 		ConfigurationSection section = getConfig();
 
 		for (int i = 0; i < 27; i++) {
@@ -98,6 +97,7 @@ public abstract class YamlTeamStorage extends TeamStorage {
 				section.set("echest." + i, inventory.getItem(i));
 			}
 		}
+		saveFile();
 	}
 
 	@Override
@@ -136,5 +136,5 @@ public abstract class YamlTeamStorage extends TeamStorage {
 	/**
 	 * Used to save whaver needs saving when a change is made
 	 */
-	protected abstract void saveFile();	
+	protected abstract void saveFile();
 }

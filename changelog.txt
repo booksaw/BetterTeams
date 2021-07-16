@@ -360,6 +360,7 @@ Bug fixes:
 Bug Fixes: 
 - Fixed bug causing betterteams to not start if there is problems with teamStorage (#184)
 - Fixed bug causing money to be taken from player balance even if their team has a max bank (#180)
+- Fixed bug causing echest changes to not save (#181) 
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 

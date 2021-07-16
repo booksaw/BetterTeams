@@ -6,6 +6,8 @@ import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 import com.booksaw.betterTeams.events.InventoryManagement;
+
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
 import java.util.List;
@@ -17,6 +19,11 @@ public class EchestCommand extends TeamSubCommand {
 	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 
 		InventoryManagement.adminViewers.put(player.getPlayer().getPlayer(), team);
+		if (team.getEchest() == null || team.getEchest().getSize() == 0) {
+			Bukkit.getLogger().warning("[BetterTeams] EnderChest was found to be null or empty " + team.getEchest()
+					+ " this should never occur, report to booksaw");
+		}
+
 		Objects.requireNonNull(player.getPlayer().getPlayer()).openInventory(team.getEchest());
 
 		return new CommandResponse(true);
