@@ -362,6 +362,7 @@ Bug Fixes:
 - Fixed bug causing money to be taken from player balance even if their team has a max bank (#180)
 - Fixed bug causing echest changes to not save (#181) 
 - Fixed bug causing teams to disband incorrectly (#178 #190 #182 #187 #176 #177)
+- Fixed bug causing /teama reload to crash the plugin (#189)
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 

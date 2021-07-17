@@ -60,6 +60,13 @@ public class Team {
 
 	}
 
+	/**
+	 * Used to disable betterteams so the singleton is removed
+	 */
+	public static final void disable() {
+		TEAMMANAGER = null;
+	}
+
 	public static TeamManager getTeamManager() {
 		return TEAMMANAGER;
 	}
@@ -284,14 +291,15 @@ public class Team {
 
 		if (name == null) {
 			// fixing the error so it does not reoccur
-			if(getTeamManager() instanceof SeparatedYamlStorageManager) {
-				((SeparatedYamlStorageManager)getTeamManager()).fixPlayersError(id);
+			if (getTeamManager() instanceof SeparatedYamlStorageManager) {
+				((SeparatedYamlStorageManager) getTeamManager()).fixPlayersError(id);
 			}
 
 			// removing it from the team list, the java GC will handle the reset
 			getTeamManager().disbandTeam(this);
 
-			throw new IllegalArgumentException("The team that attempted loading is invalid, disbanding the team to avoid problems");
+			throw new IllegalArgumentException(
+					"The team that attempted loading is invalid, disbanding the team to avoid problems");
 		}
 
 		description = storage.getString(StoredTeamValue.DESCRIPTION);

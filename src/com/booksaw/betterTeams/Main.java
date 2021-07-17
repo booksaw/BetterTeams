@@ -212,6 +212,8 @@ public class Main extends JavaPlugin {
 		if (teamManagement != null) {
 			teamManagement.removeAll();
 		}
+		
+		Team.disable();
 
 	}
 
