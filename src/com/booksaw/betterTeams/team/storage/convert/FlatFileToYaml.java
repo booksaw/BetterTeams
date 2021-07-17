@@ -94,7 +94,13 @@ public class FlatFileToYaml extends Converter {
 				configManager.config.set(key, get);
 			}
 
-			teamLookup.add(configManager.config.getString(StoredTeamValue.NAME.getReference()) + ":" + teamUUID);
+			String name = configManager.config.getString(StoredTeamValue.NAME.getReference());
+			if (name.contains(":")) {
+				name = name.replace(":", "");
+				configManager.config.set(StoredTeamValue.NAME.getReference(), name);
+			}
+
+			teamLookup.add(name + ":" + teamUUID);
 
 			for (String playerUUID : configManager.config.getStringList("players")) {
 				String[] split = playerUUID.split(",");

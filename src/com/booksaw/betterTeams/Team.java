@@ -164,7 +164,7 @@ public class Team {
 		}
 
 		// stop players inputting color codes
-		if (name.contains("&")) {
+		if (name.contains("&") || name.contains(":")) {
 			return false;
 		}
 

@@ -363,6 +363,7 @@ Bug Fixes:
 - Fixed bug causing echest changes to not save (#181) 
 - Fixed bug causing teams to disband incorrectly (#178 #190 #182 #187 #176 #177)
 - Fixed bug causing /teama reload to crash the plugin (#189)
+- Fixed bug with team names with the symbol `:` in (#185)
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
