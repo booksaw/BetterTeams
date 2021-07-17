@@ -1,0 +1,455 @@
+# All translations in this file are community made, this means there may be errors / missed translations, if you are able to improve upon any translation it would be greatly appreciated
+
+# Able to help with translations? Either improving a already existing language, or adding a whole new one. Join the discord server: https://discord.gg/JF9DNs3 
+# or message me on spigot: https://www.spigotmc.org/members/booksaw123.120955/
+
+# Any placeholders from placeholder API will work in this file
+
+invalidArg: "&4Argument invalid, escriu /help"
+inTeam: "&4Has d'estar dins un equip per poder fer això"
+notInTeam: "&4Per fer-ho, heu d'estar en equip"
+needOwner: "&4Per fer-ho, heu de ser el propietari de l'equip"
+needAdmin: "&4Per fer-ho, heu de ser administrador o propietari de l'equip"
+needPlayer: "&4Heu de ser un jugador per fer-ho"
+noPlayer: "&4No s'ha trobat el jugador especificat"
+notTeam: "&6&4Aquest equip no existeix, prova &b/team create <nom>"
+needSameTeam: "&6No formeu part del mateix equip que aquella persona"
+noPerm: "&4No teniu permís per fer-ho"
+prefixSyntax: "&7[%s&7] &r%s"
+bannedChar: "&4Un caràcter que heu intentat utilitzar està prohibit"
+noTeam: "&4Aquest equip no existeix"
+loading: "&6Carregant"
+cooldown:
+  wait: "&4Cal esperar %s segons abans d'executar-lo!"
+cost:
+  tooPoor: "&4Ets massa pobre per executar aquesta ordre"
+  run: "&4&l-%s"
+placeholder:
+  noTeam: ""
+  noDescription: ""
+  money: "%s"
+  owner: Propietari
+  admin: Admin
+  default: Default
+  name: "%s"
+  tag: "%s"
+  displayname: "%s"
+prefix:
+  owner: " **"
+  admin: " *"
+  default: " "
+create:
+  exists: "&6Aquest equip ja existeix"
+  success: "&6El vostre equip s'ha creat"
+  banned: "&4Aquest nom d'equip està prohibit"
+  maxLength: "&4Aquest nom d'equip és massa llarg"
+leave:
+  success: "&6Has deixat l'equip"
+  lastOwner: "&6Ets l'únic rang de propietari de l'equip, o bé promociona algú
+    altre o usa &b/team disband &6per dissoldre l'equip"
+rank:
+  noTeam: "&4No s'ha trobat l'equip"
+  info: "&6Posició de l'equip:"
+  infos: "&6Rang de l'equip: &b%s &7(%s puntuació necessària per al següent nivell)"
+  infom: "&6Rang de l'equip: &b%s &7($%s necessari per a la següent nivell)"
+  infomm: "&6Rang de l'equip: &b%s &7(Has arribat al rang màxim)"
+  syntax: "&b%s: &6%s &7(%s)"
+delhome:
+  success: "&6S'ha suprimit la casa del teu equip"
+  noHome: "&4El vostre equip no s'ha establert cap 'home'"
+disband:
+  success: "&6Heu dissolt l'equip"
+  confirm: "&Escriu &b/team disband &6de nou per confirmar"
+description:
+  success: "&6Heu canviat la descripció de l'equip"
+  view: "&6Descripció de l'equip: %s"
+  noDesc: "&6No s'ha definit cap descripció de l'equip"
+  noPerm: "&4No teniu permís per editar la descripció"
+name:
+  success: "&6Heu canviat el nom de l'equip"
+  view: "&6Nom de l'equip: %s"
+  exists: "&4Aquest equip ja existeix"
+  noPerm: "&4No teniu permís per canviar el nom del vostre equip"
+invite:
+  success: "&6Aquest jugador ha estat convidat"
+  invite: "&6Us han convidat a unir-vos a l'equip %s fes &b/team join <team> &6 per unir-se a l'equip"
+  inTeam: "&6Aquest jugador ja forma part d'un equip"
+  banned: "&6Aquest jugador està prohibit al teu equip"
+  full: "&6El vostre equip té la mida màxima, expulseu algú abans de convidar més persones"
+  expired: "&4La invitació de &b%s ha caducat"
+join:
+  success: "&6T'has unit a aquest equip"
+  notify: "&Benvingut &b%s &6a l'equip!"
+  notInvited: "&6&4No us han convidat a aquest equip"
+  banned: "&6&4Tens prohibit aquest equip"
+  full: "&4Aquell equip està ple"
+open:
+  successopen: "&6El vostre equip està obert a tothom"
+  successclose: "&6El vostre equip ara només és a partir de invitació"
+title:
+  change: "&6El vostre títol s'ha canviat a &b%s"
+  remove: "&6El vostre títol s'ha eliminat"
+  success: "&6Aquest títol s'ha canviat"
+  tooLong: "&4Aquest títol és massa llarg"
+  noFormat: "&4No teniu permís per formatar títols"
+  noColor: "&4No teniu permís per acolorir títols"
+  reset: "&6El vostre títol s'ha restablert"
+  noPerm: "&4No teniu permís per canviar el títol del vostre equip"
+info:
+  needTeam: "&6No s'ha trobat cap equip ni cap jugador amb aquest nom"
+  name: "&6Nom: &b%s"
+  description: "&6Descripció: &b%s"
+  open: "&6Obert? &b%s"
+  level: "&6Nivell: &b%s"
+  owner: "&6Propietaris: &b%s"
+  admin: "&6Admins: &b%s"
+  default: "&6Membres: &b%s"
+  tag: "&6Etiqueta: &b%s"
+  fail: "&6No s'ha trobat cap equip ni cap jugador amb aquest nom"
+  score: "&6Puntuació: &b%s"
+  money: "&6Depòsit: &b%s"
+  ally: "&6Aliats: &b%s"
+kick:
+  success: "&6Aquest jugador ha estat expulsat"
+  notify: "&6Us han expulsat de l'equip %s"
+  noPerm: "&6No teniu permís per expulsar a aquesta persona"
+ban:
+  success: "&6Aquest jugador ha estat prohibit"
+  notify: "&6T'han prohibit l'equip %s"
+  noPerm: "&6No teniu permís per prohibir aquesta persona"
+  already: "&6TAquest jugador ja està prohibit"
+unban:
+  success: "&6Aquest jugador ha deixat d'estar prohibit"
+  notify: "&6Ja no estàs prohibit a l'equip %s"
+  noPerm: "&6No tens permisos per fer aquest moviment"
+  not: "&6El jugador no està prohibit"
+promote:
+  success: "&6Aquest jugador ha estat ascendit"
+  noPerm: "&6No teniu permisos per promocionar aquesta persona"
+  max: "&6Aquesta persona ja ha ascendit al màxim!"
+  notify: "&6T'han promocionat!"
+demote:
+  success: "&6Aquest jugador ha estat degradat"
+  noPerm: "&6No teniu permisos per degradar aquesta persona"
+  min: "&6Aquesta persona ja és el més baix"
+  notify: "&6Has estat degradat"
+  lastOwner: "&6No podeu degradar el propietari final, promocionar primer una altra persona"
+home:
+  success: "&6Us heu teletransportat"
+  noHome: "&6El vostre equip no s'ha establert cap 'home'"
+  world: "&4El vostre 'home' d'equip no s'ha pogut trobar"
+sethome:
+  success: "&6La 'home' del vostre equip s'ha establert"
+  noPerm: "&6No teniu un rang prou alt per establir el vostre 'home' d'equip"
+chat:
+  enabled: "&6Els vostres missatges ara van al xat d'equip"
+  disabled: "&6Els vostres missatges ara van al xat global"
+  syntax: "&b[Equip]&f%s&f: %s"
+color:
+  success: "&6S'ha canviat el color del vostre equip"
+  fail: "&6Aquest no és un color de xat reconegut"
+  banned: "&4Només podeu utilitzar colors, no codis de format"
+deposit:
+  tooLittle: "&4No podeu ingressar quantitats negatives"
+  fail: "&4El dipòsit ha fallat"
+  success: "&6Diners dipositats"
+  max: "&4Això superaria el vostre saldo màxim permès per equips"
+withdraw:
+  tooLittle: "&4No es poden retirar quantitats negatives"
+  fail: "&4La retirada ha fallat"
+  success: "&6Diners retirats"
+  notEnough: "&6El vostre equip no té prou diners"
+ally:
+  already: "&4Ja sou aliats"
+  success: "&6Els vostres equips són ara aliats"
+  ally: "&6Ara el vostre equip està aliat amb &b%s"
+  requested: "&6S'ha enviat una sol·licitud d'aliat a aquest equip"
+  request: "&b%s &6t'ha enviat una sol·licitud d'aliat, fes &b/team ally <equip> &6per acceptar"
+  self: "&4No es pot aliar el seu propi equip"
+  from: "&6Teniu sol·licituds d'aliats de: %s"
+  noRequests: "&4No teniu cap sol·licitud d'aliat"
+  onJoin: "&6Teniu noves sol·licituds d'aliats, fes &b/team ally &6per veure-la"
+  limit: "&4S'ha arribat al límit d'aliats"
+  alreadyrequest: "&4Ja heu sol·licitat ser aliats amb aquest equip"
+allychat:
+  disabled: "&6Els vostres missatges ja no aniran al xat aliat"
+  enabled: "&6Els vostres missatges ara aniran al xat aliat"
+  syntax: "&d[%s]&f%s&f: %s"
+neutral:
+  self: "&6Aquest és el vostre propi equip"
+  requestremove: "&6Aquesta sol·licitud d'aliat s'ha eliminat"
+  reject: "&4La vostra sol·licitud d'aliat amb &b%s &4 s'ha rebutjat"
+  notAlly: "&4No esteu aliat amb aquest equip"
+  success: "&4Ja no esteu aliat amb aquest equip"
+  remove: "&4Ja no esteu aliats amb &b%s"
+list:
+  noPage: "&6No es troba la pàgina"
+  header: "&7--- &bPàgina de llista d'equips %s &7---"
+  body: "&6%s: &b%s"
+  footer: "&7--- &6fes &b/team list [page] &6per veure més &7---"
+setowner:
+  use: "&6No podeu promocionar aquest jugador, fes &b/team setowner <jugador> &6per promocionar aquest jugador a propietari"
+  success: "&6Aquest jugador ara és propietari"
+  notify: "&6Ara sou propietari del vostre equip"
+  max: "&4Aquest jugador ja és propietari"
+setwarp:
+  exist: "&4That warp already exists"
+  max: "&4Your team already has the maximum number of warps set"
+  success: "&6That warp has been created"
+  char: "&4That warp name includes banned characters"
+warp:
+  nowarp: "&4That warp does not exist"
+  invalidPassword: "&4Invalid password for that warp"
+  success: "&6You have been teleported"
+  world: "&4The location of that warp could not be found"
+warps:
+  syntax: "&6Warps: &b%s"
+  none: "&4Your team has no warps set"
+delwarp:
+  success: "&4That warp has been deleted"
+teleport:
+  fail: "&4La teleportació ha fallat"
+  wait: "&6Espera &b%s &6segons"
+chest:
+  claim:
+    noChest: "&4No esteu parat sobre un cofre"
+    limit: "&4El vostre equip ha reclamat el nombre màxim de cofres"
+    claimed: "&4Aquest cofre ja s'ha demanat"
+    success: "&6Heu reclamat aquest cofre"
+  remove:
+    noChest: "&4No esteu parat sobre un cofre"
+    notClaimed: "&4El vostre equip no ha reclamat aquest cofre"
+    success: "&4El vostre equip ja no té cap reclamació sobre aquest cofre"
+  all:
+    success: "&6S'han reclamat tots els cofres"
+  claimed: "&4Aquest cofre és reclamat per &a%s"
+echest:
+  echest: Enderchest
+pvp:
+  enabled: "&6S'ha habilitat PVP per al vostre equip"
+  disabled: "&6El vostre equip ha desactivat el PVP"
+rankup:
+  max: "&4Ja sou el màxim nivell"
+  score: "&4Necessites %s puntuació per pujar de nivell"
+  money: "&4Necessites %s diners en el saldo de l'equip fins a la classificació"
+  success: "&6El vostre equip ha pujat de nivell"
+tag:
+  banned: "&4Aquesta etiqueta està prohibida"
+  success: "&6La vostra etiqueta ha canviat correctament"
+  maxLength: "&4Aquesta etiqueta és massa llarga"
+  noPerm: "&4No teniu permís per canviar l'etiqueta de l'equip"
+admin:
+  cancel: "&4The command was cancelled by another plugin"
+  tag:
+    success: "&6That teams tag successfully changed"
+  setrank:
+    success: "&6That teams rank has been set"
+    "no": "&4That rank either does not exist or is not setup correctly"
+  config:
+    reload: "&6BetterTeams has been reloaded (If you are having problems when using
+      this command, restart the server)"
+  holo:
+    create:
+      success: "&6Hologram created"
+    remove:
+      noHolo: "&4No holograms found"
+      success: "&6Hologram deleted"
+  title:
+    success: "&6that players title has been changed"
+    reset: "&6That players title has been reset"
+  version: "&6Current plugin version: %s"
+  noTeam: "&4That is not a team"
+  home:
+    success: "&6You have been teleported to that teams home"
+    noHome: "&4That team does not have a home set"
+  name:
+    success: "&6The team name has been changed"
+  description:
+    success: "&6That teams name has been changed"
+  open:
+    successopen: "&6That team is now open for everyone"
+    successclose: "&6That team is now invite only"
+  invite:
+    success: "&6That player has been invited to that team"
+  create:
+    success: "&6That team has been created"
+  join:
+    banned: "&4That player is banned from that team"
+    success: "&6That player has joined the team"
+    notify: "&6You have joined the team &b%s"
+    full: "&4That team is full"
+  notInTeam: "&6That player cannot be in a team before doing that"
+  inTeam: "&4That player is not in a team"
+  leave:
+    success: "&6That player has left that team"
+    notify: "&6You have left that team"
+  demote:
+    notify: "&6You have been demoted"
+    success: "&6That player has been demoted"
+    min: "&4That player cannot be demoted any more"
+  promote:
+    max: "&6That player is already the maximum rank"
+    notify: "&6You have been promoted"
+    success: "&6That player has been promoted"
+    owner: "&6It is configured that teams can only have a single owner, do &b/teama
+      setowner <player> &6to set the player as the owner"
+  setowner:
+    already: "&4That player is already an owner"
+    nonotify: "&6You are no longer owner of the team"
+    success: "&6That player is the new team owner"
+    notify: "&6You are now the owner of your team"
+  warps:
+    none: "&4That team has not set any warps"
+  setwarp:
+    success: "&6That warp has been set"
+    max: "&6That team has already set the maximum number of warps"
+  purge:
+    confirm: "&6Run that command in the next 10 seconds to confirm, &4THIS CANNOT
+      BE UNDONE AND WILL RESET SCORES FOR ALL TEAMS"
+    success: "&6The teams have been purged"
+  score:
+    tooSmall: "&4The score must be greater than 0"
+    success: "&6That teams score has been changed"
+  update: "&4There is a new version of better teams released update here: (https://www.spigotmc.org/resources/better-teams.17129/)"
+  disband:
+    success: "&6That team has been disbanded successfully"
+  color:
+    success: "&6That teams color has been changed"
+  chest:
+    claim:
+      success: "&6You have claimed that chest on behalf of the team"
+    remove:
+      success: "&6You have successfully removed the claim from that chest"
+      notClaimed: "&4No team has claimed that chest"
+    all:
+      success: "&6All claims removed from that team"
+    disable:
+      already: "&4Chest claims are already disabled"
+      success: "&6Chest claiming has been disabled"
+    disabled:
+      bc: "&6&lAll claimed chests are able to be opened"
+    enable:
+      already: "&4Chest claims are already enabled"
+      success: "&6Chest claiming has been enabled"
+    enabled:
+      bc: "&6&lAll claimed chests are locked"
+nametag:
+  syntax: "&6&l%s&r "
+holo:
+  leaderboard: "&6Taula de classificació"
+  syntax: "&6%s: &b%s"
+  msyntax: "&6%s: &b$%s"
+top:
+  leaderboard: "&6Taula de classificació"
+  syntax: "&b%s: &6%s &7(%s)"
+  divide: "&f..."
+baltop:
+  leaderboard: "&6Taula de classificació"
+  syntax: "&b%s: &6%s &7(%s)"
+  divide: "&f..."
+spy:
+  stop: "&6Ja no espieu els missatges de l'equip"
+  start: "&6Ara esteu espiant missatges d'equip"
+  team: "&7[&b%s&7]&f%s&f: %s"
+  ally: "&7[&d%s&7]&f%s&f: %s"
+uclaim:
+  team: "&4Heu d'estar en equip per crear una reclamació"
+  member: "&4No podeu deixar la reclamació dels vostres equips"
+  kick: "&4No podeu expulsar els membres del vostre propi equip de la vostra reclamació"
+  ban: "&4No podeu prohibir la reclamació dels membres del vostre propi equip"
+  dissolve: "&4El vostre equip s'ha dissolt, de manera que la vostra reclamació s'ha dissolt"
+help:
+  description: Consulteu i canvieu la descripció del vostre equip
+  ban: Prohibeix el jugador especificat del vostre equip
+  home: Us teletransporta a \'home\' del vostre equip
+  help: Consulteu aquesta pàgina d\'ajuda
+  promote: Promou el jugador especificat dins del seu equip
+  demote: Redueix el jugador especificat dins del teu equip
+  unban: Deixa l\'entrada al jugador especificat del vostre equip
+  kick: Pateu a aquest jugador del vostre equip
+  leave: Deixa el teu equip actual
+  chat: Envieu un missatge només al vostre equip
+  name: Consulteu i canvieu el nom del vostre equip
+  sethome: Estableix la \'home\' del vostre equip
+  create: Creeu un equip amb el nom especificat
+  invite: Convida el jugador especificat al teu equip
+  disband: Dissoleu el vostre equip actual
+  open: Commuta si l\'equip només és per a convidats
+  info: Veure informació sobre el jugador / equip especificat
+  color: Canvieu el color dels vostres equips
+  deposit: Dipositeu diners al saldo dels equips
+  bal: Consulteu el saldo dels vostres equips
+  withdraw: Traieu diners del saldo dels equips
+  title: Canvieu el títol dels jugadors dins de l''equip
+  top: Veure els millors equips
+  rank: Veure el rang d\'un equip
+  join: Uniu-vos a l\'equip especificat
+  delhome: Suprimeix la \'home\' del teu equip
+  ally: Solia sol·licitar una aliança amb un altre equip
+  neutral: Elimineu els aliats i rebutgeu les sol·licituds d\'aliats
+  allychat: Envieu un missatge només als vostres aliats
+  tag: Establiu l\'etiqueta dels vostres equips
+  chest: ''
+  pvp: Commuta si el pvp està habilitat per al teu equip
+  baltop: Veure els equips més rics
+  list: Obteniu una llista de tots els equips del servidor
+  echest: Mira els teus cofres de l\'equip
+  setwarp: Estableix un \'warp\' per a la resta del teu equip
+  warps: Consulteu una llista de les \'warps\' dels vostres equips
+  rankup: Classifiqueu el vostre equip per obtenir més avantatges
+  delwarp: Suprimiu aquesta \'warp\' del vostre equip
+  warp: \'Warpea\' una ubicació definida pel teu equip
+command:
+  create: create
+  leave: leave
+  disband: disband
+  description: description
+  invite: invite
+  join: join
+  name: name
+  open: open
+  info: info
+  kick: kick
+  promote: promote
+  demote: demote
+  home: home
+  sethome: sethome
+  ban: ban
+  unban: unban
+  chat: chat
+  color: color
+  title: title
+  top: top
+  baltop: baltop
+  rank: rank
+  delhome: delhome
+  ally: ally
+  neutral: neutral
+  allychat: allychat
+  list: list
+  warp: warp
+  setwarp: setwarp
+  delwarp: delwarp
+  warps: warps
+  echest: echest
+  rankup: rankup
+  tag: tag
+  pvp: pvp
+  claim: claim
+  remove: remove
+  removeall: removeall
+  chest: chest
+  reload: reload
+  chatspy: chatspy
+  version: version
+  purge: purge
+  setrank: setrank
+  add: add
+  set: set
+  score: score
+  enableclaims: enableclaims
+  disableclaims: disableclaims
+  holo: holo
+  deposit: deposit
+  bal: bal
+  withdraw: withdraw
