@@ -38,6 +38,7 @@ import com.booksaw.betterTeams.team.ScoreComponent;
 import com.booksaw.betterTeams.team.TeamManager;
 import com.booksaw.betterTeams.team.WarpListComponent;
 import com.booksaw.betterTeams.team.storage.StorageType;
+import com.booksaw.betterTeams.team.storage.storageManager.SeparatedYamlStorageManager;
 import com.booksaw.betterTeams.team.storage.team.StoredTeamValue;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
 
@@ -280,6 +281,19 @@ public class Team {
 		storage = TEAMMANAGER.createTeamStorage(this);
 
 		name = storage.getString(StoredTeamValue.NAME);
+
+		if (name == null) {
+			// fixing the error so it does not reoccur
+			if(getTeamManager() instanceof SeparatedYamlStorageManager) {
+				((SeparatedYamlStorageManager)getTeamManager()).fixPlayersError(id);
+			}
+
+			// removing it from the team list, the java GC will handle the reset
+			getTeamManager().disbandTeam(this);
+
+			throw new IllegalArgumentException("The team that attempted loading is invalid, disbanding the team to avoid problems");
+		}
+
 		description = storage.getString(StoredTeamValue.DESCRIPTION);
 		open = storage.getBoolean(StoredTeamValue.OPEN);
 		String colorStr = storage.getString(StoredTeamValue.COLOR);
@@ -347,6 +361,19 @@ public class Team {
 	 */
 	public Team(String name, UUID id, Player owner) {
 		this.id = id;
+
+		if (name == null) {
+			Bukkit.getLogger()
+					.warning("[BetterTeams] Provided team name was null, this should never occur. Team uuid = " + id);
+			name = "invalidName";
+
+			try {
+				throw new IllegalArgumentException();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
 
 		storage = TEAMMANAGER.createNewTeamStorage(this);
 
@@ -671,6 +698,10 @@ public class Team {
 //				requestedTeam.getValue().removeAllyRequest(getID());
 //			}
 //		}
+
+		for (TeamPlayer player : getMembers().get()) {
+			getTeamManager().playerLeaveTeam(this, player);
+		}
 
 		// removing it from the team list, the java GC will handle the reset
 		getTeamManager().disbandTeam(this);

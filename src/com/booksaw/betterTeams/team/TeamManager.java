@@ -69,7 +69,11 @@ public abstract class TeamManager {
 			return null;
 		}
 
-		return new Team(uuid);
+		try {
+			return new Team(uuid);
+		} catch (IllegalArgumentException e) {
+			return null;
+		}
 	}
 
 	/**
@@ -166,7 +170,7 @@ public abstract class TeamManager {
 		if (Main.plugin.teamManagement != null) {
 			Main.plugin.teamManagement.displayBelowName(owner);
 		}
-		
+
 		return team;
 	}
 

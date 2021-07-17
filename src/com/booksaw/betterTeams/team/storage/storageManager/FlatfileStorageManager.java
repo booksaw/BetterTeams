@@ -86,7 +86,11 @@ public class FlatfileStorageManager extends YamlStorageManager {
 
 		for (String IDString : teamStorage.getStringList(TEAMLISTSTORAGELOC)) {
 			UUID id = UUID.fromString(IDString);
-			loadedTeams.put(id, new Team(id));
+			try {
+				loadedTeams.put(id, new Team(id));
+			} catch (IllegalArgumentException e) {
+				// error thrown if team is invalid, the error handles itself
+			}
 		}
 
 	}

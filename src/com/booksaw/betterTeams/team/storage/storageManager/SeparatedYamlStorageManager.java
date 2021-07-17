@@ -116,7 +116,14 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 			return;
 		}
 
-		Team team = new Team(uuid);
+		Team team;
+
+		try {
+			team = new Team(uuid);
+		} catch (IllegalArgumentException e) {
+			return;
+		}
+
 		loadedTeams.put(uuid, team);
 
 	}
@@ -399,6 +406,18 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 	public void removeChestclaim(Location loc) {
 		chestClaims.remove(LocationListComponent.getString(loc));
 		saveChestClaims();
+	}
+
+	public void fixPlayersError(UUID id) {
+
+		for (Entry<UUID, UUID> temp : new HashMap<>(playerLookup).entrySet()) {
+			if (temp.getValue().equals(id)) {
+				playerLookup.remove(temp.getKey());
+			}
+		}
+
+		savePlayerLookup();
+
 	}
 
 }
