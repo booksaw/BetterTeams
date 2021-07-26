@@ -14,7 +14,7 @@ import java.util.List;
 
 public class TitleTeama extends SubCommand {
 
-	private final char[] bannedChars = new char[] { ',', '§' };
+	private final char[] bannedChars = new char[] { ',', '\u00a7' };
 
 	@Override
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {

@@ -373,6 +373,9 @@ Bug Fixes:
 Bug Fixes: 
 - Fixed bug causing the config to not reload with /teama reload (#202)
 
+Development Changes: 
+- Replaced the selection sign with an escape code (#196)
+
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
 Headings: 
