@@ -373,8 +373,16 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 		if (!isInTeam(e.getPlayer())) {
 			return;
 		}
+		UUID teamUUID = getTeamUUID(e.getPlayer());
 
-		unloadTeam(getTeamUUID(e.getPlayer()));
+		Team team = getTeam(teamUUID);
+
+		if (team.getOnlineMemebers().size() > 1) {
+			team.getTeamPlayer(e.getPlayer()).setTeamChat(false);
+			return;
+		}
+
+		unloadTeam(teamUUID);
 
 	}
 

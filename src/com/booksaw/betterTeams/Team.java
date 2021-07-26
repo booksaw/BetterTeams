@@ -38,7 +38,6 @@ import com.booksaw.betterTeams.team.ScoreComponent;
 import com.booksaw.betterTeams.team.TeamManager;
 import com.booksaw.betterTeams.team.WarpListComponent;
 import com.booksaw.betterTeams.team.storage.StorageType;
-import com.booksaw.betterTeams.team.storage.storageManager.SeparatedYamlStorageManager;
 import com.booksaw.betterTeams.team.storage.team.StoredTeamValue;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
 

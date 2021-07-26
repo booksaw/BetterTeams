@@ -372,6 +372,8 @@ Bug Fixes:
 
 Bug Fixes: 
 - Fixed bug causing the config to not reload with /teama reload (#202)
+- Fixed bug causing teams to break when they change their name (#204 #199 #193)
+- Fixed bug causing teams to be unloaded while players are still online (#205)
 
 Development Changes: 
 - Replaced the selection sign with an escape code (#196)
