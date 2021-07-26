@@ -212,7 +212,7 @@ public class Main extends JavaPlugin {
 		if (teamManagement != null) {
 			teamManagement.removeAll();
 		}
-		
+
 		Team.disable();
 
 	}
@@ -284,6 +284,7 @@ public class Main extends JavaPlugin {
 		onDisable();
 		teamManagement = null;
 		reloadConfig();
+		onLoad();
 		ChatManagement.enable();
 		damageManagement = null;
 		onEnable();
