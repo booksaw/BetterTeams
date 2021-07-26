@@ -368,6 +368,11 @@ Bug Fixes:
 - Fixed bug causing /teama reload to crash the plugin (#189)
 - Fixed bug with team names with the symbol `:` in (#185)
 
+4.0.3:
+
+Bug Fixes: 
+- Fixed bug causing the config to not reload with /teama reload (#202)
+
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
 Headings: 
