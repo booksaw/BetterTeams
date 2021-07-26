@@ -175,6 +175,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 	public void teamNameChange(Team team, String newName) {
 		teamNameLookup.remove(team.getName());
 		teamNameLookup.put(newName, team.getID());
+		saveTeamNameLookup();
 	}
 
 	@Override
@@ -408,16 +409,41 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 		saveChestClaims();
 	}
 
-	public void fixPlayersError(UUID id) {
+	@Override
+	public void rebuildLookups() {
+		playerLookup.clear();
+		teamNameLookup.clear();
 
-		for (Entry<UUID, UUID> temp : new HashMap<>(playerLookup).entrySet()) {
-			if (temp.getValue().equals(id)) {
-				playerLookup.remove(temp.getKey());
+		Bukkit.getLogger().info("Starting rebuilding lookup tables");
+
+		File folder = SeparatedYamlTeamStorage.getTeamSaveFile();
+
+		File[] files = folder.listFiles();
+
+		int i = 0;
+		for (File f : files) {
+			i++;
+			Bukkit.getLogger()
+					.info("Rebuilding lookups for team: " + f.getName() + " (" + i + "/" + files.length + ")");
+			// not the correct file type, ignore
+			if (!f.getName().endsWith(".yml")) {
+				continue;
+			}
+
+			YamlConfiguration config = YamlConfiguration.loadConfiguration(f);
+
+			UUID teamUUID = UUID.fromString(f.getName().replace(".yml", ""));
+
+			teamNameLookup.put(config.getString(StoredTeamValue.NAME.getReference()), teamUUID);
+
+			for (String str : config.getStringList("players")) {
+				UUID playerUUID = UUID.fromString(str.split(",")[0]);
+				playerLookup.put(playerUUID, teamUUID);
 			}
 		}
 
 		savePlayerLookup();
-
+		saveTeamNameLookup();
 	}
 
 }

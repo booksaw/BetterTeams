@@ -486,4 +486,10 @@ public abstract class TeamManager {
 
 	public abstract void removeChestclaim(Location loc);
 
+	/**
+	 * Can be called by a config option if the server is having difficulties. Do not
+	 * call from anywhere else as it may cause problems depending on the storage
+	 * type
+	 */
+	public abstract void rebuildLookups();
 }

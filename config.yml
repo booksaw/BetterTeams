@@ -447,3 +447,10 @@ worldGuard:
    # This is used to determine if the worldgaurd integration is active
    # Currently worldgaurd versions below 7.0 are not supported, set this to false if your server is running anything less than 1.13
    enabled: true
+
+   
+# Debug options: 
+
+# This option can be used to rebuild lookups in the teams.yml file, this should never have to be used unless advised to by booksaw
+# Set this to true to rebuild the lookup tables in teams.yml for seperatedYamlStorage
+rebuildLookups: true

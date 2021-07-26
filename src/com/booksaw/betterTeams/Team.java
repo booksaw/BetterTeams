@@ -58,6 +58,14 @@ public class Team {
 
 		TEAMMANAGER = storageType.getNewTeamManager();
 
+		if (Main.plugin.getConfig().getBoolean("rebuildLookups")) {
+
+			TEAMMANAGER.rebuildLookups();
+
+			Main.plugin.getConfig().set("rebuildLookups", false);
+			Main.plugin.saveConfig();
+		}
+
 	}
 
 	/**
@@ -290,11 +298,6 @@ public class Team {
 		name = storage.getString(StoredTeamValue.NAME);
 
 		if (name == null) {
-			// fixing the error so it does not reoccur
-			if (getTeamManager() instanceof SeparatedYamlStorageManager) {
-				((SeparatedYamlStorageManager) getTeamManager()).fixPlayersError(id);
-			}
-
 			// removing it from the team list, the java GC will handle the reset
 			getTeamManager().disbandTeam(this);
 

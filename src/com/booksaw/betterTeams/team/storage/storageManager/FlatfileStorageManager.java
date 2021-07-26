@@ -245,4 +245,9 @@ public class FlatfileStorageManager extends YamlStorageManager {
 		// not needed
 	}
 
+	@Override
+	public void rebuildLookups() {
+		// not needed 
+	}
+
 }
