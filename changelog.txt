@@ -378,6 +378,11 @@ Bug Fixes:
 Development Changes: 
 - Replaced the selection sign with an escape code (#196)
 
+4.0.4: 
+
+Bug Fixes: 
+- Removed Team echest duplication bug (#207 #204)
+
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
 Headings: 

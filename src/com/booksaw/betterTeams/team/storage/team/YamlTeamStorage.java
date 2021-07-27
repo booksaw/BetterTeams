@@ -95,6 +95,8 @@ public abstract class YamlTeamStorage extends TeamStorage {
 
 			if (inventory.getItem(i) != null) {
 				section.set("echest." + i, inventory.getItem(i));
+			} else {
+				section.set("echest." + i, null);
 			}
 		}
 		saveFile();
