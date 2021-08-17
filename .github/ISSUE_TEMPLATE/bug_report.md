@@ -41,7 +41,7 @@ body:
     attributes:
       label: What version of BetterTeams are you using?
       description: Found by running /teama version (do not just put latest)
-      placeholder: 4.0.0
+      placeholder: '4.0.0'
     validations:
       required: true
   
@@ -50,7 +50,6 @@ body:
     attributes:
       label: What version of spigot are you using?
       description: /version
-      placeholder: 
     validations:
       required: true
   
