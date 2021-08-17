@@ -10,6 +10,7 @@ body:
     attributes:
       value: |
         Thank you for reporting a bug for BetterTeams, please fill out the following information for it to get fixed
+  
   - type: input
     id: Description
     attributes:
@@ -17,6 +18,7 @@ body:
       description: A clear and concise description of what the bug is.
     validations:
       required: true
+  
   - type: textarea
     id: Reproduce
     attributes:
@@ -25,6 +27,7 @@ body:
       placeholder: 1. run command ...
     validations:
       required: true
+  
   - type: textarea
     id: Error
     attributes:
@@ -32,6 +35,7 @@ body:
       description: Any error messages in the console (do not use hastebin, just paste the error in plain)
     validations:
       required: false
+  
   - type: input
     id: Version
     attributes:
@@ -40,6 +44,7 @@ body:
       placeholder: 4.0.0
     validations:
       required: true
+  
   - type: input
     id: McVersion
     attributes:
@@ -48,6 +53,7 @@ body:
       placeholder: 
     validations:
       required: true
+  
   - type: input
     id: Additional
     attributes:
