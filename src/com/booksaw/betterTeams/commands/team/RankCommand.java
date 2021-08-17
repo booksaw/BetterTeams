@@ -10,7 +10,10 @@ import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.SubCommand;
+import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
+
+import net.md_5.bungee.api.ChatColor;
 
 public class RankCommand extends SubCommand {
 
@@ -31,13 +34,25 @@ public class RankCommand extends SubCommand {
 		String priceStr = Main.plugin.getConfig().getString("levels.l" + (team.getLevel() + 1) + ".price");
 
 		if (priceStr == null || priceStr.length() == 0) {
-			return new CommandResponse(true, new ReferencedFormatMessage("rank.infomm", team.getLevel() + ""));
+			(new ReferencedFormatMessage("rank.infomm", team.getLevel() + "")).sendMessage(sender);
+		} else {
+			boolean score = Objects.requireNonNull(priceStr).contains("s");
+
+			(new ReferencedFormatMessage("rank.info" + ((score) ? "s" : "m"), team.getLevel() + "",
+					priceStr.substring(0, priceStr.length() - 1))).sendMessage(sender);
 		}
 
-		boolean score = Objects.requireNonNull(priceStr).contains("s");
+		List<String> rankLore = Main.plugin.getConfig().getStringList("levels.l" + team.getLevel() + ".rankLore");
 
-		return new CommandResponse(true, new ReferencedFormatMessage("rank.info" + ((score) ? "s" : "m"),
-				team.getLevel() + "", priceStr.substring(0, priceStr.length() - 1)));
+		if (rankLore.isEmpty()) {
+			return new CommandResponse(true);
+		}
+
+		for (String s : rankLore) {
+			MessageManager.sendFullMessage(sender, ChatColor.translateAlternateColorCodes('&', s));
+		}
+
+		return new CommandResponse(true);
 	}
 
 	@Override

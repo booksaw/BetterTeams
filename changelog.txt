@@ -385,6 +385,9 @@ Bug Fixes:
 
 4.1.0:
 
+Features: 
+- Added a description to /team rank (#215)
+
 Improvements: 
 - Added worldgaurd version checking (#173)
 

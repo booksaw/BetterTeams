@@ -278,6 +278,11 @@ levels:
       # %level% is replaced with the level that the team is becomming 
       endCommands:
 #      - say %player% is no longer level 1
+
+      # This message is included in /team rank command to give more details about the rank
+      # this message, for example could include the perks of this team rank along with the perks of the next rank
+      rankLore:
+      - '&7The first rank'
    l2: 
       # Price is determined for all levels aside level 1,
       # - If this value ends with 's' it will take score from the team
@@ -291,6 +296,8 @@ levels:
       maxChests: 2
       maxWarps: 2
       maxBal: -1
+      rankLore:
+      - '&7The secondrank'
       
 #####################################################################
 #                                                                   #
