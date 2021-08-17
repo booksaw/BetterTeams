@@ -1,3 +1,12 @@
+---
+name: Bug report
+about: Create a report to help us improve
+title: "[BUG]"
+labels: bug
+assignees: booksaw
+
+---
+
 **Describe the bug**
 A clear and concise description of what the bug is.
 
@@ -19,4 +28,3 @@ Please provide the following details about your server set-up:
 
 **Additional context**
 Add any other context about the problem here.
-
