@@ -383,6 +383,11 @@ Development Changes:
 Bug Fixes: 
 - Removed Team echest duplication bug (#207 #204)
 
+4.0.5:
+
+Bug Fixes: 
+- Fixed bug with /team ban <player> for offline players (#217)
+
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
 Headings: 

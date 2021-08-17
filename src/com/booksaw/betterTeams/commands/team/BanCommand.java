@@ -27,10 +27,10 @@ public class BanCommand extends TeamSubCommand {
 		 */
 		OfflinePlayer player = Utils.getOfflinePlayer(args[0]);
 
-		if(player == null) {
+		if (player == null) {
 			return new CommandResponse("noPlayer");
 		}
-		
+
 		Team otherTeam = Team.getTeam(player);
 
 		if (team.isBanned(player)) {
@@ -53,7 +53,10 @@ public class BanCommand extends TeamSubCommand {
 		// player is in the team, so removing them
 		team.removePlayer(player);
 		team.banPlayer(player);
-		MessageManager.sendMessageF((CommandSender) player, "ban.notify", team.getName());
+
+		if (player.isOnline()) {
+			MessageManager.sendMessageF(player.getPlayer(), "ban.notify", team.getName());
+		}
 
 		return new CommandResponse(true, "ban.success");
 	}
