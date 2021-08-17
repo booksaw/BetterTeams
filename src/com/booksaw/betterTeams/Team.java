@@ -306,6 +306,8 @@ public class Team {
 
 		description = storage.getString(StoredTeamValue.DESCRIPTION);
 		open = storage.getBoolean(StoredTeamValue.OPEN);
+		pvp = storage.getBoolean(StoredTeamValue.PVP);
+
 		String colorStr = storage.getString(StoredTeamValue.COLOR);
 
 		if (colorStr == null || colorStr.length() == 0) {
@@ -394,6 +396,9 @@ public class Team {
 
 		storage.set(StoredTeamValue.OPEN, false);
 		open = false;
+
+		storage.set(StoredTeamValue.PVP, false);
+		pvp = false;
 
 		storage.set(StoredTeamValue.HOME, "");
 		rank = -1;
@@ -1354,6 +1359,8 @@ public class Team {
 
 	public void setPvp(boolean pvp) {
 		this.pvp = pvp;
+		getStorage().set(StoredTeamValue.PVP, pvp);
+
 	}
 
 	public TeamStorage getStorage() {

@@ -390,6 +390,7 @@ Features:
 
 Improvements: 
 - Added worldgaurd version checking (#173)
+- Stores individual team preference to /team pvp across reloads (#203)
 
 Bug Fixes: 
 - Fixed bug with /team ban <player> for offline players (#217)

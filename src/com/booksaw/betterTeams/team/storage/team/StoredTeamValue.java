@@ -45,11 +45,16 @@ public enum StoredTeamValue {
 	 * The balance of the team
 	 */
 	MONEY("money", TeamStorageType.DOUBLE),
-	
+
 	/**
 	 * The level of the team
 	 */
-	LEVEL("level", TeamStorageType.INTEGER);
+	LEVEL("level", TeamStorageType.INTEGER),
+
+	/**
+	 * If the team has pvp enabled or not
+	 */
+	PVP("pvp", TeamStorageType.BOOLEAN);
 
 	/**
 	 * Used to store the reference that the value is saved by
