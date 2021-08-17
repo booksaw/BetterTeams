@@ -383,10 +383,14 @@ Development Changes:
 Bug Fixes: 
 - Removed Team echest duplication bug (#207 #204)
 
-4.0.5:
+4.1.0:
+
+Improvements: 
+- Added worldgaurd version checking (#173)
 
 Bug Fixes: 
 - Fixed bug with /team ban <player> for offline players (#217)
+- Fixed bug with worldguard and /teama reload (#173)
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 

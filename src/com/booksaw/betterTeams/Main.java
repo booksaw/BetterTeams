@@ -104,7 +104,7 @@ import com.booksaw.betterTeams.events.RankupEvents;
 import com.booksaw.betterTeams.integrations.HologramManager;
 import com.booksaw.betterTeams.integrations.TeamPlaceholders;
 import com.booksaw.betterTeams.integrations.UltimateClaimsManager;
-import com.booksaw.betterTeams.integrations.WorldGaurdManager;
+import com.booksaw.betterTeams.integrations.WorldGaurdManagerV7;
 import com.booksaw.betterTeams.integrations.ZKothManager;
 import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.metrics.Metrics;
@@ -128,7 +128,7 @@ public class Main extends JavaPlugin {
 	public boolean useHolographicDisplays;
 	public MCTeamManagement teamManagement;
 	public ChatManagement chatManagement;
-	public WorldGaurdManager wgManagement;
+	public WorldGaurdManagerV7 wgManagement;
 	private PermissionParentCommand teamCommand;
 
 	private Metrics metrics = null;
@@ -148,7 +148,13 @@ public class Main extends JavaPlugin {
 
 		if (Bukkit.getPluginManager().getPlugin("WorldGuard") != null
 				&& configManager.config.getBoolean("worldGuard.enabled")) {
-			wgManagement = new WorldGaurdManager();
+			char ver = Bukkit.getPluginManager().getPlugin("WorldGuard").getDescription().getVersion().charAt(0);
+			if (ver == 7) {
+				wgManagement = new WorldGaurdManagerV7();
+			} else {
+				Bukkit.getLogger().warning(
+						"[BetterTeams] Your version of worldgaurd is not yet supported, the betterteams flags will not be usable");
+			}
 		}
 	}
 
@@ -284,7 +290,7 @@ public class Main extends JavaPlugin {
 		onDisable();
 		teamManagement = null;
 		reloadConfig();
-		onLoad();
+		configManager = new ConfigManager("config", true);
 		ChatManagement.enable();
 		damageManagement = null;
 		onEnable();
