@@ -383,7 +383,7 @@ Development Changes:
 Bug Fixes: 
 - Removed Team echest duplication bug (#207 #204)
 
-4.1.0:
+4.0.5:
 
 Features: 
 - Added a description to /team rank (#215)
