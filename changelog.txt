@@ -401,6 +401,13 @@ Bug Fixes:
 Features: 
 - Added Mexican Spanish translations (es_mx) (#222)
 
+Improvements: 
+- Fixed a typo in messages.yml
+
+Bug Fixes:
+
+- Fixed a bug causing /team title to not work (#221)
+
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
 Headings: 

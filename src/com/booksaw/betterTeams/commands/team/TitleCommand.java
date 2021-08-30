@@ -29,17 +29,20 @@ public class TitleCommand extends TeamSubCommand {
 			args = new String[] { "me", args[0] };
 		}
 
-		Player toTitlePlayer = Bukkit.getPlayer(args[0]);
+		Player toTitlePlayer;
+
+		if (args[0].equals("me")) {
+			// player is online so this should not cause any issues
+			toTitlePlayer = player.getPlayer().getPlayer();
+		} else {
+			toTitlePlayer = Bukkit.getPlayer(args[0]);
+		}
 
 		if (toTitlePlayer == null) {
 			return new CommandResponse("noPlayer");
 		}
 
-		if (args[0].equals("me")) {
-			toTitle = player;
-		} else {
-			toTitle = team.getTeamPlayer(toTitlePlayer);
-		}
+		toTitle = team.getTeamPlayer(toTitlePlayer);
 
 		if (toTitle == null) {
 			return new CommandResponse("noPlayer");
@@ -54,7 +57,7 @@ public class TitleCommand extends TeamSubCommand {
 			return new CommandResponse("title.tooLong");
 		}
 
-		if (Team.isValidTeamName(args[1])) {
+		if (!Team.isValidTeamName(args[1])) {
 			return new CommandResponse("bannedChar");
 		}
 

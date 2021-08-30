@@ -40,10 +40,8 @@ public class TitleTeama extends SubCommand {
 			return new CommandResponse("title.tooLong");
 		}
 
-		for (char bannedChar : bannedChars) {
-			if (args[1].contains(bannedChar + "")) {
-				return new CommandResponse("bannedChar");
-			}
+		if (!Team.isValidTeamName(args[1])) {
+			return new CommandResponse("bannedChar");
 		}
 
 		args[1] = ChatColor.translateAlternateColorCodes('&', args[1]);
