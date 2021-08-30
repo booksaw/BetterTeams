@@ -396,6 +396,11 @@ Bug Fixes:
 - Fixed bug with /team ban <player> for offline players (#217)
 - Fixed bug with worldguard and /teama reload (#173)
 
+4.1.0: 
+
+Features: 
+- Added Mexican Spanish translations (es_mx) (#222)
+
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
 Headings: 
