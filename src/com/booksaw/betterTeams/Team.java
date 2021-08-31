@@ -1371,4 +1371,29 @@ public class Team {
 		return Main.plugin.getConfig().getDouble("levels.l" + getLevel() + ".maxBal");
 	}
 
+	public int getTeamLimit() {
+		if (Main.plugin.getConfig().getBoolean("")) {
+			return Main.plugin.getConfig().getInt("levels.l" + team.getLevel() + ".teamLimit");
+		} else {
+
+			int limit;
+
+			// looping through every owener to find the max team limit
+			for (TeamPlayer player : getRank(PlayerRank.OWNER)) {
+				
+				OfflinePlayer op = player.getPlayer();
+				
+				for(int i = 100; i > 0; i--) {
+					if(op.haspermission)
+				}
+				
+			}
+		}
+	}
+
+	
+	public boolean isTeamFull() {
+		return getMembers().size() >= getTeamLimit();
+	}
+
 }
