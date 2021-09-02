@@ -401,6 +401,7 @@ Bug Fixes:
 Features: 
 - Added Mexican Spanish translations (es_mx) (#222)
 - Added the ability to limit the number of admins and owners per team (#156)
+- Added the option to call commands when a player is promoted / demoted (#155) 
 
 Improvements: 
 - Fixed a typo in messages.yml
