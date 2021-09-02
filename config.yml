@@ -312,6 +312,35 @@ levels:
       rankLore:
       - '&7The secondrank'
       
+
+# Commands that are called when a player is promoted
+# - If this is left blank, no commands will be called
+# %player% is replaced with all players in the team
+# %level% is replaced with the level that the team is becomming 
+# %team% is replaced with the team name
+#
+# Possible values: [Any valid commands]
+promoteCommands: 
+   ADMIN: 
+   # commands for standard --> admin
+   OWNER:
+   # commands for admin --> owner 
+   # - say %player% has been promoted
+ 
+# Commands that are called when a player is promoted
+# - If this is left blank, no commands will be called
+# %player% is replaced with all players in the team
+# %level% is replaced with the level that the team is becomming 
+# %team% is replaced with the team name
+#
+# Possible values: [Any valid commands]
+demoteCommands:
+   STANDARD:
+   # commands for admin --> standard
+   ADMIN: 
+   # commands for owner --> admin
+   # - say %player% has been demoted 
+     
 #####################################################################
 #                                                                   #
 #  ____                       ____       _   _   _                  #
