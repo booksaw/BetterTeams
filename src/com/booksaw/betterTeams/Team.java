@@ -1371,4 +1371,28 @@ public class Team {
 		return Main.plugin.getConfig().getDouble("levels.l" + getLevel() + ".maxBal");
 	}
 
+	public int getMaxAdmins() {
+		return Main.plugin.getConfig().getInt("levels.l" + getLevel() + ".maxAdmins");
+	}
+
+	public int getMaxOwners() {
+		return Main.plugin.getConfig().getInt("levels.l" + getLevel() + ".maxOwners");
+	}
+
+	public boolean isMaxAdmins() {
+		int max = getMaxAdmins();
+		if (max == -1) {
+			return false;
+		}
+		return max <= getRank(PlayerRank.ADMIN).size();
+	}
+
+	public boolean isMaxOwners() {
+		int max = getMaxOwners();
+		if (max == -1) {
+			return false;
+		}
+		return max <= getRank(PlayerRank.OWNER).size();
+	}
+
 }

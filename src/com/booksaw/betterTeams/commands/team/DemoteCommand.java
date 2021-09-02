@@ -58,6 +58,10 @@ public class DemoteCommand extends TeamSubCommand {
 			return new CommandResponse("demote.noPerm");
 		}
 
+		if (demotePlayer.getRank() == PlayerRank.OWNER && team.isMaxAdmins()) {
+			return new CommandResponse("demote.maxAdmins");
+		}
+
 		team.demotePlayer(demotePlayer);
 		MessageManager.sendMessage((CommandSender) demotePlayer.getPlayer(), "demote.notify");
 

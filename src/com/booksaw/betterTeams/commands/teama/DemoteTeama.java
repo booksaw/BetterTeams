@@ -33,6 +33,10 @@ public class DemoteTeama extends SubCommand {
 			return new CommandResponse("admin.demote.min");
 		}
 
+		if (tp.getRank() == PlayerRank.OWNER&& team.isMaxAdmins()) {
+			return new CommandResponse("admin.demote.maxAdmins");
+		} 
+		
 		team.demotePlayer(tp);
 		MessageManager.sendMessage(p, "admin.demote.notify");
 		return new CommandResponse(true, "admin.demote.success");
