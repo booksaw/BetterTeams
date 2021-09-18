@@ -256,6 +256,13 @@ admin.chest.enable.already: '&4ProtecciÃ³n de cofres ya estÃ¡ habilitada.'
 admin.chest.enable.success: '&6ProtecciÃ³n de cofres habilitada.'
 admin.chest.enabled.bc: '&6&lTodos los cofres reclamados estÃ¡n bloqueados.'
 
+promote.maxAdmins: '&4Tu equipo ya ha alcanzado el maximo número de administradores, degrada a alguien o sube de nivel a tu equipo'
+promote.maxOwners: '&4Tu equipo ya ha alcanzado el maximo número de dueños, degrada a alguien o sube de nivel a tu equipo'
+demote.maxAdmins: '&4Tu equipo ya ha alcanzado el maximo número de administradores, remueve un administrador o sube de nivel a tu equipo'
+admin.demote.maxAdmins: '&4Ese equipo ya ha alcanzado el maximo número de administradores, remueve uno antes de promover a este jugador'
+admin.promote.maxAdmins: '&4Ese equipo ya ha alcanzado el maximo número de administradores, remueve uno antes de promover a otro jugador'
+admin.promote.maxOwners: '&4Ese equipo ya ha alcanzado el maximo número de dueños, remueve uno antes de promover a otro jugador'
+
 nametag.syntax: '&6&l%s&r '
 holo.leaderboard: '&6Tabla de clasificaciÃ³n'
 holo.syntax: '&6%s: &b%s'

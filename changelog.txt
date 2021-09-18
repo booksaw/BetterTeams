@@ -412,6 +412,9 @@ Bug Fixes:
 
 4.1.1: 
 
+Improvements: 
+- Added some missing Mexican Spanish translations (#229)
+
 Bug Fixes: 
 - Fixed bug with OfflinePlayer name being null (#230)
 - Fixed bug which caused potions to not damage players when they should (#226)
