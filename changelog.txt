@@ -414,6 +414,7 @@ Bug Fixes:
 
 Features: 
 - Added 8 new placeholders (https://github.com/booksaw/BetterTeams/wiki/PlaceholderAPI) (#227)
+- Added an option to make teamLimit permisison based
 
 Improvements: 
 - Added some missing Mexican Spanish translations (#229)
