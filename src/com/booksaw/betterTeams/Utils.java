@@ -19,6 +19,11 @@ public class Utils {
 	public static OfflinePlayer getOfflinePlayer(String name) {
 
 		for (OfflinePlayer player : Bukkit.getOfflinePlayers()) {
+			// somehow the player name can be null in some circumstances
+			if (player.getName() == null) {
+				continue;
+			}
+
 			if (player.getName().equals(name)) {
 				return player;
 			}

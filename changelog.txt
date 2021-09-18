@@ -410,6 +410,11 @@ Bug Fixes:
 
 - Fixed a bug causing /team title to not work (#221)
 
+4.1.1: 
+
+Bug Fixes: 
+- Fixed bug with OfflinePlayer name being null (#230)
+
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
 Headings: 
