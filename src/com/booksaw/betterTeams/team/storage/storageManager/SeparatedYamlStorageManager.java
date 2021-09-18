@@ -52,7 +52,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 
 		for (String str : teamStorage.getStringList("teamNameLookup")) {
 			String[] split = str.split(":");
-			teamNameLookup.put(split[0], UUID.fromString(split[1]));
+			teamNameLookup.put(split[0].toLowerCase(), UUID.fromString(split[1]));
 		}
 
 		for (String str : teamStorage.getStringList("chestClaims")) {
@@ -77,7 +77,9 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 
 	@Override
 	public boolean isTeam(String name) {
-		return teamNameLookup.containsKey(name);
+		System.out
+				.println("checking for " + name + " with the result " + teamNameLookup.containsKey(name.toLowerCase()));
+		return teamNameLookup.containsKey(name.toLowerCase());
 	}
 
 	@Override
@@ -92,7 +94,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 
 	@Override
 	public UUID getTeamUUID(String name) {
-		return teamNameLookup.get(name);
+		return teamNameLookup.get(name.toLowerCase());
 	}
 
 	@Override
@@ -143,7 +145,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 	}
 
 	public void addToTeamLookup(String name, UUID uuid) {
-		teamNameLookup.put(name, uuid);
+		teamNameLookup.put(name.toLowerCase(), uuid);
 		saveTeamNameLookup();
 	}
 
@@ -159,6 +161,9 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 
 	@Override
 	protected void deleteTeamStorage(Team team) {
+		teamNameLookup.remove(team.getName());
+		saveTeamNameLookup();
+
 		File f = new File(SeparatedYamlTeamStorage.getTeamSaveFile(), team.getID() + ".yml");
 
 		try {
@@ -174,7 +179,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 	@Override
 	public void teamNameChange(Team team, String newName) {
 		teamNameLookup.remove(team.getName());
-		teamNameLookup.put(newName, team.getID());
+		teamNameLookup.put(newName.toLowerCase(), team.getID());
 		saveTeamNameLookup();
 	}
 
@@ -442,7 +447,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 
 			UUID teamUUID = UUID.fromString(f.getName().replace(".yml", ""));
 
-			teamNameLookup.put(config.getString(StoredTeamValue.NAME.getReference()), teamUUID);
+			teamNameLookup.put(config.getString(StoredTeamValue.NAME.getReference()).toLowerCase(), teamUUID);
 
 			for (String str : config.getStringList("players")) {
 				UUID playerUUID = UUID.fromString(str.split(",")[0]);

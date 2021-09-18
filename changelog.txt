@@ -423,6 +423,9 @@ Improvements:
 Bug Fixes: 
 - Fixed bug with OfflinePlayer name being null (#230)
 - Fixed bug which caused potions to not damage players when they should (#226)
+- Fixed bug causing placeholder.name to not allow spaces
+- Fixed bug causing team names with different capitlisation to be created even if they are the same name 
+- Fixed bug causing teams to disband incorrectly
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 

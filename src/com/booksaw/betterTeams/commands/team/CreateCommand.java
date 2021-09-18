@@ -53,7 +53,7 @@ public class CreateCommand extends NoTeamSubCommand {
 			return new CommandResponse("create.maxLength");
 		}
 
-		if (Team.getTeam(args[0]) != null) {
+		if (Team.getTeamManager().isTeam(args[0])) {
 			// team already exists
 			return new CommandResponse("create.exists");
 		}

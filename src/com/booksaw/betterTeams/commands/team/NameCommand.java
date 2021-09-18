@@ -38,9 +38,10 @@ public class NameCommand extends TeamSubCommand {
 			return new CommandResponse("create.maxLength");
 		}
 
-		if (Team.getTeam(args[0]) != null) {
+		if (Team.getTeamManager().isTeam(args[0])) {
 			return new CommandResponse("name.exists");
 		}
+
 		team.setName(args[0]);
 
 		return new CommandResponse(true, "name.success");

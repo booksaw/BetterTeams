@@ -1419,6 +1419,7 @@ public class Team {
 
 	public boolean isTeamFull() {
 		return getMembers().size() >= getTeamLimit();
+	}
 
 	public int getMaxAdmins() {
 		return Main.plugin.getConfig().getInt("levels.l" + getLevel() + ".maxAdmins");
