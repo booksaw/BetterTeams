@@ -1,15 +1,15 @@
 package com.booksaw.betterTeams.commands.teama;
 
-import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.Main;
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.commands.SubCommand;
-import com.booksaw.betterTeams.message.MessageManager;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.List;
+import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.commands.SubCommand;
+import com.booksaw.betterTeams.message.MessageManager;
 
 public class JoinTeama extends SubCommand {
 
@@ -35,7 +35,7 @@ public class JoinTeama extends SubCommand {
 			return new CommandResponse("admin.join.banned");
 		}
 
-		int limit = Main.plugin.getConfig().getInt("levels.l" + team.getLevel() + ".teamLimit");
+		int limit = team.getTeamLimit();
 
 		if (limit > 0 && limit <= team.getMembers().size()) {
 			return new CommandResponse("admin.join.full");

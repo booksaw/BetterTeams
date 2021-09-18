@@ -1,15 +1,15 @@
 package com.booksaw.betterTeams.commands.team;
 
-import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.Main;
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.commands.presets.NoTeamSubCommand;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.UUID;
+
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.commands.presets.NoTeamSubCommand;
 
 public class JoinCommand extends NoTeamSubCommand {
 
@@ -29,7 +29,7 @@ public class JoinCommand extends NoTeamSubCommand {
 			return new CommandResponse("join.notInvited");
 		}
 
-		int limit = Main.plugin.getConfig().getInt("levels.l" + team.getLevel() + ".teamLimit");
+		int limit = team.getTeamLimit();
 
 		if (limit > 0 && limit <= team.getMembers().size()) {
 			return new CommandResponse("join.full");
