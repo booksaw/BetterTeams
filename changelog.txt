@@ -427,6 +427,11 @@ Bug Fixes:
 - Fixed bug causing team names with different capitlisation to be created even if they are the same name 
 - Fixed bug causing teams to disband incorrectly
 
+4.1.2: 
+
+Bug Fixes:
+- Fixed bug causing teamLimit to be loaded incorrectly
+
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
 Headings: 

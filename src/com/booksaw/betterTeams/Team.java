@@ -1394,7 +1394,7 @@ public class Team {
 	}
 
 	public int getTeamLimit() {
-		if (Main.plugin.getConfig().getBoolean("") || Main.perms == null) {
+		if (!Main.plugin.getConfig().getBoolean("permissionLevels") || Main.perms == null) {
 			return Main.plugin.getConfig().getInt("levels.l" + getLevel() + ".teamLimit");
 		} else {
 
@@ -1412,7 +1412,6 @@ public class Team {
 				}
 
 			}
-			System.out.println("found limit to be " + limit);
 			return limit;
 		}
 	}
