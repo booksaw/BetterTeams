@@ -311,6 +311,15 @@ levels:
       maxOwners: 1
       rankLore:
       - '&7The secondrank'
+
+# This determines if the team limits defined by team level are used
+# This feature requires vault to work
+# - If this is set to false the team limits defined above will be used
+# - If this is set to true team limits will be defined by the permissions of the owner
+# - To give the owner permissions for a team size the permission node is `betterteams.limit.<limit>` with a max team limit of 100
+# 
+# Possible values: [true, false]
+permissionLevels: false
       
 
 # Commands that are called when a player is promoted
