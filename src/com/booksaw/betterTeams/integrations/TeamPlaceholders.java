@@ -191,9 +191,59 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 				return Team.getTeam(teams[place]).getScore() + "";
 			}
 
+		} else if (identifier.startsWith("position_")) {
+			return position(player, identifier);
 		}
 
 		return null;
 
 	}
+
+	public String position(Player p, String identifier) {
+		identifier = identifier.replace("position_", "");
+
+		String[] split = identifier.split("_");
+		if (split.length != 2) {
+			return null;
+		}
+
+		int place;
+		try {
+			place = Integer.parseInt(split[1]) - 1;
+		} catch (NumberFormatException e) {
+			return null;
+		}
+		if (place == -1) {
+			return null;
+		}
+
+		String[] teams = Team.getTeamManager().sortTeamsByScore();
+		if (teams.length <= place) {
+			return null;
+		}
+
+		Team team = Team.getTeamByName(teams[place]);
+
+		switch (split[0]) {
+		case "name":
+			return team.getName();
+		case "description":
+			return team.getDescription();
+		case "tag":
+			return team.getTag();
+		case "displayname":
+			return team.getDisplayName();
+		case "open":
+			return team.isOpen() + "";
+		case "balance":
+			return team.getBalance();
+		case "score":
+			return team.getScore() + "";
+		case "color":
+			return team.getColor() + "";
+		default:
+			return null;
+		}
+	}
+
 }

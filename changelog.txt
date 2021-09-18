@@ -412,6 +412,9 @@ Bug Fixes:
 
 4.1.1: 
 
+Features: 
+- Added 8 new placeholders (https://github.com/booksaw/BetterTeams/wiki/PlaceholderAPI) (#227)
+
 Improvements: 
 - Added some missing Mexican Spanish translations (#229)
 - Added a minScore option to the config (#231)
