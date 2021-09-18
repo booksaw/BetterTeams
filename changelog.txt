@@ -414,6 +414,7 @@ Bug Fixes:
 
 Improvements: 
 - Added some missing Mexican Spanish translations (#229)
+- Added a minScore option to the config (#231)
 
 Bug Fixes: 
 - Fixed bug with OfflinePlayer name being null (#230)

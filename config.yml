@@ -396,7 +396,10 @@ events:
       score: 1
       spam: 0
 
-
+# The minimum score a team can have
+# 
+# Possible values: [Any whole number]
+minScore: 0
 
 
 ###############################################################################
