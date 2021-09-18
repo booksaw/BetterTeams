@@ -1221,7 +1221,6 @@ public class Team {
 	 */
 	public boolean canDamage(Team team, Player source) {
 		if (team.isAlly(getID()) || team == this) {
-
 			if (pvp && team.pvp) {
 				return true;
 			}
