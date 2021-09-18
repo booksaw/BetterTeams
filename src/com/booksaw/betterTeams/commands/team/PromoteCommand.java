@@ -57,6 +57,12 @@ public class PromoteCommand extends TeamSubCommand {
 			return new CommandResponse("setowner.use");
 		}
 
+		if (promotePlayer.getRank() == PlayerRank.DEFAULT && team.isMaxAdmins()) {
+			return new CommandResponse("promote.maxAdmins");
+		} else if (promotePlayer.getRank() == PlayerRank.ADMIN && team.isMaxOwners()) {
+			return new CommandResponse("promote.maxOwners");
+		}
+
 		team.promotePlayer(promotePlayer);
 		if (promotePlayer.getPlayer().isOnline()) {
 			MessageManager.sendMessage(promotePlayer.getPlayer().getPlayer(), "promote.notify");

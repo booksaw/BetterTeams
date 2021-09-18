@@ -269,7 +269,18 @@ levels:
       # - If this is set to 0, teams of that level will not have a team bank (to completely disable use teampermissions.yml)
       #
       # Possible values [-1, 0, any positive number]
-      maxBal: -1
+      maxBal: -1 
+      # The maximum number of admins a team is allowed while is has this rank
+      # - If this is set to -1 there will not be a limit
+      # 
+      # Possible values [-1, any positive number]
+      maxAdmins: 5
+      # The maximum number of owners a team is allowed at this rank
+      # - If singleOwner is set to true this value will be ignored
+      # 
+      # Possible values [any positive whole number]
+      maxOwners: 2
+      
       # This is a list of commands that are run when a team 
       # Any player which contains %player% will be run for every player on the team
       # Placeholders:
@@ -296,6 +307,8 @@ levels:
       maxChests: 2
       maxWarps: 2
       maxBal: -1
+      maxAdmins: 5
+      maxOwners: 1
       rankLore:
       - '&7The secondrank'
 
@@ -308,6 +321,35 @@ levels:
 # Possible values: [true, false]
 permissionLevels: false
       
+
+# Commands that are called when a player is promoted
+# - If this is left blank, no commands will be called
+# %player% is replaced with all players in the team
+# %level% is replaced with the level that the team is becomming 
+# %team% is replaced with the team name
+#
+# Possible values: [Any valid commands]
+promoteCommands: 
+   ADMIN: 
+   # commands for standard --> admin
+   OWNER:
+   # commands for admin --> owner 
+   # - say %player% has been promoted
+ 
+# Commands that are called when a player is promoted
+# - If this is left blank, no commands will be called
+# %player% is replaced with all players in the team
+# %level% is replaced with the level that the team is becomming 
+# %team% is replaced with the team name
+#
+# Possible values: [Any valid commands]
+demoteCommands:
+   STANDARD:
+   # commands for admin --> standard
+   ADMIN: 
+   # commands for owner --> admin
+   # - say %player% has been demoted 
+     
 #####################################################################
 #                                                                   #
 #  ____                       ____       _   _   _                  #
@@ -363,7 +405,10 @@ events:
       score: 1
       spam: 0
 
-
+# The minimum score a team can have
+# 
+# Possible values: [Any whole number]
+minScore: 0
 
 
 ###############################################################################

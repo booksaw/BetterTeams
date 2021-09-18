@@ -39,12 +39,8 @@ public class DamageManagement implements Listener {
 	 *
 	 * @param e the damage event
 	 */
-	@EventHandler
+	@EventHandler(ignoreCancelled = true)
 	public void onDamage(EntityDamageByEntityEvent e) {
-
-		if (e.isCancelled()) {
-			return;
-		}
 
 		if (!(e.getEntity() instanceof Player)) {
 			return;
@@ -91,12 +87,11 @@ public class DamageManagement implements Listener {
 	 *
 	 * @param e the potion splash event
 	 */
-	@EventHandler
+	@EventHandler(ignoreCancelled = true)
 	public void onPotion(PotionSplashEvent e) {
-		if (!(e.getEntity().getShooter() instanceof Player) || e.isCancelled() || !disablePotions) {
+		if (!(e.getEntity().getShooter() instanceof Player) || !disablePotions) {
 			return;
 		}
-
 		Player thrower = (Player) e.getEntity().getShooter();
 		Team team = Team.getTeam(thrower);
 		// thrower is not in team
@@ -105,9 +100,7 @@ public class DamageManagement implements Listener {
 		}
 
 		Collection<PotionEffect> effects = e.getPotion().getEffects();
-
 		boolean cancel = false;
-
 		for (PotionEffect effect : effects) {
 			String type = effect.getType().getName();
 			if (type.equals(PotionEffectType.BAD_OMEN.getName()) || type.equals(PotionEffectType.BLINDNESS.getName())
@@ -126,7 +119,7 @@ public class DamageManagement implements Listener {
 			for (LivingEntity entity : affectedEntities) {
 				try {
 					if (entity instanceof Player
-							&& Objects.requireNonNull(Team.getTeam((Player) entity)).canDamage(team, thrower)) {
+							&& !Objects.requireNonNull(Team.getTeam((Player) entity)).canDamage(team, thrower)) {
 						if (disableSelf && entity == thrower) {
 							continue;
 						}

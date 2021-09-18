@@ -21,7 +21,9 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
 import org.jetbrains.annotations.NotNull;
 
+import com.booksaw.betterTeams.customEvents.DemotePlayerEvent;
 import com.booksaw.betterTeams.customEvents.DisbandTeamEvent;
+import com.booksaw.betterTeams.customEvents.PromotePlayerEvent;
 import com.booksaw.betterTeams.exceptions.CancelledEventException;
 import com.booksaw.betterTeams.message.Message;
 import com.booksaw.betterTeams.message.MessageManager;
@@ -806,11 +808,22 @@ public class Team {
 	 * @param promotePlayer the player to be promoted
 	 */
 	public void promotePlayer(TeamPlayer promotePlayer) {
+		PlayerRank newRank;
 		if (promotePlayer.getRank() == PlayerRank.DEFAULT) {
-			promotePlayer.setRank(PlayerRank.ADMIN);
+			newRank = PlayerRank.ADMIN;
 		} else {
-			promotePlayer.setRank(PlayerRank.OWNER);
+			newRank = PlayerRank.OWNER;
 		}
+
+		PromotePlayerEvent event = new PromotePlayerEvent(this, promotePlayer, promotePlayer.getRank(), newRank);
+
+		Bukkit.getPluginManager().callEvent(event);
+
+		if (event.isCancelled()) {
+			return;
+		}
+
+		promotePlayer.setRank(newRank);
 
 		savePlayers();
 	}
@@ -823,12 +836,22 @@ public class Team {
 	 * @param demotePlayer the player to be demoted
 	 */
 	public void demotePlayer(TeamPlayer demotePlayer) {
-		if (demotePlayer.getRank() == PlayerRank.OWNER) {
-			demotePlayer.setRank(PlayerRank.ADMIN);
+
+		PlayerRank newRank;
+		if (demotePlayer.getRank() == PlayerRank.ADMIN) {
+			newRank = PlayerRank.DEFAULT;
 		} else {
-			demotePlayer.setRank(PlayerRank.DEFAULT);
+			newRank = PlayerRank.ADMIN;
+		}
+		DemotePlayerEvent event = new DemotePlayerEvent(this, demotePlayer, demotePlayer.getRank(), newRank);
+
+		Bukkit.getPluginManager().callEvent(event);
+
+		if (event.isCancelled()) {
+			return;
 		}
 
+		demotePlayer.setRank(newRank);
 		savePlayers();
 	}
 
@@ -1198,7 +1221,6 @@ public class Team {
 	 */
 	public boolean canDamage(Team team, Player source) {
 		if (team.isAlly(getID()) || team == this) {
-
 			if (pvp && team.pvp) {
 				return true;
 			}
@@ -1397,6 +1419,30 @@ public class Team {
 
 	public boolean isTeamFull() {
 		return getMembers().size() >= getTeamLimit();
+
+	public int getMaxAdmins() {
+		return Main.plugin.getConfig().getInt("levels.l" + getLevel() + ".maxAdmins");
+	}
+
+	public int getMaxOwners() {
+		return Main.plugin.getConfig().getInt("levels.l" + getLevel() + ".maxOwners");
+	}
+
+	public boolean isMaxAdmins() {
+		int max = getMaxAdmins();
+		if (max == -1) {
+			return false;
+		}
+		return max <= getRank(PlayerRank.ADMIN).size();
+	}
+
+	public boolean isMaxOwners() {
+		int max = getMaxOwners();
+		if (max == -1) {
+			return false;
+		}
+		return max <= getRank(PlayerRank.OWNER).size();
+
 	}
 
 }

@@ -32,6 +32,12 @@ public class PromoteTeama extends SubCommand {
 			return new CommandResponse("admin.promote.owner");
 		}
 
+		if (tp.getRank() == PlayerRank.DEFAULT && team.isMaxAdmins()) {
+			return new CommandResponse("admin.promote.maxAdmins");
+		} else if (tp.getRank() == PlayerRank.ADMIN && team.isMaxOwners()) {
+			return new CommandResponse("admin.promote.maxOwners");
+		}
+
 		team.promotePlayer(tp);
 		MessageManager.sendMessage(p, "admin.promote.notify");
 		return new CommandResponse(true, "admin.promote.success");
