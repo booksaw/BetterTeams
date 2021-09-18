@@ -114,6 +114,7 @@ import com.booksaw.betterTeams.team.storage.convert.Converter;
 import com.booksaw.betterTeams.team.storage.storageManager.YamlStorageManager;
 
 import net.milkbowl.vault.economy.Economy;
+import net.milkbowl.vault.permission.Permission;
 
 /**
  * Main class of the plugin, extends JavaPlugin
@@ -124,6 +125,7 @@ public class Main extends JavaPlugin {
 
 	public static Main plugin;
 	public static Economy econ = null;
+	public static Permission perms = null;
 	public static boolean placeholderAPI = false;
 	public boolean useHolographicDisplays;
 	public MCTeamManagement teamManagement;
@@ -197,6 +199,10 @@ public class Main extends JavaPlugin {
 
 		if (!setupEconomy() || !getConfig().getBoolean("useVault")) {
 			econ = null;
+		}
+
+		if (!setupPermissions()) {
+			perms = null;
 		}
 
 		setupCommands();
@@ -283,6 +289,19 @@ public class Main extends JavaPlugin {
 		}
 		econ = rsp.getProvider();
 		return true;
+	}
+
+	private boolean setupPermissions() {
+		if (getServer().getPluginManager().getPlugin("Vault") == null) {
+			return false;
+		}
+
+		RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
+		if (rsp == null) {
+			return false;
+		}
+		perms = rsp.getProvider();
+		return perms != null;
 	}
 
 	public void reload() {

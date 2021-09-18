@@ -28,7 +28,7 @@ public class InviteCommand extends TeamSubCommand {
 			return new CommandResponse("invite.inTeam");
 		}
 
-		int limit = Main.plugin.getConfig().getInt("levels.l" + team.getLevel() + ".teamLimit");
+		int limit = team.getTeamLimit();
 
 		if (limit > 0 && limit <= team.getMembers().size() + team.getInvitedPlayers().size()) {
 			return new CommandResponse("invite.full");

@@ -1393,6 +1393,33 @@ public class Team {
 		return Main.plugin.getConfig().getDouble("levels.l" + getLevel() + ".maxBal");
 	}
 
+	public int getTeamLimit() {
+		if (Main.plugin.getConfig().getBoolean("") || Main.perms == null) {
+			return Main.plugin.getConfig().getInt("levels.l" + getLevel() + ".teamLimit");
+		} else {
+
+			int limit = 1;
+
+			// looping through every owener to find the max team limit
+			for (TeamPlayer player : getRank(PlayerRank.OWNER)) {
+
+				OfflinePlayer op = player.getPlayer();
+
+				for (int i = 100; i > 0 && i > limit; i--) {
+					if (Main.perms.playerHas(Bukkit.getWorlds().get(0).getName(), op, "betterteams.limit." + i)) {
+						limit = i;
+					}
+				}
+
+			}
+			System.out.println("found limit to be " + limit);
+			return limit;
+		}
+	}
+
+	public boolean isTeamFull() {
+		return getMembers().size() >= getTeamLimit();
+
 	public int getMaxAdmins() {
 		return Main.plugin.getConfig().getInt("levels.l" + getLevel() + ".maxAdmins");
 	}
@@ -1415,6 +1442,7 @@ public class Team {
 			return false;
 		}
 		return max <= getRank(PlayerRank.OWNER).size();
+
 	}
 
 }
