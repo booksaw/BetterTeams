@@ -432,6 +432,11 @@ Bug Fixes:
 Bug Fixes:
 - Fixed bug causing teamLimit to be loaded incorrectly
 
+4.1.3: 
+
+Bug Fixes: 
+- Removed unneded debug outputs (checking for <team> with the result true/false)
+
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
 Headings: 

@@ -77,8 +77,6 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 
 	@Override
 	public boolean isTeam(String name) {
-		System.out
-				.println("checking for " + name + " with the result " + teamNameLookup.containsKey(name.toLowerCase()));
 		return teamNameLookup.containsKey(name.toLowerCase());
 	}
 
