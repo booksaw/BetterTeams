@@ -514,4 +514,4 @@ worldGuard:
 
 # This option can be used to rebuild lookups in the teams.yml file, this should never have to be used unless advised to by booksaw
 # Set this to true to rebuild the lookup tables in teams.yml for seperatedYamlStorage
-rebuildLookups: true
+rebuildLookups: false
