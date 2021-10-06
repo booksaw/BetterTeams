@@ -15,7 +15,7 @@ public class CreateHoloTeama extends SubCommand {
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
 		Player p = (Player) sender;
 		if (args[0].equals("score")) {
-			HologramManager.holoManager.createHolo(p.getLocation(), HologramType.SCORE);
+			HologramManager.holoManager.createHolo(p.getLocation(), HologramType.LEADERBOARD);
 			return new CommandResponse(true, "admin.holo.create.success");
 		} else if (args[0].equals("money")) {
 			HologramManager.holoManager.createHolo(p.getLocation(), HologramType.MONEY);
@@ -42,7 +42,7 @@ public class CreateHoloTeama extends SubCommand {
 
 	@Override
 	public String getArguments() {
-		return "<score/money>";
+		return "<leaderboard/money>";
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class CreateHoloTeama extends SubCommand {
 	@Override
 	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
 		if (args.length == 1) {
-			options.add("score");
+			options.add("leaderboard");
 			options.add("money");
 		}
 
