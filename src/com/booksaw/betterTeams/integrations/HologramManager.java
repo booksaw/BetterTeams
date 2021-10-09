@@ -67,6 +67,10 @@ public class HologramManager {
 
 		for (int i = 0; i < maxHologramLines && i < teams.length; i++) {
 			Team team = Team.getTeam(teams[i]);
+			if (team == null) {
+				Bukkit.getLogger().severe("A team was null for an unexplained reason, team name: " + teams[i]);
+				continue;
+			}
 			holo.appendTextLine(String.format(MessageManager.getMessage(type.getSyntaxReference()), team.getName(),
 					getValue(type, team)));
 		}

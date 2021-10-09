@@ -444,6 +444,7 @@ This is due a couple of bugs causing desynchronization between the lookup tables
 
 Bug Fixes:
 - Fixed chest claims so it is functional (#236)
+- Fixed error message with holograms (#239)
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
