@@ -1,12 +1,11 @@
 package com.booksaw.betterTeams.events;
 
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.message.MessageManager;
+import java.util.Iterator;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
-import org.bukkit.event.Cancellable;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -17,7 +16,8 @@ import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import java.util.Iterator;
+import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.message.MessageManager;
 
 public class ChestManagement implements Listener {
 
@@ -94,13 +94,15 @@ public class ChestManagement implements Listener {
 		// checking if chest claims are currently enabled
 		if (enableClaims) {
 			MessageManager.sendMessageF(e.getPlayer(), "chest.claimed", claimedBy.getName());
-			((Cancellable) e).setCancelled(true);
+			e.setCancelled(true);
 		}
 	}
 
 	private void cancelChestEvent(BlockBreakEvent e, Team claimedBy) {
-		MessageManager.sendMessageF(e.getPlayer(), "chest.claimed", claimedBy.getName());
-		((Cancellable) e).setCancelled(true);
+		if (enableClaims) {
+			MessageManager.sendMessageF(e.getPlayer(), "chest.claimed", claimedBy.getName());
+			e.setCancelled(true);
+		}
 	}
 
 	@EventHandler

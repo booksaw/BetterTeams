@@ -25,13 +25,23 @@ public class ChestClaimComponent extends LocationListComponent {
 	@Override
 	public void add(Team team, Location component) {
 		super.add(team, component);
-		Team.getTeamManager().removeChestclaim(component);
+		Team.getTeamManager().addChestClaim(team, component);
 	}
 
 	@Override
 	public void remove(Team team, Location component) {
 		super.remove(team, component);
 		Team.getTeamManager().removeChestclaim(component);
+	}
+
+	@Override
+	public void clear() {
+		for (Location location : list) {
+			Team.getTeamManager().removeChestclaim(location);
+		}
+
+		super.clear();
+
 	}
 
 }

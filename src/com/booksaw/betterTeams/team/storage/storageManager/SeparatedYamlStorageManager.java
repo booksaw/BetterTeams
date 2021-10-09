@@ -355,7 +355,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 		List<String> toSave = new ArrayList<>();
 
 		for (Entry<String, UUID> str : chestClaims.entrySet()) {
-			toSave.add(str.getKey() + ":" + str.getValue().toString());
+			toSave.add(str.getKey() + ";" + str.getValue().toString());
 		}
 
 		teamStorage.set("chestClaims", toSave);
@@ -424,6 +424,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 	public void rebuildLookups() {
 		playerLookup.clear();
 		teamNameLookup.clear();
+		chestClaims.clear();
 
 		Bukkit.getLogger().info("Starting rebuilding lookup tables");
 
@@ -451,10 +452,15 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 				UUID playerUUID = UUID.fromString(str.split(",")[0]);
 				playerLookup.put(playerUUID, teamUUID);
 			}
+
+			for (String str : config.getStringList("chests")) {
+				chestClaims.put(str, teamUUID);
+			}
 		}
 
 		savePlayerLookup();
 		saveTeamNameLookup();
+		saveChestClaims();
 	}
 
 }

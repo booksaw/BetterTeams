@@ -437,6 +437,14 @@ Bug Fixes:
 Bug Fixes: 
 - Removed unneded debug outputs (checking for <team> with the result true/false)
 
+4.1.4: 
+
+IMPORTANT NOTE: After updating set `rebuildLookups` to true in config.yml and fully restart your server.
+This is due a couple of bugs causing desynchronization between the lookup tables and the stored values.
+
+Bug Fixes:
+- Fixed chest claims so it is functional (#236)
+
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
 Headings: 
