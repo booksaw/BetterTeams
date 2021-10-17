@@ -1,4 +1,7 @@
 ## Better Teams
+
+[View the web page for this project](https://booksaw.github.io/BetterTeams/)
+
 # Introduction:
 Create teams to fight to be the best. This plugin is designed to encourage teamwork and a sense of community within a server. BetterTeams includes features such as:
 Teaming up with friends
