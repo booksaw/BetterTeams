@@ -256,6 +256,7 @@ admin.chest.disabled.bc: '&6&lAll claimed chests are able to be opened'
 admin.chest.enable.already: '&4Chest claims are already enabled'
 admin.chest.enable.success: '&6Chest claiming has been enabled'
 admin.chest.enabled.bc: '&6&lAll claimed chests are locked'
+admin.teleport.success: '&6All online members of that team were teleported'
 
 nametag.syntax: '&6&l%s&r '
 holo.leaderboard: '&6Leaderboard'
