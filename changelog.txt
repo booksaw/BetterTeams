@@ -450,6 +450,9 @@ Bug Fixes:
 Features: 
 - Added placeholders `%betterteams_members_<team>%` and `%betterteams_members_<team>_online%` (#249)
 
+Bug Fixes:
+- Fixed contradictory comments (#253)
+
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
 Headings: 
