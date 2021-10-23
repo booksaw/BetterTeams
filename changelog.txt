@@ -446,6 +446,10 @@ Bug Fixes:
 - Fixed chest claims so it is functional (#236)
 - Fixed error message with holograms (#239)
 
+4.1.5
+Features: 
+- Added placeholders `%betterteams_members_<team>%` and `%betterteams_members_<team>_online%` (#249)
+
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
 Headings: 
