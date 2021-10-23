@@ -153,6 +153,19 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 			}
 
 			return String.valueOf(team.getOnlineMemebers().size());
+		} else if (identifier.startsWith("members_")) {
+			String teamName = identifier.split("_")[1];
+			Team team = Team.getTeam(teamName);
+
+			if (team == null) {
+				return MessageManager.getMessage("placeholder.noTeam");
+			}
+
+			if (identifier.endsWith("_online")) {
+				return String.valueOf(team.getOnlineMemebers().size());
+			}
+
+			return String.valueOf(team.getMembers().size());
 		} else if (identifier.startsWith("teamscore_")) {
 			identifier = identifier.replaceAll("teamscore_", "");
 			int place;
