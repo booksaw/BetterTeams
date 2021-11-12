@@ -446,10 +446,10 @@ Bug Fixes:
 - Fixed chest claims so it is functional (#236)
 - Fixed error message with holograms (#239)
 
-4.1.5
+4.2.0
 Features: 
 - Added placeholders `%betterteams_members_<team>%` and `%betterteams_members_<team>_online%` (#249)
-
+- Added German support (#256)
 Bug Fixes:
 - Fixed contradictory comments (#253)
 
