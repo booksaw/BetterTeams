@@ -4,9 +4,7 @@ import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.presets.TeamSelectSubCommand;
 import com.booksaw.betterTeams.message.HelpMessage;
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -22,20 +20,17 @@ public class TeleportTeama extends TeamSelectSubCommand {
             return new CommandResponse("noTeam");
         }
 
-        if (!(sender instanceof Player)) {
-            return new CommandResponse("needPlayer");
-        }
-
         Player player = (Player) sender;
         Location location = player.getLocation(); // using the sender's location as a default
-        if (args.length == 1) {
-            for (Player p : specifiedTeam.getOnlineMemebers()) {
-                p.teleport(location);
+        if (args.length > 1) {
+
+            if (args.length != 4 && args.length != 6) {
+                return new CommandResponse(new HelpMessage(this, label));
             }
 
-            return new CommandResponse(true, "admin.teleport.success");
-        } else if (args.length == 4) { // coordinates only, no yaw/pitch
             double x, y, z;
+            float yaw = location.getYaw(), pitch = location.getPitch();
+
             try {
                 x = Double.parseDouble(args[1]);
                 y = Double.parseDouble(args[2]);
@@ -44,37 +39,32 @@ public class TeleportTeama extends TeamSelectSubCommand {
                 return new CommandResponse(new HelpMessage(this, label));
             }
 
-            location = new Location(player.getWorld(), x, y, z);
-            for (Player p : specifiedTeam.getOnlineMemebers()) {
-                p.teleport(location);
-            }
-            return new CommandResponse(true, "admin.teleport.success");
-        } else if (args.length == 6) {
-            double x, y, z;
-            float yaw, pitch;
-            try {
-                x = Double.parseDouble(args[1]);
-                y = Double.parseDouble(args[2]);
-                z = Double.parseDouble(args[3]);
-                yaw = Float.parseFloat(args[4]);
-                pitch = Float.parseFloat(args[5]);
-            } catch (NumberFormatException E) {
-                return new CommandResponse(new HelpMessage(this, label));
+            if (args.length == 6) {
+                try {
+                    yaw = Float.parseFloat(args[4]);
+                    pitch = Float.parseFloat(args[5]);
+                } catch (NumberFormatException E) {
+                    return new CommandResponse(new HelpMessage(this, label));
+                }
             }
 
             location = new Location(player.getWorld(), x, y, z, yaw, pitch);
-            for (Player p : specifiedTeam.getOnlineMemebers()) {
-                p.teleport(location);
-            }
-            return new CommandResponse(true, "admin.teleport.success");
-        } else {
-            return new CommandResponse(new HelpMessage(this, label));
         }
+
+        for (Player p : specifiedTeam.getOnlineMemebers()) {
+            p.teleport(location);
+        }
+        return new CommandResponse(true, "admin.teleport.success");
     }
 
     @Override
     public String getCommand() {
         return "teleport";
+    }
+
+    @Override
+    public boolean needPlayer() {
+        return true;
     }
 
     @Override
@@ -104,10 +94,25 @@ public class TeleportTeama extends TeamSelectSubCommand {
 
     @Override
     public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
-
-        if (args.length == 1) {
-            addTeamStringList(options, args[0]);
+        switch (args.length) {
+            case 1:
+                addTeamStringList(options, args[0]);
+                break;
+            case 2:
+                options.add("[x]");
+                break;
+            case 3:
+                options.add("[y]");
+                break;
+            case 4:
+                options.add("[z]");
+                break;
+            case 5:
+                options.add("[yaw]");
+                break;
+            case 6:
+                options.add("[pitch]");
+                break;
         }
-
     }
 }
