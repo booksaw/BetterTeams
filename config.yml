@@ -78,7 +78,7 @@ maxTeamLength: 12
 maxTagLength: 12
 
 # This is used with the /team title command, this specifies the limit in characters 
-# If you are using belowNameManagement, any names over 16 characters will be clipped throught some handeling of the plugin
+# If you are using belowNameManagement, any names over 16 characters will be clipped through some handling of the plugin
 #
 # Possible values: [Any whole number]
 maxTitleLength: 10 
@@ -293,13 +293,13 @@ levels:
       # This message is included in /team rank command to give more details about the rank
       # this message, for example could include the perks of this team rank along with the perks of the next rank
       rankLore:
-      - '&7The first rank'
+      - '&7The first level'
    l2: 
       # Price is determined for all levels aside level 1,
       # - If this value ends with 's' it will take score from the team
       # - If this value ends with 'm' it will take money from the team balance
       price: 100s 
-      # This is commands that are run when the player becomes this rank
+      # This is commands that are run when the team levels up
       # View endCommands above for placeholders
       startCommands:
 #      - say %player% leveled up
@@ -310,7 +310,7 @@ levels:
       maxAdmins: 5
       maxOwners: 1
       rankLore:
-      - '&7The secondrank'
+      - '&7The second level'
 
 # This determines if the team limits defined by team level are used
 # This feature requires vault to work
@@ -422,8 +422,8 @@ minScore: 0
 ###############################################################################
 
 # This section is used to define the minecraft teams behaviors to enable within this plugin
-# The minecraft scoreboard mechanics have some inbuilt features that can be overridden, for this to work 
-# no other plugin may be utilising these features, else they will conflict and both plugins may break (players can only be a member of a single minecraft team) 
+# The minecraft scoreboard mechanics have some built-in features that can be overridden for this to work 
+# No other plugin may be utilising these features, else they will conflict and both plugins may break (players can only be a member of a single minecraft team) 
 
 # This is used to configure if betterteams should try and use the minecraft team mechanics
 # - If this is set to false, you can ignore the rest of this section as it will all only work if this is enabled
