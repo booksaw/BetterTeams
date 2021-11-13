@@ -458,7 +458,7 @@ Bug Fixes:
 This update comes with the help of srnyx (https://github.com/srnyx) and bobby29831 (https://github.com/bobby29831)
 
 Features:
-- Added /teama teleport <team> [x] [y] [z] [pitch] [yaw] to teleport a team to the specifid location
+- Added /teama teleport <team> [x] [y] [z] [pitch] [yaw] to teleport a team to the specified location (242)
 
 Improvements: 
 - Added toggle for the update checker (#260)
