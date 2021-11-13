@@ -512,6 +512,11 @@ worldGuard:
    
 # Debug options: 
 
+# Used to disable the in game notifier about update release
+# PLEASE NOTE: if you do not update betterteams to the latest version, you will not get bug fixes and new features from the regular updates
+# you will also recieve no support
+checkUpdates: true
+
 # This option can be used to rebuild lookups in the teams.yml file, this should never have to be used unless advised to by booksaw
 # Set this to true to rebuild the lookup tables in teams.yml for seperatedYamlStorage
 rebuildLookups: false

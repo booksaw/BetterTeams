@@ -453,6 +453,19 @@ Features:
 Bug Fixes:
 - Fixed contradictory comments (#253)
 
+4.2.1:
+
+This update comes with the help of srnyx (https://github.com/srnyx) and bobby29831 (https://github.com/bobby29831)
+
+Features:
+- Added /teama teleport <team> [x] [y] [z] [pitch] [yaw] to teleport a team to the specifid location
+
+Improvements: 
+- Added toggle for the update checker (#260)
+
+Bug Fixes:
+- Improved comments in the config (265)
+
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
 Headings: 

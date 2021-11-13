@@ -382,7 +382,10 @@ public class Main extends JavaPlugin {
 		getServer().getPluginManager().registerEvents((chatManagement = new ChatManagement()), this);
 		getServer().getPluginManager().registerEvents(new ScoreManagement(), this);
 		getServer().getPluginManager().registerEvents(new AllyManagement(), this);
-		getServer().getPluginManager().registerEvents(new UpdateChecker(this), this);
+
+		if (getConfig().getBoolean("checkUpdates")) {
+			getServer().getPluginManager().registerEvents(new UpdateChecker(this), this);
+		}
 
 		// disabling the chest checks (hoppers most importantly) to reduce needless
 		// performance cost
