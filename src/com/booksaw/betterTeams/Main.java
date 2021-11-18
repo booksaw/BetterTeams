@@ -419,7 +419,6 @@ public class Main extends JavaPlugin {
 		}
 
 		YamlConfiguration teamStorage = YamlConfiguration.loadConfiguration(f);
-
 		StorageType from = StorageType.getStorageType(teamStorage.getString("storageType", "FLATFILE"));
 		StorageType to = StorageType.getStorageType(getConfig().getString("storageType", ""));
 
