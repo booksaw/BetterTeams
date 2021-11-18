@@ -22,6 +22,7 @@
 hs_err_pid*
 /bin/
 /target/
+/server/
 /.settings/
 .classpath
 .project

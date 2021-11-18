@@ -75,6 +75,7 @@
 		</dependency>
 	</dependencies>
 	<build>
+		<finalName>BetterTeams</finalName>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
 			<plugin>
@@ -109,6 +110,14 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.3.1</version>
+				<configuration>
+					<outputDirectory>${basedir}/server/plugins</outputDirectory>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
