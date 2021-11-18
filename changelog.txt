@@ -466,6 +466,12 @@ Improvements:
 Bug Fixes:
 - Improved comments in the config (265)
 
+4.3.0:
+
+Improvements
+- Added a teleport to player option in /teama teleport (#269)
+
+
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
 Headings: 
