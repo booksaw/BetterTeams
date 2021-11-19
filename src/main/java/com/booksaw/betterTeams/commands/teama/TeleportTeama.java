@@ -4,11 +4,17 @@ import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.presets.TeamSelectSubCommand;
 import com.booksaw.betterTeams.message.HelpMessage;
+import java.util.List;
+
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.List;
+import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.commands.presets.TeamSelectSubCommand;
+import com.booksaw.betterTeams.message.HelpMessage;
 
 public class TeleportTeama extends TeamSelectSubCommand {
 
@@ -24,12 +30,23 @@ public class TeleportTeama extends TeamSelectSubCommand {
         Location location = player.getLocation(); // using the sender's location as a default
         if (args.length > 1) {
 
-            if (args.length != 4 && args.length != 6) {
+            if (args.length != 2 && args.length != 4 && args.length != 6) {
                 return new CommandResponse(new HelpMessage(this, label));
+            }
+
+            if (args.length == 2) {
+                Player target = Bukkit.getPlayer(args[1]);
+                if (target == null) {
+                    return new CommandResponse("noPlayer");
+                }
+
+                specifiedTeam.getOnlineMemebers().forEach(p -> p.teleport(target.getLocation()));
+                return new CommandResponse(true, "admin.teleport.success");
             }
 
             double x, y, z;
             float yaw = location.getYaw(), pitch = location.getPitch();
+
 
             try {
                 x = Double.parseDouble(args[1]);
@@ -79,7 +96,7 @@ public class TeleportTeama extends TeamSelectSubCommand {
 
     @Override
     public String getArguments() {
-        return "<team> [x] [y] [z] [yaw] [pitch]";
+        return "<team> [x|player] [y] [z] [yaw] [pitch]";
     }
 
     @Override
@@ -100,6 +117,7 @@ public class TeleportTeama extends TeamSelectSubCommand {
                 break;
             case 2:
                 options.add("[x]");
+                addPlayerStringList(options, args[1]);
                 break;
             case 3:
                 options.add("[y]");
