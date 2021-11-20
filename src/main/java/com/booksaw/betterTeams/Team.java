@@ -73,6 +73,7 @@ public class Team {
 	 * Used to disable betterteams so the singleton is removed
 	 */
 	public static final void disable() {
+		TEAMMANAGER.disable();
 		TEAMMANAGER = null;
 	}
 

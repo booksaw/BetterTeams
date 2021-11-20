@@ -35,10 +35,18 @@ language: en
 
 # Determines how team data is stored
 # Possible values: 
-# * YAML - this is the default storage method and is recommended
-# * FLATFILE - This is a legacy storage method and should only be used if YAML is causing problems
+# * SQL - this is the recommended storage method, ensure you configure the database settings below else the plugin will be enabled
+# * YAML - this is the default storage method as it does not require database connection, it is recommended to move to MySQL
 # More storage types to come in the future 
 storageType: YAML
+
+# This section is only used if you select the storageType of SQL 
+database:
+   host: localhost
+   port: 3306
+   database: spigot
+   user: root
+   password: password
 
 # This is the value to determine if the chat prefix is enabled
 # - If this is enabled (true / name) a prefix [TeamName] will be displayed at the begining of chat messages.

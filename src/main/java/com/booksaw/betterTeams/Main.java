@@ -137,7 +137,6 @@ public class Main extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
-
 		setupMetrics();
 
 		String language = getConfig().getString("language");
@@ -426,8 +425,8 @@ public class Main extends JavaPlugin {
 			Converter converter = Converter.getConverter(from, to);
 
 			if (converter == null) {
-				Bukkit.getLogger().info(
-						"[BetterTeams] Cannot convert to the selected storage type, continuing with preexisting one");
+				Bukkit.getLogger().info("[BetterTeams] Cannot convert to the selected storage type (" + to.toString()
+						+ "), continuing with preexisting one (" + from.toString() + ")");
 				to = from;
 			} else {
 				converter.convertStorage();

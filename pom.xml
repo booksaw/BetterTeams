@@ -67,12 +67,6 @@
 			<version>7.0.4</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.27</version>
-			<scope>compile</scope>
-		</dependency>
 	</dependencies>
 	<build>
 		<finalName>BetterTeams</finalName>
@@ -118,6 +112,27 @@
 				<configuration>
 					<outputDirectory>${basedir}/server/plugins</outputDirectory>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>3.2.4</version>
+				<configuration>
+					<relocations>
+						<relocation>
+							<pattern>com.mysql</pattern>
+							<shadedPattern>booksawshade.com.github.jasminb</shadedPattern>
+						</relocation>
+					</relocations>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 		<resources>

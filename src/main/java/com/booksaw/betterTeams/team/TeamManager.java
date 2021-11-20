@@ -492,4 +492,9 @@ public abstract class TeamManager {
 	 * type
 	 */
 	public abstract void rebuildLookups();
+	
+	/**
+	 * this can be overritten if any code needs to be run when onDisable is called
+	 */
+	public void disable() {} 
 }
