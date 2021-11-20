@@ -1,7 +1,9 @@
-package com.booksaw.betterTeams.database;
+package com.booksaw.betterTeams.database.api;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.bukkit.Bukkit;
@@ -97,6 +99,9 @@ public class Database {
 		}
 	}
 
+	/**
+	 * Used to close the connection to the database
+	 */
 	public void closeConnection() {
 		try {
 			if (connection != null && !connection.isClosed()) {
@@ -106,6 +111,54 @@ public class Database {
 			Bukkit.getLogger().severe("[BetterTeams] There was an error closing the database connection");
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * Used to execute an SQL statement
+	 * 
+	 * @param statement The SQL statement to execute
+	 */
+	public void executeStatement(String statement) {
+
+		try (PreparedStatement ps = connection.prepareStatement(statement)) {
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Used to execute an sql query
+	 * 
+	 * @param query        The query to execute
+	 * @param placeholders The placeholders within that query
+	 * @return The results of the query
+	 */
+	public ResultSet executeQuery(String query, String... placeholders) {
+
+		try (PreparedStatement ps = connection.prepareStatement(query)) {
+
+			for (int i = 0; i < placeholders.length; i++) {
+				ps.setString(i, placeholders[i]);
+			}
+
+			return ps.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+
+	}
+	
+	/**
+	 * Used to create a table if the table does not currently exist 
+	 * @param tableName The name of the table
+	 * @param tableInfo The column information about the table
+	 */
+	public void createTableIfNotExists(String tableName, String tableInfo) {
+		
+		executeStatement("CREATE TABLE IF NOT EXISTS " + tableName + "(" + tableInfo + ");");
+		
 	}
 
 }

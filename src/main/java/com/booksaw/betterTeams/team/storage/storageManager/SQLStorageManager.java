@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.database.Database;
+import com.booksaw.betterTeams.database.api.Database;
 import com.booksaw.betterTeams.team.TeamManager;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
 
