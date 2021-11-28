@@ -10,62 +10,59 @@ import org.bukkit.entity.Player;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.database.api.Database;
+import com.booksaw.betterTeams.database.BetterTeamsDatabase;
+import com.booksaw.betterTeams.database.TableName;
 import com.booksaw.betterTeams.team.TeamManager;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
 
 public class SQLStorageManager extends TeamManager {
 
-	Database database;
+	BetterTeamsDatabase database;
 
 	public SQLStorageManager() {
 		setupDatabaseConnection();
 	}
 
 	private void setupDatabaseConnection() {
-		database = new Database();
+		database = new BetterTeamsDatabase();
 		database.setupConnectionFromConfiguration(Main.plugin.getConfig().getConfigurationSection("database"));
+		database.setupTables();
 	}
 
 	@Override
 	public void disable() {
 		database.closeConnection();
 	}
-	
+
 	@Override
 	public UUID getClaimingTeamUUID(Location location) {
-		// TODO Auto-generated method stub
-		return null;
+		return UUID.fromString(database.getResult("teamID", TableName.CHESTCLAIMS, "chestLoc == " + location));
 	}
 
 	@Override
 	public boolean isTeam(UUID uuid) {
-		// TODO Auto-generated method stub
-		return false;
+		return database.hasResult(TableName.TEAM, "teamID == " + uuid.toString());
 	}
 
 	@Override
 	public boolean isTeam(String name) {
-		// TODO Auto-generated method stub
-		return false;
+		return database.hasResult(TableName.TEAM, "UPPER(name) == " + name.toUpperCase());
 	}
 
 	@Override
 	public boolean isInTeam(OfflinePlayer player) {
-		// TODO Auto-generated method stub
-		return false;
+		return database.hasResult(TableName.PLAYERS, "playerUUID == " + player.getUniqueId());
 	}
 
 	@Override
 	public UUID getTeamUUID(OfflinePlayer player) {
-		// TODO Auto-generated method stub
-		return null;
+		return UUID
+				.fromString(database.getResult("teamID", TableName.PLAYERS, "playerUUID == " + player.getUniqueId()));
 	}
 
 	@Override
 	public UUID getTeamUUID(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		return UUID.fromString(database.getResult("teamID", TableName.TEAM, "UPPER(name) == " + name.toUpperCase()));
 	}
 
 	@Override
@@ -166,8 +163,7 @@ public class SQLStorageManager extends TeamManager {
 
 	@Override
 	public void rebuildLookups() {
-		// TODO Auto-generated method stub
-
+		// not required
 	}
 
 }

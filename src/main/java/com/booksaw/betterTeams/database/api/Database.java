@@ -149,16 +149,17 @@ public class Database {
 		return null;
 
 	}
-	
+
 	/**
-	 * Used to create a table if the table does not currently exist 
+	 * Used to create a table if the table does not currently exist
+	 * 
 	 * @param tableName The name of the table
 	 * @param tableInfo The column information about the table
 	 */
 	public void createTableIfNotExists(String tableName, String tableInfo) {
-		
+
 		executeStatement("CREATE TABLE IF NOT EXISTS " + tableName + "(" + tableInfo + ");");
-		
+
 	}
 
 }

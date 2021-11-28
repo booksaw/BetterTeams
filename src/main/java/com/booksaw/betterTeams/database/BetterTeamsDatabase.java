@@ -1,5 +1,8 @@
 package com.booksaw.betterTeams.database;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import com.booksaw.betterTeams.database.api.Database;
 
 public class BetterTeamsDatabase extends Database {
@@ -20,25 +23,69 @@ public class BetterTeamsDatabase extends Database {
 
 		createTableIfNotExists(TableName.WARPS.toString(),
 				"TeamID VARCHAR(50) NOT NULL, warpInfo VARCHAR(50) NOT NULL, PRIMARY KEY(TeamID, warpInfo), FOREIGN KEY (TeamID) REFERENCES "
-						+ TableName.TEAM.toString()
-						+ "(teamID) ON DELETE CASCADE");
-		
+						+ TableName.TEAM.toString() + "(teamID) ON DELETE CASCADE");
+
 		createTableIfNotExists(TableName.CHESTCLAIMS.toString(),
 				"TeamID VARCHAR(50) NOT NULL, chestLoc VARCHAR(50) NOT NULL, PRIMARY KEY(TeamID, chestLoc), FOREIGN KEY (TeamID) REFERENCES "
-						+ TableName.TEAM.toString()
-						+ "(teamID) ON DELETE CASCADE");
-		
+						+ TableName.TEAM.toString() + "(teamID) ON DELETE CASCADE");
+
 		createTableIfNotExists(TableName.BANS.toString(),
 				"PlayerUUID VARCHAR(50) NOT NULL, TeamID VARCHAR(50) NOT NULL, PRIMARY KEY(PlayerUUID, TeamID), FOREIGN KEY (teamID) REFERENCES "
-						+ TableName.TEAM.toString()
-						+ "(teamID) ON DELETE CASCADE");
-		
+						+ TableName.TEAM.toString() + "(teamID) ON DELETE CASCADE");
+
 		createTableIfNotExists(TableName.ALLIES.toString(),
 				"team1ID VARCHAR(50) NOT NULL, team2ID VARCHAR(50) NOT NULL, PRIMARY KEY(team1ID, team2ID), FOREIGN KEY (team1ID) REFERENCES "
-						+ TableName.TEAM.toString()
-						+ "(teamID) ON DELETE CASCADE, FOREIGN KEY (team2ID) REFERENCES "
+						+ TableName.TEAM.toString() + "(teamID) ON DELETE CASCADE, FOREIGN KEY (team2ID) REFERENCES "
 						+ TableName.TEAM.toString() + "(teamID) ON DELETE CASCADE");
-		
+
+	}
+
+	/**
+	 * 
+	 * @param select the element to select
+	 * @param from   the table which the data is from
+	 * @param where  the condition required for the data to be included
+	 * @return the resultant resultSet
+	 */
+	public ResultSet selectWhere(String select, TableName from, String where) {
+		return executeQuery("SELECT ? FROM ? WHERE ?;", select, from.toString(), where);
+	}
+
+	/**
+	 * Used to check if an SQL query has a result
+	 * 
+	 * @param from  the table which the data is from
+	 * @param where the condition required for the data to be included
+	 * @return if the query has a result
+	 */
+	public boolean hasResult(TableName from, String where) {
+
+		try {
+			return selectWhere("*", from, where).first();
+		} catch (SQLException e) {
+			return false;
+		}
+
+	}
+
+	/**
+	 * Used to a specific column value from the
+	 * 
+	 * @param column The column name
+	 * @param from   the table
+	 * @param where  the condition
+	 * @return the first returned result, the specified column. Will return "" if an
+	 *         error occurs
+	 */
+	public String getResult(String column, TableName from, String where) {
+
+		ResultSet results = selectWhere(column, from, where);
+		try {
+			return results.getString(column);
+		} catch (SQLException e) {
+			return "";
+		}
+
 	}
 
 }
