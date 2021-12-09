@@ -1,5 +1,7 @@
 package com.booksaw.betterTeams.team.storage.storageManager;
 
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,6 +20,7 @@ import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.database.BetterTeamsDatabase;
 import com.booksaw.betterTeams.database.TableName;
 import com.booksaw.betterTeams.team.TeamManager;
+import com.booksaw.betterTeams.team.storage.team.SQLTeamStorage;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
 
 public class SQLStorageManager extends TeamManager implements Listener {
@@ -130,32 +133,65 @@ public class SQLStorageManager extends TeamManager implements Listener {
 
 	@Override
 	public TeamStorage createTeamStorage(Team team) {
-		// TODO Auto-generated method stub
-		return null;
+		return new SQLTeamStorage(team);
 	}
 
 	@Override
 	public TeamStorage createNewTeamStorage(Team team) {
-		// TODO Auto-generated method stub
-		return null;
+		return new SQLTeamStorage(team);
 	}
 
 	@Override
 	public String[] sortTeamsByScore() {
-		// TODO Auto-generated method stub
-		return null;
+
+		ResultSet results = database.selectOrder("name", TableName.TEAM, "SCORE DESC");
+
+		return getTeamsFromResultSet(results);
 	}
 
 	@Override
 	public String[] sortTeamsByBalance() {
-		// TODO Auto-generated method stub
-		return null;
+		ResultSet results = database.selectOrder("name", TableName.TEAM, "money DESC");
+
+		return getTeamsFromResultSet(results);
 	}
 
 	@Override
 	public String[] sortTeamsByMembers() {
-		// TODO Auto-generated method stub
-		return null;
+		ResultSet results = database.selectInnerJoinOrder("name, COUNT(" + TableName.PLAYERS + ".playerUUID)",
+				TableName.TEAM, TableName.PLAYERS, TableName.TEAM + ".teamID = " + TableName.PLAYERS + ".teamID",
+				"COUNT(" + TableName.PLAYERS + ".playerUUID)");
+
+		return getTeamsFromResultSet(results);
+	}
+
+	/**
+	 * convert a result set into a list of teams for sort methods
+	 * 
+	 * @param results
+	 * @return the ordered team list or an empty array in the event of an error
+	 */
+	private String[] getTeamsFromResultSet(ResultSet results) {
+
+		try {
+			results.first();
+
+			List<String> toReturn = new ArrayList<>();
+
+			toReturn.add(results.getString("name"));
+
+			while (results.next()) {
+				toReturn.add(results.getString("name"));
+			}
+
+			return toReturn.toArray(new String[toReturn.size()]);
+
+		} catch (Exception e) {
+			Bukkit.getLogger().severe("Could not sort teams for results, report the following error:");
+			e.printStackTrace();
+			return new String[0];
+		}
+
 	}
 
 	@Override

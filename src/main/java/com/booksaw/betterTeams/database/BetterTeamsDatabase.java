@@ -52,6 +52,44 @@ public class BetterTeamsDatabase extends Database {
 	}
 
 	/**
+	 * 
+	 * @param select  the element to select
+	 * @param from    the table which the data is from
+	 * @param where   the condition required for the data to be included
+	 * @param orderBy what to order the data by
+	 * @return the resultant resultset
+	 */
+	public ResultSet selectWhereOrder(String select, TableName from, String where, String orderBy) {
+		return executeQuery("SELECT ? FROM ? WHERE ? ORDER BY ?;", select, from.toString(), where, orderBy);
+	}
+
+	/**
+	 * 
+	 * @param select  the element to select
+	 * @param from    the table which the data is from
+	 * @param orderBy what to order the data by
+	 * @return The resultant resultset
+	 */
+	public ResultSet selectOrder(String select, TableName from, String orderBy) {
+		return executeQuery("SELECT ? FROM ? ORDER BY ?;", select, from.toString(), orderBy);
+	}
+
+	/**
+	 * 
+	 * @param select the element to select
+	 * @param table the table which the data is from 
+	 * @param joinTable the table to join
+	 * @param columToJoin the details of the join
+	 * @param orderBy the order by conditions
+	 * @return
+	 */
+	public ResultSet selectInnerJoinOrder(String select, TableName table, TableName joinTable, String columToJoin,
+			String orderBy) {
+		return executeQuery("SELECT ? FROM ? INNER JOIN ? on (?) ORDER BY ?;", select, table.toString(), joinTable.toString(),
+				columToJoin, orderBy);
+	}
+
+	/**
 	 * Used to check if an SQL query has a result
 	 * 
 	 * @param from  the table which the data is from
@@ -116,7 +154,7 @@ public class BetterTeamsDatabase extends Database {
 	 * @param table   The table to insert the record into
 	 * @param columns The columns that data is being provided for (ie "col1, col2,
 	 *                col3)
-	 * @param values the values to insert (ie "val1, val2, val3")
+	 * @param values  the values to insert (ie "val1, val2, val3")
 	 */
 	public void insertRecord(TableName table, String columns, String values) {
 		executeStatement("INSERT INTO ? (?) VALUES (?);", table.toString(), columns, values);
