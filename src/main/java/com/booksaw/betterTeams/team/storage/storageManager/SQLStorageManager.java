@@ -7,6 +7,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
@@ -16,12 +20,14 @@ import com.booksaw.betterTeams.database.TableName;
 import com.booksaw.betterTeams.team.TeamManager;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
 
-public class SQLStorageManager extends TeamManager {
+public class SQLStorageManager extends TeamManager implements Listener {
 
 	BetterTeamsDatabase database;
 
 	public SQLStorageManager() {
 		setupDatabaseConnection();
+
+		Main.plugin.getServer().getPluginManager().registerEvents(this, Main.plugin);
 	}
 
 	private void setupDatabaseConnection() {
@@ -90,6 +96,10 @@ public class SQLStorageManager extends TeamManager {
 
 		loadedTeams.put(uuid, team);
 
+	}
+
+	public void unloadTeam(UUID uuid) {
+		loadedTeams.remove(uuid);
 	}
 
 	@Override
@@ -181,6 +191,33 @@ public class SQLStorageManager extends TeamManager {
 	@Override
 	public void rebuildLookups() {
 		// not required
+	}
+
+	@EventHandler
+	public void onJoin(PlayerJoinEvent e) {
+		if (!isInTeam(e.getPlayer())) {
+			return;
+		}
+
+		loadTeam(getTeamUUID(e.getPlayer()));
+	}
+
+	@EventHandler
+	public void onLeave(PlayerQuitEvent e) {
+		if (!isInTeam(e.getPlayer())) {
+			return;
+		}
+		UUID teamUUID = getTeamUUID(e.getPlayer());
+
+		Team team = getTeam(teamUUID);
+
+		if (team.getOnlineMemebers().size() > 1) {
+			team.getTeamPlayer(e.getPlayer()).setTeamChat(false);
+			return;
+		}
+
+		unloadTeam(teamUUID);
+
 	}
 
 }
