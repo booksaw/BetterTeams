@@ -116,11 +116,17 @@ public class Database {
 	/**
 	 * Used to execute an SQL statement
 	 * 
-	 * @param statement The SQL statement to execute
+	 * @param statement    The SQL statement to execute
+	 * @param placeholders The placeholders for the statement
 	 */
-	public void executeStatement(String statement) {
+	public void executeStatement(String statement, String... placeholders) {
 
 		try (PreparedStatement ps = connection.prepareStatement(statement)) {
+
+			for (int i = 0; i < placeholders.length; i++) {
+				ps.setString(i, placeholders[i]);
+			}
+
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

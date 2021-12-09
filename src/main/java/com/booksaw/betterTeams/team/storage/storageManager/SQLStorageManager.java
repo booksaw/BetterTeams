@@ -3,6 +3,7 @@ package com.booksaw.betterTeams.team.storage.storageManager;
 import java.util.List;
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -67,38 +68,54 @@ public class SQLStorageManager extends TeamManager {
 
 	@Override
 	public void loadTeams() {
-		// TODO Auto-generated method stub
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			if (isInTeam(player)) {
+				loadTeam(getTeamUUID(player));
+			}
+		}
+	}
+
+	public void loadTeam(UUID uuid) {
+		if (uuid == null || isLoaded(uuid)) {
+			return;
+		}
+
+		Team team;
+
+		try {
+			team = new Team(uuid);
+		} catch (IllegalArgumentException e) {
+			return;
+		}
+
+		loadedTeams.put(uuid, team);
 
 	}
 
 	@Override
 	protected void registerNewTeam(Team team, Player player) {
-		// TODO Auto-generated method stub
-
+		// no lookup tables so this method is not required
 	}
 
 	@Override
 	protected void deleteTeamStorage(Team team) {
-		// TODO Auto-generated method stub
-
+		database.deleteRecord(TableName.TEAM, "teamID == " + team.getID());
 	}
 
 	@Override
 	public void teamNameChange(Team team, String newName) {
-		// TODO Auto-generated method stub
-
+		database.updateRecord(TableName.TEAM, "name", "teamID == " + team.getID());
 	}
 
 	@Override
 	public void playerJoinTeam(Team team, TeamPlayer player) {
-		// TODO Auto-generated method stub
-
+		database.insertRecord(TableName.PLAYERS, "playerUUID, teamID, playerRank",
+				player.getPlayer().getUniqueId() + ", " + team.getID() + ", " + player.getRank());
 	}
 
 	@Override
 	public void playerLeaveTeam(Team team, TeamPlayer player) {
-		// TODO Auto-generated method stub
-
+		database.deleteRecord(TableName.PLAYERS, "playerUUID == " + player.getPlayer().getUniqueId());
 	}
 
 	@Override

@@ -88,4 +88,38 @@ public class BetterTeamsDatabase extends Database {
 
 	}
 
+	/**
+	 * Used to delete a record from the specified tablef
+	 * 
+	 * @param table     The table to update
+	 * @param condition The condition for the update
+	 */
+	public void deleteRecord(TableName table, String condition) {
+		executeStatement("DELETE FROM ? WHERE ?;", table.toString(), condition);
+
+	}
+
+	/**
+	 * Used to modify a record in the database
+	 * 
+	 * @param table     the table the record is in
+	 * @param update    the values to update (ie "col = exp1, col2 = exp2")
+	 * @param condition The condition for which records should be updated
+	 */
+	public void updateRecord(TableName table, String update, String condition) {
+		executeStatement("UPDATE ? SET ? WHERE ?;", table.toString(), update, condition);
+	}
+
+	/**
+	 * Used to add a record into a table
+	 * 
+	 * @param table   The table to insert the record into
+	 * @param columns The columns that data is being provided for (ie "col1, col2,
+	 *                col3)
+	 * @param values the values to insert (ie "val1, val2, val3")
+	 */
+	public void insertRecord(TableName table, String columns, String values) {
+		executeStatement("INSERT INTO ? (?) VALUES (?);", table.toString(), columns, values);
+	}
+
 }
