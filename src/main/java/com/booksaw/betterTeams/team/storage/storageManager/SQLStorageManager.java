@@ -32,7 +32,7 @@ import com.booksaw.betterTeams.team.storage.team.TeamStorage;
 
 public class SQLStorageManager extends TeamManager implements Listener {
 
-	BetterTeamsDatabase database;
+	private BetterTeamsDatabase database;
 
 	protected FileConfiguration teamStorage;
 
@@ -154,12 +154,12 @@ public class SQLStorageManager extends TeamManager implements Listener {
 
 	@Override
 	public TeamStorage createTeamStorage(Team team) {
-		return new SQLTeamStorage(team);
+		return new SQLTeamStorage(this, team);
 	}
 
 	@Override
 	public TeamStorage createNewTeamStorage(Team team) {
-		return new SQLTeamStorage(team);
+		return new SQLTeamStorage(this, team);
 	}
 
 	@Override
@@ -290,5 +290,11 @@ public class SQLStorageManager extends TeamManager implements Listener {
 		unloadTeam(teamUUID);
 
 	}
+
+	public BetterTeamsDatabase getDatabase() {
+		return database;
+	}
+	
+	
 
 }
