@@ -127,7 +127,7 @@ public class BetterTeamsDatabase extends Database {
 	}
 
 	/**
-	 * Used to delete a record from the specified tablef
+	 * Used to delete a record from the specified table
 	 * 
 	 * @param table     The table to update
 	 * @param condition The condition for the update
@@ -144,10 +144,19 @@ public class BetterTeamsDatabase extends Database {
 	 * @param update    the values to update (ie "col = exp1, col2 = exp2")
 	 * @param condition The condition for which records should be updated
 	 */
-	public void updateRecord(TableName table, String update, String condition) {
+	public void updateRecordWhere(TableName table, String update, String condition) {
 		executeStatement("UPDATE ? SET ? WHERE ?;", table.toString(), update, condition);
 	}
 
+	/**
+	 * Used to modify all records in a database
+	 * @param table the table to modify
+	 * @param update the value to update (ie "col = exp1, col2 = exp2")
+	 */
+	public void updateRecord(TableName table, String update) {
+		executeStatement("UPDATE ? SET ?", table.toString(), update);
+	}
+	
 	/**
 	 * Used to add a record into a table
 	 * 

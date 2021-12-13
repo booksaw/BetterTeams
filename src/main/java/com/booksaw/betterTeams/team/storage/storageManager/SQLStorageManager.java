@@ -1,13 +1,19 @@
 package com.booksaw.betterTeams.team.storage.storageManager;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
+import java.util.logging.Level;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,6 +25,7 @@ import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.database.BetterTeamsDatabase;
 import com.booksaw.betterTeams.database.TableName;
+import com.booksaw.betterTeams.team.LocationListComponent;
 import com.booksaw.betterTeams.team.TeamManager;
 import com.booksaw.betterTeams.team.storage.team.SQLTeamStorage;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
@@ -27,10 +34,23 @@ public class SQLStorageManager extends TeamManager implements Listener {
 
 	BetterTeamsDatabase database;
 
+	protected FileConfiguration teamStorage;
+
+	public static final String TEAMLISTSTORAGELOC = "teams";
+
 	public SQLStorageManager() {
 		setupDatabaseConnection();
 
 		Main.plugin.getServer().getPluginManager().registerEvents(this, Main.plugin);
+
+		// loading the teamStorage variable
+		File f = new File("plugins/BetterTeams/" + TEAMLISTSTORAGELOC + ".yml");
+
+		if (!f.exists()) {
+			Main.plugin.saveResource("teams.yml", false);
+		}
+
+		teamStorage = YamlConfiguration.loadConfiguration(f);
 	}
 
 	private void setupDatabaseConnection() {
@@ -46,7 +66,8 @@ public class SQLStorageManager extends TeamManager implements Listener {
 
 	@Override
 	public UUID getClaimingTeamUUID(Location location) {
-		return UUID.fromString(database.getResult("teamID", TableName.CHESTCLAIMS, "chestLoc == " + location));
+		return UUID.fromString(database.getResult("teamID", TableName.CHESTCLAIMS,
+				"chestLoc == " + LocationListComponent.getString(location)));
 	}
 
 	@Override
@@ -117,7 +138,7 @@ public class SQLStorageManager extends TeamManager implements Listener {
 
 	@Override
 	public void teamNameChange(Team team, String newName) {
-		database.updateRecord(TableName.TEAM, "name", "teamID == " + team.getID());
+		database.updateRecordWhere(TableName.TEAM, "name", "teamID == " + team.getID());
 	}
 
 	@Override
@@ -196,32 +217,46 @@ public class SQLStorageManager extends TeamManager implements Listener {
 
 	@Override
 	public void purgeTeamScore() {
-		// TODO Auto-generated method stub
+		// reseting the loaded teams so the results are immediate
+		for (Entry<UUID, Team> team : loadedTeams.entrySet()) {
+			team.getValue().setScore(0);
+		}
+
+		database.updateRecord(TableName.TEAM, "score = 0");
 
 	}
 
+	private static final String HOLOPATH = "holos";
+
 	@Override
 	public List<String> getHoloDetails() {
-		// TODO Auto-generated method stub
-		return null;
+		return teamStorage.getStringList(HOLOPATH);
 	}
 
 	@Override
 	public void setHoloDetails(List<String> details) {
-		// TODO Auto-generated method stub
+		teamStorage.set(HOLOPATH, details);
+		saveTeamsFile();
+	}
 
+	public void saveTeamsFile() {
+		File f = new File("plugins/BetterTeams/" + TEAMLISTSTORAGELOC + ".yml");
+		try {
+			teamStorage.save(f);
+		} catch (IOException ex) {
+			Bukkit.getLogger().log(Level.SEVERE, "Could not save config to " + f, ex);
+		}
 	}
 
 	@Override
 	public void addChestClaim(Team team, Location loc) {
-		// TODO Auto-generated method stub
-
+		database.insertRecord(TableName.CHESTCLAIMS, "teamID, chestLoc",
+				team.getID() + ", " + LocationListComponent.getString(loc));
 	}
 
 	@Override
 	public void removeChestclaim(Location loc) {
-		// TODO Auto-generated method stub
-
+		database.deleteRecord(TableName.CHESTCLAIMS, "chestLoc == " + LocationListComponent.getString(loc));
 	}
 
 	@Override
