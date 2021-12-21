@@ -114,7 +114,6 @@ public abstract class TeamManager {
 		}
 
 		UUID uuid = getTeamUUID(player);
-
 		if (uuid == null) {
 			return null;
 		}
@@ -492,9 +491,10 @@ public abstract class TeamManager {
 	 * type
 	 */
 	public abstract void rebuildLookups();
-	
+
 	/**
 	 * this can be overritten if any code needs to be run when onDisable is called
 	 */
-	public void disable() {} 
+	public void disable() {
+	}
 }

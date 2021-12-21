@@ -28,12 +28,13 @@ public class SQLTeamStorage extends TeamStorage {
 	}
 
 	private String getCondition() {
-		return "teamID == " + team.getID();
+		return "teamID LIKE '" + team.getID() + "'";
 	}
 
 	@Override
 	protected void setValue(String location, TeamStorageType storageType, Object value) {
-		storageManager.getDatabase().updateRecordWhere(TableName.PLAYERS, location + " = " + value, getCondition());
+		storageManager.getDatabase().updateRecordWhere(TableName.TEAM, location + " = '" + value.toString() + "'",
+				getCondition());
 	}
 
 	@Override
@@ -63,7 +64,9 @@ public class SQLTeamStorage extends TeamStorage {
 		List<TeamPlayer> toReturn = new ArrayList<>();
 
 		try {
-
+			if (!result.first()) {
+				return toReturn;
+			}
 			do {
 
 				toReturn.add(new TeamPlayer(Bukkit.getOfflinePlayer(UUID.fromString(result.getString("playerUUID"))),
@@ -85,7 +88,9 @@ public class SQLTeamStorage extends TeamStorage {
 		List<String> toReturn = new ArrayList<>();
 
 		try {
-
+			if (!result.first()) {
+				return toReturn;
+			}
 			do {
 
 				toReturn.add(result.getString("playerUUID"));
@@ -102,14 +107,20 @@ public class SQLTeamStorage extends TeamStorage {
 	@Override
 	public List<String> getAllyList() {
 		ResultSet result = storageManager.getDatabase().selectWhere("*", TableName.ALLIES,
-				"team1ID == " + team.getID() + " OR team2ID == " + team.getID());
+				"team1ID LIKE '" + team.getID() + "' OR team2ID LIKE '" + team.getID() + "'");
 
 		List<String> toReturn = new ArrayList<>();
 
 		try {
+			if (!result.first()) {
+				return toReturn;
+			}
 			do {
 				String t1 = result.getString("team1ID");
-				toReturn.add((t1.equals(team.getID().toString())) ? t1 : result.getString("team2ID"));
+				String toAdd = (t1.equals(team.getID().toString())) ? result.getString("team2ID") : t1;
+				if (!toReturn.contains(toAdd)) {
+					toReturn.add(toAdd);
+				}
 
 			} while (result.next());
 
@@ -122,12 +133,15 @@ public class SQLTeamStorage extends TeamStorage {
 
 	@Override
 	public List<String> getAllyRequestList() {
-		ResultSet result = storageManager.getDatabase().selectWhere("*", TableName.PLAYERS,
-				"receivingTeamID == " + team.getID());
+		ResultSet result = storageManager.getDatabase().selectWhere("*", TableName.ALLYREQUESTS,
+				"receivingTeamID LIKE '" + team.getID() + "'");
 
 		List<String> toReturn = new ArrayList<>();
 
 		try {
+			if (!result.first()) {
+				return toReturn;
+			}
 			do {
 				toReturn.add(result.getString("requestingTeamID"));
 
@@ -167,8 +181,9 @@ public class SQLTeamStorage extends TeamStorage {
 			if (inventory.getItem(i) == null) {
 				continue;
 			}
-
+			System.out.println(inventory.getItem(i));
 			String temp = Utils.convertItemStackToString(inventory.getItem(i));
+			System.out.println(temp);
 			temp = temp.replace(",", "//,");
 			toSave = toSave + i + "," + temp + ",";
 
@@ -186,7 +201,11 @@ public class SQLTeamStorage extends TeamStorage {
 		List<String> toReturn = new ArrayList<>();
 
 		try {
+			if (!result.first()) {
+				return toReturn;
+			}
 			do {
+
 				toReturn.add(result.getString("warpInfo"));
 
 			} while (result.next());
@@ -205,6 +224,9 @@ public class SQLTeamStorage extends TeamStorage {
 		List<String> toReturn = new ArrayList<>();
 
 		try {
+			if (!result.first()) {
+				return toReturn;
+			}
 			do {
 				toReturn.add(result.getString("chestLoc"));
 
@@ -218,61 +240,51 @@ public class SQLTeamStorage extends TeamStorage {
 	}
 
 	@Override
-	public void addPlayer(TeamPlayer player) {
-		storageManager.getDatabase().insertRecord(TableName.PLAYERS, "playerUUID, teamID, playerRank",
-				player.getPlayer().getUniqueId().toString() + ", " + team.getID() + ", " + player.getRank().value);
-	}
-
-	@Override
-	public void removePlayer(TeamPlayer player) {
-		storageManager.getDatabase().deleteRecord(TableName.PLAYERS,
-				"playerUUID == " + player.getPlayer().getUniqueId());
-	}
-
-	@Override
 	public void addBan(UUID component) {
 		storageManager.getDatabase().insertRecord(TableName.BANS, "playerUUID, teamID",
-				component + ", " + team.getID());
+				"'" + component + "', '" + team.getID() + "'");
 	}
 
 	@Override
 	public void removeBan(UUID component) {
-		storageManager.getDatabase().deleteRecord(TableName.BANS, "playerUUID == " + component.toString());
+		storageManager.getDatabase().deleteRecord(TableName.BANS, "playerUUID LIKE '" + component.toString() + "'");
 	}
 
 	@Override
 	public void addAlly(UUID ally) {
-		storageManager.getDatabase().insertRecord(TableName.ALLIES, "team1ID, team2ID", team.getID() + ", " + ally);
+		storageManager.getDatabase().insertRecord(TableName.ALLIES, "team1ID, team2ID",
+				"'" + team.getID() + "', '" + ally + "'");
 	}
 
 	@Override
 	public void removeAlly(UUID ally) {
-		storageManager.getDatabase().deleteRecord(TableName.ALLIES, "(team1ID == " + team.getID() + " AND team2ID == "
-				+ ally + ") OR (team1ID == " + ally + " AND team2ID == " + team.getID());
+		storageManager.getDatabase().deleteRecord(TableName.ALLIES,
+				"(team1ID LIKE '" + team.getID() + "' AND team2ID LIKE '" + ally + "') OR (team1ID LIKE '" + ally
+						+ "' AND team2ID LIKE '" + team.getID() + "'");
 	}
 
 	@Override
 	public void addAllyRequest(UUID requesting) {
 		storageManager.getDatabase().insertRecord(TableName.ALLYREQUESTS, "receivingTeamID, requestingTeamID",
-				team.getID() + ", " + requesting);
+				"'" + team.getID() + "', '" + requesting + "'");
 	}
 
 	@Override
 	public void removeAllyRequest(UUID requesting) {
 		storageManager.getDatabase().deleteRecord(TableName.ALLYREQUESTS,
-				"receivingTeamID == " + team.getID() + " AND requestingTeamID == " + requesting);
+				"receivingTeamID LIKE '" + team.getID() + "' AND requestingTeamID LIKE '" + requesting + "'");
 	}
 
 	@Override
 	public void addWarp(Warp component) {
 		storageManager.getDatabase().insertRecord(TableName.WARPS, "teamID, warpInfo",
-				team.getID() + ", " + component.toString());
+				"'" + team.getID() + "', '" + component.toString() + "'");
 	}
 
 	@Override
 	public void removeWarp(Warp component) {
 		storageManager.getDatabase().deleteRecord(TableName.WARPS,
-				getCondition() + " AND warpInfo == " + component.toString());
+				getCondition() + " AND warpInfo LIKE '" + component.toString() + "'");
 	}
 
 	@Override

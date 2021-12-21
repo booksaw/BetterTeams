@@ -121,12 +121,15 @@ public class Database {
 	 */
 	public void executeStatement(String statement, String... placeholders) {
 
+		for (int i = 0; i < placeholders.length; i++) {
+			statement = statement.replaceFirst("\\?", placeholders[i]);
+		}
+
+		statement = statement.replace("false", "0");
+		statement = statement.replace("true", "1");
+
 		try (PreparedStatement ps = connection.prepareStatement(statement)) {
-
-			for (int i = 0; i < placeholders.length; i++) {
-				ps.setString(i, placeholders[i]);
-			}
-
+			System.out.println("executing:  " + ps.toString());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -141,13 +144,13 @@ public class Database {
 	 * @return The results of the query
 	 */
 	public ResultSet executeQuery(String query, String... placeholders) {
+		for (int i = 0; i < placeholders.length; i++) {
+			query = query.replaceFirst("\\?", placeholders[i]);
+		}
 
-		try (PreparedStatement ps = connection.prepareStatement(query)) {
-
-			for (int i = 0; i < placeholders.length; i++) {
-				ps.setString(i, placeholders[i]);
-			}
-
+		try {
+			PreparedStatement ps = connection.prepareStatement(query);
+			System.out.println("executing:  " + ps.toString());
 			return ps.executeQuery();
 		} catch (SQLException e) {
 			e.printStackTrace();

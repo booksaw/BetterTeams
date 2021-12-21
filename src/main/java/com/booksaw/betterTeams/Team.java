@@ -390,11 +390,13 @@ public class Team {
 
 		}
 
+		this.name = name;
+
 		storage = TEAMMANAGER.createNewTeamStorage(this);
 
 		storage.set(StoredTeamValue.NAME, name);
 		storage.set(StoredTeamValue.DESCRIPTION, "");
-		this.name = name;
+
 		this.description = "";
 
 		storage.set(StoredTeamValue.OPEN, false);

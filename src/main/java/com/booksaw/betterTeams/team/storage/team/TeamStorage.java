@@ -150,10 +150,6 @@ public abstract class TeamStorage {
 
 	public abstract void setClaimedChests(List<String> chests);
 
-	public abstract void addPlayer(TeamPlayer player);
-
-	public abstract void removePlayer(TeamPlayer player);
-
 	public abstract void addBan(UUID component);
 
 	public abstract void removeBan(UUID component);

@@ -32,10 +32,9 @@
 	</repositories>
 	<dependencies>
 		<dependency>
-			<groupId>com.booksaw</groupId>
-			<artifactId>Deadends</artifactId>
-			<version>1.0</version>
-			<scope>provided</scope>
+			<groupId>com.github.booksaw</groupId>
+			<artifactId>betterteams-deadends</artifactId>
+			<version>main-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.spigotmc</groupId>

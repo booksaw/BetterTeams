@@ -67,33 +67,34 @@ public class SQLStorageManager extends TeamManager implements Listener {
 	@Override
 	public UUID getClaimingTeamUUID(Location location) {
 		return UUID.fromString(database.getResult("teamID", TableName.CHESTCLAIMS,
-				"chestLoc == " + LocationListComponent.getString(location)));
+				"chestLoc LIKE '" + LocationListComponent.getString(location) + "'"));
 	}
 
 	@Override
 	public boolean isTeam(UUID uuid) {
-		return database.hasResult(TableName.TEAM, "teamID == " + uuid.toString());
+		return database.hasResult(TableName.TEAM, "teamID LIKE '" + uuid.toString() + "'");
 	}
 
 	@Override
 	public boolean isTeam(String name) {
-		return database.hasResult(TableName.TEAM, "UPPER(name) == " + name.toUpperCase());
+		return database.hasResult(TableName.TEAM, "UPPER(name) LIKE '" + name.toUpperCase() + "'");
 	}
 
 	@Override
 	public boolean isInTeam(OfflinePlayer player) {
-		return database.hasResult(TableName.PLAYERS, "playerUUID == " + player.getUniqueId());
+		return database.hasResult(TableName.PLAYERS, "playerUUID LIKE '" + player.getUniqueId() + "'");
 	}
 
 	@Override
 	public UUID getTeamUUID(OfflinePlayer player) {
-		return UUID
-				.fromString(database.getResult("teamID", TableName.PLAYERS, "playerUUID == " + player.getUniqueId()));
+		return UUID.fromString(
+				database.getResult("teamID", TableName.PLAYERS, "playerUUID LIKE '" + player.getUniqueId() + "'"));
 	}
 
 	@Override
 	public UUID getTeamUUID(String name) {
-		return UUID.fromString(database.getResult("teamID", TableName.TEAM, "UPPER(name) == " + name.toUpperCase()));
+		return UUID.fromString(
+				database.getResult("teamID", TableName.TEAM, "UPPER(name) LIKE '" + name.toUpperCase() + "'"));
 	}
 
 	@Override
@@ -133,23 +134,23 @@ public class SQLStorageManager extends TeamManager implements Listener {
 
 	@Override
 	protected void deleteTeamStorage(Team team) {
-		database.deleteRecord(TableName.TEAM, "teamID == " + team.getID());
+		database.deleteRecord(TableName.TEAM, "teamID LIKE '" + team.getID() + "'");
 	}
 
 	@Override
 	public void teamNameChange(Team team, String newName) {
-		database.updateRecordWhere(TableName.TEAM, "name", "teamID == " + team.getID());
+		database.updateRecordWhere(TableName.TEAM, "name", "teamID LIKE '" + team.getID() + "'");
 	}
 
 	@Override
 	public void playerJoinTeam(Team team, TeamPlayer player) {
 		database.insertRecord(TableName.PLAYERS, "playerUUID, teamID, playerRank",
-				player.getPlayer().getUniqueId() + ", " + team.getID() + ", " + player.getRank());
+				"'" + player.getPlayer().getUniqueId() + "', '" + team.getID() + "', " + player.getRank().value + "");
 	}
 
 	@Override
 	public void playerLeaveTeam(Team team, TeamPlayer player) {
-		database.deleteRecord(TableName.PLAYERS, "playerUUID == " + player.getPlayer().getUniqueId());
+		database.deleteRecord(TableName.PLAYERS, "playerUUID LIKE '" + player.getPlayer().getUniqueId() + "'");
 	}
 
 	@Override
@@ -159,6 +160,7 @@ public class SQLStorageManager extends TeamManager implements Listener {
 
 	@Override
 	public TeamStorage createNewTeamStorage(Team team) {
+		database.insertRecord(TableName.TEAM, "teamID, name", "'" + team.getID() + "', '" + team.getName() + "'");
 		return new SQLTeamStorage(this, team);
 	}
 
@@ -251,12 +253,12 @@ public class SQLStorageManager extends TeamManager implements Listener {
 	@Override
 	public void addChestClaim(Team team, Location loc) {
 		database.insertRecord(TableName.CHESTCLAIMS, "teamID, chestLoc",
-				team.getID() + ", " + LocationListComponent.getString(loc));
+				"'" + team.getID() + "', '" + LocationListComponent.getString(loc) + "'");
 	}
 
 	@Override
 	public void removeChestclaim(Location loc) {
-		database.deleteRecord(TableName.CHESTCLAIMS, "chestLoc == " + LocationListComponent.getString(loc));
+		database.deleteRecord(TableName.CHESTCLAIMS, "chestLoc LIKE '" + LocationListComponent.getString(loc) + "'");
 	}
 
 	@Override
@@ -294,7 +296,5 @@ public class SQLStorageManager extends TeamManager implements Listener {
 	public BetterTeamsDatabase getDatabase() {
 		return database;
 	}
-	
-	
 
 }

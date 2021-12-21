@@ -44,7 +44,6 @@ public class MemberListComponent extends TeamPlayerListComponent {
 		}
 
 		Team.getTeamManager().playerJoinTeam(team, teamPlayer);
-		team.getStorage().addPlayer(teamPlayer);
 		list.add(teamPlayer);
 
 	}

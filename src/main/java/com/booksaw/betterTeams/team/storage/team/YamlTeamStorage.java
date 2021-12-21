@@ -152,16 +152,6 @@ public abstract class YamlTeamStorage extends TeamStorage {
 	protected abstract void saveFile();
 
 	@Override
-	public void addPlayer(TeamPlayer player) {
-		// not needed
-	}
-
-	@Override
-	public void removePlayer(TeamPlayer player) {
-		// not needed
-	}
-
-	@Override
 	public void addBan(UUID component) {
 		// not needed
 	}

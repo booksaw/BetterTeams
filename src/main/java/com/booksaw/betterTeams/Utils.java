@@ -4,9 +4,14 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 public class Utils {
@@ -38,8 +43,49 @@ public class Utils {
 
 	}
 
+	public static String serializeInventory(Inventory inventory) {
+		YamlConfiguration json = new YamlConfiguration();
+		int idx = 0;
+		HashMap<String, ItemStack> items = new HashMap<>();
+		for (ItemStack item : inventory.getContents()) {
+			int i = idx++;
+			if (item == null) {
+				continue;
+			}
+			items.put("" + i, item);
+		}
+		json.createSection("items", items);
+		return json.saveToString();
+	}
+
+	public static String dumpItem(ItemStack itemStack) {
+		YamlConfiguration json = new YamlConfiguration();
+		json.set("item", itemStack);
+		return json.saveToString();
+	}
+
+	public static Inventory deserializeInventory(Inventory inventory, String jsons)
+			throws InvalidConfigurationException {
+		try {
+			YamlConfiguration json = new YamlConfiguration();
+			json.loadFromString(jsons);
+
+			Map<String, Object> items = json.getConfigurationSection("items").getValues(false);
+			for (Map.Entry<String, Object> item : items.entrySet()) {
+				ItemStack itemstack = (ItemStack) item.getValue();
+				int idx = Integer.parseInt(item.getKey());
+				inventory.setItem(idx, itemstack);
+			}
+			return inventory;
+
+		} catch (InvalidConfigurationException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 	/**
-	 * @author 
+	 * @author
 	 * @param what - The ItemStack to be converted into a string
 	 * @return The String that contains the ItemStack (will return null if anything
 	 *         goes wrong)

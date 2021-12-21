@@ -9,7 +9,7 @@ public class BetterTeamsDatabase extends Database {
 
 	public void setupTables() {
 		createTableIfNotExists(TableName.TEAM.toString(),
-				"teamID VARCHAR(50) NOT NULL PRIMARY KEY, name VARCHAR(50) NOT NULL, description VARCHAR(200), open BOOLEAN NOT NULL, score INT DEFAULT 0, money DOUBLE DEFAULT 0, home VARCHAR(50), color CHAR(1) DEFAULT '6', echest VARCHAR(50), level INT DEFAULT 1, tag VARCHAR(50)");
+				"teamID VARCHAR(50) NOT NULL PRIMARY KEY, name VARCHAR(50) NOT NULL, description VARCHAR(200), open BOOLEAN DEFAULT 0, score INT DEFAULT 0, money DOUBLE DEFAULT 0, home VARCHAR(200), color CHAR(1) DEFAULT '6', echest VARCHAR(10000), level INT DEFAULT 1, tag VARCHAR(50), pvp BOOLEAN DEFAULT 0");
 
 		createTableIfNotExists(TableName.PLAYERS.toString(),
 				"playerUUID VARCHAR(50) NOT NULL PRIMARY KEY, teamID VARCHAR(50) NOT NULL, playerRank INT NOT NULL, FOREIGN KEY (teamID) REFERENCES "
@@ -22,7 +22,7 @@ public class BetterTeamsDatabase extends Database {
 						+ TableName.TEAM.toString() + "(teamID) ON DELETE CASCADE");
 
 		createTableIfNotExists(TableName.WARPS.toString(),
-				"TeamID VARCHAR(50) NOT NULL, warpInfo VARCHAR(50) NOT NULL, PRIMARY KEY(TeamID, warpInfo), FOREIGN KEY (TeamID) REFERENCES "
+				"TeamID VARCHAR(50) NOT NULL, warpInfo VARCHAR(200) NOT NULL, PRIMARY KEY(TeamID, warpInfo), FOREIGN KEY (TeamID) REFERENCES "
 						+ TableName.TEAM.toString() + "(teamID) ON DELETE CASCADE");
 
 		createTableIfNotExists(TableName.CHESTCLAIMS.toString(),
@@ -76,17 +76,17 @@ public class BetterTeamsDatabase extends Database {
 
 	/**
 	 * 
-	 * @param select the element to select
-	 * @param table the table which the data is from 
-	 * @param joinTable the table to join
+	 * @param select      the element to select
+	 * @param table       the table which the data is from
+	 * @param joinTable   the table to join
 	 * @param columToJoin the details of the join
-	 * @param orderBy the order by conditions
+	 * @param orderBy     the order by conditions
 	 * @return
 	 */
 	public ResultSet selectInnerJoinOrder(String select, TableName table, TableName joinTable, String columToJoin,
 			String orderBy) {
-		return executeQuery("SELECT ? FROM ? INNER JOIN ? on (?) ORDER BY ?;", select, table.toString(), joinTable.toString(),
-				columToJoin, orderBy);
+		return executeQuery("SELECT ? FROM ? INNER JOIN ? on (?) ORDER BY ?;", select, table.toString(),
+				joinTable.toString(), columToJoin, orderBy);
 	}
 
 	/**
@@ -98,9 +98,13 @@ public class BetterTeamsDatabase extends Database {
 	 */
 	public boolean hasResult(TableName from, String where) {
 
-		try {
-			return selectWhere("*", from, where).first();
+		try (ResultSet result = selectWhere("*", from, where)) {
+			if (result == null) {
+				return false;
+			}
+			return result.first();
 		} catch (SQLException e) {
+			e.printStackTrace();
 			return false;
 		}
 
@@ -117,9 +121,10 @@ public class BetterTeamsDatabase extends Database {
 	 */
 	public String getResult(String column, TableName from, String where) {
 
-		ResultSet results = selectWhere(column, from, where);
-		try {
-			return results.getString(column);
+		try (ResultSet results = selectWhere(column, from, where)) {
+			results.first();
+			String str = results.getString(column);
+			return str;
 		} catch (SQLException e) {
 			return "";
 		}
@@ -150,13 +155,14 @@ public class BetterTeamsDatabase extends Database {
 
 	/**
 	 * Used to modify all records in a database
-	 * @param table the table to modify
+	 * 
+	 * @param table  the table to modify
 	 * @param update the value to update (ie "col = exp1, col2 = exp2")
 	 */
 	public void updateRecord(TableName table, String update) {
 		executeStatement("UPDATE ? SET ?", table.toString(), update);
 	}
-	
+
 	/**
 	 * Used to add a record into a table
 	 * 
