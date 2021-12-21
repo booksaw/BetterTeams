@@ -46,6 +46,15 @@ public enum PlayerRank {
 
 	}
 
+	public static PlayerRank getRank(int value) {
+		for (PlayerRank rank : values()) {
+			if (rank.value == value) {
+				return rank;
+			}
+		}
+		return null;
+	}
+
 	/**
 	 * @return the prefix for that player rank
 	 */

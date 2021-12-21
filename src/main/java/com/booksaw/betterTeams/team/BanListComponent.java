@@ -1,7 +1,10 @@
 package com.booksaw.betterTeams.team;
 
+import java.util.UUID;
+
 import org.bukkit.OfflinePlayer;
 
+import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
 
 public class BanListComponent extends UuidListComponent {
@@ -31,5 +34,18 @@ public class BanListComponent extends UuidListComponent {
 	public void save(TeamStorage storage) {
 		storage.setBanList(getConvertedList());
 	}
+
+	@Override
+	public void add(Team team, UUID component) {
+		super.add(team, component);
+		team.getStorage().addBan(component);
+	}
+	
+	@Override
+	public void remove(Team team, UUID component) {
+		super.remove(team, component);
+		team.getStorage().removeBan(component);
+	}
+	
 
 }

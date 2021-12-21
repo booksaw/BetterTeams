@@ -1,10 +1,13 @@
 package com.booksaw.betterTeams.team.storage.team;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.bukkit.inventory.Inventory;
 
 import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.TeamPlayer;
+import com.booksaw.betterTeams.Warp;
 
 /**
  * Used to manage the storage for a single team. All values in set using
@@ -119,7 +122,7 @@ public abstract class TeamStorage {
 
 	public abstract int getInt(String reference);
 
-	public abstract List<String> getPlayerList();
+	public abstract List<TeamPlayer> getPlayerList();
 
 	public abstract void setPlayerList(List<String> players);
 
@@ -146,4 +149,24 @@ public abstract class TeamStorage {
 	public abstract List<String> getClaimedChests();
 
 	public abstract void setClaimedChests(List<String> chests);
+
+	public abstract void addPlayer(TeamPlayer player);
+
+	public abstract void removePlayer(TeamPlayer player);
+
+	public abstract void addBan(UUID component);
+
+	public abstract void removeBan(UUID component);
+
+	public abstract void addAlly(UUID ally);
+
+	public abstract void removeAlly(UUID ally);
+
+	public abstract void addAllyRequest(UUID requesting);
+
+	public abstract void removeAllyRequest(UUID requesting);
+
+	public abstract void addWarp(Warp component);
+
+	public abstract void removeWarp(Warp component);
 }
