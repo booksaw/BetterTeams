@@ -66,8 +66,12 @@ public class SQLStorageManager extends TeamManager implements Listener {
 
 	@Override
 	public UUID getClaimingTeamUUID(Location location) {
-		return UUID.fromString(database.getResult("teamID", TableName.CHESTCLAIMS,
-				"chestLoc LIKE '" + LocationListComponent.getString(location) + "'"));
+		String result = database.getResult("teamID", TableName.CHESTCLAIMS,
+				"chestLoc LIKE '" + LocationListComponent.getString(location) + "'");
+		if (result == null || result.length() == 0) {
+			return null;
+		}
+		return UUID.fromString(result);
 	}
 
 	@Override
@@ -139,7 +143,7 @@ public class SQLStorageManager extends TeamManager implements Listener {
 
 	@Override
 	public void teamNameChange(Team team, String newName) {
-		database.updateRecordWhere(TableName.TEAM, "name", "teamID LIKE '" + team.getID() + "'");
+		database.updateRecordWhere(TableName.TEAM, "name = '" + newName + "'", "teamID LIKE '" + team.getID() + "'");
 	}
 
 	@Override

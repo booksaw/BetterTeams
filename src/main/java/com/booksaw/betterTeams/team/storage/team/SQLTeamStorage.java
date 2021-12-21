@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
@@ -44,7 +44,13 @@ public class SQLTeamStorage extends TeamStorage {
 
 	@Override
 	public boolean getBoolean(String reference) {
-		return Boolean.parseBoolean(storageManager.getDatabase().getResult(reference, TableName.TEAM, getCondition()));
+		String result = storageManager.getDatabase().getResult(reference, TableName.TEAM, getCondition());
+		if (result.equals("1")) {
+			return true;
+		} else if (result.equals("0")) {
+			return false;
+		}
+		return Boolean.parseBoolean(result);
 	}
 
 	@Override
@@ -70,7 +76,7 @@ public class SQLTeamStorage extends TeamStorage {
 			do {
 
 				toReturn.add(new TeamPlayer(Bukkit.getOfflinePlayer(UUID.fromString(result.getString("playerUUID"))),
-						PlayerRank.getRank((result.getInt("playerRank")))));
+						PlayerRank.getRank((result.getInt("playerRank"))), result.getString("title")));
 
 			} while (result.next());
 
@@ -161,36 +167,17 @@ public class SQLTeamStorage extends TeamStorage {
 		if (result == null || result.length() == 0) {
 			return;
 		}
-
-		String[] split = result.split("(?<!\\\\),");
-
-		for (int i = 0; i < split.length; i += 2) {
-
-			int loc = Integer.parseInt(split[i]);
-			String replace = split[i + 1].replace("\\,", ",");
-			ItemStack is = Utils.convertStringToItemStack(replace);
-			inventory.setItem(loc, is);
+		try {
+			Utils.deserializeInventory(inventory, result);
+		} catch (InvalidConfigurationException e) {
+			e.printStackTrace();
 		}
-
 	}
 
 	@Override
 	public void setEchestContents(Inventory inventory) {
-		String toSave = "";
-		for (int i = 0; i < inventory.getSize(); i++) {
-			if (inventory.getItem(i) == null) {
-				continue;
-			}
-			System.out.println(inventory.getItem(i));
-			String temp = Utils.convertItemStackToString(inventory.getItem(i));
-			System.out.println(temp);
-			temp = temp.replace(",", "//,");
-			toSave = toSave + i + "," + temp + ",";
-
-		}
-
-		toSave = toSave.substring(0, toSave.length() - 1);
-		storageManager.getDatabase().updateRecordWhere(TableName.TEAM, "echest = " + toSave, getCondition());
+		storageManager.getDatabase().updateRecordWhere(TableName.TEAM,
+				"echest = \"" + Utils.serializeInventory(inventory) + "\"", getCondition());
 
 	}
 
@@ -260,7 +247,7 @@ public class SQLTeamStorage extends TeamStorage {
 	public void removeAlly(UUID ally) {
 		storageManager.getDatabase().deleteRecord(TableName.ALLIES,
 				"(team1ID LIKE '" + team.getID() + "' AND team2ID LIKE '" + ally + "') OR (team1ID LIKE '" + ally
-						+ "' AND team2ID LIKE '" + team.getID() + "'");
+						+ "' AND team2ID LIKE '" + team.getID() + "')");
 	}
 
 	@Override
@@ -285,6 +272,28 @@ public class SQLTeamStorage extends TeamStorage {
 	public void removeWarp(Warp component) {
 		storageManager.getDatabase().deleteRecord(TableName.WARPS,
 				getCondition() + " AND warpInfo LIKE '" + component.toString() + "'");
+	}
+
+	@Override
+	public void promotePlayer(TeamPlayer promotePlayer) {
+		changeRank(promotePlayer);
+	}
+
+	@Override
+	public void demotePlayer(TeamPlayer demotePlayer) {
+		changeRank(demotePlayer);
+	}
+
+	private void changeRank(TeamPlayer player) {
+		storageManager.getDatabase().updateRecordWhere(TableName.PLAYERS, "playerRank = " + player.getRank().value,
+				"playerUUID = '" + player.getPlayer().getUniqueId() + "'");
+
+	}
+
+	@Override
+	public void setTitle(TeamPlayer player) {
+		storageManager.getDatabase().updateRecordWhere(TableName.PLAYERS, "title = '" + player.getTitle() + "'",
+				"playerUUID = '" + player.getPlayer().getUniqueId() + "'");
 	}
 
 	@Override

@@ -165,4 +165,10 @@ public abstract class TeamStorage {
 	public abstract void addWarp(Warp component);
 
 	public abstract void removeWarp(Warp component);
+
+	public abstract void promotePlayer(TeamPlayer promotePlayer);
+
+	public abstract void demotePlayer(TeamPlayer demotePlayer);
+
+	public abstract void setTitle(TeamPlayer player);
 }

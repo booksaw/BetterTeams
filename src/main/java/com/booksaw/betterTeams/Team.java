@@ -827,7 +827,7 @@ public class Team {
 		}
 
 		promotePlayer.setRank(newRank);
-
+		storage.promotePlayer(promotePlayer);
 		savePlayers();
 	}
 
@@ -855,6 +855,7 @@ public class Team {
 		}
 
 		demotePlayer.setRank(newRank);
+		storage.demotePlayer(demotePlayer);
 		savePlayers();
 	}
 
@@ -1107,6 +1108,7 @@ public class Team {
 
 	public void setTitle(TeamPlayer player, String title) {
 		player.setTitle(title);
+		storage.setTitle(player);
 		savePlayers();
 	}
 

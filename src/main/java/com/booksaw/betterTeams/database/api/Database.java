@@ -125,8 +125,8 @@ public class Database {
 			statement = statement.replaceFirst("\\?", placeholders[i]);
 		}
 
-		statement = statement.replace("false", "0");
-		statement = statement.replace("true", "1");
+		statement = statement.replace("'false'", "false");
+		statement = statement.replace("'true'", "true");
 
 		try (PreparedStatement ps = connection.prepareStatement(statement)) {
 			System.out.println("executing:  " + ps.toString());
