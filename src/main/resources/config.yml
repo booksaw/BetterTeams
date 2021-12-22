@@ -92,7 +92,7 @@ maxTagLength: 12
 maxTitleLength: 10 
 
 # This is used to toggle if teams can attack members of their own team
-# - If this is enabled, memebers of the same team will not be able to damage each other
+# - If this is enabled, members of the same team will not be able to damage each other
 # - If you change this feature, you will need to restart the server for the value to update (does not work with /teama realod)
 # 
 # Possible values: [true, false]

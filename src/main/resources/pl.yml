@@ -365,7 +365,7 @@ command:
   open: open
   info: info
   kick: wyrzuc
-  promote: awnasuj
+  promote: awanasuj
   demote: degraduj
   home: home
   sethome: sethome
