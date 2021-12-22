@@ -388,7 +388,7 @@ purgeCommands:
 # 
 # Possible values: [{dateOfMonth}:{Hour of day}]
 autoPurge: 
-#- 1:6
+#- '1:6'
 # This will purge the users score at 6am on the first of every month
 
 # The amount of time after an event occurs that repeat events are classed as spam

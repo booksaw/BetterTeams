@@ -480,6 +480,7 @@ Bug Fixes:
 - Fixed case sensitivity issues with player names (#288)
 - Fixed bug causing NoSuchMethod error with "@" in commands (#287)
 - Fixed bug causing rebuildLookups to not work as expected (#286)
+- Fixed bug and documentation with autoPurge (#285)
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
