@@ -89,6 +89,12 @@ public class BetterTeamsDatabase extends Database {
 				joinTable.toString(), columToJoin, orderBy);
 	}
 
+	public ResultSet selectInnerJoinGroupByOrder(String select, TableName table, TableName joinTable,
+			String columToJoin, String groupBy, String orderBy) {
+		return executeQuery("SELECT ? FROM ? INNER JOIN ? on (?) GROUP BY ? ORDER BY ?;", select, table.toString(),
+				joinTable.toString(), columToJoin, groupBy, orderBy);
+	}
+
 	/**
 	 * Used to check if an SQL query has a result
 	 * 

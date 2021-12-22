@@ -129,6 +129,7 @@ public class Database {
 		statement = statement.replace("'true'", "true");
 
 		try (PreparedStatement ps = connection.prepareStatement(statement)) {
+//			System.out.println("executing: " + ps.toString());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			Bukkit.getLogger().severe("Something went wrong while executing SQL");
@@ -151,6 +152,7 @@ public class Database {
 
 		try {
 			PreparedStatement ps = connection.prepareStatement(query);
+//			System.out.println("executing: " + ps.toString());
 			return ps.executeQuery();
 		} catch (SQLException e) {
 			Bukkit.getLogger().severe("Something went wrong while executing SQL");

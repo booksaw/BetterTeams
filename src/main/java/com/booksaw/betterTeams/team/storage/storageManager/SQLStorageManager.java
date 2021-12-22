@@ -185,9 +185,9 @@ public class SQLStorageManager extends TeamManager implements Listener {
 
 	@Override
 	public String[] sortTeamsByMembers() {
-		ResultSet results = database.selectInnerJoinOrder("name, COUNT(" + TableName.PLAYERS + ".playerUUID)",
+		ResultSet results = database.selectInnerJoinGroupByOrder("name, COUNT(" + TableName.PLAYERS + ".playerUUID)",
 				TableName.TEAM, TableName.PLAYERS, TableName.TEAM + ".teamID = " + TableName.PLAYERS + ".teamID",
-				"COUNT(" + TableName.PLAYERS + ".playerUUID)");
+				"name", "COUNT(" + TableName.PLAYERS + ".playerUUID) DESC");
 
 		return getTeamsFromResultSet(results);
 	}
