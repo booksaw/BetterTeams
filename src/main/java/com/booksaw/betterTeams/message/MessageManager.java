@@ -278,8 +278,23 @@ public class MessageManager {
 	 * @param message the message to send to that user
 	 */
 	public static void sendFullMessage(CommandSender sender, String message) {
+		sendFullMessage(sender, message, true);
+	}
 
-		sender.sendMessage(prefix + message);
+	/**
+	 * Used when you are sending a user a message instead of a message loaded from a
+	 * file
+	 * 
+	 * @param sender  the player who sent the command
+	 * @param message The message to send to that user
+	 * @param prefix  The prefix for that message
+	 */
+	public static void sendFullMessage(CommandSender sender, String message, boolean prefix) {
+		if (prefix) {
+			sender.sendMessage(prefix + message);
+		} else {
+			sender.sendMessage(message);
+		}
 	}
 
 	public static File getFile() {

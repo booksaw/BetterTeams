@@ -974,7 +974,7 @@ public class Team {
 		fMessage = fMessage.replace("$name$", sender.getPrefix(returnTo) + sender.getPlayer().getPlayer().getName());
 		fMessage = fMessage.replace("$message$", message);
 
-		Message messageI = new StaticMessage(fMessage);
+		Message messageI = new StaticMessage(fMessage, false);
 		members.broadcastMessage(messageI);
 
 		for (UUID ally : allies.getClone()) {

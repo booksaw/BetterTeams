@@ -475,6 +475,7 @@ Improvements
 - Added a teleport to player option in /teama teleport (#269)
 - Improved the output of /teama version to include more information (#296)
 - Added placeholder %betterteams_inteam% to identify if a player is in a team (#290) 
+- Added consistency on prefixing ally chat and team chat (#268)
 
 Bug Fixes: 
 - Fixed bug with players getting kicked out of teams when running /teama create (#292)
