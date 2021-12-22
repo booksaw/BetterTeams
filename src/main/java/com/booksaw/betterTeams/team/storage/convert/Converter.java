@@ -16,6 +16,10 @@ public abstract class Converter {
 			if (to == StorageType.YAML) {
 				return new FlatFileToYaml();
 			}
+		} else if (from == StorageType.YAML) {
+			if (to == StorageType.SQL) {
+				return new YamlToSql();
+			}
 		}
 
 		return null;

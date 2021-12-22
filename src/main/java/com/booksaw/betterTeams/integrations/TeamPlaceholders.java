@@ -61,7 +61,9 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 			if (team == null) {
 				return MessageManager.getMessage("placeholder.noTeam");
 			}
-
+			System.out.println("unformatted message: (" + MessageManager.getMessage(player, "placeholder.name") + ")");
+			System.out.println("formatted message: ("
+					+ String.format(MessageManager.getMessage(player, "placeholder.name"), team.getName()) + ")");
 			return String.format(MessageManager.getMessage(player, "placeholder.name"), team.getName());
 		} else if (identifier.equals("tag")) {
 			Team team = Team.getTeam(player);

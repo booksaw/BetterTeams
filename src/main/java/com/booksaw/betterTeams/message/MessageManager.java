@@ -248,9 +248,11 @@ public class MessageManager {
 	public static String getMessage(CommandSender sender, String reference) {
 		try {
 			String msg = getMessage(reference);
+			System.out.println("got message = (" + msg + ")");
 			if (sender instanceof Player && Main.placeholderAPI) {
 				msg = PlaceholderAPI.setPlaceholders((Player) sender, msg);
 			}
+			System.out.println("message after setting placeholders (" + msg + ")");
 			return ChatColor.translateAlternateColorCodes('&', msg);
 		} catch (NullPointerException e) {
 			Bukkit.getLogger().warning("Could not find the message with the reference " + reference);
