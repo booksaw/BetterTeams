@@ -25,6 +25,8 @@ placeholder.default: Default
 placeholder.name: '%s'
 placeholder.tag: '%s'
 placeholder.displayname: '%s'
+placeholder.inteam: 'true'
+placeholder.notinteam: 'false'
 prefix.owner: ' **'
 prefix.admin: ' *'
 prefix.default: ' '

@@ -208,6 +208,12 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 
 		} else if (identifier.startsWith("position_")) {
 			return position(player, identifier);
+		} else if (identifier.equals("inteam")) {
+			if (Team.getTeamManager().isInTeam(player)) {
+				return MessageManager.getMessage("placeholder.inteam");
+			} else {
+				return MessageManager.getMessage("placeholder.notInTeam");
+			}
 		}
 
 		return null;
