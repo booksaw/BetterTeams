@@ -1,14 +1,14 @@
 package com.booksaw.betterTeams.commands.teama;
 
+import java.util.List;
+
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.SubCommand;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
-import java.util.List;
-import java.util.Objects;
 
 public class CreateTeama extends SubCommand {
 
@@ -32,9 +32,9 @@ public class CreateTeama extends SubCommand {
 			return new CommandResponse("create.exists");
 		}
 
-		Team.getTeamManager().createNewTeam(args[0], (Player) sender);
-		Team team = Team.getTeam(args[0]);
-		Objects.requireNonNull(team).removePlayer((Player) sender);
+		Team.getTeamManager().createNewTeam(args[0], (Player) null);
+//		Team team = Team.getTeam(args[0]);
+//		Objects.requireNonNull(team).removePlayer((Player) sender);
 
 		return new CommandResponse(true, "admin.create.success");
 	}
@@ -74,11 +74,6 @@ public class CreateTeama extends SubCommand {
 		if (args.length == 1) {
 			options.add("<team>");
 		}
-	}
-
-	@Override
-	public boolean needPlayer() {
-		return true;
 	}
 
 }

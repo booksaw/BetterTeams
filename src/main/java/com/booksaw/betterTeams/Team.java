@@ -420,7 +420,9 @@ public class Team {
 		allies = new AllyListComponent();
 
 		members = new MemberListComponent();
-		members.add(this, new TeamPlayer(owner, PlayerRank.OWNER));
+		if (owner != null) {
+			members.add(this, new TeamPlayer(owner, PlayerRank.OWNER));
+		}
 
 		score = new ScoreComponent();
 		money = new MoneyComponent();

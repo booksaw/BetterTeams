@@ -474,6 +474,9 @@ Features:
 Improvements
 - Added a teleport to player option in /teama teleport (#269)
 
+Bug Fixes: 
+- Fixed bug with players getting kicked out of teams when running /teama create (#292)
+
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
 Headings: 

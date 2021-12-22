@@ -166,7 +166,7 @@ public abstract class TeamManager {
 		loadedTeams.put(id, team);
 		registerNewTeam(team, owner);
 
-		if (Main.plugin.teamManagement != null) {
+		if (Main.plugin.teamManagement != null && owner != null) {
 			Main.plugin.teamManagement.displayBelowName(owner);
 		}
 
