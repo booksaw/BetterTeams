@@ -31,7 +31,7 @@ public class Utils {
 				continue;
 			}
 
-			if (player.getName().equals(name)) {
+			if (player.getName().equalsIgnoreCase(name)) {
 				return player;
 			}
 		}

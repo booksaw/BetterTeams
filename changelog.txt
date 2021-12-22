@@ -476,6 +476,7 @@ Improvements
 
 Bug Fixes: 
 - Fixed bug with players getting kicked out of teams when running /teama create (#292)
+- Fixed case sensitivity issues with player names (#288)
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
