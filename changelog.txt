@@ -473,6 +473,7 @@ Features:
 
 Improvements
 - Added a teleport to player option in /teama teleport (#269)
+- Improved the output of /teama version to include more information (#296)
 
 Bug Fixes: 
 - Fixed bug with players getting kicked out of teams when running /teama create (#292)

@@ -2,7 +2,9 @@ package com.booksaw.betterTeams.commands.teama;
 
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Main;
+import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.SubCommand;
+import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
 import org.bukkit.command.CommandSender;
 
@@ -12,6 +14,8 @@ public class VersionTeama extends SubCommand {
 
 	@Override
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
+		MessageManager.sendMessageF(sender, "admin.versionstorage", Team.getTeamManager().getClass().getName());
+		MessageManager.sendMessageF(sender, "admin.versionversion", Main.plugin.getServer().getVersion());
 		return new CommandResponse(true,
 				new ReferencedFormatMessage("admin.version", Main.plugin.getDescription().getVersion() + ""));
 	}
