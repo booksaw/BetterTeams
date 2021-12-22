@@ -85,14 +85,18 @@ public class BooksawCommand extends BukkitCommand {
 			}
 			// a selector is found
 			boolean found = false;
-			for (Entity e : Bukkit.selectEntities(sender, str)) {
-				if (e instanceof Player) {
-					found = true;
-					String[] newArgs = args.clone();
-					newArgs[i] = e.getName();
-					execute(sender, label, newArgs);
+			try {
+				for (Entity e : Bukkit.selectEntities(sender, str)) {
+					if (e instanceof Player) {
+						found = true;
+						String[] newArgs = args.clone();
+						newArgs[i] = e.getName();
+						execute(sender, label, newArgs);
 
+					}
 				}
+			} catch (Exception e) {
+				return false;
 			}
 
 			return found;
