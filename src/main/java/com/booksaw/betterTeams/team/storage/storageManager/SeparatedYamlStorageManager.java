@@ -446,7 +446,14 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 
 			UUID teamUUID = UUID.fromString(f.getName().replace(".yml", ""));
 
-			teamNameLookup.put(config.getString(StoredTeamValue.NAME.getReference()).toLowerCase(), teamUUID);
+			String teamName = config.getString(StoredTeamValue.NAME.getReference()).toLowerCase();
+
+			// the file is invalid
+			if (teamName == null || teamName.length() == 0) {
+				continue;
+			}
+
+			teamNameLookup.put(teamName, teamUUID);
 
 			for (String str : config.getStringList("players")) {
 				UUID playerUUID = UUID.fromString(str.split(",")[0]);
