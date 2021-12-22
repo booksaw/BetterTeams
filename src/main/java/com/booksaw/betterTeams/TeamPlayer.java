@@ -45,6 +45,13 @@ public class TeamPlayer {
 		teamChat = false;
 	}
 
+	public TeamPlayer(OfflinePlayer player, PlayerRank rank, String title) {
+		this.playerUUID = player.getUniqueId();
+		this.rank = rank;
+		this.title = title;
+		teamChat = false;
+	}
+
 	/**
 	 * Used to load player information relating to that player
 	 *

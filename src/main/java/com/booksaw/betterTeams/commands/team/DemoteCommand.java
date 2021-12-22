@@ -48,7 +48,7 @@ public class DemoteCommand extends TeamSubCommand {
 		}
 
 		// checking there is another owner
-		if (teamPlayer.getRank() == PlayerRank.OWNER && team.getRank(PlayerRank.OWNER).size() == 1) {
+		if (demotePlayer.getRank() == PlayerRank.OWNER && team.getRank(PlayerRank.OWNER).size() == 1) {
 			return new CommandResponse("demote.lastOwner");
 		}
 		// all is good, continue to demotion

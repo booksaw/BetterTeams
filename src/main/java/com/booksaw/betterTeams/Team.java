@@ -73,6 +73,7 @@ public class Team {
 	 * Used to disable betterteams so the singleton is removed
 	 */
 	public static final void disable() {
+		TEAMMANAGER.disable();
 		TEAMMANAGER = null;
 	}
 
@@ -389,11 +390,13 @@ public class Team {
 
 		}
 
+		this.name = name;
+
 		storage = TEAMMANAGER.createNewTeamStorage(this);
 
 		storage.set(StoredTeamValue.NAME, name);
 		storage.set(StoredTeamValue.DESCRIPTION, "");
-		this.name = name;
+
 		this.description = "";
 
 		storage.set(StoredTeamValue.OPEN, false);
@@ -824,7 +827,7 @@ public class Team {
 		}
 
 		promotePlayer.setRank(newRank);
-
+		storage.promotePlayer(promotePlayer);
 		savePlayers();
 	}
 
@@ -852,6 +855,7 @@ public class Team {
 		}
 
 		demotePlayer.setRank(newRank);
+		storage.demotePlayer(demotePlayer);
 		savePlayers();
 	}
 
@@ -1104,6 +1108,7 @@ public class Team {
 
 	public void setTitle(TeamPlayer player, String title) {
 		player.setTitle(title);
+		storage.setTitle(player);
 		savePlayers();
 	}
 

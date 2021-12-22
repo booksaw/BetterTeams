@@ -468,6 +468,9 @@ Bug Fixes:
 
 4.3.0:
 
+Features: 
+- Added SQL support for storage (#255)
+
 Improvements
 - Added a teleport to player option in /teama teleport (#269)
 

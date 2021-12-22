@@ -1,12 +1,16 @@
 package com.booksaw.betterTeams.team.storage.team;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.TeamPlayer;
+import com.booksaw.betterTeams.Warp;
 import com.booksaw.betterTeams.team.storage.storageManager.YamlStorageManager;
 
 public abstract class YamlTeamStorage extends TeamStorage {
@@ -45,8 +49,15 @@ public abstract class YamlTeamStorage extends TeamStorage {
 	}
 
 	@Override
-	public List<String> getPlayerList() {
-		return getConfig().getStringList("players");
+	public List<TeamPlayer> getPlayerList() {
+		List<String> lst = getConfig().getStringList("players");
+		List<TeamPlayer> toReturn = new ArrayList<>();
+
+		for (String temp : lst) {
+			toReturn.add(new TeamPlayer(temp));
+		}
+
+		return toReturn;
 	}
 
 	@Override
@@ -139,4 +150,59 @@ public abstract class YamlTeamStorage extends TeamStorage {
 	 * Used to save whaver needs saving when a change is made
 	 */
 	protected abstract void saveFile();
+
+	@Override
+	public void addBan(UUID component) {
+		// not needed
+	}
+
+	@Override
+	public void removeBan(UUID component) {
+		// not needed
+	}
+
+	@Override
+	public void addAlly(UUID ally) {
+		// not needed
+	}
+
+	@Override
+	public void removeAlly(UUID ally) {
+		// not needed
+	}
+
+	@Override
+	public void addAllyRequest(UUID requesting) {
+		// not needed
+	}
+
+	@Override
+	public void removeAllyRequest(UUID requesting) {
+		// not needed
+	}
+
+	@Override
+	public void addWarp(Warp component) {
+		// not needed
+	}
+
+	@Override
+	public void removeWarp(Warp component) {
+		// not needed
+	}
+	
+	@Override
+	public void promotePlayer(TeamPlayer promotePlayer) {
+		// not needed 
+	}
+
+	@Override
+	public void demotePlayer(TeamPlayer demotePlayer) {
+		// not needed
+	}
+	
+	@Override
+	public void setTitle(TeamPlayer player) {
+		// not needed
+	}
 }

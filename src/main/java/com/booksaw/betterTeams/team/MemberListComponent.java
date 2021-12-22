@@ -73,7 +73,7 @@ public class MemberListComponent extends TeamPlayerListComponent {
 
 	@Override
 	public void load(TeamStorage section) {
-		load(section.getPlayerList());
+		list = section.getPlayerList();
 	}
 
 	@Override
