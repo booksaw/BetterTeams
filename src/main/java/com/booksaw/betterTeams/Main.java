@@ -126,11 +126,12 @@ public class Main extends JavaPlugin {
 		if (Bukkit.getPluginManager().getPlugin("WorldGuard") != null
 				&& configManager.config.getBoolean("worldGuard.enabled")) {
 			char ver = Bukkit.getPluginManager().getPlugin("WorldGuard").getDescription().getVersion().charAt(0);
-			if (ver == 7) {
+			if (ver == '7') {
 				wgManagement = new WorldGaurdManagerV7();
 			} else {
-				Bukkit.getLogger().warning(
-						"[BetterTeams] Your version of worldgaurd is not yet supported, the betterteams flags will not be usable");
+				Bukkit.getLogger().warning("[BetterTeams] Your version of worldgaurd ("
+						+ Bukkit.getPluginManager().getPlugin("WorldGuard").getDescription().getVersion()
+						+ ") is not yet supported (Currently supported: version 7.x.x), the betterteams flags will not be usable");
 			}
 		}
 	}

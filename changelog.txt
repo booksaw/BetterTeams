@@ -486,6 +486,7 @@ Bug Fixes:
 - Fixed bug and documentation with autoPurge (#285)
 - Fixed typo in Polish Translations (credit: Duplon)
 - Fixed typo in config.yml (credit: SecretAgent002)
+- Fixed bug causing Worldgaurd not to enable correctly
 
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
