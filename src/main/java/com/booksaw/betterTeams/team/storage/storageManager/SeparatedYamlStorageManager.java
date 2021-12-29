@@ -129,6 +129,10 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 	}
 
 	public void unloadTeam(UUID uuid) {
+		Team team = Team.getTeam(uuid);
+		if(team.getScoreboardTeamOrNull() != null) {
+			team.getScoreboardTeamOrNull().unregister();
+		}
 		loadedTeams.remove(uuid);
 	}
 
