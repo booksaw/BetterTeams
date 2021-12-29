@@ -489,6 +489,9 @@ Bug Fixes:
 - Fixed bug causing Worldgaurd not to enable correctly (#273)
 - Fixed bug causing scoreboard teams to not be deleted properly (#289 #274)
 
+4.3.1: 
+Bug Fixes:
+- Removed unwanted debug output
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
 Headings: 
