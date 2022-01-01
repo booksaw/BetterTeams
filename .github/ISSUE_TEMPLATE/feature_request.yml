@@ -16,7 +16,7 @@ body:
       This simply means features may take some time to be added particually if they are larger.
       
       Please note if your feature request is releated to another premium plugin there may be more difficulties in adding that feature, as I would need to gain access to the plugin
-- type: markdown
+- type: textarea
   attributes:
     label: "What is the feature request for?"
     description: "Make sure you are as specific as you can be, else a similar feature to what you want may be added, but not the feature you actually want"
