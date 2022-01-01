@@ -23,11 +23,11 @@ body:
   validations:
     required: true
 - type: input
-    attributes:
-      label: "Relevant links"
-      description: Add links to any relevant plugins / examples of what you mean etc.
+  attributes:
+    label: "Relevant links"
+    description: Add links to any relevant plugins / examples of what you mean etc.
 - type: textarea
-    attributes: 
-      label: "Additional Information"
-      description: "Add any extra information that you think has not yet been covered"
+  attributes: 
+    label: "Additional Information"
+    description: "Add any extra information that you think has not yet been covered"
 
