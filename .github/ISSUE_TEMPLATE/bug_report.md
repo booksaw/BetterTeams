@@ -1,11 +1,9 @@
----
 name: Bug report
 description: Create a report to help us improve
 title: "[BUG]"
 labels: bug
 assignees: booksaw
 
----
 body:
 - type: markdown
   attributes:
