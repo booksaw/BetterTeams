@@ -65,6 +65,12 @@
 			<artifactId>worldguard-bukkit</artifactId>
 			<version>7.0.4</version>
 			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>io.papermc</groupId>
+					<artifactId>paperlib</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
 	<build>
