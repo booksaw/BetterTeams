@@ -495,6 +495,10 @@ Bug Fixes:
 TODO (any TODO which is not specifically code), mainly used for reminders to update documentation
 
 4.3.2:
+
+Improvements:
+- Added placeholder %betterteams_title% (#300)
+
 Bug Fixes: 
 - Fixed bug with players leaving the game (#303)
 

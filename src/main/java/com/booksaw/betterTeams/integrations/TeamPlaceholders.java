@@ -1,6 +1,7 @@
 package com.booksaw.betterTeams.integrations;
 
 import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.message.MessageManager;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.entity.Player;
@@ -152,6 +153,21 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 			}
 
 			return String.valueOf(team.getOnlineMemebers().size());
+		} else if(identifier.equals("title")) {
+			Team team = Team.getTeam(player);
+
+			if (team == null) {
+				return MessageManager.getMessage("placeholder.noTeam");
+			}
+			
+			TeamPlayer tp = team.getTeamPlayer(player);
+			
+			if(tp.getTitle() == null || tp.getTitle().length() == 0) {
+				return MessageManager.getMessage("placeholder.noTitle");
+			}
+			
+			return tp.getTitle();
+			
 		} else if (identifier.startsWith("members_")) {
 			String teamName = identifier.split("_")[1];
 			Team team = Team.getTeam(teamName);
