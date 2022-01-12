@@ -5,7 +5,6 @@ import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.logging.Level;
 
-import com.booksaw.betterTeams.commands.teama.*;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -58,6 +57,33 @@ import com.booksaw.betterTeams.commands.team.WithdrawCommand;
 import com.booksaw.betterTeams.commands.team.chest.ChestClaimCommand;
 import com.booksaw.betterTeams.commands.team.chest.ChestRemoveCommand;
 import com.booksaw.betterTeams.commands.team.chest.ChestRemoveallCommand;
+import com.booksaw.betterTeams.commands.teama.ChatSpyTeama;
+import com.booksaw.betterTeams.commands.teama.ColorTeama;
+import com.booksaw.betterTeams.commands.teama.CreateHoloTeama;
+import com.booksaw.betterTeams.commands.teama.CreateTeama;
+import com.booksaw.betterTeams.commands.teama.DelwarpTeama;
+import com.booksaw.betterTeams.commands.teama.DemoteTeama;
+import com.booksaw.betterTeams.commands.teama.DescriptionTeama;
+import com.booksaw.betterTeams.commands.teama.DisbandTeama;
+import com.booksaw.betterTeams.commands.teama.EchestTeama;
+import com.booksaw.betterTeams.commands.teama.HomeTeama;
+import com.booksaw.betterTeams.commands.teama.InviteTeama;
+import com.booksaw.betterTeams.commands.teama.JoinTeama;
+import com.booksaw.betterTeams.commands.teama.LeaveTeama;
+import com.booksaw.betterTeams.commands.teama.NameTeama;
+import com.booksaw.betterTeams.commands.teama.OpenTeama;
+import com.booksaw.betterTeams.commands.teama.PromoteTeama;
+import com.booksaw.betterTeams.commands.teama.PurgeTeama;
+import com.booksaw.betterTeams.commands.teama.ReloadTeama;
+import com.booksaw.betterTeams.commands.teama.RemoveHoloTeama;
+import com.booksaw.betterTeams.commands.teama.SetOwnerTeama;
+import com.booksaw.betterTeams.commands.teama.SetrankTeama;
+import com.booksaw.betterTeams.commands.teama.SetwarpTeama;
+import com.booksaw.betterTeams.commands.teama.TagTeama;
+import com.booksaw.betterTeams.commands.teama.TeleportTeama;
+import com.booksaw.betterTeams.commands.teama.TitleTeama;
+import com.booksaw.betterTeams.commands.teama.VersionTeama;
+import com.booksaw.betterTeams.commands.teama.WarpTeama;
 import com.booksaw.betterTeams.commands.teama.chest.ChestClaimTeama;
 import com.booksaw.betterTeams.commands.teama.chest.ChestDisableClaims;
 import com.booksaw.betterTeams.commands.teama.chest.ChestEnableClaims;
@@ -403,6 +429,7 @@ public class Main extends JavaPlugin {
 			int pluginId = 7855;
 			metrics = new Metrics(this, pluginId);
 			metrics.addCustomChart(new Metrics.SimplePie("language", () -> getConfig().getString("language")));
+			metrics.addCustomChart(new Metrics.SimplePie("storage_type", () -> getConfig().getString("storageType")));
 		}
 	}
 

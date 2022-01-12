@@ -498,6 +498,7 @@ TODO (any TODO which is not specifically code), mainly used for reminders to upd
 
 Improvements:
 - Added placeholder %betterteams_title% (#300)
+- Added pie chart to bstats to check storage type (#297)
 
 Bug Fixes: 
 - Fixed bug with players leaving the game (#303)
