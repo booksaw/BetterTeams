@@ -507,6 +507,7 @@ Bug Fixes:
 
 Bug Fixes: 
 - Fixed bug with SQL (#309)
+- Fixed bug with ally requests not being removed (#312)
 
 Headings: 
 Features: 

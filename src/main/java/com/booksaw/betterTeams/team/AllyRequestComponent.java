@@ -39,6 +39,8 @@ public class AllyRequestComponent extends UuidListComponent {
 	
 	@Override
 	public void remove(Team team, UUID component) {
+		super.remove(team, component);
+		
 		team.getStorage().removeAllyRequest(component);
 	}
 
