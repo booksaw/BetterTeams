@@ -503,6 +503,11 @@ Improvements:
 Bug Fixes: 
 - Fixed bug with players leaving the game (#303)
 
+4.3.2:
+
+Bug Fixes: 
+- Fixed bug with SQL (#309)
+
 Headings: 
 Features: 
 
