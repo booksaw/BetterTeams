@@ -151,7 +151,7 @@ public class Database {
 		}
 
 		try {
-			PreparedStatement ps = connection.prepareStatement(query);
+			PreparedStatement ps = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 //			System.out.println("executing: " + ps.toString());
 			return ps.executeQuery();
 		} catch (SQLException e) {
