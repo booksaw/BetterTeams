@@ -52,6 +52,11 @@ public class TitleCommand extends TeamSubCommand {
 				&& Objects.requireNonNull(player.getPlayer().getPlayer()).hasPermission("betterteams.title.self"))) {
 			return new CommandResponse("title.noPerm");
 		}
+		
+		if (args[1] == null) {
+			team.setTitle(toTitle, "");
+			return new CommandResponse(true, "title.remove");
+		}
 
 		if (args[1] != null && args[1].length() > Main.plugin.getConfig().getInt("maxTitleLength")) {
 			return new CommandResponse("title.tooLong");
