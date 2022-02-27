@@ -503,11 +503,18 @@ Improvements:
 Bug Fixes: 
 - Fixed bug with players leaving the game (#303)
 
-4.3.2:
+4.3.3:
 
 Bug Fixes: 
 - Fixed bug with SQL (#309)
 - Fixed bug with ally requests not being removed (#312)
+
+4.3.4:
+
+Bug Fixes: 
+- Fixed bug causing offline players to cause the server to lag (#321)
+- Fixed bug when there are no teams made (#318)
+
 
 Headings: 
 Features: 

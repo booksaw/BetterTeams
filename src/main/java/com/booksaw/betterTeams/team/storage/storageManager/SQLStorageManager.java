@@ -3,6 +3,7 @@ package com.booksaw.betterTeams.team.storage.storageManager;
 import java.io.File;
 import java.io.IOException;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
@@ -209,7 +210,12 @@ public class SQLStorageManager extends TeamManager implements Listener {
 
 			List<String> toReturn = new ArrayList<>();
 
-			toReturn.add(results.getString("name"));
+			try {
+				toReturn.add(results.getString("name"));
+			} catch (SQLException e) {
+				// called when no teams have been created
+				return new String[0];
+			}
 
 			while (results.next()) {
 				toReturn.add(results.getString("name"));
