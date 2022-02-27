@@ -134,6 +134,8 @@ public class Main extends JavaPlugin {
 	public WorldGaurdManagerV7 wgManagement;
 	private PermissionParentCommand teamCommand;
 
+	private BooksawCommand teamBooksawCommand;
+
 	private Metrics metrics = null;
 
 	/**
@@ -341,7 +343,7 @@ public class Main extends JavaPlugin {
 		chest.addSubCommands(new ChestClaimCommand(), new ChestRemoveCommand(), new ChestRemoveallCommand());
 		teamCommand.addSubCommand(chest);
 
-		new BooksawCommand("team", teamCommand, "betterteams.standard", "All commands for teams",
+		teamBooksawCommand = new BooksawCommand("team", teamCommand, "betterteams.standard", "All commands for teams",
 				getConfig().getStringList("command.team"));
 
 		ParentCommand teamaCommand = new ParentCommand("teamadmin");
@@ -464,4 +466,9 @@ public class Main extends JavaPlugin {
 		Team.setupTeamManager(to);
 		Team.getTeamManager().loadTeams();
 	}
+
+	public BooksawCommand getTeamBooksawCommand() {
+		return teamBooksawCommand;
+	}
+
 }

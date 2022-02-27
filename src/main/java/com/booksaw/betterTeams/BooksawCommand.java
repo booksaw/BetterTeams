@@ -20,7 +20,7 @@ import java.util.List;
  * @author booksaw
  */
 public class BooksawCommand extends BukkitCommand {
-	private final SubCommand subCommand;
+	private SubCommand subCommand;
 
 	public BooksawCommand(String command, SubCommand subCommand, String permission, String description,
 			List<String> alises) {
@@ -106,5 +106,15 @@ public class BooksawCommand extends BukkitCommand {
 		return false;
 
 	}
+
+	public SubCommand getSubCommand() {
+		return subCommand;
+	}
+
+	public void setSubCommand(SubCommand subCommand) {
+		this.subCommand = subCommand;
+	}
+	
+	
 
 }

@@ -25,17 +25,13 @@ public class Utils {
 	 */
 	public static OfflinePlayer getOfflinePlayer(String name) {
 
-		for (OfflinePlayer player : Bukkit.getOfflinePlayers()) {
-			// somehow the player name can be null in some circumstances
-			if (player.getName() == null) {
-				continue;
-			}
+		@SuppressWarnings("deprecation")
+		OfflinePlayer player = Bukkit.getOfflinePlayer(name);
 
-			if (player.getName().equalsIgnoreCase(name)) {
-				return player;
-			}
+		if (!player.hasPlayedBefore()) {
+			return null;
 		}
-		return null;
+		return player;
 
 	}
 
