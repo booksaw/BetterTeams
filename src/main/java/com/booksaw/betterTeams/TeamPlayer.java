@@ -86,7 +86,6 @@ public class TeamPlayer {
 	/**
 	 * @return The player which is associated with this object
 	 */
-	@NotNull
 	public OfflinePlayer getPlayer() {
 		return Bukkit.getOfflinePlayer(playerUUID);
 	}

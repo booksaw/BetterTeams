@@ -289,8 +289,8 @@ public class MessageManager {
 	 * @param message The message to send to that user
 	 * @param prefix  The prefix for that message
 	 */
-	public static void sendFullMessage(CommandSender sender, String message, boolean prefix) {
-		if (prefix) {
+	public static void sendFullMessage(CommandSender sender, String message, boolean prefixMessage) {
+		if (prefixMessage) {
 			sender.sendMessage(prefix + message);
 		} else {
 			sender.sendMessage(message);

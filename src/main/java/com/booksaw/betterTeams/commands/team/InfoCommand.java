@@ -1,5 +1,6 @@
 package com.booksaw.betterTeams.commands.team;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -24,6 +25,83 @@ import com.booksaw.betterTeams.message.MessageManager;
  * @author booksaw
  */
 public class InfoCommand extends SubCommand {
+
+	public static List<String> getInfoMessages(Team team) {
+		List<String> infoMessages = new ArrayList<>();
+
+		infoMessages.add(String.format(MessageManager.getMessage("info.name"), team.getDisplayName()));
+		if (team.getDescription() != null && !team.getDescription().equals("")) {
+			infoMessages.add(String.format(MessageManager.getMessage("info.description"), team.getDescription()));
+		}
+
+		infoMessages.add(String.format(MessageManager.getMessage("info.open"), team.isOpen() + ""));
+		infoMessages.add(String.format(MessageManager.getMessage("info.score"), team.getScore() + ""));
+		infoMessages.add(String.format(MessageManager.getMessage("info.money"), team.getBalance()));
+		infoMessages.add(String.format(MessageManager.getMessage("info.level"), team.getLevel() + ""));
+		infoMessages.add(String.format(MessageManager.getMessage("info.tag"), team.getTag() + ""));
+
+		String allyMessage = getAlliesMessage(team);
+		if (allyMessage != null) {
+			infoMessages.add(allyMessage);
+		}
+
+		String ownerPlayers = getPlayerList(team, PlayerRank.OWNER);
+		if (ownerPlayers != null) {
+			infoMessages.add(ownerPlayers);
+		}
+
+		String adminPlayers = getPlayerList(team, PlayerRank.ADMIN);
+		if (adminPlayers != null) {
+			infoMessages.add(adminPlayers);
+		}
+
+		String defaultPlayers = getPlayerList(team, PlayerRank.DEFAULT);
+		if (defaultPlayers != null) {
+			infoMessages.add(defaultPlayers);
+		}
+
+		return infoMessages;
+	}
+
+	private static String getAlliesMessage(Team team) {
+		StringBuilder allies = new StringBuilder();
+		for (UUID uuid : team.getAllies().getClone()) {
+			allies.append(Objects.requireNonNull(Team.getTeam(uuid)).getDisplayName()).append(ChatColor.WHITE)
+					.append(", ");
+		}
+		if (allies.length() > 2) {
+			allies = new StringBuilder(allies.substring(0, allies.length() - 2));
+
+			return String.format(MessageManager.getMessage("info.ally"), allies.toString());
+		}
+		return null;
+	}
+
+	private static String getPlayerList(Team team, PlayerRank rank) {
+		List<TeamPlayer> users = team.getRank(rank);
+
+		if (!users.isEmpty()) {
+			StringBuilder userStr = new StringBuilder();
+			ChatColor returnTo = ChatColor.RESET;
+			String toTest = MessageManager.getMessage("info." + rank.toString().toLowerCase());
+			if (toTest.length() > 1) {
+				for (int i = toTest.length() - 1; i >= 0; i--) {
+					if (toTest.charAt(i) == '\u00A7') {
+						returnTo = ChatColor.getByChar(toTest.charAt(i + 1));
+						break;
+					}
+				}
+			}
+			for (TeamPlayer player : users) {
+				userStr.append(player.getPrefix(returnTo)).append(player.getPlayer().getName()).append(" ");
+			}
+
+			return String.format(MessageManager.getMessage("info." + rank.toString().toLowerCase()),
+					userStr.toString());
+		}
+
+		return null;
+	}
 
 	@Override
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
@@ -68,91 +146,11 @@ public class InfoCommand extends SubCommand {
 	}
 
 	private void displayTeamInfo(CommandSender sender, Team team) {
-		MessageManager.sendMessageF(sender, "info.name", team.getDisplayName());
-		if (team.getDescription() != null && !team.getDescription().equals("")) {
-			MessageManager.sendMessageF(sender, "info.description", team.getDescription());
+		List<String> toDisplay = getInfoMessages(team);
+
+		for (String str : toDisplay) {
+			MessageManager.sendFullMessage(sender, str);
 		}
-
-		MessageManager.sendMessageF(sender, "info.open", team.isOpen() + "");
-		MessageManager.sendMessageF(sender, "info.score", team.getScore() + "");
-		MessageManager.sendMessageF(sender, "info.money", team.getBalance());
-		MessageManager.sendMessageF(sender, "info.level", team.getLevel() + "");
-		MessageManager.sendMessageF(sender, "info.tag", team.getTag() + "");
-
-		StringBuilder allies = new StringBuilder();
-		for (UUID uuid : team.getAllies().getClone()) {
-			allies.append(Objects.requireNonNull(Team.getTeam(uuid)).getDisplayName()).append(ChatColor.WHITE)
-					.append(", ");
-		}
-		if (allies.length() > 2) {
-			allies = new StringBuilder(allies.substring(0, allies.length() - 2));
-
-			MessageManager.sendMessageF(sender, "info.ally", allies.toString());
-		}
-
-		List<TeamPlayer> owners = team.getRank(PlayerRank.OWNER);
-
-		if (owners.size() > 0) {
-			StringBuilder ownerStr = new StringBuilder();
-			ChatColor returnTo = ChatColor.RESET;
-			String toTest = MessageManager.getMessage("info.owner");
-			if (toTest.length() > 1) {
-				for (int i = toTest.length() - 1; i >= 0; i--) {
-					if (toTest.charAt(i) == '\u00A7') {
-						returnTo = ChatColor.getByChar(toTest.charAt(i + 1));
-						break;
-					}
-				}
-			}
-
-			for (TeamPlayer player : owners) {
-				ownerStr.append(player.getPrefix(returnTo)).append(player.getPlayer().getName()).append(" ");
-			}
-			MessageManager.sendMessageF(sender, "info.owner", ownerStr.toString());
-		}
-
-		List<TeamPlayer> admins = team.getRank(PlayerRank.ADMIN);
-
-		if (admins.size() > 0) {
-			StringBuilder adminStr = new StringBuilder();
-			ChatColor returnTo = ChatColor.RESET;
-			String toTest = MessageManager.getMessage("info.admin");
-			if (toTest.length() > 1) {
-				for (int i = toTest.length() - 1; i >= 0; i--) {
-					if (toTest.charAt(i) == '\u00A7') {
-						returnTo = ChatColor.getByChar(toTest.charAt(i + 1));
-						break;
-					}
-				}
-			}
-			for (TeamPlayer player : admins) {
-				adminStr.append(player.getPrefix(returnTo)).append(player.getPlayer().getName()).append(" ");
-			}
-
-			MessageManager.sendMessageF(sender, "info.admin", adminStr.toString());
-		}
-
-		List<TeamPlayer> users = team.getRank(PlayerRank.DEFAULT);
-
-		if (users.size() > 0) {
-			StringBuilder userStr = new StringBuilder();
-			ChatColor returnTo = ChatColor.RESET;
-			String toTest = MessageManager.getMessage("info.default");
-			if (toTest.length() > 1) {
-				for (int i = toTest.length() - 1; i >= 0; i--) {
-					if (toTest.charAt(i) == '\u00A7') {
-						returnTo = ChatColor.getByChar(toTest.charAt(i + 1));
-						break;
-					}
-				}
-			}
-			for (TeamPlayer player : users) {
-				userStr.append(player.getPrefix(returnTo)).append(player.getPlayer().getName()).append(" ");
-			}
-
-			MessageManager.sendMessageF(sender, "info.default", userStr.toString());
-		}
-
 	}
 
 	@Override

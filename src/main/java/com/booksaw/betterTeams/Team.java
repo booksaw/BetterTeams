@@ -19,7 +19,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
-import org.jetbrains.annotations.NotNull;
 
 import com.booksaw.betterTeams.customEvents.DemotePlayerEvent;
 import com.booksaw.betterTeams.customEvents.DisbandTeamEvent;
@@ -81,23 +80,19 @@ public class Team {
 		return TEAMMANAGER;
 	}
 
-	@Nullable
-	public static Team getTeam(@NotNull UUID uuid) {
+	public static Team getTeam(UUID uuid) {
 		return TEAMMANAGER.getTeam(uuid);
 	}
 
-	@Nullable
-	public static Team getTeam(@NotNull String name) {
+	public static Team getTeam(String name) {
 		return TEAMMANAGER.getTeam(name);
 	}
 
-	@Nullable
-	public static Team getTeam(@NotNull OfflinePlayer player) {
+	public static Team getTeam(OfflinePlayer player) {
 		return TEAMMANAGER.getTeam(player);
 	}
 
-	@Nullable
-	public static Team getTeamByName(@NotNull String name) {
+	public static Team getTeamByName(String name) {
 		return TEAMMANAGER.getTeamByName(name);
 	}
 

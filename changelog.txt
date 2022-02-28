@@ -515,6 +515,10 @@ Bug Fixes:
 - Fixed bug causing offline players to cause the server to lag (#321)
 - Fixed bug when there are no teams made (#318)
 
+4.3.5: 
+
+Bug Fixes: 
+- Fixed bug where some messages would display with "true" before them
 
 Headings: 
 Features: 
