@@ -9,6 +9,7 @@ exemptLabels:
   - enhancement (small)
   - enhancement (medium)
   - enhancement (large)
+  - enhancement (dependency)
   - enhancement (uncategorised)
 
 # Label to use when marking an issue as stale
