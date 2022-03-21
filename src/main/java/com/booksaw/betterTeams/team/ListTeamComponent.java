@@ -74,7 +74,7 @@ public abstract class ListTeamComponent<T> implements TeamComponent<List<T>> {
 	public void add(Team team, T component) {
 		list.add(component);
 	}
-
+ 
 	/**
 	 * Used to remove a component from this component list
 	 * 
