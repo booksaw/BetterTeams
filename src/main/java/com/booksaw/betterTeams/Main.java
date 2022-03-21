@@ -471,4 +471,8 @@ public class Main extends JavaPlugin {
 		return teamBooksawCommand;
 	}
 
+	public PermissionParentCommand getTeamCommand() {
+		return teamCommand;
+	}
+
 }

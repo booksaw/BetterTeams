@@ -68,7 +68,7 @@ public abstract class TeamSubCommand extends SubCommand {
 		this.requiredRank = requiredRank;
 	}
 
-	protected CommandResponse checkRank(TeamPlayer player) {
+	public CommandResponse checkRank(TeamPlayer player) {
 		return checkRank(player, requiredRank);
 	}
 
