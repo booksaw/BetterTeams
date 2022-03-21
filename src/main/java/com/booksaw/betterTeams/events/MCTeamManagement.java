@@ -26,7 +26,7 @@ public class MCTeamManagement implements Listener {
 	/**
 	 * Used to track a list of all listeners
 	 *
-	 * @see BelowNameChangeListener
+	 * @param type The type prefixing that should be done
 	 */
 	public MCTeamManagement(BelowNameType type) {
 		this.type = type;

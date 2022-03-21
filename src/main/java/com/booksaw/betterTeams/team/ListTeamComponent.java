@@ -68,6 +68,7 @@ public abstract class ListTeamComponent<T> implements TeamComponent<List<T>> {
 	/**
 	 * Used to add a component to this component list
 	 * 
+	 * @param team the player's team
 	 * @param component The component to add
 	 */
 	public void add(Team team, T component) {
@@ -77,6 +78,7 @@ public abstract class ListTeamComponent<T> implements TeamComponent<List<T>> {
 	/**
 	 * Used to remove a component from this component list
 	 * 
+	 * @param team The playe's team
 	 * @param component The component to remove
 	 */
 	public void remove(Team team, T component) {

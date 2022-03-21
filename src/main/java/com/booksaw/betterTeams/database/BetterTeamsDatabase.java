@@ -81,7 +81,7 @@ public class BetterTeamsDatabase extends Database {
 	 * @param joinTable   the table to join
 	 * @param columToJoin the details of the join
 	 * @param orderBy     the order by conditions
-	 * @return
+	 * @return The resultSet of the select
 	 */
 	public ResultSet selectInnerJoinOrder(String select, TableName table, TableName joinTable, String columToJoin,
 			String orderBy) {

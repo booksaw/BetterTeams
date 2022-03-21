@@ -638,6 +638,7 @@ public class Team {
 	 * the player is in this team (as it is not checked or caught in this method)
 	 *
 	 * @param p the player to remove from the team
+	 * @return If the player was removed from the team
 	 */
 	public boolean removePlayer(OfflinePlayer p) {
 		return removePlayer(getTeamPlayer(p));
@@ -649,6 +650,8 @@ public class Team {
 	 * method)
 	 *
 	 * @param p the player to remove from the team
+	 * 
+	 * @return If the player was removed from the team
 	 */
 	public boolean removePlayer(TeamPlayer p) {
 		try {
@@ -1205,6 +1208,7 @@ public class Team {
 	 * Used to check if a member of this team can damage the specified player
 	 *
 	 * @param player the player to check for
+	 * @param source the source of the damage
 	 * @return if this team can damage that player
 	 */
 	public boolean canDamage(Player player, Player source) {
@@ -1219,6 +1223,7 @@ public class Team {
 	 * Used to check if this team can damage members of the specified team
 	 *
 	 * @param team the team to test
+	 * @param source The source of the damage
 	 * @return if players of this team can damage members of the other team
 	 */
 	public boolean canDamage(Team team, Player source) {

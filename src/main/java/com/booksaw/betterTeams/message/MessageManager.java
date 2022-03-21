@@ -287,7 +287,7 @@ public class MessageManager {
 	 * 
 	 * @param sender  the player who sent the command
 	 * @param message The message to send to that user
-	 * @param prefix  The prefix for that message
+	 * @param prefixMessage  The prefix for that message
 	 */
 	public static void sendFullMessage(CommandSender sender, String message, boolean prefixMessage) {
 		if (prefixMessage) {

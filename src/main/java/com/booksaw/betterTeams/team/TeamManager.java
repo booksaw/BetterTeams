@@ -55,7 +55,7 @@ public abstract class TeamManager {
 	/**
 	 * Used to get the team with the provided ID
 	 * 
-	 * @param ID the ID of the team
+	 * @param uuid the ID of the team
 	 * @return the team with that ID [null - the team does not exist]
 	 */
 	@Nullable
@@ -154,6 +154,8 @@ public abstract class TeamManager {
 	 * 
 	 * @param name  the name of the new team
 	 * @param owner the owner of the new team (the player who ran /team create)
+	 * 
+	 * @return The created team
 	 */
 	public Team createNewTeam(String name, Player owner) {
 
@@ -262,8 +264,8 @@ public abstract class TeamManager {
 	 * Used to get the claiming location, will check both parts of a double chest,
 	 * it is assumed that the provided block is known to be a chest
 	 * 
-	 * @param block
-	 * @return
+	 * @param block Part of the chest
+	 * @return The location of the claim 
 	 */
 	public Location getClaimingLocation(Block block) {
 		// player is opening a chest
@@ -304,7 +306,7 @@ public abstract class TeamManager {
 	/**
 	 * Used to reset all teams scores to 0
 	 * 
-	 * @return
+	 * @return If the teams were purged or not
 	 */
 	public boolean purgeTeams() {
 		// calling custom bukkit event
@@ -374,6 +376,7 @@ public abstract class TeamManager {
 	 * within the team
 	 * 
 	 * @param team The new team
+	 * @param player The player that created the team
 	 */
 	protected abstract void registerNewTeam(Team team, Player player);
 
@@ -400,7 +403,6 @@ public abstract class TeamManager {
 	 * teamName) method
 	 * 
 	 * @param team    The new team
-	 * @param oldName The old name of the team
 	 * @param newName The name the team has changed to
 	 */
 	public abstract void teamNameChange(Team team, String newName);
@@ -427,14 +429,14 @@ public abstract class TeamManager {
 	 * called for preexisting teams
 	 * 
 	 * @param team The team instance
-	 * @return
+	 * @return The created team storage
 	 */
 	public abstract TeamStorage createTeamStorage(Team team);
 
 	/**
 	 * Called when a new team is made
 	 * 
-	 * @param teamUUID The UUID of the new team
+	 * @param team The team
 	 * @return The created team storage
 	 */
 	public abstract TeamStorage createNewTeamStorage(Team team);
@@ -464,8 +466,6 @@ public abstract class TeamManager {
 
 	/**
 	 * Used to reset the score of all teams
-	 * 
-	 * @return if the purge was successful
 	 */
 	public abstract void purgeTeamScore();
 

@@ -95,6 +95,15 @@
 					<outputDirectory>${basedir}/server/plugins</outputDirectory>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.3.2</version>
+				<configuration>
+					<reportOutputDirectory>docs\javadocs</reportOutputDirectory>
+					<sourcepath>src/main/java</sourcepath>
+				</configuration>
+			</plugin>
 		</plugins>
 		<resources>
 			<resource>
