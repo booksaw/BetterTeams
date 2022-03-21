@@ -520,6 +520,11 @@ Bug Fixes:
 Bug Fixes: 
 - Fixed bug where some messages would display with "true" before them
 
+4.3.6: 
+
+Bug Fixes: 
+- Fixed internal error when viewing ally requests from teams that were disbanded (#326)
+
 Headings: 
 Features: 
 
