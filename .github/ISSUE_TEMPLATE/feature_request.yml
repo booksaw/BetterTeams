@@ -12,10 +12,13 @@ body:
     value: |-
       Thank you for taking the time to suggest ways to improve BetterTeams
       
-      Please keep in your consideration this plugin is mainly developed by a single person, there are other (contributors)[https://github.com/booksaw/BetterTeams/graphs/contributors] too 
+      Please keep in your consideration this plugin is mainly developed by a single person, there are other contributors (link below) too 
       This simply means features may take some time to be added particually if they are larger.
+      Plugin contributors: https://github.com/booksaw/BetterTeams/graphs/contributors
       
       Please note if your feature request is releated to another premium plugin there may be more difficulties in adding that feature, as I would need to gain access to the plugin
+      
+      ONE FEATURE PER FEATURE REQUEST. If you have multiple feature ideas, make multiple feature requests.
 - type: textarea
   attributes:
     label: "What is the feature request for?"
