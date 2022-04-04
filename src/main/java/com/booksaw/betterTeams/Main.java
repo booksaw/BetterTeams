@@ -230,6 +230,8 @@ public class Main extends JavaPlugin {
 
 		Team.disable();
 
+		MessageManager.dumpMessages();
+
 	}
 
 	public void loadCustomConfigs() {
@@ -313,6 +315,7 @@ public class Main extends JavaPlugin {
 		teamManagement = null;
 		reloadConfig();
 		configManager = new ConfigManager("config", true);
+		
 		ChatManagement.enable();
 		damageManagement = null;
 		onEnable();

@@ -1,12 +1,13 @@
 package com.booksaw.betterTeams.commands.teama;
 
-import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.Main;
-import com.booksaw.betterTeams.commands.SubCommand;
+import java.util.List;
+
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.HandlerList;
 
-import java.util.List;
+import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.Main;
+import com.booksaw.betterTeams.commands.SubCommand;
 
 public class ReloadTeama extends SubCommand {
 

@@ -524,6 +524,7 @@ Bug Fixes:
 
 Bug Fixes: 
 - Fixed internal error when viewing ally requests from teams that were disbanded (#326)
+- Fixed bug with /teama reload (#328) 
 
 Headings: 
 Features: 

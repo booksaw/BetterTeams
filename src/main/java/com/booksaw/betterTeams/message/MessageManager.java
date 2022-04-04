@@ -285,9 +285,9 @@ public class MessageManager {
 	 * Used when you are sending a user a message instead of a message loaded from a
 	 * file
 	 * 
-	 * @param sender  the player who sent the command
-	 * @param message The message to send to that user
-	 * @param prefixMessage  The prefix for that message
+	 * @param sender        the player who sent the command
+	 * @param message       The message to send to that user
+	 * @param prefixMessage The prefix for that message
 	 */
 	public static void sendFullMessage(CommandSender sender, String message, boolean prefixMessage) {
 		if (prefixMessage) {
@@ -303,6 +303,14 @@ public class MessageManager {
 
 	public static FileConfiguration getDefaultMessages() {
 		return defaultMessages;
+	}
+
+	/**
+	 * Used to clear all messages from the cache
+	 */
+	public static void dumpMessages() {
+		messages = new HashMap<>();
+		defaultMessages = null;
 	}
 
 }
