@@ -101,6 +101,7 @@
 				<version>3.3.2</version>
 				<configuration>
 					<reportOutputDirectory>docs\javadocs</reportOutputDirectory>
+					<sourcepath>src/main/java</sourcepath>
 				</configuration>
 			</plugin>
 		</plugins>
