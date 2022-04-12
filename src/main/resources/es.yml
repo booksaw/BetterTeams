@@ -1,8 +1,3 @@
-# All translations in this file are community made, this means there may be errors / missed translations, if you are able to improve upon any translation it would be greatly appreciated
-
-# Able to help with translations? Either improving a already existing language, or adding a whole new one. Join the discord server: https://discord.gg/JF9DNs3 
-# or message me on spigot: https://www.spigotmc.org/members/booksaw123.120955/
-
 # Any placeholders from placeholder API will work in this file
 invalidArg: '&4Argumentos inválidos.'
 inTeam: '&4Debes estar en un equipo para hacer eso.'
@@ -30,6 +25,9 @@ placeholder.default: Default
 placeholder.name: '%s'
 placeholder.tag: '%s'
 placeholder.displayname: '%s'
+placeholder.inteam: 'true'
+placeholder.notinteam: 'false'
+placeholder.noTitle: ''
 prefix.owner: ' **'
 prefix.admin: ' *'
 prefix.default: ' '
@@ -89,7 +87,7 @@ info.default: '&6Miembros: &b%s'
 info.tag: '&6Etiqueta: &b%s'
 info.fail: '&6No se pudo encontrar equipo o jugador con ese nombre.'
 info.score: '&6Puntuación: &b%s'
-info.money: '&6Balance: &b%s'
+info.money: '&6Saldo: &b%s'
 info.ally: '&6Aliados: &b%s'
 kick.success: '&6El jugador ha sido expulsado.'
 kick.notify: '&6Has sido expulsado del equipo %s'
@@ -106,11 +104,14 @@ promote.success: '&6Se ha promovido al jugador.'
 promote.noPerm: '&6No tienes permisos para promover al jugador.'
 promote.max: '&6No se puede promover más al jugador!'
 promote.notify: '&6Has sido promovido!'
-demote.success: '&6That player has been demoted'
-demote.noPerm: '&6You do not have permissions to demote that person'
-demote.min: '&6That person is already the lowest rank'
+promote.maxAdmins: '&4Tu equipo ya tiene el número máximo de administradores, degrada a alguien o sube de nivel a tu equipo'
+promote.maxOwners: '&4Tu equipo ya tiene el número máximo de propietarios, degrada a alguien o sube de nivel a tu equipo'
+demote.success: '&6Ese jugador ha sido degradada'
+demote.noPerm: '&6No tienes permisos para degradar a esa persona'
+demote.min: '&6Esa persona ya es el rango más bajo'
 demote.notify: '&6Has sido degradado.'
-demote.lastOwner: '&6No puedes degradar al Dueño, promueve a alguien primero.'
+demote.lastOwner: '&6No puedes degradar al dueño, promueve a alguien primero.'
+demote.maxAdmins: '&4Su equipo ya tiene la cantidad máxima de administradores, elimine y administre o suba de nivel a su equipo'
 home.success: '&6Has sido teletransportado.'
 home.noHome: '&6Tu equipo no ha establecido un "home"'
 home.world: '&4No se puede encontrar el "home" de tu equipo!'
@@ -207,6 +208,8 @@ admin.holo.remove.success: '&6Holograma eliminado.'
 admin.title.success: '&6El título de los jugadores ha sido cambiado.'
 admin.title.reset: '&6El título de los jugadores ha sido restablecido.'
 admin.version: '&6Versión actual del plugin: %s'
+admin.versionstorage: '&6Método de almacenamiento: &b%s'
+admin.versionversion: '&6Versión de Minecraft: &b%s'
 admin.noTeam: '&4No es un equipo.'
 admin.home.success: '&6Has sido teletransportado al "home" del equipo.'
 admin.home.noHome: '&4El equipo no tiene un "home" establecido.'
@@ -230,7 +233,9 @@ admin.demote.min: '&4No se puede degradar más el rango del jugador.'
 admin.promote.max: '&6El jugador se encuentra en el rango máximo.'
 admin.promote.notify: '&6Has sido promovido.'
 admin.promote.success: '&6El jugador ha sido promovido'
-admin.promote.owner: '&6Los equipos solo pueden tener un líder, usa &b/teama setowner <jugador> &6para establecerlo como lider.'
+admin.promote.owner: '&6Se configura que los equipos solo pueden tener un único dueño, haz &b/team setowner <jugador> &6para poner al jugador como dueño'
+admin.promote.maxAdmins: '&4Ese equipo ya tiene el número máximo de administradores, elimina uno antes de promocionar a ese jugador'
+admin.promote.maxOwners: '&4Ese equipo ya tiene el número máximo de propietarios, elimina uno antes de promocionar a ese jugador'
 admin.setowner.already: '&4El jugador es actualmente el líder.'
 admin.setowner.nonotify: '&6Ya no eres el líder del equipo.'
 admin.setowner.success: '&6El jugador es el nuevo líder del equipo.'
@@ -255,13 +260,7 @@ admin.chest.disabled.bc: '&6&lTodos los cofres reclamados ahora pueden ser abier
 admin.chest.enable.already: '&4Protección de cofres ya está habilitada.'
 admin.chest.enable.success: '&6Protección de cofres habilitada.'
 admin.chest.enabled.bc: '&6&lTodos los cofres reclamados están bloqueados.'
-
-promote.maxAdmins: '&4Tu equipo ya ha alcanzado el maximo n�mero de administradores, degrada a alguien o sube de nivel a tu equipo'
-promote.maxOwners: '&4Tu equipo ya ha alcanzado el maximo n�mero de due�os, degrada a alguien o sube de nivel a tu equipo'
-demote.maxAdmins: '&4Tu equipo ya ha alcanzado el maximo n�mero de administradores, remueve un administrador o sube de nivel a tu equipo'
-admin.demote.maxAdmins: '&4Ese equipo ya ha alcanzado el maximo n�mero de administradores, remueve uno antes de promover a este jugador'
-admin.promote.maxAdmins: '&4Ese equipo ya ha alcanzado el maximo n�mero de administradores, remueve uno antes de promover a otro jugador'
-admin.promote.maxOwners: '&4Ese equipo ya ha alcanzado el maximo n�mero de due�os, remueve uno antes de promover a otro jugador'
+admin.teleport.success: '&6Todos los miembros conectados de ese equipo fueron teletransportados.'
 
 nametag.syntax: '&6&l%s&r '
 holo.leaderboard: '&6Tabla de clasificación'
@@ -314,10 +313,6 @@ help.ally: Solicita una alianza con otro equipo
 help.neutral: Remueve alianzas y rechaza las solicitudes pendientes.
 help.allychat: Envía un mensaje solo a tus aliados
 
-admin.versionstorage: '&6Método de almacenamiento: &b%s'
-admin.versionversion: '&6Versión de Minecraft: &b%s'
-admin.teleport.success: '&6Todos los miembros online han sido teleportados.'
-
 command.create: create
 command.leave: leave
 command.disband: disband
@@ -365,8 +360,5 @@ command.setrank: setrank
 command.add: add
 command.set: set
 command.score: score
-command.deposit: deposit
-command.bal: bal
-command.withdraw: withdraw
 command.enableclaims: enableclaims
 command.disableclaims: disableclaims

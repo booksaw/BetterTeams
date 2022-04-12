@@ -529,6 +529,12 @@ Bug Fixes:
 
 4.3.7: 
 
+Features: 
+- Added Spanish translations (es) - Credit Santos (discord)
+
+Improvements:
+- Added some missing Mexican Spanish translations - Credit Mayansito (discord)
+
 Bug Fixes:
 - Fixed /team disband bug - Credit Shorxy (discord) (#330)
 
