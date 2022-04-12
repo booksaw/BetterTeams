@@ -130,7 +130,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 
 	public void unloadTeam(UUID uuid) {
 		Team team = Team.getTeam(uuid);
-		if(team.getScoreboardTeamOrNull() != null) {
+		if (team.getScoreboardTeamOrNull() != null) {
 			team.getScoreboardTeamOrNull().unregister();
 		}
 		loadedTeams.remove(uuid);
@@ -163,7 +163,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 
 	@Override
 	protected void deleteTeamStorage(Team team) {
-		teamNameLookup.remove(team.getName());
+		teamNameLookup.remove(team.getName().toLowerCase());
 		saveTeamNameLookup();
 
 		File f = new File(SeparatedYamlTeamStorage.getTeamSaveFile(), team.getID() + ".yml");
@@ -384,11 +384,11 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 
 		Team team = getTeam(teamUUID);
 
-		if(team == null) {
+		if (team == null) {
 			// team does not exist
 			return;
 		}
-		
+
 		if (team.getOnlineMemebers().size() > 1) {
 			team.getTeamPlayer(e.getPlayer()).setTeamChat(false);
 			return;

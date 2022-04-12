@@ -527,6 +527,12 @@ Bug Fixes:
 - Fixed bug with /teama reload (#328) 
 - Fixed 404 links within the wiki (#324)
 
+4.3.7: 
+
+Bug Fixes:
+- Fixed /team disband bug - Credit Shorxy (discord) (#330)
+
+
 Headings: 
 Features: 
 
