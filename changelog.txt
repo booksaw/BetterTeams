@@ -538,6 +538,11 @@ Improvements:
 Bug Fixes:
 - Fixed /team disband bug - Credit Shorxy (discord) (#330)
 
+4.3.8: 
+
+Bug Fixes: 
+- Performance improvements on when closing inventory (#345) - Credit PhoenixZTT
+- Fixed bug with invite message on polish translations (you will need to reset your pl.yml file for this to take effect) (#341)
 
 Headings: 
 Features: 

@@ -64,8 +64,7 @@ name:
   exists: '&4Taki team już istnieje'
 invite:
   success: '&6Gracz został zaproszony'
-  invite: '&6Zostałeś zaproszony do teamu: &f%s &6wpisz &b/team join %s &6 aby dołączyć
-    do tego teamu'
+  invite: '&6Zostałeś zaproszony do teamu: &f%s &6wpisz &b/team join <team> &6 aby dołączyć do tego teamu'
   inTeam: '&6Ten gracz już jest w teamie'
   banned: '&6Ten gracz jest zbanowany w twoim teamie'
   full: '&6Twój team jest pełny, wyrzuć kogoś aby dodać nową osobę'
