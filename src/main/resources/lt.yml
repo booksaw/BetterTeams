@@ -1,0 +1,488 @@
+# All translations in this file are community made, this means there may be errors / missed translations, if you are able to improve upon any translation it would be greatly appreciated
+
+# Able to help with translations? Either improving a already existing language, or adding a whole new one. Join the discord server: https://discord.gg/JF9DNs3 
+# or message me on spigot: https://www.spigotmc.org/members/booksaw123.120955/
+
+# Any placeholders from placeholder API will work in this file
+invalidArg: '&4Netinkama komanda'
+inTeam: '&4Tu turi būti komandoje jog galėtum tai daryti'
+notInTeam: '&4pirma turi palikti savo komandą jog galėtum tai daryti'
+needOwner: '&4Tu turi būti komandos kūrėjas jog galėtum tai daryti'
+needAdmin: '&4Tu turi būti administracijos narys arba komandos kūrėjas jog tai daryti'
+needplayer: '&4tu turi būti žaidėjas jog tai daryti'
+noPlayer: '&4Šis žaidėjas nerastas'
+notTeam: '&6&4Ši komanda neegzistuoja, &b/team create <name>'
+needSameTeam: '&6Tu nesi toje pačioje komandoje kaip šis žaidėjas'
+noperm: '&4Tu neturi leidimo tai daryti'
+prefixSyntax: '&7[%s&7] &r%s'
+bannedChar: '&4A Ženklas kurį bandote naudoti yra negalimas'
+noTeam: '&4ši komanda neegzistuoja'
+loading: '&6Kraunama..'
+cooldown:
+  wait: '&4Tau reikia palaukti %s sekundžių Prieš tai darant!'
+cost:
+  tooPoor: '&4Tu per silpnas naudoti šią komandą'
+  run: '&4&l-%s'
+placeholder:
+  noTeam: ''
+  noDescription: ''
+  money: '%s'
+  owner: Kūrėjas
+  admin: Administratorius/ė
+  default: Pradinis
+  name: '%s'
+  tag: '%s'
+  displayname: '%s'
+  inteam: 'true'
+  notinteam: 'false'
+  noTitle: ''
+prefix:
+  owner: ' **'
+  admin: ' *'
+  default: ' '
+create:
+  exists: '&6Ši komanda jau egzistuoja'
+  success: '&6Tavo komanda buvo sukurta'
+  banned: '&4Šis komandos pavadinimas uždraustas'
+  maxLength: '&4Šis komandos pavadinimas per ilgas'
+leave:
+  success: '&6Tu palikai komandą'
+  lastOwner: '&6Tu esi vienintelis kūrėjas komandoje, Paaukštink kitą narį arba rašyk
+    &b/team disband &6jog ištrinti komandą. '
+rank:
+  noTeam: '&4Komanda nerasta'
+  info: '&6Komandos vieta sąraše:'
+  infos: '&6Komandos lygis: &b%s &7(Reikia %s taškų jog pasikeltum į kitą lygį)'
+  infom: '&6Komandos lygis: &b%s &7(Reikia $%s kitam lygiui)'
+  infomm: '&6Komandos lygis: &b%s &7(Pasiekei lygio limitą)'
+  syntax: '&b%s: &6%s &7(%s)'
+delhome:
+  success: '&6Tavo komanda buvo ištrinta'
+  noHome: '&4Tavo komanda nepasirinko namų'
+disband:
+  success: '&6Tu palikai komandą'
+  confirm: '&6Rašyk &b/team disband &6dar kartą jog patvirtinti'
+description:
+  success: '&6Sėkmingai pakeitei komandos aprašymą'
+  view: '&6Komandos aprašymas: %s'
+  noDesc: '&6Nėra komandos aprašymo'
+  noPerm: '&4Neturi leidimo redaguoti komandos aprašymą'
+name:
+  success: '&6Sėkmingai pakeitei komandos pavadinimą'
+  view: '&6Komandos pavadinimas: %s'
+  exists: '&4Ši komanda jau egzistuoja'
+  noPerm: '&4Neturi leidimo keisti komandos pavadinimą'
+invite:
+  success: '&6Šis žaidėjas buvo pakviestas'
+  invite: '&6Buvai pakviestas į komandą %s rašyk &b/team join <team> &6jog prisijungtum
+    į komandą'
+  inTeam: '&6Šis žaidėjas jau yra komandoje'
+  banned: '&6Šis žaidėjas yra užblokuotas jūsų komandoje'
+  full: '&6Tavo komanda pasiekė žaidėjų limitą, Išmesk kažką prieš kviečiant dar žmonių'
+  expired: '&4Pakvietimo iš &b%s galiojimo laikas pasibaigė'
+join:
+  success: '&6Tu prisijungei į komandą'
+  notify: '&6Sveikas &b%s &6 atvykęs į komandą!'
+  notInvited: '&6&4Tavęs niekas čia nekvietė...'
+  banned: '&6&4Buvai užblokuotas komandoje'
+  full: '&4Ši komanda pilna'
+open:
+  successopen: '&6Tavo komanda prieinama visiems'
+  successclose: '&6Tavo komanda tik su pakvietimais'
+title:
+  change: '&6Užrašai buvo pakeisti į &b%s'
+  remove: '&6Užrašas buvo panaikintas'
+  success: '&6Užrašas buvo pakeistas'
+  tooLong: '&4Šis užrašas per ilgas'
+  noFormat: '&4Neturi leidimo naudoti tokio tipo užrašus'
+  noColor: '&4Neturi leidimo naudoti spalvotus užrašus'
+  reset: '&6Užrašas nustatytas iš naujo'
+  noPerm: '&4Neturi leidimo keisti komandos užrašą'
+info:
+  needTeam: '&6Komanda ar žaidėjas tokiu vardu nerastas'
+  name: '&6Vardas: &b%s'
+  description: '&6Aprašymas: &b%s'
+  open: '&6Atidaryta: &b%s'
+  level: '&6Lygis: &b%s'
+  owner: '&6Kūrėjai: &b%s'
+  admin: '&6Administracija: &b%s'
+  default: '&6Nariai: &b%s'
+  tag: '&6Žymeklis: &b%s'
+  fail: '&6Komanda ar žaidėjas nerastas'
+  score: '&6Taškai: &b%s'
+  money: '&6Balansas: &b%s'
+  ally: '&6sąjuningai: &b%s'
+kick:
+  success: '&6šis žaidėjas buvo išmestas'
+  notify: '&6Buvai išmestas... %s'
+  noPerm: '&6Neturi leidimo išmesti šį žaidėją'
+ban:
+  success: '&6Šis žaidėjas buvo užblokuotas'
+  notify: '&6Buvai užblokuotas.. %s'
+  noPerm: '&6Neturi leidimo užblokuoti šį žaidėją'
+  already: '&6Šis žaidėjas jau yra užblokuotas'
+unban:
+  success: '&6šis žaidėjas buvo atblokuotas'
+  notify: '&6Tu buvai atblokuotas %s'
+  noPerm: '&6Neturi leidimo atblokuoti šį žaidėją'
+  not: '&6Šis žaidėjas nebuvo užblokuotas'
+promote:
+  success: '&6šis žaidėjas buvo paaukštintas'
+  noPerm: '&6neturi leidimo paaukštinti šį žaidėją'
+  max: '&6Šis žaidėjas jau pakankamai paaukštintas!'
+  notify: '&6Buvai paaukštintas! Sveikinu!'
+  maxAdmins: '&4Tavo komandoje jau pakanka administracijos narių, nušalink kažką nuo
+    pareigų arba pakelk komandos lygį'
+  maxOwners: '&4Tavo komandoje jau pakanka kūrėjų, nušalink kažką nuo pareigų arba
+    pakelk komandos lygį'
+demote:
+  success: '&6šis žaidėjas buvo nušalintas nuo pareigų'
+  noPerm: '&6neturi leidimo nušalinti šio žaidėjo nuo pareigų'
+  min: '&6Šis žaidėjas neturi pareigų'
+  notify: '&6buvai nušalintas nuo pareigų'
+  lastOwner: '&6Negali nušalinti kūrėjo, pirma kažką paaukštink'
+  maxAdmins: '&4Tavo komanda jau turi pakankamai administaracijos narių, nušalink
+    kažką arba pakelk komandos lygį'
+home:
+  success: '&6Buvai nuteleportuotas'
+  noHome: '&6Tavo komanda neturi namų teleportacijos'
+  world: '&4tavo komandos namų teleportacija buvo nerasta'
+sethome:
+  success: '&6Tavo komandos namų teleportacija buvo nustatyta'
+  noPerm: '&6Neturi pakankamai pareigų jog nustatyti komandos namų teleportaciją'
+chat:
+  enabled: '&6Tavo žinutės dabar siunčiamos į komandos pokalbį'
+  disabled: '&6Tavo žinutės dabar siunčiamos į viešą pokalbį'
+  syntax: '&b[Team]&f%s&f: %s'
+color:
+  success: '&6Komandos spalva buvo pakeista'
+  fail: '&6Ši spalva neegzistuoja'
+  banned: '&4Tu gali naudoti tik spalvas, ne spalvų kodus'
+deposit:
+  tooLittle: '&4Negali pervesti neigiamos sumos'
+  fail: '&4Pervedimas nepavyko'
+  success: '&6Pinigai pervesti'
+  max: '&4Tai viršytų jūsų komandos balanso limitą'
+withdraw:
+  tooLittle: '&4Tu negali išsigryninti neigiamos sumos'
+  fail: '&4Išsigryninimas nepavyko'
+  success: '&6Pinigai buvo išgryninti'
+  notEnough: '&6Tavo komanda neturi tiek lėšų'
+ally:
+  already: '&4Jūs jau sąjungininkai'
+  success: '&6Jūsų komandos dabar sąjungininkai'
+  ally: '&6Jūsų komanda dabar yra sąjungininkai su &b%s'
+  requested: '&6Sąjungos prašymas šiai komandai buvo išsiųstas'
+  request: '&b%s &6atsiuntė sąjungos pasiūlymą, rašyk &b/team ally <team> &6jog priimti
+    pasiūlymą'
+  self: '&4Negali susijungti su savo paties komanda'
+  from: '&6Turi sąjungos pasiūlymų iš: %s'
+  noRequests: '&4Neturi jokių sąjungos pasiūlymų'
+  onJoin: '&6Turi naujų sąjungos pasiūlymų, rašyk &b/team ally &6jog peržiūrėtum juos'
+  limit: '&4Turi pakankamai sąjungininkų'
+  alreadyrequest: '&4Tu jau buvai pateikęs pasiūlymą šiai komandai'
+allychat:
+  disabled: '&6Tavo žinutės nebesiunčiamos į Sąjungininkų pokalbį'
+  enabled: '&6Tavo žinutės dabar siunčiamos į Sąjungininkų pokalbį'
+  syntax: '&d[%s]&f%s&f: %s'
+neutral:
+  self: '&6Tai tavo paties komanda'
+  requestremove: '&6Šis prašymas buvo atmestas'
+  reject: '&4Tavo prašymas iš &b%s &4buvo atmestas'
+  notAlly: '&4Nesi sąjungoje su šia komandoje'
+  success: '&4Nebesi sąjungoje su šia komanda'
+  remove: '&4Nebesi sąjungoje su &b%s'
+list:
+  noPage: '&6šis puslapis nerastas'
+  header: '&7--- &bKomandų sąrašo puslapis %s &7---'
+  body: '&6%s: &b%s'
+  footer: '&7--- &6rašyk &b/team list [page] &6jog peržiūrėtum daugiau &7---'
+setowner:
+  use: '&6Negali paaukštinti šio žaidėjo, naudok &b/team setowner <player> &6jog paaukštintum
+    šį žaidėją į kūrėjus'
+  success: '&6Šis žaidėjas dabar yra kūrėjas'
+  notify: '&6Dabar esi šios komandos kūrėjas'
+  max: '&4Šis žaidėjas jau yra kūrėjas'
+setwarp:
+  exist: '&4Ši teleportacija jau egzistuoja'
+  max: '&4Tavo komanda jau pasiekė teleportacijų limitą'
+  success: '&6Teleportacija buvo sukurta'
+  char: '&4šis teleportacijos pavadinimas turi uždraustų ženklų'
+warp:
+  nowarp: '&4Ši teleportacija neegzistuoja'
+  invalidPassword: '&4Netinkamas teleportacijos slaptažodis'
+  success: '&6Buvai nuteleportuotas'
+  world: '&4Teleportacijos vieta nerasta'
+warps:
+  syntax: '&6Warps: &b%s'
+  none: '&4Tavo komanda neturi teleportacijų'
+delwarp:
+  success: '&4Ši teleportacija buvo ištrinta'
+teleport:
+  fail: '&4Teleportacija nepavyko'
+  wait: '&6 Palauk &b%s &6sekundes'
+chest:
+  claim:
+    noChest: '&4Tu nestovi ant skrynios'
+    limit: '&4Tavo komanda pasiekė skrynių limitą'
+    claimed: '&4Ši skrynia jau buvo pasisavinta'
+    success: '&6Pasisavinai šią skrynią'
+  remove:
+    noChest: '&4Tu nestovi ant skrynios'
+    notClaimed: '&4Tavo komanda neturi pasisavinusi šios skrynios'
+    success: '&4Tavo komanda nebeturi priėjimo galimybės prie šios skrynios'
+  all:
+    success: '&6Atsisakei visų skrynių'
+  claimed: '&4Ši skrynia jau pasisavinta &a%s'
+echest:
+  echest: Pabaigos pasaulio skrynia
+pvp:
+  enabled: '&6Pvp tavo komanai buvo įjungtas'
+  disabled: '&6Pvp tavo komandai buvo išjungtas'
+rankup:
+  max: '&4Tu jau pasiekei lygio limitą'
+  score: '&4Tau reikia %s taškų jog pasikeltum lygį'
+  money: '&4Tau reikia %s pinigų sumos komandos piniginėje jog pakeltum lygį'
+  success: '&6Tavo komanda pasikėlė lygį'
+tag:
+  banned: '&4Ši žyma uždrausta'
+  success: '&6Tavo žyma buvo sėkmingai pakeista'
+  maxLength: '&4Ši žyma per ilga'
+  noPerm: '&4Tu neturi leidimo pakeisti komandos žymos'
+admin:
+  cancel: '&4The command was cancelled by another plugin'
+  tag:
+    success: '&6Šios komandos žyma buvo sėkmingai pakeista'
+  setrank:
+    success: '&6Šios komandos lygis buvo pakeistas'
+    'no': '&4Šis lygis neegzistuoja arba buvo netaip parašytas'
+  config:
+    reload: '&6BetterTeams has been reloaded (If you are having problems when using
+      this command, restart the server)'
+  holo:
+    create:
+      success: '&6Holograma sukurta'
+    remove:
+      noHolo: '&4Hologramų nerasta'
+      success: '&6Holograma ištrinta'
+  title:
+    success: '&6Šios komandos užrašas buvo pakeistas'
+    reset: '&6Šios komandos užrašas buvo pakeistas'
+  version: '&6Current plugin version: %s'
+  noTeam: '&4Čia ne komanda'
+  home:
+    success: '&6buvai nuteleportuotas į šios komandos namų teleportaciją'
+    noHome: '&4Ši komanda neturi namų teleportacijos'
+  name:
+    success: '&6Komandos pavadinimas buvo sėkmingai pakeistas'
+  description:
+    success: '&6Komandos pavadinimas buvo pakeistas'
+  open:
+    successopen: '&6Ši komanda dabar yra vieša'
+    successclose: '&6Ši komanda dabar yra privati'
+  invite:
+    success: '&6Šis žaidėjas buvo pakviestas į komandą'
+  create:
+    success: '&6Komanda buvo sukurta sėkmingai'
+  join:
+    banned: '&4šis žaidėjas buvo užblokuotas iš komandos'
+    success: '&6Šis žaidėjas prisijungė prie komandos'
+    notify: '&6tu prisijungei prie komandos &b%s'
+    full: '&4Ši komanda pilna'
+  notInTeam: '&6Šis žaidėjas negali būti komandoje tai darydamas'
+  inTeam: '&4šis žaidėjas nėra komandoje'
+  leave:
+    success: '&6Šis žaidėjas paliko komandą'
+    notify: '&6Tu palikai šią komandą'
+  demote:
+    notify: '&6Tu buvai nušalintas nuo pareigų'
+    success: '&6Šis žaidėjas buvo sėkmingai nušalintas nuo pareigų'
+    min: '&4Šis žaidėjas nebegali būti pašalintas nuo pareigų'
+    maxAdmins: '&4Ši komanda pasiekė administracijos narių limitą, pašalink kažką
+      prieš nušalindamas nuo pareigų šį žaidėją'
+  promote:
+    max: '&6Šis žaidėjas jau auksčiausio lygio'
+    notify: '&6buvai paaukštintas!'
+    success: '&6Šis žaidėjas buvo sėkmingai paaukštintas'
+    owner: '&6Yra nustatyta jog komanda gali turėti tik vieną kūrėją, rašyk &b/teama
+      setowner <player> &6jog nustatytum šį žaidėją kaip kūrėją'
+    maxAdmins: '&4ši komanda turi pakankamai administracijos narių, pašalink kažką
+      prieš paaukštindamas šį žaidėją'
+    maxOwners: '&4Ši komanda turi pakankamai kūrėjų, pašalink kažką prieš paaukštindamas
+      šį žaidėją'
+  setowner:
+    already: '&4Šis žaidėjas jau yra kūrėjas'
+    nonotify: '&6Tu jau nebe šios komandos kūrėjas'
+    success: '&6Šis žaidėjas yra naujas komandos kūrėjas'
+    notify: '&6Dabar esi savo komandos kūrėjas'
+  warps:
+    none: '&4Ši komanda neturi teleportacijų'
+  setwarp:
+    success: '&6Ši teleportacija buvo nustatyta'
+    max: '&6Ši komanda pasiekė teleportacijų limitą'
+  purge:
+    confirm: '&6Naudok šią komandą 10 sekundžių bėgyje jog  patvirtintum savo sprendimą,
+      &4TAI NEGALI BŪTI ATŠAUKTA IR TAI PANAIKINS VISŲ KOMANDŲ LYGIUS'
+    success: '&6Komandos buvo išnaukintos'
+  score:
+    tooSmall: '&4tavo komandos taškai turi būti didesni už 0'
+    success: '&6Šios komandos taškai buvo pakeisti'
+  update: '&4There is a new version of better teams released update here: (https://www.spigotmc.org/resources/better-teams.17129/)'
+  disband:
+    success: '&6ši komanda buvo sėkmingai išskirstyta'
+  color:
+    success: '&6šios komandos spalva buvo sėkmingai pakeista'
+  chest:
+    claim:
+      success: '&6Tu pasisavinai šią skrynią komandos vardu'
+    remove:
+      success: '&6sėkmingai atsisakei šios skrynios'
+      notClaimed: '&4Jokia komanda nepasisavino šios skrynios'
+    all:
+      success: '&6Visi pasisavinimai šiai komandai buvo panaikinti'
+    disable:
+      already: '&4Skrynių pasisavinimai jau yra išjungti'
+      success: '&6Skrynių pasisavinimai buvo išjungti'
+    disabled:
+      bc: '&6&lVisos pasisavintos ksrynios dabar gali būti atidarytos'
+    enable:
+      already: '&4Skrynių pasisavinimai jau yra įjungti'
+      success: '&6Skrynių pasisavinimai buvo išjungti'
+    enabled:
+      bc: '&6&lvisos pasisavintos skrynios dabar yra užrakintos'
+  teleport:
+    success: '&6Visi prisijunge komandos nariai buvo nuteleportuoti'
+  versionstorage: '&6Storage Method: &b%s'
+  versionversion: '&6Minecraft Version: &b%s'
+nametag:
+  syntax: '&6&l%s&r '
+holo:
+  leaderboard: '&6Lyderių lentelė'
+  syntax: '&6%s: &b%s'
+  msyntax: '&6%s: &b$%s'
+top:
+  leaderboard: '&6Lyderių lentelė'
+  syntax: '&b%s: &6%s &7(%s)'
+  divide: '&f...'
+baltop:
+  leaderboard: '&6Lyderių lentelė'
+  syntax: '&b%s: &6%s &7(%s)'
+  divide: '&f...'
+spy:
+  stop: '&6nebešnipinėji komandos žinučių'
+  start: '&6Tu dabar šnipinėji komandos žinutes'
+  team: '&7[&b%s&7]&f%s&f: %s'
+  ally: '&7[&d%s&7]&f%s&f: %s'
+uclaim:
+  team: '&4You must be in a team to create a claim'
+  member: '&4You cannot leave your teams claim'
+  kick: '&4You cannot kick members of your own team from your claim'
+  ban: '&4You cannot ban members of your own team from your claim'
+  dissolve: '&4Your team has been disbanded so your claim has been dissolved'
+help:
+  description: Žiūrėti ir keisti komandos aprašymą
+  ban: Užblokuoja tam tikrą žaidėją.
+  home: Nuteleportuoja į tavo komandos namus
+  help: Žiūrėti šį pagalbos puslapį
+  promote: Paaukština tą žaidėją tavo komandoje
+  demote: Nušalina nuo pareigų tą žaidėją tavo komandoje
+  unban: Atblokuoja žaidėją
+  kick: Išmeta žaidėją iš komandos
+  leave: Palieki savo komandą
+  chat: siunti žinutes tik savo komandai
+  name: Žiūrėti ir pakeisti komandos pavadinimą
+  sethome: Nustato tavo komandos namus
+  create: Sukuria komandą su tuo pavadinimu
+  invite: Išsiunti pakvietimą tam žaidėjui į savo komandą
+  disband: Išskirstai savo komandą
+  open: Sužinok ar tavo komanda privati
+  info: Žiūrėti informaciją apie žaidėją ar komandą
+  color: Pakeisti komandos spalvą
+  deposit: Pervedi pinigus į komandos pinigine
+  bal: Žiūrėti komandos pinigų balansą
+  withdraw: Išsigryninti pinigų iš komandos piniginės
+  title: Pakeisti žaidėjo užrašą komandoje
+  top: Žiūrėti top komandas
+  rank: Žiūrėti komandos lygį
+  join: Prisijungti į komandą
+  delhome: Pašalinti komandos namus
+  ally: Pateikti prašymą būti sąjungoje su tam tikra komanda
+  neutral: Pašalinti sąjungininkus ar atmesti pasiųlymus būti sajungininkais
+  allychat: Siųsti žinute tik sąjungininkams
+  echest: Žiūrėti komandos pabaigos skrynią
+  warps: Žiūrėti komandos teleportacijų sąrašą
+  rankup: Pakelti komandos lygį jog gauti daugiau privilegijų
+  tag: Nustatyti komandos žymą
+  chest: ''
+  pvp: Patikrinti ar komandos pvp yra įjungtas
+  baltop: Žiūrėti turtingiausias komandas
+  list: Gauti visų komandų sąrašą
+  removeall: Remove all claimed chests (useful if you lose track of a chest)
+  claim: Claim the chest you are standing on
+  remove: Removes your teams claim from the chest you are standing on
+  teleport: Teleports the specified team to the specified location (or executor's
+    location)
+  setwarp: Set a warp for that team
+  purge: Reset the score for all teams
+  setrank: Set the level of the team specified
+  score: ''
+  reload: Reload the BetterTeams configs
+  chatspy: Spy on messages sent to team chats
+  version: Check the plugin version
+  warp: Teleport to a teams warp
+command:
+  create: create
+  leave: leave
+  disband: disband
+  description: description
+  invite: invite
+  join: join
+  name: name
+  open: open
+  info: info
+  kick: kick
+  promote: promote
+  demote: demote
+  home: home
+  sethome: sethome
+  ban: ban
+  unban: unban
+  chat: chat
+  color: color
+  title: title
+  top: top
+  baltop: baltop
+  rank: rank
+  delhome: delhome
+  ally: ally
+  neutral: neutral
+  allychat: allychat
+  list: list
+  warp: warp
+  setwarp: setwarp
+  delwarp: delwarp
+  warps: warps
+  echest: echest
+  rankup: rankup
+  tag: tag
+  pvp: pvp
+  claim: claim
+  remove: remove
+  removeall: removeall
+  chest: chest
+  reload: reload
+  chatspy: chatspy
+  version: version
+  purge: purge
+  setrank: setrank
+  add: add
+  set: set
+  score: score
+  enableclaims: enableclaims
+  disableclaims: disableclaims
+  teleport: teleport
+  deposit: deposit
+  bal: bal
+  withdraw: withdraw
+needPlayer: '&4You must be a player to do that'
+noPerm: '&4You do not have permission to do that'
