@@ -553,7 +553,7 @@ Improvements:
 - /team warp <team> now shows all warps created by that team (#351)
 
 Bug Fixes:
-- Fixed bug where `enforceTag` does not work as expected (#350)
+- Fixed bug where `enforceTag` does not work as expected (#350) (#348)
 
 Headings: 
 Features: 
