@@ -265,7 +265,7 @@ public abstract class TeamManager {
 	 * it is assumed that the provided block is known to be a chest
 	 * 
 	 * @param block Part of the chest
-	 * @return The location of the claim 
+	 * @return The location of the claim
 	 */
 	public Location getClaimingLocation(Block block) {
 		// player is opening a chest
@@ -375,7 +375,7 @@ public abstract class TeamManager {
 	 * full team trackers The team file will be fully prepared with the members
 	 * within the team
 	 * 
-	 * @param team The new team
+	 * @param team   The new team
 	 * @param player The player that created the team
 	 */
 	protected abstract void registerNewTeam(Team team, Player player);
@@ -387,7 +387,11 @@ public abstract class TeamManager {
 	 */
 	public void disbandTeam(Team team) {
 		loadedTeams.remove(team.getID());
-		deleteTeamStorage(team);
+		
+		// if a team is being disbanded due to invalid team loading, the file should not be deleted to preserve data
+		if (team.getName() != null) {
+			deleteTeamStorage(team);
+		}
 	}
 
 	/**

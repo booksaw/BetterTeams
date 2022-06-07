@@ -554,6 +554,7 @@ Improvements:
 
 Bug Fixes:
 - Fixed bug where `enforceTag` does not work as expected (#350) (#348)
+- Fixed bugs causing errors on empty YAML files
 
 Headings: 
 Features: 

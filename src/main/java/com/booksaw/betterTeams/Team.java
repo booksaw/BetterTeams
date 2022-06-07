@@ -1222,7 +1222,7 @@ public class Team {
 	/**
 	 * Used to check if this team can damage members of the specified team
 	 *
-	 * @param team the team to test
+	 * @param team   the team to test
 	 * @param source The source of the damage
 	 * @return if players of this team can damage members of the other team
 	 */
