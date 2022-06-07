@@ -76,7 +76,7 @@ public class WarpTeama extends SubCommand {
 
 	@Override
 	public int getMinimumArguments() {
-		return 2;
+		return 1;
 	}
 
 	@Override
