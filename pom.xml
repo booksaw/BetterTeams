@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.booksaw.betterTeams</groupId>
 	<artifactId>BetterTeams</artifactId>
-	<version>4.3.7</version>
+	<version>4.4.0</version>
 	<name>BetterTeams</name>
 	<packaging>jar</packaging>
 	<description>Create teams to fight to be the best</description>

@@ -4,6 +4,8 @@ import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.presets.NoTeamSubCommand;
+import com.booksaw.betterTeams.message.HelpMessage;
+
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -27,6 +29,10 @@ public class CreateCommand extends NoTeamSubCommand {
 
 		if (!Team.isValidTeamName(args[0])) {
 			return new CommandResponse("create.banned");
+		}
+
+		if (args.length <= 1 && enforceTag) {
+			return new CommandResponse(new HelpMessage(this, label));
 		}
 
 		if (args.length > 1) {
