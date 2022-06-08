@@ -551,6 +551,7 @@ Bug Fixes:
 
 Features:
 - Added 4 new placeholders for online and offline member lists (#346)
+- Added permission node `betterteams.chest.bypass` to bypass chest claims (#313)
 
 Improvements: 
 - /team warp <team> now shows all warps created by that team (#351)

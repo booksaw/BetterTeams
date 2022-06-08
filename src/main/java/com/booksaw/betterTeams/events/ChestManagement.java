@@ -30,7 +30,8 @@ public class ChestManagement implements Listener {
 	@EventHandler
 	public void onOpen(PlayerInteractEvent e) {
 		if (e.getClickedBlock() == null || e.getClickedBlock().getType() != Material.CHEST
-				|| e.getAction() != Action.RIGHT_CLICK_BLOCK) {
+				|| e.getAction() != Action.RIGHT_CLICK_BLOCK
+				|| e.getPlayer().hasPermission("betterteams.chest.bypass")) {
 			return;
 		}
 		Team team = Team.getTeam(e.getPlayer());
@@ -43,6 +44,11 @@ public class ChestManagement implements Listener {
 
 	@EventHandler
 	public void onBreak(BlockBreakEvent e) {
+
+		if (e.getPlayer().hasPermission("betterteams.chest.bypass")) {
+			return;
+		}
+
 		Team claimedBy = Team.getClaimingTeam(e.getBlock());
 
 		if (claimedBy != null) {

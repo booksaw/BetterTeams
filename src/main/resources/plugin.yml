@@ -244,7 +244,11 @@ permissions:
    betterTeams.admin.chest.enable:
       default: op
       description: gives access to the command /teama chest enableclaims
-   betterTEams.admin.chest.disable:
+   betterTeams.admin.chest.disable:
       default: op
       description: gives access to the command /teama chest disableclaims
+   betterTeams.chest.bypass:
+      default: op
+      description: Bypass chest claims
+      
       
