@@ -510,7 +510,7 @@ Bug Fixes:
 - Fixed bug with ally requests not being removed (#312)
 
 4.3.4:
-
+	
 Bug Fixes: 
 - Fixed bug causing offline players to cause the server to lag (#321)
 - Fixed bug when there are no teams made (#318)
@@ -548,6 +548,9 @@ Bug Fixes:
 - Fixed bug with invite message on polish translations (you will need to reset your pl.yml file for this to take effect) (#341)
 
 4.4.1: 
+
+Features:
+- Added 4 new placeholders for online and offline member lists (#346)
 
 Improvements: 
 - /team warp <team> now shows all warps created by that team (#351)

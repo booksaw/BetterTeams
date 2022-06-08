@@ -30,6 +30,21 @@ public abstract class TeamPlayerListComponent extends ListTeamComponent<TeamPlay
 	}
 
 	/**
+	 * @return A list of players which are currently online on this team
+	 */
+	public List<OfflinePlayer> getOfflinePlayers() {
+		List<OfflinePlayer> offline = new ArrayList<>();
+
+		for (TeamPlayer player : getClone()) {
+			if (!player.getPlayer().isOnline()) {
+				offline.add(player.getPlayer());
+			}
+		}
+
+		return offline;
+	}
+
+	/**
 	 * @return A list of all teamPlayers which are currently online
 	 */
 	public List<TeamPlayer> getOnlineTeamPlayers() {
@@ -106,6 +121,46 @@ public abstract class TeamPlayerListComponent extends ListTeamComponent<TeamPlay
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * @return the string of all online players
+	 */
+	public String getOnlinePlayersString() {
+
+		String str = "";
+
+		List<Player> onlinePlayers = getOnlinePlayers();
+
+		if (onlinePlayers.size() == 0) {
+			return "";
+		}
+
+		for (Player player : onlinePlayers) {
+			str = str + player.getName() + ", ";
+		}
+
+		str = str.substring(0, str.length() - 2);
+
+		return str;
+	}
+
+	public String getOfflinePlayersString() {
+		String str = "";
+
+		List<OfflinePlayer> offlinePlayers = getOfflinePlayers();
+
+		if (offlinePlayers.size() == 0) {
+			return "";
+		}
+
+		for (OfflinePlayer player : offlinePlayers) {
+			str = str + player.getName() + ", ";
+		}
+
+		str = str.substring(0, str.length() - 2);
+
+		return str;
 	}
 
 }

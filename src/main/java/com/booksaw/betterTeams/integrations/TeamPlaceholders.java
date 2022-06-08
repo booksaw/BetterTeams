@@ -153,21 +153,21 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 			}
 
 			return String.valueOf(team.getOnlineMemebers().size());
-		} else if(identifier.equals("title")) {
+		} else if (identifier.equals("title")) {
 			Team team = Team.getTeam(player);
 
 			if (team == null) {
 				return MessageManager.getMessage("placeholder.noTeam");
 			}
-			
+
 			TeamPlayer tp = team.getTeamPlayer(player);
-			
-			if(tp.getTitle() == null || tp.getTitle().length() == 0) {
+
+			if (tp.getTitle() == null || tp.getTitle().length() == 0) {
 				return MessageManager.getMessage("placeholder.noTitle");
 			}
-			
+
 			return tp.getTitle();
-			
+
 		} else if (identifier.startsWith("members_")) {
 			String teamName = identifier.split("_")[1];
 			Team team = Team.getTeam(teamName);
@@ -227,6 +227,22 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 			} else {
 				return MessageManager.getMessage("placeholder.notInTeam");
 			}
+		} else if (identifier.equals("onlinelist")) {
+			Team team = Team.getTeam(player);
+
+			if (team == null) {
+				return MessageManager.getMessage("placeholder.noTeam");
+			}
+
+			return team.getMembers().getOnlinePlayersString();
+		} else if (identifier.equals("offlinelist")) {
+			Team team = Team.getTeam(player);
+
+			if (team == null) {
+				return MessageManager.getMessage("placeholder.noTeam");
+			}
+
+			return team.getMembers().getOfflinePlayersString();
 		}
 
 		return null;
@@ -275,6 +291,10 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 			return team.getScore() + "";
 		case "color":
 			return team.getColor() + "";
+		case "offlinelist":
+			return team.getMembers().getOfflinePlayersString();
+		case "onlinelist":
+			return team.getMembers().getOnlinePlayersString();
 		default:
 			return null;
 		}
