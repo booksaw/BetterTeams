@@ -7,6 +7,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 
 import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
@@ -27,10 +28,10 @@ public class KickCommand extends TeamSubCommand {
 		 */
 		OfflinePlayer player = Utils.getOfflinePlayer(args[0]);
 
-		if(player == null) {
+		if (player == null) {
 			return new CommandResponse("noPlayer");
 		}
-		
+
 		Team otherTeam = Team.getTeam(player);
 		if (team != otherTeam) {
 			return new CommandResponse("needSameTeam");
@@ -47,6 +48,11 @@ public class KickCommand extends TeamSubCommand {
 
 		if (player.isOnline()) {
 			MessageManager.sendMessageF((CommandSender) player, "kick.notify", team.getName());
+
+			if (Main.plugin.getConfig().getBoolean("titleRemoval")) {
+				player.getPlayer().sendTitle(" ", MessageManager.getMessage("kick.title"), 10, 100, 20);
+			}
+
 		}
 
 		return new CommandResponse(true, "kick.success");

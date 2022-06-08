@@ -554,6 +554,7 @@ Features:
 
 Improvements: 
 - /team warp <team> now shows all warps created by that team (#351)
+- Added a title message when a player is kicked from the team (#210)
 
 Bug Fixes:
 - Fixed bug where `enforceTag` does not work as expected (#350) (#348)

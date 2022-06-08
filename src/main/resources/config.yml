@@ -357,7 +357,13 @@ demoteCommands:
    ADMIN: 
    # commands for owner --> admin
    # - say %player% has been demoted 
-     
+
+# determines if a title message will be displayed to players when they are kicked or banned from their team
+# the messages themselves can be configured in the messages.yml file
+#
+# Possible values: [true, false]
+titleRemoval: true
+
 #####################################################################
 #                                                                   #
 #  ____                       ____       _   _   _                  #

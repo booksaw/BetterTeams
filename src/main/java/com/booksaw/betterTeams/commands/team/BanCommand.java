@@ -7,6 +7,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 
 import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
@@ -56,6 +57,10 @@ public class BanCommand extends TeamSubCommand {
 
 		if (player.isOnline()) {
 			MessageManager.sendMessageF(player.getPlayer(), "ban.notify", team.getName());
+
+			if (Main.plugin.getConfig().getBoolean("titleRemoval")) {
+				player.getPlayer().sendTitle(" ", MessageManager.getMessage("ban.title"), 10, 100, 20);
+			}
 		}
 
 		return new CommandResponse(true, "ban.success");
