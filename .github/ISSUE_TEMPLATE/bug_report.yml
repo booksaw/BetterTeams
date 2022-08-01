@@ -39,7 +39,10 @@ body:
 - type: textarea
   attributes: 
     label: "Error message"
-    description: "Paste any error messages in the console here. **NOTE: Do not use pastebin/hastebin etc. as they expire after 7 days, please just paste the error directly**, if the error is too long, upload the error as a text file (.txt, .log, .yml)"
+    description: |-
+      Paste any error messages in the console here. **NOTE: Do not use pastebin/hastebin etc. as they expire after 7 days, please just paste the error directly**
+      if the error is too long, upload the error as a text file (.txt, .log, .yml). You must upload the file as a comment (drag the file into the comment box after submitting the issue)
+      
 - type: textarea
   attributes: 
     label: "Output of /teama version" 
