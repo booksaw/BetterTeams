@@ -128,6 +128,15 @@ public class Database {
 		statement = statement.replace("'false'", "false");
 		statement = statement.replace("'true'", "true");
 
+		try {
+			if(!connection.isValid(2)) {
+				Bukkit.getLogger().severe("Connection to database has timed out, BetterTeams will be displaying incorrect information");
+				return;
+			}
+		} catch (SQLException e) {
+			// this error is never thrown as the timeout is > 0
+		}	
+		
 		try (PreparedStatement ps = connection.prepareStatement(statement)) {
 //			System.out.println("executing: " + ps.toString());
 			ps.executeUpdate();
@@ -151,6 +160,10 @@ public class Database {
 		}
 
 		try {
+			if(!connection.isValid(2)) {
+				Bukkit.getLogger().severe("Connection to database has timed out, BetterTeams will be displaying incorrect information");
+				return null;
+			}
 			PreparedStatement ps = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 //			System.out.println("executing: " + ps.toString());
 			return ps.executeQuery();

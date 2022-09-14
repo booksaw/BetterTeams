@@ -550,6 +550,7 @@ Bug Fixes:
 4.4.1: 
 
 Features:
+- Updated to 1.19
 - Added 4 new placeholders for online and offline member lists (#346)
 - Added permission node `betterteams.chest.bypass` to bypass chest claims (#313)
 
