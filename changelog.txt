@@ -572,6 +572,8 @@ Features:
 Bug Fixes: 
 - Fixed bug where BetterTeams causes a server crash if the database connection times out (#360)
 - Fixed bug where invalid storage files cause /team top and /team baltop to throw errors (#363)
+- TNT explosions caused by players on your own team will not cause damage
+- Do not send blank messages for the /team info command (#370)
 
 
 Headings: 
