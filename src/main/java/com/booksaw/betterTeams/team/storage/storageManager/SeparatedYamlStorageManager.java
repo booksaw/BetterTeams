@@ -228,7 +228,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 
 		for (int i = 0; i < teams.size(); i++) {
 			rankedTeamsStr[i] = teams.get(i).name;
-			if (isLoaded(getTeamUUID(teams.get(i).name))) {
+			if (teams.get(i).name != null && isLoaded(getTeamUUID(teams.get(i).name))) {
 				Team team = getTeam(teams.get(i).name);
 				team.setTeamRank(i);
 			}
@@ -262,7 +262,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 
 		for (int i = 0; i < teams.size(); i++) {
 			rankedTeamsStr[i] = teams.get(i).name;
-			if (isLoaded(getTeamUUID(teams.get(i).name))) {
+			if (teams.get(i).name != null && isLoaded(getTeamUUID(teams.get(i).name))) {
 				Team team = getTeam(teams.get(i).name);
 				team.setTeamRank(i);
 			}
@@ -291,7 +291,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 
 		for (int i = 0; i < teams.size(); i++) {
 			rankedTeamsStr[i] = teams.get(i).name;
-			if (isLoaded(getTeamUUID(teams.get(i).name))) {
+			if (teams.get(i).name != null && isLoaded(getTeamUUID(teams.get(i).name))) {
 				Team team = getTeam(teams.get(i).name);
 				team.setTeamRank(i);
 			}
