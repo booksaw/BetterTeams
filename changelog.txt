@@ -566,6 +566,7 @@ Bug Fixes:
 4.5.0: 
 
 Features: 
+- Added Serbian translations - Credit DjomlaCommunity (#366)
 - Added /teama money <set/add/remove> <balance> command (#365)
 
 Bug Fixes: 
