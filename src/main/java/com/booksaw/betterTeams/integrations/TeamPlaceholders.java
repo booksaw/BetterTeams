@@ -263,7 +263,7 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 		} catch (NumberFormatException e) {
 			return null;
 		}
-		if (place == -1) {
+		if (place == -1 || place < 0) {
 			return null;
 		}
 
