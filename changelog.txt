@@ -565,6 +565,9 @@ Bug Fixes:
 
 4.5.0: 
 
+Features: 
+- Added /teama money <set/add/remove> <balance> command (#365)
+
 Bug Fixes: 
 - Fixed bug where BetterTeams causes a server crash if the database connection times out (#360)
 - Fixed bug where invalid storage files cause /team top and /team baltop to throw errors (#363)

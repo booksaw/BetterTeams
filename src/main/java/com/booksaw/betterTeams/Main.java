@@ -89,6 +89,9 @@ import com.booksaw.betterTeams.commands.teama.chest.ChestDisableClaims;
 import com.booksaw.betterTeams.commands.teama.chest.ChestEnableClaims;
 import com.booksaw.betterTeams.commands.teama.chest.ChestRemoveTeama;
 import com.booksaw.betterTeams.commands.teama.chest.ChestRemoveallTeama;
+import com.booksaw.betterTeams.commands.teama.money.AddMoney;
+import com.booksaw.betterTeams.commands.teama.money.RemoveMoney;
+import com.booksaw.betterTeams.commands.teama.money.SetMoney;
 import com.booksaw.betterTeams.commands.teama.score.AddScore;
 import com.booksaw.betterTeams.commands.teama.score.RemoveScore;
 import com.booksaw.betterTeams.commands.teama.score.SetScore;
@@ -364,6 +367,11 @@ public class Main extends JavaPlugin {
 		ParentCommand teamaScoreCommand = new ParentCommand("score");
 		teamaScoreCommand.addSubCommands(new AddScore(), new SetScore(), new RemoveScore());
 		teamaCommand.addSubCommand(teamaScoreCommand);
+		
+		ParentCommand teamaMoneyCommand = new ParentCommand("money");
+		teamaMoneyCommand.addSubCommands(new AddMoney(), new SetMoney(), new RemoveMoney());
+		teamaCommand.addSubCommand(teamaMoneyCommand);
+		
 
 		ParentCommand teamaChestCommand = new ParentCommand("chest");
 		teamaChestCommand.addSubCommands(new ChestClaimTeama(), new ChestRemoveTeama(), new ChestRemoveallTeama(),
