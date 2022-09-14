@@ -574,6 +574,7 @@ Bug Fixes:
 - Fixed bug where invalid storage files cause /team top and /team baltop to throw errors (#363)
 - TNT explosions caused by players on your own team will not cause damage
 - Do not send blank messages for the /team info command (#370)
+- Fixed case issue with `inteam` placeholder (#371)
 
 
 Headings: 

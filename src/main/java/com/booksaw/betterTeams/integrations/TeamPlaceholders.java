@@ -225,7 +225,7 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 			if (Team.getTeamManager().isInTeam(player)) {
 				return MessageManager.getMessage("placeholder.inteam");
 			} else {
-				return MessageManager.getMessage("placeholder.notInTeam");
+				return MessageManager.getMessage("placeholder.notinteam");
 			}
 		} else if (identifier.equals("onlinelist")) {
 			Team team = Team.getTeam(player);
