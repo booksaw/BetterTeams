@@ -17,9 +17,9 @@ public class CommandCost {
 	 * @param command the reference for the command
 	 * @param Cost    how long of a Cost that command has (in seconds)
 	 */
-	public CommandCost(String command, double Cost) {
+	public CommandCost(String command, double cost) {
 		this.command = command;
-		this.cost = Cost;
+		this.cost = cost;
 	}
 
 	/**
