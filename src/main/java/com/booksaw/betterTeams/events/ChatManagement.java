@@ -47,7 +47,11 @@ public class ChatManagement implements Listener {
 
 		TeamPlayer teamPlayer = team.getTeamPlayer(p);
 
-		if ((Objects.requireNonNull(teamPlayer).isInTeamChat() || teamPlayer.isInAllyChat())
+		if(teamPlayer == null) {
+			throw new IllegalStateException("Player " + p.getName() + " is registered to be in a team, yet has no playerdata associated with that team");
+		}
+		
+		if ((teamPlayer.isInTeamChat() || teamPlayer.isInAllyChat())
 				&& (event.getMessage().startsWith("!") && event.getMessage().length() > 1)) {
 			event.setMessage(event.getMessage().substring(1));
 		} else if (teamPlayer.isInTeamChat()) {
