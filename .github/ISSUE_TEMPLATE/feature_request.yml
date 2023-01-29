@@ -33,4 +33,10 @@ body:
   attributes: 
     label: "Additional Information"
     description: "Add any extra information that you think has not yet been covered"
+- type: checkboxes
+  attributes:
+    label: Feature requests are not going to be implemented by booksaw, instead you will have to find another developer to make a pull request to implement the feature.
+    options: 
+      - label: I understand
+        required: true
 
