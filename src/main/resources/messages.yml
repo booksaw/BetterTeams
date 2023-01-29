@@ -1,6 +1,7 @@
 # Any placeholders from placeholder API will work in this file
 invalidArg: '&4Invalid Arguments, help'
 inTeam: '&4You must be in a team to do that'
+internalError: '&4Something went wrong while executing that command, please report it to your server owners'
 notInTeam: '&4You must leave your team before doing that'
 needOwner: '&4You must be the owner of the team to do that'
 needAdmin: '&4You must be admin or owner of the team to do that'
@@ -60,7 +61,7 @@ invite.invite: '&6You have been invited to join team %s do &b/team join <team> &
 invite.inTeam: '&6That player is already in a team'
 invite.banned: '&6That player is banned from your team'
 invite.full: '&6Your team is maximum size, kick someone out before inviting more people'
-invite.expired: '&4The invite from &b%s has expired'
+invite.expired: '&4The invite from &b%s &4has expired'
 join.success: '&6You have joined that team'
 join.notify: '&6Welcome &b%s &6to the team!'
 join.notInvited: '&6&4You have not been invited to that team'

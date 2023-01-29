@@ -63,4 +63,9 @@ public class ChestRemoveallCommand extends TeamSubCommand {
 		return PlayerRank.OWNER;
 	}
 
+	@Override
+	public boolean runAsync(String[] args) {
+		return false;
+	}
+	
 }

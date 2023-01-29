@@ -1,6 +1,7 @@
 package com.booksaw.betterTeams.commands.team;
 
 import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
@@ -24,7 +25,8 @@ public class EchestCommand extends TeamSubCommand {
 					+ " this should never occur, report to booksaw");
 		}
 
-		Objects.requireNonNull(player.getPlayer().getPlayer()).openInventory(team.getEchest());
+		Bukkit.getScheduler().runTask(Main.plugin,
+				() -> Objects.requireNonNull(player.getPlayer().getPlayer()).openInventory(team.getEchest()));
 
 		return new CommandResponse(true);
 	}

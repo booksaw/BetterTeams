@@ -59,6 +59,7 @@ public class YamlToSql extends Converter {
 		HashMap<String, String> allyRequests = new HashMap<>();
 
 		for (File f : folder.listFiles()) {
+
 			if (!f.getName().endsWith(".yml")) {
 				continue;
 			}
@@ -69,8 +70,7 @@ public class YamlToSql extends Converter {
 			getEchestContents(inv, config);
 
 			String echest = Utils.serializeInventory(inv);
-			echest = echest.replaceAll("\"", "\\\"");
-			echest = "";
+			echest = echest.replace("\"", "\\\"");
 			database.insertRecord(TableName.TEAM,
 					"teamID, name, description, open, score, money, home, color, level, tag, pvp",
 					"'" + teamName + "', '" + config.getString("name") + "', '" + config.getString("descrption") + "', "
@@ -153,7 +153,14 @@ public class YamlToSql extends Converter {
 	}
 
 	public static void pack(String sourceDirPath, String zipFilePath) throws IOException {
-		Path p = Files.createFile(Paths.get(zipFilePath));
+		File f = new File(zipFilePath);
+		Path p;
+		if (f.exists()) {
+			p = Paths.get(zipFilePath);
+		} else {
+			p = Files.createFile(Paths.get(zipFilePath));
+		}
+
 		try (ZipOutputStream zs = new ZipOutputStream(Files.newOutputStream(p))) {
 			Path pp = Paths.get(sourceDirPath);
 			Files.walk(pp).filter(path -> !Files.isDirectory(path)).forEach(path -> {

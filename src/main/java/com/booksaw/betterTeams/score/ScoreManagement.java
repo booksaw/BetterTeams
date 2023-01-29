@@ -83,11 +83,15 @@ public class ScoreManagement implements Listener {
 
 	@EventHandler
 	public void onPurge(PrePurgeEvent e) {
-		Main.plugin.getConfig().getStringList("purgeCommands").forEach(cmd -> {
-			if (Main.plugin.getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
-				cmd = PlaceholderAPI.setPlaceholders(null, cmd);
-			}
-			Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);
+		Bukkit.getScheduler().runTask(Main.plugin, () -> {
+			Main.plugin.getConfig().getStringList("purgeCommands").forEach(cmd -> {
+				if (Main.plugin.getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+					cmd = PlaceholderAPI.setPlaceholders(null, cmd);
+				}
+
+				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);
+
+			});
 		});
 	}
 

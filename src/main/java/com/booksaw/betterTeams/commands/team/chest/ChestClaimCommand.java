@@ -21,7 +21,7 @@ public class ChestClaimCommand extends TeamSubCommand {
 
 	@Override
 	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
-
+		
 		Location loc = Objects.requireNonNull(player.getPlayer().getPlayer()).getLocation();
 
 		Block block = loc.getBlock();
@@ -86,6 +86,11 @@ public class ChestClaimCommand extends TeamSubCommand {
 	@Override
 	public PlayerRank getDefaultRank() {
 		return PlayerRank.ADMIN;
+	}
+	
+	@Override
+	public boolean runAsync(String[] args) {
+		return false;
 	}
 
 }

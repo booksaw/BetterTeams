@@ -197,7 +197,7 @@ public abstract class TeamManager {
 	}
 
 	/**
-	 * Used to ghet the UUID of the team which has claimed the provided chest, will
+	 * Used to get the UUID of the team which has claimed the provided chest, will
 	 * return null if that location is not claimed
 	 * 
 	 * @param location The location of the chest - must already be normalised

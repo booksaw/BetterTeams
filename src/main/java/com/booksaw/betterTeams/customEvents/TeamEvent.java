@@ -14,7 +14,8 @@ public abstract class TeamEvent extends Event implements Cancellable {
 	protected final Team team;
 	protected boolean cancelled = false;
 
-	public TeamEvent(Team team) {
+	protected TeamEvent(Team team) {
+		super(true);
 		this.team = team;
 	}
 

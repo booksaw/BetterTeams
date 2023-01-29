@@ -54,5 +54,10 @@ public class ChestRemoveallTeama extends TeamSelectSubCommand {
 		}
 
 	}
+	
+	@Override
+	public boolean runAsync(String[] args) {
+		return false;
+	}
 
 }

@@ -318,7 +318,7 @@ public class Main extends JavaPlugin {
 		teamManagement = null;
 		reloadConfig();
 		configManager = new ConfigManager("config", true);
-		
+
 		ChatManagement.enable();
 		damageManagement = null;
 		onEnable();
@@ -367,11 +367,10 @@ public class Main extends JavaPlugin {
 		ParentCommand teamaScoreCommand = new ParentCommand("score");
 		teamaScoreCommand.addSubCommands(new AddScore(), new SetScore(), new RemoveScore());
 		teamaCommand.addSubCommand(teamaScoreCommand);
-		
+
 		ParentCommand teamaMoneyCommand = new ParentCommand("money");
 		teamaMoneyCommand.addSubCommands(new AddMoney(), new SetMoney(), new RemoveMoney());
 		teamaCommand.addSubCommand(teamaMoneyCommand);
-		
 
 		ParentCommand teamaChestCommand = new ParentCommand("chest");
 		teamaChestCommand.addSubCommands(new ChestClaimTeama(), new ChestRemoveTeama(), new ChestRemoveallTeama(),
@@ -401,7 +400,8 @@ public class Main extends JavaPlugin {
 			if (teamManagement == null) {
 
 				teamManagement = new MCTeamManagement(type);
-				teamManagement.displayBelowNameForAll();
+
+				Bukkit.getScheduler().runTaskAsynchronously(this, () -> teamManagement.displayBelowNameForAll());
 				getServer().getPluginManager().registerEvents(teamManagement, this);
 				Bukkit.getLogger().info("teamManagement declared: " + teamManagement);
 			}

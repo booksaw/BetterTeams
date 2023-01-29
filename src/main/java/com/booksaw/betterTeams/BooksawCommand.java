@@ -1,7 +1,9 @@
 package com.booksaw.betterTeams;
 
-import com.booksaw.betterTeams.commands.ParentCommand;
-import com.booksaw.betterTeams.commands.SubCommand;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
@@ -10,9 +12,9 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
+import com.booksaw.betterTeams.commands.ParentCommand;
+import com.booksaw.betterTeams.commands.SubCommand;
+import com.booksaw.betterTeams.message.MessageManager;
 
 /**
  * Used to register a command which uses the sub command system
@@ -51,16 +53,35 @@ public class BooksawCommand extends BukkitCommand {
 			return true;
 		}
 
-		CommandResponse response;
-		if (subCommand instanceof ParentCommand) {
-			response = ((ParentCommand) subCommand).onCommand(sender, label, args, true);
+		boolean async = subCommand.runAsync(args);
+		if (async) {
+			Bukkit.getScheduler().runTaskAsynchronously(Main.plugin, () -> {
+				runExecution(sender, label, args);
+			});
 		} else {
-			response = subCommand.onCommand(sender, label, args);
+			runExecution(sender, label, args);
 		}
 
-		if (response != null)
-			response.sendResponseMessage(sender);
 		return true;
+	}
+
+	public void runExecution(CommandSender sender, String label, String[] args) {
+		try {
+			CommandResponse response;
+			if (subCommand instanceof ParentCommand) {
+				response = ((ParentCommand) subCommand).onCommand(sender, label, args, true);
+			} else {
+				response = subCommand.onCommand(sender, label, args);
+			}
+
+			if (response != null)
+				response.sendResponseMessage(sender);
+		} catch (Exception e) {
+			Bukkit.getLogger().severe(
+					"Something went wrong while executing the command, please report this https://github.com/booksaw/BetterTeams/issues/new/choose");
+			e.printStackTrace();
+			MessageManager.sendMessage(sender, "internalError");
+		}
 	}
 
 	@Override
@@ -114,7 +135,5 @@ public class BooksawCommand extends BukkitCommand {
 	public void setSubCommand(SubCommand subCommand) {
 		this.subCommand = subCommand;
 	}
-	
-	
 
 }

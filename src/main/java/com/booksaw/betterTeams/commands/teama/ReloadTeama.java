@@ -13,7 +13,7 @@ public class ReloadTeama extends SubCommand {
 
 	@Override
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
-
+		
 		HandlerList.unregisterAll(Main.plugin);
 		Main.plugin.reload();
 
@@ -53,6 +53,11 @@ public class ReloadTeama extends SubCommand {
 	@Override
 	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
 
+	}
+	
+	@Override
+	public boolean runAsync(String[] args) {
+		return false;
 	}
 
 }

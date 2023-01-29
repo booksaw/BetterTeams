@@ -255,5 +255,18 @@ public class ParentCommand extends SubCommand {
 		return subCommand.getCommand();
 
 	}
-
+	
+	@Override
+	public boolean runAsync(String[] args) {
+		if(args.length == 0) {
+			return true;
+		}
+		SubCommand command = subCommands.get(args[0].toLowerCase());
+		if (command == null) {
+			return true;
+		}
+		return command.runAsync(removeFirstElement(args));
+		
+	}
+	
 }

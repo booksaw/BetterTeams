@@ -577,7 +577,10 @@ Bug Fixes:
 - Fixed case issue with `inteam` placeholder (#371)
 - Fixed bug with event priority not being set for Damage Managerment
 
-4.5.1:
+4.6.0:
+
+Features: 
+- Added support for asynchronous command execution (#317 #396)
 
 Bug Fixes: 
 - Fixed bug with error message not giving information about the error itself (#390)

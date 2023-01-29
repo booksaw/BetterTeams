@@ -1,11 +1,15 @@
 package com.booksaw.betterTeams.commands.team;
 
-import com.booksaw.betterTeams.*;
-import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
+import java.util.List;
+
 import org.bukkit.command.CommandSender;
 
-import java.util.List;
-import java.util.Objects;
+import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.PlayerRank;
+import com.booksaw.betterTeams.PlayerTeleport;
+import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.TeamPlayer;
+import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 
 public class HomeCommand extends TeamSubCommand {
 
@@ -14,9 +18,9 @@ public class HomeCommand extends TeamSubCommand {
 
 		if (team.getTeamHome() != null) {
 			try {
-				new PlayerTeleport(Objects.requireNonNull(player.getPlayer().getPlayer()), team.getTeamHome(),
-						"home.success");
+				new PlayerTeleport(player.getPlayer().getPlayer(), team.getTeamHome(), "home.success");
 			} catch (Exception e) {
+				e.printStackTrace();
 				return new CommandResponse("home.world");
 			}
 			return new CommandResponse(true);

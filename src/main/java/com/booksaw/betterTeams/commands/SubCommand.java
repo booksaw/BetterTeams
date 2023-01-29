@@ -110,6 +110,10 @@ public abstract class SubCommand {
 
 	public abstract void onTabComplete(List<String> options, CommandSender sender, String label, String[] args);
 
+	public boolean runAsync(String[] args) {
+		return true;
+	}
+	
 	/**
 	 * This can be used during the tab complete process to get a string list of all
 	 * players on the server

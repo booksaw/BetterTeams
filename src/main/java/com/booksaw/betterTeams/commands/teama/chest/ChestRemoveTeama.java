@@ -77,4 +77,9 @@ public class ChestRemoveTeama extends SubCommand {
 		return true;
 	}
 
+	@Override
+	public boolean runAsync(String[] args) {
+		return false;
+	}
+	
 }

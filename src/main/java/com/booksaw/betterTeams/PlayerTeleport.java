@@ -34,13 +34,13 @@ public class PlayerTeleport {
 		this.playerLoc = player.getLocation();
 
 		if (player.hasPermission("betterteams.warmup.bypass")) {
-			runTp();
+			Bukkit.getScheduler().runTask(Main.plugin, this::runTp);
 			return;
 		}
 
 		int wait = Main.plugin.getConfig().getInt("tpDelay");
 		if (wait <= 0) {
-			runTp();
+			Bukkit.getScheduler().runTask(Main.plugin, this::runTp);
 			return;
 		}
 
