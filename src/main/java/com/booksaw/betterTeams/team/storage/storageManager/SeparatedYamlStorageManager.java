@@ -216,10 +216,14 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 		List<IntCrossReference> teams = new ArrayList<>();
 
 		for (File f : folder.listFiles()) {
-			// team has already been resetS
-			YamlConfiguration yamlConfig = YamlConfiguration.loadConfiguration(f);
-			teams.add(new IntCrossReference(yamlConfig.getString(StoredTeamValue.NAME.getReference()),
-					yamlConfig.getInt(StoredTeamValue.SCORE.getReference())));
+			// team has already been resetS			
+			try {
+				YamlConfiguration yamlConfig = YamlConfiguration.loadConfiguration(f);
+				teams.add(new IntCrossReference(yamlConfig.getString(StoredTeamValue.NAME.getReference()),
+						yamlConfig.getInt(StoredTeamValue.SCORE.getReference())));
+			} catch (Exception  e) {
+				Bukkit.getLogger().severe("UNABLE TO READ TEAM DATA FROM " + f);
+			}
 		}
 
 		teams.sort((t1, t2) -> t2.value - t1.value);
@@ -244,9 +248,14 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 
 		for (File f : folder.listFiles()) {
 			// team has already been resetS
-			YamlConfiguration yamlConfig = YamlConfiguration.loadConfiguration(f);
-			teams.add(new DoubleCrossReference(yamlConfig.getString(StoredTeamValue.NAME.getReference()),
-					yamlConfig.getDouble(StoredTeamValue.MONEY.getReference())));
+			try {
+				YamlConfiguration yamlConfig = YamlConfiguration.loadConfiguration(f);
+				teams.add(new DoubleCrossReference(yamlConfig.getString(StoredTeamValue.NAME.getReference()),
+						yamlConfig.getDouble(StoredTeamValue.MONEY.getReference())));
+			} catch (Exception  e) {
+				Bukkit.getLogger().severe("UNABLE TO READ TEAM DATA FROM " + f);
+			}
+
 		}
 
 		teams.sort((t1, t2) -> {
@@ -278,11 +287,13 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 		List<IntCrossReference> teams = new ArrayList<>();
 		for (File f : folder.listFiles()) {
 			// team has already been resetS
-
-			YamlConfiguration yamlConfig = YamlConfiguration.loadConfiguration(f);
-
-			teams.add(new IntCrossReference(yamlConfig.getString(StoredTeamValue.NAME.getReference()),
-					yamlConfig.getStringList("players").size()));
+			try {
+				YamlConfiguration yamlConfig = YamlConfiguration.loadConfiguration(f);
+				teams.add(new IntCrossReference(yamlConfig.getString(StoredTeamValue.NAME.getReference()),
+						yamlConfig.getStringList("players").size()));
+			} catch (Exception  e) {
+				Bukkit.getLogger().severe("UNABLE TO READ TEAM DATA FROM " + f);
+			}
 		}
 
 		teams.sort((t1, t2) -> t2.value - t1.value);
