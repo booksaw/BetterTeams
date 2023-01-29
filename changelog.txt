@@ -581,6 +581,7 @@ Bug Fixes:
 
 Features: 
 - Added support for asynchronous command execution (#317 #396)
+- Added missing spanish translations - Credit Casho (discord)
 
 Bug Fixes: 
 - Fixed bug with error message not giving information about the error itself (#390)

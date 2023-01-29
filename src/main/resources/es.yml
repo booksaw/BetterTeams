@@ -95,11 +95,13 @@ info.score: '&6Puntuación: &b%s'
 info.money: '&6Saldo: &b%s'
 info.ally: '&6Aliados: &b%s'
 kick.success: '&6El jugador ha sido expulsado.'
+kick.title: '&4Te han echado de tu equipo'
 kick.notify: '&6Has sido expulsado del equipo %s'
 kick.noPerm: '&6No tienes permiso para expulsar al jugador.'
 ban.success: '&6El jugador ha sido baneado del equipo.'
 ban.notify: '&6Has sido baneado del equipo %s.'
 ban.noPerm: '&6No tienes permisos para banear al jugador.'
+ban.title: '&4Te han vetado de tu equipo'
 ban.already: '&6El jugador ya se encuentra expulsado.'
 unban.success: '&6El jugador ya no está expulsado del equipo.'
 unban.notify: '&6Ya no estas expulsado del equipo %s.'
@@ -205,7 +207,8 @@ admin.cancel: '&4El comando fue cancelado por otro plugin.'
 admin.tag.success: '&6Se ha cambiado la etiqueta del equipo correctamente.'
 admin.setrank.success: '&6Se ha establecido el rango del equipo.'
 admin.setrank.no: '&4El rango no existe o no se ha configurado correctamente.'
-
+admin.bal.toSmall: '&4El dinero debe ser mayor a 0'
+admin.bal.success: '&6Ese dinero del equipo ha sido cambiado'
 admin.config.reload: '&6BetterTeams ha sido recargado. (Si tienes problemas al usar este comando, reinicia el servidor)'
 admin.holo.create.success: '&6Holograma creado.'
 admin.holo.remove.noHolo: '&4No se han encontrado hologramas.'
@@ -235,6 +238,7 @@ admin.leave.notify: '&6Has salido del equipo.'
 admin.demote.notify: '&6Tu rango en el equipo ha sido degradado.'
 admin.demote.success: '&6Se ha degradado el rango del jugador en el equipo.'
 admin.demote.min: '&4No se puede degradar más el rango del jugador.'
+admin.demote.maxAdmins: '&4Ese equipo ya tiene el número máximo de administradores, quita a uno antes de degradar a este jugador'
 admin.promote.max: '&6El jugador se encuentra en el rango máximo.'
 admin.promote.notify: '&6Has sido promovido.'
 admin.promote.success: '&6El jugador ha sido promovido'
@@ -317,6 +321,24 @@ help.delhome: Elimina el home de tu equipo
 help.ally: Solicita una alianza con otro equipo
 help.neutral: Remueve alianzas y rechaza las solicitudes pendientes.
 help.allychat: Envía un mensaje solo a tus aliados
+echest: Mira el Cofre de Ender de tu equipo
+setwarp: Pon un punto de tp para el resto de tu equipo
+warps: Mira una lista de los puntos de tp de tu equipo
+rankup: Aumenta el rango de tu equipo para obtener más beneficios
+tag: Pon el tag de tu equipo
+delwarp: Borra el Puntos de tp de tu equipo
+chest: ''
+pvp: Activa o Desactiva el pvp en tu equipo
+baltop: Mira los equipos más ricos
+list: Consigue una lista de todos los equipos en el servidor
+warp: Teletranspórtate a una ubicación puesta por tu equipo
+teleport: Teletransporta el equipo especificado a la ubicación especificada (o a la ubicación de quien ejecutó el comando)
+purge: Reinicia la puntuación de todos los equipos
+setrank: Establece el nivel del equipo especificado
+score: ''
+reload: Recarga la configuración de BetterTeams
+chatspy: Espía los mensajes mandados a los chats de los equipos
+version: Mira la versión del plugin
 
 command.create: create
 command.leave: leave
