@@ -84,16 +84,17 @@ public class MCTeamManagement implements Listener {
 
 	/**
 	 * Remove a player from an async thread
+	 * 
 	 * @param player
 	 */
 	public void remove(Player player) {
 		remove(player, true);
 	}
-	
+
 	/**
 	 * Used to remove the prefix / suffix from the specified player
 	 *
-	 * @param player the player to remove the prefix/suffix from
+	 * @param player  the player to remove the prefix/suffix from
 	 * @param isAsync if the method is being run async or not
 	 */
 	public void remove(Player player, boolean isAsync) {
@@ -115,7 +116,9 @@ public class MCTeamManagement implements Listener {
 
 	@EventHandler
 	public void playerJoinEvent(PlayerJoinEvent e) {
-		displayBelowName(e.getPlayer());
+		Bukkit.getScheduler().runTaskAsynchronously(Main.plugin, () -> {
+			displayBelowName(e.getPlayer());
+		});
 	}
 
 	public BelowNameType getType() {

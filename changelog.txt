@@ -590,6 +590,11 @@ Bug Fixes:
 - Fixed bug with error message not giving information about the error itself (#390)
 - Fixed bug with error message not giving tracable information to fix the problem (#394)
 
+4.6.1:
+
+Bug Fixes:
+- Fixed bug with errors being thrown when players join
+
 Headings: 
 Features: 
 
