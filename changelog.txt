@@ -595,6 +595,11 @@ Bug Fixes:
 Bug Fixes:
 - Fixed bug with errors being thrown when players join
 
+4.6.1:
+
+Improvements: 
+- Added language selected to /teama  version
+
 Headings: 
 Features: 
 

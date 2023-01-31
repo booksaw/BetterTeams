@@ -16,8 +16,11 @@ public class VersionTeama extends SubCommand {
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
 		MessageManager.sendMessageF(sender, "admin.versionstorage", Team.getTeamManager().getClass().getName());
 		MessageManager.sendMessageF(sender, "admin.versionversion", Main.plugin.getServer().getVersion());
+		MessageManager.sendMessageF(sender, "admin.versionlanguage", MessageManager.getLanguage());
 		return new CommandResponse(true,
 				new ReferencedFormatMessage("admin.version", Main.plugin.getDescription().getVersion() + ""));
+		
+		
 	}
 
 	@Override
