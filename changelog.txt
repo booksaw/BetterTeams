@@ -600,6 +600,11 @@ Bug Fixes:
 Improvements: 
 - Added language selected to /teama  version
 
+4.6.2:
+
+Bug Fixes:
+- Fixed bug causing echest contents to not be saved (#407)
+
 Headings: 
 Features: 
 
