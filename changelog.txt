@@ -608,6 +608,7 @@ Improvements:
 Bug Fixes:
 - Fixed bug causing echest contents to not be saved (#407) 
 - Fixed issue with admins running the echest command (#402)
+- Fixed bug when invalid files are within the teaminfo folder (#400)
 
 Headings: 
 Features: 

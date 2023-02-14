@@ -216,12 +216,18 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 		List<IntCrossReference> teams = new ArrayList<>();
 
 		for (File f : folder.listFiles()) {
-			// team has already been resetS			
+			// team has already been resetS
 			try {
 				YamlConfiguration yamlConfig = YamlConfiguration.loadConfiguration(f);
-				teams.add(new IntCrossReference(yamlConfig.getString(StoredTeamValue.NAME.getReference()),
-						yamlConfig.getInt(StoredTeamValue.SCORE.getReference())));
-			} catch (Exception  e) {
+				String name = yamlConfig.getString(StoredTeamValue.NAME.getReference());
+				int score = yamlConfig.getInt(StoredTeamValue.SCORE.getReference());
+				
+				if(name == null || name == "") {
+					throw new Exception();
+				}
+				
+				teams.add(new IntCrossReference(name, score));
+			} catch (Exception e) {
 				Bukkit.getLogger().severe("UNABLE TO READ TEAM DATA FROM " + f);
 			}
 		}
@@ -252,7 +258,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 				YamlConfiguration yamlConfig = YamlConfiguration.loadConfiguration(f);
 				teams.add(new DoubleCrossReference(yamlConfig.getString(StoredTeamValue.NAME.getReference()),
 						yamlConfig.getDouble(StoredTeamValue.MONEY.getReference())));
-			} catch (Exception  e) {
+			} catch (Exception e) {
 				Bukkit.getLogger().severe("UNABLE TO READ TEAM DATA FROM " + f);
 			}
 
@@ -291,7 +297,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 				YamlConfiguration yamlConfig = YamlConfiguration.loadConfiguration(f);
 				teams.add(new IntCrossReference(yamlConfig.getString(StoredTeamValue.NAME.getReference()),
 						yamlConfig.getStringList("players").size()));
-			} catch (Exception  e) {
+			} catch (Exception e) {
 				Bukkit.getLogger().severe("UNABLE TO READ TEAM DATA FROM " + f);
 			}
 		}
