@@ -602,6 +602,9 @@ Improvements:
 
 4.6.2:
 
+Improvements:
+- Fixed issue with polish translations (#404) - Credit Edekoo (discord)
+
 Bug Fixes:
 - Fixed bug causing echest contents to not be saved (#407)
 
