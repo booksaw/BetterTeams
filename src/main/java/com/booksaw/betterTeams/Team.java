@@ -11,6 +11,7 @@ import javax.annotation.Nullable;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
@@ -109,6 +110,9 @@ public class Team {
 	}
 
 	public static Location getClaimingLocation(Block block) {
+		if(block.getType() != Material.CHEST) {
+			return null;
+		}
 		return TEAMMANAGER.getClaimingLocation(block);
 	}
 
