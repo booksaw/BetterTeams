@@ -52,7 +52,7 @@
 		<dependency>
 			<groupId>com.github.booksaw</groupId>
 			<artifactId>betterteams-deadends</artifactId>
-			<version>main-SNAPSHOT</version>
+			<version>2f526f987e</version>
 		</dependency>
 		<dependency>
 			<groupId>com.gmail.filoghost.holographicdisplays</groupId>

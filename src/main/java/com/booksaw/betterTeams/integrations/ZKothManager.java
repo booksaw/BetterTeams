@@ -5,7 +5,6 @@ import com.booksaw.betterTeams.Team;
 import fr.maxlego08.zkoth.api.FactionListener;
 import fr.maxlego08.zkoth.api.event.events.KothHookEvent;
 import fr.maxlego08.zkoth.api.event.events.KothWinEvent;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
