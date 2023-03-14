@@ -614,8 +614,10 @@ Bug Fixes:
 
 Improvements:
 - Updated to the latest version of zKoth (#418, #188) - Credit abilnf (GitHub) and Derddy (Discord) 
+- Added missing Spanish translations - Credit mattyhd0 (discord)
 
 Bug Fixes:
+- Fixed typo in polish translations - Credit Edekoo (discord)
 - Fixed issue causing holographic displays to not work (#416)
 - Fixed issue causing teleports to deleted worlds to throw errors (#415)
 - Fixed issue with unclaiming chests (#412)

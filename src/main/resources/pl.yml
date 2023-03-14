@@ -355,7 +355,7 @@ help:
   setowner: Ustawia nowego założyciela teamu
 command:
   create: stworz
-  leave: oposc
+  leave: opusc
   disband: rozwiaz
   description: opis
   invite: zapros

@@ -59,7 +59,6 @@ public class Database {
 			connection = DriverManager.getConnection(
 					"jdbc:mysql://" + host + ":" + port + "/" + database + "?autoReconnect=true&useSSL=false", user,
 					password);
-
 			testDataSource();
 
 		} catch (Exception e) {
