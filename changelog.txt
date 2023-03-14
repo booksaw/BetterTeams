@@ -617,6 +617,7 @@ Improvements:
 
 Bug Fixes:
 - Fixed issue causing holographic displays to not work (#416)
+- Fixed issue causing teleports to deleted worlds to throw errors (#415)
 
 Headings: 
 Features: 
