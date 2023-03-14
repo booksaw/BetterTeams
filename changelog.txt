@@ -610,6 +610,13 @@ Bug Fixes:
 - Fixed issue with admins running the echest command (#402)
 - Fixed bug when invalid files are within the teaminfo folder (#400)
 
+4.6.3:
+
+Improvements:
+- Updated to the latest version of zKoth (#418, #188) - Credit abilnf (GitHub) and Derddy (Discord) 
+
+Bug Fixes:
+
 Headings: 
 Features: 
 
