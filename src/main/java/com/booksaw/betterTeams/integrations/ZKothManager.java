@@ -2,9 +2,9 @@ package com.booksaw.betterTeams.integrations;
 
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
-import fr.maxlego08.koth.FactionListener;
-import fr.maxlego08.koth.event.KothRegisterEvent;
-import fr.maxlego08.koth.event.KothWinEvent;
+import fr.maxlego08.zkoth.api.FactionListener;
+import fr.maxlego08.zkoth.api.event.events.KothHookEvent;
+import fr.maxlego08.zkoth.api.event.events.KothWinEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,7 +15,7 @@ import java.util.List;
 public class ZKothManager implements Listener {
 
 	@EventHandler
-	public void onRegister(KothRegisterEvent event) {
+	public void onRegister(KothHookEvent event) {
 		event.setFactionListener(new TeamListener());
 	}
 
@@ -39,26 +39,6 @@ public class ZKothManager implements Listener {
 			}
 
 			return team.getName();
-		}
-
-		@Override
-		public String getFactionTag(String p) {
-			Team team = Team.getTeam(Bukkit.getPlayer(p));
-			if (team == null) {
-				return null;
-			}
-
-			return team.getName();
-		}
-
-		@Override
-		public List<Player> getOnlinePlayer(String p) {
-			Team team = Team.getTeam(Bukkit.getPlayer(p));
-			if (team == null) {
-				return null;
-			}
-
-			return team.getOnlineMemebers();
 		}
 
 		@Override
