@@ -616,6 +616,7 @@ Improvements:
 - Updated to the latest version of zKoth (#418, #188) - Credit abilnf (GitHub) and Derddy (Discord) 
 
 Bug Fixes:
+- Fixed issue causing holographic displays to not work (#416)
 
 Headings: 
 Features: 

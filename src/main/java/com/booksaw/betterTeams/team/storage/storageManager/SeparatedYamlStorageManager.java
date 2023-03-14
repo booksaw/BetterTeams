@@ -13,6 +13,7 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -77,6 +78,9 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 
 	@Override
 	public boolean isTeam(String name) {
+		if(name == null) {
+			return false;
+		}
 		return teamNameLookup.containsKey(name.toLowerCase());
 	}
 
@@ -218,7 +222,8 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 		for (File f : folder.listFiles()) {
 			// team has already been resetS
 			try {
-				YamlConfiguration yamlConfig = YamlConfiguration.loadConfiguration(f);
+				YamlConfiguration yamlConfig = new YamlConfiguration();
+				yamlConfig.load(f);
 				String name = yamlConfig.getString(StoredTeamValue.NAME.getReference());
 				int score = yamlConfig.getInt(StoredTeamValue.SCORE.getReference());
 				
@@ -255,10 +260,12 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 		for (File f : folder.listFiles()) {
 			// team has already been resetS
 			try {
-				YamlConfiguration yamlConfig = YamlConfiguration.loadConfiguration(f);
+				YamlConfiguration yamlConfig = new YamlConfiguration();
+				yamlConfig.load(f);
 				teams.add(new DoubleCrossReference(yamlConfig.getString(StoredTeamValue.NAME.getReference()),
 						yamlConfig.getDouble(StoredTeamValue.MONEY.getReference())));
-			} catch (Exception e) {
+
+			} catch (IOException | InvalidConfigurationException e) {
 				Bukkit.getLogger().severe("UNABLE TO READ TEAM DATA FROM " + f);
 			}
 
@@ -294,7 +301,8 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 		for (File f : folder.listFiles()) {
 			// team has already been resetS
 			try {
-				YamlConfiguration yamlConfig = YamlConfiguration.loadConfiguration(f);
+				YamlConfiguration yamlConfig = new YamlConfiguration();
+				yamlConfig.load(f);
 				teams.add(new IntCrossReference(yamlConfig.getString(StoredTeamValue.NAME.getReference()),
 						yamlConfig.getStringList("players").size()));
 			} catch (Exception e) {
