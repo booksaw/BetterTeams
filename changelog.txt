@@ -622,6 +622,11 @@ Bug Fixes:
 - Fixed issue causing teleports to deleted worlds to throw errors (#415)
 - Fixed issue with unclaiming chests (#412)
 
+4.6.4:
+
+Bug Fixes:
+- Change System.out to JavaPlugin#getLogger (#420) - Crdit TonimatasDEV (GitHub)
+
 Headings: 
 Features: 
 
