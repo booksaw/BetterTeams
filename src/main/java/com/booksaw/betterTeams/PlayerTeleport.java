@@ -88,7 +88,7 @@ public class PlayerTeleport {
 			return true;
 		}
 
-		return playerLoc.distance(player.getLocation()) <= Math.abs(Main.plugin.getConfig().getInt("maxMove"));
+		return playerLoc.getWorld() == player.getLocation().getWorld() && playerLoc.distance(player.getLocation()) <= Math.abs(Main.plugin.getConfig().getInt("maxMove"));
 	}
 
 	public void cancel() {
