@@ -41,6 +41,7 @@
 # es    - Spanish
 # zh_tw - Traditional Chinese
 # tr    - Turkish
+# vi    - Vietnamese
 language: en
 
 # Determines how team data is stored
