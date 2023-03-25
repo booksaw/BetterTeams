@@ -624,8 +624,12 @@ Bug Fixes:
 
 4.6.4:
 
+Features: 
+- Added Turkish language support (#421) - Credit !11 (Discord)
+- Added Vietnamese language support (#421) - Credit Shelly (Discord)
+
 Bug Fixes:
-- Change System.out to JavaPlugin#getLogger (#420) - Crdit TonimatasDEV (GitHub)
+- Change System.out to JavaPlugin#getLogger (#420) - Credit TonimatasDEV (GitHub)
 - Fix issue with player tp delay when the world changes (#419)
 - UltimateClaims - fixed issue with disbanding team not disbanding claim (#425)
 

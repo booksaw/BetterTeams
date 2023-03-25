@@ -1,0 +1,330 @@
+# All translations in this file are community made, this means there may be errors / missed translations, if you are able to improve upon any translation it would be greatly appreciated
+
+# Able to help with translations? Either improving a already existing language, or adding a whole new one. Join the discord server: https://discord.gg/JF9DNs3 
+# or message me on spigot: https://www.spigotmc.org/members/booksaw123.120955/
+
+
+# Any placeholders from placeholder API will work in this file
+invalidArg: '&cBilinmeyen komut.'
+inTeam: '&cBunu yapabilmek için takımda olmalısın.'
+internalError: '&cHata! Yetkililere bildir.'
+notInTeam: '&cBunu yapmadan önce takımdan ayrılmalısın.'
+needOwner: '&cBunu yapabilmek için takım sahibi olmalısın.'
+needAdmin: '&cBunu yapabilmek için admin ya da takım sahibi olmalısın.'
+needPlayer: '&cBunu yapabilmek için oyuncu olmalısın.'
+noPlayer: '&cOyuncu bulunamadı'
+notTeam: '&cTakım bulunamadı. &b/team create <isim> &ckomutu ile takım oluştur.'
+needSameTeam: '&cBu oyuncuyla aynı takımda değilsin.'
+noPerm: '&cYetkin yok!'
+prefixSyntax: '&7[%s&7] &r%s'
+bannedChar: '&cYasaklı karakter!'
+noTeam: '&cBöyle bir takım yok.'
+loading: '&6Yükleniyor...'
+cooldown:
+  wait: '&cBunu yapabilmek için &6%s &csaniye beklemelisin!'
+cost:
+  tooPoor: '&cBakiyen yetersiz.'
+  run: '&4&l-%s'
+placeholder:
+  noTeam: ''
+  noDescription: ''
+  money: '%s'
+  owner: Sahibi
+  admin: Admin
+  default: Üye
+  name: '%s'
+  tag: '%s'
+  displayname: '%s'
+  inteam: takımda
+  notinteam: takımda değil
+  noTitle: ''
+prefix:
+  owner: ' **'
+  admin: ' *'
+  default: ' '
+create:
+  exists: '&6Böyle bir takım zaten var.'
+  success: '&6Takım oluşturuldu.'
+  banned: '&cBu isim yasaklanmış.'
+  maxLength: '&cBu isim çok uzun.'
+leave:
+  success: '&6Takımdan ayrıldın.'
+  lastOwner: '&cTakımın tek sahibi sensin. Birilerini terfi et ya da &6/team disband
+    &ckomutu ile takımı kapat.'
+rank:
+  noTeam: '&4Takım bulunamadı.'
+  info: '&6Takım pozisyonu:'
+  infos: '&6Takım rütbesi: &b%s &7(Yeni rütbe için %s puan gerekiyor.)'
+  infom: '&6Takım rütbesi: &b%s &7(Yeni rütbe için $%s gerekiyor.)'
+  infomm: '&6Takım rütbesi: &b%s &7(En yüksek rütbedesin.)'
+  syntax: '&b%s: &6%s &7(%s)'
+delhome:
+  success: '&6Takım evi silindi.'
+  noHome: '&cTakımının bir evi yok.'
+disband:
+  success: '&6Takımı kapattın.'
+  confirm: '&6Onaylamak için tekrar &b/team disband &6komutunu kullanın.'
+description:
+  success: '&6Takım açıklamasını değiştirdin.'
+  view: '&6Takım Açıklaması: %s'
+  noDesc: '&6Takım açıklaması yok.'
+  noPerm: '&cYetkin yok!'
+name:
+  success: '&6Takım adını değiştirdin.'
+  view: '&6Takım Adı: %s'
+  exists: '&cBöyle bir takım zaten var.'
+  noPerm: '&cYetkin yok!'
+invite:
+  success: '&6Oyuncu davet edildi.'
+  invite: '&6%s adlı takıma davet edildin. Kabul etmek için &b/team join <team> &6komutunu
+    kullan. the team'
+  inTeam: '&6Oyuncunun zaten bir takımı var'
+  banned: '&6Oyuncu bu takımdan uzaklaştırılmış.'
+  full: '&6Takımın dolu.'
+  expired: '&b%s &cadlı takımdan gelen davetin süresi doldu.'
+join:
+  success: '&6Takıma katıldın.'
+  notify: '&6Takıma hoş geldin &b%s!'
+  notInvited: '&cTakıma davet edilmemişsin.'
+  banned: '&cTakımdan uzaklaştırıldın.'
+  full: '&cTakım dolu.'
+open:
+  successopen: '&6Takımın herkese açık!'
+  successclose: '&6Takımın sadece davetlere açık!'
+title:
+  change: '&6Başlık &b%s &6olarak değiştirildi.'
+  remove: '&6Başlık silindi.'
+  success: '&6Başlık değiştirildi.'
+  tooLong: '&cBaşlık çok uzun.'
+  noFormat: '&cYetkin yok!'
+  noColor: '&cYetkin yok!'
+  reset: '&6Başlık temizlendi.'
+  noPerm: '&cYetkin yok!'
+info:
+  needTeam: '&6Bu isimde bir oyuncu ya da takım bulunamadı.'
+  name: '&6İsim: &b%s'
+  description: '&6Açıklama: &b%s'
+  open: '&6Açık: &b%s'
+  level: '&6Seviye: &b%s'
+  owner: '&6Sahibi: &b%s'
+  admin: '&6Admin: &b%s'
+  default: '&6Üyeler: &b%s'
+  tag: '&6Tag: &b%s'
+  fail: '&6Bu isimde bir oyuncu ya da takım bulunamadı.'
+  score: '&6Puan: &b%s'
+  money: '&6Bakiye: &b%s'
+  ally: '&6Müttefik: &b%s'
+kick:
+  success: '&6Oyuncu atıldı.'
+  notify: '&b%s &6adlı takımdan atıldın.'
+  title: '&cTakımından atıldın.'
+  noPerm: '&cYetkin yok!'
+ban:
+  success: '&6Oyuncu uzaklaştırıldı.'
+  notify: '&b%s &cadlı takımdan uzaklaştırıldın.'
+  title: '&cTakımından uzaklaştırıldın.'
+  noPerm: '&cYetkin yok!'
+  already: '&6Bu oyuncu zaten uzaklaştırılmış.'
+unban:
+  success: '&6Oyuncunun uzaklaştırılması kaldırıldı.'
+  notify: '&b%s &6adlı takımdaki uzaklaştırılman kaldırıldı.'
+  noPerm: '&cYetkin yok!'
+  not: '&6Bu oyuncu uzaklaştırılmamış.'
+promote:
+  success: '&6Oyuncu terfi edildi.'
+  noPerm: '&cYetkin yok!'
+  max: '&6Bu oyuncu en üst terfide.'
+  notify: '&6Terfi edildin!'
+  maxAdmins: '&cTakımın admin limitine ulaştı. Birilerinin terfisini düşür ya da takımına
+    level atlat.'
+  maxOwners: '&cTakımın sahip limitine ulaştı. Birilerinin terfisini düşür ya da takımına
+    level atlat.'
+demote:
+  success: '&6Oyuncunun terfisi alındı.'
+  noPerm: '&cYetkin yok!'
+  min: '&6Bu oyuncu en düşük terfide.'
+  notify: '&6Terfin düşürüldü.'
+  lastOwner: '&6Son kişinin terfisini düşüremezsin. Birilerini terfi etmelisin.'
+  maxAdmins: '&cTakımın maksimum admin sayısına ulaştı. Birilerini çıkar ya da takımına
+    level atlat.'
+home:
+  success: '&6Işınlandın.'
+  noHome: '&6Takımının bir evi yok.'
+  world: '&cTakım evi bulunamadı.'
+sethome:
+  success: '&6Takım evi belirlendi.'
+  noPerm: '&6Ev belirlemek için yeteri kadar rütben yok.'
+chat:
+  enabled: '&6Takım sohbeti aktif!'
+  disabled: '&6Takım sohbeti devredışı!'
+  syntax: '&b[Takım]&f%s&f: %s'
+color:
+  success: '&6Takım rengi değiştirildi.'
+  fail: '&6Bilinmeyen renk kodu.'
+  banned: '&cSadece renk kodu kullanabilirsin.'
+deposit:
+  tooLittle: '&cNegatif miktar yatıramazsın.'
+  fail: '&cHata!'
+  success: '&6Para yatırıldı.'
+  max: '&cİzin verilen maksimum takım bakiyenizi aştı.'
+withdraw:
+  tooLittle: '&cNegatif miktar çekemezsin.'
+  fail: '&cHata!'
+  success: '&6Para çekildi!'
+  notEnough: '&6Takım bankasında yeterli para yok.'
+ally:
+  already: '&cZaten müttefiksiniz.'
+  success: '&6Takımın artık müttefik.'
+  ally: '&6Takımın &b%s &6takımı ile müttefik oldu.'
+  requested: '&6Takıma müttefik isteği gönderildi.'
+  request: '&b%s &6adlı takım müttefik isteği gönderdi. Kabul etmek için &b/team ally
+    %s &6komutunu kullanın.'
+  self: '&cKendi takımınla müttefik olamazsın.'
+  from: '&b%s &6adlı takımdan müttefik isteğin mevcut.'
+  noRequests: '&cHerhangi bir müttefik isteğin yok.'
+  onJoin: '&6Yeni müttefik isteğin var. &b/team ally &6komutunu kullanarak görüntüleyebilirsin.'
+  limit: '&cMüttefik sınırına ulaştın.'
+  alreadyrequest: '&cBu takıma zaten müttefik isteği gönderdin.'
+allychat:
+  disabled: '&6Müttefik sohbeti devredışı.'
+  enabled: '&6Müttefik sohbeti aktif.'
+  syntax: '&d[%s]&f%s&f: %s'
+neutral:
+  self: '&6Bu senin takımın'
+  requestremove: '&6Müttefik isteği reddedildi.'
+  reject: '&b%s &ctakımına gönderdiğin müttefik isteği reddedildi.'
+  notAlly: '&cArtık bu takımla müttefik değilsin.'
+  success: '&cArtık bu takımla müttefik değilsin.'
+  remove: '&b%s &cadlı takımla müttefik değilsin.'
+list:
+  noPage: '&6Sayfa bulunamadı.'
+  header: '&7--- &bTakım Listesi %s &7---'
+  body: '&6%s: &b%s'
+  footer: '&7--- &6Daha fazla görüntülemek için: &b/team list [sayfa] &7---'
+setowner:
+  use: '&6Bu oyuncuyu terfi edemezsin. &b/team setowner <oyuncu> &6komutu ile takım
+    sahibi yapabilirsin.'
+  success: '&6Bu oyuncu artık takım sahibi.'
+  notify: '&6Artık takımın sahibisin'
+  max: '&cBu oyuncu zaten takımın sahibi.'
+setwarp:
+  exist: '&cBu warp noktası zaten var.'
+  max: '&cMaksimum warp noktası limitine ulaştın.'
+  success: '&6Warp noktası oluşturuldu.'
+  char: '&cWarp noktası yasaklı karakterler içeriyor.'
+warp:
+  nowarp: '&cBöyle bir warp noktası yok.'
+  invalidPassword: '&cHatalı şifre!'
+  success: '&6Işınlandın.'
+  world: '&cBu lokasyonda bir warp noktası bulunamadı.'
+warps:
+  syntax: '&6Warp noktaları: &b%s'
+  none: '&cTakımının bir warp noktası yok.'
+delwarp:
+  success: '&cWarp noktası silindi.'
+teleport:
+  fail: '&cIşınlanma iptal edildi.'
+  wait: '&6Lütfen &b%s &6saniye bekleyin.'
+chest:
+  claim:
+    noChest: '&cBir sandığın üzerinde durmuyorsun.'
+    limit: '&cTakımın maksimum sandık sınırına ulaştı.'
+    claimed: '&cBu sandık zaten belirlenmiş.'
+    success: '&6Bu sandığı sahiplendin.'
+  remove:
+    noChest: '&cSandığın üzerinde durmuyosun.'
+    notClaimed: '&cTakımın bir sandığa sahip değil.'
+    success: '&cTakımın artık bu sandığı sahiplenmiyor.'
+  all:
+    success: '&6Bütün sandıklar silindi.'
+  claimed: '&cBu sandık &a%s &ctarafından sahipleniyor.'
+echest:
+  
+  echest: Enderchest
+pvp:
+  
+  enabled: '&6PvP ayarı aktif!'
+  disabled: '&6PvP ayarı devredışı!'
+rankup:
+  
+  max: '&cZaten en yüksek rütbedesin.'
+  score: '&cRütbe atlamak için &b%s &cpuana ihtiyacın var.'
+  money: '&cRütbe atlamak için &b%s &cparaya ihtiyacın var'
+  success: '&6Takımın seviye atladı.'
+tag:
+  
+  banned: '&cBu tag yasaklanmış.'
+  success: '&6Tag değiştirildi.'
+  maxLength: '&cTag çok uzun.'
+  noPerm: '&cYetkin yok!'
+
+nametag:
+  
+  syntax: '&6&l%s&r '
+holo:
+  leaderboard: '&6Liderler'
+  syntax: '&6%s: &b%s'
+  msyntax: '&6%s: &b$%s'
+top:
+  leaderboard: '&6Liderler'
+  syntax: '&b%s: &6%s &7(%s)'
+  divide: '&f...'
+baltop:
+  leaderboard: '&6Liderler'
+  syntax: '&b%s: &6%s &7(%s)'
+  divide: '&f...'
+spy:
+  stop: '&6Takım mesajlarını görmüyosun.'
+  start: '&6Takım mesajlarını görüyorsun.'
+  team: '&7[&b%s&7]&f%s&f: %s'
+  ally: '&7[&d%s&7]&f%s&f: %s'
+uclaim:
+  
+  team: '&cClaim alabilmek için bir takımda olmalısın.'
+  member: '&cTakımının claiminden çıkamazsın.'
+  kick: '&cTakımındaki oyuncuları claimden atamazsın.'
+  ban: '&cTakımdaki oyuncuları claimden uzaklaştıramazsın.'
+  dissolve: '&cTakımın kapatıldığı için claimler silindi.'
+help:
+  
+  description: Takım açıklamasını görüntüler ya da değiştirir.
+  ban: Oyuncuyu takımdan uzaklaştırır.
+  home: Takım evine ışınlar.
+  help: Yardım sayfasını görüntüler.
+  promote: Oyuncuyu terfi eder.
+  demote: Oyuncunun terfisini alır.
+  unban: Oyuncunun uzaklaştırılmasını kaldırır.
+  kick: Oyuncuları takımdan atar.
+  leave: Takımdan ayrılır.
+  chat: Takım sohbetini açıp kapatır.
+  name: Takım adını değiştirir.
+  sethome: Takım evi belirler.
+  create: Takım oluşturur.
+  invite: Takıma oyuncu davet eder.
+  disband: Takımı kapatır
+  open: Davetleri açıp kapatır.
+  info: Oyuncu ya da takım hakkında bilgileri görüntüler.
+  color: Takım rengini değiştirir.
+  deposit: Takım bankasına para yatırır.
+  bal: Takım bankasını görüntüler.
+  withdraw: Takım bankasından para çeker.
+  title: Takımdaki oyuncuların başlığını değiştirir.
+  top: En iyi takımları görüntüler.
+  rank: En yüksek rütbeli takımları görüntüler.
+  join: Takıma katılır.
+  delhome: Takım evini siler.
+  ally: Başka bir takıma müttefik isteği gönderir.
+  neutral: Müttefikliği bozar.
+  allychat: Müttefik sohbetini açıp kapatır.
+  echest: Ender sandığını görüntüler.
+  setwarp: Takımın için warp noktası oluşturur.
+  warps: Warp noktalarını görüntüler.
+  rankup: Takıma rütbe atlatır.
+  tag: Takıma tag oluşturur.
+  delwarp: Warp noktasını siler.
+  chest: Takım sandığını açar.
+  pvp: PvP ayarını açıp kapatır.
+  baltop: En zengin takımları görüntüler.
+  list: Sunucudaki bütün takımları görüntüler.
+  warp: Warp noktasına ışınlanır.
+

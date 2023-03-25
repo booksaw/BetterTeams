@@ -1,0 +1,206 @@
+# All translations in this file are community made, this means there may be errors / missed translations, if you are able to improve upon any translation it would be greatly appreciated
+
+# Able to help with translations? Either improving a already existing language, or adding a whole new one. Join the discord server: https://discord.gg/JF9DNs3 
+# or message me on spigot: https://www.spigotmc.org/members/booksaw123.120955/
+
+# Any placeholders from placeholder API will work in this file
+invalidArg: '&4Sai câu lệnh kìa'
+inTeam: '&4Bạn cần phải ở trong team để làm vậy'
+internalError: '&4Có gì đó sai sai, Report đến Owner server của bạn'
+notInTeam: '&4Bạn phải rời khỏi team để làm điều này'
+needOwner: '&4Bạn phải là Owner của Team để làm điều này'
+needAdmin: '&4Bạn phải là Admin hoặc owner của Team để làm điều này'
+needPlayer: '&4Bạn phải là Player để làm điều này'
+noPlayer: '&4Không tìm thấy người chơi'
+notTeam: '&6&4Team đó không tồn tại, dùng &b/team create <name>'
+needSameTeam: '&6Bạn không cùng team với người chơi đó'
+noPerm: '&4Ơ, Mất quyền công dân kìa :>'
+prefixSyntax: '&7[%s&7] &r%s'
+bannedChar: '&4Bạn gõ nhầm ký tự bị cấm rồi kìa'
+noTeam: '&4Team đó không tồn tại'
+loading: '&6Đang tải....'
+cooldown:
+  wait: '&4Bạn cần đợi thêm %s giây để làm vậy!'
+cost:
+  tooPoor: '&4Xem lại ví của bạn đi'
+  run: '&4&l-%s'
+placeholder:
+  noTeam: ''
+  noDescription: ''
+  money: '%s'
+  owner: Owner
+  admin: Admin
+  default: Default
+  name: '%s'
+  tag: '%s'
+  displayname: '%s'
+  inteam: 'true'
+  notinteam: 'false'
+  noTitle: ''
+prefix:
+  owner: ' **'
+  admin: ' *'
+  default: ' '
+create:
+  exists: '&6Team đó đã tồn tại rồi'
+  success: '&6Team của bạn đã được tạo'
+  banned: '&4Tên Team đó bị cấm rồi, trí tưởng tượng của bạn thật là phongs phús'
+  maxLength: '&4Tên dài lằng nhằng quá, không được'
+leave:
+  success: '&6Bạn đã rời khỏi team'
+  lastOwner: '&6Bạn là Owner cuối cùng của team, Hoặc là bạn thăng chức ai đó hoặc là bạn dùng &b/team disband &6 để Giải Tán Team'
+rank:
+  noTeam: '&4Không tìm thấy Team'
+  info: '&6Team position:'
+  infos: '&6Team rank: &b%s &7(%s Điểm để rankup)'
+  infom: '&6Team rank: &b%s &7($%s Cần để rankup)'
+  infomm: '&6Team rank: &b%s &7(Bạn max rank rồi)'
+  syntax: '&b%s: &6%s &7(%s)'
+delhome:
+  success: '&6/team home của bạn đã bị xoá'
+  noHome: '&4Team của bạn chưa /team sethome'
+disband:
+  success: '&6Team của bạn đã giải tán..... Tạm biệt'
+  confirm: '&6Dùng &b/team disband &6Một lần nữa để xác định'
+description:
+  success: '&6Bạn đã thay đổi Miêu tả của Team '
+  view: '&6Miêu tả của Team: %s'
+  noDesc: '&6Bạn chưa tạo miêu tả của Team'
+  noPerm: '&4Bạn mất quyền công dâ- Bạn không có quyền đổi miêu tả của Team'
+name:
+  success: '&6Bạn đã đổi tên team'
+  view: '&6Tên Team: %s'
+  exists: '&4Team đó đã tồn tại'
+  noPerm: '&4Bạn không có quyền đổi tên Team, đi mà hỏi thằng Owner hay Admin á'
+invite:
+  success: '&6Người chơi đó đã được mời'
+  invite: '&6Bạn đã được mời vào team của %s dùng &b/team join <team> &6 để vào team đó'
+  inTeam: '&6Người chơi đó đã có Team'
+  banned: '&6Người chơi đó đã bay màu khỏi team của bạn'
+  full: '&6Team đầy rồi, kick đứa nào đó ra khỏi team đi rồi mời vào'
+  expired: '&4Team của &b%s &4đã hết hạn'
+join:
+  success: '&6Bạn đã vào team đó'
+  notify: '&6Chào mừng, &b%s &6đến Team của chúng ta!'
+  notInvited: '&6&4Bạn không được mời'
+  banned: '&6&4Bạn bị pay màu khỏi team đó rồi, quên à :>'
+  full: '&4Đất chật người đông, Bạn không được vào'
+open:
+  successopen: '&6Giờ ai cũng sẽ vào được team của bạn'
+  successclose: '&6Giờ team của bạn chỉ có mời mới được vào'
+title:
+  change: '&6Danh hiệu của bạn đã đổi thành &b%s'
+  remove: '&6Danh hiệu của bạn bị xoá'
+  success: '&6Đặt danh hiệu thành công'
+  tooLong: '&4Dạnh hiệu đó quá dài'
+  noFormat: '&4Bạn không có quyền để chỉnh title'
+  noColor: '&4Bạn không có quyền để chỉnh màu của danh hiệu'
+  reset: '&6Bạn đã reset danh hiệu'
+  noPerm: '&4bạn không có quyền để chỉnh danh hiệu'
+info:
+  needTeam: '&6Không có team hoặc tên người chơi có tên đó'
+  name: '&6Name: &b%s'
+  description: '&6Description: &b%s'
+  open: '&6Open: &b%s'
+  level: '&6Level: &b%s'
+  owner: '&6Owners: &b%s'
+  admin: '&6Admins: &b%s'
+  default: '&6Members: &b%s'
+  tag: '&6Tag: &b%s'
+  fail: '&6Không có team hoặc tên người chơi có tên đó'
+  score: '&6Score: &b%s'
+  money: '&6Balance: &b%s'
+  ally: '&6Đồng minh: &b%s'
+kick:
+  success: '&6Người chơi đó bị kick'
+  notify: '&6Bạn đã bị kick khỏi team %s'
+  title: '&4bạn đã bị kick khỏi team của bạn'
+  noPerm: '&6Bạn không có quyền để kick'
+ban:
+  success: '&6Người chơi đó đã pay màu khỏi team của bạn'
+  notify: '&6Bạn đã bị pay màu khỏi team đó %s'
+  title: '&4Bạn đã bị pay màu khỏi team của bạn'
+  noPerm: '&6Bạn ko có quyền để ban người chơi'
+  already: '&6Bạn đã bị pay màu từ trước đó rồi còn đâu?'
+unban:
+  success: '&6Người chơi đó đã có màu trở lại'
+  notify: '&6Bạn đã có màu trở lại từ team %s'
+  noPerm: '&6Bạn không có quyền để unban'
+  not: '&6Người chơi đó còn màu'
+promote:
+  success: '&6Người chơi đó lên chức'
+  noPerm: '&6Bạn không có quyền lên chức người khác'
+  max: '&6Người chơi đó chức owner lâu rồi!'
+  notify: '&6Bạn đã được thăng chức, sướng quá!'
+  maxAdmins: '&4Team bạn đầy Admin rồi, hạ cấp ai đó hoặc rank up team bạn'
+  maxOwners: '&4Team bạn đầy Owner rồi, hạ cấp ai đó hoặc rank up team bạn'
+demote:
+  success: '&6Người chơi đó đã bị hạ cấp'
+  noPerm: '&6Bạn không thể hạ cấp người chơi đó được'
+  min: '&6Người chơi đó fan MU dưới đáy xã hội rồi :/'
+  notify: '&6Ôi không, bạn đã bị hạ cấp'
+
+nametag:
+  
+  syntax: '&6&l%s&r '
+holo:
+  leaderboard: '&6Leaderboard'
+  syntax: '&6%s: &b%s'
+  msyntax: '&6%s: &b$%s'
+top:
+  leaderboard: '&6Leaderboard'
+  syntax: '&b%s: &6%s &7(%s)'
+  divide: '&f...'
+baltop:
+  leaderboard: '&6Leaderboard'
+  syntax: '&b%s: &6%s &7(%s)'
+  divide: '&f...'
+spy:
+  team: '&7[&b%s&7]&f%s&f: %s'
+  ally: '&7[&d%s&7]&f%s&f: %s'
+help:
+
+  description: Xem và thay đổi miêu tả Team bạn
+  ban: Làm pay màu người chơi khỏi team bạn
+  home: Dịch chuyển đến Home của Team
+  help: Xem hướng dẫn
+  promote: Thăng chức người chơi trong team
+  demote: Hạ cấp người chơi trong team
+  unban: Unban người chơi ngoài team bạn
+  kick: Đá người chơi khỏi team bạn
+  leave: Rời khỏi Team
+  chat: Bật chế độ Chat trong Team, dùng lại để tắt
+  name: Xem và đổi tên Team của bạn
+  sethome: Đặt home của Team bạn
+  create: Tạo Team với tên do bạn đặt
+  invite: Mời người chơi vào Team của bạn
+  disband: Giải tán Team của bạn
+  open: Bật/tắt chế độ ai cũng vào được Team của bạn
+  info: Xem thông tin của Người chơi / Team 
+  color: Đổi màu Team
+  deposit: Bỏ tiền vào Team của Bạn
+  bal: Xem Tiền của Team
+  withdraw: Lấy tiền từ Team
+  title: Đổi danh hiệu người chơi TRONG team bạn
+  top: Xem Bảng xếp hạng Các Team
+  rank: Xem rank của Team
+  join: Join Team của ai đó
+  delhome: Xoá home của Team bạn
+  ally: Gửi lời mời Đồng Minh đến team người khác
+  neutral: Bỏ Đồng Minh với Team của ai đó
+  allychat: Bật/tắt Chat Đồng Minh
+  echest: Xem Ender Chest của Team bạn
+  setwarp: Đặt warp cho team cùng với tên warp
+  warps: Xem các warp của team
+  rankup: Thăng chức Team của bạn lên tầm cao mới
+  tag: Đặt tag của team bạn
+  delwarp: Xoá warp của team bạn
+  chest: ''
+  pvp: Bật PVP trong team
+  baltop: Xem các team đại gia, giới thượng lưu
+  list: Xem các team trong server
+  warp: Warp đến địa điểm của team bạn
+  removeall: Xoá tất cả các rương được chiếm (Không nên dùng)
+  claim: Claim chest mà bạn đang đứng (không nên dùng)
+  remove: xoá team claim của bạn (không nên dùng)
+

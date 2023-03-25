@@ -30,7 +30,17 @@
 # Able to help with translations? Either improving a already existing language, or adding a whole new one. Join the discord server: https://discord.gg/JF9DNs3 
 # or message me on spigot: https://www.spigotmc.org/members/booksaw123.120955/
 #
-# For a list of supported languages, use this link: https://github.com/booksaw/BetterTeams/wiki/Language
+# For a full list of supported languages, use this link: https://github.com/booksaw/BetterTeams/wiki/Language
+# ca    - Catlan
+# en    - English 
+# de    - German
+# it    - Italian
+# es_mx - Mexian Spanish
+# pl    - Polish
+# sr    - Serbian 
+# es    - Spanish
+# zh_tw - Traditional Chinese
+# tr    - Turkish
 language: en
 
 # Determines how team data is stored
