@@ -161,7 +161,14 @@ public class UltimateClaimsManager implements Listener {
 				continue;
 			}
 
-			c.destroy(ClaimDeleteReason.PLAYER);
+			new BukkitRunnable() {
+				
+				@Override
+				public void run() {
+					c.destroy(ClaimDeleteReason.PLAYER);
+				}
+			}.runTask(Main.plugin);
+			
 
 			if (player.getPlayer().isOnline()) {
 				MessageManager.sendMessage(player.getPlayer().getPlayer(), "uclaim.dissolve");
