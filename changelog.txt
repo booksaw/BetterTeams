@@ -636,9 +636,7 @@ Bug Fixes:
 Headings: 
 Features: 
 
-
 Improvements:
-
 
 Bug Fixes: 
 
