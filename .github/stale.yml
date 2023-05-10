@@ -2,15 +2,11 @@
 daysUntilStale: 40
 # Number of days of inactivity before a stale issue is closed
 daysUntilClose: 1000
+
+onlyLabels:
+- question
 # Issues with these labels will never be considered stale
-exemptLabels:
-  - pinned
-  - security
-  - enhancement (small)
-  - enhancement (medium)
-  - enhancement (large)
-  - enhancement (dependency)
-  - enhancement (uncategorised)
+exemptLabels: []
 
 # Label to use when marking an issue as stale
 staleLabel: inactive
