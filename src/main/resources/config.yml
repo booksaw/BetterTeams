@@ -527,7 +527,7 @@ ultimateClaims:
    # All members of a team are trusted in the claim
    enabled: true
 
-# INTEGRATION WITH WORLD GAURD
+# INTEGRATION WITH WORLDGUARD
 # Plugin link: https://dev.bukkit.org/projects/worldguard
 worldGuard: 
    # This is used to determine if the worldgaurd integration is active
