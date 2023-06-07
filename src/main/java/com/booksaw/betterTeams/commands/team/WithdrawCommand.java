@@ -1,12 +1,18 @@
 package com.booksaw.betterTeams.commands.team;
 
-import com.booksaw.betterTeams.*;
-import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
-import com.booksaw.betterTeams.message.HelpMessage;
-import net.milkbowl.vault.economy.EconomyResponse;
+import java.util.List;
+
 import org.bukkit.command.CommandSender;
 
-import java.util.List;
+import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.Main;
+import com.booksaw.betterTeams.PlayerRank;
+import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.TeamPlayer;
+import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
+import com.booksaw.betterTeams.message.HelpMessage;
+
+import net.milkbowl.vault.economy.EconomyResponse;
 
 public class WithdrawCommand extends TeamSubCommand {
 
@@ -76,6 +82,11 @@ public class WithdrawCommand extends TeamSubCommand {
 	@Override
 	public PlayerRank getDefaultRank() {
 		return PlayerRank.ADMIN;
+	}
+
+	@Override
+	public boolean runAsync(String[] args) {
+		return false;
 	}
 
 }

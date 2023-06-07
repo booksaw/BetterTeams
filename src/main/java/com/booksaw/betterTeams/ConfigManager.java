@@ -20,7 +20,8 @@ import org.jetbrains.annotations.NotNull;
 public class ConfigManager {
 
 	public final YamlConfiguration config;
-	private final String resourceName, filePath;
+	private final String resourceName;
+	private final String filePath;
 
 	public ConfigManager(String resourceName, boolean updateChecks) {
 		if (!resourceName.endsWith(".yml")) {
