@@ -1,4 +1,4 @@
-# If your config is missing full comments, view a commented version of the config here: https://github.com/booksaw/BetterTeams/blob/master/config.yml
+# If your config is missing full comments, view a commented version of the config here: https://github.com/booksaw/BetterTeams/blob/master/src/main/resources/config.yml
 # This problem is caused by adding new values to the config, in the process comments are deleted
 
 ####################################################################
@@ -527,7 +527,7 @@ ultimateClaims:
    # All members of a team are trusted in the claim
    enabled: true
 
-# INTEGRATION WITH WORLD GAURD
+# INTEGRATION WITH WORLDGUARD
 # Plugin link: https://dev.bukkit.org/projects/worldguard
 worldGuard: 
    # This is used to determine if the worldgaurd integration is active
