@@ -8,6 +8,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
@@ -44,28 +45,35 @@ public class RankupEvents implements Listener {
 	}
 
 	private void runCommandList(List<String> commands, Team team, String level, OfflinePlayer source) {
-		for (String str : commands) {
-			str = str.replace("%team%", team.getName());
-			str = str.replace("%level%", level);
-			if (str.contains("%player%")) {
+		new BukkitRunnable() {
 
-				for (TeamPlayer p : team.getMembers().getClone()) {
-					String newStr = str.replace("%player%", Objects.requireNonNull(p.getPlayer().getName()));
-					if (Main.placeholderAPI) {
-						newStr = PlaceholderAPI.setPlaceholders(p.getPlayer(), newStr);
+			@Override
+			public void run() {
+				for (String str : commands) {
+					str = str.replace("%team%", team.getName());
+					str = str.replace("%level%", level);
+					if (str.contains("%player%")) {
+
+						for (TeamPlayer p : team.getMembers().getClone()) {
+							String newStr = str.replace("%player%", Objects.requireNonNull(p.getPlayer().getName()));
+							if (Main.placeholderAPI) {
+								newStr = PlaceholderAPI.setPlaceholders(p.getPlayer(), newStr);
+							}
+
+							Bukkit.dispatchCommand(Bukkit.getConsoleSender(), newStr);
+						}
+					} else {
+						if (Main.placeholderAPI) {
+							str = PlaceholderAPI.setPlaceholders(source, str);
+						}
+
+						Bukkit.dispatchCommand(Bukkit.getConsoleSender(), str);
+
 					}
-
-					Bukkit.dispatchCommand(Bukkit.getConsoleSender(), newStr);
 				}
-			} else {
-				if (Main.placeholderAPI) {
-					str = PlaceholderAPI.setPlaceholders(source, str);
-				}
-
-				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), str);
-
 			}
-		}
+		}.runTask(Main.plugin);
+
 	}
 
 }

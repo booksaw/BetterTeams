@@ -639,6 +639,7 @@ Bug Fixes:
 - Fixed issues with comments in config.yml (#449) - Credit AnhNguyenlost13 (GitHub)
 - Fixed bug stopping admin commands promoting and demoting offline players
 - Fixed bug causing a money duplication glitch (#432)
+- Fixed bug causing level `endCommands` to not run (#433)
 
 Headings: 
 Features: 
