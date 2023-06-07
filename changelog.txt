@@ -633,6 +633,12 @@ Bug Fixes:
 - Fix issue with player tp delay when the world changes (#419)
 - UltimateClaims - fixed issue with disbanding team not disbanding claim (#425)
 
+4.6.5
+
+Bug Fixes:
+- Fixed issues with comments in config.yml (#449) - Credit AnhNguyenlost13 (GitHub)
+- Fixed bug stopping admin commands promoting and demoting offline players
+
 Headings: 
 Features: 
 

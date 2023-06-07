@@ -1,21 +1,26 @@
 package com.booksaw.betterTeams.commands.teama;
 
-import com.booksaw.betterTeams.*;
-import com.booksaw.betterTeams.commands.SubCommand;
-import com.booksaw.betterTeams.message.MessageManager;
-import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
 import java.util.List;
 import java.util.Objects;
+
+import org.bukkit.OfflinePlayer;
+import org.bukkit.command.CommandSender;
+
+import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.Main;
+import com.booksaw.betterTeams.PlayerRank;
+import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.TeamPlayer;
+import com.booksaw.betterTeams.Utils;
+import com.booksaw.betterTeams.commands.SubCommand;
+import com.booksaw.betterTeams.message.MessageManager;
 
 public class PromoteTeama extends SubCommand {
 
 	@Override
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
 
-		Player p = Bukkit.getPlayer(args[0]);
+		OfflinePlayer p = Utils.getOfflinePlayer(args[0]);
 		if (p == null) {
 			return new CommandResponse("noPlayer");
 		}
@@ -39,7 +44,9 @@ public class PromoteTeama extends SubCommand {
 		}
 
 		team.promotePlayer(tp);
-		MessageManager.sendMessage(p, "admin.promote.notify");
+		if (p.isOnline()) {
+			MessageManager.sendMessage(p.getPlayer(), "admin.promote.notify");
+		}
 		return new CommandResponse(true, "admin.promote.success");
 	}
 

@@ -30,7 +30,6 @@ public class JoinCommand extends NoTeamSubCommand {
 		}
 
 		int limit = team.getTeamLimit();
-
 		if (limit > 0 && limit <= team.getMembers().size()) {
 			return new CommandResponse("join.full");
 		}
