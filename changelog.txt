@@ -643,6 +643,7 @@ Bug Fixes:
 - Fixed bug causing null teams to throw errors when running /team info (#435)
 - Fixed bug causing /team echest not to work with SQL storage (#441)
 - Fixed bug causing /teama teleport to throw an error (#444)
+- Fixed bug causing chest claims to cause a lot of lag on servers using SQL (#429)
 
 Headings: 
 Features: 

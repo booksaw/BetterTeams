@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.logging.Level;
@@ -65,14 +66,24 @@ public class SQLStorageManager extends TeamManager implements Listener {
 		database.closeConnection();
 	}
 
+	private HashMap<String, UUID> claims;
+
 	@Override
 	public UUID getClaimingTeamUUID(Location location) {
-		String result = database.getResult("teamID", TableName.CHESTCLAIMS,
-				"chestLoc LIKE '" + LocationListComponent.getString(location) + "'");
-		if (result == null || result.length() == 0) {
-			return null;
+
+		if (claims == null) {
+			claims = new HashMap<>();
+			try (ResultSet results = database.select("*", TableName.CHESTCLAIMS)) {
+				while (results.next()) {
+					claims.put(results.getString(2), UUID.fromString(results.getString(1)));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
 		}
-		return UUID.fromString(result);
+
+		return claims.get(LocationListComponent.getString(location));
 	}
 
 	@Override
@@ -266,12 +277,14 @@ public class SQLStorageManager extends TeamManager implements Listener {
 
 	@Override
 	public void addChestClaim(Team team, Location loc) {
+		claims.put(LocationListComponent.getString(loc), team.getID());
 		database.insertRecord(TableName.CHESTCLAIMS, "teamID, chestLoc",
 				"'" + team.getID() + "', '" + LocationListComponent.getString(loc) + "'");
 	}
 
 	@Override
 	public void removeChestclaim(Location loc) {
+		claims.remove(LocationListComponent.getString(loc));
 		database.deleteRecord(TableName.CHESTCLAIMS, "chestLoc LIKE '" + LocationListComponent.getString(loc) + "'");
 	}
 

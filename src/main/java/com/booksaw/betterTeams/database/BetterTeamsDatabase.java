@@ -40,6 +40,10 @@ public class BetterTeamsDatabase extends Database {
 
 	}
 
+	public ResultSet select(String select, TableName from) {
+		return executeQuery("SELECT ? FROM ?", select, from.toString());
+	}
+
 	/**
 	 * 
 	 * @param select the element to select
@@ -136,7 +140,7 @@ public class BetterTeamsDatabase extends Database {
 		}
 
 	}
-
+	
 	/**
 	 * Used to delete a record from the specified table
 	 * 
