@@ -177,8 +177,10 @@ public class SQLTeamStorage extends TeamStorage {
 	@Override
 	public void setEchestContents(Inventory inventory) {
 		String serial = Utils.serializeInventory(inventory);
-		serial.replace("\"", "\\\"");
-		storageManager.getDatabase().updateRecordWhere(TableName.TEAM, "echest = \"" + serial + "\"", getCondition());
+		serial = serial.replace("\\", "\\\\");
+		serial = serial.replace("\"", "\\\"");
+		storageManager.getDatabase().executeStatement("UPDATE ? SET echest = \"" + serial + "\" WHERE ?",
+				TableName.TEAM.toString(), getCondition());
 
 	}
 

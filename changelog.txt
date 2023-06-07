@@ -641,6 +641,7 @@ Bug Fixes:
 - Fixed bug causing a money duplication glitch (#432)
 - Fixed bug causing level `endCommands` to not run (#433)
 - Fixed bug causing null teams to throw errors when running /team info (#435)
+- Fixed bug causing /team echest not to work with SQL storage (#441)
 
 Headings: 
 Features: 
