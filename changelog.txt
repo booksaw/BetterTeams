@@ -642,6 +642,7 @@ Bug Fixes:
 - Fixed bug causing level `endCommands` to not run (#433)
 - Fixed bug causing null teams to throw errors when running /team info (#435)
 - Fixed bug causing /team echest not to work with SQL storage (#441)
+- Fixed bug causing /teama teleport to throw an error (#444)
 
 Headings: 
 Features: 

@@ -6,8 +6,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.presets.TeamSelectSubCommand;
 import com.booksaw.betterTeams.message.HelpMessage;
@@ -36,7 +38,17 @@ public class TeleportTeama extends TeamSelectSubCommand {
 					return new CommandResponse("noPlayer");
 				}
 
-				specifiedTeam.getOnlineMemebers().forEach(p -> p.teleport(target.getLocation()));
+				final Location locationFinal = target.getLocation();
+
+				new BukkitRunnable() {
+
+					@Override
+					public void run() {
+						for (Player p : specifiedTeam.getOnlineMemebers()) {
+							p.teleport(locationFinal);
+						}
+					}
+				}.runTask(Main.plugin);
 				return new CommandResponse(true, "admin.teleport.success");
 			}
 
@@ -63,9 +75,19 @@ public class TeleportTeama extends TeamSelectSubCommand {
 			location = new Location(player.getWorld(), x, y, z, yaw, pitch);
 		}
 
-		for (Player p : specifiedTeam.getOnlineMemebers()) {
-			p.teleport(location);
-		}
+		final Location locationFinal = location;
+
+		new BukkitRunnable() {
+
+			@Override
+			public void run() {
+				for (Player p : specifiedTeam.getOnlineMemebers()) {
+					p.teleport(locationFinal);
+				}
+			}
+
+		}.runTask(Main.plugin);
+
 		return new CommandResponse(true, "admin.teleport.success");
 	}
 
