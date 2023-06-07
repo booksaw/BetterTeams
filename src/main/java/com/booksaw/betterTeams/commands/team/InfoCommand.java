@@ -2,7 +2,6 @@ package com.booksaw.betterTeams.commands.team;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -66,8 +65,14 @@ public class InfoCommand extends SubCommand {
 	private static String getAlliesMessage(Team team) {
 		StringBuilder allies = new StringBuilder();
 		for (UUID uuid : team.getAllies().getClone()) {
-			allies.append(Objects.requireNonNull(Team.getTeam(uuid)).getDisplayName()).append(ChatColor.WHITE)
-					.append(", ");
+			Team ally = Team.getTeam(uuid);
+
+			if (ally == null) {
+				Bukkit.getLogger().warning("Unable to locate team with UUID: " + uuid);
+				continue;
+			}
+
+			allies.append(ally.getDisplayName()).append(ChatColor.WHITE).append(", ");
 		}
 		if (allies.length() > 2) {
 			allies = new StringBuilder(allies.substring(0, allies.length() - 2));
@@ -149,7 +154,7 @@ public class InfoCommand extends SubCommand {
 		List<String> toDisplay = getInfoMessages(team);
 
 		for (String str : toDisplay) {
-			if(str.length() == 0) {
+			if (str.length() == 0) {
 				continue;
 			}
 			MessageManager.sendFullMessage(sender, str);

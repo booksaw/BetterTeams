@@ -584,11 +584,11 @@ Features:
 - Added Italian translations - credit Bern (discord)
 
 Improvements
-- Added missing spanish translations - Credit Casho (discord)
+- Added missing Spanish translations - Credit Casho (discord)
 
 Bug Fixes: 
 - Fixed bug with error message not giving information about the error itself (#390)
-- Fixed bug with error message not giving tracable information to fix the problem (#394)
+- Fixed bug with error message not giving traceable information to fix the problem (#394)
 
 4.6.1:
 
@@ -640,6 +640,7 @@ Bug Fixes:
 - Fixed bug stopping admin commands promoting and demoting offline players
 - Fixed bug causing a money duplication glitch (#432)
 - Fixed bug causing level `endCommands` to not run (#433)
+- Fixed bug causing null teams to throw errors when running /team info (#435)
 
 Headings: 
 Features: 
