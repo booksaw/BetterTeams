@@ -22,6 +22,12 @@ public class Database {
 	/**
 	 * Stores the information to create a connection to the database
 	 */
+	private String host;
+	private int port;
+	private String database;
+	private String user;
+	private String password;
+
 	Connection connection;
 
 	/**
@@ -32,26 +38,20 @@ public class Database {
 	 */
 	public void setupConnectionFromConfiguration(ConfigurationSection section) {
 
-		String host = section.getString("host", "localhost");
-		int port = section.getInt("port", 3306);
-		String database = section.getString("database", "spigot");
-		String user = section.getString("user", "root");
-		String password = section.getString("password", "password");
+		host = section.getString("host", "localhost");
+		port = section.getInt("port", 3306);
+		database = section.getString("database", "spigot");
+		user = section.getString("user", "root");
+		password = section.getString("password", "password");
 
-		setupConnection(host, port, database, user, password);
+		setupConnection();
 
 	}
 
 	/**
 	 * Used to setup a connection from the provided data
-	 * 
-	 * @param host     The database host
-	 * @param port     The database port
-	 * @param database The database name
-	 * @param user     The database user credential
-	 * @param password The users password
 	 */
-	public void setupConnection(String host, int port, String database, String user, String password) {
+	public void setupConnection() {
 
 		Bukkit.getLogger().info("[BetterTeams] Attempting to connect to database");
 
@@ -84,6 +84,27 @@ public class Database {
 
 		Bukkit.getLogger().info("[BetterTeams] Connection with the database established");
 
+	}
+
+	/*
+	 * This is a bit of a hacky fix - you should look into connection pooling as a more permanent solution.
+	 * A popular library is HikariCP (https://github.com/brettwooldridge/HikariCP)
+	 */
+	private void resetConnection() {
+		if (connection == null) {
+			throw new IllegalStateException("No SQL connection has been established");
+		}
+
+		try {
+			connection.close();
+			// Also, just a suggestion, but it's not recommended to use autoReconnect=true as per the MySQL Connector/J developer docs.
+			// https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-connp-props-high-availability-and-clustering.html
+			connection = DriverManager.getConnection(
+				"jdbc:mysql://" + host + ":" + port + "/" + database + "?autoReconnect=true&useSSL=false", user,
+				password);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -129,8 +150,7 @@ public class Database {
 
 		try {
 			if(!connection.isValid(2)) {
-				Bukkit.getLogger().severe("Connection to database has timed out, BetterTeams will be displaying incorrect information");
-				return;
+				resetConnection();
 			}
 		} catch (SQLException e) {
 			// this error is never thrown as the timeout is > 0
@@ -160,8 +180,7 @@ public class Database {
 
 		try {
 			if(!connection.isValid(2)) {
-				Bukkit.getLogger().severe("Connection to database has timed out, BetterTeams will be displaying incorrect information");
-				return null;
+				resetConnection();
 			}
 			PreparedStatement ps = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 //			System.out.println("executing: " + ps.toString());
