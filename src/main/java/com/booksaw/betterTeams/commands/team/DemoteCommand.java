@@ -63,7 +63,11 @@ public class DemoteCommand extends TeamSubCommand {
 		}
 
 		team.demotePlayer(demotePlayer);
-		MessageManager.sendMessage((CommandSender) demotePlayer.getPlayer(), "demote.notify");
+
+		OfflinePlayer offlineDemotePlayer = demotePlayer.getPlayer();
+		if (offlineDemotePlayer.isOnline()) {
+			MessageManager.sendMessage(offlineDemotePlayer.getPlayer(), "demote.notify");
+		}
 
 		return new CommandResponse(true, "demote.success");
 
