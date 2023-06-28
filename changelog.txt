@@ -647,6 +647,9 @@ Bug Fixes:
 
 4.6.6:
 
+Improvements: 
+- Plugin prefix cannot be removed from fully custom help messages (#458)
+
 Bug Fixes: 
 - Fixed database disconnecting issues (#460 #466) - Credit SavageAvocado (GitHub)
 - Fixed ClassCastException in the demote player command (#467 #465) - Credit SavageAvocado (GitHub)

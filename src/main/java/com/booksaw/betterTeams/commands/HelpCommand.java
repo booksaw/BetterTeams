@@ -1,12 +1,5 @@
 package com.booksaw.betterTeams.commands;
 
-import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.Main;
-import com.booksaw.betterTeams.message.MessageManager;
-import net.md_5.bungee.api.ChatColor;
-import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -15,6 +8,14 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.logging.Level;
+
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
+
+import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.Main;
+
+import net.md_5.bungee.api.ChatColor;
 
 public class HelpCommand extends SubCommand {
 
@@ -78,7 +79,7 @@ public class HelpCommand extends SubCommand {
 
 				PrintWriter writer = new PrintWriter(f);
 				for (Entry<String, SubCommand> sub : command.getSubCommands().entrySet()) {
-					writer.println("&b/" + label + " " + sub.getKey() + " " + sub.getValue().getArguments() + "&f - &6"
+					writer.println(Main.plugin.getConfig().getString("prefixFormat") + "&b/" + label + " " + sub.getKey() + " " + sub.getValue().getArguments() + "&f - &6"
 							+ sub.getValue().getHelpMessage());
 				}
 				writer.close();
@@ -92,13 +93,10 @@ public class HelpCommand extends SubCommand {
 				fullyCustom = false;
 			}
 		}
-		BufferedReader reader = null;
-		try {
-			reader = new BufferedReader(new FileReader(f));
+		try (BufferedReader reader = new BufferedReader(new FileReader(f))){
 			String line;
 			while ((line = reader.readLine()) != null) {
-				sender.sendMessage(
-						MessageManager.getPrefix() + org.bukkit.ChatColor.translateAlternateColorCodes('&', line));
+				sender.sendMessage(org.bukkit.ChatColor.translateAlternateColorCodes('&', line));
 			}
 		} catch (Exception e) {
 			Bukkit.getLogger().log(Level.SEVERE,
@@ -106,16 +104,6 @@ public class HelpCommand extends SubCommand {
 			sender.sendMessage(ChatColor.RED + "Something went wrong, inform your server admins");
 			e.printStackTrace();
 			fullyCustom = false;
-		} finally {
-			if (reader != null) {
-				try {
-					reader.close();
-				} catch (Exception e) {
-					Bukkit.getLogger().log(Level.SEVERE,
-							"Could not use fully custom help messages, inform booksaw (this should never happen)");
-					sender.sendMessage(ChatColor.RED + "Something went wrong, inform your server admins");
-				}
-			}
 		}
 	}
 
