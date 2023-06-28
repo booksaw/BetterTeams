@@ -87,8 +87,9 @@ public class Database {
 	}
 
 	/*
-	 * This is a bit of a hacky fix - you should look into connection pooling as a more permanent solution.
-	 * A popular library is HikariCP (https://github.com/brettwooldridge/HikariCP)
+	 * This is a bit of a hacky fix - you should look into connection pooling as a
+	 * more permanent solution. A popular library is HikariCP
+	 * (https://github.com/brettwooldridge/HikariCP)
 	 */
 	private void resetConnection() {
 		if (connection == null) {
@@ -97,11 +98,12 @@ public class Database {
 
 		try {
 			connection.close();
-			// Also, just a suggestion, but it's not recommended to use autoReconnect=true as per the MySQL Connector/J developer docs.
+			// Also, just a suggestion, but it's not recommended to use autoReconnect=true
+			// as per the MySQL Connector/J developer docs.
 			// https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-connp-props-high-availability-and-clustering.html
 			connection = DriverManager.getConnection(
-				"jdbc:mysql://" + host + ":" + port + "/" + database + "?autoReconnect=true&useSSL=false", user,
-				password);
+					"jdbc:mysql://" + host + ":" + port + "/" + database + "?autoReconnect=true&useSSL=false", user,
+					password);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -149,13 +151,13 @@ public class Database {
 		statement = statement.replace("'true'", "true");
 
 		try {
-			if(!connection.isValid(2)) {
+			if (!connection.isValid(2)) {
 				resetConnection();
 			}
 		} catch (SQLException e) {
 			// this error is never thrown as the timeout is > 0
-		}	
-		
+		}
+
 		try (PreparedStatement ps = connection.prepareStatement(statement)) {
 //			System.out.println("executing: " + ps.toString());
 			ps.executeUpdate();
@@ -179,10 +181,11 @@ public class Database {
 		}
 
 		try {
-			if(!connection.isValid(2)) {
+			if (!connection.isValid(2)) {
 				resetConnection();
 			}
-			PreparedStatement ps = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			PreparedStatement ps = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE,
+					ResultSet.CONCUR_UPDATABLE);
 //			System.out.println("executing: " + ps.toString());
 			return ps.executeQuery();
 		} catch (SQLException e) {
