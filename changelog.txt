@@ -645,6 +645,12 @@ Bug Fixes:
 - Fixed bug causing /teama teleport to throw an error (#444)
 - Fixed bug causing chest claims to cause a lot of lag on servers using SQL (#429)
 
+4.6.6:
+
+Bug Fixes: 
+- Fixed database disconnecting issues (#460 #466) - Credit SavageAvocado (GitHub)
+- Fixed ClassCastException in the demote player command (#467 #465) - Credit SavageAvocado (GitHub)
+
 Headings: 
 Features: 
 
