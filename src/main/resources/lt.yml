@@ -4,6 +4,9 @@
 # or message me on spigot: https://www.spigotmc.org/members/booksaw123.120955/
 
 # Any placeholders from placeholder API will work in this file
+
+# Credit for contributions to this file: Fragas
+
 invalidArg: '&4Netinkama komanda'
 inTeam: '&4Tu turi būti komandoje jog galėtum tai daryti'
 notInTeam: '&4pirma turi palikti savo komandą jog galėtum tai daryti'
