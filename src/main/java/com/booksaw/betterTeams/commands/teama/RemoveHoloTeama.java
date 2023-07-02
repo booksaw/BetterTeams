@@ -1,11 +1,9 @@
 package com.booksaw.betterTeams.commands.teama;
 
 import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.commands.SubCommand;
-import com.booksaw.betterTeams.integrations.HologramManager;
-import com.gmail.filoghost.holographicdisplays.api.Hologram;
-import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
+import com.booksaw.betterTeams.integrations.hologram.HologramManager;
+import com.booksaw.betterTeams.integrations.hologram.HologramManager.LocalHologram;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -16,16 +14,7 @@ public class RemoveHoloTeama extends SubCommand {
 	@Override
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
 		Player p = (Player) sender;
-		Hologram closest = null;
-		double distance = -1;
-
-		for (Hologram holo : HologramsAPI.getHolograms(Main.plugin)) {
-			double tempDistance = p.getLocation().distance(holo.getLocation());
-			if (closest == null || tempDistance < distance) {
-				closest = holo;
-				distance = tempDistance;
-			}
-		}
+		LocalHologram closest = HologramManager.holoManager.getNearestHologram(p.getLocation());
 
 		if (closest == null) {
 			return new CommandResponse("admin.holo.remove.noHolo");

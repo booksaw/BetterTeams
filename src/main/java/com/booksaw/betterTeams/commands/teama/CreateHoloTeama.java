@@ -2,8 +2,8 @@ package com.booksaw.betterTeams.commands.teama;
 
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.commands.SubCommand;
-import com.booksaw.betterTeams.integrations.HologramManager;
-import com.booksaw.betterTeams.integrations.HologramManager.HologramType;
+import com.booksaw.betterTeams.integrations.hologram.HologramManager;
+import com.booksaw.betterTeams.integrations.hologram.HologramManager.HologramType;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 

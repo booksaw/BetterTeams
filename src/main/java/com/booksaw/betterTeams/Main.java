@@ -5,6 +5,8 @@ import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.logging.Level;
 
+import com.booksaw.betterTeams.integrations.hologram.HologramManager.HologramProvider;
+import com.booksaw.betterTeams.integrations.hologram.HDHologramManager;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -105,7 +107,7 @@ import com.booksaw.betterTeams.events.InventoryManagement;
 import com.booksaw.betterTeams.events.MCTeamManagement;
 import com.booksaw.betterTeams.events.MCTeamManagement.BelowNameType;
 import com.booksaw.betterTeams.events.RankupEvents;
-import com.booksaw.betterTeams.integrations.HologramManager;
+import com.booksaw.betterTeams.integrations.hologram.HologramManager;
 import com.booksaw.betterTeams.integrations.TeamPlaceholders;
 import com.booksaw.betterTeams.integrations.UltimateClaimsManager;
 import com.booksaw.betterTeams.integrations.WorldGaurdManagerV7;
@@ -131,7 +133,7 @@ public class Main extends JavaPlugin {
 	public static Economy econ = null;
 	public static Permission perms = null;
 	public static boolean placeholderAPI = false;
-	public boolean useHolographicDisplays;
+	public boolean useHolograms = false;
 	public MCTeamManagement teamManagement;
 	public ChatManagement chatManagement;
 	public WorldGaurdManagerV7 wgManagement;
@@ -196,11 +198,11 @@ public class Main extends JavaPlugin {
 			}
 		}
 
-		useHolographicDisplays = (Bukkit.getPluginManager().getPlugin("HolographicDisplays") != null
-				&& Bukkit.getPluginManager().isPluginEnabled("HolographicDisplays"));
+		final HologramProvider hologramProvider = HologramManager.getAvailableHologramProvider();
 
-		if (useHolographicDisplays) {
-			updateHolos();
+		if (hologramProvider != HologramProvider.NONE) {
+			hologramProvider.newInstance();
+			this.useHolograms = true;
 		}
 
 		if (!setupEconomy() || !getConfig().getBoolean("useVault")) {
@@ -223,7 +225,7 @@ public class Main extends JavaPlugin {
 			temp.getValue().saveEchest();
 		}
 
-		if (useHolographicDisplays) {
+		if (useHolograms) {
 			HologramManager.holoManager.disable();
 		}
 
@@ -278,13 +280,6 @@ public class Main extends JavaPlugin {
 		// loading the fully custom help message option
 		HelpCommand.setupHelp();
 
-	}
-
-	/**
-	 * Used to manage all holograms information
-	 */
-	public void updateHolos() {
-		new HologramManager();
 	}
 
 	private boolean setupEconomy() {
@@ -377,7 +372,7 @@ public class Main extends JavaPlugin {
 				new ChestEnableClaims(), new ChestDisableClaims());
 		teamaCommand.addSubCommand(teamaChestCommand);
 
-		if (useHolographicDisplays) {
+		if (useHolograms) {
 			ParentCommand teamaHoloCommand = new ParentCommand("holo");
 			teamaHoloCommand.addSubCommands(new CreateHoloTeama(), new RemoveHoloTeama());
 			teamaCommand.addSubCommand(teamaHoloCommand);

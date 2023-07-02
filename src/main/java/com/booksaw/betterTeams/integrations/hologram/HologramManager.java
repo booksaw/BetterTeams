@@ -1,10 +1,8 @@
-package com.booksaw.betterTeams.integrations;
+package com.booksaw.betterTeams.integrations.hologram;
 
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.message.MessageManager;
-import com.gmail.filoghost.holographicdisplays.api.Hologram;
-import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.scheduler.BukkitScheduler;
@@ -15,11 +13,11 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Objects;
 
-public class HologramManager {
+public abstract class HologramManager {
 
 	public static HologramManager holoManager;
 
-	HashMap<Hologram, HologramType> holos;
+	HashMap<LocalHologram, HologramType> holos;
 
 	public HologramManager() {
 		holoManager = this;
@@ -38,6 +36,23 @@ public class HologramManager {
 		startUpdates();
 	}
 
+	/*
+	 * Determines which holograms plugin the server is running, and returns the respective HologramProvider.
+	 */
+	public static HologramProvider getAvailableHologramProvider() {
+		boolean hdHolos = (Bukkit.getPluginManager().getPlugin("HolographicDisplays") != null
+			&& Bukkit.getPluginManager().isPluginEnabled("HolographicDisplays"));
+		if (hdHolos) {
+			return HologramProvider.HOLOGRAPHIC_DISPLAYS;
+		}
+		boolean dhHolos = (Bukkit.getPluginManager().getPlugin("DecentHolograms") != null
+			&& Bukkit.getPluginManager().isPluginEnabled("DecentHolograms"));
+                if (dhHolos) {
+                        return HologramProvider.DECENT_HOLOGRAMS;
+                }
+                return HologramProvider.NONE;
+	}
+
 	// returns the location of a string
 	public static Location getLocation(String loc) {
 		String[] split = loc.split(":");
@@ -51,19 +66,15 @@ public class HologramManager {
 				+ loc.getZ();
 	}
 
-	public void createHolo(Location location, HologramType type) {
-		Hologram holo = HologramsAPI.createHologram(Main.plugin, location);
-		holos.put(holo, type);
-		reloadHolo(holo, type);
-	}
+	public abstract void createHolo(Location location, HologramType type);
 
-	public void reloadHolo(Hologram holo, HologramType type) {
+	public void reloadHolo(LocalHologram holo, HologramType type) {
 		String[] teams = getSortedArray(type);
 		holo.clearLines();
 
 		int maxHologramLines = Main.plugin.getConfig().getInt("maxHologramLines");
 
-		holo.appendTextLine(MessageManager.getMessage("holo.leaderboard"));
+		holo.appendText(MessageManager.getMessage("holo.leaderboard"));
 
 		for (int i = 0; i < maxHologramLines && i < teams.length; i++) {
 			Team team = Team.getTeam(teams[i]);
@@ -71,10 +82,9 @@ public class HologramManager {
 				Bukkit.getLogger().severe("A team was null for an unexplained reason, team name: " + teams[i]);
 				continue;
 			}
-			holo.appendTextLine(String.format(MessageManager.getMessage(type.getSyntaxReference()), team.getName(),
-					getValue(type, team)));
+			holo.appendText(String.format(MessageManager.getMessage(type.getSyntaxReference()), team.getName(),
+				getValue(type, team)));
 		}
-
 	}
 
 	public void startUpdates() {
@@ -86,7 +96,7 @@ public class HologramManager {
 			}
 			for (HologramType type : HologramType.values()) {
 				if (needsUpdating(type)) {
-					for (Entry<Hologram, HologramType> holo : holos.entrySet()) {
+					for (Entry<LocalHologram, HologramType> holo : holos.entrySet()) {
 						if (holo.getValue() == type) {
 							reloadHolo(holo.getKey(), holo.getValue());
 						}
@@ -94,6 +104,21 @@ public class HologramManager {
 				}
 			}
 		}, 0L, 20 * 60L);
+	}
+
+	public LocalHologram getNearestHologram(Location location) {
+		LocalHologram nearest = null;
+		double distance = -1;
+
+		for (LocalHologram holo : holos.keySet()) {
+			double tempDistance = location.distance(holo.getLocation());
+			if (nearest == null || tempDistance < distance) {
+				nearest = holo;
+				distance = tempDistance;
+			}
+		}
+
+		return nearest;
 	}
 
 	public String getValue(HologramType type, Team team) {
@@ -130,7 +155,7 @@ public class HologramManager {
 
 	public void disable() {
 		List<String> holostr = new ArrayList<>();
-		for (Entry<Hologram, HologramType> holo : holos.entrySet()) {
+		for (Entry<LocalHologram, HologramType> holo : holos.entrySet()) {
 			holostr.add(getString(holo.getKey().getLocation()) + ";" + holo.getValue());
 			holo.getKey().delete();
 		}
@@ -138,7 +163,7 @@ public class HologramManager {
 		holos = new HashMap<>();
 	}
 
-	public void removeHolo(Hologram toRemove) {
+	public void removeHolo(LocalHologram toRemove) {
 		toRemove.delete();
 		holos.remove(toRemove);
 	}
@@ -157,4 +182,37 @@ public class HologramManager {
 		}
 	}
 
+	public interface LocalHologram {
+		void appendText(String text);
+
+		void clearLines();
+
+		void delete();
+
+		Location getLocation();
+	}
+
+
+	public enum HologramProvider {
+		HOLOGRAPHIC_DISPLAYS {
+                        @Override
+                        public HologramManager newInstance() {
+                                return new HDHologramManager();
+                        }
+                },
+		DECENT_HOLOGRAMS {
+                        @Override
+                        public HologramManager newInstance() {
+                                return new DHHologramManager();
+                        }
+                },
+		NONE {
+                        @Override
+                        public HologramManager newInstance() {
+                                return null;
+                        }
+                };
+
+                public abstract HologramManager newInstance();
+	}
 }
