@@ -243,7 +243,16 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 			}
 
 			return team.getMembers().getOfflinePlayersString();
+		} else if (identifier.equals("level")) {
+			Team team = Team.getTeam(player);
+
+			if (team == null) {
+				return MessageManager.getMessage("placeholder.noTeam");
+			}
+
+			return team.getLevel() + "";
 		}
+
 
 		return null;
 
