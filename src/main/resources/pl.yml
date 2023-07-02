@@ -4,7 +4,9 @@
 # or message me on spigot: https://www.spigotmc.org/members/booksaw123.120955/
 
 # Any placeholders from placeholder API will work in this file
-# general errors
+
+# Credit for contributions to this file: Duplon, Edekoo, Guaz, Kuszaa
+
 invalidArg: '&4Taka komenda nie istnieje'
 inTeam: '&4Musisz być w teamie żeby to zrobić'
 notInTeam: '&4Musisz opuścić team żeby to zrobić'

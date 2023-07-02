@@ -654,6 +654,14 @@ Bug Fixes:
 - Fixed database disconnecting issues (#460 #466) - Credit SavageAvocado (GitHub)
 - Fixed ClassCastException in the demote player command (#467 #465) - Credit SavageAvocado (GitHub)
 
+4.6.7:
+
+Features: 
+- Added French translations - Credit Timiliris_420, Silvex (discord)
+
+Improvements: 
+- Improved Vietnamese translations - Credit Shelly (discord)
+
 Headings: 
 Features: 
 

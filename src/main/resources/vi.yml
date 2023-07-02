@@ -4,6 +4,9 @@
 # or message me on spigot: https://www.spigotmc.org/members/booksaw123.120955/
 
 # Any placeholders from placeholder API will work in this file
+
+# Credit for contributions to this file: Shelly#7078
+
 invalidArg: '&4Sai câu lệnh kìa'
 inTeam: '&4Bạn cần phải ở trong team để làm vậy'
 internalError: '&4Có gì đó sai sai, Report đến Owner server của bạn'
@@ -71,7 +74,7 @@ name:
   success: '&6Bạn đã đổi tên team'
   view: '&6Tên Team: %s'
   exists: '&4Team đó đã tồn tại'
-  noPerm: '&4Bạn không có quyền đổi tên Team, đi mà hỏi thằng Owner hay Admin á'
+  noPerm: '&4Bạn không có quyền đổi tên Team, đi mà hỏi thằng Owner hay Admin của team á'
 invite:
   success: '&6Người chơi đó đã được mời'
   invite: '&6Bạn đã được mời vào team của %s dùng &b/team join <team> &6 để vào team đó'
@@ -139,7 +142,226 @@ demote:
   noPerm: '&6Bạn không thể hạ cấp người chơi đó được'
   min: '&6Người chơi đó fan MU dưới đáy xã hội rồi :/'
   notify: '&6Ôi không, bạn đã bị hạ cấp'
-
+  lastOwner: '&6Bạn không thể hạ cấp Owner được, phải hạ cấp ai đó trước'
+  maxAdmins: '&4Team đầy admin rồi, xoá admin khác hoặc nâng cấp team của bạn'
+home:
+  success: '&6Bạn được dịch chuyển'
+  noHome: '&6Team của bạn chưa /team sethome'
+  world: '&4Không thể tìm thấy /team home của team'
+sethome:
+  success: '&6/sethome thành công'
+  noPerm: '&6Bạn không đủ quyền để /team sethome'
+chat:
+  enabled: '&6Giờ bạn đang chat với team của bạn'
+  disabled: '&6Giờ bạn đang chat thì ai cũng nghe được'
+  syntax: '&b[Team]&f%s&f: %s'
+color:
+  success: '&6Team bạn đã đổi màu'
+  fail: '&6Không có màu này đâu'
+  banned: '&4Chỉ được dùng màu, không phải kí tự đổi màu'
+deposit:
+  tooLittle: '&4Bạn không có đủ tiền để bỏ vào team'
+  fail: '&4Chuyển tiền thất bại'
+  success: '&6Chuyển tiền thành công'
+  max: '&4Team giàu thế, đầy tiền luôn rồi'
+withdraw:
+  tooLittle: '&4Team ngèo thể, không đủ rút luôn'
+  fail: '&4Chuyển tiền thất bại'
+  success: '&6Chuyển tiền thành công'
+  notEnough: '&6Team không có đủ tiền'
+ally:
+  already: '&4Bạn đã là đồng minh rồi'
+  success: '&6Giờ bạn là đồng minh của họ'
+  ally: '&6Giờ Team của bạn là đồng minh của &b%s'
+  requested: '&6Có một lời đề nghị đồng minh'
+  request: '&b%s &6Đã gửi lời đề nghị đồng minh, dùng &b/team ally <team> &6để chấp nhận'
+  self: '&4Team mình đồng minh chính team mình???'
+  from: '&6Bạn có lời đề nghị đồng minh từ: %s'
+  noRequests: '&4Bạn không có lời đề nghị nào'
+  onJoin: '&6Bạn có lời đề nghị đồng minh mới, dùng &b/team ally &6để xem nó'
+  limit: '&4Thích hoà bình nhưng rất tiếc đầy đồng minh rồi'
+  alreadyrequest: '&4Bạn đã gửi lời đề nghị dến team đó rồi'
+allychat:
+  disabled: '&6Giờ bạn không còn chat với đồng minh'
+  enabled: '&6Giờ bạn đang chat với đồng minh'
+  syntax: '&d[%s]&f%s&f: %s'
+neutral:
+  self: '&6Đó là team của bạn mà??'
+  requestremove: '&6Lời đề nghị bị xoá'
+  reject: '&4Lời đề nghị từ &b%s &4đã bị từ chối'
+  notAlly: '&4Bạn không phải đồng minh với team đó'
+  success: '&4Bạn không còn là đồng minh với team đó'
+  remove: '&4Bạn không còn là đồng minh với team &b%s'
+list:
+  noPage: '&6Lỗi, không có trang đó'
+  header: '&7--- &b Danh Sách Team %s &7---'
+  body: '&6%s: &b%s'
+  footer: '&7--- &6dùng &b/team list [Trang] &6để xem thêm &7---'
+setowner:
+  use: '&6Không thể thăng chức người chơi đó, dùng &b/team setowner <player> &6để thăng chức nó lên Owner'
+  success: '&6Giờ người chơi đó là Owner của team'
+  notify: '&6Bạn là Owner của team bạn'
+  max: '&4Người chơi đó đã là Owner của team rồi'
+setwarp:
+  exist: '&4Cái /team warp đó đã tồn tại'
+  max: '&4Team bạn /team setwarp nhiều quá, đầy rồi'
+  success: '&6/team warp đó đã được tạo'
+  char: '&4Cái /team warp đó tên độc lạ Bình Dương vậy, ai cho :>'
+warp:
+  nowarp: '&4/team warp đó không tồn tại'
+  invalidPassword: '&4Sai pass của /team warp đó rồi'
+  success: '&6Bạn đã được dịch chuyển'
+  world: '&4Không thể tìm thấy ./team warp đó'
+warps:
+  syntax: '&6Warps: &b%s'
+  none: '&4Team của bạn chưa /team setwarp một cái warp nào cả'
+delwarp:
+  success: '&4Cái /team warp đó đã bị xoá'
+teleport:
+  fail: '&4Dịch chuyển thất bại'
+  wait: '&6chờ &b%s &6giây coi'
+chest:
+  claim:
+    noChest: '&4Bạn không có đứng trên cái chest nào cả'
+    limit: '&4Team của bạn nhiều chest được claim quá'
+    claimed: '&4Chest đó bị claim rồi'
+    success: '&6Bạn đã claim cái chest đó'
+  remove:
+    noChest: '&4Bạn có đứng trên cái rương nào bị claim đâu'
+    notClaimed: '&4Team của bạn chưa claim cái chest này'
+    success: '&4Team của bạn không còn claim cái chest này nữa'
+  all:
+    success: '&6Unclaim tất cả các chest'
+  claimed: '&4Cái chest đó bị claim bới &a%s'
+echest:
+  
+  echest: Enderchest
+pvp:
+  
+  enabled: '&6Team của bạn bật pvp'
+  disabled: '&6Team của bạn tắt pvp'
+rankup:
+  
+  max: '&4Team bạn là chúa rồi, thăng chức gì nữa'
+  score: '&4Bạn cần %s điểm để rankup team bạn'
+  money: '&4Bạn cần %s tiền trong team để rankup team của bạn'
+  success: '&6Xin chúc mừng! Team của bạn đã thăng chức thành công!'
+tag:
+  
+  banned: '&4Cái Tag đó cấm rồi'
+  success: '&6Thay Tag thành công'
+  maxLength: '&4Cái Tag đó dài quá'
+  noPerm: '&4Bạn không có quyền để thay tag'
+admin:
+  cancel: '&4The command was cancelled by another plugin'
+  tag:
+    success: '&6That teams tag successfully changed'
+  setrank:
+    success: '&6That teams rank has been set'
+    'no': '&4That rank either does not exist or is not setup correctly'
+  config:
+    
+    reload: '&6BetterTeams has been reloaded (If you are having problems when using
+      this command, restart the server)'
+  holo:
+    create:
+      success: '&6Hologram created'
+    remove:
+      noHolo: '&4No holograms found'
+      success: '&6Hologram deleted'
+  title:
+    success: '&6that players title has been changed'
+    reset: '&6That players title has been reset'
+  version: '&6Current plugin version: &b%s'
+  versionstorage: '&6Storage Method: &b%s'
+  versionversion: '&6Minecraft Version: &b%s'
+  versionlanguage: '&6Language Selected: &b%s'
+  noTeam: '&4That is not a team'
+  home:
+    success: '&6You have been teleported to that teams home'
+    noHome: '&4That team does not have a home set'
+  name:
+    success: '&6The team name has been changed'
+  description:
+    success: '&6That teams name has been changed'
+  open:
+    successopen: '&6That team is now open for everyone'
+    successclose: '&6That team is now invite only'
+  invite:
+    success: '&6That player has been invited to that team'
+  create:
+    success: '&6That team has been created'
+  join:
+    banned: '&4That player is banned from that team'
+    success: '&6That player has joined the team'
+    notify: '&6You have joined the team &b%s'
+    full: '&4That team is full'
+  notInTeam: '&6That player cannot be in a team before doing that'
+  inTeam: '&4That player is not in a team'
+  leave:
+    success: '&6That player has left that team'
+    notify: '&6You have left that team'
+  demote:
+    notify: '&6You have been demoted'
+    success: '&6That player has been demoted'
+    min: '&4That player cannot be demoted any more'
+    maxAdmins: '&4That team already has the max number of admins, remove one before
+      demoting this player'
+  promote:
+    max: '&6That player is already the maximum rank'
+    notify: '&6You have been promoted'
+    success: '&6That player has been promoted'
+    owner: '&6It is configured that teams can only have a single owner, do &b/teama
+      setowner <player> &6to set the player as the owner'
+    maxAdmins: '&4That team already has the max number of admins, remove one before
+      promoting that player'
+    maxOwners: '&4That team already has the max number of owners, remove one before
+      promoting that player'
+  setowner:
+    already: '&4That player is already an owner'
+    nonotify: '&6You are no longer owner of the team'
+    success: '&6That player is the new team owner'
+    notify: '&6You are now the owner of your team'
+  warps:
+    none: '&4That team has not set any warps'
+  setwarp:
+    success: '&6That warp has been set'
+    max: '&6That team has already set the maximum number of warps'
+  purge:
+    confirm: '&6Run that command in the next 10 seconds to confirm, &4THIS CANNOT
+      BE UNDONE AND WILL RESET SCORES FOR ALL TEAMS'
+    success: '&6The teams have been purged'
+  score:
+    tooSmall: '&4The score must be greater than 0'
+    success: '&6That teams score has been changed'
+  bal:
+    toSmall: '&4The balance must be greater than 0'
+    success: '&6That teams balance has been changed'
+  update: '&4There is a new version of better teams released update here: (https://www.spigotmc.org/resources/better-teams.17129/)'
+  disband:
+    success: '&6That team has been disbanded successfully'
+  color:
+    success: '&6That teams color has been changed'
+  chest:
+    claim:
+      success: '&6You have claimed that chest on behalf of the team'
+    remove:
+      success: '&6You have successfully removed the claim from that chest'
+      notClaimed: '&4No team has claimed that chest'
+    all:
+      success: '&6All claims removed from that team'
+    disable:
+      already: '&4Chest claims are already disabled'
+      success: '&6Chest claiming has been disabled'
+    disabled:
+      bc: '&6&lAll claimed chests are able to be opened'
+    enable:
+      already: '&4Chest claims are already enabled'
+      success: '&6Chest claiming has been enabled'
+    enabled:
+      bc: '&6&lAll claimed chests are locked'
+  teleport:
+    success: '&6All online members of that team were teleported'
 nametag:
   
   syntax: '&6&l%s&r '
@@ -156,10 +378,19 @@ baltop:
   syntax: '&b%s: &6%s &7(%s)'
   divide: '&f...'
 spy:
+  stop: '&6You are no longer spying on team messages'
+  start: '&6You are now spying on team messages'
   team: '&7[&b%s&7]&f%s&f: %s'
   ally: '&7[&d%s&7]&f%s&f: %s'
+uclaim:
+  
+  team: '&4You must be in a team to create a claim'
+  member: '&4You cannot leave your teams claim'
+  kick: '&4You cannot kick members of your own team from your claim'
+  ban: '&4You cannot ban members of your own team from your claim'
+  dissolve: '&4Your team has been disbanded so your claim has been dissolved'
 help:
-
+  
   description: Xem và thay đổi miêu tả Team bạn
   ban: Làm pay màu người chơi khỏi team bạn
   home: Dịch chuyển đến Home của Team
@@ -203,4 +434,59 @@ help:
   removeall: Xoá tất cả các rương được chiếm (Không nên dùng)
   claim: Claim chest mà bạn đang đứng (không nên dùng)
   remove: xoá team claim của bạn (không nên dùng)
-
+command:
+  
+  create: create
+  leave: leave
+  disband: disband
+  description: description
+  invite: invite
+  join: join
+  name: name
+  open: open
+  info: info
+  kick: kick
+  promote: promote
+  demote: demote
+  home: home
+  sethome: sethome
+  ban: ban
+  unban: unban
+  chat: chat
+  color: color
+  title: title
+  top: top
+  baltop: baltop
+  rank: rank
+  delhome: delhome
+  ally: ally
+  neutral: neutral
+  allychat: allychat
+  list: list
+  warp: warp
+  setwarp: setwarp
+  delwarp: delwarp
+  warps: warps
+  echest: echest
+  rankup: rankup
+  tag: tag
+  pvp: pvp
+  claim: claim
+  remove: remove
+  removeall: removeall
+  chest: chest
+  reload: reload
+  chatspy: chatspy
+  version: version
+  purge: purge
+  setrank: setrank
+  add: add
+  set: set
+  score: score
+  enableclaims: enableclaims
+  disableclaims: disableclaims
+  teleport: teleport
+  money: money
+  deposit: deposit
+  bal: bal
+  withdraw: withdraw
