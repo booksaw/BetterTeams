@@ -61,7 +61,7 @@ public class TeamPlaceholders extends PlaceholderExpansion {
                     return MessageManager.getMessage("placeholder.noTeam");
                 }
 
-                return String.valueOf(identifier.endsWith("_online") ? team.getMembers().size() : team.getOnlineMembers().size());
+                return String.valueOf(identifier.toLowerCase().endsWith("_online") ? team.getOnlineMembers().size() : team.getMembers().size());
             }
             case "teamscore": {
                 if (args.length < 2) {
