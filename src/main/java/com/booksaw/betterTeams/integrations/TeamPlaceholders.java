@@ -105,7 +105,7 @@ public class TeamPlaceholders extends PlaceholderExpansion {
             return "";
         }
 
-        if (identifier.equalsIgnoreCase(args[0])) {
+        if ("inteam".equalsIgnoreCase(args[0])) {
             if (Team.getTeamManager().isInTeam(player)) {
                 return MessageManager.getMessage("placeholder.inteam");
             } else {
