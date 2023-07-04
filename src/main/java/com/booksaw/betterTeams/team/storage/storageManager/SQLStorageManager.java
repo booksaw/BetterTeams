@@ -311,7 +311,7 @@ public class SQLStorageManager extends TeamManager implements Listener {
 
 		Team team = getTeam(teamUUID);
 
-		if (team.getOnlineMemebers().size() > 1) {
+		if (team.getOnlineMembers().size() > 1) {
 			team.getTeamPlayer(e.getPlayer()).setTeamChat(false);
 			return;
 		}

@@ -44,7 +44,7 @@ public class TeleportTeama extends TeamSelectSubCommand {
 
 					@Override
 					public void run() {
-						for (Player p : specifiedTeam.getOnlineMemebers()) {
+						for (Player p : specifiedTeam.getOnlineMembers()) {
 							p.teleport(locationFinal);
 						}
 					}
@@ -81,7 +81,7 @@ public class TeleportTeama extends TeamSelectSubCommand {
 
 			@Override
 			public void run() {
-				for (Player p : specifiedTeam.getOnlineMemebers()) {
+				for (Player p : specifiedTeam.getOnlineMembers()) {
 					p.teleport(locationFinal);
 				}
 			}

@@ -1317,7 +1317,7 @@ public class Team {
 	 *
 	 * @return a list of online members for this team
 	 */
-	public List<Player> getOnlineMemebers() {
+	public List<Player> getOnlineMembers() {
 		return members.getOnlinePlayers();
 	}
 

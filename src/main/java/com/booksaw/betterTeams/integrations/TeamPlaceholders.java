@@ -16,288 +16,213 @@ import java.util.Objects;
  * @author booksaw
  */
 public class TeamPlaceholders extends PlaceholderExpansion {
-	private final Plugin plugin;
+    private final Plugin plugin;
 
-	public TeamPlaceholders(Plugin plugin) {
-		this.plugin = plugin;
-	}
+    public TeamPlaceholders(Plugin plugin) {
+        this.plugin = plugin;
+    }
 
-	@Override
-	public boolean persist() {
-		return true;
-	}
+    @Override
+    public boolean persist() {
+        return true;
+    }
 
-	@Override
-	public boolean canRegister() {
-		return true;
-	}
+    @Override
+    public boolean canRegister() {
+        return true;
+    }
 
-	@Override
-	public @NotNull String getAuthor() {
-		return plugin.getDescription().getAuthors().toString();
-	}
+    @Override
+    public @NotNull String getAuthor() {
+        return this.plugin.getDescription().getAuthors().toString();
+    }
 
-	@Override
-	public @NotNull String getIdentifier() {
-		return "betterTeams";
-	}
+    @Override
+    public @NotNull String getIdentifier() {
+        return "betterTeams";
+    }
 
-	@Override
-	public @NotNull String getVersion() {
-		return plugin.getDescription().getVersion();
-	}
+    @Override
+    public @NotNull String getVersion() {
+        return this.plugin.getDescription().getVersion();
+    }
 
-	@Override
-	public String onPlaceholderRequest(Player player, @NotNull String identifier) {
+    @Override
+    public String onPlaceholderRequest(Player player, @NotNull String identifier) {
+        String[] args = identifier.toLowerCase().split("_");
 
-		if (player == null) {
-			return "";
-		}
+        switch (args[0]) {
+            case "position":
+                return this.position(args);
+            case "members": {
+                Team team = Team.getTeam(args[1]);
 
-		identifier = identifier.toLowerCase();
-		// %betterTeams_name%
-		if (identifier.equals("name")) {
-			Team team = Team.getTeam(player);
+                if (team == null) {
+                    return MessageManager.getMessage("placeholder.noTeam");
+                }
 
-			if (team == null) {
-				return MessageManager.getMessage("placeholder.noTeam");
-			}
-			return String.format(MessageManager.getMessage(player, "placeholder.name"), team.getName());
-		} else if (identifier.equals("tag")) {
-			Team team = Team.getTeam(player);
+                return String.valueOf(identifier.endsWith("_online") ? team.getMembers().size() : team.getOnlineMembers().size());
+            }
+            case "teamscore": {
+                if (args.length < 2) {
+                    return null;
+                }
 
-			if (team == null) {
-				return MessageManager.getMessage("placeholder.noTeam");
-			}
+                Integer place = this.parseInt(args[1]);
+                if (place == null) {
+                    return null;
+                }
+                place -= 1;
 
-			return String.format(MessageManager.getMessage(player, "placeholder.tag"), team.getTag());
-		} else if (identifier.equals("displayname")) {
-			Team team = Team.getTeam(player);
+                String[] teams = Team.getTeamManager().sortTeamsByScore();
+                if (place < 0 || place >= teams.length) {
+                    return null;
+                }
 
-			if (team == null) {
-				return MessageManager.getMessage("placeholder.noTeam");
-			}
+                return String.valueOf(Team.getTeam(teams[place]).getName());
+            }
+            case "teamscoreno": {
+                if (args.length < 2) {
+                    return null;
+                }
 
-			return String.format(MessageManager.getMessage(player, "placeholder.displayname"),
-					team.getColor() + team.getTag());
+                Integer place = this.parseInt(args[1]);
+                if (place == null) {
+                    return null;
+                }
+                place -= 1;
 
-		} else if (identifier.equals("description")) {
+                String[] teams = Team.getTeamManager().sortTeamsByScore();
+                if (place < 0 || place >= teams.length) {
+                    return null;
+                }
 
-			Team team = Team.getTeam(player);
+                return String.valueOf(Team.getTeam(teams[place]).getScore());
+            }
+        }
 
-			if (team == null) {
-				return MessageManager.getMessage("placeholder.noTeam");
-			}
-			if (team.getDescription() == null || team.getDescription().equals("")) {
-				return MessageManager.getMessage("placeholder.noDescription");
-			}
+        if (player == null) {
+            return "";
+        }
 
-			return team.getDescription();
-		} else if (identifier.equals("open")) {
+        if (identifier.equalsIgnoreCase(args[0])) {
+            if (Team.getTeamManager().isInTeam(player)) {
+                return MessageManager.getMessage("placeholder.inteam");
+            } else {
+                return MessageManager.getMessage("placeholder.notinteam");
+            }
+        }
 
-			Team team = Team.getTeam(player);
+        Team team = Team.getTeam(player);
+        if (team == null) {
+            return MessageManager.getMessage("placeholder.noTeam");
+        }
 
-			if (team == null) {
-				return MessageManager.getMessage("placeholder.noTeam");
-			}
+        switch (args[0]) {
+            case "name":
+                return String.format(MessageManager.getMessage(player, "placeholder.name"), team.getName());
+            case "tag":
+                return String.format(MessageManager.getMessage(player, "placeholder.tag"), team.getTag());
+            case "displayname":
+                return String.format(MessageManager.getMessage(player, "placeholder.displayname"), team.getColor() + team.getTag());
+            case "description": {
+                if (team.getDescription() == null || team.getDescription().isEmpty()) {
+                    return MessageManager.getMessage("placeholder.noDescription");
+                }
+                return team.getDescription();
+            }
+            case "open":
+                return String.valueOf(team.isOpen());
+            case "money":
+                return String.format(MessageManager.getMessage(player, "placeholder.money"), team.getBalance());
+            case "score":
+                return String.valueOf(team.getScore());
+            case "rank": {
+                switch (Objects.requireNonNull(team.getTeamPlayer(player)).getRank()) {
+                    case ADMIN:
+                        return MessageManager.getMessage(player, "placeholder.admin");
+                    case DEFAULT:
+                        return MessageManager.getMessage(player, "placeholder.default");
+                    case OWNER:
+                        return MessageManager.getMessage(player, "placeholder.owner");
+                }
+            }
+            case "color":
+                return String.valueOf(team.getColor());
+            case "online":
+                return String.valueOf(team.getOnlineMembers().size());
+            case "title": {
+                TeamPlayer tp = team.getTeamPlayer(player);
+                if (tp == null) {
+                    return null;
+                }
+                if (tp.getTitle() == null || tp.getTitle().isEmpty()) {
+                    return MessageManager.getMessage("placeholder.noTitle");
+                }
+                return tp.getTitle();
+            }
+            case "onlinelist":
+                return team.getMembers().getOnlinePlayersString();
+            case "offlinelist":
+                return team.getMembers().getOfflinePlayersString();
+        }
 
-			return team.isOpen() + "";
-		} else if (identifier.equals("money")) {
+        return null;
+    }
 
-			Team team = Team.getTeam(player);
+    public String position(String[] args) {
+        if (args.length < 3) {
+            return null;
+        }
 
-			if (team == null) {
-				return MessageManager.getMessage("placeholder.noTeam");
-			}
+        Integer place = this.parseInt(args[2]);
+        if (place == null) {
+            return null;
+        }
+        place -= 1;
 
-			return String.format(MessageManager.getMessage(player, "placeholder.money"), team.getBalance() + "");
-		} else if (identifier.equals("score")) {
+        if (place < 0) {
+            return null;
+        }
 
-			Team team = Team.getTeam(player);
+        String[] teams = Team.getTeamManager().sortTeamsByScore();
+        if (teams.length <= place) {
+            return null;
+        }
 
-			if (team == null) {
-				return MessageManager.getMessage("placeholder.noTeam");
-			}
+        Team team = Team.getTeamByName(teams[place]);
 
-			return team.getScore() + "";
-		} else if (identifier.equals("rank")) {
-			Team team = Team.getTeam(player);
+        switch (args[1]) {
+            case "name":
+                return team.getName();
+            case "description":
+                return team.getDescription();
+            case "tag":
+                return team.getTag();
+            case "displayname":
+                return team.getDisplayName();
+            case "open":
+                return String.valueOf(team.isOpen());
+            case "balance":
+                return team.getBalance();
+            case "score":
+                return String.valueOf(team.getScore());
+            case "color":
+                return String.valueOf(team.getColor());
+            case "offlinelist":
+                return team.getMembers().getOfflinePlayersString();
+            case "onlinelist":
+                return team.getMembers().getOnlinePlayersString();
+            default:
+                return null;
+        }
+    }
 
-			if (team == null) {
-				return MessageManager.getMessage("placeholder.noTeam");
-			}
-
-			switch (Objects.requireNonNull(team.getTeamPlayer(player)).getRank()) {
-			case ADMIN:
-				return MessageManager.getMessage(player, "placeholder.admin");
-			case DEFAULT:
-				return MessageManager.getMessage(player, "placeholder.default");
-			case OWNER:
-				return MessageManager.getMessage(player, "placeholder.owner");
-
-			}
-		} else if (identifier.equals("color")) {
-			Team team = Team.getTeam(player);
-
-			if (team == null) {
-				return MessageManager.getMessage("placeholder.noTeam");
-			}
-
-			return team.getColor() + "";
-
-		} else if (identifier.equals("online")) {
-			Team team = Team.getTeam(player);
-
-			if (team == null) {
-				return MessageManager.getMessage("placeholder.noTeam");
-			}
-
-			return String.valueOf(team.getOnlineMemebers().size());
-		} else if (identifier.equals("title")) {
-			Team team = Team.getTeam(player);
-
-			if (team == null) {
-				return MessageManager.getMessage("placeholder.noTeam");
-			}
-
-			TeamPlayer tp = team.getTeamPlayer(player);
-
-			if (tp.getTitle() == null || tp.getTitle().length() == 0) {
-				return MessageManager.getMessage("placeholder.noTitle");
-			}
-
-			return tp.getTitle();
-
-		} else if (identifier.startsWith("members_")) {
-			String teamName = identifier.split("_")[1];
-			Team team = Team.getTeam(teamName);
-
-			if (team == null) {
-				return MessageManager.getMessage("placeholder.noTeam");
-			}
-
-			if (identifier.endsWith("_online")) {
-				return String.valueOf(team.getOnlineMemebers().size());
-			}
-
-			return String.valueOf(team.getMembers().size());
-		} else if (identifier.startsWith("teamscore_")) {
-			identifier = identifier.replaceAll("teamscore_", "");
-			int place;
-			try {
-				place = Integer.parseInt(identifier) - 1;
-			} catch (NumberFormatException e) {
-				return null;
-			}
-			if (place == -1) {
-				return null;
-			}
-
-			String[] teams = Team.getTeamManager().sortTeamsByScore();
-			if (teams.length <= place) {
-				return null;
-			} else {
-				return Team.getTeam(teams[place]).getName();
-			}
-
-		} else if (identifier.startsWith("teamscoreno_")) {
-			identifier = identifier.replaceAll("teamscoreno_", "");
-			int place;
-			try {
-				place = Integer.parseInt(identifier) - 1;
-			} catch (NumberFormatException e) {
-				return null;
-			}
-			if (place == -1) {
-				return null;
-			}
-
-			String[] teams = Team.getTeamManager().sortTeamsByScore();
-			if (teams.length <= place) {
-				return null;
-			} else {
-				return Team.getTeam(teams[place]).getScore() + "";
-			}
-
-		} else if (identifier.startsWith("position_")) {
-			return position(player, identifier);
-		} else if (identifier.equals("inteam")) {
-			if (Team.getTeamManager().isInTeam(player)) {
-				return MessageManager.getMessage("placeholder.inteam");
-			} else {
-				return MessageManager.getMessage("placeholder.notinteam");
-			}
-		} else if (identifier.equals("onlinelist")) {
-			Team team = Team.getTeam(player);
-
-			if (team == null) {
-				return MessageManager.getMessage("placeholder.noTeam");
-			}
-
-			return team.getMembers().getOnlinePlayersString();
-		} else if (identifier.equals("offlinelist")) {
-			Team team = Team.getTeam(player);
-
-			if (team == null) {
-				return MessageManager.getMessage("placeholder.noTeam");
-			}
-
-			return team.getMembers().getOfflinePlayersString();
-		}
-
-		return null;
-
-	}
-
-	public String position(Player p, String identifier) {
-		identifier = identifier.replace("position_", "");
-
-		String[] split = identifier.split("_");
-		if (split.length != 2) {
-			return null;
-		}
-
-		int place;
-		try {
-			place = Integer.parseInt(split[1]) - 1;
-		} catch (NumberFormatException e) {
-			return null;
-		}
-		if (place == -1 || place < 0) {
-			return null;
-		}
-
-		String[] teams = Team.getTeamManager().sortTeamsByScore();
-		if (teams.length <= place) {
-			return null;
-		}
-
-		Team team = Team.getTeamByName(teams[place]);
-
-		switch (split[0]) {
-		case "name":
-			return team.getName();
-		case "description":
-			return team.getDescription();
-		case "tag":
-			return team.getTag();
-		case "displayname":
-			return team.getDisplayName();
-		case "open":
-			return team.isOpen() + "";
-		case "balance":
-			return team.getBalance();
-		case "score":
-			return team.getScore() + "";
-		case "color":
-			return team.getColor() + "";
-		case "offlinelist":
-			return team.getMembers().getOfflinePlayersString();
-		case "onlinelist":
-			return team.getMembers().getOnlinePlayersString();
-		default:
-			return null;
-		}
-	}
-
+    public Integer parseInt(String string) {
+        try {
+            return Integer.parseInt(string);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
 }

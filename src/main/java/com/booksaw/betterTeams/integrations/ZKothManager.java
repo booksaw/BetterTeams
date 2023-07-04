@@ -47,7 +47,7 @@ public class ZKothManager implements Listener {
 				return null;
 			}
 
-			return team.getOnlineMemebers();
+			return team.getOnlineMembers();
 		}
 	}
 
