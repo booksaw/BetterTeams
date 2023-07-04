@@ -10,10 +10,8 @@ public class HDHologramManager extends HologramManager {
          * Creates a new HolographicDisplays hologram.
          */
         @Override
-        public void createHolo(Location location, HologramType type) {
-                LocalHologram holo = new HDHologramImpl(HologramsAPI.createHologram(Main.plugin, location));
-                holos.put(holo, type);
-                reloadHolo(holo, type);
+        public LocalHologram createLocalHolo(Location location, HologramType type) {
+                return new HDHologramImpl(HologramsAPI.createHologram(Main.plugin, location));
         }
 
         /*

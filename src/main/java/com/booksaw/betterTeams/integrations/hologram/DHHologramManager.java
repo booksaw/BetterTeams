@@ -12,10 +12,8 @@ public class DHHologramManager extends HologramManager {
          * Creates a new DecentHolograms hologram.
          */
         @Override
-        public void createHolo(Location location, HologramType type) {
-                LocalHologram holo = new DHHologramImpl(DHAPI.createHologram(UUID.randomUUID().toString(), location));
-                holos.put(holo, type);
-                reloadHolo(holo, type);
+        public LocalHologram createLocalHolo(Location location, HologramType type) {
+                return new DHHologramImpl(DHAPI.createHologram(UUID.randomUUID().toString(), location));
         }
 
         /*

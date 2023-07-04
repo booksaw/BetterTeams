@@ -36,23 +36,6 @@ public abstract class HologramManager {
 		startUpdates();
 	}
 
-	/*
-	 * Determines which holograms plugin the server is running, and returns the respective HologramProvider.
-	 */
-	public static HologramProvider getAvailableHologramProvider() {
-		boolean hdHolos = (Bukkit.getPluginManager().getPlugin("HolographicDisplays") != null
-			&& Bukkit.getPluginManager().isPluginEnabled("HolographicDisplays"));
-		if (hdHolos) {
-			return HologramProvider.HOLOGRAPHIC_DISPLAYS;
-		}
-		boolean dhHolos = (Bukkit.getPluginManager().getPlugin("DecentHolograms") != null
-			&& Bukkit.getPluginManager().isPluginEnabled("DecentHolograms"));
-                if (dhHolos) {
-                        return HologramProvider.DECENT_HOLOGRAMS;
-                }
-                return HologramProvider.NONE;
-	}
-
 	// returns the location of a string
 	public static Location getLocation(String loc) {
 		String[] split = loc.split(":");
@@ -66,7 +49,16 @@ public abstract class HologramManager {
 				+ loc.getZ();
 	}
 
-	public abstract void createHolo(Location location, HologramType type);
+	public void createHolo(Location location, HologramType type) {
+		LocalHologram holo = createLocalHolo(location, type);
+		holos.put(holo, type);
+		reloadHolo(holo, type);
+	}
+
+	/*
+	 * Creates a new LocalHologram using the available hologram plugin.
+	 */
+	public abstract LocalHologram createLocalHolo(Location location, HologramType type);
 
 	public void reloadHolo(LocalHologram holo, HologramType type) {
 		String[] teams = getSortedArray(type);
@@ -183,36 +175,25 @@ public abstract class HologramManager {
 	}
 
 	public interface LocalHologram {
+		/**
+		 * Appends a new line of text to the hologram.
+		 */
 		void appendText(String text);
 
+		/**
+		 * Clears all lines of text from the hologram.
+		 */
 		void clearLines();
 
+		/**
+		 * Removes the hologram from the world.
+		 */
 		void delete();
 
+		/**
+		 * Returns the location of the hologram.
+		 */
 		Location getLocation();
 	}
 
-
-	public enum HologramProvider {
-		HOLOGRAPHIC_DISPLAYS {
-                        @Override
-                        public HologramManager newInstance() {
-                                return new HDHologramManager();
-                        }
-                },
-		DECENT_HOLOGRAMS {
-                        @Override
-                        public HologramManager newInstance() {
-                                return new DHHologramManager();
-                        }
-                },
-		NONE {
-                        @Override
-                        public HologramManager newInstance() {
-                                return null;
-                        }
-                };
-
-                public abstract HologramManager newInstance();
-	}
 }
