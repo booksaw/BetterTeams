@@ -21,7 +21,7 @@ public class SetWarpCommand extends TeamSubCommand {
 		if (args.length >= 2 && Main.plugin.getConfig().getBoolean("allowPassword")) {
 			password = args[1];
 		}
-		// TODO HERE SETTING A MAX WARPS VARIABLE IN THE TEAM CLASS
+		
 		int maxWarps = team.getMaxWarps();
 		if (team.getWarps().size() >= maxWarps && maxWarps != -1) {
 			return new CommandResponse("setwarp.max");
