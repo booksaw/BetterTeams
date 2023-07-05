@@ -1375,6 +1375,10 @@ public class Team {
 	public int getLevel() {
 		return level;
 	}
+	
+	public int getMaxWarps() {
+		return Main.plugin.getConfig().getInt("levels.l" + getLevel() + ".maxWarps");
+	}
 
 	public void setLevel(int level) {
 		this.level = level;
