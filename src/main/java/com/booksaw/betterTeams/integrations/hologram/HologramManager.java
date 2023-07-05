@@ -1,10 +1,8 @@
-package com.booksaw.betterTeams.integrations;
+package com.booksaw.betterTeams.integrations.hologram;
 
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.message.MessageManager;
-import com.gmail.filoghost.holographicdisplays.api.Hologram;
-import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.scheduler.BukkitScheduler;
@@ -15,11 +13,11 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Objects;
 
-public class HologramManager {
+public abstract class HologramManager {
 
 	public static HologramManager holoManager;
 
-	HashMap<Hologram, HologramType> holos;
+	HashMap<LocalHologram, HologramType> holos;
 
 	public HologramManager() {
 		holoManager = this;
@@ -52,18 +50,23 @@ public class HologramManager {
 	}
 
 	public void createHolo(Location location, HologramType type) {
-		Hologram holo = HologramsAPI.createHologram(Main.plugin, location);
+		LocalHologram holo = createLocalHolo(location, type);
 		holos.put(holo, type);
 		reloadHolo(holo, type);
 	}
 
-	public void reloadHolo(Hologram holo, HologramType type) {
+	/*
+	 * Creates a new LocalHologram using the available hologram plugin.
+	 */
+	public abstract LocalHologram createLocalHolo(Location location, HologramType type);
+
+	public void reloadHolo(LocalHologram holo, HologramType type) {
 		String[] teams = getSortedArray(type);
 		holo.clearLines();
 
 		int maxHologramLines = Main.plugin.getConfig().getInt("maxHologramLines");
 
-		holo.appendTextLine(MessageManager.getMessage("holo.leaderboard"));
+		holo.appendText(MessageManager.getMessage("holo.leaderboard"));
 
 		for (int i = 0; i < maxHologramLines && i < teams.length; i++) {
 			Team team = Team.getTeam(teams[i]);
@@ -71,10 +74,9 @@ public class HologramManager {
 				Bukkit.getLogger().severe("A team was null for an unexplained reason, team name: " + teams[i]);
 				continue;
 			}
-			holo.appendTextLine(String.format(MessageManager.getMessage(type.getSyntaxReference()), team.getName(),
-					getValue(type, team)));
+			holo.appendText(String.format(MessageManager.getMessage(type.getSyntaxReference()), team.getName(),
+				getValue(type, team)));
 		}
-
 	}
 
 	public void startUpdates() {
@@ -86,7 +88,7 @@ public class HologramManager {
 			}
 			for (HologramType type : HologramType.values()) {
 				if (needsUpdating(type)) {
-					for (Entry<Hologram, HologramType> holo : holos.entrySet()) {
+					for (Entry<LocalHologram, HologramType> holo : holos.entrySet()) {
 						if (holo.getValue() == type) {
 							reloadHolo(holo.getKey(), holo.getValue());
 						}
@@ -94,6 +96,21 @@ public class HologramManager {
 				}
 			}
 		}, 0L, 20 * 60L);
+	}
+
+	public LocalHologram getNearestHologram(Location location) {
+		LocalHologram nearest = null;
+		double distance = -1;
+
+		for (LocalHologram holo : holos.keySet()) {
+			double tempDistance = location.distance(holo.getLocation());
+			if (nearest == null || tempDistance < distance) {
+				nearest = holo;
+				distance = tempDistance;
+			}
+		}
+
+		return nearest;
 	}
 
 	public String getValue(HologramType type, Team team) {
@@ -130,7 +147,7 @@ public class HologramManager {
 
 	public void disable() {
 		List<String> holostr = new ArrayList<>();
-		for (Entry<Hologram, HologramType> holo : holos.entrySet()) {
+		for (Entry<LocalHologram, HologramType> holo : holos.entrySet()) {
 			holostr.add(getString(holo.getKey().getLocation()) + ";" + holo.getValue());
 			holo.getKey().delete();
 		}
@@ -138,7 +155,7 @@ public class HologramManager {
 		holos = new HashMap<>();
 	}
 
-	public void removeHolo(Hologram toRemove) {
+	public void removeHolo(LocalHologram toRemove) {
 		toRemove.delete();
 		holos.remove(toRemove);
 	}
@@ -155,6 +172,28 @@ public class HologramManager {
 		public String getSyntaxReference() {
 			return syntaxReference;
 		}
+	}
+
+	public interface LocalHologram {
+		/**
+		 * Appends a new line of text to the hologram.
+		 */
+		void appendText(String text);
+
+		/**
+		 * Clears all lines of text from the hologram.
+		 */
+		void clearLines();
+
+		/**
+		 * Removes the hologram from the world.
+		 */
+		void delete();
+
+		/**
+		 * Returns the location of the hologram.
+		 */
+		Location getLocation();
 	}
 
 }
