@@ -53,54 +53,13 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 	public String onPlaceholderRequest(Player player, @NotNull String identifier) {
 
 		identifier = identifier.toLowerCase();
+		String[] split = identifier.split("_");
+		Team team;
 
-		if (identifier.startsWith("position_")) {
-
-			return processRankedTeamDataPlaceholder(identifier, SortType.SCORE);
-
-		} else if (identifier.startsWith("balanceposition_")) {
-
-			return processRankedTeamDataPlaceholder(identifier, SortType.BALANCE);
-		} else if (identifier.startsWith("membersposition_")) {
-
-			return processRankedTeamDataPlaceholder(identifier, SortType.MEMBERS);
-		} else if (identifier.startsWith("static_")) {
-
-			String[] split = identifier.split("_");
-			if (split.length < 3) {
-				return null;
-			}
-
-			Team team = Team.getTeam(split[1]);
-			if (team == null) {
-				return MessageManager.getMessage("placeholder.noTeam");
-			}
-			return TeamPlaceholderService.getPlaceholder(split[2], team, null);
-		} else if (identifier.startsWith("staticplayer_")) {
-			String[] split = identifier.split("_");
-			if (split.length < 3) {
-				return null;
-			}
-			OfflinePlayer selectedPlayer = Utils.getOfflinePlayer(split[1]);
-			if (selectedPlayer == null) {
-				return MessageManager.getMessage("placeholder.noTeam");
-			}
-			
-			Team team = Team.getTeam(selectedPlayer);
-			if (team == null) {
-				return MessageManager.getMessage("placeholder.noTeam");
-			}
-			
-			TeamPlayer tp = team.getTeamPlayer(selectedPlayer);
-			if (tp == null) {
-				return MessageManager.getMessage("placeholder.noTeam");
-			}
-			
-			return TeamPlaceholderService.getPlaceholder(split[2], team, tp);
-		} else {
+		if (split.length < 2) {
 			// base placeholder, simplest case
 			// ie %betterteams_name%
-			Team team = Team.getTeam(player);
+			team = Team.getTeam(player);
 			if (team == null) {
 				return MessageManager.getMessage("placeholder.noTeam");
 			}
@@ -111,6 +70,22 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 				return MessageManager.getMessage("placeholder.noTeam");
 			}
 			return TeamPlaceholderService.getPlaceholder(identifier, team, tp);
+		}
+
+		// more complex request
+		switch (split[0]) {
+		case "position":
+			return processRankedTeamDataPlaceholder(identifier, SortType.SCORE);
+		case "balanceposition":
+			return processRankedTeamDataPlaceholder(identifier, SortType.BALANCE);
+		case "membersposition":
+			return processRankedTeamDataPlaceholder(identifier, SortType.MEMBERS);
+		case "static":
+			return processStaticTeamPlaceholder(split);
+		case "staticplayer_":
+			return processStaticTeamPlayerPlaceholder(split);
+		default:
+			return null;
 		}
 
 	}
@@ -156,6 +131,41 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 		}
 
 		return TeamPlaceholderService.getPlaceholder(split[2], team, null);
+	}
+
+	private String processStaticTeamPlaceholder(String[] split) {
+
+		if (split.length < 3) {
+			return null;
+		}
+
+		Team team = Team.getTeam(split[1]);
+		if (team == null) {
+			return MessageManager.getMessage("placeholder.noTeam");
+		}
+		return TeamPlaceholderService.getPlaceholder(split[2], team, null);
+	}
+
+	private String processStaticTeamPlayerPlaceholder(String[] split) {
+		if (split.length < 3) {
+			return null;
+		}
+		OfflinePlayer selectedPlayer = Utils.getOfflinePlayer(split[1]);
+		if (selectedPlayer == null) {
+			return MessageManager.getMessage("placeholder.noTeam");
+		}
+
+		Team team = Team.getTeam(selectedPlayer);
+		if (team == null) {
+			return MessageManager.getMessage("placeholder.noTeam");
+		}
+
+		TeamPlayer tp = team.getTeamPlayer(selectedPlayer);
+		if (tp == null) {
+			return MessageManager.getMessage("placeholder.noTeam");
+		}
+
+		return TeamPlaceholderService.getPlaceholder(split[2], team, tp);
 	}
 
 	private enum SortType {
