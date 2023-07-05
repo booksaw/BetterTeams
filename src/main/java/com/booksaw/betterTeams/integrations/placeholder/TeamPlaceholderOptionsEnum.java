@@ -19,6 +19,7 @@ import com.booksaw.betterTeams.integrations.placeholder.provider.OfflineListPlac
 import com.booksaw.betterTeams.integrations.placeholder.provider.OnlineListPlaceholderProvider;
 import com.booksaw.betterTeams.integrations.placeholder.provider.OnlinePlaceholderProvider;
 import com.booksaw.betterTeams.integrations.placeholder.provider.OpenPlaceholderProvider;
+import com.booksaw.betterTeams.integrations.placeholder.provider.PvpPlaceholderProvider;
 import com.booksaw.betterTeams.integrations.placeholder.provider.RankPlaceholderProvider;
 import com.booksaw.betterTeams.integrations.placeholder.provider.ScorePlaceholderProvider;
 import com.booksaw.betterTeams.integrations.placeholder.provider.TagPlaceholderProvider;
@@ -36,7 +37,8 @@ public enum TeamPlaceholderOptionsEnum {
 	ONLINELIST(new OnlineListPlaceholderProvider()), OFFLINELIST(new OfflineListPlaceholderProvider()),
 	ONLINE(new OnlinePlaceholderProvider()), MEMBERS(new MembersPlaceholderProvider()),
 	LEVEL(new LevelPlaceholderProvider()), MAXMONEY(new MaxMoneyPlaceholderProvider()),
-	MAXMEMBERS(new MaxMembersPlaceholderProvider()), MAXWARPS(new MaxWarpsPlaceholderProvider());
+	MAXMEMBERS(new MaxMembersPlaceholderProvider()), MAXWARPS(new MaxWarpsPlaceholderProvider()),
+	PVP(new PvpPlaceholderProvider());
 
 	private final IndividualTeamPlaceholderProvider teamProvider;
 	private final IndividualTeamPlayerPlaceholderProvider teamPlayerProvider;
