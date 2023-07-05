@@ -1,11 +1,13 @@
 package com.booksaw.betterTeams.integrations.placeholder;
 
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
+import com.booksaw.betterTeams.Utils;
 import com.booksaw.betterTeams.message.MessageManager;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
@@ -74,7 +76,27 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 				return MessageManager.getMessage("placeholder.noTeam");
 			}
 			return TeamPlaceholderService.getPlaceholder(split[2], team, null);
-
+		} else if (identifier.startsWith("staticplayer_")) {
+			String[] split = identifier.split("_");
+			if (split.length < 3) {
+				return null;
+			}
+			OfflinePlayer selectedPlayer = Utils.getOfflinePlayer(split[1]);
+			if (selectedPlayer == null) {
+				return MessageManager.getMessage("placeholder.noTeam");
+			}
+			
+			Team team = Team.getTeam(selectedPlayer);
+			if (team == null) {
+				return MessageManager.getMessage("placeholder.noTeam");
+			}
+			
+			TeamPlayer tp = team.getTeamPlayer(selectedPlayer);
+			if (tp == null) {
+				return MessageManager.getMessage("placeholder.noTeam");
+			}
+			
+			return TeamPlaceholderService.getPlaceholder(split[2], team, tp);
 		} else {
 			// base placeholder, simplest case
 			// ie %betterteams_name%
