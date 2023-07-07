@@ -59,6 +59,9 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 		if (split.length < 2) {
 			// base placeholder, simplest case
 			// ie %betterteams_name%
+			if (player == null) {
+                            return null;
+                        }
 			team = Team.getTeam(player);
 			if (team == null) {
 				return MessageManager.getMessage("placeholder.noTeam");
