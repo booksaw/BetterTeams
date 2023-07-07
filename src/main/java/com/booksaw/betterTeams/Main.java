@@ -108,7 +108,7 @@ import com.booksaw.betterTeams.events.MCTeamManagement;
 import com.booksaw.betterTeams.events.MCTeamManagement.BelowNameType;
 import com.booksaw.betterTeams.events.RankupEvents;
 import com.booksaw.betterTeams.integrations.hologram.HologramManager;
-import com.booksaw.betterTeams.integrations.TeamPlaceholders;
+import com.booksaw.betterTeams.integrations.placeholder.TeamPlaceholders;
 import com.booksaw.betterTeams.integrations.UltimateClaimsManager;
 import com.booksaw.betterTeams.integrations.WorldGaurdManagerV7;
 import com.booksaw.betterTeams.integrations.ZKothManager;
