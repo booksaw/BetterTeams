@@ -670,6 +670,7 @@ Features:
 - Reworked placeholder system
   - Credit booksaw, SavageAvocado, Aeliios
   - Closes the issues: (#463 #451 #473 #442 #438 #389 #343 #399 #474 #470 #477)
+  - Check the Wiki page for more information (https://github.com/booksaw/BetterTeams/wiki/PlaceholderAPI)
   
 
 Headings: 
