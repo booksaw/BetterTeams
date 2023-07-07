@@ -101,7 +101,7 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 
 		int value;
 		try {
-			value = Integer.parseInt(split[1]);
+			value = Integer.parseInt(split[2]);
 		} catch (NumberFormatException e) {
 			return null;
 		}
