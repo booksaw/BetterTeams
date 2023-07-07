@@ -60,8 +60,8 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 			// base placeholder, simplest case
 			// ie %betterteams_name%
 			if (player == null) {
-                            return null;
-                        }
+				return null;
+			}
 			team = Team.getTeam(player);
 			if (team == null) {
 				return MessageManager.getMessage("placeholder.noTeam");
@@ -142,18 +142,18 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 			return null;
 		}
 
-		Team team = Team.getTeam(split[1]);
+		Team team = Team.getTeam(split[2]);
 		if (team == null) {
 			return MessageManager.getMessage("placeholder.noTeam");
 		}
-		return TeamPlaceholderService.getPlaceholder(split[2], team, null);
+		return TeamPlaceholderService.getPlaceholder(split[1], team, null);
 	}
 
 	private String processStaticTeamPlayerPlaceholder(String[] split) {
 		if (split.length < 3) {
 			return null;
 		}
-		OfflinePlayer selectedPlayer = Utils.getOfflinePlayer(split[1]);
+		OfflinePlayer selectedPlayer = Utils.getOfflinePlayer(split[2]);
 		if (selectedPlayer == null) {
 			return MessageManager.getMessage("placeholder.noTeam");
 		}
@@ -168,7 +168,7 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 			return MessageManager.getMessage("placeholder.noTeam");
 		}
 
-		return TeamPlaceholderService.getPlaceholder(split[2], team, tp);
+		return TeamPlaceholderService.getPlaceholder(split[1], team, tp);
 	}
 
 	private enum SortType {
