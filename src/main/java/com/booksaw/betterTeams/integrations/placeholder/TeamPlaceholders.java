@@ -133,7 +133,7 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 			return MessageManager.getMessage("placeholder.noTeam");
 		}
 
-		return TeamPlaceholderService.getPlaceholder(split[2], team, null);
+		return TeamPlaceholderService.getPlaceholder(split[1], team, null);
 	}
 
 	private String processStaticTeamPlaceholder(String[] split) {
