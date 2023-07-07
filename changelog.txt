@@ -663,10 +663,14 @@ Improvements:
 - Improved Vietnamese translations - Credit Shelly (discord)
 
 4.7.0:
+NOTE: this version reworks the placeholder system, some placeholders may need to be reconfigured to the new system.
 
 Features: 
 - Added support for DecentHolograms (#472 #357) - Credit SavageAvocado (GitHub)
-
+- Reworked placeholder system
+  - Credit booksaw, SavageAvocado, Aeliios
+  - Closes the issues: (#463 #451 #473 #442 #438 #389 #343 #399 #474 #470 #477)
+  
 
 Headings: 
 Features: 
