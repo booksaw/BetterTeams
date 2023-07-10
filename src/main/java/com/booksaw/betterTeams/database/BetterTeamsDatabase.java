@@ -140,7 +140,7 @@ public class BetterTeamsDatabase extends Database {
 		}
 
 	}
-	
+
 	/**
 	 * Used to delete a record from the specified table
 	 * 
@@ -183,6 +183,12 @@ public class BetterTeamsDatabase extends Database {
 	 */
 	public void insertRecord(TableName table, String columns, String values) {
 		executeStatement("INSERT INTO ? (?) VALUES (?);", table.toString(), columns, values);
+	}
+
+	public void insertRecordIfNotExists(TableName table, String columns, String values) {
+//		executeStatement("IF NOT EXISTS (SELECT * FROM ? WHERE ?) INSERT INTO ? (?) VALUES(?);", table.toString(),
+//				condition, table.toString(), columns, values);
+		executeStatement("INSERT IGNORE INTO ? (?) VALUES (?);", table.toString(), columns, values);
 	}
 
 }

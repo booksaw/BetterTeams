@@ -71,7 +71,7 @@ public class YamlToSql extends Converter {
 
 			String echest = Utils.serializeInventory(inv);
 			echest = echest.replace("\"", "\\\"");
-			database.insertRecord(TableName.TEAM,
+			database.insertRecordIfNotExists(TableName.TEAM,
 					"teamID, name, description, open, score, money, home, color, level, tag, pvp",
 					"'" + teamName + "', '" + config.getString("name") + "', '" + config.getString("descrption") + "', "
 							+ config.getBoolean("open") + ", " + config.getInt("score") + ", "
@@ -95,24 +95,24 @@ public class YamlToSql extends Converter {
 			}
 			// bans
 			for (String temp : config.getStringList("bans")) {
-				database.insertRecord(TableName.BANS, "teamID, playerUUID", "'" + teamName + "', '" + temp + "'");
+				database.insertRecordIfNotExists(TableName.BANS, "teamID, playerUUID", "'" + teamName + "', '" + temp + "'");
 			}
 			// players
 			for (String temp : config.getStringList("players")) {
 				String[] split = temp.split(",");
 				PlayerRank rank = PlayerRank.getRank(split[1]);
 				if (split.length == 2) {
-					database.insertRecord(TableName.PLAYERS, "teamID, playerUUID, playerRank",
+					database.insertRecordIfNotExists(TableName.PLAYERS, "teamID, playerUUID, playerRank",
 							"'" + teamName + "', '" + split[0] + "', " + rank.value);
 				} else {
-					database.insertRecord(TableName.PLAYERS, "teamID, playerUUID, playerRank, title",
+					database.insertRecordIfNotExists(TableName.PLAYERS, "teamID, playerUUID, playerRank, title",
 							"'" + teamName + "', '" + split[0] + "', " + rank.value + ", '" + split[2] + "'");
 				}
 
 			}
 			// warps
 			for (String temp : config.getStringList("warps")) {
-				database.insertRecord(TableName.WARPS, "teamID, warpInfo", "'" + teamName + "', '" + temp + "'");
+				database.insertRecordIfNotExists(TableName.WARPS, "teamID, warpInfo", "'" + teamName + "', '" + temp + "'");
 			}
 
 			current++;
