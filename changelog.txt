@@ -679,7 +679,10 @@ Bug Fixes:
 4.7.1:
 
 Features: 
-- Added Hungarian translations - Credit Bercyy
+- Added Hungarian translations - Credit Bercyy (discord)
+
+Improvements
+- Updated Spanish translations - Credit Santos (discord)
 
 Headings: 
 Features: 
