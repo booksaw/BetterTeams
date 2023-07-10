@@ -676,6 +676,11 @@ Bug Fixes:
 - Fixed IllegalStateException blocking players from leaving teams (#475 476)
 - Fix bug with converting YAML to SQL (#471)
 
+4.7.1:
+
+Features: 
+- Added Hungarian translations - Credit Bercyy
+
 Headings: 
 Features: 
 
