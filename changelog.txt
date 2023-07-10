@@ -671,7 +671,9 @@ Features:
   - Credit booksaw, SavageAvocado, Aeliios
   - Closes the issues: (#463 #451 #473 #442 #438 #389 #343 #399 #474 #470 #477)
   - Check the Wiki page for more information (https://github.com/booksaw/BetterTeams/wiki/PlaceholderAPI)
-  
+
+Bug Fixes: 
+- Fixed IllegalStateException blocking players from leaving teams (#475 476)
 
 Headings: 
 Features: 

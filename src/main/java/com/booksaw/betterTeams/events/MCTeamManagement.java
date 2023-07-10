@@ -107,8 +107,14 @@ public class MCTeamManagement implements Listener {
 		if (team == null) {
 			return;
 		}
+		
+		try {
 		team.getScoreboardTeam(board).removeEntry(player.getName());
-
+		} catch (IllegalStateException e) {
+			Bukkit.getLogger().warning("Another plugin is conflicting with the functionality of the BetterTeams. See the wiki page: https://github.com/booksaw/BetterTeams/wiki/Managing-the-TAB-Menu for more information");
+			return;
+		}
+		
 		BelowNameChangeEvent event = new BelowNameChangeEvent(player, ChangeType.REMOVE, isAsync);
 		Bukkit.getPluginManager().callEvent(event);
 
