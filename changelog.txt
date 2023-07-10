@@ -682,6 +682,7 @@ Features:
 - Added Hungarian translations - Credit Bercyy (discord)
 
 Improvements
+- Updated Vietnamese Translations - Credit Shelly and Kitohazu (discord) 
 - Updated Spanish translations - Credit Santos (discord)
 
 Headings: 
