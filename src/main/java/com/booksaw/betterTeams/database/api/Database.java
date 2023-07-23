@@ -177,7 +177,7 @@ public class Database {
 	 * @param placeholders The placeholders within that query
 	 * @return The results of the query
 	 */
-	public ResultSet executeQuery(String query, String... placeholders) {
+	public PreparedStatement executeQuery(String query, String... placeholders) {
 		for (int i = 0; i < placeholders.length; i++) {
 			query = query.replaceFirst("\\?", placeholders[i]);
 		}
@@ -189,7 +189,7 @@ public class Database {
 			PreparedStatement ps = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE,
 					ResultSet.CONCUR_UPDATABLE);
 //			System.out.println("executing: " + ps.toString());
-			return ps.executeQuery();
+			return ps;
 		} catch (SQLException e) {
 			Bukkit.getLogger().severe("Something went wrong while executing SQL");
 			Bukkit.getLogger().severe("SQL: " + query);

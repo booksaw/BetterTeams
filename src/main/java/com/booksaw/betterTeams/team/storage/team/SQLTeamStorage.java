@@ -1,5 +1,6 @@
 package com.booksaw.betterTeams.team.storage.team;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -65,11 +66,11 @@ public class SQLTeamStorage extends TeamStorage {
 
 	@Override
 	public List<TeamPlayer> getPlayerList() {
-		ResultSet result = storageManager.getDatabase().selectWhere("*", TableName.PLAYERS, getCondition());
-
 		List<TeamPlayer> toReturn = new ArrayList<>();
 
 		try {
+			PreparedStatement ps = storageManager.getDatabase().selectWhere("*", TableName.PLAYERS, getCondition());
+			ResultSet result = ps.executeQuery();
 			if (!result.first()) {
 				return toReturn;
 			}
@@ -79,7 +80,7 @@ public class SQLTeamStorage extends TeamStorage {
 						PlayerRank.getRank((result.getInt("playerRank"))), result.getString("title")));
 
 			} while (result.next());
-
+			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -89,11 +90,12 @@ public class SQLTeamStorage extends TeamStorage {
 
 	@Override
 	public List<String> getBanList() {
-		ResultSet result = storageManager.getDatabase().selectWhere("*", TableName.BANS, getCondition());
 
 		List<String> toReturn = new ArrayList<>();
 
 		try {
+			PreparedStatement ps = storageManager.getDatabase().selectWhere("*", TableName.BANS, getCondition());
+			ResultSet result = ps.executeQuery();
 			if (!result.first()) {
 				return toReturn;
 			}
@@ -102,7 +104,7 @@ public class SQLTeamStorage extends TeamStorage {
 				toReturn.add(result.getString("playerUUID"));
 
 			} while (result.next());
-
+			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -112,12 +114,13 @@ public class SQLTeamStorage extends TeamStorage {
 
 	@Override
 	public List<String> getAllyList() {
-		ResultSet result = storageManager.getDatabase().selectWhere("*", TableName.ALLIES,
-				"team1ID LIKE '" + team.getID() + "' OR team2ID LIKE '" + team.getID() + "'");
 
 		List<String> toReturn = new ArrayList<>();
 
 		try {
+			PreparedStatement ps = storageManager.getDatabase().selectWhere("*", TableName.ALLIES,
+					"team1ID LIKE '" + team.getID() + "' OR team2ID LIKE '" + team.getID() + "'");
+			ResultSet result = ps.executeQuery();
 			if (!result.first()) {
 				return toReturn;
 			}
@@ -129,7 +132,7 @@ public class SQLTeamStorage extends TeamStorage {
 				}
 
 			} while (result.next());
-
+			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -139,12 +142,13 @@ public class SQLTeamStorage extends TeamStorage {
 
 	@Override
 	public List<String> getAllyRequestList() {
-		ResultSet result = storageManager.getDatabase().selectWhere("*", TableName.ALLYREQUESTS,
-				"receivingTeamID LIKE '" + team.getID() + "'");
 
 		List<String> toReturn = new ArrayList<>();
 
 		try {
+			PreparedStatement ps = storageManager.getDatabase().selectWhere("*", TableName.ALLYREQUESTS,
+					"receivingTeamID LIKE '" + team.getID() + "'");
+			ResultSet result = ps.executeQuery();
 			if (!result.first()) {
 				return toReturn;
 			}
@@ -152,7 +156,7 @@ public class SQLTeamStorage extends TeamStorage {
 				toReturn.add(result.getString("requestingTeamID"));
 
 			} while (result.next());
-
+			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -186,11 +190,12 @@ public class SQLTeamStorage extends TeamStorage {
 
 	@Override
 	public List<String> getWarps() {
-		ResultSet result = storageManager.getDatabase().selectWhere("*", TableName.WARPS, getCondition());
 
 		List<String> toReturn = new ArrayList<>();
 
 		try {
+			PreparedStatement ps = storageManager.getDatabase().selectWhere("*", TableName.WARPS, getCondition());
+			ResultSet result = ps.executeQuery();
 			if (!result.first()) {
 				return toReturn;
 			}
@@ -199,7 +204,7 @@ public class SQLTeamStorage extends TeamStorage {
 				toReturn.add(result.getString("warpInfo"));
 
 			} while (result.next());
-
+			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -209,11 +214,12 @@ public class SQLTeamStorage extends TeamStorage {
 
 	@Override
 	public List<String> getClaimedChests() {
-		ResultSet result = storageManager.getDatabase().selectWhere("*", TableName.CHESTCLAIMS, getCondition());
 
 		List<String> toReturn = new ArrayList<>();
 
 		try {
+			PreparedStatement ps = storageManager.getDatabase().selectWhere("*", TableName.CHESTCLAIMS, getCondition());
+			ResultSet result = ps.executeQuery();
 			if (!result.first()) {
 				return toReturn;
 			}
@@ -221,7 +227,7 @@ public class SQLTeamStorage extends TeamStorage {
 				toReturn.add(result.getString("chestLoc"));
 
 			} while (result.next());
-
+			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

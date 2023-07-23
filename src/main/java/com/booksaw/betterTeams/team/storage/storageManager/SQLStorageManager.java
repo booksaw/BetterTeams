@@ -2,6 +2,7 @@ package com.booksaw.betterTeams.team.storage.storageManager;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -73,10 +74,13 @@ public class SQLStorageManager extends TeamManager implements Listener {
 
 		if (claims == null) {
 			claims = new HashMap<>();
-			try (ResultSet results = database.select("*", TableName.CHESTCLAIMS)) {
+			try {
+				PreparedStatement preparedStatement = database.select("*", TableName.CHESTCLAIMS);
+				ResultSet results = preparedStatement.executeQuery();
 				while (results.next()) {
 					claims.put(results.getString(2), UUID.fromString(results.getString(1)));
 				}
+				preparedStatement.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 				return null;
@@ -187,36 +191,38 @@ public class SQLStorageManager extends TeamManager implements Listener {
 	@Override
 	public String[] sortTeamsByScore() {
 
-		ResultSet results = database.selectOrder("name", TableName.TEAM, "SCORE DESC");
+		PreparedStatement ps = database.selectOrder("name", TableName.TEAM, "SCORE DESC");
 
-		return getTeamsFromResultSet(results);
+
+		return getTeamsFromResultSet(ps);
 	}
 
 	@Override
 	public String[] sortTeamsByBalance() {
-		ResultSet results = database.selectOrder("name", TableName.TEAM, "money DESC");
+		PreparedStatement ps = database.selectOrder("name", TableName.TEAM, "money DESC");
 
-		return getTeamsFromResultSet(results);
+		return getTeamsFromResultSet(ps);
 	}
 
 	@Override
 	public String[] sortTeamsByMembers() {
-		ResultSet results = database.selectInnerJoinGroupByOrder("name, COUNT(" + TableName.PLAYERS + ".playerUUID)",
+		PreparedStatement ps = database.selectInnerJoinGroupByOrder("name, COUNT(" + TableName.PLAYERS + ".playerUUID)",
 				TableName.TEAM, TableName.PLAYERS, TableName.TEAM + ".teamID = " + TableName.PLAYERS + ".teamID",
 				"name", "COUNT(" + TableName.PLAYERS + ".playerUUID) DESC");
 
-		return getTeamsFromResultSet(results);
+		return getTeamsFromResultSet(ps);
 	}
 
 	/**
-	 * convert a result set into a list of teams for sort methods
+	 * convert a result set, supplied by a prepared statement into a list of teams for sort methods
 	 * 
-	 * @param results
+	 * @param ps
 	 * @return the ordered team list or an empty array in the event of an error
 	 */
-	private String[] getTeamsFromResultSet(ResultSet results) {
+	private String[] getTeamsFromResultSet(PreparedStatement ps) {
 
 		try {
+			ResultSet results = ps.executeQuery();
 			results.first();
 
 			List<String> toReturn = new ArrayList<>();
@@ -231,7 +237,7 @@ public class SQLStorageManager extends TeamManager implements Listener {
 			while (results.next()) {
 				toReturn.add(results.getString("name"));
 			}
-
+			ps.close();
 			return toReturn.toArray(new String[toReturn.size()]);
 
 		} catch (Exception e) {
