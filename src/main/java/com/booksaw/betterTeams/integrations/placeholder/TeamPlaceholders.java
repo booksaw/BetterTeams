@@ -62,6 +62,15 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 			if (player == null) {
 				return null;
 			}
+
+			if ("inteam".equalsIgnoreCase(split[0])) {
+				if (Team.getTeamManager().isInTeam(player)) {
+					return MessageManager.getMessage("placeholder.inteam");
+				} else {
+					return MessageManager.getMessage("placeholder.notinteam");
+				}
+			}
+
 			team = Team.getTeam(player);
 			if (team == null) {
 				return MessageManager.getMessage("placeholder.noTeam");
