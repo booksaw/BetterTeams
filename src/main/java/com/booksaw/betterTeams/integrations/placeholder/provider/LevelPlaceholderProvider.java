@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.booksaw.betterTeams.integrations.placeholder.provider;
 
@@ -14,7 +14,7 @@ public class LevelPlaceholderProvider implements IndividualTeamPlaceholderProvid
 
 	@Override
 	public String getPlaceholderForTeam(Team team) {
-		return Integer.toString(team.getTeamRank());
+		return Integer.toString(team.getLevel());
 	}
-	
+
 }
