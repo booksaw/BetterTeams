@@ -685,6 +685,12 @@ Improvements
 - Updated Vietnamese Translations - Credit Shelly and Kitohazu (discord) 
 - Updated Spanish translations - Credit Santos (discord)
 
+4.7.2:
+
+Bug Fixes: 
+- Added the missing %betterteams_inTeam% placeholder that was missed in the rework (#480 #479) - Credit AELLIOS (discord)
+- Fixed issue with all level placeholders not working as expexpected (#485 #484) - Credit AELLIOS (discord)
+
 Headings: 
 Features: 
 
