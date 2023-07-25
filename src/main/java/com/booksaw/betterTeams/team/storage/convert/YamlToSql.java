@@ -73,13 +73,13 @@ public class YamlToSql extends Converter {
 			echest = echest.replace("\"", "\\\"");
 			database.insertRecordIfNotExists(TableName.TEAM,
 					"teamID, name, description, open, score, money, home, color, level, tag, pvp",
-					"'" + teamName + "', '" + config.getString("name") + "', '" + config.getString("descrption") + "', "
+					"'" + teamName + "', '" + config.getString("name") + "', '" + config.getString("description") + "', "
 							+ config.getBoolean("open") + ", " + config.getInt("score") + ", "
 							+ config.getDouble("money") + ", '" + config.getString("home") + "', '"
 							+ config.getString("color") + "', " + config.getInt("level") + ", '"
 							+ config.getString("tag") + "', " + config.getBoolean("pvp"));
 
-			if (echest != null && echest.length() != 0) {
+			if (echest != null && !echest.isEmpty()) {
 				database.updateRecordWhere(TableName.TEAM, "echest = \"" + echest + "\"",
 						"teamID LIKE '" + teamName + "'");
 			}

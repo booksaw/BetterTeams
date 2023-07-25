@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 
@@ -13,7 +14,7 @@ import com.booksaw.betterTeams.Main;
 
 /**
  * API Class to managing databases
- * 
+ *
  * @author booksaw
  *
  */
@@ -32,7 +33,7 @@ public class Database {
 
 	/**
 	 * Used to setup a connection from the provided data
-	 * 
+	 *
 	 * @param section The configuration section which contains the database
 	 *                information
 	 */
@@ -111,7 +112,7 @@ public class Database {
 
 	/**
 	 * Used to test if the connection is valid
-	 * 
+	 *
 	 * @throws SQLException If a connection cannot be established, this error will
 	 *                      be thrown
 	 */
@@ -137,14 +138,14 @@ public class Database {
 
 	/**
 	 * Used to execute an SQL statement
-	 * 
+	 *
 	 * @param statement    The SQL statement to execute
 	 * @param placeholders The placeholders for the statement
 	 */
 	public void executeStatement(String statement, String... placeholders) {
 
 		for (int i = 0; i < placeholders.length; i++) {
-			statement = statement.replaceFirst("\\?", placeholders[i]);
+			statement = StringUtils.replaceOnce(statement, "?", placeholders[i]);
 		}
 
 		statement = statement.replace("'false'", "false");
@@ -170,7 +171,7 @@ public class Database {
 
 	/**
 	 * Used to execute an sql query
-	 * 
+	 *
 	 * @param query        The query to execute
 	 * @param placeholders The placeholders within that query
 	 * @return The results of the query
@@ -199,7 +200,7 @@ public class Database {
 
 	/**
 	 * Used to create a table if the table does not currently exist
-	 * 
+	 *
 	 * @param tableName The name of the table
 	 * @param tableInfo The column information about the table
 	 */

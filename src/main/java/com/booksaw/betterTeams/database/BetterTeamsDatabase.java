@@ -10,7 +10,7 @@ public class BetterTeamsDatabase extends Database {
 
 	public void setupTables() {
 		createTableIfNotExists(TableName.TEAM.toString(),
-				"teamID VARCHAR(50) NOT NULL PRIMARY KEY, name VARCHAR(50) NOT NULL, description VARCHAR(300), open BOOLEAN DEFAULT 0, score INT DEFAULT 0, money DOUBLE DEFAULT 0, home VARCHAR(200), color CHAR(1) DEFAULT '6', echest VARCHAR(10000), level INT DEFAULT 1, tag VARCHAR(50), pvp BOOLEAN DEFAULT 0");
+				"teamID VARCHAR(50) NOT NULL PRIMARY KEY, name VARCHAR(50) NOT NULL, description VARCHAR(300), open BOOLEAN DEFAULT 0, score INT DEFAULT 0, money DOUBLE DEFAULT 0, home VARCHAR(200), color CHAR(1) DEFAULT '6', echest TEXT(20000), level INT DEFAULT 1, tag VARCHAR(50), pvp BOOLEAN DEFAULT 0");
 
 		createTableIfNotExists(TableName.PLAYERS.toString(),
 				"playerUUID VARCHAR(50) NOT NULL PRIMARY KEY, teamID VARCHAR(50) NOT NULL, playerRank INT NOT NULL, title VARCHAR(100), FOREIGN KEY (teamID) REFERENCES "
