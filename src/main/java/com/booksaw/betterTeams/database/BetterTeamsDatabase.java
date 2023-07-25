@@ -1,5 +1,6 @@
 package com.booksaw.betterTeams.database;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -40,7 +41,7 @@ public class BetterTeamsDatabase extends Database {
 
 	}
 
-	public ResultSet select(String select, TableName from) {
+	public PreparedStatement select(String select, TableName from) {
 		return executeQuery("SELECT ? FROM ?", select, from.toString());
 	}
 
@@ -51,7 +52,7 @@ public class BetterTeamsDatabase extends Database {
 	 * @param where  the condition required for the data to be included
 	 * @return the resultant resultSet
 	 */
-	public ResultSet selectWhere(String select, TableName from, String where) {
+	public PreparedStatement selectWhere(String select, TableName from, String where) {
 		return executeQuery("SELECT ? FROM ? WHERE ?;", select, from.toString(), where);
 	}
 
@@ -63,7 +64,7 @@ public class BetterTeamsDatabase extends Database {
 	 * @param orderBy what to order the data by
 	 * @return the resultant resultset
 	 */
-	public ResultSet selectWhereOrder(String select, TableName from, String where, String orderBy) {
+	public PreparedStatement selectWhereOrder(String select, TableName from, String where, String orderBy) {
 		return executeQuery("SELECT ? FROM ? WHERE ? ORDER BY ?;", select, from.toString(), where, orderBy);
 	}
 
@@ -74,7 +75,7 @@ public class BetterTeamsDatabase extends Database {
 	 * @param orderBy what to order the data by
 	 * @return The resultant resultset
 	 */
-	public ResultSet selectOrder(String select, TableName from, String orderBy) {
+	public PreparedStatement selectOrder(String select, TableName from, String orderBy) {
 		return executeQuery("SELECT ? FROM ? ORDER BY ?;", select, from.toString(), orderBy);
 	}
 
@@ -87,13 +88,13 @@ public class BetterTeamsDatabase extends Database {
 	 * @param orderBy     the order by conditions
 	 * @return The resultSet of the select
 	 */
-	public ResultSet selectInnerJoinOrder(String select, TableName table, TableName joinTable, String columToJoin,
+	public PreparedStatement selectInnerJoinOrder(String select, TableName table, TableName joinTable, String columToJoin,
 			String orderBy) {
 		return executeQuery("SELECT ? FROM ? INNER JOIN ? on (?) ORDER BY ?;", select, table.toString(),
 				joinTable.toString(), columToJoin, orderBy);
 	}
 
-	public ResultSet selectInnerJoinGroupByOrder(String select, TableName table, TableName joinTable,
+	public PreparedStatement selectInnerJoinGroupByOrder(String select, TableName table, TableName joinTable,
 			String columToJoin, String groupBy, String orderBy) {
 		return executeQuery("SELECT ? FROM ? INNER JOIN ? on (?) GROUP BY ? ORDER BY ?;", select, table.toString(),
 				joinTable.toString(), columToJoin, groupBy, orderBy);
@@ -108,7 +109,8 @@ public class BetterTeamsDatabase extends Database {
 	 */
 	public boolean hasResult(TableName from, String where) {
 
-		try (ResultSet result = selectWhere("*", from, where)) {
+		try (PreparedStatement ps = selectWhere("*", from, where)) {
+			ResultSet result = ps.executeQuery();
 			if (result == null) {
 				return false;
 			}
@@ -131,10 +133,10 @@ public class BetterTeamsDatabase extends Database {
 	 */
 	public String getResult(String column, TableName from, String where) {
 
-		try (ResultSet results = selectWhere(column, from, where)) {
+		try (PreparedStatement pr = selectWhere(column, from, where)) {
+			ResultSet results = pr.executeQuery();
 			results.first();
-			String str = results.getString(column);
-			return str;
+			return results.getString(column);
 		} catch (SQLException e) {
 			return "";
 		}
