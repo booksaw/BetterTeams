@@ -68,8 +68,7 @@ public class SQLTeamStorage extends TeamStorage {
 	public List<TeamPlayer> getPlayerList() {
 		List<TeamPlayer> toReturn = new ArrayList<>();
 
-		try {
-			PreparedStatement ps = storageManager.getDatabase().selectWhere("*", TableName.PLAYERS, getCondition());
+		try (PreparedStatement ps = storageManager.getDatabase().selectWhere("*", TableName.PLAYERS, getCondition())) {
 			ResultSet result = ps.executeQuery();
 			if (!result.first()) {
 				return toReturn;
@@ -80,7 +79,6 @@ public class SQLTeamStorage extends TeamStorage {
 						PlayerRank.getRank((result.getInt("playerRank"))), result.getString("title")));
 
 			} while (result.next());
-			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -93,8 +91,7 @@ public class SQLTeamStorage extends TeamStorage {
 
 		List<String> toReturn = new ArrayList<>();
 
-		try {
-			PreparedStatement ps = storageManager.getDatabase().selectWhere("*", TableName.BANS, getCondition());
+		try (PreparedStatement ps = storageManager.getDatabase().selectWhere("*", TableName.BANS, getCondition())) {
 			ResultSet result = ps.executeQuery();
 			if (!result.first()) {
 				return toReturn;
@@ -104,7 +101,6 @@ public class SQLTeamStorage extends TeamStorage {
 				toReturn.add(result.getString("playerUUID"));
 
 			} while (result.next());
-			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -117,9 +113,8 @@ public class SQLTeamStorage extends TeamStorage {
 
 		List<String> toReturn = new ArrayList<>();
 
-		try {
-			PreparedStatement ps = storageManager.getDatabase().selectWhere("*", TableName.ALLIES,
-					"team1ID LIKE '" + team.getID() + "' OR team2ID LIKE '" + team.getID() + "'");
+		try (PreparedStatement ps = storageManager.getDatabase().selectWhere("*", TableName.ALLIES,
+				"team1ID LIKE '" + team.getID() + "' OR team2ID LIKE '" + team.getID() + "'");) {
 			ResultSet result = ps.executeQuery();
 			if (!result.first()) {
 				return toReturn;
@@ -132,7 +127,6 @@ public class SQLTeamStorage extends TeamStorage {
 				}
 
 			} while (result.next());
-			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -145,9 +139,9 @@ public class SQLTeamStorage extends TeamStorage {
 
 		List<String> toReturn = new ArrayList<>();
 
-		try {
-			PreparedStatement ps = storageManager.getDatabase().selectWhere("*", TableName.ALLYREQUESTS,
-					"receivingTeamID LIKE '" + team.getID() + "'");
+		try (PreparedStatement ps = storageManager.getDatabase().selectWhere("*", TableName.ALLYREQUESTS,
+				"receivingTeamID LIKE '" + team.getID() + "'")) {
+
 			ResultSet result = ps.executeQuery();
 			if (!result.first()) {
 				return toReturn;
@@ -156,7 +150,6 @@ public class SQLTeamStorage extends TeamStorage {
 				toReturn.add(result.getString("requestingTeamID"));
 
 			} while (result.next());
-			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -193,8 +186,8 @@ public class SQLTeamStorage extends TeamStorage {
 
 		List<String> toReturn = new ArrayList<>();
 
-		try {
-			PreparedStatement ps = storageManager.getDatabase().selectWhere("*", TableName.WARPS, getCondition());
+		try (PreparedStatement ps = storageManager.getDatabase().selectWhere("*", TableName.WARPS, getCondition())){
+			
 			ResultSet result = ps.executeQuery();
 			if (!result.first()) {
 				return toReturn;
@@ -204,7 +197,6 @@ public class SQLTeamStorage extends TeamStorage {
 				toReturn.add(result.getString("warpInfo"));
 
 			} while (result.next());
-			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -217,8 +209,8 @@ public class SQLTeamStorage extends TeamStorage {
 
 		List<String> toReturn = new ArrayList<>();
 
-		try {
-			PreparedStatement ps = storageManager.getDatabase().selectWhere("*", TableName.CHESTCLAIMS, getCondition());
+		try (PreparedStatement ps = storageManager.getDatabase().selectWhere("*", TableName.CHESTCLAIMS, getCondition())) {
+			
 			ResultSet result = ps.executeQuery();
 			if (!result.first()) {
 				return toReturn;
@@ -227,7 +219,6 @@ public class SQLTeamStorage extends TeamStorage {
 				toReturn.add(result.getString("chestLoc"));
 
 			} while (result.next());
-			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

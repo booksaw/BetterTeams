@@ -74,13 +74,11 @@ public class SQLStorageManager extends TeamManager implements Listener {
 
 		if (claims == null) {
 			claims = new HashMap<>();
-			try {
-				PreparedStatement preparedStatement = database.select("*", TableName.CHESTCLAIMS);
+			try (PreparedStatement preparedStatement = database.select("*", TableName.CHESTCLAIMS)) {
 				ResultSet results = preparedStatement.executeQuery();
 				while (results.next()) {
 					claims.put(results.getString(2), UUID.fromString(results.getString(1)));
 				}
-				preparedStatement.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 				return null;
@@ -193,7 +191,6 @@ public class SQLStorageManager extends TeamManager implements Listener {
 
 		PreparedStatement ps = database.selectOrder("name", TableName.TEAM, "SCORE DESC");
 
-
 		return getTeamsFromResultSet(ps);
 	}
 
@@ -214,7 +211,8 @@ public class SQLStorageManager extends TeamManager implements Listener {
 	}
 
 	/**
-	 * convert a result set, supplied by a prepared statement into a list of teams for sort methods
+	 * convert a result set, supplied by a prepared statement into a list of teams
+	 * for sort methods
 	 * 
 	 * @param ps
 	 * @return the ordered team list or an empty array in the event of an error

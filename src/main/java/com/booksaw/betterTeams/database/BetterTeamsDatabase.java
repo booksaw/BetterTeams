@@ -114,9 +114,7 @@ public class BetterTeamsDatabase extends Database {
 			if (result == null) {
 				return false;
 			}
-			boolean first = result.first();
-			ps.close();
-			return first;
+			return result.first();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
@@ -138,9 +136,7 @@ public class BetterTeamsDatabase extends Database {
 		try (PreparedStatement pr = selectWhere(column, from, where)) {
 			ResultSet results = pr.executeQuery();
 			results.first();
-			String str = results.getString(column);
-			pr.close();
-			return str;
+			return results.getString(column);
 		} catch (SQLException e) {
 			return "";
 		}
