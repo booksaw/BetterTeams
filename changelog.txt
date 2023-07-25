@@ -690,6 +690,7 @@ Improvements
 Bug Fixes: 
 - Added the missing %betterteams_inTeam% placeholder that was missed in the rework (#480 #479) - Credit AELLIOS (discord)
 - Fixed issue with all level placeholders not working as expexpected (#485 #484) - Credit AELLIOS (discord)
+- Fixed a memory leak in the SQL storage type (#488 #486) - Credit Louis_DS (discord)
 
 Headings: 
 Features: 
