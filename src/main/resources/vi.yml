@@ -154,7 +154,7 @@ sethome:
 chat:
   enabled: '&6Giờ bạn đang chat với team của bạn'
   disabled: '&6Giờ bạn đang chat thì ai cũng nghe được'
-  syntax: '&b[%s]&f%s&f: %s'
+  syntax: '&b[Team]&f%s&f: %s'
 color:
   success: '&6Team bạn đã đổi màu'
   fail: '&6Không có màu này đâu'

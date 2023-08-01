@@ -692,6 +692,7 @@ Bug Fixes:
 - Fixed issue with all level placeholders not working as expexpected (#485 #484) - Credit AELLIOS (discord)
 - Fixed a memory leak in the SQL storage type (#488 #486) - Credit Dev0Louis (GitHub)
 - Fixed some issues with the conversion between YAML and SQL (#481) - Credit AELLIOS (discord)
+- Fixed issue with the Vietnamese translations - NOTE: you will need to delete the vi.yml file for this to be updated (#483)
 
 Headings: 
 Features: 
