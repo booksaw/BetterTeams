@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
@@ -145,7 +146,14 @@ public class Database {
 	public void executeStatement(String statement, String... placeholders) {
 
 		for (int i = 0; i < placeholders.length; i++) {
-			statement = StringUtils.replaceOnce(statement, "?", placeholders[i]);
+			try {
+				statement = StringUtils.replaceOnce(statement, "?", placeholders[i]);
+			} catch (IndexOutOfBoundsException e) {
+				Bukkit.getLogger().severe("[BetterTeams] Invalid setup for replacing placeholders");
+				Bukkit.getLogger().severe("[BetterTeams] Statement: " + statement);
+				Bukkit.getLogger().severe("[BetterTeams] Placeholders: " + Arrays.toString(placeholders));
+				e.printStackTrace();
+			}
 		}
 
 		statement = statement.replace("'false'", "false");
