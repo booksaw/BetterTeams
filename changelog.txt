@@ -693,6 +693,7 @@ Bug Fixes:
 - Fixed a memory leak in the SQL storage type (#488 #486) - Credit Dev0Louis (GitHub)
 - Fixed some issues with the conversion between YAML and SQL (#481) - Credit AELLIOS (discord)
 - Fixed issue with the Vietnamese translations - NOTE: you will need to delete the vi.yml file for this to be updated (#483)
+- Improved logging for invalid team files in /team top (#490)
 
 Headings: 
 Features: 

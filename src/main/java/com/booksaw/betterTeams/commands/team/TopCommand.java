@@ -5,6 +5,8 @@ import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.SubCommand;
 import com.booksaw.betterTeams.message.MessageManager;
+
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -36,8 +38,7 @@ public class TopCommand extends SubCommand {
 
 				for (int i = 0; i < 10 && i < teams.length; i++) {
 					Team tempTeam = Team.getTeam(teams[i]);
-					MessageManager.sendMessageF(sender, "top.syntax", (i + 1) + "", tempTeam.getName(),
-							tempTeam.getScore() + "");
+					sendTopSyntaxMessage(sender, i + 1, tempTeam, teams[i]);
 					if (team == tempTeam) {
 						contained = true;
 					}
@@ -56,17 +57,14 @@ public class TopCommand extends SubCommand {
 							MessageManager.sendMessage(sender, "top.divide");
 							if (rank - 2 > 9) {
 								Team tm2 = Team.getTeam(teams[rank - 2]);
-								MessageManager.sendMessageF(sender, "top.syntax", (rank - 1) + "", tm2.getName(),
-										tm2.getScore() + "");
+								sendTopSyntaxMessage(sender, rank - 1, tm2, teams[rank - 2]);
 							}
 
-							MessageManager.sendMessageF(sender, "top.syntax", (rank) + "", team.getName(),
-									team.getScore() + "");
+							sendTopSyntaxMessage(sender, rank, team, "CommandSenders Team");
 
 							if (teams.length > rank) {
 								Team tm = Team.getTeam(teams[rank]);
-								MessageManager.sendMessageF(sender, "top.syntax", (rank + 1) + "", tm.getName(),
-										tm.getScore() + "");
+								sendTopSyntaxMessage(sender, (rank + 1), tm, teams[rank]);
 							}
 						}
 					} catch (ArrayIndexOutOfBoundsException e) {
@@ -111,6 +109,18 @@ public class TopCommand extends SubCommand {
 
 	@Override
 	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
+	}
+
+	private void sendTopSyntaxMessage(CommandSender sender, int rank, Team team, String teamIdentifier) {
+		if (team == null || team.getName() == null) {
+			Bukkit.getLogger()
+					.warning("[BetterTeams] There is an issue with the team file associated with " + teamIdentifier);
+			Bukkit.getLogger().warning("[BetterTeams] in config.yml set 'rebuildLookups' to true and restart your server, if the issue continues please report it to booksaw");
+			return;
+		}
+
+		MessageManager.sendMessageF(sender, "top.syntax", (rank + 1) + "", team.getName(), team.getScore() + "");
+
 	}
 
 }
