@@ -687,6 +687,9 @@ Improvements
 
 4.7.2:
 
+Features:
+- Added Czech translations - Credit xTomikk
+
 Bug Fixes: 
 - Added the missing %betterteams_inTeam% placeholder that was missed in the rework (#480 #479) - Credit AELLIOS (discord)
 - Fixed issue with all level placeholders not working as expexpected (#485 #484) - Credit AELLIOS (discord)
