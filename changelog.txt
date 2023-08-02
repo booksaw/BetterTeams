@@ -699,6 +699,21 @@ Bug Fixes:
 - Improved logging for invalid team files in /team top (#490)
 - Improved logging for invalid SQL statements (#478)
 
+4.8.0:
+
+Features:
+Added 9 new languages: 
+* Arabic - ar - Credit icloser
+* Armenian - hy - Credit icloser and ramaziqadagishvili
+* Georgian - ka - Credit icloser
+* Hindi - hi - Credit icloser and Wonky
+* Indonesian - id - Credit icloser
+* Japanese - ja - Credit icloser
+* Portuguese - pt - Credit icloser
+* Russian - ru - Credit icloser
+* Ukrainian - uk - Credit kikalo, ramaziqadagishvili and icloser
+
+
 Headings: 
 Features: 
 

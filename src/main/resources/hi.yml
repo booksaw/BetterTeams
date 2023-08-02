@@ -1,0 +1,381 @@
+# All translations in this file are community made, this means there may be errors / missed translations, if you are able to improve upon any translation it would be greatly appreciated
+
+# Able to help with translations? Either improving a already existing language, or adding a whole new one. Join the discord server: https://discord.gg/JF9DNs3 
+# or message me on spigot: https://www.spigotmc.org/members/booksaw123.120955/
+
+# Any placeholders from placeholder API will work in this file
+
+# Credit for contributions to this file: icloser, Wonky
+
+invalidArg: '&4अवैध तर्क, सहायता'
+inTeam: '&4आपको इसे करने के लिए एक टीम में होना चाहिए'
+internalError: '&4उस कमांड को निष्पादित करते समय कुछ गड़बड़ हो गई, कृपया इसे अपने सर्वर के मालिकों को रिपोर्ट करें'
+notInTeam: '&4आपको उसको करने से पहले अपनी टीम छोड़ना होगा'
+needOwner: '&4आपको उसको करने के लिए टीम के मालिक होना चाहिए'
+needAdmin: '&4आपको उसको करने के लिए एडमिन या टीम के मालिक होना चाहिए'
+needPlayer: '&4आपको उसको करने के लिए एक खिलाड़ी होना चाहिए'
+noPlayer: '&4निर्दिष्ट खिलाड़ी नहीं मिला'
+notTeam: '&6&4वह टीम मौजूद नहीं है, नाम लिखने के लिए &b/team create <नाम> &6प्रयास करें'
+needSameTeam: '&6आप उस व्यक्ति के साथ एक ही टीम में नहीं हैं'
+noPerm: '&4आपको उसको करने की अनुमति नहीं है'
+prefixSyntax: '&7[%s&7] &r%s'
+bannedChar: '&4आपके द्वारा उपयोग किए गए वर्णक्रम का प्रतिबंध है'
+noTeam: '&4वह टीम मौजूद नहीं है'
+loading: '&6लोड हो रहा है'
+cooldown.wait: '&4आपको उसको चलाने से पहले और %s सेकंड इंतजार करना होगा!'
+cost.tooPoor: '&4आप उसको चलाने के लिए बहुत गरीब हैं'
+cost.run: '&4&l-%s'
+placeholder.noTeam: ''
+placeholder.noDescription: ''
+placeholder.money: '%s'
+placeholder.owner: मालिक
+placeholder.admin: एडमिन
+placeholder.default: डिफ़ॉल्ट
+placeholder.name: '%s'
+placeholder.tag: '%s'
+placeholder.displayname: '%s'
+placeholder.inteam: 'सही'
+placeholder.notinteam: 'गलत'
+placeholder.noTitle: ''
+prefix.owner: ' **'
+prefix.admin: ' *'
+prefix.default: ' '
+create.exists: '&6वह टीम पहले से ही मौजूद है'
+create.success: '&6आपकी टीम बना दी गई है'
+create.banned: '&4वह टीम नाम प्रतिबंधित है'
+create.maxLength: '&4वह टीम नाम बहुत लंबा है'
+leave.success: '&6आपने टीम छोड़ दी है'
+leave.lastOwner: '&6आप टीम में एकमात्र मालिक रैंक हैं, कृपया किसी और को बढ़ावा दें या &b/team disband &6कमांड का उपयोग करके टीम बंद करें'
+rank.noTeam: '&4टीम नहीं मिली'
+rank.info: '&6टीम पद:'
+rank.infos: '&6टीम रैंक: &b%s &7(अगले रैंकअप के लिए %s स्कोर की आवश्यकता है)'
+rank.infom: '&6टीम रैंक: &b%s &7(अगले रैंकअप के लिए $%s की आवश्यकता है)'
+rank.infomm: '&6टीम रैंक: &b%s &7(आप मैक्स रैंक हैं)'
+rank.syntax: '&b%s: &6%s &7(%s)'
+delhome.success: '&6आपकी टीम होम हटा दी गई है'
+delhome.noHome: '&4आपकी टीम ने होम सेट नहीं किया है'
+disband.success: '&6आपने टीम बंद कर दी है'
+disband.confirm: '&6पुष्टि करने के लिए फिर से &b/team disband &6टाइप करें'
+description.success: '&6आपने टीम विवरण बदल दिया है'
+description.view: '&6टीम विवरण: %s'
+description.noDesc: '&6कोई टीम विवरण सेट नहीं है'
+description.noPerm: '&4आपको विवरण को संपादित करने की अनुमति नहीं है'
+name.success: '&6आपने टीम का नाम बदल दिया है'
+name.view: '&6टीम का नाम: %s'
+name.exists: '&4वह टीम पहले से ही मौजूद है'
+name.noPerm: '&4आपको अपने टीम का नाम बदलने की अनुमति नहीं है'
+invite.success: '&6उस खिलाड़ी को आमंत्रित कर दिया गया है'
+invite.invite: '&6आप टीम %s में शामिल होने के लिए आमंत्रित हैं, टीम में शामिल होने के लिए &b/team join <टीम> &6का उपयोग करें'
+invite.inTeam: '&6उस खिलाड़ी को पहले से ही टीम में शामिल किया गया है'
+invite.banned: '&6उस खिलाड़ी को आपकी टीम से प्रतिबंधित किया गया है'
+invite.full: '&6आपकी टीम का अधिकतम आकार है, और लोगों को आमंत्रित करने से पहले किसी व्यक्ति को निकालें'
+invite.expired: '&4आमंत्रण व्यक्ति &b%s &4का समय समाप्त हो गया है'
+join.success: '&6आपने उस टीम में शामिल हो गए हैं'
+join.notify: '&6टीम में आपका स्वागत है, &b%s &6!'
+join.notInvited: '&6&4आपको उस टीम में आमंत्रित नहीं किया गया है'
+join.banned: '&6&4आप उस टीम से प्रतिबंधित हैं'
+join.full: '&4वह टीम भरी हुई है'
+open.successopen: '&6आपकी टीम अब सभी के लिए खुली है'
+open.successclose: '&6आपकी टीम अब इनवाइट के लिए है'
+title.change: '&6आपका शीर्षक बदल दिया गया है, &b%s &6में'
+title.remove: '&6आपका शीर्षक हटा दिया गया है'
+title.success: '&6उस शीर्षक को बदल दिया गया है'
+title.tooLong: '&4वह शीर्षक बहुत लंबा है'
+title.noFormat: '&4आपको शीर्षक को संरूपण करने की अनुमति नहीं है'
+title.noColor: '&4आपको शीर्षक को रंग देने की अनुमति नहीं है'
+title.reset: '&6आपका शीर्षक रीसेट हो गया है'
+title.noPerm: '&4आपको अपने टीम के शीर्षक को बदलने की अनुमति नहीं है'
+info.needTeam: '&6उस नाम के तहत कोई टीम या खिलाड़ी नहीं मिला'
+info.name: '&6नाम: &b%s'
+info.description: '&6विवरण: &b%s'
+info.open: '&6खुला: &b%s'
+info.level: '&6स्तर: &b%s'
+info.owner: '&6मालिक: &b%s'
+info.admin: '&6एडमिन: &b%s'
+info.default: '&6सदस्य: &b%s'
+info.tag: '&6टैग: &b%s'
+info.fail: '&6उस नाम के तहत कोई टीम या खिलाड़ी नहीं मिला'
+info.score: '&6स्कोर: &b%s'
+info.money: '&6संतुलन: &b%s'
+info.ally: '&6सगे-संबंधी: &b%s'
+kick.success: '&6उस खिलाड़ी को बाहर निकाल दिया गया है'
+kick.notify: '&6आप टीम %s से बाहर निकाल दिये गए हैं'
+kick.title: '&4आपको अपनी टीम से बाहर निकाल दिया गया है'
+kick.noPerm: '&6आपको उस व्यक्ति को बाहर निकालने की अनुमति नहीं है'
+ban.success: '&6उस खिलाड़ी को बैन कर दिया गया है'
+ban.notify: '&6आप टीम %s से बैन कर दिये गए हैं'
+ban.title: '&4आपको अपनी टीम से बैन कर दिया गया है'
+ban.noPerm: '&6आपको उस व्यक्ति को बैन करने की अनुमति नहीं है'
+ban.already: '&6उस खिलाड़ी को पहले से ही बैन कर दिया गया है'
+unban.success: '&6उस खिलाड़ी को अनबैन कर दिया गया है'
+unban.notify: '&6आप टीम %s से अनबैन कर दिये गए हैं'
+unban.noPerm: '&6आपको उस व्यक्ति को अनबैन करने की अनुमति नहीं है'
+unban.not: '&6उस खिलाड़ी को बैन नहीं किया गया है'
+promote.success: '&6उस खिलाड़ी को पदोन्नत कर दिया गया है'
+promote.noPerm: '&6आपको उस व्यक्ति को पदोन्नत करने की अनुमति नहीं है'
+promote.max: '&6वह व्यक्ति पहले से ही मैक्स पदोन्नत हो गया है!'
+promote.notify: '&6आप पदोन्नत कर दिए गए हैं!'
+promote.maxAdmins: '&4आपकी टीम में पहले से ही अधिकतम एडमिन की संख्या है, किसी एडमिन को कम करें या टीम को बढ़ाएं'
+promote.maxOwners: '&4आपकी टीम में पहले से ही अधिकतम मालिक की संख्या है, किसी मालिक को कम करें या टीम को बढ़ाएं'
+demote.success: '&6उस खिलाड़ी को डिमोट कर दिया गया है'
+demote.noPerm: '&6आपको उस व्यक्ति को डिमोट करने की अनुमति नहीं है'
+demote.min: '&6वह व्यक्ति पहले से ही सबसे कम रैंक है'
+demote.notify: '&6आप डिमोट कर दिए गए हैं'
+demote.lastOwner: '&6आप अंतिम मालिक को डिमोट नहीं कर सकते, कृपया पहले किसी और को प्रोमोट करें'
+demote.maxAdmins: '&4आपकी टीम में पहले से ही अधिकतम एडमिन की संख्या है, किसी एडमिन को हटाएं या टीम को बढ़ाएं'
+home.success: '&6आपको टेलीपोर्ट किया गया है'
+home.noHome: '&6आपकी टीम ने होम सेट नहीं किया है'
+home.world: '&4वह टीम होम नहीं मिल सकता'
+sethome.success: '&6आपकी टीम होम सेट किया गया है'
+sethome.noPerm: '&6आपको अपनी टीम होम सेट करने के लिए पर्याप्त रैंक नहीं है'
+chat.enabled: '&6आपके संदेश अब टीम चैट में जाएंगे'
+chat.disabled: '&6आपके संदेश अब टीम चैट में नहीं जाएंगे'
+chat.alreadyEnabled: '&6आप पहले से ही टीम चैट में हैं'
+chat.alreadyDisabled: '&6आप पहले से ही टीम चैट में नहीं हैं'
+color.success: '&6आपकी टीम का रंग बदल दिया गया है'
+color.fail: '&6यह एक मान्य चैट रंग नहीं है'
+color.banned: '&4आप केवल रंगों का उपयोग कर सकते हैं, स्वरूपण कोड नहीं'
+deposit.tooLittle: '&4आप नकादी नकारात्मक राशि जमा नहीं कर सकते'
+deposit.fail: '&4जमा विफल हुआ'
+deposit.success: '&6पैसे जमा हुए'
+deposit.max: '&4यह आपके अधिकतम अनुमत टीम शेषी राशि से अधिक होगा'
+withdraw.tooLittle: '&4आप नकादी नकारात्मक राशि निकाल नहीं सकते'
+withdraw.fail: '&4निकासी विफल हुई'
+withdraw.success: '&6पैसे निकाले गए'
+withdraw.notEnough: '&6आपकी टीम के पास पर्याप्त धन नहीं है'
+ally.already: '&4आप पहले से ही मित्र हैं'
+ally.success: '&6आपकी टीम अब मित्र हैं'
+ally.ally: '&6आपकी टीम ने मित्रता बना ली है: &b%s'
+ally.requested: '&6उस टीम को मित्रता अनुरोध भेज दिया गया है'
+ally.request: '&b%s &6ने मित्रता अनुरोध भेजा है, मित्र बनाने के लिए &b/team ally <team> &6का उपयोग करें'
+ally.self: '&4आप अपनी खुद की टीम को मित्र बना नहीं सकते'
+ally.from: '&6आपके पास मित्र अनुरोध है: %s'
+ally.noRequests: '&4आपके पास कोई मित्र अनुरोध नहीं है'
+ally.onJoin: '&6आपके पास नए मित्र अनुरोध हैं, उन्हें देखने के लिए &b/team ally &6का उपयोग करें'
+ally.limit: '&4मित्रों पर सीमा पहुंच गई है'
+ally.alreadyrequest: '&4आपने पहले से ही उस टीम के साथ मित्रता का अनुरोध किया है'
+allychat.disabled: '&6आपके संदेश अब मित्र चैट में नहीं जा रहे हैं'
+allychat.enabled: '&6आपके संदेश अब मित्र चैट में जा रहे हैं'
+allychat.syntax: '&d[%s]&f%s&f: %s'
+neutral.self: '&6वह आपकी खुद की टीम है'
+neutral.requestremove: '&6वह मित्र अनुरोध हटा दिया गया है'
+neutral.reject: '&4आपके मित्रता अनुरोध को अस्वीकार किया गया है: &b%s'
+neutral.notAlly: '&4आप उस टीम के साथ मित्र नहीं हैं'
+neutral.success: '&4आप उस टीम के साथ अब मित्र नहीं हैं'
+neutral.remove: '&4आप अब नहीं हैं मित्र: &b%s'
+list.noPage: '&6वह पृष्ठ नहीं मिला'
+list.header: '&7--- &bटीम सूची पृष्ठ %s &7---'
+list.body: '&6%s: &b%s'
+list.footer: '&7--- &6और देखने के लिए &b/team list [पृष्ठ] &6का उपयोग करें &7---'
+setowner.use: '&6आप उस खिलाड़ी को बढ़ाने में सक्षम नहीं हैं, उस खिलाड़ी को मालिक बनाने के लिए &b/team setowner <प्लेयर> &6का उपयोग करें'
+setowner.success: '&6वह खिलाड़ी अब मालिक है'
+setowner.notify: '&6आप अब अपनी टीम के मालिक हैं'
+setowner.max: '&4वह खिलाड़ी पहले से ही मालिक है'
+setwarp.exist: '&4वह वार्प पहले से मौजूद है'
+setwarp.max: '&4आपकी टीम ने पहले से ही अधिकतम संख्या में वार्प सेट किए हुए हैं'
+setwarp.success: '&6वह वार्प बनाया गया है'
+setwarp.char: '&4वह वार्प नाम में निषेधित अक्षर हैं'
+warp.nowarp: '&4वह वार्प मौजूद नहीं है'
+warp.invalidPassword: '&4वह वार्प के लिए अमान्य पासवर्ड'
+warp.success: '&6आपको टेलीपोर्ट किया गया है'
+warps.syntax: '&6वार्प: &b%s'
+warps.none: '&4आपकी टीम के पास कोई वार्प सेट नहीं है'
+warp.world: '&4वह वार्प स्थान नहीं मिला'
+delwarp.success: '&4वह वार्प हटा दिया गया है'
+chat.syntax: '&b[टीम]&f%s&f: %s'
+teleport.fail: '&4टेलीपोर्टेशन विफल हुआ'
+teleport.wait: '&6प्रतीक्षा करें &b%s &6सेकंड'
+chest.claim.noChest: '&4आप एक संदूक पर नहीं खड़े हैं'
+chest.claim.limit: '&4आपकी टीम ने अधिकतम संख्या की संदूकें क्लेम की हैं'
+chest.claim.claimed: '&4वह संदूक पहले से ही क्लेम की गई है'
+chest.claim.success: '&6आपने उस संदूक को क्लेम किया है'
+chest.remove.noChest: '&4आप एक संदूक पर नहीं खड़े हैं'
+chest.remove.notClaimed: '&4आपकी टीम ने उस संदूक को क्लेम नहीं किया है'
+chest.remove.success: '&4आपकी टीम ने उस संदूक का क्लेम हटा दिया है'
+chest.all.success: '&6सभी संदूकें अक्लेम कर दी गईं'
+chest.claimed: '&4वह संदूक &a%s &4द्वारा क्लेम की गई है'
+
+echest.echest: 'Enderchest'
+
+pvp.enabled: '&6पीवीपी आपकी टीम के लिए सक्षम हो गया है'
+pvp.disabled: '&6पीवीपी आपकी टीम के लिए अक्षम हो गया है'
+
+rankup.max: '&4आप पहले से ही अधिकतम रैंक हैं'
+rankup.score: '&4आपको रैंक अप करने के लिए %s स्कोर की आवश्यकता है'
+rankup.money: '&4आपको रैंक अप करने के लिए टीम शेषी राशि में %s पैसे की आवश्यकता है'
+rankup.success: '&6आपकी टीम बढ़ गई है'
+
+tag.banned: '&4वह टैग निषेधित है'
+tag.success: '&6आपका टैग सफलतापूर्वक बदल गया है'
+tag.maxLength: '&4वह टैग बहुत लंबा है'
+tag.noPerm: '&4आपके पास टीम टैग बदलने की अनुमति नहीं है'
+admin.cancel: '&4यह कमांड एक अन्य प्लगइन द्वारा रद्द किया गया था'
+admin.tag.success: '&6वह टीम का टैग सफलतापूर्वक बदल गया है'
+admin.setrank.success: '&6वह टीम का रैंक सेट हो गया है'
+admin.setrank.no: '&4वह रैंक पहले से मौजूद नहीं है या सही ढंग से सेट नहीं है'
+
+admin.config.reload: '&6बेटर टीम्स फिर से लोड हो गया है (यदि आपको इस कमांड का उपयोग करते समय समस्या हो रही है, तो सर्वर को पुनरारंभ करें)'
+admin.holo.create.success: '&6होलोग्राम बनाया गया'
+admin.holo.remove.noHolo: '&4कोई होलोग्राम नहीं मिला'
+admin.holo.remove.success: '&6होलोग्राम हटा दिया गया'
+admin.title.success: '&6उस खिलाड़ी का शीर्षक सफलतापूर्वक बदल गया है'
+admin.title.reset: '&6उस खिलाड़ी का शीर्षक रीसेट कर दिया गया है'
+admin.version: '&6वर्तमान प्लगइन संस्करण: &b%s'
+admin.versionstorage: '&6संग्रहण विधि: &b%s'
+admin.versionversion: '&6माइनक्राफ्ट संस्करण: &b%s'
+admin.versionlanguage: '&6चयनित भाषा: &b%s'
+admin.noTeam: '&4वह एक टीम नहीं है'
+admin.home.success: '&6आप उस टीम के होम के लिए टेलीपोर्ट हो गए हैं'
+admin.home.noHome: '&4उस टीम ने कोई होम सेट नहीं किया है'
+admin.name.success: '&6उस टीम का नाम बदल गया है'
+admin.description.success: '&6उस टीम का विवरण बदल गया है'
+admin.open.successopen: '&6उस टीम अब सभी के लिए खुली है'
+admin.open.successclose: '&6उस टीम अब इन्वाइट ओनली है'
+admin.invite.success: '&6उस खिलाड़ी को उस टीम में आमंत्रित किया गया है'
+admin.create.success: '&6उस टीम को बना दिया गया है'
+admin.join.banned: '&4उस खिलाड़ी को उस टीम से प्रतिबंधित किया गया है'
+admin.join.success: '&6उस खिलाड़ी ने टीम में शामिल हो गया है'
+admin.join.notify: '&6आप टीम &b%s &6में शामिल हो गए हैं'
+admin.join.full: '&4उस टीम में जगह नहीं है'
+admin.notInTeam: '&6उस खिलाड़ी को उस कारण टीम में शामिल नहीं हो सकता'
+admin.inTeam: '&4उस खिलाड़ी टीम में नहीं है'
+admin.leave.success: '&6उस खिलाड़ी ने उस टीम को छोड़ दिया है'
+admin.leave.notify: '&6आपने उस टीम को छोड़ दिया है'
+admin.demote.notify: '&6आप अवमानित हो गए हैं'
+admin.demote.success: '&6उस खिलाड़ी का पदनियुक्ति हटा दी गई है'
+admin.demote.min: '&4उस खिलाड़ी को और अवमानित नहीं किया जा सकता'
+admin.demote.maxAdmins: '&4उस टीम में पहले से ही अधिकतम प्रशासक हैं, इस खिलाड़ी को अवमानित करने से पहले एक को हटा दें'
+admin.promote.max: '&6उस खिलाड़ी को पहले से ही अधिकतम रैंक हैं'
+admin.promote.notify: '&6आपको बढ़ाया गया है'
+admin.promote.success: '&6उस खिलाड़ी को बढ़ा दिया गया है'
+admin.promote.owner: '&6यह संरचित किया गया है कि टीमों के पास केवल एक मालिक हो सकता है, खिलाड़ी को मालिक बनाने के लिए &b/teama setowner <खिलाड़ी> &6का उपयोग करें'
+admin.promote.maxAdmins: '&4उस टीम में पहले से ही अधिकतम प्रशासक हैं, इस खिलाड़ी को बढ़ाने से पहले एक को हटा दें'
+admin.promote.maxOwners: '&4उस टीम में पहले से ही अधिकतम मालिक हैं, इस खिलाड़ी को बढ़ाने से पहले एक को हटा दें'
+admin.setowner.already: '&4उस खिलाड़ी को पहले से ही मालिक बना दिया गया है'
+admin.setowner.nonotify: '&6आप टीम के मालिक नहीं हैं'
+admin.setowner.success: '&6उस खिलाड़ी को नया टीम मालिक बना दिया गया है'
+admin.setowner.notify: '&6आप अब अपनी टीम के मालिक हों'
+admin.warps.none: '&4उस टीम ने कोई वार्प सेट नहीं किया है'
+admin.setwarp.success: '&6वह वार्प सेट किया गया है'
+admin.setwarp.max: '&6उस टीम ने पहले से ही अधिकतम संख्या में वार्प सेट किए हुए हैं'
+admin.purge.confirm: '&6पुष्टिकरण करने के लिए अगले 10 सेकंड में उस कमांड को चलाएं, &4यह अनुकूलित नहीं होगा और सभी टीमों के लिए स्कोर रीसेट कर देगा'
+admin.purge.success: '&6टीमों को पुष्टिकरण किया गया है'
+admin.score.tooSmall: '&4स्कोर 0 से अधिक होना चाहिए'
+admin.score.success: '&6उस टीम का स्कोर बदल गया है'
+admin.bal.toSmall: '&4शेषी राशि 0 से अधिक होनी चाहिए'
+admin.bal.success: '&6उस टीम का शेषी राशि बदल गई है'
+admin.update: '&4बेटर टीम्स का एक नया संस्करण जारी किया गया है, यहां अपडेट करें: (https://www.spigotmc.org/resources/better-teams.17129/)'
+admin.disband.success: '&6उस टीम को सफलतापूर्वक विघटित कर दिया गया है'
+admin.color.success: '&6उस टीम का रंग बदल गया है'
+admin.chest.claim.success: '&6आपने उस संदूक को टीम के लिए दावा किया है'
+admin.chest.remove.success: '&6आपने उस संदूक के दावे को सफलतापूर्वक हटा दिया है'
+admin.chest.all.success: '&6उस टीम से सभी दावे हटा दिए गए हैं'
+admin.chest.remove.notClaimed: '&4कोई टीम उस संदूक का दावा नहीं कर रही है'
+admin.chest.disable.already: '&4संदूक दावे पहले से ही अक्षम हैं'
+admin.chest.disable.success: '&6संदूक दावे को अक्षम कर दिया गया है'
+admin.chest.disabled.bc: '&6&lसभी दावे की गई संदूकें खोली जा सकती हैं'
+admin.chest.enable.already: '&4संदूक दावे पहले से ही सक्षम हैं'
+admin.chest.enable.success: '&6संदूक दावे को सक्षम कर दिया गया है'
+admin.chest.enabled.bc: '&6&lसभी दावे की गई संदूकें लॉक की जाती हैं'
+admin.teleport.success: '&6उस टीम के सभी ऑनलाइन सदस्यों को टेलीपोर्ट किया गया था'
+
+nametag.syntax: '&6&l%s&r '
+holo.leaderboard: '&6लीडरबोर्ड'
+holo.syntax: '&6%s: &b%s'
+holo.msyntax: '&6%s: &b$%s'
+top.leaderboard: '&6लीडरबोर्ड'
+top.syntax: '&b%s: &6%s &7(%s)'
+top.divide: '&f...'
+baltop.leaderboard: '&6लीडरबोर्ड'
+baltop.syntax: '&b%s: &6%s &7(%s)'
+baltop.divide: '&f...'
+spy.stop: '&6आप अब टीम संदेशों को जासूसी नहीं कर रहे हैं'
+spy.start: '&6आप अब टीम संदेशों को जासूसी कर रहे हैं'
+spy.team: '&7[&b%s&7]&f%s&f: %s'
+spy.ally: '&7[&d%s&7]&f%s&f: %s'
+
+uclaim.team: '&4आपको एक टीम में होना चाहिए ताकि आप एक दावा बना सकें'
+uclaim.member: '&4आप अपने टीम के दावे से बाहर नहीं निकल सकते'
+uclaim.kick: '&4आप अपने टीम के सदस्यों को अपने दावे से नहीं निकाल सकते'
+uclaim.ban: '&4आप अपने टीम के सदस्यों को अपने दावे से नहीं निकाल सकते'
+uclaim.dissolve: '&4आपकी टीम विघटित कर दी गई है, इसलिए आपका दावा विघटित कर दिया गया है'
+
+help.description: अपनी टीम का विवरण देखें और बदलें
+help.ban: निर्दिष्ट खिलाड़ी को अपनी टीम से निषेधित करें
+help.home: आपको अपनी टीम के घर को टेलीपोर्ट करता है
+help.help: इस मदद पृष्ठ को देखें
+help.promote:  निर्दिष्ट खिलाड़ी को अपनी टीम में बढ़ावा दें
+help.demote: निर्दिष्ट खिलाड़ी को अपनी टीम में नीचे उतारें
+help.unban: निर्दिष्ट खिलाड़ी को अपनी टीम से प्रतिबंधविमुक्त करें
+help.kick: उस खिलाड़ी को अपनी टीम से निकालें
+help.leave: अपनी वर्तमान टीम छोड़ें
+help.chat: अपनी टीम को केवल एक संदेश भेजें
+help.name: अपनी टीम का नाम देखें और बदलें
+help.sethome: अपनी टीम के घर को सेट करें
+help.create: निर्दिष्ट नाम के साथ एक टीम बनाएं
+help.invite: निर्दिष्ट खिलाड़ी को अपनी टीम में आमंत्रित क
+help.disband: अपनी वर्तमान टीम को विघटित करें
+help.open: टीम आमंत्रित केवल होने पर टॉगल करें
+help.info: निर्दिष्ट खिलाड़ी / टीम के बारे में जानकारी देखें
+help.color: अपनी टीम का रंग बदलें
+help.deposit: धन टीम धनराशि में जमा करें
+help.bal: अपनी टीम धनराशि देखें
+help.withdraw: धन टीम धनराशि से निकालें
+help.title: उस खिलाड़ी का शीर्षक टीम के भीतर बदलें
+help.top: शीर्ष टीमों को देखें
+help.rank: एक टीम के रैंक को देखें
+help.join:  निर्दिष्ट टीम में शामिल हों
+help.delhome: अपनी टीम के घर को हटाएं
+help.ally:  एक दूसरी टीम के साथ एक संधि का अनुरोध करने के लिए उपयोग किया जाता है
+help.neutral: मित्रों को हटाने और मित्रता अनुरोधों को अस्वीकार करने के लिए उपयोग किया जाता है
+help.allychat: अपने मित्रों को केवल एक संदेश भेजें
+
+command.create: create
+command.leave: leave
+command.disband: disband
+command.description: description
+command.invite: invite
+command.join: join
+command.name: name
+command.open: open
+command.info: info
+command.kick: kick
+command.promote: promote
+command.demote: demote
+command.home: home
+command.sethome: sethome
+command.ban: ban
+command.unban: unban
+command.chat: chat
+command.color: color
+command.title: title
+command.top: top
+command.baltop: baltop
+command.rank: rank
+command.delhome: delhome
+command.ally: ally
+command.neutral: neutral
+command.allychat: allychat
+command.list: list
+command.warp: warp
+command.setwarp: setwarp
+command.delwarp: delwarp
+command.warps: warps
+command.echest: echest
+command.rankup: rankup
+command.tag: tag
+command.pvp: pvp
+command.claim: claim
+command.remove: remove
+command.removeall: removeall
+command.chest: chest
+command.reload: reload
+command.chatspy: chatspy
+command.version: version
+command.purge: purge
+command.setrank: setrank
+command.add: add
+command.set: set
+command.score: score
+command.enableclaims: enableclaims
+command.disableclaims: disableclaims

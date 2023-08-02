@@ -1,0 +1,367 @@
+# All translations in this file are community made, this means there may be errors / missed translations, if you are able to improve upon any translation it would be greatly appreciated
+
+# Able to help with translations? Either improving a already existing language, or adding a whole new one. Join the discord server: https://discord.gg/JF9DNs3 
+# or message me on spigot: https://www.spigotmc.org/members/booksaw123.120955/
+
+# Any placeholders from placeholder API will work in this file
+
+# Credit for contributions to this file: icloser, ramaziqadagishvili
+
+invalidArg: '&4Սխալ արգումենտներ, օգնություն'
+inTeam: '&4Դուք պետք է լինեք թիմի անդամ, որպեսզի կատարեք այդ հրամանը'
+internalError: '&4Ուշադրություն, սանդղակում տեղի է ունեցել խարդարում, խնդրել մեր սերվերի հետագա մարզիչներին'
+notInTeam: '&4Դուք պետք է հեռավարեք ձեր թիմից, որպեսզի կատարեք այդ հրամանը'
+needOwner: '&4Դուք պետք է լինեք թիմի սեփականացին, որպեսզի կատարեք այդ հրամանը'
+needAdmin: '&4Դուք պետք է լինեք թիմի ադմինիստրատոր կամ սեփականացին, որպեսզի կատարեք այդ հրամանը'
+needPlayer: '&4Դուք պետք է լինեք խաղալովսական, որպեսզի կատարեք այդ հրամանը'
+noPlayer: '&4Նշված խաղալովսականը չի գտնվել'
+notTeam: '&6&4ՈՒղղակիզում չկա այդ թիմը, փորձեք &b/team create <անուն>'
+needSameTeam: '&6Դուք չեք նույն թիմի հետ'
+noPerm: '&4Դուք չունեք թույլտվություն այդ անդամասիրելու'
+prefixSyntax: '&7[%s&7] &r%s'
+bannedChar: '&4Հնարավորն է, որ գրած տարբերակում արտածված նշանները արգելվեն'
+noTeam: '&4Այդ թիմը չկա'
+loading: '&6Բեռնվում է'
+cooldown.wait: '&4Դուք պետք է սպասեք %s վայրկյան, այնպես որ կատարեք այդ հրամանը'
+cost.tooPoor: '&4Դուք չունեք բավարար գումար՝ այդ հրամանը կատարելու'
+cost.run: '&4&l-%s'
+placeholder.noTeam: ''
+placeholder.noDescription: ''
+placeholder.money: '%s'
+placeholder.owner: Սեփականացի
+placeholder.admin: Ադմինիստրատոր
+placeholder.default: Սովորական
+placeholder.name: '%s'
+placeholder.tag: '%s'
+placeholder.displayname: '%s'
+placeholder.inteam: 'ճիշտ'
+placeholder.notinteam: 'սխալ'
+placeholder.noTitle: ''
+prefix.owner: ' **'
+prefix.admin: ' *'
+prefix.default: ' '
+create.exists: '&6ՈՒղղարկեք, այս թիմը արդեն գոյություն ունի'
+create.success: '&6Ձեր թիմը ստեղծվել է'
+create.banned: '&4Այս թիմի անունը արգելված է'
+create.maxLength: '&4Այս թիմի անունը չպետք է լինի ավելի երկար'
+leave.success: '&6Դուք հեռացել եք թիմից'
+leave.lastOwner: '&6Դուք էջում եք թիմի մեկարարության մեկնարկումներից, ստուգեք մեկնարկությունը ուղարկեք մերներին կամ օգտագործեք &b/team disband &6հրամանը՝ թիմը լուծելու համար'
+rank.noTeam: '&4Չի հայտնվել թիմ'
+rank.info: '&6Տիեռն դիրքը:'
+rank.infos: '&6Տիեռն գույնը: &b%s &7(%s հաշիվների համար համարեցվելու։)'
+rank.infom: '&6Տիեռն գույնը: &b%s &7(հաշիվների մնացորդը՝ $%s հաշիվների համար՝ հաշիվների մնացորդը ավելին՝ արտածվածը։)'
+rank.infomm: '&6Տիեռն գույնը: &b%s &7(Դուք ամենավերջին գույնի առաջացման դասը։)'
+rank.syntax: '&b%s: &6%s &7(%s)'
+delhome.success: '&6Ձեր թիմի հայտնաբերելը ջնջվել է'
+delhome.noHome: '&4Ձեր թիմը չունի հայտնաբերվածը'
+disband.success: '&6Դուք լուծել եք թիմը'
+disband.confirm: '&6Մուտքագրեք &b/team disband &6կրկնված՝ համանելու համար'
+description.success: '&6Դուք փոխեցիք թիմի նկարագիրը'
+description.view: '&6Թիմի նկարագիրը՝ %s'
+description.noDesc: '&6Չունի նկարագիր'
+description.noPerm: '&4Դուք չունեք թույլտվություն խմբագրել նկարագրությունը'
+name.success: '&6Դուք փոխեցիք թիմի անունը'
+name.view: '&6Թիմի անունը՝ %s'
+name.exists: '&4Այս թիմի անունը արդեն գոյություն ունի'
+name.noPerm: '&4Դուք չունեք թույլտվություն փոխել ձեր թիմի անունը'
+invite.success: '&6Այդ խաղարկումը կրկնվել է'
+invite.invite: '&6Դուք խաղարկվել եք %s թիմի՝ &b/team join <թիմ> &6հրամանով թիմին միանալու համար'
+invite.inTeam: '&6Այդ խաղարկվողը արդեն ներգրավված է թիմում'
+invite.banned: '&6Այդ խաղարկվողը լիազորված է ձեր թիմից'
+invite.full: '&6Ձեր թիմը լրիվ է, հերքերին դուրսգրեք, որպեսզի ավելի շատ մարդիկ խաղարկեք'
+invite.expired: '&4Այդ խաղարկումը &b%s &4արդեն ժամանակարգավորված է'
+join.success: '&6Դուք միացած եք այդ թիմին'
+join.notify: '&6Բարի գալուստ &b%s &6թիմին!'
+join.notInvited: '&6&4Դուք չեք ընդլայնվել այդ թիմին'
+join.banned: '&6&4Դուք լիազորված եք այդ թիմից'
+join.full: '&4Այդ թիմը լրիվ է'
+open.successopen: '&6Դուք բաց եք ձեր թիմը բոլորի համար'
+open.successclose: '&6Դուք կատարել եք ձեր թիմը միայն հրավերով'
+title.change: '&6Ձեր վերնագրը փոխվեց &b%s'
+title.remove: '&6Ձեր վերնագրը հեռացվեց'
+title.success: '&6Այս վերնագրով դասը փոխվեց'
+title.tooLong: '&4Այս վերնագրը չպետք է լինի ավելի երկար'
+title.noFormat: '&4Դուք չունեք թույլատրված վերնագիր՝ ֆորմատավորելու համար'
+title.noColor: '&4Դուք չունեք թույլատրված վերնագիր՝ գույներով կարգերի օգտագործման համար'
+title.reset: '&6Ձեր վերնագիրը վերակարգաբերված է'
+title.noPerm: '&4Դուք չունեք թույլատրություն վերնագիրի փոխարեն՝ Ձեր թիմի վրա'
+info.needTeam: '&6Չի գտնվել թիմ կամ խաղարկով անդամ այդ անունով'
+info.name: '&6Անուն՝ &b%s'
+info.description: '&6Նկարագրություն՝ &b%s'
+info.open: '&6Բաց է՝ &b%s'
+info.level: '&6Մարմնի մակարդակ՝ &b%s'
+info.owner: '&6Սեփականացումներ՝ &b%s'
+info.admin: '&6Ադմինիստրատորներ՝ &b%s'
+info.default: '&6Ընդամենը՝ &b%s'
+info.tag: '&6Թեգ՝ &b%s'
+info.fail: '&6Չի գտնվել թիմ կամ խաղարկով անունով'
+info.score: '&6Միավորներ՝ &b%s'
+info.money: '&6Բալանս՝ &b%s'
+info.ally: '&6Համարակալներ՝ &b%s'
+kick.success: '&6Նա հեռացված է թիմից'
+kick.notify: '&6Դուք հեռացվեցիք %s թիմից'
+kick.title: '&4Դուք հեռացվեցիք ձեր թիմից'
+kick.noPerm: '&6Դուք չունեք թույլատրություն այն անձի հեռացման համար'
+ban.success: '&6Նա արդեն դառնավ թիմի դարձավ'
+ban.notify: '&6Դուք դարձվեցիք %s թիմից'
+ban.title: '&4Դուք դարձվեցիք ձեր թիմից'
+ban.noPerm: '&6Դուք չունեք թույլատրություն այն անձի դարձան համար'
+ban.already: '&6Այդ անդամը արդեն դարձավ թիմից'
+unban.success: '&6Նա արդեն չի դարձավ արգելված'
+unban.notify: '&6Դուք արդեն չեք դարձավ արգելված %s թիմից'
+unban.noPerm: '&6Դուք չունեք թույլատրություն այն անձի արգելվածությունից հանելու համար'
+unban.not: '&6Այդ անդամը չի դարձավ արգելված'
+promote.success: '&6Նա պարբերվեց'
+promote.noPerm: '&6Դուք չունեք թույլատրություն այն անձի պարբերման համար'
+promote.max: '&6Այդ անձը արդեն պարբերված է մաքսիմում'
+promote.notify: '&6Դուք պարբերվեցիք!'
+promote.maxAdmins: '&4Ձեր թիմում արդեն ամենաշատ ադմինիստրատորներ կան, պարբերեք միաժամանակ մի ադմինիստրատոր կամ բարձրացրեք թիմը'
+promote.maxOwners: '&4Ձեր թիմում արդեն ամենաշատ սեփականացումներ կան, պարբերեք միաժամանակ մի սեփականացում կամ բարձրացրեք թիմը'
+demote.success: '&6Նա դառնավ սեփականացումներում'
+demote.noPerm: '&6Դուք չունեք թույլատրություն այն անձի սեփականացման համար'
+demote.min: '&6Այդ անձը արդեն ամենացածր գործել է'
+demote.notify: '&6Դուք դառնավ սեփականացումներում'
+demote.lastOwner: '&6Դուք չեք կարող դառնալ վերջնական սեփական, առաջինը ազդումով աստվածներից հետո մեկը դարձրեք սեփականացում'
+demote.maxAdmins: '&4Ձեր թիմում արդեն ամենաշատ ադմինիստրատորներ կան, հեռացրեք միաժամանակ մի ադմինիստրատոր կամ բարձրացրեք թիմը'
+home.success: '&6Դուք հեռանվեցիք'
+home.noHome: '&6Ձեր թիմը չունի նշված տեղափոխման վայր'
+home.world: '&4Չհաջողվեց գտնել թիմի տեղափոխման վայրը'
+sethome.success: '&6Ձեր թիմի տեղափոխման վայրը նշված է'
+sethome.noPerm: '&6Դուք չունեք թույլատրություն ձեր թիմի տեղափոխման վայրը նշելու համար'
+chat.enabled: '&6Ձեր մասին նամակները հավաքածուն են թիմի շարժական էջում'
+chat.disabled: '&6Ձեր մասին նամակները դարձեցին ընդհանուր էջում'
+color.success: '&6Ձեր թիմի գույնը փոխվեց'
+color.fail: '&6Սա համարանիչ չէ՞'
+color.banned: '&4Դուք կարող եք օգտագործել միայն գույներ, ոչ ֆորմատավորման կոդեր'
+deposit.tooLittle: '&4Դուք չեք կարող ավելացնել բացասական գումար'
+deposit.fail: '&4Բանկային հաշվարկն ձախողվեց'
+deposit.success: '&6Գումարը կավերացվեց'
+deposit.max: '&4Այդպիսի գումարը կարող է վերջացնել թիմի գումարի վերին սահմանը'
+withdraw.tooLittle: '&4Դուք չեք կարող հասնել բացասական գումար'
+withdraw.fail: '&4Բանկային հաշվարկն ձախողվեց'
+withdraw.success: '&6Գումարը հանվեց'
+withdraw.notEnough: '&6Ձեր թիմը չունի այդքան գումար'
+ally.already: '&4Դուք արդեն համահայկական եք'
+ally.success: '&6Ձեր թիմները համահայկական են դարձել'
+ally.ally: '&6Ձեր թիմը համահայկական է %s թիմի հետ'
+ally.requested: '&6Դուք ուղարկել եք համահայկական հարցում այն թիմի համար'
+ally.request: '&b%s &6ուղարկել է համահայկական հարցում՝ օգտվելով &b/team ally <team> &6հրամանով դրականացնելու համար'
+ally.self: '&4Դուք չեք կարող համահայկական լինել ձեր սեփական թիմին'
+ally.from: '&6Դուք ունեք համարակալումներ՝ %s'
+ally.noRequests: '&4Դուք չունեք ուղարկված համարակալումներ'
+ally.onJoin: '&6Ձեր համար ուղարկվել են նոր համարակալումներ, դուք կարող եք դրականացնել՝ գործելով &b/team ally &6հրամանը'
+ally.limit: '&4Համարակալման վերին սահմանը մշակված է'
+ally.alreadyrequest: '&4Դուք արդեն ուղարկել եք հարցում՝ համարակալման համար այն թիմին'
+allychat.disabled: '&6Ձեր նամակները դարձված են համարակալումների էջում'
+allychat.enabled: '&6Ձեր նամակները նամակները այժմ ուղարկվում են համարակալումների էջում'
+allychat.syntax: '&d[%s]&f%s&f: %s'
+neutral.self: '&6Այդպիսի թիմի հետ համարակական լինելը չնույնական է'
+neutral.requestremove: '&6Այդ համարակալման հարցումը հեռացված է'
+neutral.reject: '&4Ձեր հարցումը հարկավորվեց %s թիմի կողմից'
+neutral.notAlly: '&4Դուք չեք համարակական %s թիմի հետ'
+neutral.success: '&4Դուք չեք համարակակ'
+setwarp.exist: '&4Այսպիսով վրայով նախապատրաստված տեղափոխման վայրը արդեն համահաղվել է'
+setwarp.max: '&4Ձեր թիմը արդեն ունի սահմանավերջացված տեղափոխման վայրերի մաքսավերջը'
+setwarp.success: '&6Այդ տեղափոխման վայրը ստեղծվեց'
+setwarp.char: '&4Այս տեղափոխման վայրի անունը պարունակում է արտադրված նշված սիմվոլները'
+warp.nowarp: '&4Այդ տեղափոխման վայրը չի գտնվել'
+warp.invalidPassword: '&4Սխալ գաղտնաբառ տեղափոխման վայրի համար'
+warp.success: '&6Դուք տեղափոխվեցիք'
+warps.syntax: '&6Տեղափոխման վայրերը՝ &b%s'
+warps.none: '&4Ձեր թիմը չունի նշված տեղափոխման վայրեր'
+warp.world: '&4Այդ տեղափոխման վայրը չի գտնվել'
+delwarp.success: '&4Այդ տեղափոխման վայրը ջնջված է'
+chat.syntax: '&b[Թիմ]&f%s&f: %s'
+teleport.fail: '&4Թաղապանակից տեղափոխման ընթացքը ձախողվեց'
+teleport.wait: '&6Սպասեք &b%s &6վայրկյան'
+chest.claim.noChest: '&4Դուք չեք վավերացվում աջակցվում գավառի վրա'
+chest.claim.limit: '&4Ձեր թիմը արդեն վավերացել է մաքսիմալ թիմային գործունեությունների թիվը'
+chest.claim.claimed: '&4Այդ գավառը արդեն վավերացված է'
+chest.claim.success: '&6Դուք վավերացվեցիք այդ գավառը'
+chest.remove.noChest: '&4Դուք չեք վավերացվում աջակցվում գավառի վրա'
+chest.remove.notClaimed: '&4Ձեր թիմը չունի վավերացված այդ գ'
+
+echest.echest: 'Enderchest'
+
+pvp.enabled: '&6Ուսանողները թույլատրված են Pvp-ին'
+pvp.disabled: '&6Ուսանողները արգելված են Pvp-ին'
+
+rankup.max: '&4Դուք արդեն բարձրացված եք ամենաբարձր մակարդակում'
+rankup.score: '&4Ձեր հաշիվը բարձրացնելու համար պահանջվում է %s միավոր'
+rankup.money: '&4Ձեր թիմի մնացորդը բարձրացնելու համար պահանջվում է %s դրամ'
+rankup.success: '&6Ձեր թիմը բարձրացվեց'
+
+tag.banned: '&4Այս պիտակը արգելված է'
+tag.success: '&6Ձեր պիտակը հաջողությամբ փոխվեց'
+tag.maxLength: '&4Այս պիտակը չի կարող լինել ավելի երկար'
+tag.noPerm: '&4Դուք չունեք թույլատրություն փոփոխել թիմի պիտակը'
+admin.cancel: '&4Արգելված է, հրամանը չի կարող շարժվել մինչև որոշակի պլագինի կողմից'
+admin.tag.success: '&6Այս թիմի պիտակը հաջողությամբ փոխվեց'
+admin.setrank.success: '&6Այս թիմի դասը սահմանվեց'
+admin.setrank.no: '&4Այդ դասը չկայք կամ չի կարգավորվել ճիշտ'
+
+admin.config.reload: '&6BetterTeams-ը վերբեռնվեց (Եթե այս հրամանը կարող է աշխատելու խնդրում ենք սերվերը վերաբեռնել)'
+admin.holo.create.success: '&6Հոլոգրամը ստեղծվեց'
+admin.holo.remove.noHolo: '&4Չեն գտնվել հոլոգրամներ'
+admin.holo.remove.success: '&6Հոլոգրամը ջնջվեց'
+admin.title.success: '&6Նախագծի վերնագիրը փոխվեց'
+admin.title.reset: '&6Նախագծի վերնագրը հետևյալն է վերականգնել'
+admin.version: '&6Այժմեբայբերիչի ընդհանուր տարբերակը: &b%s'
+admin.versionstorage: '&6Պահումի մեթոդ: &b%s'
+admin.versionversion: '&6Minecraft-ի տարբերակը: &b%s'
+admin.versionlanguage: '&6Ընտրված լեզվաբառարանը: &b%s'
+admin.noTeam: '&4Այդտիմը չի գտնվել'
+admin.home.success: '&6Դուք տեղափոխվեցիք այդ թիմի տանը'
+admin.home.noHome: '&4Այս թիմը չունի ստացվածք'
+admin.name.success: '&6Թիմի անունը փոխվեց'
+admin.description.success: '&6Թիմի նկարագրությունը փոխվեց'
+admin.open.successopen: '&6Այդ թիմը ավելի հաճախածում է բոլորի համար'
+admin.open.successclose: '&6Այդ թիմը միավորված է հրավիրաբարի մեջ'
+admin.invite.success: '&6Որպեսզի այս խաղում նվիրված լինելու համար, այն խաղաքարտով ուղարկվեց'
+admin.create.success: '&6Այս թիմը ստեղծվեց'
+admin.join.banned: '&4Այս խաղաքարտով լինելը արգելված է խաղաքարտի կողմից'
+admin.join.success: '&6Նվագարկվեց խաղաքարտին'
+admin.join.notify: '&6Դուք լինեցիք %s խաղաքարտի մեջ'
+admin.join.full: '&4Այդ խաղաքարտը լրացված է'
+admin.notInTeam: '&6Ուսանողը չի կարող լինել խաղաքարտով՝ նաև խաղաքարտին նախատեսված գործընթացը չեղարկվելու։'
+admin.inTeam: '&4Ուսանողը չունի խաղաքարտում'
+admin.leave.success: '&6Դուք արեցիք հանել այդ խաղաքարտից'
+admin.leave.notify: '&6Դուք հանել եք խաղաքարտից'
+admin.demote.notify: '&6Դուք հանվել եք'
+admin.demote.success: '&6Ուսանողին տեղափոխվել է բարձրացածից ցուցադրվածից'
+admin.demote.min: '&4Այս ուսանողին անհարձրացուցադրվածից ցուցադրվածից փոխարեն չի կարող հանվել'
+admin.demote.maxAdmins: '&4Ուսանողական խաղաքարտում արդեն լիմիտավոր թիմային մարդկանց լինելու արժեքը, հեռացրեք մեկը, ապա հանվեք այդ ուսանողին'
+admin.promote.max: '&6Ուսանողը արդեն լիմիտավոր աստիճանում է'
+admin.promote.notify: '&6Ուսանողական խաղաքարտում հանվել եք'
+admin.promote.success: '&6Ուսանողը հաստատվել է բարձրացածից ցուցադրվածից'
+admin.promote.owner: '&6Այն կազմակերպության համար, միայն մեկ սեփականացույցում կարող է լինել միայն մեկ մենեջեր՝ կառավարիչ'
+admin.promote.maxAdmins: '&4Ուսանողական խաղաքարտում արդեն լիմիտավոր թիմային մարդկանց լինելու արժեքը, հեռացրեք մեկը, ապա հանվեք այդ ուսանողին'
+admin.promote.maxOwners: '&4Ուսանողական խաղաքարտում արդեն լիմիտավոր սեփականացույցում կարող է լինել միայն մեկ մենեջեր՝ կառավարիչ'
+admin.setowner.already: '&4Ուսանողական խաղաքարտում արդեն լիմիտավոր սեփականացույցում հայտնագործակցված է'
+admin.setowner.nonotify: '&6Դուք այլևս չեք լինում կազմակերպության հայցի մարմինը'
+admin.setowner.success: '&6Նախագծային այս թիմին նոր սեփականացույցում լինեք'
+admin.setowner.notify: '&6Դուք հիմա կարող եք լինել ձեր թիմի սեփականացույցում'
+admin.warps.none: '&4Այս թիմը չունի որևէ վարպետներ'
+admin.setwarp.success: '&6Այս վարպետը ստեղծվեց'
+admin.setwarp.max: '&6Այս թիմը արդեն լիմիտավոր բարձրացվածվածներով վարպետներ ունի'
+admin.purge.confirm: '&6Ուղարկեք այս հրամանը հաջորդ 10 վարկյանում հաստատելու համար՝ &4ԱԵՍՏ ՀԱՍՏԱՆՎԵԼ ԱՅՍ ԳՈՐԾԱԿՑԻ ԲՈԼԸ ՄԵԿԱՆՈՒՆԵՐԻ ԴԵՂՈՒՄ'
+admin.purge.success: '&6Թիմերը ջնջվեցին հաջողությամբ'
+admin.score.tooSmall: '&4Միավորների սեփականացման համար նվազագույն հաշվին պետք է լինի 0-ից մեծ'
+admin.score.success: '&6Այս թիմի միավորները փոխվեցին'
+admin.bal.toSmall: '&4Թիմի մնացորդը սեփականացման համար նվազագույն հաշվին պետք է լինի 0-ից մեծ'
+admin.bal.success: '&6Այս թիմի մնացորդը փոխվեց'
+admin.update: '&4Հայրենս այս խաղում նոր տարբերակը թողարկված է, թարմացեք այստեղ՝ (https://www.spigotmc.org/resources/better-teams.17129/)'
+admin.disband.success: '&6Այս թիմը հեռացվեց հաջորդ բարձրացմամբ'
+admin.color.success: '&6Այս թիմի գույնը փոխվեց'
+admin.chest.claim.success: '&6Դուք այս արկաները հաջորդ թիմի անվանացմամբ վահանակում եք'
+admin.chest.remove.success: '&6Դուք հաջորդթիմից հաջորդությամբ հաջորդ արկան ջնջեցիք'
+admin.chest.all.success: '&6Դուք հաջորդթիմից բոլոր հաջորդ արկաները ջնջեցիք'
+admin.chest.remove.notClaimed: '&4Որևէ թիմը չի այնվանել այդ արկանին'
+admin.chest.disable.already: '&4Արկանաքույրները արդեն անջատված են'
+admin.chest.disable.success: '&6Արկանաքույրվածում արկանաքույրները անջատված են'
+admin.chest.disabled.bc: '&6&lԲոլոր արկանաքույրվածում արկանաքույրները հասանելի են բոլորին'
+admin.chest.enable.already: '&4Արկանաքույրվածում արկանաքույրները արդեն միացված են'
+admin.chest.enable.success: '&6Արկանաքույրվածում արկանաքույրները միացված են'
+admin.chest.enabled.bc: '&6&lԲոլոր արկանաքույրվածում արկանաքույրները կատարված են'
+admin.teleport.success: '&6բոլոր հայտնիները տեղափոխվել են'
+
+nametag.syntax: '&6&l%s&r '
+holo.leaderboard: '&6Տեղաշարժի հաշիվը'
+holo.syntax: '&6%s: &b%s'
+holo.msyntax: '&6%s: &b$%s'
+top.leaderboard: '&6Տեղաշարժի հաշիվը'
+top.syntax: '&b%s: &6%s &7(%s)'
+top.divide: '&f...'
+baltop.leaderboard: '&6Տեղաշարժի հաշիվը'
+baltop.syntax: '&b%s: &6%s &7(%s)'
+baltop.divide: '&f...'
+spy.stop: '&6Դուք այլևս չեք հստակվում թիմի նամակներին'
+spy.start: '&6Դուք հիմա հստակվում եք թիմի նամակներին'
+spy.team: '&7[&b%s&7]&f%s&f: %s'
+spy.ally: '&7[&d%s&7]&f%s&f: %s'
+
+uclaim.team: '&4Դուք պարտավոր եք ստեղծել հաշվին'
+uclaim.member: '&4Դուք չեք կարող հանել ձեր թիմի անդամին հաշվին'
+uclaim.kick: '&4Դուք չեք կարող հեռացնել ձեր թիմի անդամին ձեր հաշվից'
+uclaim.ban: '&4Դուք չեք կարող արտաքինացնել ձեր թիմի անդամին ձեր հաշվից'
+uclaim.dissolve: '&4Ձեր թիմը լուծվեց, այնվանացումը դառնալու է'
+
+help.description: Տեսնել և փոփոխել ձեր թիմի նկարագրությունը
+help.ban: Շարունակել նշված խաղաքարտավարին հանելու համար
+help.home: Տեղափոխվել ձեր թիմի տարածքին
+help.help: Դիտել այս օգնության էջը
+help.promote: Արեցնել նշված խաղաքարտավարին ձեր թիմում
+help.demote: Փոխարինել նշված խաղաքարտավարին ձեր թիմում
+help.unban: Ապահովեք նշված խաղաքարտավարին ձեր թիմում
+help.kick: Հեռացրեք այդ խաղաքարտավարը ձեր թիմից
+help.leave: Թողնել ձեր ընկերածական թիմը
+help.chat: Ուղարկեք նամակ միայն ձեր թիմում
+help.name: Տեսնել և փոխեք ձեր թիմի անվանումը
+help.sethome: Սահմանել ձեր թիմի տարածքը
+help.create: Ստեղծեք թիմ նշված անվանումով
+help.invite: Հրավերեք նշված խաղաքարտավարը ձեր թիմում
+help.disband: Բոլորը ջնջեք ձեր ընկերածական թիմը
+help.open: Միացրեք թիմը հրավերների համար անվերադարձին
+help.info: Դիտել ինֆորմացիա նշված խաղաքարտավար / թիմի մասին
+help.color: Փոխեք ձեր թիմի գույնը
+help.deposit: Մուտքագրեք գումար թիմի հաշվին
+help.bal: Դիտել ձեր թիմի հաշվին
+help.withdraw: Դուրս դառնալու համար զանգահարեք գումարը թիմի հաշվից
+help.title: Փոխեք այդ խաղաքարտավորի վերնագիրը թիմում
+help.top: Դիտել լավագույն թիմերը
+help.rank: Դիտել թիմի հերթականությունը
+help.join: Միացեք նշված թիմին
+help.delhome: Հեռացնել ձեր թիմի տարածքը
+help.ally: Օգտագործվում է աղետ ունեցուած մյուս թիմին
+help.neutral: Հեռացնել աղետները ուղղելու և աղետ հարցումներին մերժելու համար
+help.allychat: Ուղարկեք նամակ միայն ձեր աղետիներին
+
+command.create: create
+command.leave: leave
+command.disband: disband
+command.description: description
+command.invite: invite
+command.join: join
+command.name: name
+command.open: open
+command.info: info
+command.kick: kick
+command.promote: promote
+command.demote: demote
+command.home: home
+command.sethome: sethome
+command.ban: ban
+command.unban: unban
+command.chat: chat
+command.color: color
+command.title: title
+command.top: top
+command.baltop: baltop
+command.rank: rank
+command.delhome: delhome
+command.ally: ally
+command.neutral: neutral
+command.allychat: allychat
+command.list: list
+command.warp: warp
+command.setwarp: setwarp
+command.delwarp: delwarp
+command.warps: warps
+command.echest: echest
+command.rankup: rankup
+command.tag: tag
+command.pvp: pvp
+command.claim: claim
+command.remove: remove
+command.removeall: removeall
+command.chest: chest
+command.reload: reload
+command.chatspy: chatspy
+command.version: version
+command.purge: purge
+command.setrank: setrank
+command.add: add
+command.set: set
+command.score: score
+command.enableclaims: enableclaims
+command.disableclaims: disableclaims

@@ -1,0 +1,379 @@
+# All translations in this file are community made, this means there may be errors / missed translations, if you are able to improve upon any translation it would be greatly appreciated
+
+# Able to help with translations? Either improving a already existing language, or adding a whole new one. Join the discord server: https://discord.gg/JF9DNs3 
+# or message me on spigot: https://www.spigotmc.org/members/booksaw123.120955/
+
+# Any placeholders from placeholder API will work in this file
+
+# Credit for contributions to this file: icloser
+
+invalidArg: '&4مدخلات غير صالحة, المساعدة'
+inTeam: '&4يجب أن تكون في فريق للقيام بذلك'
+internalError: '&4حدث خطأ ما أثناء تنفيذ الأمر, يرجى الإبلاغ عن ذلك لأصحاب الخادم'
+notInTeam: '&4يجب أن تغادر فريقك قبل القيام بذلك'
+needOwner: '&4يجب أن تكون مالك الفريق للقيام بذلك'
+needAdmin: '&4يجب أن تكون مسؤولًا أو مالك الفريق للقيام بذلك'
+needPlayer: '&4يجب أن تكون لاعبًا للقيام بذلك'
+noPlayer: '&4لم يتم العثور على اللاعب المحدد'
+notTeam: '&6&4هذا الفريق غير موجود جرب &b/team create <اسم>'
+needSameTeam: '&6أنت لست في نفس الفريق مثل هذا الشخص'
+noPerm: '&4ليس لديك الصلاحية للقيام بذلك'
+prefixSyntax: '&7[%s&7] &r%s'
+bannedChar: '&4الحرف الذي حاولت استخدامه ممنوع'
+noTeam: '&4هذا الفريق غير موجود'
+loading: '&6جار التحميل'
+cooldown.wait: '&4يجب عليك الانتظار %s ثواني قبل تنفيذ ذلك!'
+cost.tooPoor: '&4أنت فقير جدًا لتشغيل هذا الأمر'
+cost.run: '&4&l-%s'
+placeholder.noTeam: ''
+placeholder.noDescription: ''
+placeholder.money: '%s'
+placeholder.owner: Owner
+placeholder.admin: Admin
+placeholder.default: Default
+placeholder.name: '%s'
+placeholder.tag: '%s'
+placeholder.displayname: '%s'
+placeholder.inteam: 'صحيح'
+placeholder.notinteam: 'خطأ'
+placeholder.noTitle: ''
+prefix.owner: ' **'
+prefix.admin: ' *'
+prefix.default: ' '
+create.exists: '&6هذا الفريق موجود بالفعل'
+create.success: '&6تم إنشاء فريقك بنجاح'
+create.banned: '&4اسم هذا الفريق محظور'
+create.maxLength: '&4اسم هذا الفريق طويل جدًا'
+leave.success: '&6لقد غادرت الفريق'
+leave.lastOwner: '&6أنت المسؤول الوحيد ضمن الفريق, قم بترقية شخص آخر أو استخدم &b/team disband &6لحل الفريق'
+rank.noTeam: '&4لم يتم العثور على الفريق'
+rank.info: '&6المركز في الفريق:'
+rank.infos: '&6الرتبة في الفريق: &b%s &7(النقاط المطلوبة للترقية إلى الرتبة التالية: %s)'
+rank.infom: '&6الرتبة في الفريق: &b%s &7(المال المطلوب للترقية إلى الرتبة التالية: $%s)'
+rank.infomm: '&6الرتبة في الفريق: &b%s &7(أنت في أعلى رتبة ممكنة)'
+rank.syntax: '&b%s: &6%s &7(%s)'
+delhome.success: '&6تم حذف منزل الفريق بنجاح'
+delhome.noHome: '&4لم يقم فريقك بتعيين منزل'
+disband.success: '&6لقد قمت بحل الفريق'
+disband.confirm: '&6اكتب &b/team disband &6مرة أخرى للتأكيد'
+description.success: '&6لقد قمت بتغيير وصف الفريق'
+description.view: '&6وصف الفريق: %s'
+description.noDesc: '&6لم يتم تعيين وصف الفريق'
+description.noPerm: '&4ليس لديك الصلاحية لتحرير الوصف'
+name.success: '&6لقد قمت بتغيير اسم الفريق'
+name.view: '&6اسم الفريق: %s'
+name.exists: '&4هذا الفريق موجود بالفعل'
+name.noPerm: '&4ليس لديك الصلاحية لتغيير اسم الفريق'
+invite.success: '&6تمت دعوة هذا اللاعب بنجاح'
+invite.invite: '&6لقد تمت دعوتك للانضمام إلى فريق %s اكتب &b/team join <فريق> &6للانضمام للفريق'
+invite.inTeam: '&6هذا اللاعب بالفعل ضمن فريق'
+invite.banned: '&6هذا اللاعب محظور من فريقك'
+invite.full: '&6فريقك مكتمل العدد، قم بطرد شخص ما قبل دعوة المزيد من الأشخاص'
+invite.expired: '&4انتهت الدعوة من &b%s'
+join.success: '&6لقد انضممت إلى تلك الفريق'
+join.notify: '&6مرحبًا بك &b%s &6في الفريق!'
+join.notInvited: '&6&4لم تتلق دعوة للانضمام إلى تلك الفريق'
+join.banned: '&6&4أنت محظور من هذا الفريق'
+join.full: '&4هذا الفريق مكتمل العدد'
+open.successopen: '&6أصبح فريقك مفتوحًا للجميع'
+open.successclose: '&6أصبح فريقك بدعوة فقط'
+title.change: '&6لقد تم تغيير عنوانك إلى &b%s'
+title.remove: '&6لقد تمت إزالة عنوانك'
+title.success: '&6تم تغيير هذا العنوان بنجاح'
+title.tooLong: '&4هذا العنوان طويل جدًا'
+title.noFormat: '&4ليس لديك الصلاحية لتنسيق الألقاب'
+title.noColor: '&4ليس لديك الصلاحية لاستخدام الألوان في الألقاب'
+title.reset: '&6تم إعادة ضبط عنوانك'
+title.noPerm: '&4ليس لديك الصلاحية لتغيير عنوان الفريق'
+info.needTeam: '&6لم يتم العثور على فريق أو لاعب تحت هذا الاسم'
+info.name: '&6الاسم: &b%s'
+info.description: '&6الوصف: &b%s'
+info.open: '&6مفتوح: &b%s'
+info.level: '&6المستوى: &b%s'
+info.owner: '&6المالكين: &b%s'
+info.admin: '&6المسؤولين: &b%s'
+info.default: '&6الأعضاء: &b%s'
+info.tag: '&6الوسم: &b%s'
+info.fail: '&6لم يتم العثور على فريق أو لاعب تحت هذا الاسم'
+info.score: '&6النقاط: &b%s'
+info.money: '&6الرصيد: &b%s'
+info.ally: '&6الحلفاء: &b%s'
+kick.success: '&6تم طرد هذا اللاعب بنجاح'
+kick.notify: '&6لقد تم طردك من فريق %s'
+kick.title: '&4لقد تم طردك من فريقك'
+kick.noPerm: '&6ليس لديك الصلاحية لطرد ذلك الشخص'
+ban.success: '&6تم حظر هذا اللاعب بنجاح'
+ban.notify: '&6لقد تم حظرك من فريق %s'
+ban.title: '&4لقد تم حظرك من فريقك'
+ban.noPerm: '&6ليس لديك الصلاحية لحظر ذلك الشخص'
+ban.already: '&6هذا اللاعب محظور بالفعل'
+unban.success: '&6تم إلغاء حظر هذا اللاعب'
+unban.notify: '&6لقد تم إلغاء حظرك من فريق %s'
+unban.noPerm: '&6ليس لديك الصلاحية لإلغاء حظر ذلك الشخص'
+unban.not: '&6هذا اللاعب لم يتم حظره'
+promote.success: '&6تم ترقية هذا اللاعب بنجاح'
+promote.noPerm: '&6ليس لديك الصلاحية لترقية ذلك الشخص'
+promote.max: '&6هذا الشخص مرقى بالفعل إلى أعلى رتبة!'
+promote.notify: '&6لقد تم ترقيتك!'
+promote.maxAdmins: '&4فريقك لديه بالفعل الحد الأقصى من المسؤولين، اقصِ شخصًا أو قم بترقية فريقك'
+promote.maxOwners: '&4فريقك لديه بالفعل الحد الأقصى من المالكين، اقصِ شخصًا أو قم بترقية فريقك'
+demote.success: '&6تم تنزيل هذا اللاعب بنجاح'
+demote.noPerm: '&6ليس لديك الصلاحية لتنزيل ذلك الشخص'
+demote.min: '&6هذا الشخص هو بالفعل في أدنى رتبة'
+demote.notify: '&6لقد تم تنزيلك'
+demote.lastOwner: '&6لا يمكنك تنزيل المالك النهائي، قم بترقية شخص آخر أولاً'
+demote.maxAdmins: '&4فريقك لديه بالفعل الحد الأقصى من المسؤولين، قم بإزالة مسؤول أو قم بترقية فريقك'
+home.success: '&6لقد تم نقلك'
+home.noHome: '&6لم يقم فريقك بتعيين منزل'
+home.world: '&4تعذر العثور على منزل الفريق'
+sethome.success: '&6تم تعيين منزل فريقك'
+sethome.noPerm: '&6أنت لست في مرتبة كافية لتعيين منزل الفريق'
+chat.enabled: '&6أصبحت رسائلك الآن في الدردشة الخاصة بالفريق'
+chat.disabled: '&6أصبحت رسائلك الآن في الدردشة العامة'
+color.success: '&6تم تغيير لون فريقك بنجاح'
+color.fail: '&6هذا ليس لون دردشة معترف به'
+color.banned: '&4يمكنك استخدام الألوان فقط، وليس رموز التنسيق'
+deposit.tooLittle: '&4لا يمكنك إيداع مبالغ سلبية'
+deposit.fail: '&4فشل الإيداع'
+deposit.success: '&6تم إيداع الأموال'
+deposit.max: '&4سيتجاوز ذلك الحد الأقصى المسموح به لرصيد الفريق'
+withdraw.tooLittle: '&4لا يمكنك سحب مبالغ سلبية'
+withdraw.fail: '&4فشل السحب'
+withdraw.success: '&6تم سحب الأموال'
+withdraw.notEnough: '&6فريقك ليس لديه ما يكفي من الأموال'
+ally.already: '&4أنت متحالف بالفعل'
+ally.success: '&6أصبحتما فرقًا متحالفتين الآن'
+ally.ally: '&6فريقك الآن متحالف مع &b%s'
+ally.requested: '&6تم إرسال طلب تحالف لتلك الفرقة'
+ally.request: '&b%s &6قام بإرسال طلب تحالف، استخدم &b/team ally <فريق> &6للموافقة'
+ally.self: '&4لا يمكنك تحالف فريقك بنفسه'
+ally.from: '&6لديك طلبات تحالف من: %s'
+ally.noRequests: '&4ليس لديك أي طلبات تحالف'
+ally.onJoin: '&6لديك طلبات تحالف جديدة، استخدم &b/team ally &6لعرضها'
+ally.limit: '&4تم الوصول إلى الحد المسموح به للتحالف'
+ally.alreadyrequest: '&4لقد طلبت بالفعل أن تكون متحالفًا مع تلك الفرقة'
+allychat.disabled: '&6أصبحت رسائلك لا تذهب إلى الدردشة الخاصة بالتحالف'
+allychat.enabled: '&6أصبحت رسائلك الآن تذهب إلى الدردشة الخاصة بالتحالف'
+allychat.syntax: '&d[%s]&f%s&f: %s'
+neutral.self: '&6هذا هو فريقك نفسه'
+neutral.requestremove: '&6تمت إزالة طلب التحالف'
+neutral.reject: '&4تم رفض طلب التحالف مع &b%s'
+neutral.notAlly: '&4أنت غير متحالف مع تلك الفرقة'
+neutral.success: '&4أنت لم تعد متحالفًا مع تلك الفرقة'
+neutral.remove: '&4أنت لم تعد متحالفًا مع &b%s'
+list.noPage: '&6لم يتم العثور على تلك الصفحة'
+list.header: '&7--- &bقائمة الفرق الصفحة %s &7---'
+list.body: '&6%s: &b%s'
+list.footer: '&7--- &6استخدم &b/team list [page] &6لعرض المزيد &7---'
+setowner.use: '&6لا يمكنك ترقية ذلك اللاعب، استخدم &b/team setowner <لاعب> &6لترقية ذلك اللاعب إلى مالك'
+setowner.success: '&6هذا اللاعب هو الآن مالك'
+setowner.notify: '&6أنت مالك الفريق الآن'
+setowner.max: '&4هذا اللاعب مالك بالفعل'
+setwarp.exist: '&4هذا العلامة موجودة بالفعل'
+setwarp.max: '&4فريقك لديه بالفعل الحد الأقصى من العلامات المعينة'
+setwarp.success: '&6تم إنشاء تلك العلامة'
+setwarp.char: '&4اسم تلك العلامة يحتوي على أحرف محظورة'
+warp.nowarp: '&4تلك العلامة غير موجودة'
+warp.invalidPassword: '&4كلمة المرور غير صالحة لتلك العلامة'
+warp.success: '&6لقد تم نقلك'
+warps.syntax: '&6العلامات: &b%s'
+warps.none: '&4فريقك ليس لديه أي علامات معينة'
+warp.world: '&4تعذر العثور على موقع تلك العلامة'
+delwarp.success: '&4تم حذف تلك العلامة'
+chat.syntax: '&b[الفريق]&f%s&f: %s'
+teleport.fail: '&4فشلت عملية النقل'
+teleport.wait: '&6انتظر &b%s &6ثواني'
+chest.claim.noChest: '&4أنت لا تقف على صندوق'
+chest.claim.limit: '&4فريقك قد ادعى الحد الأقصى لعدد الصناديق'
+chest.claim.claimed: '&4تم ادعاء تلك الصندوق بالفعل'
+chest.claim.success: '&6تم ادعاء تلك الصندوق'
+chest.remove.noChest: '&4أنت لا تقف على صندوق'
+chest.remove.notClaimed: '&4فريقك لم يدعي تلك الصندوق'
+chest.remove.success: '&4لم يعد فريقك يدعي تلك الصندوق'
+chest.all.success: '&6تم إلغاء الادعاء لكل الصناديق'
+chest.claimed: '&4تم ادعاء تلك الصندوق بواسطة &a%s'
+
+echest.echest: 'Enderchest'
+
+pvp.enabled: '&6تم تفعيل Pvp لفريقك'
+pvp.disabled: '&6تم تعطيل Pvp لفريقك'
+
+rankup.max: '&4أنت بالفعل في أعلى رتبة'
+rankup.score: '&4تحتاج إلى %s نقاط للترقية'
+rankup.money: '&4تحتاج إلى %s من المال في رصيد الفريق للترقية'
+rankup.success: '&6تم تطوير فريقك'
+
+tag.banned: '&4تم حظر تلك الوسم'
+tag.success: '&6تم تغيير الوسم بنجاح'
+tag.maxLength: '&4تلك الوسم طويلة جداً'
+tag.noPerm: '&4ليس لديك الصلاحية لتغيير وسم الفريق'
+admin.cancel: '&4تم إلغاء الأمر بواسطة إضافة أخرى'
+admin.tag.success: '&6تم تغيير الوسم للفرق بنجاح'
+admin.setrank.success: '&6تم تعيين رتبة الفريق بنجاح'
+admin.setrank.no: '&4تلك الرتبة إما غير موجودة أو ليست معينة بشكل صحيح'
+
+admin.config.reload: '&6تم إعادة تحميل BetterTeams (إذا كنت تواجه مشكلات عند استخدام هذا الأمر، أعد تشغيل الخادم)'
+admin.holo.create.success: '&6تم إنشاء الهولوجرام'
+admin.holo.remove.noHolo: '&4لم يتم العثور على أي هولوجرام'
+admin.holo.remove.success: '&6تم حذف الهولوجرام'
+admin.title.success: '&6تم تغيير اللقب لهذا اللاعب'
+admin.title.reset: '&6تم إعادة تعيين اللقب لهذا اللاعب'
+admin.version: '&6إصدار البرنامج المساعد الحالي: &b%s'
+admin.versionstorage: '&6طريقة التخزين: &b%s'
+admin.versionversion: '&6نسخة Minecraft: &b%s'
+admin.versionlanguage: '&6اللغة المحددة: &b%s'
+admin.noTeam: '&4هذا ليس فريقاً'
+admin.home.success: '&6تم نقلك إلى منزل فريق آخر'
+admin.home.noHome: '&4هذا الفريق لم يعين منزلاً'
+admin.name.success: '&6تم تغيير اسم الفريق'
+admin.description.success: '&6تم تغيير اسم الفريق'
+admin.open.successopen: '&6هذا الفريق مفتوح للجميع الآن'
+admin.open.successclose: '&6هذا الفريق مغلق الآن'
+admin.invite.success: '&6تم دعوة اللاعب للانضمام للفريق'
+admin.create.success: '&6تم إنشاء الفريق'
+admin.join.banned: '&4تم حظر اللاعب من الانضمام للفريق'
+admin.join.success: '&6تم انضمام اللاعب للفريق'
+admin.join.notify: '&6انضممت للفريق &b%s'
+admin.join.full: '&4هذا الفريق مكتمل العدد'
+admin.notInTeam: '&6لا يمكن لللاعب أن يكون في فريق قبل أداء ذلك'
+admin.inTeam: '&4هذا اللاعب ليس في فريق'
+admin.leave.success: '&6تم ترك اللاعب للفريق'
+admin.leave.notify: '&6تركت هذا الفريق'
+admin.demote.notify: '&6تم تنزيلك'
+admin.demote.success: '&6تم تنزيل اللاعب بنجاح'
+admin.demote.min: '&4لا يمكن تنزيل اللاعب بالمزيد'
+admin.demote.maxAdmins: '&4الفريق بالفعل يحتوي على الحد الأقصى من الإداريين، قم بإزالة أحدهم قبل تنزيل هذا اللاعب'
+admin.promote.max: '&6اللاعب بالفعل في أعلى رتبة'
+admin.promote.notify: '&6تم ترقيتك'
+admin.promote.success: '&6تم ترقية اللاعب بنجاح'
+admin.promote.owner: '&6تم تكوين أن الفرق يمكن أن تحتوي فقط على مالك واحد، استخدم &b/teama setowner <لاعب> &6لتعيين اللاعب كمالك'
+admin.promote.maxAdmins: '&4الفريق بالفعل يحتوي على الحد الأقصى من الإداريين، قم بإزالة أحدهم قبل ترقية اللاعب'
+admin.promote.maxOwners: '&4الفريق بالفعل يحتوي على الحد الأقصى من المالكين، قم بإزالة أحدهم قبل ترقية اللاعب'
+admin.setowner.already: '&4اللاعب مالك بالفعل'
+admin.setowner.nonotify: '&6أنت لم تعد مالك الفريق'
+admin.setowner.success: '&6تم تعيين اللاعب كمالك للفريق'
+admin.setowner.notify: '&6أنت مالك الفريق الآن'
+admin.warps.none: '&4لم يعين الفريق أي علامات'
+admin.setwarp.success: '&6تم تعيين العلامة'
+admin.setwarp.max: '&6الفريق قد عين الحد الأقصى من العلامات'
+admin.purge.confirm: '&6قم بتشغيل الأمر خلال الـ 10 ثواني القادمة للتأكيد، &4لن يمكن التراجع وستتم إعادة تعيين النقاط لجميع الفرق'
+admin.purge.success: '&6تم حذف الفرق بنجاح'
+admin.score.tooSmall: '&4يجب أن تكون النقاط أكبر من 0'
+admin.score.success: '&6تم تغيير نقاط الفريق بنجاح'
+admin.bal.toSmall: '&4يجب أن يكون الرصيد أكبر من 0'
+admin.bal.success: '&6تم تغيير رصيد الفريق بنجاح'
+admin.update: '&4هناك إصدار جديد من Better Teams، حدث من هنا: (https://www.spigotmc.org/resources/better-teams.17129/)'
+admin.disband.success: '&6تم حل الفريق بنجاح'
+admin.color.success: '&6تم تغيير لون الفريق بنجاح'
+admin.chest.claim.success: '&6لقد ادعيت تلك الصندوق نيابة عن الفريق'
+admin.chest.remove.success: '&6تم إزالة ادعاء التلك الصندوق بنجاح'
+admin.chest.all.success: '&6تم إزالة جميع الادعاءات عن الفريق'
+admin.chest.remove.notClaimed: '&4لم يدعي أي فريق ذلك الصندوق'
+admin.chest.disable.already: '&4أدعاءات الصناديق معطلة بالفعل'
+admin.chest.disable.success: '&6تم تعطيل ادعاءات الصناديق بنجاح'
+admin.chest.disabled.bc: '&6&lيمكن الآن فتح جميع الصناديق المدعومة'
+admin.chest.enable.already: '&4أدعاءات الصناديق مفعلة بالفعل'
+admin.chest.enable.success: '&6تم تفعيل ادعاءات الصناديق بنجاح'
+admin.chest.enabled.bc: '&6&lالصناديق المدعومة الآن مؤمنة'
+admin.teleport.success: '&6تم نقل جميع أعضاء الفريق الحاليين'
+
+nametag.syntax: '&6&l%s&r '
+holo.leaderboard: '&6قائمة المتصدرين'
+holo.syntax: '&6%s: &b%s'
+holo.msyntax: '&6%s: &b$%s'
+top.leaderboard: '&6قائمة المتصدرين'
+top.syntax: '&b%s: &6%s &7(%s)'
+top.divide: '&f...'
+baltop.leaderboard: '&6قائمة المتصدرين'
+baltop.syntax: '&b%s: &6%s &7(%s)'
+baltop.divide: '&f...'
+spy.stop: '&6أنت لم تعد تجسس على رسائل الفريق'
+spy.start: '&6أنت الآن تجسس على رسائل الفريق'
+spy.team: '&7[&b%s&7]&f%s&f: %s'
+spy.ally: '&7[&d%s&7]&f%s&f: %s'
+
+uclaim.team: '&4يجب أن تكون في فريق لإنشاء ادعاء'
+uclaim.member: '&4لا يمكنك ترك ادعاء الفريق'
+uclaim.kick: '&4لا يمكنك طرد أعضاء فريقك من الادعاء'
+uclaim.ban: '&4لا يمكنك حظر أعضاء فريقك من الادعاء'
+uclaim.dissolve: '&4تم حل فريقك لذلك تم حل ادعاءك'
+
+help.description:  عرض وتغيير وصف فريقك
+help.ban: يحظر اللاعب المحدد من فريقك
+help.home: ينقلك إلى منزل فريقك
+help.help: عرض صفحة المساعدة هذه
+help.promote:  ترقية اللاعب المحدد داخل فريقك
+help.demote: تنزيل اللاعب المحدد داخل فريقك
+help.unban: يلغي حظر اللاعب المحدد من فريقك
+help.kick: طرد تلك اللاعب من فريقك
+help.leave: مغادرة فريقك الحالي
+help.chat: إرسال رسالة فقط إلى فريقك
+help.name:  عرض وتغيير اسم فريقك
+help.sethome: تعيين منزل فريقك
+help.create: إنشاء فريق بالاسم المحدد
+help.invite: دعوة اللاعب المحدد لفريقك
+help.disband: حل فريقك الحالي
+help.open: تبديل حالة الفريق إذا كان مفتوحًا للدعوات فقط
+help.info: عرض معلومات حول اللاعب / الفريق المحدد
+help.color: تغيير لون فريقك
+help.deposit: إيداع الأموال في رصيد الفريق
+help.bal: عرض رصيد فريقك
+help.withdraw: سحب الأموال من رصيد الفريق
+help.title: تغيير عنوان ذلك اللاعب داخل الفريق
+help.top: عرض أفضل الفرق
+help.rank: عرض تصنيف الفريق
+help.join: الانضمام إلى الفريق المحدد
+help.delhome: حذف منزل فريقك
+help.ally: يستخدم لطلب تحالف مع فريق آخر
+help.neutral: إزالة الحلفاء ورفض طلبات التحالف
+help.allychat: إرسال رسالة فقط للحلفاء
+
+command.create: create
+command.leave: leave
+command.disband: disband
+command.description: description
+command.invite: invite
+command.join: join
+command.name: name
+command.open: open
+command.info: info
+command.kick: kick
+command.promote: promote
+command.demote: demote
+command.home: home
+command.sethome: sethome
+command.ban: ban
+command.unban: unban
+command.chat: chat
+command.color: color
+command.title: title
+command.top: top
+command.baltop: baltop
+command.rank: rank
+command.delhome: delhome
+command.ally: ally
+command.neutral: neutral
+command.allychat: allychat
+command.list: list
+command.warp: warp
+command.setwarp: setwarp
+command.delwarp: delwarp
+command.warps: warps
+command.echest: echest
+command.rankup: rankup
+command.tag: tag
+command.pvp: pvp
+command.claim: claim
+command.remove: remove
+command.removeall: removeall
+command.chest: chest
+command.reload: reload
+command.chatspy: chatspy
+command.version: version
+command.purge: purge
+command.setrank: setrank
+command.add: add
+command.set: set
+command.score: score
+command.enableclaims: enableclaims
+command.disableclaims: disableclaims
