@@ -11,6 +11,9 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * An event which is called after a team message has been sent (notification only).
+ */
 public class TeamMessageEvent extends TeamPlayerEvent {
 
     private final String formattedMessage;
