@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import com.booksaw.betterTeams.customEvents.TeamPreMessageEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -925,6 +926,18 @@ public class Team {
 			}
 		}
 
+		List<TeamPlayer> teamMembers = members.getClone();
+
+		// Notify third party plugins that a team message is going to be sent
+		TeamPreMessageEvent teamPreMessageEvent = new TeamPreMessageEvent(this, sender, message, teamMembers);
+		Bukkit.getPluginManager().callEvent(teamPreMessageEvent);
+
+		if (teamPreMessageEvent.isCancelled()) {
+			return;
+		} else {
+			message = teamPreMessageEvent.getRawMessage();
+		}
+
 		String fMessage = String.format(MessageManager.getMessage("chat.syntax"),
 				sender.getPrefix(returnTo) + Objects.requireNonNull(sender.getPlayer().getPlayer()).getDisplayName(),
 				message);
@@ -932,7 +945,7 @@ public class Team {
 		fMessage = fMessage.replace("$name$", sender.getPrefix(returnTo) + sender.getPlayer().getPlayer().getName());
 		fMessage = fMessage.replace("$message$", message);
 
-		for (TeamPlayer player : members.getClone()) {
+		for (TeamPlayer player : teamPreMessageEvent.getRecipients()) {
 			if (player.getPlayer().isOnline()) {
 				Objects.requireNonNull(player.getPlayer().getPlayer()).sendMessage(fMessage);
 			}
