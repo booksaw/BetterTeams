@@ -16,6 +16,7 @@ import java.util.Set;
 public class TeamPreMessageEvent extends TeamPlayerEvent {
 
     private String rawMessage;
+    private String format;
     private final Set<TeamPlayer> recipients = new HashSet<>();
 
     /**
@@ -24,14 +25,17 @@ public class TeamPreMessageEvent extends TeamPlayerEvent {
      * @param team the team which the message is being sent to
      * @param sender the sender of the message
      * @param rawMessage the contents of the message being sent (without formatting)
+     * @param proposedFormat the proposed format for the message
      * @param recipients the current recipients of the message
      */
     public TeamPreMessageEvent(@NotNull Team team,
                                @NotNull TeamPlayer sender,
                                @NotNull String rawMessage,
+                               @NotNull String proposedFormat,
                                @NotNull Collection<TeamPlayer> recipients) {
         super(team, sender);
         this.rawMessage = rawMessage;
+        this.format = proposedFormat;
         this.recipients.addAll(recipients);
     }
 
@@ -49,6 +53,23 @@ public class TeamPreMessageEvent extends TeamPlayerEvent {
      */
     public void setRawMessage(@NotNull String rawMessage) {
         this.rawMessage = Objects.requireNonNull(rawMessage, "Team message cannot be null");
+    }
+
+    /**
+     * @return The format which will be used to format the message.
+     */
+    public String getFormat() {
+        return format;
+    }
+
+    /**
+     * The format is as follows: '%s %s' -> '[player name] [message]'.
+     *
+     * @param newFormat the new format for the message following the format provided.
+     * @apiNote If you do not understand how this works, research {@link String#format(String, Object...)} for details.
+     */
+    public void setFormat(@NotNull String newFormat) {
+        this.format = Objects.requireNonNull(newFormat, "Team message format cannot be null");
     }
 
     /**

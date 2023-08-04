@@ -8,7 +8,7 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
-import com.booksaw.betterTeams.customEvents.TeamPreMessageEvent;
+import com.booksaw.betterTeams.customEvents.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -22,9 +22,6 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
 
-import com.booksaw.betterTeams.customEvents.DemotePlayerEvent;
-import com.booksaw.betterTeams.customEvents.DisbandTeamEvent;
-import com.booksaw.betterTeams.customEvents.PromotePlayerEvent;
 import com.booksaw.betterTeams.exceptions.CancelledEventException;
 import com.booksaw.betterTeams.message.Message;
 import com.booksaw.betterTeams.message.MessageManager;
@@ -926,19 +923,22 @@ public class Team {
 			}
 		}
 
+		// These are variables which may be modified by TeamPreMessageEvent
 		List<TeamPlayer> teamMembers = members.getClone();
+		String format = MessageManager.getMessage("chat.syntax");
 
 		// Notify third party plugins that a team message is going to be sent
-		TeamPreMessageEvent teamPreMessageEvent = new TeamPreMessageEvent(this, sender, message, teamMembers);
+		TeamPreMessageEvent teamPreMessageEvent = new TeamPreMessageEvent(this, sender, message, format, teamMembers);
 		Bukkit.getPluginManager().callEvent(teamPreMessageEvent);
 
 		if (teamPreMessageEvent.isCancelled()) {
 			return;
 		} else {
 			message = teamPreMessageEvent.getRawMessage();
+			format = teamPreMessageEvent.getFormat();
 		}
 
-		String fMessage = String.format(MessageManager.getMessage("chat.syntax"),
+		String fMessage = String.format(format,
 				sender.getPrefix(returnTo) + Objects.requireNonNull(sender.getPlayer().getPlayer()).getDisplayName(),
 				message);
 
@@ -961,6 +961,9 @@ public class Team {
 		if (TEAMMANAGER.isLogChat()) {
 			Bukkit.getLogger().info("[BetterTeams]" + fMessage);
 		}
+
+		// Notify third party plugins that a message has been dispatched
+		Bukkit.getPluginManager().callEvent(new TeamMessageEvent(this, sender, fMessage, teamPreMessageEvent.getRecipients()));
 	}
 
 	/**
