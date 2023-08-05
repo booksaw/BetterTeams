@@ -924,13 +924,15 @@ public class Team {
 		}
 
 		// These are variables which may be modified by TeamPreMessageEvent
-		List<TeamPlayer> teamMembers = members.getClone();
+		List<TeamPlayer> recipients = members.getClone();
+		recipients.removeIf(teamPlayer -> !teamPlayer.getPlayer().isOnline()); // Offline players won't be recipients
 		String format = MessageManager.getMessage("chat.syntax");
 
 		// Notify third party plugins that a team message is going to be sent
-		TeamPreMessageEvent teamPreMessageEvent = new TeamPreMessageEvent(this, sender, message, format, teamMembers);
+		TeamPreMessageEvent teamPreMessageEvent = new TeamPreMessageEvent(this, sender, message, format, recipients);
 		Bukkit.getPluginManager().callEvent(teamPreMessageEvent);
 
+		// Process any updates after the event has been dispatched
 		if (teamPreMessageEvent.isCancelled()) {
 			return;
 		} else {

@@ -65,11 +65,21 @@ public class TeamPreMessageEvent extends TeamPlayerEvent {
     /**
      * The format is as follows: '%s %s' -> '[player name] [message]'.
      *
-     * @param newFormat the new format for the message following the format provided.
+     * @param newFormat The new format for the message following the format provided.
      * @apiNote If you do not understand how this works, research {@link String#format(String, Object...)} for details.
      */
     public void setFormat(@NotNull String newFormat) {
         this.format = Objects.requireNonNull(newFormat, "Team message format cannot be null");
+    }
+
+    /**
+     * Using {@link #getFormat()} and {@link #getRawMessage()}, this method will format the raw message and return the
+     * formatted message using the current format.
+     *
+     * @return The formatted message using the current format and raw message.
+     */
+    public String getFormattedMessage() {
+        return String.format(getFormat(), Objects.requireNonNull(getTeamPlayer().getPlayer().getPlayer()).getDisplayName(), getRawMessage());
     }
 
     /**
@@ -80,6 +90,14 @@ public class TeamPreMessageEvent extends TeamPlayerEvent {
      */
     public Set<TeamPlayer> getRecipients() {
         return recipients;
+    }
+
+    /**
+     * @return The player sending this message to their team.
+     * @apiNote A more readable overload of {@link #getTeamPlayer()}.
+     */
+    public TeamPlayer getSender() {
+        return getTeamPlayer();
     }
 
     private static final HandlerList HANDLERS = new HandlerList();

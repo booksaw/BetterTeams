@@ -53,6 +53,14 @@ public class TeamMessageEvent extends TeamPlayerEvent {
         return ImmutableSet.copyOf(recipients);
     }
 
+    /**
+     * @return The player who sent this message to their team.
+     * @apiNote A more readable overload of {@link #getTeamPlayer()}.
+     */
+    public TeamPlayer getSender() {
+        return getTeamPlayer();
+    }
+
     private static final HandlerList HANDLERS = new HandlerList();
 
     public static HandlerList getHandlerList() {
