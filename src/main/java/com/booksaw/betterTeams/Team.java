@@ -927,9 +927,11 @@ public class Team {
 		List<TeamPlayer> recipients = members.getClone();
 		recipients.removeIf(teamPlayer -> !teamPlayer.getPlayer().isOnline()); // Offline players won't be recipients
 		String format = MessageManager.getMessage("chat.syntax");
+		String prefix = sender.getPrefix(returnTo);
 
 		// Notify third party plugins that a team message is going to be sent
-		TeamPreMessageEvent teamPreMessageEvent = new TeamPreMessageEvent(this, sender, message, format, recipients);
+		TeamPreMessageEvent teamPreMessageEvent = new TeamPreMessageEvent(this, sender, message, format,
+				prefix, recipients);
 		Bukkit.getPluginManager().callEvent(teamPreMessageEvent);
 
 		// Process any updates after the event has been dispatched
@@ -938,13 +940,14 @@ public class Team {
 		} else {
 			message = teamPreMessageEvent.getRawMessage();
 			format = teamPreMessageEvent.getFormat();
+			prefix = teamPreMessageEvent.getSenderNamePrefix();
 		}
 
 		String fMessage = String.format(format,
-				sender.getPrefix(returnTo) + Objects.requireNonNull(sender.getPlayer().getPlayer()).getDisplayName(),
+				prefix + Objects.requireNonNull(sender.getPlayer().getPlayer()).getDisplayName(),
 				message);
 
-		fMessage = fMessage.replace("$name$", sender.getPrefix(returnTo) + sender.getPlayer().getPlayer().getName());
+		fMessage = fMessage.replace("$name$", prefix + sender.getPlayer().getPlayer().getName());
 		fMessage = fMessage.replace("$message$", message);
 
 		for (TeamPlayer player : teamPreMessageEvent.getRecipients()) {
