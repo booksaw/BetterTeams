@@ -714,6 +714,11 @@ Added 9 new languages:
 * Ukrainian - uk - Credit kikalo, ramaziqadagishvili and icloser
 
 
+4.8.1:
+
+Features: 
+* Added TeamPreMessageEvent and TeamMessageEvent to the API (#492) - Credit Harieo (GitHub)
+
 Headings: 
 Features: 
 
