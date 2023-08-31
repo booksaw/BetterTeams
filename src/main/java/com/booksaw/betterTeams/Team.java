@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import com.booksaw.betterTeams.customEvents.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -21,9 +22,6 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
 
-import com.booksaw.betterTeams.customEvents.DemotePlayerEvent;
-import com.booksaw.betterTeams.customEvents.DisbandTeamEvent;
-import com.booksaw.betterTeams.customEvents.PromotePlayerEvent;
 import com.booksaw.betterTeams.exceptions.CancelledEventException;
 import com.booksaw.betterTeams.message.Message;
 import com.booksaw.betterTeams.message.MessageManager;
@@ -925,14 +923,34 @@ public class Team {
 			}
 		}
 
-		String fMessage = String.format(MessageManager.getMessage("chat.syntax"),
-				sender.getPrefix(returnTo) + Objects.requireNonNull(sender.getPlayer().getPlayer()).getDisplayName(),
+		// These are variables which may be modified by TeamPreMessageEvent
+		List<TeamPlayer> recipients = members.getClone();
+		recipients.removeIf(teamPlayer -> !teamPlayer.getPlayer().isOnline()); // Offline players won't be recipients
+		String format = MessageManager.getMessage("chat.syntax");
+		String prefix = sender.getPrefix(returnTo);
+
+		// Notify third party plugins that a team message is going to be sent
+		TeamPreMessageEvent teamPreMessageEvent = new TeamPreMessageEvent(this, sender, message, format,
+				prefix, recipients);
+		Bukkit.getPluginManager().callEvent(teamPreMessageEvent);
+
+		// Process any updates after the event has been dispatched
+		if (teamPreMessageEvent.isCancelled()) {
+			return;
+		} else {
+			message = teamPreMessageEvent.getRawMessage();
+			format = teamPreMessageEvent.getFormat();
+			prefix = teamPreMessageEvent.getSenderNamePrefix();
+		}
+
+		String fMessage = String.format(format,
+				prefix + Objects.requireNonNull(sender.getPlayer().getPlayer()).getDisplayName(),
 				message);
 
-		fMessage = fMessage.replace("$name$", sender.getPrefix(returnTo) + sender.getPlayer().getPlayer().getName());
+		fMessage = fMessage.replace("$name$", prefix + sender.getPlayer().getPlayer().getName());
 		fMessage = fMessage.replace("$message$", message);
 
-		for (TeamPlayer player : members.getClone()) {
+		for (TeamPlayer player : teamPreMessageEvent.getRecipients()) {
 			if (player.getPlayer().isOnline()) {
 				Objects.requireNonNull(player.getPlayer().getPlayer()).sendMessage(fMessage);
 			}
@@ -948,6 +966,9 @@ public class Team {
 		if (TEAMMANAGER.isLogChat()) {
 			Bukkit.getLogger().info("[BetterTeams]" + fMessage);
 		}
+
+		// Notify third party plugins that a message has been dispatched
+		Bukkit.getPluginManager().callEvent(new TeamMessageEvent(this, sender, fMessage, teamPreMessageEvent.getRecipients()));
 	}
 
 	/**
