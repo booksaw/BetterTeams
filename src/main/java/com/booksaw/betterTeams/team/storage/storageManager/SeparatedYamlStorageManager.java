@@ -186,7 +186,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 
 	@Override
 	public void teamNameChange(Team team, String newName) {
-		teamNameLookup.remove(team.getName());
+		teamNameLookup.remove(team.getName().toLowerCase());
 		teamNameLookup.put(newName.toLowerCase(), team.getID());
 		saveTeamNameLookup();
 	}
