@@ -719,6 +719,11 @@ Added 9 new languages:
 Features: 
 * Added TeamPreMessageEvent and TeamMessageEvent to the API (#492) - Credit Harieo (GitHub)
 
+4.8.2:
+
+Bug Fixes: 
+- Fixed typo in messages.yml (#503)
+
 Headings: 
 Features: 
 

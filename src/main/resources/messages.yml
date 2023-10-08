@@ -117,7 +117,7 @@ demote.lastOwner: '&6You cannot demote the final owner, promote someone else fir
 demote.maxAdmins: '&4Your team already has the maximum number of admins, remove and admin or level your team up'
 home.success: '&6You have been teleported'
 home.noHome: '&6Your team has not set a home'
-home.world: '&4You team home could not be found'
+home.world: '&4Your team home could not be found'
 sethome.success: '&6Your team home has been set'
 sethome.noPerm: '&6Your are not a high enough rank to set your team home'
 chat.enabled: '&6Your messages now go to the team chat'
