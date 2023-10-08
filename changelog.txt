@@ -721,7 +721,12 @@ Features:
 
 4.8.2:
 
+Features:
+- Added Dutch language support (#505) - Credit Ceymikey (Discord)
+- Added Korean language support (#506) - Credit nyaneo (Discord)
+
 Bug Fixes: 
+- Fixed issue causing team names to exist even when they do not exist (#509, #501) - Credit SavageAvocado (GitHub)
 - Fixed typo in messages.yml (#503)
 
 Headings: 
