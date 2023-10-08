@@ -1,7 +1,16 @@
-# Any additional notes you would like to add about this file just DM me on Discord: ceymikey#0
+# Any additional notes you would like to add about this file can be send in the booksaw development server!
+
+# EN: This is a Dutch translated file of the plugin Betterteams By Booksaw
+# NL: Dit is een Nederlands vertaalde versie van de plugin Betterteams gemaakt door Booksaw
 
 # Credit for contributions to this file: Ceymikey
+# Credit voor het maken van deze vertaling gaan naar: Ceymikey`
+
+# Able to help with translations? Either improving a already existing language, or adding a whole new one. Join the discord server: https://discord.gg/JF9DNs3 
+# or message me on spigot: https://www.spigotmc.org/members/booksaw123.120955/
+
 # Any placeholders from placeholder API will work in this file
+
 invalidArg: '&4Ongeldig argument, help'
 inTeam: '&4You moet in een team zitten om dit te doen!'
 internalError: '&4Er ging iets fout tijdens het gebruiken van dit commando, Rapporteer dit probleem aan de huidige server eigenaren.'
@@ -14,7 +23,7 @@ notTeam: '&6&4Dit team bestaat niet probeer: &b/team create <name>'
 needSameTeam: '&6Je zit niet in hetzelfde team als deze speler.'
 noPerm: '&4Je hebt geen permission om dit te doen!'
 prefixSyntax: '&7[%s&7] &r%s'
-bannedChar: '&4Een specifiec charakter dat jij probeerde te gebruiken is verbannen!'
+bannedChar: '&4Een specifiec karakter dat jij probeerde te gebruiken is verbannen!'
 noTeam: '&4Dit team bestaat niet.'
 loading: '&6Aan het laden.'
 cooldown.wait: '&4Je moet nog %s secondes wachten om dat te doen.'
@@ -40,15 +49,15 @@ create.success: '&6Je team is zojuist aangemaakt'
 create.banned: '&4Deze team naam is verbannen!'
 create.maxLength: '&4Deze team naam is te lang'
 leave.success: '&6Je hebt het team verlaten'
-leave.lastOwner: '&6Jij bent de enige met een owner rank in dit team, Dus promote iemand anders of doe &b/team disband &6om je team permanent te verwijderen.'
+leave.lastOwner: '&6Jij bent de enige met een owner rank in dit team, Dus promoveer iemand anders of doe &b/team disband &6om je team permanent te verwijderen.'
 rank.noTeam: '&4Team niet gevonden'
 rank.info: '&6Team positie:'
 rank.infos: '&6Team rank: &b%s &7(%s score nodig voor volgende rankup)'
 rank.infom: '&6Team rank: &b%s &7($%s nodig voor volgende rankup)'
 rank.infomm: '&6Team rank: &b%s &7(Je bent de max rank)'
 rank.syntax: '&b%s: &6%s &7(%s)'
-delhome.success: '&6Jouw team base is met succes verwijderd'
-delhome.noHome: '&4Jouw team heeft nog geen base gemaakt'
+delhome.success: '&6Jouw team basis/huis is met succes verwijderd'
+delhome.noHome: '&4Jouw team heeft nog geen basis gemaakt'
 disband.success: '&6Jij hebt je team met succes permanent verwijderd!'
 disband.confirm: '&6Type &b/team disband &6nog een keer om het te bevestigen'
 description.success: '&6Je hebt je team beschrijving aangepast.'
@@ -85,7 +94,7 @@ info.name: '&6Naam: &b%s'
 info.description: '&6Beschrijving: &b%s'
 info.open: '&6Open: &b%s'
 info.level: '&6Level: &b%s'
-info.owner: '&6Owners: &b%s'
+info.owner: '&6beheerders: &b%s'
 info.admin: '&6Admins: &b%s'
 info.default: '&6Spelers: &b%s'
 info.tag: '&6Tag: &b%s'
@@ -110,7 +119,7 @@ promote.success: '&6Deze speler is heeft een promotie ontvangen'
 promote.noPerm: '&6Jij hebt geen toestemming om deze speler te gepromoveren'
 promote.max: '&6Deze speler is al gepromoveerd tot het max!'
 promote.notify: '&6Je bent gepromoveerd!'
-promote.maxAdmins: '&4Dit team heeft al de max hoeveelheid owners en admins, degradeer iemand of level je team meer.'
+promote.maxAdmins: '&4Dit team heeft al de max hoeveelheid beheerders en admins, degradeer iemand of level je team meer.'
 promote.maxOwners: '&4Dit team heeft al de max hoeveelheid owners, degradeer iemand of level je team meer.'
 demote.success: '&6Die speler is gedegradeerd'
 demote.noPerm: '&6Je hebt geen toestemming om deze speler te degraderen!'
@@ -257,7 +266,7 @@ admin.score.tooSmall: '&4De score moet hoger zijn dan 0'
 admin.score.success: '&6Dat team hun score is met succes veranderd'
 admin.bal.toSmall: '&4Het saldo moet hoger zijn dan 0'
 admin.bal.success: '&6That teams balance has been changed'
-admin.update: '&4Er is een nieuwe versie van betterteams released hier: (https://www.spigotmc.org/resources/better-teams.17129/)'
+admin.update: '&4Er is een nieuwe versie van betterteams gepubliceerd hier: (https://www.spigotmc.org/resources/better-teams.17129/)'
 admin.disband.success: '&6Dat team is met succes permanent verwijderd'
 admin.color.success: '&6Dat team hun kleur is met succes veranderd'
 admin.chest.claim.success: '&6Jij hebt die kist geclaimed namens jouw gehele team'
