@@ -741,6 +741,7 @@ Bug fixes:
 - Improved issues with Dutch translations (#512) - Credit Ceymikey
 - Fixed bug causing /team top to incorrectly rank teams (#513)
 - Fixed bug with /team ban attempting to notify offline players (#516)
+- Improved the error message for when team data is desynced (#517)
 
 Headings: 
 Features: 
