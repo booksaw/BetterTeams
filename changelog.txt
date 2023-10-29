@@ -729,6 +729,11 @@ Bug Fixes:
 - Fixed issue causing team names to exist even when they do not exist (#509, #501) - Credit SavageAvocado (GitHub)
 - Fixed typo in messages.yml (#503)
 
+4.8.3:
+
+Bug fixes: 
+- Fixed bug causing /team top to incorrectly rank teams
+
 Headings: 
 Features: 
 

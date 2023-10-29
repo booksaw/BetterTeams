@@ -119,7 +119,7 @@ public class TopCommand extends SubCommand {
 			return;
 		}
 
-		MessageManager.sendMessageF(sender, "top.syntax", (rank + 1) + "", team.getName(), team.getScore() + "");
+		MessageManager.sendMessageF(sender, "top.syntax", (rank) + "", team.getName(), team.getScore() + "");
 
 	}
 
