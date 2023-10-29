@@ -912,7 +912,7 @@ public class Team {
 	 */
 	public void sendMessage(TeamPlayer sender, String message) {
 		ChatColor returnTo = ChatColor.RESET;
-		String toTest = MessageManager.getMessage(sender.getPlayer().getPlayer(), "chat.syntax");
+		String toTest = getChatSyntax(sender);
 		int value = toTest.indexOf("%s");
 		if (value > 2) {
 			for (int i = value; i >= 0; i--) {
@@ -926,7 +926,7 @@ public class Team {
 		// These are variables which may be modified by TeamPreMessageEvent
 		List<TeamPlayer> recipients = members.getClone();
 		recipients.removeIf(teamPlayer -> !teamPlayer.getPlayer().isOnline()); // Offline players won't be recipients
-		String format = MessageManager.getMessage("chat.syntax");
+		String format = getChatSyntax(sender);
 		String prefix = sender.getPrefix(returnTo);
 
 		// Notify third party plugins that a team message is going to be sent
@@ -969,6 +969,19 @@ public class Team {
 
 		// Notify third party plugins that a message has been dispatched
 		Bukkit.getPluginManager().callEvent(new TeamMessageEvent(this, sender, fMessage, teamPreMessageEvent.getRecipients()));
+	}
+	
+	/**
+	 * Used to get the chat syntax and apply placeholders when possible
+	 * @param sender - The team player who sent the command
+	 */
+	private String getChatSyntax(TeamPlayer sender) {
+		
+		if (sender != null && sender.getPlayer() != null && sender.getPlayer().isOnline() && (sender.getPlayer().getPlayer() instanceof CommandSender)) {
+			return MessageManager.getMessage(sender.getPlayer().getPlayer(), "chat.syntax");
+		}
+		
+		return MessageManager.getMessage("chat.syntax");
 	}
 
 	/**

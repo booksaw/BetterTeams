@@ -734,6 +734,9 @@ Bug Fixes:
 Features:
 - Added Romanian translations (#518) - Credit Areanydd
 
+Improvements: 
+- Added support for placeholders in the /team chat syntax (#515)
+
 Bug fixes: 
 - Improved issues with Dutch translations (#512) - Credit Ceymikey
 - Fixed bug causing /team top to incorrectly rank teams (#513)
