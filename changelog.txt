@@ -732,7 +732,8 @@ Bug Fixes:
 4.8.3:
 
 Bug fixes: 
-- Fixed bug causing /team top to incorrectly rank teams
+- Improved issues with Dutch translations (#512) - Credit Ceymikey
+- Fixed bug causing /team top to incorrectly rank teams (#513)
 
 Headings: 
 Features: 
