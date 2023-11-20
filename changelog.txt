@@ -731,8 +731,17 @@ Bug Fixes:
 
 4.8.3:
 
+Features:
+- Added Romanian translations (#518) - Credit Areanydd
+
+Improvements: 
+- Added support for placeholders in the /team chat syntax (#515)
+- Improved issues with Dutch translations (#512) - Credit Ceymikey
+
 Bug fixes: 
-- Fixed bug causing /team top to incorrectly rank teams
+- Fixed bug causing /team top to incorrectly rank teams (#513)
+- Fixed bug with /team ban attempting to notify offline players (#516)
+- Improved the error message for when team data is desynced (#517)
 
 Headings: 
 Features: 

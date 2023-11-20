@@ -40,7 +40,9 @@ public class BanCommand extends TeamSubCommand {
 
 		if (team != otherTeam) {
 			team.banPlayer(player);
-			MessageManager.sendMessageF((CommandSender) player, "ban.notify", team.getName());
+			if (player.isOnline()) {
+				MessageManager.sendMessageF((CommandSender) player.getPlayer(), "ban.notify", team.getName());
+			}
 			return new CommandResponse("ban.success");
 		}
 

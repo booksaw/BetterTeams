@@ -1,0 +1,13 @@
+API
+Command-Cost-and-Cooldown
+Commands
+Dependencies
+Home
+Language
+Managing-the-TAB-Menu
+Permissions
+PlaceholderAPI
+Score
+Team-Levels
+Team-Permissions
+UltimateClaims
