@@ -330,7 +330,7 @@ admin:
   score:
     tooSmall: '&4tavo komandos taškai turi būti didesni už 0'
     success: '&6Šios komandos taškai buvo pakeisti'
-  update: '&4There is a new version of better teams released update here: (https://www.spigotmc.org/resources/better-teams.17129/)'
+  update: '&4There is a new version of better teams released update here: https://www.spigotmc.org/resources/better-teams.17129/'
   disband:
     success: '&6ši komanda buvo sėkmingai išskirstyta'
   color:

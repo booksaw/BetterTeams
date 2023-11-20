@@ -242,7 +242,7 @@ admin.purge.confirm: '&6Ejecuta el comando antes de 10 segundos para confirmar: 
 admin.purge.success: '&6Los equipos han sido purgados.'
 admin.score.tooSmall: '&4La puntuación debe ser mayor a 0.'
 admin.score.success: '&6Se ha cambiado la puntuación del equipo.'
-admin.update: '&4Hay una nueva versión de BetterTeams disponible. Actualiza aquí: (https://www.spigotmc.org/resources/better-teams.17129/)'
+admin.update: '&4Hay una nueva versión de BetterTeams disponible. Actualiza aquí: https://www.spigotmc.org/resources/better-teams.17129/'
 admin.disband.success: '&6El equipo se ha disuelto correctamente.'
 admin.color.success: '&6el color del equipo ha sido cambiado'
 admin.chest.claim.success: '&6Has reclamado el cofre en nombre del equipo.'

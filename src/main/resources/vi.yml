@@ -332,7 +332,7 @@ admin:
   bal:
     toSmall: '&4The balance must be greater than 0'
     success: '&6That teams balance has been changed'
-  update: '&4There is a new version of better teams released update here: (https://www.spigotmc.org/resources/better-teams.17129/)'
+  update: '&4There is a new version of better teams released update here: https://www.spigotmc.org/resources/better-teams.17129/'
   disband:
     success: '&6That team has been disbanded successfully'
   color:

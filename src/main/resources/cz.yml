@@ -346,7 +346,7 @@ admin:
   bal:
     toSmall: '&4Zustatek musi byt vetsi nez 0'
     success: '&6Zustatek tohoto tymu byl zmenen'
-  update: '&4Je dostupna nova verze pluginu BetterTeams. Aktualizujte zde: (https://www.spigotmc.org/resources/better-teams.17129/)'
+  update: '&4Je dostupna nova verze pluginu BetterTeams. Aktualizujte zde: https://www.spigotmc.org/resources/better-teams.17129/'
   disband:
     success: '&6Tym byl uspesne rozpusten'
   color:

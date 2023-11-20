@@ -262,7 +262,7 @@ admin.score.tooSmall: '&4ქულა უნდა იყოს 0-ზე მე�
 admin.score.success: '&6გუნდის ქულა წარმატებით შეიცვალა'
 admin.bal.toSmall: '&4გუნდის ბალანსი უნდა იყოს 0-ზე მეტი'
 admin.bal.success: '&6გუნდის ბალანსი წარმატებით შეიცვალა'
-admin.update: '&4There is a new version of better teams released update here: (https://www.spigotmc.org/resources/better-teams.17129/)'
+admin.update: '&4There is a new version of better teams released update here: https://www.spigotmc.org/resources/better-teams.17129/'
 admin.disband.success: '&6ეს გუნდი წარმატებით გაუქმდა'
 admin.color.success: '&6გუნდის ფერი წარმატებით შეიცვალა'
 admin.chest.claim.success: '&6თქვენ დაეუფლეთ სკივრს რომელსაც უკვე ფლობს სხვა გუნდი'
