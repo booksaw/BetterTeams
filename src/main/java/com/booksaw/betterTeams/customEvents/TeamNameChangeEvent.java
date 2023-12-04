@@ -5,18 +5,21 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * An event which is called right after the renaming of a {@link Team}
+ * An event which is called right before the renaming of a {@link Team}
  */
-public class TeamNameChangedEvent extends TeamEvent {
-    private final String previousName;
-    public TeamNameChangedEvent(@NotNull Team team,
-                                @NotNull String previousName) {
+public class TeamNameChangeEvent extends TeamEvent {
+    private String newName;
+    public TeamNameChangeEvent(@NotNull Team team,
+                               @NotNull String newName) {
         super(team);
-        this.previousName = previousName;
+        this.newName = newName;
     }
 
-    public String getPreviousTeamName() {
-        return previousName;
+    public String getNewTeamName() {
+        return newName;
+    }
+    public void setNewTeamName(String newNameToSet) {
+        this.newName = newNameToSet;
     }
 
     private static final HandlerList HANDLERS = new HandlerList();

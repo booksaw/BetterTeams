@@ -4,8 +4,6 @@ import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.presets.TeamSelectSubCommand;
-import com.booksaw.betterTeams.customEvents.TeamNameChangedEvent;
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
 import java.util.List;
@@ -30,9 +28,7 @@ public class NameTeama extends TeamSelectSubCommand {
 			return new CommandResponse("name.exists");
 		}
 
-		TeamNameChangedEvent event = new TeamNameChangedEvent(team, team.getName());
 		team.setName(args[1]);
-		Bukkit.getPluginManager().callEvent(event);
 
 		return new CommandResponse(true, "admin.name.success");
 	}

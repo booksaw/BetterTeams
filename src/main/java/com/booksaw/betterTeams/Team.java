@@ -453,6 +453,14 @@ public class Team {
 	 * @param name the new team namexg
 	 */
 	public void setName(String name) {
+		TeamNameChangeEvent event = new TeamNameChangeEvent(this, name);
+		Bukkit.getPluginManager().callEvent(event);
+
+		if (event.isCancelled()) {
+			throw new IllegalArgumentException("Renaming was cancelled by another plugin");
+		}
+		name = event.getNewTeamName();
+
 		TEAMMANAGER.teamNameChange(this, name);
 		this.name = name;
 		getStorage().set(StoredTeamValue.NAME, name);
