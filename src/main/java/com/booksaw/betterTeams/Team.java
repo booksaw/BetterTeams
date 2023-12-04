@@ -522,6 +522,14 @@ public class Team {
 	}
 
 	public void setTag(String tag) {
+		TeamTagChangeEvent event = new TeamTagChangeEvent(this, tag);
+		Bukkit.getPluginManager().callEvent(event);
+
+		if (event.isCancelled()) {
+			throw new IllegalArgumentException("Changing tag was cancelled by another plugin");
+		}
+		tag = event.getNewTeamTag();
+		
 		this.tag = tag;
 		getStorage().set(StoredTeamValue.TAG, tag);
 
