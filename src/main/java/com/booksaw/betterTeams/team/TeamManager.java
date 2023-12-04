@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.booksaw.betterTeams.customEvents.CreateTeamEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -165,6 +166,14 @@ public abstract class TeamManager {
 			id = UUID.randomUUID();
 		}
 		Team team = new Team(name, id, owner);
+
+		CreateTeamEvent event = new CreateTeamEvent(team);
+		Bukkit.getPluginManager().callEvent(event);
+
+		if (event.isCancelled()) {
+			throw new IllegalArgumentException("Creating team was cancelled by another plugin");
+		}
+
 		loadedTeams.put(id, team);
 		registerNewTeam(team, owner);
 
