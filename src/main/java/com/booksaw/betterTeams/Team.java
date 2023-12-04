@@ -597,6 +597,14 @@ public class Team {
 	 * @param color the new team color
 	 */
 	public void setColor(ChatColor color) {
+		TeamColorChangeEvent event = new TeamColorChangeEvent(this, color);
+		Bukkit.getPluginManager().callEvent(event);
+
+		if (event.isCancelled()) {
+			throw new IllegalArgumentException("Recoloring was cancelled by another plugin");
+		}
+		color = event.getNewTeamColor();
+
 		this.color = color;
 		getStorage().set(StoredTeamValue.COLOR, color.getChar());
 
