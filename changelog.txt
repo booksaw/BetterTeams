@@ -745,6 +745,9 @@ Bug fixes:
 
 4.8.4:
 
+Features:
+- Added new Events to the BetterTeams API - Credit EarthCow (#524)
+
 Bug Fixes:
 - Fixed issue with urls causing a 404 - Credit Ceymikey (#522)
 
