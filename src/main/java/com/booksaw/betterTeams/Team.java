@@ -453,6 +453,14 @@ public class Team {
 	 * @param name the new team namexg
 	 */
 	public void setName(String name) {
+		TeamNameChangeEvent event = new TeamNameChangeEvent(this, name);
+		Bukkit.getPluginManager().callEvent(event);
+
+		if (event.isCancelled()) {
+			throw new IllegalArgumentException("Renaming was cancelled by another plugin");
+		}
+		name = event.getNewTeamName();
+
 		TEAMMANAGER.teamNameChange(this, name);
 		this.name = name;
 		getStorage().set(StoredTeamValue.NAME, name);
@@ -514,6 +522,14 @@ public class Team {
 	}
 
 	public void setTag(String tag) {
+		TeamTagChangeEvent event = new TeamTagChangeEvent(this, tag);
+		Bukkit.getPluginManager().callEvent(event);
+
+		if (event.isCancelled()) {
+			throw new IllegalArgumentException("Changing tag was cancelled by another plugin");
+		}
+		tag = event.getNewTeamTag();
+		
 		this.tag = tag;
 		getStorage().set(StoredTeamValue.TAG, tag);
 
@@ -589,6 +605,14 @@ public class Team {
 	 * @param color the new team color
 	 */
 	public void setColor(ChatColor color) {
+		TeamColorChangeEvent event = new TeamColorChangeEvent(this, color);
+		Bukkit.getPluginManager().callEvent(event);
+
+		if (event.isCancelled()) {
+			throw new IllegalArgumentException("Recoloring was cancelled by another plugin");
+		}
+		color = event.getNewTeamColor();
+
 		this.color = color;
 		getStorage().set(StoredTeamValue.COLOR, color.getChar());
 
