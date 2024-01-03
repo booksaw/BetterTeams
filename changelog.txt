@@ -743,6 +743,11 @@ Bug fixes:
 - Fixed bug with /team ban attempting to notify offline players (#516)
 - Improved the error message for when team data is desynced (#517)
 
+4.8.4:
+
+Bug Fixes:
+- Fixed issue with urls causing a 404 - Credit Ceymikey (#522)
+
 Headings: 
 Features: 
 
