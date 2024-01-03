@@ -250,7 +250,7 @@ admin.purge.confirm: '&6Führe diesen Befehl erneut in den nächsten 10 Sekunden
 admin.purge.success: '&6Die Teams wurden gesäubert' 
 admin.score.tooSmall: '&4Das Level muss höher als 0 sein' 
 admin.score.success: '&6Das Level dieses Teams wurde geändert' 
-admin.update: '&4Es gibt eine neue Version von BetterTeams hier: (https://www.spigotmc.org/resources/better-teams.17129/)' 
+admin.update: '&4Es gibt eine neue Version von BetterTeams hier: https://www.spigotmc.org/resources/better-teams.17129/' 
 admin.disband.success: '&6Dieses Team wurde aufgelöst' 
 admin.color.success: '&6Die Team-Farbe wurde geändert' 
 admin.chest.claim.success: '&6Du hast diese Kiste im Namen deines Teams beansprucht' 

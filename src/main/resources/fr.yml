@@ -327,7 +327,7 @@ admin:
   bal:
      toSmall: "&4Le solde doit être supérieur à 0"
      success: "&6Le solde de cette équipe a été modifié"
-  update: "&4Une nouvelle version de BetterTeams est disponible, mettez à jour ici : (https://www.spigotmc.org/resources/better-teams.17129/)"
+  update: "&4Une nouvelle version de BetterTeams est disponible, mettez à jour ici : https://www.spigotmc.org/resources/better-teams.17129/"
   disband:
      success: "&6Cette équipe a été dissoute avec succès"
   color:

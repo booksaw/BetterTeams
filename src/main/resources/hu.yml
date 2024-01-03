@@ -357,7 +357,7 @@ admin:
   bal:
     toSmall: '&4Az egyenlegnek nagyobbnak kell lennie, mint 0'
     success: '&6A csapat Egyenlege megváltozott'
-  update: '&4Új verzió elérhető  update elérhető: (https://www.spigotmc.org/resources/better-teams.17129/)'
+  update: '&4Új verzió elérhető  update elérhető: https://www.spigotmc.org/resources/better-teams.17129/'
   disband:
     success: '&6A csapat sikeresen feloszlott'
   color:

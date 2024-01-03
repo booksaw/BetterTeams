@@ -336,7 +336,7 @@ admin:
   score:
     tooSmall: '&4Poeni moraju biti veci od 0'
     success: '&6Poeni tog tima su uspesno promenjeni'
-  update: '&4Tu je nova verzija BetterTeams i mozete je preuzeti ovde: (https://www.spigotmc.org/resources/better-teams.17129/)'
+  update: '&4Tu je nova verzija BetterTeams i mozete je preuzeti ovde: https://www.spigotmc.org/resources/better-teams.17129/'
   disband:
     success: '&6Taj tim je obrisan uspesno'
   color:

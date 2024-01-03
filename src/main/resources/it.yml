@@ -334,7 +334,7 @@ admin:
   bal:
     toSmall: '&4Il saldo deve essere maggiore di 0'
     success: '&6Il saldo del team è stato cambiato'
-  update: '&4Questa è una nuova versione di aggiornamento per BetterTeams rilasciata qui: (https://www.spigotmc.org/resources/better-teams.17129/)'
+  update: '&4Questa è una nuova versione di aggiornamento per BetterTeams rilasciata qui: https://www.spigotmc.org/resources/better-teams.17129/'
   disband:
     success: '&6Il team è stato sciolto con successo'
   color:
