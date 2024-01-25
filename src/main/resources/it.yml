@@ -50,6 +50,10 @@ leave:
   success: '&6Hai lasciato il team'
   lastOwner: "&6Sei l'unico con il rango owner all'interno del team, o promuovi qualcun
     altro o usa &b/team disband &6per sciogliere il team"
+announce:
+  join: '&3%s &7si è unito al team %s'
+  leave: '&3%s &7ha lasciato il team %s'
+  disband: '&7Il team %s è stato sciolto'
 rank:
   noTeam: '&4Team non trovato'
   info: '&6Posizione del team:'

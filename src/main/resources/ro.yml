@@ -51,6 +51,10 @@ create:
 leave:
   success: '&6Ai parasit echipa.'
   lastOwner: '&6Esti singurul proprietar al echipei. Promoveaza pe cineva altcineva sau foloseste &b/team disband &6pentru a dizolva echipa.'
+announce:
+  join: '&3%s &7juntou-se à equipa %s'
+  leave: '&3%s &7deixou a equipa %s'
+  disband: '&7A equipa %s foi dissolvida'
 rank:
   noTeam: '&4Echipa nu a fost gasita.'
   info: '&6Pozitia ta in echipa:'

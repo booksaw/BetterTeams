@@ -46,6 +46,10 @@ leave:
   success: '&6Opuściłeś team'
   lastOwner: '&6Jesteś jedynym założycielem teamu, awansuj kogoś innego lub opuść
     team &b/team disband'
+announce:
+  join: '&3%s &7dołączył do zespołu %s'
+  leave: '&3%s &7opuścił zespół %s'
+  disband: '&7Zespół %s został rozwiązany'
 rank:
   noTeam: '&4Nie ma takiego teamu'
   info: '&6Team position:'

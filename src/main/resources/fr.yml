@@ -53,6 +53,10 @@ create:
 leave:
   success: "&6Vous avez quitté l'équipe"
   lastOwner: "&6Vous êtes le seul propriétaire dans l'équipe. Promouvez quelqu'un d'autre ou utilisez &b/team disband &6pour dissoudre l'équipe"
+announce:
+  join: "&3%s &7a rejoint l'équipe %s"
+  leave: "&3%s &7a quitté l'équipe %s"
+  disband: "&7L'équipe %s a été dissoute"
 rank:
   noTeam: "&4Équipe introuvable"
   info: "&6Position de l'équipe :'"
