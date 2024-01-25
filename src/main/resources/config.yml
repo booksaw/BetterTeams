@@ -77,6 +77,15 @@ prefix: name
 # Possible values: [Any text, any chat colours using the reference '&']
 prefixFormat: '&7[&6BetterTeams&7] '
 
+# This is used to determine whether players joining a new team should be announced (Message is configurable in messages.yml)
+announceTeamJoin: false
+
+# This is used to determine whether players leaving a team should be announced (Message is configurable in messages.yml)
+announceTeamLeave: false
+
+# This is used to determine whether disbanding a team should be announced (Message is configurable in messages.yml)
+announceTeamDisband: false
+
 # This is used to set the maxmimum number of allies a team can have
 # - If this feature is unwanted, set the allyLimit to -1 and there will be unlimited allies for each team
 # - Keep this value reasonable, as Java cannot cope with larger numbers (over 2 billion), so if you want the team to be limitless, set the value to -1 instead of something large
