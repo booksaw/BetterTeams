@@ -5,25 +5,7 @@ package com.booksaw.betterTeams.integrations.placeholder;
 
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.integrations.placeholder.provider.ColorPlaceholderProvider;
-import com.booksaw.betterTeams.integrations.placeholder.provider.DescriptionPlaceholderProvider;
-import com.booksaw.betterTeams.integrations.placeholder.provider.DisplayNamePlaceholderProvider;
-import com.booksaw.betterTeams.integrations.placeholder.provider.LevelPlaceholderProvider;
-import com.booksaw.betterTeams.integrations.placeholder.provider.MaxMembersPlaceholderProvider;
-import com.booksaw.betterTeams.integrations.placeholder.provider.MaxMoneyPlaceholderProvider;
-import com.booksaw.betterTeams.integrations.placeholder.provider.MaxWarpsPlaceholderProvider;
-import com.booksaw.betterTeams.integrations.placeholder.provider.MembersPlaceholderProvider;
-import com.booksaw.betterTeams.integrations.placeholder.provider.MoneyPlaceholderProvider;
-import com.booksaw.betterTeams.integrations.placeholder.provider.NamePlaceholderProvider;
-import com.booksaw.betterTeams.integrations.placeholder.provider.OfflineListPlaceholderProvider;
-import com.booksaw.betterTeams.integrations.placeholder.provider.OnlineListPlaceholderProvider;
-import com.booksaw.betterTeams.integrations.placeholder.provider.OnlinePlaceholderProvider;
-import com.booksaw.betterTeams.integrations.placeholder.provider.OpenPlaceholderProvider;
-import com.booksaw.betterTeams.integrations.placeholder.provider.PvpPlaceholderProvider;
-import com.booksaw.betterTeams.integrations.placeholder.provider.RankPlaceholderProvider;
-import com.booksaw.betterTeams.integrations.placeholder.provider.ScorePlaceholderProvider;
-import com.booksaw.betterTeams.integrations.placeholder.provider.TagPlaceholderProvider;
-import com.booksaw.betterTeams.integrations.placeholder.provider.TitlePlaceholderProvider;
+import com.booksaw.betterTeams.integrations.placeholder.provider.*;
 
 /**
  * @author booksaw
@@ -35,7 +17,7 @@ public enum TeamPlaceholderOptionsEnum {
 	OPEN(new OpenPlaceholderProvider()), SCORE(new ScorePlaceholderProvider()), MONEY(new MoneyPlaceholderProvider()),
 	RANK(new RankPlaceholderProvider()), COLOR(new ColorPlaceholderProvider()), TITLE(new TitlePlaceholderProvider()),
 	ONLINELIST(new OnlineListPlaceholderProvider()), OFFLINELIST(new OfflineListPlaceholderProvider()),
-	ONLINE(new OnlinePlaceholderProvider()), MEMBERS(new MembersPlaceholderProvider()),
+	ONLINE(new OnlinePlaceholderProvider()), MEMBERS(new MembersPlaceholderProvider()), OWNERS(new OwnersPlaceholderProvider()),
 	LEVEL(new LevelPlaceholderProvider()), MAXMONEY(new MaxMoneyPlaceholderProvider()),
 	MAXMEMBERS(new MaxMembersPlaceholderProvider()), MAXWARPS(new MaxWarpsPlaceholderProvider()),
 	PVP(new PvpPlaceholderProvider());
