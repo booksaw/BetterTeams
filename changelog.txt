@@ -746,6 +746,7 @@ Bug fixes:
 4.8.4:
 
 Features:
+- Updated Ultimate claims version supported to v2.0.1 (#496) - NOTE: Older versions of ultimate claims are no longer supported
 - Added new Events to the BetterTeams API - Credit EarthCow (#524)
 - Added an option to announce team joining, leaving and disbanding - Credit EarthCow (#541, #539)
 - Added placeholders to get members at a specific rank - Credit EarthCow (#542, #537)

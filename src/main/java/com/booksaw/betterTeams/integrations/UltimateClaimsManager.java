@@ -1,5 +1,16 @@
 package com.booksaw.betterTeams.integrations;
 
+import java.util.List;
+import java.util.Objects;
+
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
+
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
@@ -8,21 +19,16 @@ import com.booksaw.betterTeams.customEvents.DisbandTeamEvent;
 import com.booksaw.betterTeams.customEvents.PlayerJoinTeamEvent;
 import com.booksaw.betterTeams.customEvents.PlayerLeaveTeamEvent;
 import com.booksaw.betterTeams.message.MessageManager;
-import com.songoda.ultimateclaims.UltimateClaims;
-import com.songoda.ultimateclaims.api.events.*;
-import com.songoda.ultimateclaims.claim.Claim;
-import com.songoda.ultimateclaims.claim.ClaimDeleteReason;
-import com.songoda.ultimateclaims.member.ClaimMember;
-import com.songoda.ultimateclaims.member.ClaimRole;
-import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
-import org.bukkit.scheduler.BukkitRunnable;
-
-import java.util.List;
-import java.util.Objects;
+import com.craftaro.ultimateclaims.UltimateClaims;
+import com.craftaro.ultimateclaims.api.events.ClaimCreateEvent;
+import com.craftaro.ultimateclaims.api.events.ClaimMemberLeaveEvent;
+import com.craftaro.ultimateclaims.api.events.ClaimPlayerBanEvent;
+import com.craftaro.ultimateclaims.api.events.ClaimPlayerKickEvent;
+import com.craftaro.ultimateclaims.api.events.ClaimTransferOwnershipEvent;
+import com.craftaro.ultimateclaims.claim.Claim;
+import com.craftaro.ultimateclaims.claim.ClaimDeleteReason;
+import com.craftaro.ultimateclaims.member.ClaimMember;
+import com.craftaro.ultimateclaims.member.ClaimRole;
 
 public class UltimateClaimsManager implements Listener {
 
@@ -57,8 +63,7 @@ public class UltimateClaimsManager implements Listener {
 		for (TeamPlayer tp : team.getMembers().getClone()) {
 			if (tp.getPlayer() != p) {
 				ClaimMember member = e.getClaim().addMember(tp.getPlayer(), ClaimRole.MEMBER);
-				UltimateClaims.getInstance().getDataManager().createMember(member);
-
+				JavaPlugin.getPlugin(UltimateClaims.class).getDataHelper().createMember(member);
 			}
 		}
 
@@ -69,7 +74,7 @@ public class UltimateClaimsManager implements Listener {
 		List<TeamPlayer> players = e.getTeam().getRank(PlayerRank.OWNER);
 
 		for (TeamPlayer player : players) {
-			Claim c = UltimateClaims.getInstance().getClaimManager().getClaim(player.getPlayer().getUniqueId());
+			Claim c = JavaPlugin.getPlugin(UltimateClaims.class).getClaimManager().getClaim(player.getPlayer().getUniqueId());
 			if (c == null) {
 				continue;
 			}
@@ -79,7 +84,7 @@ public class UltimateClaimsManager implements Listener {
 				@Override
 				public void run() {
 					ClaimMember member = c.addMember(e.getPlayer(), ClaimRole.MEMBER);
-					UltimateClaims.getInstance().getDataManager().createMember(member);
+					JavaPlugin.getPlugin(UltimateClaims.class).getDataHelper().createMember(member);
 				}
 			}.runTaskLater(Main.plugin, 1);
 
@@ -91,14 +96,14 @@ public class UltimateClaimsManager implements Listener {
 		List<TeamPlayer> players = e.getTeam().getRank(PlayerRank.OWNER);
 
 		for (TeamPlayer player : players) {
-			Claim c = UltimateClaims.getInstance().getClaimManager().getClaim(player.getPlayer().getUniqueId());
+			Claim c = JavaPlugin.getPlugin(UltimateClaims.class).getClaimManager().getClaim(player.getPlayer().getUniqueId());
 			if (c == null) {
 				continue;
 			}
 
 			ClaimMember member = c.getMember(e.getPlayer());
 			c.removeMember(member);
-			UltimateClaims.getInstance().getDataManager().deleteMember(member);
+			JavaPlugin.getPlugin(UltimateClaims.class).getDataHelper().deleteMember(member);
 
 		}
 	}
@@ -156,7 +161,7 @@ public class UltimateClaimsManager implements Listener {
 	public void disbandEvent(DisbandTeamEvent event) {
 
 		for (TeamPlayer player : event.getTeam().getRank(PlayerRank.OWNER)) {
-			Claim c = UltimateClaims.getInstance().getClaimManager().getClaim(player.getPlayer().getUniqueId());
+			Claim c = JavaPlugin.getPlugin(UltimateClaims.class).getClaimManager().getClaim(player.getPlayer().getUniqueId());
 			if (c == null) {
 				continue;
 			}
