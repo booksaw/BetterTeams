@@ -43,7 +43,9 @@ public class SetOwnerCommand extends TeamSubCommand {
 
 		team.promotePlayer(promotePlayer);
 		team.demotePlayer(teamPlayer);
-		MessageManager.sendMessage((CommandSender) promotePlayer.getPlayer(), "setowner.notify");
+		if (promotePlayer.getPlayer().isOnline()) {
+			MessageManager.sendMessage((CommandSender) promotePlayer.getPlayer(), "setowner.notify");
+		}
 
 		return new CommandResponse(true, "setowner.success");
 	}
