@@ -52,6 +52,10 @@ leave:
   success: '&6Elhagytad a csapatot'
   lastOwner: '&6Te vagy az egyetlen tulajdonos a csapatban. Lépj elő valakit másikra,
     vagy használd a &b/team disband &6parancsot a csapat feloszlatásához.'
+announce:
+  join: '&3%s &7csatlakozott a %s csapathoz'
+  leave: '&3%s &7elhagyta a %s csapatot'
+  disband: '&7A %s csapat feloszlott'
 rank:
   noTeam: '&4A csapat nem található'
   info: '&6Csapat pozíció:'

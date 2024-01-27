@@ -52,6 +52,10 @@ create:
 leave:
   success: '&6Bạn đã rời khỏi team'
   lastOwner: '&6Bạn là Owner cuối cùng của team, hoặc là bạn thăng chức ai đó hoặc là bạn dùng &b/team disband &6 để Giải Tán Team'
+announce:
+  join: '&3%s &7đã tham gia đội %s'
+  leave: '&3%s &7đã rời khỏi đội %s'
+  disband: '&7Đội %s đã bị giải tán'
 rank:
   noTeam: '&4Không tìm thấy Team'
   info: '&6Team position:'

@@ -54,6 +54,10 @@ leave:
   success: '&6Opustil jsi tym'
   lastOwner: '&6Jsi jedinym majitelem tymu. Bud povys nekoho jineho nebo pouzij &b/team
     disband &6pro rozpusteni tymu.'
+announce:
+  join: '&3%s &7se připojil k týmu %s'
+  leave: '&3%s &7opustil tým %s'
+  disband: '&7Tým %s &7byl rozpuštěn'
 rank:
   noTeam: '&4Tym nenalezen'
   info: '&6Pozice tymu:'

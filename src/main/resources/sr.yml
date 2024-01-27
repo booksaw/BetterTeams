@@ -50,6 +50,10 @@ leave:
   success: '&6Napustili ste tim'
   lastOwner: '&6Jedini ste vlasnik tima, Morate da promovisete nekoga
     ili koristite &b/team disband &6da obrisete tim'
+announce:
+  join: '&3%s &7se pridružio timu %s'
+  leave: '&3%s &7je napustio tim %s'
+  disband: '&7Tim %s &7je raspušten'
 rank:
   noTeam: '&4Tim nije pronadjen'
   info: '&6Pozicija tima:'

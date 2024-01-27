@@ -9,6 +9,7 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import com.booksaw.betterTeams.customEvents.*;
+import com.booksaw.betterTeams.message.ReferencedFormatMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -764,6 +765,13 @@ public class Team {
 				team.unregister();
 			team = null;
 
+		}
+
+		if (Main.plugin.getConfig().getBoolean("announceTeamDisband")) {
+			Message message = new ReferencedFormatMessage("announce.disband", getColor() + getName() + ChatColor.RESET);
+			for (Player player : Bukkit.getOnlinePlayers()) {
+				message.sendMessage(player);
+			}
 		}
 	}
 

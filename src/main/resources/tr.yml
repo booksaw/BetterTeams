@@ -51,6 +51,10 @@ leave:
   success: '&6Takımdan ayrıldın.'
   lastOwner: '&cTakımın tek sahibi sensin. Birilerini terfi et ya da &6/team disband
     &ckomutu ile takımı kapat.'
+announce:
+  join: '&3%s &7takıma katıldı: %s'
+  leave: '&3%s &7takımdan ayrıldı: %s'
+  disband: '&7Takım %s dağıtıldı'
 rank:
   noTeam: '&4Takım bulunamadı.'
   info: '&6Takım pozisyonu:'

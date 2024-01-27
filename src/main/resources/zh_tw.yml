@@ -47,6 +47,10 @@ create:
 leave:
   success: '&6你離開了公會'
   lastOwner: '&6您是公會中唯一的所有者級別，提拔他人 或使用 &b/team disband &6來解散公會'
+announce:
+  join: '&3%s &7加入了 %s 團隊'
+  leave: '&3%s &7離開了 %s 團隊'
+  disband: '&7%s 團隊已解散'
 rank:
   noTeam: '&4找不到此公會'
   info: '&6公會定位:'

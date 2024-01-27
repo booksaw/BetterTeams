@@ -49,6 +49,10 @@ leave:
   success: "&6Has deixat l'equip"
   lastOwner: "&6Ets l'�nic rang de propietari de l'equip, o b� promociona alg�
     altre o usa &b/team disband &6per dissoldre l'equip"
+announce:
+  join: "&3%s &7s'ha unit a l'equip %s"
+  leave: "&3%s &7ha deixat l'equip %s"
+  disband: "&7L'equip %s &7s'ha desmantellat"
 rank:
   noTeam: "&4No s'ha trobat l'equip"
   info: "&6Posici� de l'equip:"

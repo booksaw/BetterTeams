@@ -52,6 +52,10 @@ leave:
   success: '&6Tu palikai komandą'
   lastOwner: '&6Tu esi vienintelis kūrėjas komandoje, Paaukštink kitą narį arba rašyk
     &b/team disband &6jog ištrinti komandą. '
+announce:
+  join: '&3%s &7prisijungė prie %s komandos'
+  leave: '&3%s &7paliko %s komandą'
+  disband: '&7Komanda %s buvo išformuota'
 rank:
   noTeam: '&4Komanda nerasta'
   info: '&6Komandos vieta sąraše:'
