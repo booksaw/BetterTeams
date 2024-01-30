@@ -47,9 +47,13 @@ public class ChatManagement implements Listener {
 			throw new IllegalStateException("Player " + p.getName() + " is registered to be in a team, yet has no playerdata associated with that team");
 		}
 
+		String anyChatToGlobalPrefix = Main.plugin.getConfig().getString("chatPrefixes.teamOrAllyToGlobal", "!");
+		String globalToTeamPrefix = Main.plugin.getConfig().getString("chatPrefixes.globalToTeam", "!");
+		String globalToAllyPrefix = Main.plugin.getConfig().getString("chatPrefixes.globalToAlly", "?");
+
 		if (teamPlayer.isInTeamChat() || teamPlayer.isInAllyChat()) {
-			if (event.getMessage().startsWith("!") && event.getMessage().length() > 1) {
-				event.setMessage(event.getMessage().substring(1));
+			if (!anyChatToGlobalPrefix.isEmpty() && event.getMessage().startsWith(anyChatToGlobalPrefix) && event.getMessage().length() > anyChatToGlobalPrefix.length()) {
+				event.setMessage(event.getMessage().substring(anyChatToGlobalPrefix.length()));
 			} else {
 				// Player is not sending to global chat
 				event.setCancelled(true);
@@ -64,14 +68,17 @@ public class ChatManagement implements Listener {
 				event.setFormat("");
 				return;
 			}
-		} else if ((event.getMessage().startsWith("!") || event.getMessage().startsWith("?")) && event.getMessage().length() > 1) {
+		} else if (
+				(!globalToTeamPrefix.isEmpty() && event.getMessage().startsWith(globalToTeamPrefix) && event.getMessage().length() > globalToTeamPrefix.length())
+				|| (!globalToAllyPrefix.isEmpty() && event.getMessage().startsWith(globalToAllyPrefix) && event.getMessage().length() > globalToAllyPrefix.length())
+		) {
 			// Player is not sending to global chat
 			event.setCancelled(true);
 
-			if (event.getMessage().startsWith("!")) {
-				team.sendMessage(teamPlayer, event.getMessage().substring(1));
+			if (event.getMessage().startsWith(globalToTeamPrefix)) {
+				team.sendMessage(teamPlayer, event.getMessage().substring(globalToTeamPrefix.length()));
 			} else {
-				team.sendAllyMessage(teamPlayer, event.getMessage().substring(1));
+				team.sendAllyMessage(teamPlayer, event.getMessage().substring(globalToAllyPrefix.length()));
 			}
 			// Used as some chat plugins do not accept when a message is cancelled
 			event.setMessage("");
