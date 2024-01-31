@@ -752,9 +752,14 @@ Features:
 - Added placeholders to get members at a specific rank - Credit EarthCow (#542, #537)
 - Added /teama ally and /teama neutral (#523)
 
+4.9.0:
+
+Features:
+- Improved help message syntax (#310, #528)
+
 Bug Fixes:
 - Fixed issue with urls causing a 404 - Credit Ceymikey (#522)
-- Fixed bug with /team setowner - Credit EarthCow(#544, 531)
+- Fixed bug with /team setowner - Credit EarthCow(#544, #531)
 
 Headings: 
 Features: 

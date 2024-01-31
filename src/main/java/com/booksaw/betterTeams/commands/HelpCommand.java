@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Objects;
@@ -11,13 +12,22 @@ import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Main;
+import com.booksaw.betterTeams.message.MessageManager;
 
 import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ClickEvent.Action;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.chat.hover.content.Text;
 
 public class HelpCommand extends SubCommand {
+
+	private int commandsPerPage = 7;
 
 	public static ChatColor prefix, description;
 	private static boolean fullyCustom = false;
@@ -52,13 +62,35 @@ public class HelpCommand extends SubCommand {
 			return null;
 		}
 
-		for (Entry<String, SubCommand> subCommand : command.getSubCommands().entrySet()) {
-			if (sender.hasPermission("betterTeams." + subCommand.getValue().getNode())) {
-				sender.sendMessage(
-						createHelpMessage(label, subCommand.getKey() + " " + subCommand.getValue().getArguments(),
-								subCommand.getValue().getHelpMessage()));
+		List<SubCommand> permissiveCommands = new ArrayList<>();
+		command.getSubCommands().values().forEach(c -> {
+			if (sender.hasPermission(c.getNode())) {
+				permissiveCommands.add(c);
+			}
+		});
+
+		int maxPage = permissiveCommands.size() / commandsPerPage
+				+ ((permissiveCommands.size() % commandsPerPage == 0) ? 0 : 1);
+		int page;
+		if (args.length > 0) {
+			page = getPage(args[0], maxPage);
+		} else {
+			page = 0;
+		}
+		MessageManager.sendMessage(sender, "help.header");
+
+		for (int i = commandsPerPage * page; i < permissiveCommands.size() && i < commandsPerPage * (page + 1); i++) {
+			SubCommand subCommand = permissiveCommands.get(i);
+			if (sender instanceof Player) {
+				((Player)sender).spigot().sendMessage(createClickableHelpMessage(label, subCommand.getCommand() + " " + subCommand.getArguments(), subCommand.getHelpMessage()));
+			} else {
+				MessageManager.sendFullMessage(sender, createHelpMessage(label,
+						subCommand.getCommand() + " " + subCommand.getArguments(), subCommand.getHelpMessage()));
 			}
 		}
+
+		MessageManager.sendMessageF(sender, "help.footer", Integer.toString(page + 1), Integer.toString(maxPage),
+				command.getCommand());
 
 		return null;
 	}
@@ -79,8 +111,9 @@ public class HelpCommand extends SubCommand {
 
 				PrintWriter writer = new PrintWriter(f);
 				for (Entry<String, SubCommand> sub : command.getSubCommands().entrySet()) {
-					writer.println(Main.plugin.getConfig().getString("prefixFormat") + "&b/" + label + " " + sub.getKey() + " " + sub.getValue().getArguments() + "&f - &6"
-							+ sub.getValue().getHelpMessage());
+					writer.println(
+							Main.plugin.getConfig().getString("prefixFormat") + "&b/" + label + " " + sub.getKey() + " "
+									+ sub.getValue().getArguments() + "&f - &6" + sub.getValue().getHelpMessage());
 				}
 				writer.close();
 
@@ -93,7 +126,7 @@ public class HelpCommand extends SubCommand {
 				fullyCustom = false;
 			}
 		}
-		try (BufferedReader reader = new BufferedReader(new FileReader(f))){
+		try (BufferedReader reader = new BufferedReader(new FileReader(f))) {
 			String line;
 			while ((line = reader.readLine()) != null) {
 				sender.sendMessage(org.bukkit.ChatColor.translateAlternateColorCodes('&', line));
@@ -117,8 +150,19 @@ public class HelpCommand extends SubCommand {
 	 * @return the created message relating to that command
 	 */
 	public String createHelpMessage(String label, String commandPath, String description) {
+
 		return prefix + "/" + label + " " + commandPath + ChatColor.WHITE + " - " + HelpCommand.description
 				+ description;
+	}
+
+	public TextComponent createClickableHelpMessage(String label, String commandPath, String description) {
+
+		TextComponent message = new TextComponent(MessageManager.getPrefix() + prefix + "/" + label + " " + commandPath + ChatColor.WHITE + " - " + HelpCommand.description
+				+ description);
+		message.setClickEvent(new ClickEvent(Action.SUGGEST_COMMAND, "/" + label + " " + commandPath));
+		message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(prefix + "/" + label + " " + commandPath)));
+		
+		return message;
 	}
 
 	@Override
@@ -154,6 +198,20 @@ public class HelpCommand extends SubCommand {
 	@Override
 	public int getMaximumArguments() {
 		return 0;
+	}
+
+	private int getPage(String request, int maxPage) {
+
+		try {
+			int page = Integer.parseInt(request);
+			if (page > maxPage) {
+				return maxPage;
+			}
+			return page - 1;
+		} catch (NumberFormatException e) {
+			return 0;
+		}
+
 	}
 
 }

@@ -300,6 +300,9 @@ uclaim.kick: '&4You cannot kick members of your own team from your claim'
 uclaim.ban: '&4You cannot ban members of your own team from your claim'
 uclaim.dissolve: '&4Your team has been disbanded so your claim has been dissolved'
 
+help.header: '&6---- &bBetterTeams Help &6----'
+help.footer: '&6---- &bPage %s/%s - /%s help <page> &6----'
+
 help.description: View and change your team's description
 help.ban: Bans the specified player from your team
 help.home: Teleports you to your team's home
