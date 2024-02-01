@@ -34,6 +34,10 @@ public class ChatManagement implements Listener {
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onChat(AsyncPlayerChatEvent event) {
 
+		if (event.isCancelled()) {
+			return;
+		}
+
 		Player p = event.getPlayer();
 		Team team = Team.getTeam(p);
 
