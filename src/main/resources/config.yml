@@ -86,6 +86,16 @@ announceTeamLeave: false
 # This is used to determine whether disbanding a team should be announced (Message is configurable in messages.yml)
 announceTeamDisband: false
 
+# These are prefix shortcuts to change where a chat message is sent
+# Possible values: [Any text/character(s)]
+chatPrefixes:
+   # This prefix will instead send the global message to the team chat
+   globalToTeam: '!'
+   # This prefix will instead send the global message to the ally chat
+   globalToAlly: '?'
+   # This prefix will instead send the team or ally message to the global chat
+   teamOrAllyToGlobal: '!'
+
 # This is used to set the maxmimum number of allies a team can have
 # - If this feature is unwanted, set the allyLimit to -1 and there will be unlimited allies for each team
 # - Keep this value reasonable, as Java cannot cope with larger numbers (over 2 billion), so if you want the team to be limitless, set the value to -1 instead of something large

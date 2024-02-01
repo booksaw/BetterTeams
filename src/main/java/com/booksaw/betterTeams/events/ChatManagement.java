@@ -50,24 +50,40 @@ public class ChatManagement implements Listener {
 		if(teamPlayer == null) {
 			throw new IllegalStateException("Player " + p.getName() + " is registered to be in a team, yet has no playerdata associated with that team");
 		}
-		
-		if ((teamPlayer.isInTeamChat() || teamPlayer.isInAllyChat())
-				&& (event.getMessage().startsWith("!") && event.getMessage().length() > 1)) {
-			event.setMessage(event.getMessage().substring(1));
-		} else if (teamPlayer.isInTeamChat()) {
-			// player is sending to team chat
+
+		String anyChatToGlobalPrefix = Main.plugin.getConfig().getString("chatPrefixes.teamOrAllyToGlobal", "!");
+		String globalToTeamPrefix = Main.plugin.getConfig().getString("chatPrefixes.globalToTeam", "!");
+		String globalToAllyPrefix = Main.plugin.getConfig().getString("chatPrefixes.globalToAlly", "?");
+
+		if (teamPlayer.isInTeamChat() || teamPlayer.isInAllyChat()) {
+			if (!anyChatToGlobalPrefix.isEmpty() && event.getMessage().startsWith(anyChatToGlobalPrefix) && event.getMessage().length() > anyChatToGlobalPrefix.length()) {
+				event.setMessage(event.getMessage().substring(anyChatToGlobalPrefix.length()));
+			} else {
+				// Player is not sending to global chat
+				event.setCancelled(true);
+
+				if (teamPlayer.isInTeamChat()) {
+					team.sendMessage(teamPlayer, event.getMessage());
+				} else {
+					team.sendAllyMessage(teamPlayer, event.getMessage());
+				}
+				// Used as some chat plugins do not accept when a message is cancelled
+				event.setMessage("");
+				event.setFormat("");
+				return;
+			}
+		} else if (
+				(!globalToTeamPrefix.isEmpty() && event.getMessage().startsWith(globalToTeamPrefix) && event.getMessage().length() > globalToTeamPrefix.length())
+				|| (!globalToAllyPrefix.isEmpty() && event.getMessage().startsWith(globalToAllyPrefix) && event.getMessage().length() > globalToAllyPrefix.length())
+		) {
+			// Player is not sending to global chat
 			event.setCancelled(true);
 
-			team.sendMessage(teamPlayer, event.getMessage());
-			// Used as some chat plugins do not accept when a message is cancelled
-			event.setMessage("");
-			event.setFormat("");
-			return;
-		} else if (teamPlayer.isInAllyChat()) {
-			// player is sending to ally chat
-			event.setCancelled(true);
-
-			team.sendAllyMessage(teamPlayer, event.getMessage());
+			if (event.getMessage().startsWith(globalToTeamPrefix)) {
+				team.sendMessage(teamPlayer, event.getMessage().substring(globalToTeamPrefix.length()));
+			} else {
+				team.sendAllyMessage(teamPlayer, event.getMessage().substring(globalToAllyPrefix.length()));
+			}
 			// Used as some chat plugins do not accept when a message is cancelled
 			event.setMessage("");
 			event.setFormat("");
