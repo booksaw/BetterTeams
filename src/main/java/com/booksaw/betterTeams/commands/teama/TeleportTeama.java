@@ -33,46 +33,41 @@ public class TeleportTeama extends TeamSelectSubCommand {
 			}
 
 			if (args.length == 2) {
-				Player target = Bukkit.getPlayer(args[1]);
-				if (target == null) {
-					return new CommandResponse("noPlayer");
-				}
-
-				final Location locationFinal = target.getLocation();
-
-				new BukkitRunnable() {
-
-					@Override
-					public void run() {
-						for (Player p : specifiedTeam.getOnlineMembers()) {
-							p.teleport(locationFinal);
-						}
+				if (args[1].equalsIgnoreCase(":home")) {
+					if (specifiedTeam.getTeamHome() == null) {
+						return new CommandResponse("admin.home.noHome");
 					}
-				}.runTask(Main.plugin);
-				return new CommandResponse(true, "admin.teleport.success");
-			}
+					location = specifiedTeam.getTeamHome();
+				} else {
+					Player target = Bukkit.getPlayer(args[1]);
+					if (target == null) {
+						return new CommandResponse("noPlayer");
+					}
+					location = target.getLocation();
+				}
+			} else {
+				double x, y, z;
+				float yaw = location.getYaw(), pitch = location.getPitch();
 
-			double x, y, z;
-			float yaw = location.getYaw(), pitch = location.getPitch();
-
-			try {
-				x = Double.parseDouble(args[1]);
-				y = Double.parseDouble(args[2]);
-				z = Double.parseDouble(args[3]);
-			} catch (NumberFormatException e) {
-				return new CommandResponse(new HelpMessage(this, label));
-			}
-
-			if (args.length == 6) {
 				try {
-					yaw = Float.parseFloat(args[4]);
-					pitch = Float.parseFloat(args[5]);
-				} catch (NumberFormatException E) {
+					x = Double.parseDouble(args[1]);
+					y = Double.parseDouble(args[2]);
+					z = Double.parseDouble(args[3]);
+				} catch (NumberFormatException e) {
 					return new CommandResponse(new HelpMessage(this, label));
 				}
-			}
 
-			location = new Location(player.getWorld(), x, y, z, yaw, pitch);
+				if (args.length == 6) {
+					try {
+						yaw = Float.parseFloat(args[4]);
+						pitch = Float.parseFloat(args[5]);
+					} catch (NumberFormatException E) {
+						return new CommandResponse(new HelpMessage(this, label));
+					}
+				}
+
+				location = new Location(player.getWorld(), x, y, z, yaw, pitch);
+			}
 		}
 
 		final Location locationFinal = location;
@@ -113,7 +108,7 @@ public class TeleportTeama extends TeamSelectSubCommand {
 
 	@Override
 	public String getArguments() {
-		return "<team> [x|player] [y] [z] [yaw] [pitch]";
+		return "<team> [:home|x|player] [y] [z] [yaw] [pitch]";
 	}
 
 	@Override
@@ -133,6 +128,7 @@ public class TeleportTeama extends TeamSelectSubCommand {
 			addTeamStringList(options, args[0]);
 			break;
 		case 2:
+			options.add(":home");
 			options.add("[x]");
 			addPlayerStringList(options, args[1]);
 			break;
