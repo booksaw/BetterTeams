@@ -1,27 +1,31 @@
 package com.booksaw.betterTeams.commands.teama;
 
-import java.util.List;
-
+import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.Main;
+import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.commands.SubCommand;
+import com.booksaw.betterTeams.message.HelpMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.Main;
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.commands.presets.TeamSelectSubCommand;
-import com.booksaw.betterTeams.message.HelpMessage;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.UUID;
 
-public class TeleportTeama extends TeamSelectSubCommand {
+public class TeleportTeama extends SubCommand {
 
 	@Override
-	public CommandResponse onCommand(CommandSender sender, String label, String[] args, Team team) {
-		Team specifiedTeam = Team.getTeam(args[0]);
+	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
+		Team specifiedTeam = null; // If null then all teams are being teleported
+		if (!args[0].equalsIgnoreCase(":all")) {
+			specifiedTeam = Team.getTeam(args[0]);
 
-		if (specifiedTeam == null) {
-			return new CommandResponse("noTeam");
+			if (specifiedTeam == null) {
+				return new CommandResponse("noTeam");
+			}
 		}
 
 		Player player = (Player) sender;
@@ -34,10 +38,14 @@ public class TeleportTeama extends TeamSelectSubCommand {
 
 			if (args.length == 2) {
 				if (args[1].equalsIgnoreCase(":home")) {
-					if (specifiedTeam.getTeamHome() == null) {
-						return new CommandResponse("admin.home.noHome");
+					if (specifiedTeam == null) {
+						location = null; // Will only ever be null if :all AND :home are used
+					} else {
+						if (specifiedTeam.getTeamHome() == null) {
+							return new CommandResponse("admin.home.noHome");
+						}
+						location = specifiedTeam.getTeamHome();
 					}
-					location = specifiedTeam.getTeamHome();
 				} else {
 					Player target = Bukkit.getPlayer(args[1]);
 					if (target == null) {
@@ -71,19 +79,46 @@ public class TeleportTeama extends TeamSelectSubCommand {
 		}
 
 		final Location locationFinal = location;
+		final Team specifiedTeamFinal = specifiedTeam;
 
 		new BukkitRunnable() {
 
 			@Override
 			public void run() {
-				for (Player p : specifiedTeam.getOnlineMembers()) {
-					p.teleport(locationFinal);
+				if (specifiedTeamFinal == null) {
+					// All teams are being teleported
+					for (Entry<UUID, Team> entry : Team.getTeamManager().getLoadedTeamListClone().entrySet()) {
+						if (locationFinal == null) {
+							// Teams are being teleported to their homes if they have one set
+							if (entry.getValue().getTeamHome() != null) {
+								for (Player p : entry.getValue().getOnlineMembers()) {
+									p.teleport(entry.getValue().getTeamHome());
+								}
+							}
+						} else {
+							for (Player p : entry.getValue().getOnlineMembers()) {
+								p.teleport(locationFinal);
+							}
+						}
+					}
+				} else {
+					for (Player p : specifiedTeamFinal.getOnlineMembers()) {
+						p.teleport(locationFinal);
+					}
 				}
 			}
 
 		}.runTask(Main.plugin);
 
-		return new CommandResponse(true, "admin.teleport.success");
+		String messageNode = "admin.teleport.success";
+		if (specifiedTeam == null) {
+			if (location != null) {
+				messageNode = "admin.teleport.all.success";
+			} else {
+				messageNode = "admin.teleport.all.home.success";
+			}
+		}
+		return new CommandResponse(true, messageNode);
 	}
 
 	@Override
@@ -108,7 +143,7 @@ public class TeleportTeama extends TeamSelectSubCommand {
 
 	@Override
 	public String getArguments() {
-		return "<team> [:home|x|player] [y] [z] [yaw] [pitch]";
+		return "<:all|team> [:home|x|player] [y] [z] [yaw] [pitch]";
 	}
 
 	@Override
@@ -125,6 +160,7 @@ public class TeleportTeama extends TeamSelectSubCommand {
 	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
 		switch (args.length) {
 		case 1:
+			options.add(":all");
 			addTeamStringList(options, args[0]);
 			break;
 		case 2:
