@@ -7,6 +7,7 @@ import com.booksaw.betterTeams.commands.SubCommand;
 import com.booksaw.betterTeams.message.HelpMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -32,7 +33,7 @@ public class TeleportTeama extends SubCommand {
 		Location location = player.getLocation(); // using the sender's location as a default
 		if (args.length > 1) {
 
-			if (args.length != 2 && args.length != 4 && args.length != 6) {
+			if (args.length != 2 && args.length != 4 && args.length != 6 && args.length != 7) {
 				return new CommandResponse(new HelpMessage(this, label));
 			}
 
@@ -56,6 +57,7 @@ public class TeleportTeama extends SubCommand {
 			} else {
 				double x, y, z;
 				float yaw = location.getYaw(), pitch = location.getPitch();
+				World world = player.getWorld();
 
 				try {
 					x = Double.parseDouble(args[1]);
@@ -65,7 +67,7 @@ public class TeleportTeama extends SubCommand {
 					return new CommandResponse(new HelpMessage(this, label));
 				}
 
-				if (args.length == 6) {
+				if (args.length <= 6) {
 					try {
 						yaw = Float.parseFloat(args[4]);
 						pitch = Float.parseFloat(args[5]);
@@ -74,7 +76,14 @@ public class TeleportTeama extends SubCommand {
 					}
 				}
 
-				location = new Location(player.getWorld(), x, y, z, yaw, pitch);
+				if (args.length == 7) {
+					world = Bukkit.getWorld(args[6]);
+					if (world == null) {
+						return new CommandResponse("admin.teleport.noWorld");
+					}
+				}
+
+				location = new Location(world, x, y, z, yaw, pitch);
 			}
 		}
 
@@ -143,7 +152,7 @@ public class TeleportTeama extends SubCommand {
 
 	@Override
 	public String getArguments() {
-		return "<:all|team> [:home|x|player] [y] [z] [yaw] [pitch]";
+		return "<:all|team> [:home|x|player] [y] [z] [yaw] [pitch] [world]";
 	}
 
 	@Override
@@ -153,7 +162,7 @@ public class TeleportTeama extends SubCommand {
 
 	@Override
 	public int getMaximumArguments() {
-		return 6;
+		return 7;
 	}
 
 	@Override
@@ -179,6 +188,9 @@ public class TeleportTeama extends SubCommand {
 			break;
 		case 6:
 			options.add("[pitch]");
+			break;
+		case 7:
+			options.add("[world]");
 			break;
 		}
 	}
