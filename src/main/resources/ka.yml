@@ -279,6 +279,9 @@ admin.chest.enable.already: '&4სკივრების დაუფლებ
 admin.chest.enable.success: '&6სკივრების დაუფლება იქნა გააქტიურებული'
 admin.chest.enabled.bc: '&6&lყველა სკივრი რაც თქვენს განკარგულებაშია იქნა ჩაკეტილი'
 admin.teleport.success: '&6ყველა გუნდის წევრი იქნა დატელეპორტებული'
+admin.teleport.noWorld: '&4მოთხოვნილი მსახიობი არ მოიძებნა'
+admin.teleport.all.success: '&6ყველა გუნდის ყველა ონლაინ წევრი შეესაბამება'
+admin.teleport.all.home.success: '&6ყველა გუნდის ყველა ონლაინ წევრი, რომლებსაც აქვს სახლი, შეესაბამება'
 
 nametag.syntax: '&6&l%s&r '
 holo.leaderboard: '&6ლიდერბორდი'

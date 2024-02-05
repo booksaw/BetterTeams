@@ -386,6 +386,9 @@ admin:
       bc: '&6&lAz összes igényelt láda le van zárva'
   teleport:
     success: '&6Az adott csapat összes online tagja teleportálva lett'
+    noWorld: '&4A megadott világ nem található'
+    all.success: '&6Az összes csapat összes online tagját teleportálták'
+    all.home.success: '&6Az összes csapat összes online tagját, akiknek van otthonuk, teleportálták'
   versionlanguage: '&6Kiválasztott nyelv: &b%s'
 nametag:
   

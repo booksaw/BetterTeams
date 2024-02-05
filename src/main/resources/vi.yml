@@ -361,6 +361,9 @@ admin:
       bc: '&6&lAll claimed chests are locked'
   teleport:
     success: '&6All online members of that team were teleported'
+    noWorld: '&4Không tìm thấy thế giới được chỉ định'
+    all.success: '&6Tất cả thành viên trực tuyến của tất cả các đội đã được di chuyển'
+    all.home.success: '&6Tất cả thành viên trực tuyến của tất cả các đội có nhà đã được di chuyển'
 nametag:
   
   syntax: '&6&l%s&r '

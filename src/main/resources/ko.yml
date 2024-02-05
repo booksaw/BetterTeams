@@ -281,6 +281,9 @@ admin.chest.enable.already: '&4상자 청구가 이미 활성화되었습니다.
 admin.chest.enable.success: '&6상자 청구가 활성화되었습니다.'
 admin.chest.enabled.bc: '&6&l모든 청구된 상자는 잠겨 있습니다.'
 admin.teleport.success: '&6해당 팀의 온라인 멤버가 모두 이동했습니다.'
+admin.teleport.noWorld: '&4지정된 월드를 찾을 수 없습니다'
+admin.teleport.all.success: '&6모든 팀의 온라인 멤버가 이동했습니다'
+admin.teleport.all.home.success: '&6모든 팀의 온라인 멤버 중 집이 있는 멤버가 이동했습니다'
 
 nametag.syntax: '&6&l%s&r '
 holo.leaderboard: '&6리더보드'

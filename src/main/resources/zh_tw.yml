@@ -331,6 +331,9 @@ admin:
       success: '&6Chest claiming has been enabled'
     enabled:
       bc: '&6&lAll claimed chests are locked'
+  teleport.noWorld: '&4指定的世界未找到'
+  teleport.all.success: '&6已傳送所有隊伍的所有在線成員'
+  teleport.all.home.success: '&6已傳送所有隊伍的所有在線成員擁有家的'
 nametag:
   syntax: '&6&l%s&r '
 holo:

@@ -267,6 +267,9 @@ admin.chest.enable.already: '&4Արկանաքույրվածում արկանաք
 admin.chest.enable.success: '&6Արկանաքույրվածում արկանաքույրները միացված են'
 admin.chest.enabled.bc: '&6&lԲոլոր արկանաքույրվածում արկանաքույրները կատարված են'
 admin.teleport.success: '&6բոլոր հայտնիները տեղափոխվել են'
+admin.teleport.noWorld: '&4Նշված աշխատանքային աշխարհը չի գտնվել'
+admin.teleport.all.success: '&6Բոլոր թիմերի բոլոր մարդկանցը համալիրվել են'
+admin.teleport.all.home.success: '&6Բոլոր թիմերի բոլոր մարդկանցը, ովքեր ունեն տուն, համալիրվել են'
 
 nametag.syntax: '&6&l%s&r '
 holo.leaderboard: '&6Տեղաշարժի հաշիվը'

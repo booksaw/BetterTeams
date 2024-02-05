@@ -262,6 +262,10 @@ tag:
   maxLength: '&cTag çok uzun.'
   noPerm: '&cYetkin yok!'
 
+admin.teleport.noWorld: '&4Belirtilen dünya bulunamadı'
+admin.teleport.all.success: '&6Tüm takımların tüm çevrimiçi üyeleri teleporte edildi'
+admin.teleport.all.home.success: '&6Tüm takımların tüm çevrimiçi üyeleri evi olanlar teleporte edildi'
+
 nametag:
   
   syntax: '&6&l%s&r '

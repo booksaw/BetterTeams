@@ -258,6 +258,9 @@ admin.chest.disabled.bc: '&6&lTodos los cofres reclamados ahora pueden ser abier
 admin.chest.enable.already: '&4Protección de cofres ya está habilitada.'
 admin.chest.enable.success: '&6Protección de cofres habilitada.'
 admin.chest.enabled.bc: '&6&lTodos los cofres reclamados están bloqueados.'
+admin.teleport.noWorld: '&4Mundo especificado no encontrado'
+admin.teleport.all.success: '&6Todos los miembros en línea de todos los equipos fueron teletransportados'
+admin.teleport.all.home.success: '&6Todos los miembros en línea de todos los equipos con un hogar fueron teletransportados'
 
 promote.maxAdmins: '&4Tu equipo ya ha alcanzado el maximo n�mero de administradores, degrada a alguien o sube de nivel a tu equipo'
 promote.maxOwners: '&4Tu equipo ya ha alcanzado el maximo n�mero de due�os, degrada a alguien o sube de nivel a tu equipo'

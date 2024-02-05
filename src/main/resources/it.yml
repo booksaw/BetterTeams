@@ -363,6 +363,9 @@ admin:
       bc: '&6&lTutti i bauli claimati sono bloccati'
   teleport:
     success: '&6Tutti i membri online di questo team sono stati teletrasportati'
+    noWorld: '&4Mondo specificato non trovato'
+    all.success: '&6Tutti i membri online di tutti i team sono stati teletrasportati'
+    all.home.success: '&6Tutti i membri online di tutti i team con una casa sono stati teletrasportati'
 nametag:
   syntax: '&6&l%s&r '
 holo:

@@ -359,6 +359,9 @@ admin:
       bc: '&6&lvisos pasisavintos skrynios dabar yra užrakintos'
   teleport:
     success: '&6Visi prisijunge komandos nariai buvo nuteleportuoti'
+    noWorld: '&4Nurodytas pasaulis nerastas'
+    all.success: '&6Visų komandų visi prisijungę nariai buvo perkelti'
+    all.home.success: '&6Visų komandų visi prisijungę nariai su namais buvo perkelti'
   versionstorage: '&6Storage Method: &b%s'
   versionversion: '&6Minecraft Version: &b%s'
 nametag:

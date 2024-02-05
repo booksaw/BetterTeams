@@ -279,6 +279,9 @@ admin.chest.enable.already: '&4أدعاءات الصناديق مفعلة بال
 admin.chest.enable.success: '&6تم تفعيل ادعاءات الصناديق بنجاح'
 admin.chest.enabled.bc: '&6&lالصناديق المدعومة الآن مؤمنة'
 admin.teleport.success: '&6تم نقل جميع أعضاء الفريق الحاليين'
+admin.teleport.noWorld: '&4العالم المحدد غير موجود'
+admin.teleport.all.success: '&6تم نقل جميع الأعضاء المتصلين في جميع الفرق'
+admin.teleport.all.home.success: '&6تم نقل جميع الأعضاء المتصلين في جميع الفرق الذين لديهم منزل'
 
 nametag.syntax: '&6&l%s&r '
 holo.leaderboard: '&6قائمة المتصدرين'
