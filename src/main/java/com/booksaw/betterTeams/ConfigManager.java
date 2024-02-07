@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
@@ -102,26 +104,34 @@ public class ConfigManager {
 		}
 
 		List<String> changes = updateFileConfig(Main.plugin.getResource(resourceName));
+		int migratedKeys = updateVariables();
 
 		if (log) {
-			if (changes.isEmpty()) {
+			if (changes.isEmpty() && migratedKeys == 0) {
 				logger.info("[BetterTeams] File is up to date");
 			} else {
-				logger.info("[BetterTeams] ==================================================================");
-				logger.info("[BetterTeams] File is not updated, adding values under the following references:");
+				if (!changes.isEmpty()) {
+					logger.info("[BetterTeams] ==================================================================");
+					logger.info("[BetterTeams] File is not updated, adding values under the following references:");
 
-				for (String str : changes) {
-					logger.info("[BetterTeams] - " + str);
+					for (String str : changes) {
+						logger.info("[BetterTeams] - " + str);
+					}
+				}
+
+				if (migratedKeys != 0) {
+					logger.info("[BetterTeams] " + resourceName + " is using legacy variables. Migration taking place.");
+					logger.info("[BetterTeams] " + migratedKeys + " references were migrated.");
 				}
 
 				logger.info("[BetterTeams] " + resourceName
-						+ " is now upated to the latest version, thank you for using BetterTeams");
+						+ " is now updated to the latest version, thank you for using BetterTeams");
 				logger.info("[BetterTeams] ==================================================================");
 
 			}
 		}
 
-		if (!changes.isEmpty()) {
+		if (!changes.isEmpty() || migratedKeys != 0) {
 			save(false);
 		}
 
@@ -152,6 +162,37 @@ public class ConfigManager {
 
 		return addedPaths;
 
+	}
+
+	private int updateVariables() {
+		if (!config.saveToString().contains("%s")) {
+			return 0;
+		}
+		int migratedKeys = 0;
+		for (String key : config.getKeys(true)) {
+			Object keyVal = config.get(key);
+			if (keyVal instanceof String) {
+				String stringVal = (String) keyVal;
+
+				if (!stringVal.contains("%s")) {
+					continue;
+				}
+
+				Pattern pattern = Pattern.compile("%s");
+				Matcher matcher = pattern.matcher(stringVal);
+
+				StringBuilder sb = new StringBuilder();
+				int count = 0;
+				while (matcher.find()) {
+					matcher.appendReplacement(sb, "{" + count++ + "}");
+				}
+				matcher.appendTail(sb);
+
+				config.set(key, sb.toString());
+				migratedKeys++;
+			}
+		}
+		return migratedKeys;
 	}
 
 	public void saveResource(String resourcePath, String resultPath, boolean replace) {

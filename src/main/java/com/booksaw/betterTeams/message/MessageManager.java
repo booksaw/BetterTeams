@@ -186,11 +186,7 @@ public class MessageManager {
 				return;
 			}
 
-			try {
-				message = String.format(prefix + message, (Object[]) replacement);
-			} catch (MissingFormatArgumentException e) {
-				// expected error if the message does not contain %s
-			}
+			message = format(message, replacement);
 
 			sender.sendMessage(message);
 		} catch (NullPointerException e) {
@@ -213,11 +209,11 @@ public class MessageManager {
 				return;
 			}
 
-			try {
-				message = String.format(prefix + message, replacement);
-			} catch (MissingFormatArgumentException e) {
-				// expected error if the message does not contain %s
+			String[] strReplacement = new String[replacement.length];
+			for (int i = 0; i < replacement.length; i++) {
+				strReplacement[i] = replacement[i] + "";
 			}
+			message = format(message, strReplacement);
 
 			sender.sendMessage(message);
 		} catch (NullPointerException e) {
@@ -256,6 +252,32 @@ public class MessageManager {
 			Bukkit.getLogger().warning("Could not find the message with the reference " + reference);
 			return "";
 		}
+	}
+
+	public static String getMessageF(String reference, String... replacement) {
+		try {
+			String message = getMessage(reference);
+			if (message.equals("")) {
+				return "";
+			}
+
+			message = format(message, replacement);
+
+			return message;
+		} catch (NullPointerException e) {
+			Bukkit.getLogger().warning("Could not find the message with the reference " + reference);
+			return "";
+		}
+	}
+
+	public static String format(String content, String... replacement) {
+		if (content == null || content.isEmpty()) return "";
+
+		String formatted = content;
+		for (int i = 0; i < replacement.length; i++) {
+			formatted = formatted.replace("{" + i + "}", replacement[i]);
+		}
+		return formatted;
 	}
 
 	public static HashMap<String, String> getMessages() {
