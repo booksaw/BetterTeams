@@ -17,25 +17,25 @@ noPlayer: "&4No s'ha trobat el jugador especificat"
 notTeam: "&6&4Aquest equip no existeix, prova &b/team create <nom>"
 needSameTeam: "&6No formeu part del mateix equip que aquella persona"
 noPerm: "&4No teniu perm�s per fer-ho"
-prefixSyntax: "&7[%s&7] &r%s"
+prefixSyntax: "&7[{0}&7] &r{1}"
 bannedChar: "&4Un car�cter que heu intentat utilitzar est� prohibit"
 noTeam: "&4Aquest equip no existeix"
 loading: "&6Carregant"
 cooldown:
-  wait: "&4Cal esperar %s segons abans d'executar-lo!"
+  wait: "&4Cal esperar {0} segons abans d'executar-lo!"
 cost:
   tooPoor: "&4Ets massa pobre per executar aquesta ordre"
-  run: "&4&l-%s"
+  run: "&4&l-{0}"
 placeholder:
   noTeam: ""
   noDescription: ""
-  money: "%s"
+  money: "{0}"
   owner: Propietari
   admin: Admin
   default: Default
-  name: "%s"
-  tag: "%s"
-  displayname: "%s"
+  name: "{0}"
+  tag: "{0}"
+  displayname: "{0}"
 prefix:
   owner: " **"
   admin: " *"
@@ -50,16 +50,16 @@ leave:
   lastOwner: "&6Ets l'�nic rang de propietari de l'equip, o b� promociona alg�
     altre o usa &b/team disband &6per dissoldre l'equip"
 announce:
-  join: "&3%s &7s'ha unit a l'equip %s"
-  leave: "&3%s &7ha deixat l'equip %s"
-  disband: "&7L'equip %s &7s'ha desmantellat"
+  join: "&3{0} &7s'ha unit a l'equip {1}"
+  leave: "&3{0} &7ha deixat l'equip {1}"
+  disband: "&7L'equip {0} &7s'ha desmantellat"
 rank:
   noTeam: "&4No s'ha trobat l'equip"
   info: "&6Posici� de l'equip:"
-  infos: "&6Rang de l'equip: &b%s &7(%s puntuaci� necess�ria per al seg�ent nivell)"
-  infom: "&6Rang de l'equip: &b%s &7($%s necessari per a la seg�ent nivell)"
-  infomm: "&6Rang de l'equip: &b%s &7(Has arribat al rang m�xim)"
-  syntax: "&b%s: &6%s &7(%s)"
+  infos: "&6Rang de l'equip: &b{0} &7({1} puntuaci� necess�ria per al seg�ent nivell)"
+  infom: "&6Rang de l'equip: &b{0} &7(${1} necessari per a la seg�ent nivell)"
+  infomm: "&6Rang de l'equip: &b{0} &7(Has arribat al rang m�xim)"
+  syntax: "&b{0}: &6{1} &7({2})"
 delhome:
   success: "&6S'ha suprimit la casa del teu equip"
   noHome: "&4El vostre equip no s'ha establert cap 'home'"
@@ -68,24 +68,24 @@ disband:
   confirm: "&Escriu &b/team disband &6de nou per confirmar"
 description:
   success: "&6Heu canviat la descripci� de l'equip"
-  view: "&6Descripci� de l'equip: %s"
+  view: "&6Descripci� de l'equip: {0}"
   noDesc: "&6No s'ha definit cap descripci� de l'equip"
   noPerm: "&4No teniu perm�s per editar la descripci�"
 name:
   success: "&6Heu canviat el nom de l'equip"
-  view: "&6Nom de l'equip: %s"
+  view: "&6Nom de l'equip: {0}"
   exists: "&4Aquest equip ja existeix"
   noPerm: "&4No teniu perm�s per canviar el nom del vostre equip"
 invite:
   success: "&6Aquest jugador ha estat convidat"
-  invite: "&6Us han convidat a unir-vos a l'equip %s fes &b/team join <team> &6 per unir-se a l'equip"
+  invite: "&6Us han convidat a unir-vos a l'equip {0} fes &b/team join <team> &6 per unir-se a l'equip"
   inTeam: "&6Aquest jugador ja forma part d'un equip"
   banned: "&6Aquest jugador est� prohibit al teu equip"
   full: "&6El vostre equip t� la mida m�xima, expulseu alg� abans de convidar m�s persones"
-  expired: "&4La invitaci� de &b%s ha caducat"
+  expired: "&4La invitaci� de &b{0} ha caducat"
 join:
   success: "&6T'has unit a aquest equip"
-  notify: "&Benvingut &b%s &6a l'equip!"
+  notify: "&Benvingut &b{0} &6a l'equip!"
   notInvited: "&6&4No us han convidat a aquest equip"
   banned: "&6&4Tens prohibit aquest equip"
   full: "&4Aquell equip est� ple"
@@ -93,7 +93,7 @@ open:
   successopen: "&6El vostre equip est� obert a tothom"
   successclose: "&6El vostre equip ara nom�s �s a partir de invitaci�"
 title:
-  change: "&6El vostre t�tol s'ha canviat a &b%s"
+  change: "&6El vostre t�tol s'ha canviat a &b{0}"
   remove: "&6El vostre t�tol s'ha eliminat"
   success: "&6Aquest t�tol s'ha canviat"
   tooLong: "&4Aquest t�tol �s massa llarg"
@@ -103,30 +103,30 @@ title:
   noPerm: "&4No teniu perm�s per canviar el t�tol del vostre equip"
 info:
   needTeam: "&6No s'ha trobat cap equip ni cap jugador amb aquest nom"
-  name: "&6Nom: &b%s"
-  description: "&6Descripci�: &b%s"
-  open: "&6Obert? &b%s"
-  level: "&6Nivell: &b%s"
-  owner: "&6Propietaris: &b%s"
-  admin: "&6Admins: &b%s"
-  default: "&6Membres: &b%s"
-  tag: "&6Etiqueta: &b%s"
+  name: "&6Nom: &b{0}"
+  description: "&6Descripci�: &b{0}"
+  open: "&6Obert? &b{0}"
+  level: "&6Nivell: &b{0}"
+  owner: "&6Propietaris: &b{0}"
+  admin: "&6Admins: &b{0}"
+  default: "&6Membres: &b{0}"
+  tag: "&6Etiqueta: &b{0}"
   fail: "&6No s'ha trobat cap equip ni cap jugador amb aquest nom"
-  score: "&6Puntuaci�: &b%s"
-  money: "&6Dep�sit: &b%s"
-  ally: "&6Aliats: &b%s"
+  score: "&6Puntuaci�: &b{0}"
+  money: "&6Dep�sit: &b{0}"
+  ally: "&6Aliats: &b{0}"
 kick:
   success: "&6Aquest jugador ha estat expulsat"
-  notify: "&6Us han expulsat de l'equip %s"
+  notify: "&6Us han expulsat de l'equip {0}"
   noPerm: "&6No teniu perm�s per expulsar a aquesta persona"
 ban:
   success: "&6Aquest jugador ha estat prohibit"
-  notify: "&6T'han prohibit l'equip %s"
+  notify: "&6T'han prohibit l'equip {0}"
   noPerm: "&6No teniu perm�s per prohibir aquesta persona"
   already: "&6TAquest jugador ja est� prohibit"
 unban:
   success: "&6Aquest jugador ha deixat d'estar prohibit"
-  notify: "&6Ja no est�s prohibit a l'equip %s"
+  notify: "&6Ja no est�s prohibit a l'equip {0}"
   noPerm: "&6No tens permisos per fer aquest moviment"
   not: "&6El jugador no est� prohibit"
 promote:
@@ -150,7 +150,7 @@ sethome:
 chat:
   enabled: "&6Els vostres missatges ara van al xat d'equip"
   disabled: "&6Els vostres missatges ara van al xat global"
-  syntax: "&b[Equip]&f%s&f: %s"
+  syntax: "&b[Equip]&f{0}&f: {1}"
 color:
   success: "&6S'ha canviat el color del vostre equip"
   fail: "&6Aquest no �s un color de xat reconegut"
@@ -168,11 +168,11 @@ withdraw:
 ally:
   already: "&4Ja sou aliats"
   success: "&6Els vostres equips s�n ara aliats"
-  ally: "&6Ara el vostre equip est� aliat amb &b%s"
+  ally: "&6Ara el vostre equip est� aliat amb &b{0}"
   requested: "&6S'ha enviat una sol�licitud d'aliat a aquest equip"
-  request: "&b%s &6t'ha enviat una sol�licitud d'aliat, fes &b/team ally <equip> &6per acceptar"
+  request: "&b{0} &6t'ha enviat una sol�licitud d'aliat, fes &b/team ally <equip> &6per acceptar"
   self: "&4No es pot aliar el seu propi equip"
-  from: "&6Teniu sol�licituds d'aliats de: %s"
+  from: "&6Teniu sol�licituds d'aliats de: {0}"
   noRequests: "&4No teniu cap sol�licitud d'aliat"
   onJoin: "&6Teniu noves sol�licituds d'aliats, fes &b/team ally &6per veure-la"
   limit: "&4S'ha arribat al l�mit d'aliats"
@@ -180,18 +180,18 @@ ally:
 allychat:
   disabled: "&6Els vostres missatges ja no aniran al xat aliat"
   enabled: "&6Els vostres missatges ara aniran al xat aliat"
-  syntax: "&d[%s]&f%s&f: %s"
+  syntax: "&d[{0}]&f{1}&f: {2}"
 neutral:
   self: "&6Aquest �s el vostre propi equip"
   requestremove: "&6Aquesta sol�licitud d'aliat s'ha eliminat"
-  reject: "&4La vostra sol�licitud d'aliat amb &b%s &4 s'ha rebutjat"
+  reject: "&4La vostra sol�licitud d'aliat amb &b{0} &4 s'ha rebutjat"
   notAlly: "&4No esteu aliat amb aquest equip"
   success: "&4Ja no esteu aliat amb aquest equip"
-  remove: "&4Ja no esteu aliats amb &b%s"
+  remove: "&4Ja no esteu aliats amb &b{0}"
 list:
   noPage: "&6No es troba la p�gina"
-  header: "&7--- &bP�gina de llista d'equips %s &7---"
-  body: "&6%s: &b%s"
+  header: "&7--- &bP�gina de llista d'equips {0} &7---"
+  body: "&6{0}: &b{1}"
   footer: "&7--- &6fes &b/team list [page] &6per veure m�s &7---"
 setowner:
   use: "&6No podeu promocionar aquest jugador, fes &b/team setowner <jugador> &6per promocionar aquest jugador a propietari"
@@ -209,13 +209,13 @@ warp:
   success: "&6You have been teleported"
   world: "&4The location of that warp could not be found"
 warps:
-  syntax: "&6Warps: &b%s"
+  syntax: "&6Warps: &b{0}"
   none: "&4Your team has no warps set"
 delwarp:
   success: "&4That warp has been deleted"
 teleport:
   fail: "&4La teleportaci� ha fallat"
-  wait: "&6Espera &b%s &6segons"
+  wait: "&6Espera &b{0} &6segons"
 chest:
   claim:
     noChest: "&4No esteu parat sobre un cofre"
@@ -228,7 +228,7 @@ chest:
     success: "&4El vostre equip ja no t� cap reclamaci� sobre aquest cofre"
   all:
     success: "&6S'han reclamat tots els cofres"
-  claimed: "&4Aquest cofre �s reclamat per &a%s"
+  claimed: "&4Aquest cofre �s reclamat per &a{0}"
 echest:
   echest: Enderchest
 pvp:
@@ -236,8 +236,8 @@ pvp:
   disabled: "&6El vostre equip ha desactivat el PVP"
 rankup:
   max: "&4Ja sou el m�xim nivell"
-  score: "&4Necessites %s puntuaci� per pujar de nivell"
-  money: "&4Necessites %s diners en el saldo de l'equip fins a la classificaci�"
+  score: "&4Necessites {0} puntuaci� per pujar de nivell"
+  money: "&4Necessites {0} diners en el saldo de l'equip fins a la classificaci�"
   success: "&6El vostre equip ha pujat de nivell"
 tag:
   banned: "&4Aquesta etiqueta est� prohibida"
@@ -263,7 +263,7 @@ admin:
   title:
     success: "&6that players title has been changed"
     reset: "&6That players title has been reset"
-  version: "&6Current plugin version: %s"
+  version: "&6Current plugin version: {0}"
   noTeam: "&4That is not a team"
   home:
     success: "&6You have been teleported to that teams home"
@@ -282,7 +282,7 @@ admin:
   join:
     banned: "&4That player is banned from that team"
     success: "&6That player has joined the team"
-    notify: "&6You have joined the team &b%s"
+    notify: "&6You have joined the team &b{0}"
     full: "&4That team is full"
   notInTeam: "&6That player cannot be in a team before doing that"
   inTeam: "&4That player is not in a team"
@@ -340,24 +340,24 @@ admin:
     enabled:
       bc: "&6&lAll claimed chests are locked"
 nametag:
-  syntax: "&6&l%s&r "
+  syntax: "&6&l{0}&r "
 holo:
   leaderboard: "&6Taula de classificaci�"
-  syntax: "&6%s: &b%s"
-  msyntax: "&6%s: &b$%s"
+  syntax: "&6{0}: &b{1}"
+  msyntax: "&6{0}: &b${1}"
 top:
   leaderboard: "&6Taula de classificaci�"
-  syntax: "&b%s: &6%s &7(%s)"
+  syntax: "&b{0}: &6{1} &7({2})"
   divide: "&f..."
 baltop:
   leaderboard: "&6Taula de classificaci�"
-  syntax: "&b%s: &6%s &7(%s)"
+  syntax: "&b{0}: &6{1} &7({2})"
   divide: "&f..."
 spy:
   stop: "&6Ja no espieu els missatges de l'equip"
   start: "&6Ara esteu espiant missatges d'equip"
-  team: "&7[&b%s&7]&f%s&f: %s"
-  ally: "&7[&d%s&7]&f%s&f: %s"
+  team: "&7[&b{0}&7]&f{1}&f: {2}"
+  ally: "&7[&d{0}&7]&f{1}&f: {2}"
 uclaim:
   team: "&4Heu d'estar en equip per crear una reclamaci�"
   member: "&4No podeu deixar la reclamaci� dels vostres equips"

@@ -17,25 +17,25 @@ noPlayer: '&4A megadott játékos nem található'
 notTeam: '&6&4Az a csapat nem létezik, próbáld meg a következőt: &b/team create <név>'
 needSameTeam: '&6Nem ugyanabban a csapatban vagy, mint az a személy'
 noPerm: '&4Nincs jogosultságod ehhez'
-prefixSyntax: '&7[%s&7] &r%s'
+prefixSyntax: '&7[{0}&7] &r{1}'
 bannedChar: '&4Egy tiltott karaktert próbáltál használni'
 noTeam: '&4Az a csapat nem létezik'
 loading: '&6Betöltés'
 cooldown:
-  wait: '&4Még %s másodpercet kell várnod, mielőtt újra futtathatod ezt!'
+  wait: '&4Még {0} másodpercet kell várnod, mielőtt újra futtathatod ezt!'
 cost:
   tooPoor: '&4Túl szegény vagy ahhoz, hogy végrehajthasd ezt a parancsot'
-  run: '&4&l-%s'
+  run: '&4&l-{0}'
 placeholder:
   noTeam: '&7Nincs Csapat'
   noDescription: ''
-  money: '%s'
+  money: '{0}'
   owner: Owner
   admin: Admin
   default: Default
-  name: '%s'
-  tag: '%s'
-  displayname: '%s'
+  name: '{0}'
+  tag: '{0}'
+  displayname: '{0}'
   inteam: 'true'
   notinteam: 'false'
   noTitle: ''
@@ -53,16 +53,16 @@ leave:
   lastOwner: '&6Te vagy az egyetlen tulajdonos a csapatban. Lépj elő valakit másikra,
     vagy használd a &b/team disband &6parancsot a csapat feloszlatásához.'
 announce:
-  join: '&3%s &7csatlakozott a %s csapathoz'
-  leave: '&3%s &7elhagyta a %s csapatot'
-  disband: '&7A %s csapat feloszlott'
+  join: '&3{0} &7csatlakozott a {1} csapathoz'
+  leave: '&3{0} &7elhagyta a {1} csapatot'
+  disband: '&7A {0} csapat feloszlott'
 rank:
   noTeam: '&4A csapat nem található'
   info: '&6Csapat pozíció:'
-  infos: '&6Csapat rang: &b%s &7(%s pont szükséges a következő ranglépéshez)'
-  infom: '&6Csapat rang: &b%s &7($%s szükséges a következő ranglépéshez)'
-  infomm: '&6Csapat rang: &b%s &7(Elérted a legmagasabb rangot)'
-  syntax: '&b%s: &6%s &7(%s)'
+  infos: '&6Csapat rang: &b{0} &7({1} pont szükséges a következő ranglépéshez)'
+  infom: '&6Csapat rang: &b{0} &7(${1} szükséges a következő ranglépéshez)'
+  infomm: '&6Csapat rang: &b{0} &7(Elérted a legmagasabb rangot)'
+  syntax: '&b{0}: &6{1} &7({2})'
 delhome:
   success: '&6A csapat otthona törölve lett'
   noHome: '&4A csapatnak nincs beállított otthona'
@@ -71,26 +71,26 @@ disband:
   confirm: '&6Írd be újra a &b/team disband &6parancsot a megerősítéshez'
 description:
   success: '&6Megváltoztattad a csapat leírását'
-  view: '&6Csapat leírása: %s'
+  view: '&6Csapat leírása: {0}'
   noDesc: '&6Nincs beállítva csapat leírás'
   noPerm: '&4Nincs jogosultságod a leírás szerkesztéséhez'
 name:
   success: '&6Megváltoztattad a csapat nevét'
-  view: '&6Csapat neve: %s'
+  view: '&6Csapat neve: {0}'
   exists: '&4Ez a csapat már létezik'
   noPerm: '&4Nincs jogosultságod a csapat nevének megváltoztatásához'
 invite:
   success: '&6Az adott játékost meghívtad a csapathoz'
-  invite: '&6Meghívtak, hogy csatlakozz a(z) %s csapathoz. Írd be a &b/team join <csapat>
+  invite: '&6Meghívtak, hogy csatlakozz a(z) {0} csapathoz. Írd be a &b/team join <csapat>
     &6parancsot a csatlakozáshoz a csapathoz'
   inTeam: '&6Az adott játékos már egy csapatban van'
   banned: '&6Az adott játékos kitiltva van a csapatodból'
   full: '&6A csapat maximum elérte maxlétszámot, távolíts el valakit, mielőtt újabb
     meghívásokat küldesz'
-  expired: '&4Az &b%s &6által küldött meghívó lejárt'
+  expired: '&4Az &b{0} &6által küldött meghívó lejárt'
 join:
   success: '&6Csatlakoztál a csapathoz'
-  notify: '&6Üdvözöllek, &b%s &6a csapatban!'
+  notify: '&6Üdvözöllek, &b{0} &6a csapatban!'
   notInvited: '&6&4Nem kaptál meghívót ahhoz a csapathoz'
   banned: '&6&4Letiltva vagy ennek a csapatnak a tagjai között'
   full: '&4Az adott csapat megtelt'
@@ -98,7 +98,7 @@ open:
   successopen: '&6A csapatod mostantól nyitott mindenki számára'
   successclose: '&6A csapatod mostantól meghívás alapú'
 title:
-  change: '&6A címed megváltozott erre: &b%s'
+  change: '&6A címed megváltozott erre: &b{0}'
   remove: '&6Eltávolították a címedet'
   success: '&6A cím megváltozott'
   tooLong: '&4A cím túl hosszú'
@@ -108,32 +108,32 @@ title:
   noPerm: '&4Nincs jogosultságod a csapat címének megváltoztatásához'
 info:
   needTeam: '&6Nincs ilyen nevű csapat vagy játékos'
-  name: '&6Név: &b%s'
-  description: '&6Leírás: &b%s'
-  open: '&6open: &b%s'
-  level: '&6Szint: &b%s'
-  owner: '&6Tulajdonosok: &b%s'
-  admin: '&6Staffok: &b%s'
-  default: '&6Tagok: &b%s'
-  tag: '&6Címke: &b%s'
+  name: '&6Név: &b{0}'
+  description: '&6Leírás: &b{0}'
+  open: '&6open: &b{0}'
+  level: '&6Szint: &b{0}'
+  owner: '&6Tulajdonosok: &b{0}'
+  admin: '&6Staffok: &b{0}'
+  default: '&6Tagok: &b{0}'
+  tag: '&6Címke: &b{0}'
   fail: '&6Nincs ilyen nevű csapat vagy játékos'
-  score: '&6Pontszám: &b%s'
-  money: '&6Egyenleg: &b%s'
-  ally: '&6Szövetségesek: &b%s'
+  score: '&6Pontszám: &b{0}'
+  money: '&6Egyenleg: &b{0}'
+  ally: '&6Szövetségesek: &b{0}'
 kick:
   success: '&6Az adott játékost kirúgtad'
-  notify: '&6Kirúgtak a(z) %s csapatból'
+  notify: '&6Kirúgtak a(z) {0} csapatból'
   title: '&4Kirúgtak a csapatodból'
   noPerm: '&6Nincs jogosultságod ahhoz, hogy kirúgd azt a személyt'
 ban:
   success: '&6Az adott játékost kitiltottad'
-  notify: '&6Kitiltottak a(z) %s csapatból'
+  notify: '&6Kitiltottak a(z) {0} csapatból'
   title: '&4Kitiltottak a csapatodból'
   noPerm: '&6Nincs jogosultságod ahhoz, hogy kitiltsd azt a személyt'
   already: '&6Az adott játékos már kitiltva van'
 unban:
   success: '&6Az adott játékos kitiltása feloldva'
-  notify: '&6Feloldották a kitiltásod a(z) %s csapatból'
+  notify: '&6Feloldották a kitiltásod a(z) {0} csapatból'
   noPerm: '&6Nincs jogosultságod ahhoz, hogy felold a kitiltást'
   not: '&6Az adott játékos nincs kitiltva'
 promote:
@@ -164,7 +164,7 @@ sethome:
 chat:
   enabled: '&6Az üzeneteid most a csapat csevegésben jelennek meg'
   disabled: '&6Az üzeneteid most a globális csevegésben jelennek meg'
-  syntax: '&b[Csapattárs]&f%s&f: %s'
+  syntax: '&b[Csapattárs]&f{0}&f: {1}'
 color:
   success: '&6A csapat színe megváltozott'
   fail: '&6Ez nem egy felismert csevegési szín'
@@ -182,12 +182,12 @@ withdraw:
 ally:
   already: '&4Már szövetségesek vagytok'
   success: '&6A csapatok mostantól szövetségben vannak'
-  ally: '&6A csapatod mostantól szövetségben van a következő csapattal: &b%s'
+  ally: '&6A csapatod mostantól szövetségben van a következő csapattal: &b{0}'
   requested: '&6Szövetségesi kérelem elküldve ennek a csapatnak'
-  request: '&b%s &6szövetségesi kérelmet küldött, használd a(z) &b/team ally <csapat>
+  request: '&b{0} &6szövetségesi kérelmet küldött, használd a(z) &b/team ally <csapat>
     &6parancsot a elfogadáshoz'
   self: '&4Nem tudod szövetségesíteni a saját csapatodat'
-  from: '&6Szövetségesi kérelmeket kaptál a következő csapatoktól: %s'
+  from: '&6Szövetségesi kérelmeket kaptál a következő csapatoktól: {0}'
   noRequests: '&4Nincs szövetségesi kérelmed'
   onJoin: '&6Új szövetségesi kérelmeket kaptál, használd a(z) &b/team ally &6parancsot
     a megtekintéshez'
@@ -196,18 +196,18 @@ ally:
 allychat:
   disabled: '&6Az üzeneteid már nem a szövetséges csevegésben jelennek meg'
   enabled: '&6Az üzeneteid most a szövetséges csevegésben jelennek meg'
-  syntax: '&d[%s]&f%s&f: %s'
+  syntax: '&d[{0}]&f{1}&f: {2}'
 neutral:
   self: '&6Az a saját csapatod'
   requestremove: '&6Az szövetségesi kérelem eltávolítva'
-  reject: '&4Az szövetségesi kérelmedet a következő csapattól elutasították: &b%s'
+  reject: '&4Az szövetségesi kérelmedet a következő csapattól elutasították: &b{0}'
   notAlly: '&4Nem vagy szövetségben ezzel a csapattal'
   success: '&4Nem vagy továbbra sem szövetségben ezzel a csapattal'
-  remove: '&4Már nem vagy szövetségben &b%s &4csapattal'
+  remove: '&4Már nem vagy szövetségben &b{0} &4csapattal'
 list:
   noPage: '&6Az oldal nem található'
-  header: '&7--- &bCsapatlista %s. oldal &7---'
-  body: '&6%s: &b%s'
+  header: '&7--- &bCsapatlista {0}. oldal &7---'
+  body: '&6{0}: &b{1}'
   footer: '&7--- &6Használd a(z) &b/team list [oldal] &6parancsot továbbiak megtekintéséhez
     &7---'
 setowner:
@@ -227,13 +227,13 @@ warp:
   success: '&6Teleport a warphoz'
   world: '&4Nem található a warp helyszíne'
 warps:
-  syntax: '&6Ugráspontok: &b%s'
+  syntax: '&6Ugráspontok: &b{0}'
   none: '&4A csapatodnak nincsenek beállított warpja'
 delwarp:
   success: '&4A warp Törölve'
 teleport:
   fail: '&4A teleportálás sikertelen volt'
-  wait: '&6Várj &b%s &6másodpercet'
+  wait: '&6Várj &b{0} &6másodpercet'
 chest:
   noChest: '&4Nem állsz egy ládán sem'
   limit: '&4A csapatod elért a maximális számú ládához'
@@ -256,7 +256,7 @@ remove:
   success: '&4A csapatod már nem rendelkezik igénnyel arra a ládára'
 all:
   success: '&6Az összes láda lefoglalása megszűnt'
-  claimed: '&4Az a láda le van foglalva a következő csapat által: &a%s'
+  claimed: '&4Az a láda le van foglalva a következő csapat által: &a{0}'
 echest:
   
   echest: Enderchest
@@ -267,8 +267,8 @@ pvp:
 rankup:
   
   max: '&4Már elérted a maximális rangot'
-  score: '&4%s pont szükséges a ranglépéshez'
-  money: '&4%s pénz szükséges a csapat egyenlegében a ranglépéshez'
+  score: '&4{0} pont szükséges a ranglépéshez'
+  money: '&4{0} pénz szükséges a csapat egyenlegében a ranglépéshez'
   success: '&6A csapatod felemelkedett a ranglistán'
 tag:
   
@@ -297,9 +297,9 @@ admin:
   title:
     success: '&6A játékos címe megváltozott'
     reset: '&6A játékos címe visszaállításra került'
-  version: '&6Jelenlegi plugin verzió: &b%s'
-  versionstorage: '&6Tárolási módszer: &b%s'
-  versionversion: '&6Minecraft verzió: &b%s'
+  version: '&6Jelenlegi plugin verzió: &b{0}'
+  versionstorage: '&6Tárolási módszer: &b{0}'
+  versionversion: '&6Minecraft verzió: &b{0}'
   noTeam: '&4Ez nem egy csapat'
   home:
     success: '&6Át lettél teleportálva a csapat otthonába'
@@ -318,7 +318,7 @@ admin:
   join:
     banned: '&4A játékos ki van tiltva a csapatból'
     success: '&6A játékos csatlakozott a csapathoz'
-    notify: '&6Csatlakoztál a(z) &b%s&6 csapathoz'
+    notify: '&6Csatlakoztál a(z) &b{0}&6 csapathoz'
     full: '&4A csapat megtelt'
   notInTeam: '&6Az a játékos nem lehet csapatban, mielőtt ezt végrehajtaná'
   inTeam: '&4Az a játékos nincs csapatban'
@@ -386,27 +386,27 @@ admin:
       bc: '&6&lAz összes igényelt láda le van zárva'
   teleport:
     success: '&6Az adott csapat összes online tagja teleportálva lett'
-  versionlanguage: '&6Kiválasztott nyelv: &b%s'
+  versionlanguage: '&6Kiválasztott nyelv: &b{0}'
 nametag:
   
-  syntax: '&6&l%s&r '
+  syntax: '&6&l{0}&r '
 holo:
   leaderboard: '&6Ranglista'
-  syntax: '&6%s: &b%s'
-  msyntax: '&6%s: &b$%s'
+  syntax: '&6{0}: &b{1}'
+  msyntax: '&6{0}: &b${1}'
 top:
   leaderboard: '&6Leaderboard'
-  syntax: '&b%s: &6%s &7(%s)'
+  syntax: '&b{0}: &6{1} &7({2})'
   divide: '&f...'
 baltop:
   leaderboard: '&6Ranglista'
-  syntax: '&b%s: &6%s &7(%s)'
+  syntax: '&b{0}: &6{1} &7({2})'
   divide: '&f...'
 spy:
   stop: '&6Már nem figyelsz csapat üzenetekre'
   start: '&6Mostantól figyeled a csapat üzeneteket'
-  team: '&7[&b%s&7]&f%s&f: %s'
-  ally: '&7[&d%s&7]&f%s&f: %s'
+  team: '&7[&b{0}&7]&f{1}&f: {2}'
+  ally: '&7[&d{0}&7]&f{1}&f: {2}'
 uclaim:
   
   team: '&4Csapatban kell lenned, hogy igényt nyújthass be'

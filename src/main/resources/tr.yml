@@ -16,25 +16,25 @@ noPlayer: '&cOyuncu bulunamadı'
 notTeam: '&cTakım bulunamadı. &b/team create <isim> &ckomutu ile takım oluştur.'
 needSameTeam: '&cBu oyuncuyla aynı takımda değilsin.'
 noPerm: '&cYetkin yok!'
-prefixSyntax: '&7[%s&7] &r%s'
+prefixSyntax: '&7[{0}&7] &r{1}'
 bannedChar: '&cYasaklı karakter!'
 noTeam: '&cBöyle bir takım yok.'
 loading: '&6Yükleniyor...'
 cooldown:
-  wait: '&cBunu yapabilmek için &6%s &csaniye beklemelisin!'
+  wait: '&cBunu yapabilmek için &6{0} &csaniye beklemelisin!'
 cost:
   tooPoor: '&cBakiyen yetersiz.'
-  run: '&4&l-%s'
+  run: '&4&l-{0}'
 placeholder:
   noTeam: ''
   noDescription: ''
-  money: '%s'
+  money: '{0}'
   owner: Sahibi
   admin: Admin
   default: Üye
-  name: '%s'
-  tag: '%s'
-  displayname: '%s'
+  name: '{0}'
+  tag: '{0}'
+  displayname: '{0}'
   inteam: takımda
   notinteam: takımda değil
   noTitle: ''
@@ -52,16 +52,16 @@ leave:
   lastOwner: '&cTakımın tek sahibi sensin. Birilerini terfi et ya da &6/team disband
     &ckomutu ile takımı kapat.'
 announce:
-  join: '&3%s &7takıma katıldı: %s'
-  leave: '&3%s &7takımdan ayrıldı: %s'
-  disband: '&7Takım %s dağıtıldı'
+  join: '&3{0} &7takıma katıldı: {1}'
+  leave: '&3{0} &7takımdan ayrıldı: {1}'
+  disband: '&7Takım {0} dağıtıldı'
 rank:
   noTeam: '&4Takım bulunamadı.'
   info: '&6Takım pozisyonu:'
-  infos: '&6Takım rütbesi: &b%s &7(Yeni rütbe için %s puan gerekiyor.)'
-  infom: '&6Takım rütbesi: &b%s &7(Yeni rütbe için $%s gerekiyor.)'
-  infomm: '&6Takım rütbesi: &b%s &7(En yüksek rütbedesin.)'
-  syntax: '&b%s: &6%s &7(%s)'
+  infos: '&6Takım rütbesi: &b{0} &7(Yeni rütbe için {1} puan gerekiyor.)'
+  infom: '&6Takım rütbesi: &b{0} &7(Yeni rütbe için ${1} gerekiyor.)'
+  infomm: '&6Takım rütbesi: &b{0} &7(En yüksek rütbedesin.)'
+  syntax: '&b{0}: &6{1} &7({2})'
 delhome:
   success: '&6Takım evi silindi.'
   noHome: '&cTakımının bir evi yok.'
@@ -70,25 +70,25 @@ disband:
   confirm: '&6Onaylamak için tekrar &b/team disband &6komutunu kullanın.'
 description:
   success: '&6Takım açıklamasını değiştirdin.'
-  view: '&6Takım Açıklaması: %s'
+  view: '&6Takım Açıklaması: {0}'
   noDesc: '&6Takım açıklaması yok.'
   noPerm: '&cYetkin yok!'
 name:
   success: '&6Takım adını değiştirdin.'
-  view: '&6Takım Adı: %s'
+  view: '&6Takım Adı: {0}'
   exists: '&cBöyle bir takım zaten var.'
   noPerm: '&cYetkin yok!'
 invite:
   success: '&6Oyuncu davet edildi.'
-  invite: '&6%s adlı takıma davet edildin. Kabul etmek için &b/team join <team> &6komutunu
+  invite: '&6{0} adlı takıma davet edildin. Kabul etmek için &b/team join <team> &6komutunu
     kullan. the team'
   inTeam: '&6Oyuncunun zaten bir takımı var'
   banned: '&6Oyuncu bu takımdan uzaklaştırılmış.'
   full: '&6Takımın dolu.'
-  expired: '&b%s &cadlı takımdan gelen davetin süresi doldu.'
+  expired: '&b{0} &cadlı takımdan gelen davetin süresi doldu.'
 join:
   success: '&6Takıma katıldın.'
-  notify: '&6Takıma hoş geldin &b%s!'
+  notify: '&6Takıma hoş geldin &b{0}!'
   notInvited: '&cTakıma davet edilmemişsin.'
   banned: '&cTakımdan uzaklaştırıldın.'
   full: '&cTakım dolu.'
@@ -96,7 +96,7 @@ open:
   successopen: '&6Takımın herkese açık!'
   successclose: '&6Takımın sadece davetlere açık!'
 title:
-  change: '&6Başlık &b%s &6olarak değiştirildi.'
+  change: '&6Başlık &b{0} &6olarak değiştirildi.'
   remove: '&6Başlık silindi.'
   success: '&6Başlık değiştirildi.'
   tooLong: '&cBaşlık çok uzun.'
@@ -106,32 +106,32 @@ title:
   noPerm: '&cYetkin yok!'
 info:
   needTeam: '&6Bu isimde bir oyuncu ya da takım bulunamadı.'
-  name: '&6İsim: &b%s'
-  description: '&6Açıklama: &b%s'
-  open: '&6Açık: &b%s'
-  level: '&6Seviye: &b%s'
-  owner: '&6Sahibi: &b%s'
-  admin: '&6Admin: &b%s'
-  default: '&6Üyeler: &b%s'
-  tag: '&6Tag: &b%s'
+  name: '&6İsim: &b{0}'
+  description: '&6Açıklama: &b{0}'
+  open: '&6Açık: &b{0}'
+  level: '&6Seviye: &b{0}'
+  owner: '&6Sahibi: &b{0}'
+  admin: '&6Admin: &b{0}'
+  default: '&6Üyeler: &b{0}'
+  tag: '&6Tag: &b{0}'
   fail: '&6Bu isimde bir oyuncu ya da takım bulunamadı.'
-  score: '&6Puan: &b%s'
-  money: '&6Bakiye: &b%s'
-  ally: '&6Müttefik: &b%s'
+  score: '&6Puan: &b{0}'
+  money: '&6Bakiye: &b{0}'
+  ally: '&6Müttefik: &b{0}'
 kick:
   success: '&6Oyuncu atıldı.'
-  notify: '&b%s &6adlı takımdan atıldın.'
+  notify: '&b{0} &6adlı takımdan atıldın.'
   title: '&cTakımından atıldın.'
   noPerm: '&cYetkin yok!'
 ban:
   success: '&6Oyuncu uzaklaştırıldı.'
-  notify: '&b%s &cadlı takımdan uzaklaştırıldın.'
+  notify: '&b{0} &cadlı takımdan uzaklaştırıldın.'
   title: '&cTakımından uzaklaştırıldın.'
   noPerm: '&cYetkin yok!'
   already: '&6Bu oyuncu zaten uzaklaştırılmış.'
 unban:
   success: '&6Oyuncunun uzaklaştırılması kaldırıldı.'
-  notify: '&b%s &6adlı takımdaki uzaklaştırılman kaldırıldı.'
+  notify: '&b{0} &6adlı takımdaki uzaklaştırılman kaldırıldı.'
   noPerm: '&cYetkin yok!'
   not: '&6Bu oyuncu uzaklaştırılmamış.'
 promote:
@@ -161,7 +161,7 @@ sethome:
 chat:
   enabled: '&6Takım sohbeti aktif!'
   disabled: '&6Takım sohbeti devredışı!'
-  syntax: '&b[Takım]&f%s&f: %s'
+  syntax: '&b[Takım]&f{0}&f: {1}'
 color:
   success: '&6Takım rengi değiştirildi.'
   fail: '&6Bilinmeyen renk kodu.'
@@ -179,12 +179,12 @@ withdraw:
 ally:
   already: '&cZaten müttefiksiniz.'
   success: '&6Takımın artık müttefik.'
-  ally: '&6Takımın &b%s &6takımı ile müttefik oldu.'
+  ally: '&6Takımın &b{0} &6takımı ile müttefik oldu.'
   requested: '&6Takıma müttefik isteği gönderildi.'
-  request: '&b%s &6adlı takım müttefik isteği gönderdi. Kabul etmek için &b/team ally
-    %s &6komutunu kullanın.'
+  request: '&b{0} &6adlı takım müttefik isteği gönderdi. Kabul etmek için &b/team ally
+    {0} &6komutunu kullanın.'
   self: '&cKendi takımınla müttefik olamazsın.'
-  from: '&b%s &6adlı takımdan müttefik isteğin mevcut.'
+  from: '&b{0} &6adlı takımdan müttefik isteğin mevcut.'
   noRequests: '&cHerhangi bir müttefik isteğin yok.'
   onJoin: '&6Yeni müttefik isteğin var. &b/team ally &6komutunu kullanarak görüntüleyebilirsin.'
   limit: '&cMüttefik sınırına ulaştın.'
@@ -192,18 +192,18 @@ ally:
 allychat:
   disabled: '&6Müttefik sohbeti devredışı.'
   enabled: '&6Müttefik sohbeti aktif.'
-  syntax: '&d[%s]&f%s&f: %s'
+  syntax: '&d[{0}]&f{1}&f: {2}'
 neutral:
   self: '&6Bu senin takımın'
   requestremove: '&6Müttefik isteği reddedildi.'
-  reject: '&b%s &ctakımına gönderdiğin müttefik isteği reddedildi.'
+  reject: '&b{0} &ctakımına gönderdiğin müttefik isteği reddedildi.'
   notAlly: '&cArtık bu takımla müttefik değilsin.'
   success: '&cArtık bu takımla müttefik değilsin.'
-  remove: '&b%s &cadlı takımla müttefik değilsin.'
+  remove: '&b{0} &cadlı takımla müttefik değilsin.'
 list:
   noPage: '&6Sayfa bulunamadı.'
-  header: '&7--- &bTakım Listesi %s &7---'
-  body: '&6%s: &b%s'
+  header: '&7--- &bTakım Listesi {0} &7---'
+  body: '&6{0}: &b{1}'
   footer: '&7--- &6Daha fazla görüntülemek için: &b/team list [sayfa] &7---'
 setowner:
   use: '&6Bu oyuncuyu terfi edemezsin. &b/team setowner <oyuncu> &6komutu ile takım
@@ -222,13 +222,13 @@ warp:
   success: '&6Işınlandın.'
   world: '&cBu lokasyonda bir warp noktası bulunamadı.'
 warps:
-  syntax: '&6Warp noktaları: &b%s'
+  syntax: '&6Warp noktaları: &b{0}'
   none: '&cTakımının bir warp noktası yok.'
 delwarp:
   success: '&cWarp noktası silindi.'
 teleport:
   fail: '&cIşınlanma iptal edildi.'
-  wait: '&6Lütfen &b%s &6saniye bekleyin.'
+  wait: '&6Lütfen &b{0} &6saniye bekleyin.'
 chest:
   claim:
     noChest: '&cBir sandığın üzerinde durmuyorsun.'
@@ -241,7 +241,7 @@ chest:
     success: '&cTakımın artık bu sandığı sahiplenmiyor.'
   all:
     success: '&6Bütün sandıklar silindi.'
-  claimed: '&cBu sandık &a%s &ctarafından sahipleniyor.'
+  claimed: '&cBu sandık &a{0} &ctarafından sahipleniyor.'
 echest:
   
   echest: Enderchest
@@ -252,8 +252,8 @@ pvp:
 rankup:
   
   max: '&cZaten en yüksek rütbedesin.'
-  score: '&cRütbe atlamak için &b%s &cpuana ihtiyacın var.'
-  money: '&cRütbe atlamak için &b%s &cparaya ihtiyacın var'
+  score: '&cRütbe atlamak için &b{0} &cpuana ihtiyacın var.'
+  money: '&cRütbe atlamak için &b{0} &cparaya ihtiyacın var'
   success: '&6Takımın seviye atladı.'
 tag:
   
@@ -264,24 +264,24 @@ tag:
 
 nametag:
   
-  syntax: '&6&l%s&r '
+  syntax: '&6&l{0}&r '
 holo:
   leaderboard: '&6Liderler'
-  syntax: '&6%s: &b%s'
-  msyntax: '&6%s: &b$%s'
+  syntax: '&6{0}: &b{1}'
+  msyntax: '&6{0}: &b${1}'
 top:
   leaderboard: '&6Liderler'
-  syntax: '&b%s: &6%s &7(%s)'
+  syntax: '&b{0}: &6{1} &7({2})'
   divide: '&f...'
 baltop:
   leaderboard: '&6Liderler'
-  syntax: '&b%s: &6%s &7(%s)'
+  syntax: '&b{0}: &6{1} &7({2})'
   divide: '&f...'
 spy:
   stop: '&6Takım mesajlarını görmüyosun.'
   start: '&6Takım mesajlarını görüyorsun.'
-  team: '&7[&b%s&7]&f%s&f: %s'
-  ally: '&7[&d%s&7]&f%s&f: %s'
+  team: '&7[&b{0}&7]&f{1}&f: {2}'
+  ally: '&7[&d{0}&7]&f{1}&f: {2}'
 uclaim:
   
   team: '&cClaim alabilmek için bir takımda olmalısın.'
