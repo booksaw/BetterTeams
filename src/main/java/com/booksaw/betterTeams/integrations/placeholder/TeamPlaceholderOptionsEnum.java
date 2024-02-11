@@ -19,8 +19,9 @@ public enum TeamPlaceholderOptionsEnum {
 	ONLINELIST(new OnlineListPlaceholderProvider()), OFFLINELIST(new OfflineListPlaceholderProvider()),
 	ONLINE(new OnlinePlaceholderProvider()), MEMBERS(new MembersPlaceholderProvider()), DEFAULTMEMBERS(new DefaultMembersPlaceholderProvider()),
 	ADMINS(new AdminsPlaceholderProvider()), OWNERS(new OwnersPlaceholderProvider()),
-	LEVEL(new LevelPlaceholderProvider()), MAXMONEY(new MaxMoneyPlaceholderProvider()),
-	MAXMEMBERS(new MaxMembersPlaceholderProvider()), MAXWARPS(new MaxWarpsPlaceholderProvider()),
+	POSITIONSCORE(new PositionScorePlaceholderProvider()), POSITIONBAL(new PositionBalPlaceholderProvider()),
+	POSITIONMEMBERS(new PositionMembersPlaceholderProvider()), LEVEL(new LevelPlaceholderProvider()),
+	MAXMONEY(new MaxMoneyPlaceholderProvider()), MAXMEMBERS(new MaxMembersPlaceholderProvider()), MAXWARPS(new MaxWarpsPlaceholderProvider()),
 	PVP(new PvpPlaceholderProvider());
 
 	private final IndividualTeamPlaceholderProvider teamProvider;
