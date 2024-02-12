@@ -104,24 +104,18 @@ public class ConfigManager {
 		}
 
 		List<String> changes = updateFileConfig(Main.plugin.getResource(resourceName));
-		int migratedKeys = updateVariables();
+		boolean migratedVariables = migrateVariables(log);
 
 		if (log) {
-			if (changes.isEmpty() && migratedKeys == 0) {
+			if (changes.isEmpty() && !migratedVariables) {
 				logger.info("[BetterTeams] File is up to date");
-			} else {
-				if (!changes.isEmpty()) {
-					logger.info("[BetterTeams] ==================================================================");
-					logger.info("[BetterTeams] File is not updated, adding values under the following references:");
+			}
+			if (!changes.isEmpty()) {
+				logger.info("[BetterTeams] ==================================================================");
+				logger.info("[BetterTeams] File is not updated, adding values under the following references:");
 
-					for (String str : changes) {
-						logger.info("[BetterTeams] - " + str);
-					}
-				}
-
-				if (migratedKeys != 0) {
-					logger.info("[BetterTeams] " + resourceName + " is using legacy variables. Migration taking place.");
-					logger.info("[BetterTeams] " + migratedKeys + " references were migrated.");
+				for (String str : changes) {
+					logger.info("[BetterTeams] - " + str);
 				}
 
 				logger.info("[BetterTeams] " + resourceName
@@ -131,7 +125,7 @@ public class ConfigManager {
 			}
 		}
 
-		if (!changes.isEmpty() || migratedKeys != 0) {
+		if (!changes.isEmpty() || migratedVariables) {
 			save(false);
 		}
 
@@ -164,9 +158,12 @@ public class ConfigManager {
 
 	}
 
-	private int updateVariables() {
+	private boolean migrateVariables(boolean log) {
 		if (!config.saveToString().contains("%s")) {
-			return 0;
+			return false;
+		}
+		if (log) {
+			Bukkit.getLogger().info("[BetterTeams] " + resourceName + " is using legacy variables. Migration taking place.");
 		}
 		int migratedKeys = 0;
 		for (String key : config.getKeys(true)) {
@@ -192,7 +189,10 @@ public class ConfigManager {
 				migratedKeys++;
 			}
 		}
-		return migratedKeys;
+		if (log) {
+			Bukkit.getLogger().info("[BetterTeams] Legacy variable migration is complete. " + migratedKeys + " keys were migrated.");
+		}
+		return migratedKeys != 0;
 	}
 
 	public void saveResource(String resourcePath, String resultPath, boolean replace) {
