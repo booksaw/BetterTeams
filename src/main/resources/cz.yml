@@ -19,25 +19,25 @@ noPlayer: '&4Zadany hrac nebyl nalezen'
 notTeam: '&6&4Tento tym neexistuje, zkus &b/team create <jmeno>'
 needSameTeam: '&6Nejsi ve stejnem tymu jako tato osoba'
 noPerm: '&4Nemas opravneni to udelat'
-prefixSyntax: '&7[%s&7] &r%s'
+prefixSyntax: '&7[{0}&7] &r{1}'
 bannedChar: '&4Znak, ktery jsi se pokusil pouzit, je zakazan'
 noTeam: '&4Tento tym neexistuje'
 loading: '&6Nacitani'
 cooldown:
-  wait: '&4Musis pockat dalsich %s sekund, nez to znovu zkusis!'
+  wait: '&4Musis pockat dalsich {0} sekund, nez to znovu zkusis!'
 cost:
   tooPoor: '&4Jsi prilis chudy na to, abys mohl provest tento prikaz'
-  run: '&4&l-%s'
+  run: '&4&l-{0}'
 placeholder:
   noTeam: ''
   noDescription: ''
-  money: '%s'
+  money: '{0}'
   owner: Owner
   admin: Admin
   default: Default
-  name: '%s'
-  tag: '%s'
-  displayname: '%s'
+  name: '{0}'
+  tag: '{0}'
+  displayname: '{0}'
   inteam: 'true'
   notinteam: 'false'
   noTitle: ''
@@ -55,16 +55,16 @@ leave:
   lastOwner: '&6Jsi jedinym majitelem tymu. Bud povys nekoho jineho nebo pouzij &b/team
     disband &6pro rozpusteni tymu.'
 announce:
-  join: '&3%s &7se připojil k týmu %s'
-  leave: '&3%s &7opustil tým %s'
-  disband: '&7Tým %s &7byl rozpuštěn'
+  join: '&3{0} &7se připojil k týmu {1}'
+  leave: '&3{0} &7opustil tým {1}'
+  disband: '&7Tým {0} &7byl rozpuštěn'
 rank:
   noTeam: '&4Tym nenalezen'
   info: '&6Pozice tymu:'
-  infos: '&6Hodnost tymu: &b%s &7(Potrebne body: %s pro dalsi postup)'
-  infom: '&6Hodnost tymu: &b%s &7(Penize: $%s potrebne pro dalsi postup)'
-  infomm: '&6Hodnost tymu: &b%s &7(Jsi na nejvyssi mozne hodnosti)'
-  syntax: '&b%s: &6%s &7(%s)'
+  infos: '&6Hodnost tymu: &b{0} &7(Potrebne body: {1} pro dalsi postup)'
+  infom: '&6Hodnost tymu: &b{0} &7(Penize: ${1} potrebne pro dalsi postup)'
+  infomm: '&6Hodnost tymu: &b{0} &7(Jsi na nejvyssi mozne hodnosti)'
+  syntax: '&b{0}: &6{1} &7({2})'
 delhome:
   success: '&6Domov vaseho tymu byl odstranen'
   noHome: '&4Vas tym nema nastaveny domov'
@@ -73,26 +73,26 @@ disband:
   confirm: '&6Zadej &b/team disband &6znovu pro potvrzeni'
 description:
   success: '&6Zmenil jsi popis tymu'
-  view: '&6Popis tymu: %s'
+  view: '&6Popis tymu: {0}'
   noDesc: '&6Popis tymu neni nastaven'
   noPerm: '&4Nemas opravneni upravovat popis'
 name:
   success: '&6Zmenil jsi nazev tymu'
-  view: '&6Nazev tymu: %s'
+  view: '&6Nazev tymu: {0}'
   exists: '&4Tento tym jiz existuje'
   noPerm: '&4Nemas opravneni zmenit nazev tymu'
 invite:
   success: '&6Hrac byl pozvan'
-  invite: '&6Byl jsi pozvan k pripojeni se k tymu %s. Napis &b/team join <tym> &6pro
+  invite: '&6Byl jsi pozvan k pripojeni se k tymu {0}. Napis &b/team join <tym> &6pro
     pripojeni k tymu.'
   inTeam: '&6Tento hrac jiz je v tymu'
   banned: '&6Tento hrac je z vaseho tymu zakazan'
   full: '&6Vas tym ma maximalni pocet hracu, vyhodte nekoho pred pozvanim dalsich
     lidi'
-  expired: '&4Pozvanka od hrace &b%s &4vyprsela'
+  expired: '&4Pozvanka od hrace &b{0} &4vyprsela'
 join:
   success: '&6Pripojil jsi se k tomuto tymu'
-  notify: '&6Vitej, &b%s &6v tymu!'
+  notify: '&6Vitej, &b{0} &6v tymu!'
   notInvited: '&6&4Nejsi pozvan do tohoto tymu'
   banned: '&6&4Jsi zakazan v tomto tymu'
   full: '&4Tym je plny'
@@ -100,7 +100,7 @@ open:
   successopen: '&6Vas tym je nyni otevreny pro kazdeho'
   successclose: '&6Vas tym je nyni pouze na pozvani'
 title:
-  change: '&6Nazev titulu byl zmenen na &b%s'
+  change: '&6Nazev titulu byl zmenen na &b{0}'
   remove: '&6Nazev titulu byl odebran'
   success: '&6Tento titul byl zmenen'
   tooLong: '&4Tento titul je prilis dlouhy'
@@ -110,32 +110,32 @@ title:
   noPerm: '&4Nemas opravneni zmenit titul tymu'
 info:
   needTeam: '&6Tym nebo hrac s timto jmenem nebyl nalezen'
-  name: '&6Jmeno: &b%s'
-  description: '&6Popis: &b%s'
-  open: '&6Otevreny: &b%s'
-  level: '&6Uroven: &b%s'
-  owner: '&6Vlastnici: &b%s'
-  admin: '&6Admini: &b%s'
-  default: '&6Clenove: &b%s'
-  tag: '&6Tag: &b%s'
+  name: '&6Jmeno: &b{0}'
+  description: '&6Popis: &b{0}'
+  open: '&6Otevreny: &b{0}'
+  level: '&6Uroven: &b{0}'
+  owner: '&6Vlastnici: &b{0}'
+  admin: '&6Admini: &b{0}'
+  default: '&6Clenove: &b{0}'
+  tag: '&6Tag: &b{0}'
   fail: '&6Tym nebo hrac s timto jmenem nebyl nalezen'
-  score: '&6Skore: &b%s'
-  money: '&6Stav uctu: &b%s'
-  ally: '&6Spojenci: &b%s'
+  score: '&6Skore: &b{0}'
+  money: '&6Stav uctu: &b{0}'
+  ally: '&6Spojenci: &b{0}'
 kick:
   success: '&6Tento hrac byl vyhozen'
-  notify: '&6Byl jsi vyhozen z tymu %s'
+  notify: '&6Byl jsi vyhozen z tymu {0}'
   title: '&4Byl jsi vyhozen z tymu'
   noPerm: '&6Nemas opravneni vyhodit tuto osobu'
 ban:
   success: '&6Tento hrac byl zabanovan'
-  notify: '&6Byl jsi zabanovan z tymu %s'
+  notify: '&6Byl jsi zabanovan z tymu {0}'
   title: '&4Byl jsi zabanovan z tymu'
   noPerm: '&6Nemas opravneni zabanovat tuto osobu'
   already: '&6Tento hrac je jiz zabanovan'
 unban:
   success: '&6Tento hrac byl odbanovan'
-  notify: '&6Byl jsi odbanovan z tymu %s'
+  notify: '&6Byl jsi odbanovan z tymu {0}'
   noPerm: '&6Nemas opravneni odbanovat tuto osobu'
   not: '&6Tento hrac neni zabanovan'
 promote:
@@ -165,7 +165,7 @@ sethome:
 chat:
   enabled: '&6Tva zprava nyni jde do tymoveho chatu'
   disabled: '&6Tva zprava nyni jde do globalniho chatu'
-  syntax: '&b[Tym]&f%s&f: %s'
+  syntax: '&b[Tym]&f{0}&f: {1}'
 color:
   success: '&6Barva vaseho tymu byla zmenena'
   fail: '&6Toto neni rozpoznana barva chatu'
@@ -183,12 +183,12 @@ withdraw:
 ally:
   already: '&4Jiz jste spojenci'
   success: '&6Vase tymy jsou nyni spojenci'
-  ally: '&6Vas tym je nyni spojen s tymem &b%s'
+  ally: '&6Vas tym je nyni spojen s tymem &b{0}'
   requested: '&6Byla odeslana zadost o spojenectvi tomuto tymu'
-  request: '&b%s &6odeslal zadost o spojenectvi, pouzij &b/team ally <tym> &6pro
+  request: '&b{0} &6odeslal zadost o spojenectvi, pouzij &b/team ally <tym> &6pro
     akceptaci'
   self: '&4Nemuzete byt spojenci se svym vlastnim tymem'
-  from: '&6Mate zadosti o spojenectvi od: %s'
+  from: '&6Mate zadosti o spojenectvi od: {0}'
   noRequests: '&4Nemate zadne zadosti o spojenectvi'
   onJoin: '&6Mate nove zadosti o spojenectvi, pouzijte &b/team ally &6pro zobrazeni'
   limit: '&4Dosahli jste limitu spojencu'
@@ -196,18 +196,18 @@ ally:
 allychat:
   disabled: '&6Tva zprava jiz nebudou posilany do spojeneckeho chatu'
   enabled: '&6Tva zprava nyni budou posilany do spojeneckeho chatu'
-  syntax: '&d[%s]&f%s&f: %s'
+  syntax: '&d[{0}]&f{1}&f: {2}'
 neutral:
   self: '&6To je vas vlastni tym'
   requestremove: '&6Tato zadost o spojenectvi byla odstranena'
-  reject: '&4Vase zadost o spojenectvi s &b%s &4byla odmitnuta'
+  reject: '&4Vase zadost o spojenectvi s &b{0} &4byla odmitnuta'
   notAlly: '&4Nejste spojenci s timto tymem'
   success: '&4Uz nejste spojenci s timto tymem'
-  remove: '&4Uz nejste spojenci s tymem &b%s'
+  remove: '&4Uz nejste spojenci s tymem &b{0}'
 list:
   noPage: '&6Tato stranka nebyla nalezena'
-  header: '&7--- &bStranka seznamu tymu %s &7---'
-  body: '&6%s: &b%s'
+  header: '&7--- &bStranka seznamu tymu {0} &7---'
+  body: '&6{0}: &b{1}'
   footer: '&7--- &6Napis &b/team list [stranka] &6pro zobrazeni vice &7---'
 setowner:
   use: '&6Nemuzes povysit tohoto hrace, pouzij &b/team setowner <hrac> &6pro povyseni
@@ -226,13 +226,13 @@ warp:
   success: '&6Byl jsi prenesen'
   world: '&4Misto tohoto warp nebylo nalezeno'
 warps:
-  syntax: '&6Warpy: &b%s'
+  syntax: '&6Warpy: &b{0}'
   none: '&4Vas tym nema nastavene zadne warpy'
 delwarp:
   success: '&4Tento warp byl smazan'
 teleport:
   fail: '&4Teleportace selhala'
-  wait: '&6Pockej &b%s &6sekund'
+  wait: '&6Pockej &b{0} &6sekund'
 chest:
   claim:
     noChest: '&4Nestojis na truhle'
@@ -245,7 +245,7 @@ chest:
     success: '&4Vas tym jiz nema narok na tuto truhlu'
   all:
     success: '&6Zrusena narokovani vsech truhel'
-  claimed: '&4Tato truhla je narokovana hracem &a%s'
+  claimed: '&4Tato truhla je narokovana hracem &a{0}'
 echest:
   
   echest: Enderchest
@@ -256,8 +256,8 @@ pvp:
 rankup:
   
   max: '&4Jiz jsi na nejvyssi urovni'
-  score: '&4Potrebujes %s skore pro postup na dalsi uroven'
-  money: '&4Potrebujes %s penez na uctu tymu pro postup na dalsi uroven'
+  score: '&4Potrebujes {0} skore pro postup na dalsi uroven'
+  money: '&4Potrebujes {0} penez na uctu tymu pro postup na dalsi uroven'
   success: '&6Vas tym se posunul na dalsi uroven'
 tag:
   
@@ -285,10 +285,10 @@ admin:
   title:
     success: '&6Nazev titulu teto osoby byl zmenen'
     reset: '&6Titul teto osoby byl obnoven'
-  version: '&6Soucasna verze pluginu: &b%s'
-  versionstorage: '&6Zpusob ulozeni dat: &b%s'
-  versionversion: '&6Verze Minecraftu: &b%s'
-  versionlanguage: '&6Vybrany jazyk: &b%s'
+  version: '&6Soucasna verze pluginu: &b{0}'
+  versionstorage: '&6Zpusob ulozeni dat: &b{0}'
+  versionversion: '&6Verze Minecraftu: &b{0}'
+  versionlanguage: '&6Vybrany jazyk: &b{0}'
   noTeam: '&4To neni tym'
   home:
     success: '&6Byl jsi prenesen na domov tohoto tymu'
@@ -307,7 +307,7 @@ admin:
   join:
     banned: '&4Tento hrac je zakazan v tomto tymu'
     success: '&6Tento hrac se pripojil k tymu'
-    notify: '&6Pripojil jsi se k tymu &b%s'
+    notify: '&6Pripojil jsi se k tymu &b{0}'
     full: '&4Tym je plny'
   notInTeam: '&6Tento hrac nemuze byt v tymu, nez toto provede'
   inTeam: '&4Tento hrac neni v tymu'
@@ -377,24 +377,24 @@ admin:
     success: '&6Vsichni online clenove tohoto tymu byli preneseni'
 nametag:
   
-  syntax: '&6&l%s&r '
+  syntax: '&6&l{0}&r '
 holo:
   leaderboard: '&6Zebricek'
-  syntax: '&6%s: &b%s'
-  msyntax: '&6%s: &b$%s'
+  syntax: '&6{0}: &b{1}'
+  msyntax: '&6{0}: &b${1}'
 top:
   leaderboard: '&6Zebricek'
-  syntax: '&b%s: &6%s &7(%s)'
+  syntax: '&b{0}: &6{1} &7({2})'
   divide: '&f...'
 baltop:
   leaderboard: '&6Zebricek'
-  syntax: '&b%s: &6%s &7(%s)'
+  syntax: '&b{0}: &6{1} &7({2})'
   divide: '&f...'
 spy:
   stop: '&6Uz nesledujes zpravy tymu'
   start: '&6Nyni sledujes zpravy tymu'
-  team: '&7[&b%s&7]&f%s&f: %s'
-  ally: '&7[&d%s&7]&f%s&f: %s'
+  team: '&7[&b{0}&7]&f{1}&f: {2}'
+  ally: '&7[&d{0}&7]&f{1}&f: {2}'
 uclaim:
   
   team: '&4Musis byt v tymu, aby sis mohl vytvorit narok'

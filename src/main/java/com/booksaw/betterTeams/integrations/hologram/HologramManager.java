@@ -74,7 +74,7 @@ public abstract class HologramManager {
 				Bukkit.getLogger().severe("A team was null for an unexplained reason, team name: " + teams[i]);
 				continue;
 			}
-			holo.appendText(String.format(MessageManager.getMessage(type.getSyntaxReference()), team.getName(),
+			holo.appendText(MessageManager.getMessageF(type.getSyntaxReference(), team.getName(),
 				getValue(type, team)));
 		}
 	}

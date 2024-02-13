@@ -17,25 +17,25 @@ noPlayer: '&4Jucatorul specificat nu a fost gasit'
 notTeam: '&6&4Aceasta echipa nu exista, incearca &b/team create <nume>'
 needSameTeam: '&6Nu esti in aceeasi echipa cu acea persoana.'
 noPerm: '&4Nu ai permisiunea de a face asta.'
-prefixSyntax: '&7[%s&7] &r%s'
+prefixSyntax: '&7[{0}&7] &r{1}'
 bannedChar: '&4Caracterul pe care ai incercat sa-l folosesti este interzis.'
 noTeam: '&4Aceasta echipa nu exista.'
 loading: '&6Incarcare'
 cooldown:
-  wait: '&4Trebuie sa mai astepti %s secunde inainte de a rula asta!'
+  wait: '&4Trebuie sa mai astepti {0} secunde inainte de a rula asta!'
 cost:
   tooPoor: '&4Esti prea sarac pentru a rula aceasta comanda.'
-  run: '&4&l-%s'
+  run: '&4&l-{0}'
 placeholder:
   noTeam: '&7Nicio echipa'
   noDescription: ''
-  money: '%s'
+  money: '{0}'
   owner: Proprietar
   admin: Admin
   default: Implicit
-  name: '%s'
-  tag: '%s'
-  displayname: '%s'
+  name: '{0}'
+  tag: '{0}'
+  displayname: '{0}'
   inteam: 'adevarat'
   notinteam: 'fals'
   noTitle: ''
@@ -52,16 +52,16 @@ leave:
   success: '&6Ai parasit echipa.'
   lastOwner: '&6Esti singurul proprietar al echipei. Promoveaza pe cineva altcineva sau foloseste &b/team disband &6pentru a dizolva echipa.'
 announce:
-  join: '&3%s &7juntou-se à equipa %s'
-  leave: '&3%s &7deixou a equipa %s'
-  disband: '&7A equipa %s foi dissolvida'
+  join: '&3{0} &7juntou-se à equipa {1}'
+  leave: '&3{0} &7deixou a equipa {1}'
+  disband: '&7A equipa {0} foi dissolvida'
 rank:
   noTeam: '&4Echipa nu a fost gasita.'
   info: '&6Pozitia ta in echipa:'
-  infos: '&6Gradul echipei: &b%s &7(punctaj necesar pentru urmatorul grad)'
-  infom: '&6Gradul echipei: &b%s &7($%s necesari pentru urmatorul grad)'
-  infomm: '&6Gradul echipei: &b%s &7(Esti deja la gradul maxim)'
-  syntax: '&b%s: &6%s &7(%s)'
+  infos: '&6Gradul echipei: &b{0} &7(punctaj necesar pentru urmatorul grad)'
+  infom: '&6Gradul echipei: &b{0} &7(${1} necesari pentru urmatorul grad)'
+  infomm: '&6Gradul echipei: &b{0} &7(Esti deja la gradul maxim)'
+  syntax: '&b{0}: &6{1} &7({2})'
 delhome:
   success: '&6Locatia centrala a echipei tale a fost stearsa.'
   noHome: '&4Echipa ta nu a stabilit o locatie centrala.'
@@ -70,24 +70,24 @@ disband:
   confirm: '&6Scrie &b/team disband &6din nou pentru a confirma.'
 description:
   success: '&6Ai schimbat descrierea echipei.'
-  view: '&6Descrierea echipei: %s'
+  view: '&6Descrierea echipei: {0}'
   noDesc: '&6Nu a fost stabilita o descriere pentru echipa.'
   noPerm: '&4Nu ai permisiunea de a edita descrierea.'
 name:
   success: '&6Ai schimbat numele echipei.'
-  view: '&6Numele echipei: %s'
+  view: '&6Numele echipei: {0}'
   exists: '&4Aceasta echipa deja exista.'
   noPerm: '&4Nu ai permisiunea de a schimba numele echipei tale.'
 invite:
   success: '&6Acel jucator a fost invitat in echipa.'
-  invite: '&6Ai fost invitat sa te alaturi echipei %s. Foloseste &b/team join <nume_echipa> &6pentru a te alatura echipei.'
+  invite: '&6Ai fost invitat sa te alaturi echipei {0}. Foloseste &b/team join <nume_echipa> &6pentru a te alatura echipei.'
   inTeam: '&6Acel jucator este deja intr-o echipa.'
   banned: '&6Acel jucator este interzis in echipa ta.'
   full: '&6Echipa ta a atins numarul maxim de membri. Elimina pe cineva inainte de a invita alti membri.'
-  expired: '&4Invitatia de la &b%s &4a expirat.'
+  expired: '&4Invitatia de la &b{0} &4a expirat.'
 join:
   success: '&6Ai aderat la echipa respectiva.'
-  notify: '&6Bine ai venit, &b%s, &6in echipa!'
+  notify: '&6Bine ai venit, &b{0}, &6in echipa!'
   notInvited: '&6&4Nu ai fost invitat in acea echipa.'
   banned: '&6&4Esti interzis in acea echipa.'
   full: '&4Echipa respectiva este plina.'
@@ -95,7 +95,7 @@ open:
   successopen: '&6Echipa ta este acum deschisa pentru toata lumea.'
   successclose: '&6Echipa ta este acum doar cu invitatie.'
 title:
-  change: '&6Titlul tau a fost schimbat la &b%s'
+  change: '&6Titlul tau a fost schimbat la &b{0}'
   remove: '&6Titlul tau a fost eliminat.'
   success: '&6Acel titlu a fost schimbat'
   tooLong: '&4Acel titlu este prea lung.'
@@ -105,32 +105,32 @@ title:
   noPerm: '&4Nu ai permisiunea de a-ti schimba titlul echipei.'
 info:
   needTeam: '&6Nicio echipa sau jucator gasit sub acel nume.'
-  name: '&6Nume: &b%s'
-  description: '&6Descriere: &b%s'
-  open: '&6Deschis: &b%s'
-  level: '&6Nivel: &b%s'
-  owner: '&6Proprietari: &b%s'
-  admin: '&6Admini: &b%s'
-  default: '&6Membri: &b%s'
-  tag: '&6Tag: &b%s'
+  name: '&6Nume: &b{0}'
+  description: '&6Descriere: &b{0}'
+  open: '&6Deschis: &b{0}'
+  level: '&6Nivel: &b{0}'
+  owner: '&6Proprietari: &b{0}'
+  admin: '&6Admini: &b{0}'
+  default: '&6Membri: &b{0}'
+  tag: '&6Tag: &b{0}'
   fail: '&6Nicio echipa sau jucator gasit sub acel nume'
-  score: '&6Puncte: &b%s'
-  money: '&6Sold: &b%s'
-  ally: '&6Aliante: &b%s'
+  score: '&6Puncte: &b{0}'
+  money: '&6Sold: &b{0}'
+  ally: '&6Aliante: &b{0}'
 kick:
   success: '&6Acel jucator a fost dat afara.'
-  notify: '&6Ai fost dat afara din echipa %s'
+  notify: '&6Ai fost dat afara din echipa {0}'
   title: '&4Ai fost dat afara din echipa ta.'
   noPerm: '&6Nu ai permisiunea de a da afara acea persoana.'
 ban:
   success: '&6Acel jucator a fost interzis.'
-  notify: '&6Ai fost interzis din echipa %s'
+  notify: '&6Ai fost interzis din echipa {0}'
   title: '&4Ai fost interzis din echipa ta.'
   noPerm: '&6Nu ai permisiunea de a interzice acea persoana.'
   already: '&6Acel jucator este deja interzis.'
 unban:
   success: '&6Acel jucator a fost reabilitat.'
-  notify: '&6Ai fost reabilitat din echipa %s'
+  notify: '&6Ai fost reabilitat din echipa {0}'
   noPerm: '&6Nu ai permisiunea de a reabilita acea persoana.'
   not: '&6Acel jucator nu este interzis.'
 promote:
@@ -157,7 +157,7 @@ sethome:
 chat:
   enabled: '&6Acum mesajele tale merg in chat-ul echipei.'
   disabled: '&6Acum mesajele tale merg in chat-ul global.'
-  syntax: '&b[Echipa]&f%s&f: %s'
+  syntax: '&b[Echipa]&f{0}&f: {1}'
 color:
   success: '&6Culoarea echipei tale a fost schimbata.'
   fail: '&6Aceea nu este o culoare de chat recunoscuta.'
@@ -175,11 +175,11 @@ withdraw:
 ally:
   already: '&4Sunteti deja aliati.'
   success: '&6Echipele voastre sunt acum aliate.'
-  ally: '&6Echipa ta este acum aliata cu &b%s'
+  ally: '&6Echipa ta este acum aliata cu &b{0}'
   requested: '&6O cerere de aliere a fost trimisa acelei echipe.'
-  request: '&b%s &6a trimis o cerere de aliere, foloseste &b/team ally <echipa> &6pentru a accepta.'
+  request: '&b{0} &6a trimis o cerere de aliere, foloseste &b/team ally <echipa> &6pentru a accepta.'
   self: '&4Nu poti alia propria ta echipa.'
-  from: '&6Aveti cereri de alianta de la: %s'
+  from: '&6Aveti cereri de alianta de la: {0}'
   noRequests: '&4Nu ai cereri de alianta.'
   onJoin: '&6Ai cereri de alianta noi, foloseste &b/team ally &6pentru a le vedea.'
   limit: '&4Limita pentru aliati a fost atinsa.'
@@ -187,18 +187,18 @@ ally:
 allychat:
   disabled: '&6Mesajele tale nu mai merg in chat-ul de alianta.'
   enabled: '&6Mesajele tale merg acum in chat-ul de alianta.'
-  syntax: '&d[%s]&f%s&f: %s'
+  syntax: '&d[{0}]&f{1}&f: {2}'
 neutral:
   self: '&6Asta este propria ta echipa.'
   requestremove: '&6Cererea de alianta a fost eliminata.'
-  reject: '&4Cererea ta de alianta cu &b%s &4a fost respinsa.'
+  reject: '&4Cererea ta de alianta cu &b{0} &4a fost respinsa.'
   notAlly: '&4Nu esti aliat cu acea echipa.'
   success: '&4Nu mai esti aliat cu acea echipa.'
-  remove: '&4Nu mai esti aliat cu &b%s'
+  remove: '&4Nu mai esti aliat cu &b{0}'
 list:
   noPage: '&6Aceasta pagina nu a fost gasita.'
-  header: '&7--- &bLista echipe pagina %s &7---'
-  body: '&6%s: &b%s'
+  header: '&7--- &bLista echipe pagina {0} &7---'
+  body: '&6{0}: &b{1}'
   footer: '&7--- &6foloseste &b/team list [pagina] &6pentru a vedea mai mult &7---'
 setowner:
   use: '&6Nu poti promova acel jucator, foloseste &b/team setowner <jucator> &6pentru a-l promova la rangul de proprietar.'
@@ -216,13 +216,13 @@ warp:
   success: '&6Ai fost teleportat.'
   world: '&4Locatia acelui punct de intoarcere nu a putut fi gasita.'
 warps:
-  syntax: '&6Puncte de intoarcere: &b%s'
+  syntax: '&6Puncte de intoarcere: &b{0}'
   none: '&4Echipa ta nu are niciun punct de intoarcere setat.'
 delwarp:
   success: '&4Acel punct de intoarcere a fost sters.'
 teleport:
   fail: '&4Teleportarea a esuat.'
-  wait: '&6Asteapta &b%s &6secunde.'
+  wait: '&6Asteapta &b{0} &6secunde.'
 chest:
   claim:
     noChest: '&4Nu stai pe un chest.'
@@ -235,7 +235,7 @@ chest:
     success: '&4Team-ul tau nu mai trebuie sa ia acest chest.'
   all:
     success: '&6Toate cuferele au fost luate.'
-  claimed: '&4Acest chest este luat de &a%s'
+  claimed: '&4Acest chest este luat de &a{0}'
 echest:
   echest: Enderchest
 pvp:
@@ -243,8 +243,8 @@ pvp:
   disabled: '&6PvP a fost dezactivat pentru echipa ta.'
 rankup:
   max: '&4Esti deja la rangul maxim.'
-  score: '&4Ai nevoie de %s puncte pentru a urca in rang.'
-  money: '&4Ai nevoie de %s bani in balanta echipei pentru a urca in rang.'
+  score: '&4Ai nevoie de {0} puncte pentru a urca in rang.'
+  money: '&4Ai nevoie de {0} bani in balanta echipei pentru a urca in rang.'
   success: '&6Echipa ta s-a ridicat la un rang superior.'
 tag:
   banned: '&4Aceasta eticheta este interzisa.'
@@ -269,9 +269,9 @@ admin:
   title:
     success: '&6Titlul jucatorului a fost schimbat.'
     reset: '&6Titlul jucatorului a fost resetat.'
-  version: '&6Versiunea curenta a pluginului: &b%s'
-  versionstorage: '&6Metoda de stocare: &b%s'
-  versionversion: '&6Versiunea Minecraft: &b%s'
+  version: '&6Versiunea curenta a pluginului: &b{0}'
+  versionstorage: '&6Metoda de stocare: &b{0}'
+  versionversion: '&6Versiunea Minecraft: &b{0}'
   noTeam: '&4Aceasta nu este o echipa.'
   home:
     success: '&6Ai fost teleportat la baza echipei respective.'
@@ -290,7 +290,7 @@ admin:
   join:
     banned: '&4Acel jucator este interzis in echipa respectiva.'
     success: '&6Acel jucator s-a alaturat echipei.'
-    notify: '&6Ai intrat in echipa &b%s'
+    notify: '&6Ai intrat in echipa &b{0}'
     full: '&4Echipa este plina.'
   notInTeam: '&6Acel jucator nu poate fi intr-o echipa inainte de a face asta.'
   inTeam: '&4Acel jucator nu este intr-o echipa.'
@@ -353,27 +353,27 @@ admin:
       bc: '&6&lToate lazile revendicate sunt blocate acum.'
   teleport:
     success: '&6Toti membrii online ai echipei respective au fost teleportati.'
-  versionlanguage: '&6Limba selectata: &b%s'
+  versionlanguage: '&6Limba selectata: &b{0}'
 nametag:
   
-  syntax: '&6&l%s&r '
+  syntax: '&6&l{0}&r '
 holo:
   leaderboard: '&eLeaderboard'
-  syntax: '&6%s: &b%s'
-  msyntax: '&6%s: &b$%s'
+  syntax: '&6{0}: &b{1}'
+  msyntax: '&6{0}: &b${1}'
 top:
   leaderboard: '&eLeaderboard'
-  syntax: '&b%s: &6%s &7(%s)'
+  syntax: '&b{0}: &6{1} &7({2})'
   divide: '&f...'
 baltop:
   leaderboard: '&eLeaderboard'
-  syntax: '&b%s: &6%s &7(%s)'
+  syntax: '&b{0}: &6{1} &7({2})'
   divide: '&f...'
 spy:
   stop: '&6Nu mai spionezi mesajele echipei.'
   start: '&6Acum spionezi mesajele echipei.'
-  team: '&7[&b%s&7]&f%s&f: %s'
-  ally: '&7[&d%s&7]&f%s&f: %s'
+  team: '&7[&b{0}&7]&f{1}&f: {2}'
+  ally: '&7[&d{0}&7]&f{1}&f: {2}'
 uclaim:
   team: '&4Trebuie sa faci parte dintr-o echipa pentru a crea o revendicare.'
   member: '&4Nu poti parasi revendicarea echipei tale.'

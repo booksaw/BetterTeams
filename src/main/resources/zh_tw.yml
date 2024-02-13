@@ -17,24 +17,24 @@ noPlayer: '&4找不到指定的玩家'
 notTeam: '&6&4那支公會不存在, 試試 &b/team create <工會名稱>'
 needSameTeam: '&6您與該人不在同一個公會中'
 noPerm: '&4您無權執行此操作'
-prefixSyntax: '&7[%s&7] &r%s'
+prefixSyntax: '&7[{0}&7] &r{1}'
 bannedChar: '&4您嘗試使用的字符被禁止"'
 noTeam: '&4那支公會不存在'
 cooldown:
-  wait: '&4你需要等待額外 %s 秒以再次執行!'
+  wait: '&4你需要等待額外 {0} 秒以再次執行!'
 cost:
   tooPoor: '&4交易金幣不足'
-  run: '&4&l-%s'
+  run: '&4&l-{0}'
 placeholder:
   noTeam: ''
   noDescription: ''
-  money: '%s'
+  money: '{0}'
   owner: 會長
   admin: 管理者
   default: 成員
-  name: '%s '
-  tag: '%s'
-  displayname: '%s'
+  name: '{0} '
+  tag: '{0}'
+  displayname: '{0}'
 prefix:
   owner: ' **'
   admin: ' *'
@@ -48,15 +48,15 @@ leave:
   success: '&6你離開了公會'
   lastOwner: '&6您是公會中唯一的所有者級別，提拔他人 或使用 &b/team disband &6來解散公會'
 announce:
-  join: '&3%s &7加入了 %s 團隊'
-  leave: '&3%s &7離開了 %s 團隊'
-  disband: '&7%s 團隊已解散'
+  join: '&3{0} &7加入了 {1} 團隊'
+  leave: '&3{0} &7離開了 {1} 團隊'
+  disband: '&7{0} 團隊已解散'
 rank:
   noTeam: '&4找不到此公會'
   info: '&6公會定位:'
-  infos: '&6公會等級: &b%s &7(%s 分以升級)'
-  infom: '&6公會等級: &b%s &7($%s 以升級)'
-  syntax: '&b%s: &6%s &7(%s)'
+  infos: '&6公會等級: &b{0} &7({1} 分以升級)'
+  infom: '&6公會等級: &b{0} &7(${1} 以升級)'
+  syntax: '&b{0}: &6{1} &7({2})'
 delhome:
   success: '&6您的公會傳點已被刪除'
   noHome: '&4您的公會還沒有建立傳點'
@@ -65,24 +65,24 @@ disband:
   confirm: '&6再次使用 &b/team disband &6來確認'
 description:
   success: '&6您已更改公會說明'
-  view: '&6公會描述: %s'
+  view: '&6公會描述: {0}'
   noDesc: '&6未設置公會描述'
   noPerm: '&4您無權編輯公會說明'
 name:
   success: '&6您已更改公會名稱'
-  view: '&6公會名稱: %s'
+  view: '&6公會名稱: {0}'
   exists: '&4那支公會已經存在'
   noPerm: '&4您無權更改公會名稱'
 invite:
   success: '&6該玩家已被邀請'
-  invite: '&6您已受邀加入公會 %s 使用 &b/team join <公會名稱> &6 來加入該公會'
+  invite: '&6您已受邀加入公會 {0} 使用 &b/team join <公會名稱> &6 來加入該公會'
   inTeam: '&6那個玩家已經在公會裡了'
   banned: '&6該玩家已被你的公會禁止'
   full: '&6以達到人數上限, 請升級公會'
-  expired: '&4此邀請 &b%s 已經過期'
+  expired: '&4此邀請 &b{0} 已經過期'
 join:
   success: '&6您已加入該公會'
-  notify: '&6歡迎 &b%s &6加入本公會!'
+  notify: '&6歡迎 &b{0} &6加入本公會!'
   notInvited: '&6&4您尚未受邀加入該公會'
   banned: '&6&4您被禁止加入該公會'
   full: '&4該公會已達人數上限'
@@ -90,7 +90,7 @@ open:
   successopen: '&6您的公會現在向所有人開放'
   successclose: '&6您的公會現在已設為邀請制'
 title:
-  change: '&6您的頭銜已更改為 &b%s'
+  change: '&6您的頭銜已更改為 &b{0}'
   success: '&6該頭銜已更改'
   tooLong: '&4那個頭銜太長了'
   noFormat: '&4你無權更改頭銜格式'
@@ -98,30 +98,30 @@ title:
   reset: '&6你的頭銜已重置'
 info:
   needTeam: '&6找不到以該名字命名的公會或玩家'
-  name: '&6名稱: &b%s'
-  description: '&6簡介: &b%s'
-  open: '&6公開制: &b%s'
-  level: '&6等級: &b%s'
-  owner: '&6會長: &b%s'
-  admin: '&6管理者: &b%s'
-  default: '&6成員: &b%s'
-  tag: '&6標籤: &b%s'
+  name: '&6名稱: &b{0}'
+  description: '&6簡介: &b{0}'
+  open: '&6公開制: &b{0}'
+  level: '&6等級: &b{0}'
+  owner: '&6會長: &b{0}'
+  admin: '&6管理者: &b{0}'
+  default: '&6成員: &b{0}'
+  tag: '&6標籤: &b{0}'
   fail: '&6找不到以該名字命名的公會或玩家'
-  score: '&6公會分數: &b%s'
-  money: '&6公會金幣: &b%s'
-  ally: '&6聯盟: &b%s'
+  score: '&6公會分數: &b{0}'
+  money: '&6公會金幣: &b{0}'
+  ally: '&6聯盟: &b{0}'
 kick:
   success: '&6那名成員被踢了'
-  notify: '&6你已被踢出以下公會 %s'
+  notify: '&6你已被踢出以下公會 {0}'
   noPerm: '&6您無權踢除該玩家'
 ban:
   success: '&6該玩家已被封禁'
-  notify: '&6你已被以下公會封禁 %s'
+  notify: '&6你已被以下公會封禁 {0}'
   noPerm: '&6您無權封禁該玩家'
   already: '&6該玩家已被封禁'
 unban:
   success: '&6該玩家已被解除封禁'
-  notify: '&6你已被以下公會解除封禁 %s'
+  notify: '&6你已被以下公會解除封禁 {0}'
   noPerm: '&6您無權解除封禁該玩家'
   not: '&6該玩家沒有被封禁'
 promote:
@@ -145,7 +145,7 @@ sethome:
 chat:
   enabled: '&6你的訊息將發送至公會頻道'
   disabled: '&6你的訊息將發送至公共頻道'
-  syntax: '&6&b[公會]&f%s: %s'
+  syntax: '&6&b[公會]&f{0}: {1}'
 color:
   success: '&6您的公會顏色已更改'
   fail: '&6那不是可使用的聊天室顏色'
@@ -162,29 +162,29 @@ withdraw:
 ally:
   already: '&4你已經是盟友'
   success: '&6您的公會現在是盟友'
-  ally: '&6您的公會現在與以下公會結為盟友 &b%s'
+  ally: '&6您的公會現在與以下公會結為盟友 &b{0}'
   requested: '&6盟友請求已發送給該公會'
-  request: '&b%s &6已發送盟友請求, 使用 &b/team ally <team> &6來接受邀請'
+  request: '&b{0} &6已發送盟友請求, 使用 &b/team ally <team> &6來接受邀請'
   self: '&4您不能結盟自己的公會'
-  from: '&6來自其他公會的盟友請求: %s'
+  from: '&6來自其他公會的盟友請求: {0}'
   noRequests: '&4您沒有任何盟友請求'
   onJoin: '&6您有新的盟友請求, 使用 &b/team ally &6來查看'
   limit: '&4已達到盟友數量限制'
 allychat:
   disabled: '&6您的消息將不再發送給盟友'
   enabled: '&6您的消息將發送給盟友'
-  syntax: '&d[%s]&f%s: %s'
+  syntax: '&d[{0}]&f{1}: {2}'
 neutral:
   self: '&6那是你自己的公會'
   requestremove: '&6該盟友請求已被刪除'
-  reject: '&4你發送給 &b%s &4的盟友請求已被拒絕'
+  reject: '&4你發送給 &b{0} &4的盟友請求已被拒絕'
   notAlly: '&4您沒有與那個公會結盟'
   success: '&4您不再與那個公會結盟'
-  remove: '&4您不再與以下公會結盟 &b%s'
+  remove: '&4您不再與以下公會結盟 &b{0}'
 list:
   noPage: '&6找不到該頁面'
-  header: '&7--- &b公會清單 %s &7---'
-  body: '&6%s: &b%s'
+  header: '&7--- &b公會清單 {0} &7---'
+  body: '&6{0}: &b{1}'
   footer: '&7--- &6使用 &b/team list [page] &6來查看更多 &7---'
 setowner:
   use: '&6您不能晉升該玩家, 使用 &b/team setowner <player> &6來提拔該玩家至會長'
@@ -202,13 +202,13 @@ warp:
   success: '&6已成功傳送'
   world: '&4找不到該傳點的位置'
 warps:
-  syntax: '&6公會傳點: &b%s'
+  syntax: '&6公會傳點: &b{0}'
   none: '&4你的公會未設任何傳點'
 delwarp:
   success: '&4該傳點已被刪除'
 teleport:
   fail: '&4傳送失敗'
-  wait: '&6需等待 &b%s &6秒'
+  wait: '&6需等待 &b{0} &6秒'
 chest:
   claim:
     noChest: '&4你沒有站在箱子上'
@@ -221,7 +221,7 @@ chest:
     success: '&4已刪除該公會箱子'
   all:
     success: '&6已刪除所有公會箱子'
-  claimed: '&4該箱子為以下公會所有 &a%s'
+  claimed: '&4該箱子為以下公會所有 &a{0}'
 echest:
   echest: 終界箱子
 pvp:
@@ -229,8 +229,8 @@ pvp:
   disabled: '&6公會Pvp 已關閉'
 rankup:
   max: '&4你的公會已達等級上限'
-  score: '&4你需要 %s 分公會分數以升級'
-  money: '&4你需要 %s 交易金幣以升級, 需存入公會存款'
+  score: '&4你需要 {0} 分公會分數以升級'
+  money: '&4你需要 {0} 交易金幣以升級, 需存入公會存款'
   success: '&6你的公會已升級'
 tag:
   banned: '&4該標籤已被禁止'
@@ -255,7 +255,7 @@ admin:
   title:
     success: '&6that players title has been changed'
     reset: '&6That players title has been reset'
-  version: '&6Current plugin version: %s'
+  version: '&6Current plugin version: {0}'
   noTeam: '&4That is not a team'
   home:
     success: '&6You have been teleported to that teams home'
@@ -274,7 +274,7 @@ admin:
   join:
     banned: '&4That player is banned from that team'
     success: '&6That player has joined the team'
-    notify: '&6You have joined the team &b%s'
+    notify: '&6You have joined the team &b{0}'
     full: '&4That team is full'
   notInTeam: '&6That player cannot be in a team before doing that'
   inTeam: '&4That player is not in a team'
@@ -332,24 +332,24 @@ admin:
     enabled:
       bc: '&6&lAll claimed chests are locked'
 nametag:
-  syntax: '&6&l%s&r '
+  syntax: '&6&l{0}&r '
 holo:
   leaderboard: '&6公會排行榜'
-  syntax: '&6%s: &b%s'
-  msyntax: '&6%s: &b$%s'
+  syntax: '&6{0}: &b{1}'
+  msyntax: '&6{0}: &b${1}'
 top:
   leaderboard: '&6公會排行榜'
-  syntax: '&b%s: &6%s &7(%s)'
+  syntax: '&b{0}: &6{1} &7({2})'
   divide: '&f...'
 baltop:
   leaderboard: '&6公會財富榜'
-  syntax: '&b%s: &6%s &7(%s)'
+  syntax: '&b{0}: &6{1} &7({2})'
   divide: '&f...'
 spy:
   stop: '&6You are no longer spying on team messages'
   start: '&6You are now spying on team messages'
-  team: '&7[&b%s&7]&f%s&f: %s'
-  ally: '&7[&d%s&7]&f%s&f: %s'
+  team: '&7[&b{0}&7]&f{1}&f: {2}'
+  ally: '&7[&d{0}&7]&f{1}&f: {2}'
 help:
   description: 查看你的公會簡介
   ban: 禁止踢出公會的團員（團員只能禁止用戶）
@@ -464,7 +464,7 @@ uclaim:
   dissolve: '&4Your team has been disbanded so your claim has been dissolved'
   team: '&4You must be in a team to create a claim'
 loading: &6讀取中'
-rank.infomm: '&6公會: &b%s &7(你已經是最高等級了)'
+rank.infomm: '&6公會: &b{0} &7(你已經是最高等級了)'
 title.remove: '&6你的頭銜已被移除'
 title.noPerm: '&4你沒有更改公會頭銜的權限'
 promote.maxAdmins: '&4你公會的管理員已經夠多了,請先移除掉一些管理員'

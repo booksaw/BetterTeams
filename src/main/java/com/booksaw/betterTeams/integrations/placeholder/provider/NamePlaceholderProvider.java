@@ -15,7 +15,7 @@ public class NamePlaceholderProvider implements IndividualTeamPlaceholderProvide
 
 	@Override
 	public String getPlaceholderForTeam(Team team) {
-		return String.format(MessageManager.getMessage("placeholder.name"), team.getName());
+		return MessageManager.getMessageF("placeholder.name", team.getName());
 	}
 
 }

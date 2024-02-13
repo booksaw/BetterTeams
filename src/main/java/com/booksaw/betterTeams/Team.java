@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.annotation.Nullable;
 
@@ -945,12 +947,15 @@ public class Team {
 	public void sendMessage(TeamPlayer sender, String message) {
 		ChatColor returnTo = ChatColor.RESET;
 		String toTest = getChatSyntax(sender);
-		int value = toTest.indexOf("%s");
-		if (value > 2) {
-			for (int i = value; i >= 0; i--) {
-				if (toTest.charAt(i) == '\u00A7') {
-					returnTo = ChatColor.getByChar(toTest.charAt(i + 1));
-					break;
+		Matcher matcher = Pattern.compile("\\{\\d+\\}").matcher(toTest);
+		if (matcher.find()) {
+			int value = matcher.start();
+			if (value > 3) {
+				for (int i = value; i >= 0; i--) {
+					if (toTest.charAt(i) == '\u00A7') {
+						returnTo = ChatColor.getByChar(toTest.charAt(i + 1));
+						break;
+					}
 				}
 			}
 		}
@@ -975,7 +980,7 @@ public class Team {
 			prefix = teamPreMessageEvent.getSenderNamePrefix();
 		}
 
-		String fMessage = String.format(format,
+		String fMessage = MessageManager.format(format,
 				prefix + Objects.requireNonNull(sender.getPlayer().getPlayer()).getDisplayName(),
 				message);
 
@@ -1025,17 +1030,20 @@ public class Team {
 	public void sendAllyMessage(TeamPlayer sender, String message) {
 		ChatColor returnTo = ChatColor.RESET;
 		String toTest = MessageManager.getMessage(sender.getPlayer().getPlayer(), "chat.syntax");
-		int value = toTest.indexOf("%s");
-		if (value > 2) {
-			for (int i = value; i >= 0; i--) {
-				if (toTest.charAt(i) == '\u00A7') {
-					returnTo = ChatColor.getByChar(toTest.charAt(i + 1));
-					break;
+		Matcher matcher = Pattern.compile("\\{\\d+\\}").matcher(toTest);
+		if (matcher.find()) {
+			int value = matcher.start();
+			if (value > 3) {
+				for (int i = value; i >= 0; i--) {
+					if (toTest.charAt(i) == '\u00A7') {
+						returnTo = ChatColor.getByChar(toTest.charAt(i + 1));
+						break;
+					}
 				}
 			}
 		}
 
-		String fMessage = String.format(MessageManager.getMessage("allychat.syntax"), getName(),
+		String fMessage = MessageManager.getMessageF("allychat.syntax", getName(),
 				sender.getPrefix(returnTo) + Objects.requireNonNull(sender.getPlayer().getPlayer()).getDisplayName(),
 				message);
 
@@ -1124,7 +1132,7 @@ public class Team {
 			return team;
 		}
 
-		String name = String.format(color + MessageManager.getMessage("nametag.syntax"), getTag());
+		String name = color + MessageManager.getMessageF("nametag.syntax", getTag());
 		int attempt = 0;
 		do {
 			try {

@@ -18,25 +18,25 @@ noPlayer: '&4Không tìm thấy người chơi'
 notTeam: '&6&4Team đó không tồn tại, dùng &b/team create <name>'
 needSameTeam: '&6Bạn không cùng team với người chơi đó'
 noPerm: '&4Ơ, Mất quyền công dân kìa :>'
-prefixSyntax: '&7[%s&7] &r%s'
+prefixSyntax: '&7[{0}&7] &r{1}'
 bannedChar: '&4Ui chà, đừng có chửi thề chứ. Văn minh nào bạn ơi!'
 noTeam: '&4Team đó không tồn tại'
 loading: '&6Đang tải....'
 cooldown:
-  wait: '&4Bạn cần đợi thêm %s giây để làm vậy!'
+  wait: '&4Bạn cần đợi thêm {0} giây để làm vậy!'
 cost:
   tooPoor: '&4Xem lại ví của bạn đi'
-  run: '&4&l-%s'
+  run: '&4&l-{0}'
 placeholder:
   noTeam: ''
   noDescription: ''
-  money: '%s'
+  money: '{0}'
   owner: Owner
   admin: Admin
   default: Default
-  name: '%s'
-  tag: '%s'
-  displayname: '%s'
+  name: '{0}'
+  tag: '{0}'
+  displayname: '{0}'
   inteam: 'true'
   notinteam: 'false'
   noTitle: ''
@@ -53,16 +53,16 @@ leave:
   success: '&6Bạn đã rời khỏi team'
   lastOwner: '&6Bạn là Owner cuối cùng của team, hoặc là bạn thăng chức ai đó hoặc là bạn dùng &b/team disband &6 để Giải Tán Team'
 announce:
-  join: '&3%s &7đã tham gia đội %s'
-  leave: '&3%s &7đã rời khỏi đội %s'
-  disband: '&7Đội %s đã bị giải tán'
+  join: '&3{0} &7đã tham gia đội {1}'
+  leave: '&3{0} &7đã rời khỏi đội {1}'
+  disband: '&7Đội {0} đã bị giải tán'
 rank:
   noTeam: '&4Không tìm thấy Team'
   info: '&6Team position:'
-  infos: '&6Team rank: &b%s &7(%s Điểm để rankup)'
-  infom: '&6Team rank: &b%s &7($%s Cần để rankup)'
-  infomm: '&6Team rank: &b%s &7(Bạn max rank rồi)'
-  syntax: '&b%s: &6%s &7(%s)'
+  infos: '&6Team rank: &b{0} &7({1} Điểm để rankup)'
+  infom: '&6Team rank: &b{0} &7(${1} Cần để rankup)'
+  infomm: '&6Team rank: &b{0} &7(Bạn max rank rồi)'
+  syntax: '&b{0}: &6{1} &7({2})'
 delhome:
   success: '&6Căn cứ của team đã bị xoá'
   noHome: '&4Team của bạn chưa căn cứ, hãy dùng /ta'
@@ -71,24 +71,24 @@ disband:
   confirm: '&6Dùng &b/team disband &6thêm một lần nữa để chắc chắn rằng, bạn muốn giải tán team này...'
 description:
   success: '&6Bạn đã thay đổi mô tả của Team '
-  view: '&6Mô tả của Team: %s'
+  view: '&6Mô tả của Team: {0}'
   noDesc: '&6Bạn chưa tạo mô tả của Team'
   noPerm: '&4Bạn mất quyền công dâ-... À nhầm nhầm, bạn không có quyền đổi miêu tả của Team'
 name:
   success: '&6Bạn đã đổi tên team'
-  view: '&6Tên Team: %s'
+  view: '&6Tên Team: {0}'
   exists: '&4Team đó đã tồn tại'
   noPerm: '&4Bạn không có quyền đổi tên Team, đi mà hỏi thằng Owner hay Admin của team á'
 invite:
   success: '&6Người chơi đó đã được mời'
-  invite: '&6Bạn đã được mời vào team của %s dùng &b/team join <team> &6 để vào team đó'
+  invite: '&6Bạn đã được mời vào team của {0} dùng &b/team join <team> &6 để vào team đó'
   inTeam: '&6Người chơi đó đã có Team'
   banned: '&6Người chơi đó đã bay màu khỏi team của bạn, và có vẻ như không còn lần 2 để tham gia mất rồi'
   full: '&6Team đầy rồi, kick đứa nào đó ra khỏi team đi rồi mời vào'
-  expired: '&4Team của &b%s &4đã hết hạn'
+  expired: '&4Team của &b{0} &4đã hết hạn'
 join:
   success: '&6Bạn đã vào team đó'
-  notify: '&6Chào mừng, &b%s &6đến Team của chúng ta!'
+  notify: '&6Chào mừng, &b{0} &6đến Team của chúng ta!'
   notInvited: '&6&4Bạn đã được mời đâu mà vô cái team đấy'
   banned: '&6&4Bạn bị pay màu khỏi team đó rồi mà, quên à :>'
   full: '&4Đất chật người đông, bạn không được vào'
@@ -96,7 +96,7 @@ open:
   successopen: '&6Giờ ai cũng sẽ vào được team của bạn'
   successclose: '&6Giờ team của bạn chỉ có mời mới được vào'
 title:
-  change: '&6Danh hiệu của bạn đã đổi thành &b%s'
+  change: '&6Danh hiệu của bạn đã đổi thành &b{0}'
   remove: '&6Danh hiệu của bạn bị xoá'
   success: '&6Đặt danh hiệu thành công'
   tooLong: '&4Danh hiệu đó quá dài'
@@ -106,32 +106,32 @@ title:
   noPerm: '&4bạn không có quyền để chỉnh danh hiệu'
 info:
   needTeam: '&6Không có team hoặc tên người chơi có tên đó'
-  name: '&6Name: &b%s'
-  description: '&6Mô tả: &b%s'
-  open: '&6Cổng: &b%s'
-  level: '&6Cấp của team: &b%s'
-  owner: '&6Chủ team: &b%s'
-  admin: '&6Quản lý của team: &b%s'
-  default: '&6Thành viên: &b%s'
-  tag: '&6Thẻ: &b%s'
+  name: '&6Name: &b{0}'
+  description: '&6Mô tả: &b{0}'
+  open: '&6Cổng: &b{0}'
+  level: '&6Cấp của team: &b{0}'
+  owner: '&6Chủ team: &b{0}'
+  admin: '&6Quản lý của team: &b{0}'
+  default: '&6Thành viên: &b{0}'
+  tag: '&6Thẻ: &b{0}'
   fail: '&6Không có team hoặc tên người chơi có tên đó'
-  score: '&6Số điểm: &b%s'
-  money: '&6Quỹ của team: &b%s'
-  ally: '&6Đồng minh: &b%s'
+  score: '&6Số điểm: &b{0}'
+  money: '&6Quỹ của team: &b{0}'
+  ally: '&6Đồng minh: &b{0}'
 kick:
   success: '&6Người chơi đó bị kick'
-  notify: '&6Bạn đã bị kick khỏi team %s'
+  notify: '&6Bạn đã bị kick khỏi team {0}'
   title: '&4bạn đã bị kick khỏi team của bạn'
   noPerm: '&6Bạn không có quyền để kick'
 ban:
   success: '&6Người chơi đó đã pay màu khỏi team của bạn'
-  notify: '&6Bạn đã bị pay màu khỏi team đó %s'
+  notify: '&6Bạn đã bị pay màu khỏi team đó {0}'
   title: '&4Bạn đã bị pay màu khỏi team của bạn'
   noPerm: '&6Bạn không có quyền để ban người chơi'
   already: '&6Bạn đã bị pay màu từ trước đó rồi còn đâu?'
 unban:
   success: '&6Người chơi đó đã có màu trở lại'
-  notify: '&6Bạn đã có màu trở lại từ team %s'
+  notify: '&6Bạn đã có màu trở lại từ team {0}'
   noPerm: '&6Bạn không có quyền để unban'
   not: '&6Người chơi đó còn màu'
 promote:
@@ -158,7 +158,7 @@ sethome:
 chat:
   enabled: '&6Giờ bạn đang chat với team của bạn'
   disabled: '&6Giờ bạn đang chat thì ai cũng nghe được'
-  syntax: '&b[Team]&f%s&f: %s'
+  syntax: '&b[Team]&f{0}&f: {1}'
 color:
   success: '&6Team bạn đã đổi màu'
   fail: '&6Không có màu này đâu'
@@ -176,11 +176,11 @@ withdraw:
 ally:
   already: '&4Bạn đã là đồng minh với team đấy rồi'
   success: '&6Giờ bạn là đồng minh của họ'
-  ally: '&6Giờ Team của bạn là đồng minh của &b%s'
+  ally: '&6Giờ Team của bạn là đồng minh của &b{0}'
   requested: '&6Có một lời đề nghị đồng minh'
-  request: '&b%s &6đã gửi lời đề nghị đồng minh, dùng &b/team ally <team> &6để chấp nhận'
+  request: '&b{0} &6đã gửi lời đề nghị đồng minh, dùng &b/team ally <team> &6để chấp nhận'
   self: '&4Team mình đồng minh chính team mình???'
-  from: '&6Bạn có lời đề nghị đồng minh từ %s'
+  from: '&6Bạn có lời đề nghị đồng minh từ {0}'
   noRequests: '&4Bạn không có lời đề nghị nào'
   onJoin: '&6Bạn có lời đề nghị đồng minh mới, dùng &b/team ally &6để xem nó'
   limit: '&4Thích hoà bình nhưng rất tiếc đầy đồng minh rồi'
@@ -188,18 +188,18 @@ ally:
 allychat:
   disabled: '&6Giờ bạn không còn chat với đồng minh'
   enabled: '&6Giờ bạn đang chat với đồng minh'
-  syntax: '&d[%s]&f%s&f: %s'
+  syntax: '&d[{0}]&f{1}&f: {2}'
 neutral:
   self: '&6Đó là team của bạn mà??'
   requestremove: '&6Lời đề nghị bị xoá'
-  reject: '&4Lời đề nghị từ &b%s &4đã bị từ chối'
+  reject: '&4Lời đề nghị từ &b{0} &4đã bị từ chối'
   notAlly: '&4Bạn không phải đồng minh với team đó'
   success: '&4Bạn không còn là đồng minh với team đó'
-  remove: '&4Bạn không còn là đồng minh với team &b%s'
+  remove: '&4Bạn không còn là đồng minh với team &b{0}'
 list:
   noPage: '&6Lỗi, không có trang đó'
-  header: '&7--- &b Danh Sách Team %s &7---'
-  body: '&6%s: &b%s'
+  header: '&7--- &b Danh Sách Team {0} &7---'
+  body: '&6{0}: &b{1}'
   footer: '&7--- &6dùng &b/team list [Trang] &6để xem thêm &7---'
 setowner:
   use: '&6Không thể thăng chức người chơi đó, dùng &b/team setowner <player> &6để thăng chức nó lên Owner'
@@ -217,13 +217,13 @@ warp:
   success: '&6Bạn đã được dịch chuyển'
   world: '&4Không thể tìm thấy ./team warp đó'
 warps:
-  syntax: '&6Warps: &b%s'
+  syntax: '&6Warps: &b{0}'
   none: '&4Team của bạn chưa /team setwarp một cái warp nào cả'
 delwarp:
   success: '&4Cái /team warp đó đã bị xoá'
 teleport:
   fail: '&4Dịch chuyển thất bại'
-  wait: '&6Chờ thêm &b%s &6giây coi'
+  wait: '&6Chờ thêm &b{0} &6giây coi'
 chest:
   claim:
     noChest: '&4Bạn không có đứng trên cái chest nào cả'
@@ -236,7 +236,7 @@ chest:
     success: '&4Team của bạn không còn claim cái chest này nữa'
   all:
     success: '&6Unclaim tất cả các chest'
-  claimed: '&4Cái chest đó bị claim bới &a%s'
+  claimed: '&4Cái chest đó bị claim bới &a{0}'
 echest:
   echest: Enderchest
 pvp:
@@ -244,8 +244,8 @@ pvp:
   disabled: '&6Team của bạn tắt pvp'
 rankup:
   max: '&4Team bạn là chúa rồi, thăng hạng team gì nữa'
-  score: '&4Bạn cần có %s điểm để rankup team bạn'
-  money: '&4Bạn cần có %s tiền trong team để rankup team của bạn'
+  score: '&4Bạn cần có {0} điểm để rankup team bạn'
+  money: '&4Bạn cần có {0} tiền trong team để rankup team của bạn'
   success: '&6Xin chúc mừng! Team của bạn đã thăng chức thành công!'
 tag:
   banned: '&4Cái thẻ tag đó cấm rồi'
@@ -271,10 +271,10 @@ admin:
   title:
     success: '&6that players title has been changed'
     reset: '&6That players title has been reset'
-  version: '&6Current plugin version: &b%s'
-  versionstorage: '&6Storage Method: &b%s'
-  versionversion: '&6Minecraft Version: &b%s'
-  versionlanguage: '&6Language Selected: &b%s'
+  version: '&6Current plugin version: &b{0}'
+  versionstorage: '&6Storage Method: &b{0}'
+  versionversion: '&6Minecraft Version: &b{0}'
+  versionlanguage: '&6Language Selected: &b{0}'
   noTeam: '&4That is not a team'
   home:
     success: '&6You have been teleported to that teams home'
@@ -293,7 +293,7 @@ admin:
   join:
     banned: '&4That player is banned from that team'
     success: '&6That player has joined the team'
-    notify: '&6You have joined the team &b%s'
+    notify: '&6You have joined the team &b{0}'
     full: '&4That team is full'
   notInTeam: '&6That player cannot be in a team before doing that'
   inTeam: '&4That player is not in a team'
@@ -363,24 +363,24 @@ admin:
     success: '&6All online members of that team were teleported'
 nametag:
   
-  syntax: '&6&l%s&r '
+  syntax: '&6&l{0}&r '
 holo:
   leaderboard: '&6Bảng xếp hạng'
-  syntax: '&6%s: &b%s'
-  msyntax: '&6%s: &b$%s'
+  syntax: '&6{0}: &b{1}'
+  msyntax: '&6{0}: &b${1}'
 top:
   leaderboard: '&6Bảng xếp hạng điểm của team'
-  syntax: '&b%s: &6%s &7(%s)'
+  syntax: '&b{0}: &6{1} &7({2})'
   divide: '&f...'
 baltop:
   leaderboard: '&6Bảng xếp hạng team giàu nhất'
-  syntax: '&b%s: &6%s &7(%s)'
+  syntax: '&b{0}: &6{1} &7({2})'
   divide: '&f...'
 spy:
   stop: '&6You are no longer spying on team messages'
   start: '&6You are now spying on team messages'
-  team: '&7[&b%s&7]&f%s&f: %s'
-  ally: '&7[&d%s&7]&f%s&f: %s'
+  team: '&7[&b{0}&7]&f{1}&f: {2}'
+  ally: '&7[&d{0}&7]&f{1}&f: {2}'
 uclaim:
   
   team: '&4You must be in a team to create a claim'
