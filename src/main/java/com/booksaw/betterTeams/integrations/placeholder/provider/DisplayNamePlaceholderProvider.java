@@ -15,7 +15,7 @@ public class DisplayNamePlaceholderProvider implements IndividualTeamPlaceholder
 
 	@Override
 	public String getPlaceholderForTeam(Team team) {
-		return String.format(MessageManager.getMessage("placeholder.displayname"), team.getDisplayName());
+		return MessageManager.getMessageF("placeholder.displayname", team.getDisplayName());
 	}
 
 }

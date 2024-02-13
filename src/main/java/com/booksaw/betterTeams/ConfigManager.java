@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
@@ -102,11 +104,13 @@ public class ConfigManager {
 		}
 
 		List<String> changes = updateFileConfig(Main.plugin.getResource(resourceName));
+		boolean migratedVariables = migrateVariables(log);
 
 		if (log) {
-			if (changes.isEmpty()) {
+			if (changes.isEmpty() && !migratedVariables) {
 				logger.info("[BetterTeams] File is up to date");
-			} else {
+			}
+			if (!changes.isEmpty()) {
 				logger.info("[BetterTeams] ==================================================================");
 				logger.info("[BetterTeams] File is not updated, adding values under the following references:");
 
@@ -115,13 +119,13 @@ public class ConfigManager {
 				}
 
 				logger.info("[BetterTeams] " + resourceName
-						+ " is now upated to the latest version, thank you for using BetterTeams");
+						+ " is now updated to the latest version, thank you for using BetterTeams");
 				logger.info("[BetterTeams] ==================================================================");
 
 			}
 		}
 
-		if (!changes.isEmpty()) {
+		if (!changes.isEmpty() || migratedVariables) {
 			save(false);
 		}
 
@@ -152,6 +156,43 @@ public class ConfigManager {
 
 		return addedPaths;
 
+	}
+
+	private boolean migrateVariables(boolean log) {
+		if (!config.saveToString().contains("%s")) {
+			return false;
+		}
+		if (log) {
+			Bukkit.getLogger().info("[BetterTeams] " + resourceName + " is using legacy variables. Migration taking place.");
+		}
+		int migratedKeys = 0;
+		for (String key : config.getKeys(true)) {
+			Object keyVal = config.get(key);
+			if (keyVal instanceof String) {
+				String stringVal = (String) keyVal;
+
+				if (!stringVal.contains("%s")) {
+					continue;
+				}
+
+				Pattern pattern = Pattern.compile("%s");
+				Matcher matcher = pattern.matcher(stringVal);
+
+				StringBuilder sb = new StringBuilder();
+				int count = 0;
+				while (matcher.find()) {
+					matcher.appendReplacement(sb, "{" + count++ + "}");
+				}
+				matcher.appendTail(sb);
+
+				config.set(key, sb.toString());
+				migratedKeys++;
+			}
+		}
+		if (log) {
+			Bukkit.getLogger().info("[BetterTeams] Legacy variable migration is complete. " + migratedKeys + " keys were migrated.");
+		}
+		return migratedKeys != 0;
 	}
 
 	public void saveResource(String resourcePath, String resultPath, boolean replace) {

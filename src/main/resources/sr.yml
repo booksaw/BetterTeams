@@ -15,25 +15,25 @@ noPlayer: '&4Specificni igrac nije pronadjen'
 notTeam: '&6&4Taj tim ne postoji pokusajte &b/team create <name>'
 needSameTeam: '&6Niste u istom timu kao ta osoba'
 noPerm: '&4Nemate dozvolu da uradite to'
-prefixSyntax: '&7[%s&7] &r%s'
+prefixSyntax: '&7[{0}&7] &r{1}'
 bannedChar: '&4Karakter koji pokusavate da koristite je zabranjen'
 noTeam: '&4Taj tim ne postoji'
 loading: '&6Ucitavanje'
 cooldown:
-  wait: '&4Morate sacekati jos %s sekundi pre pokretanja toga!'
+  wait: '&4Morate sacekati jos {0} sekundi pre pokretanja toga!'
 cost:
   tooPoor: '&4Previse ste siromasni da bi ste koristili tu komandu'
-  run: '&4&l-%s'
+  run: '&4&l-{0}'
 placeholder:
   noTeam: ''
   noDescription: ''
-  money: '%s'
+  money: '{0}'
   owner: Vlasnik
   admin: Admin
   default: Default
-  name: '%s'
-  tag: '%s'
-  displayname: '%s'
+  name: '{0}'
+  tag: '{0}'
+  displayname: '{0}'
   inteam: 'true'
   notinteam: 'false'
   noTitle: ''
@@ -51,16 +51,16 @@ leave:
   lastOwner: '&6Jedini ste vlasnik tima, Morate da promovisete nekoga
     ili koristite &b/team disband &6da obrisete tim'
 announce:
-  join: '&3%s &7se pridružio timu %s'
-  leave: '&3%s &7je napustio tim %s'
-  disband: '&7Tim %s &7je raspušten'
+  join: '&3{0} &7se pridružio timu {1}'
+  leave: '&3{0} &7je napustio tim {1}'
+  disband: '&7Tim {0} &7je raspušten'
 rank:
   noTeam: '&4Tim nije pronadjen'
   info: '&6Pozicija tima:'
-  infos: '&6Team rank: &b%s &7(%s bodova potrebno za iduce usavrsavanje)'
-  infom: '&6Team rank: &b%s &7($%s potrebno za iduce promovisanje)'
-  infomm: '&6Team rank: &b%s &7(You je najveci rank)'
-  syntax: '&b%s: &6%s &7(%s)'
+  infos: '&6Team rank: &b{0} &7({1} bodova potrebno za iduce usavrsavanje)'
+  infom: '&6Team rank: &b{0} &7(${1} potrebno za iduce promovisanje)'
+  infomm: '&6Team rank: &b{0} &7(You je najveci rank)'
+  syntax: '&b{0}: &6{1} &7({2})'
 delhome:
   success: '&6Vasa tim kuca je obrisana'
   noHome: '&4vas tim nema kucu'
@@ -69,25 +69,25 @@ disband:
   confirm: '&6Kucajte &b/team disband &6ponovo da potvrdite'
 description:
   success: '&6Promenili ste opis tima'
-  view: '&6Team Description: %s'
+  view: '&6Team Description: {0}'
   noDesc: '&6Tim nema opis'
   noPerm: '&4Nemate dozvolu da menjate opis'
 name:
   success: '&6Promenili ste ime tima'
-  view: '&6Team name: %s'
+  view: '&6Team name: {0}'
   exists: '&4Taj tim vec postoji'
   noPerm: '&4Nemate dozvolu da menjate ime tima'
 invite:
   success: '&6Taj igrac je pozvan'
-  invite: '&6pozvani ste da se pridruzite timu %s uradite &b/team join <team> &6 da se pridruzite
+  invite: '&6pozvani ste da se pridruzite timu {0} uradite &b/team join <team> &6 da se pridruzite
     timu'
   inTeam: '&6Taj igrac je vec u timu'
   banned: '&6Taj igrac je zabranjen u vasem timu'
   full: '&6Vas tim je put, izbacite nekoga kako bi ste pozvali jos ljudi'
-  expired: '&4Pozivnica &b%s je istekla'
+  expired: '&4Pozivnica &b{0} je istekla'
 join:
   success: '&6Pridruzili ste se tom timu'
-  notify: '&6Dobrodosao/la &b%s &6u tim!'
+  notify: '&6Dobrodosao/la &b{0} &6u tim!'
   notInvited: '&6&4Niste pozvani u taj tim'
   banned: '&6&4Zabranjen vam je ulaz u taj tim'
   full: '&4Taj tim je pun'
@@ -95,7 +95,7 @@ open:
   successopen: '&6Vas tim je sada otvoren za svakoga'
   successclose: '&6Ljude se sada mogu pridruziti vasem timu samo uz pozivnicu'
 title:
-  change: '&6Vas naslov je sada promenjen u &b%s'
+  change: '&6Vas naslov je sada promenjen u &b{0}'
   remove: '&6Vas naslov je sklonjen'
   success: '&6Vas naslov je promenjen'
   tooLong: '&4Taj naslov je previse dugacak'
@@ -105,32 +105,32 @@ title:
   noPerm: '&4Nemate dozvolu da menjate naslov vaseg tima'
 info:
   needTeam: '&6Nijedan igrac ili tim nije pronadjen pod tim imenom'
-  name: '&6Name: &b%s'
-  description: '&6Description: &b%s'
-  open: '&6Open: &b%s'
-  level: '&6Level: &b%s'
-  owner: '&6Owners: &b%s'
-  admin: '&6Admins: &b%s'
-  default: '&6Members: &b%s'
-  tag: '&6Tag: &b%s'
+  name: '&6Name: &b{0}'
+  description: '&6Description: &b{0}'
+  open: '&6Open: &b{0}'
+  level: '&6Level: &b{0}'
+  owner: '&6Owners: &b{0}'
+  admin: '&6Admins: &b{0}'
+  default: '&6Members: &b{0}'
+  tag: '&6Tag: &b{0}'
   fail: '&6Nijedan igrac ili tim nije pronadjen pod tim imenom'
-  score: '&6Score: &b%s'
-  money: '&6Balance: &b%s'
-  ally: '&6Allies: &b%s'
+  score: '&6Score: &b{0}'
+  money: '&6Balance: &b{0}'
+  ally: '&6Allies: &b{0}'
 kick:
   success: '&6Taj igrac je izbacen'
-  notify: '&6Izbaceni ste iz tima %s'
+  notify: '&6Izbaceni ste iz tima {0}'
   title: '&4Izbaceni ste iz vaseg tima'
   noPerm: '&6Nemate dozvolu da izbacite tu osobu'
 ban:
   success: '&6Taj igrac je zabranjen'
-  notify: '&6Zabranjen vam je ulaz u tim %s'
+  notify: '&6Zabranjen vam je ulaz u tim {0}'
   title: '&4Zabranjen vam je ulaz u vas tim'
   noPerm: '&6Nemate dozvolu da izbacite tu osobu'
   already: '&6Tom igracu je vec zabranjen ulazak'
 unban:
   success: '&6Taj igrac ponovo moze da udje u tim'
-  notify: '&6Ponovo mozete da udjete u tim %s'
+  notify: '&6Ponovo mozete da udjete u tim {0}'
   noPerm: '&6Nemate dozvolu da dozvolite ulazak tom igracu'
   not: '&6Taj igrac vec moze da udje u tim'
 promote:
@@ -160,7 +160,7 @@ sethome:
 chat:
   enabled: '&6Vase poruke sada odlaze u tim dopisivanje'
   disabled: '&6Vase poruke sada odlaze u glavno dopisivanje'
-  syntax: '&b[Team]&f%s&f: %s'
+  syntax: '&b[Team]&f{0}&f: {1}'
 color:
   success: '&6Boja vaseg tima je promenjena'
   fail: '&6To nije prepoznatljiva boja'
@@ -178,11 +178,11 @@ withdraw:
 ally:
   already: '&4Vec ste saradnici'
   success: '&6Vasi timovi nisu saradnici'
-  ally: '&6Vas tim nije saradnik &b%s'
+  ally: '&6Vas tim nije saradnik &b{0}'
   requested: '&6Zahtev za saradnju je poslat tom timu'
-  request: '&b%s &6je poslao zahtev za saradnju, koristite &b/team ally <team> &6da prihvatite zahtev'
+  request: '&b{0} &6je poslao zahtev za saradnju, koristite &b/team ally <team> &6da prihvatite zahtev'
   self: '&4Ne mozete saradjivati sa sopstvenim timom'
-  from: '&6You have ally requests from: %s'
+  from: '&6You have ally requests from: {0}'
   noRequests: '&4Nemate nikakvih zahteva za saradnju'
   onJoin: '&6Imate novi zahtev za saranju uradite &b/team ally &6da ih vidite'
   limit: '&4Ogranicenje saradnika je dostignuto'
@@ -190,18 +190,18 @@ ally:
 allychat:
   disabled: '&6Vase poruke vise ne odlaze u dopisivanje saveznika'
   enabled: '&6Vase poruke sada odlaze u dopisivanje saveznika'
-  syntax: '&d[%s]&f%s&f: %s'
+  syntax: '&d[{0}]&f{1}&f: {2}'
 neutral:
   self: '&6Taj tim je vas tim'
   requestremove: '&6Taj zahtev za saradnju je prekinut'
-  reject: '&4Vas zahtev za saradnju sa &b%s &4je odbijen'
+  reject: '&4Vas zahtev za saradnju sa &b{0} &4je odbijen'
   notAlly: '&4Niste u saradnji sa tim timom'
   success: '&4Vise niste saveznici sa tim timom'
-  remove: '&4Vise niste saveznici sa &b%s'
+  remove: '&4Vise niste saveznici sa &b{0}'
 list:
   noPage: '&6Ta strana nije pronadjena'
-  header: '&7--- &bTim lista strana %s &7---'
-  body: '&6%s: &b%s'
+  header: '&7--- &bTim lista strana {0} &7---'
+  body: '&6{0}: &b{1}'
   footer: '&7--- &6uradite &b/team list [page] &6da vidite vise &7---'
 setowner:
   use: '&6Ne mozete promovisati tog igraca, koristite &b/team setowner <player> &6da promovisete
@@ -220,13 +220,13 @@ warp:
   success: '&6Teleportovani ste'
   world: '&4Lokacija tog warpa nije pronadjena'
 warps:
-  syntax: '&6Warps: &b%s'
+  syntax: '&6Warps: &b{0}'
   none: '&4Vas tim nema postavljene warpove'
 delwarp:
   success: '&4Warp je obrisan'
 teleport:
   fail: '&4Teleportacija nije uspela'
-  wait: '&6Sacekajte &b%s &6sekundi'
+  wait: '&6Sacekajte &b{0} &6sekundi'
 chest:
   claim:
     noChest: '&4Ne stojite na kovcegu'
@@ -239,7 +239,7 @@ chest:
     success: '&4Vas tim vise ne prisvojava taj kovceg'
   all:
     success: '&6Vise ne posedujete ni jedan kovceg'
-  claimed: '&4Taj kovceg je u posedu &a%s'
+  claimed: '&4Taj kovceg je u posedu &a{0}'
 echest:
   
   echest: Enderchest
@@ -250,8 +250,8 @@ pvp:
 rankup:
   
   max: '&4Vec imate maksimalan cin'
-  score: '&4Treba vam %s poena da bi bili promovisani'
-  money: '&4Treba vam %s novca u banci tima kako bi se promovisali'
+  score: '&4Treba vam {0} poena da bi bili promovisani'
+  money: '&4Treba vam {0} novca u banci tima kako bi se promovisali'
   success: '&6Vas tim se promovisao!'
 tag:
   
@@ -279,9 +279,9 @@ admin:
   title:
     success: '&6Naslov tog igraca je promenjen'
     reset: '&6Naslov tog igraca je restartovan'
-  version: '&6Current plugin version: &b%s'
-  versionstorage: '&6Storage Method: &b%s'
-  versionversion: '&6Minecraft Version: &b%s'
+  version: '&6Current plugin version: &b{0}'
+  versionstorage: '&6Storage Method: &b{0}'
+  versionversion: '&6Minecraft Version: &b{0}'
   noTeam: '&4To nije tim'
   home:
     success: '&6Teleportovani ste do kuce tog tima'
@@ -300,7 +300,7 @@ admin:
   join:
     banned: '&4Tom igracu je sada zabranjen ulaz u taj tim'
     success: '&6Taj igrac se pridruzio timu'
-    notify: '&6Pridruzili ste se timu &b%s'
+    notify: '&6Pridruzili ste se timu &b{0}'
     full: '&4Taj tim je pun'
   notInTeam: '&6Taj igrac ne moze biti u timu pre toga'
   inTeam: '&4Taj igrac nije u timu'
@@ -370,24 +370,24 @@ admin:
     all.home.success: '&6Svi online članovi svih timova sa domom su teleportovani'
 nametag:
   
-  syntax: '&6&l%s&r '
+  syntax: '&6&l{0}&r '
 holo:
   leaderboard: '&6Leaderboard'
-  syntax: '&6%s: &b%s'
-  msyntax: '&6%s: &b$%s'
+  syntax: '&6{0}: &b{1}'
+  msyntax: '&6{0}: &b${1}'
 top:
   leaderboard: '&6Leaderboard'
-  syntax: '&b%s: &6%s &7(%s)'
+  syntax: '&b{0}: &6{1} &7({2})'
   divide: '&f...'
 baltop:
   leaderboard: '&6Leaderboard'
-  syntax: '&b%s: &6%s &7(%s)'
+  syntax: '&b{0}: &6{1} &7({2})'
   divide: '&f...'
 spy:
   stop: '&6Vise ne spijunirate poruke tog tima'
   start: '&6Poceli ste da spijunirate poruke tog tima'
-  team: '&7[&b%s&7]&f%s&f: %s'
-  ally: '&7[&d%s&7]&f%s&f: %s'
+  team: '&7[&b{0}&7]&f{1}&f: {2}'
+  ally: '&7[&d{0}&7]&f{1}&f: {2}'
 uclaim:
   
   team: '&4You must be in a team to create a claim'

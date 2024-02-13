@@ -17,25 +17,25 @@ noPlayer: '&4Šis žaidėjas nerastas'
 notTeam: '&6&4Ši komanda neegzistuoja, &b/team create <name>'
 needSameTeam: '&6Tu nesi toje pačioje komandoje kaip šis žaidėjas'
 noperm: '&4Tu neturi leidimo tai daryti'
-prefixSyntax: '&7[%s&7] &r%s'
+prefixSyntax: '&7[{0}&7] &r{1}'
 bannedChar: '&4A Ženklas kurį bandote naudoti yra negalimas'
 noTeam: '&4ši komanda neegzistuoja'
 loading: '&6Kraunama..'
 cooldown:
-  wait: '&4Tau reikia palaukti %s sekundžių Prieš tai darant!'
+  wait: '&4Tau reikia palaukti {0} sekundžių Prieš tai darant!'
 cost:
   tooPoor: '&4Tu per silpnas naudoti šią komandą'
-  run: '&4&l-%s'
+  run: '&4&l-{0}'
 placeholder:
   noTeam: ''
   noDescription: ''
-  money: '%s'
+  money: '{0}'
   owner: Kūrėjas
   admin: Administratorius/ė
   default: Pradinis
-  name: '%s'
-  tag: '%s'
-  displayname: '%s'
+  name: '{0}'
+  tag: '{0}'
+  displayname: '{0}'
   inteam: 'true'
   notinteam: 'false'
   noTitle: ''
@@ -53,16 +53,16 @@ leave:
   lastOwner: '&6Tu esi vienintelis kūrėjas komandoje, Paaukštink kitą narį arba rašyk
     &b/team disband &6jog ištrinti komandą. '
 announce:
-  join: '&3%s &7prisijungė prie %s komandos'
-  leave: '&3%s &7paliko %s komandą'
-  disband: '&7Komanda %s buvo išformuota'
+  join: '&3{0} &7prisijungė prie {1} komandos'
+  leave: '&3{0} &7paliko {1} komandą'
+  disband: '&7Komanda {0} buvo išformuota'
 rank:
   noTeam: '&4Komanda nerasta'
   info: '&6Komandos vieta sąraše:'
-  infos: '&6Komandos lygis: &b%s &7(Reikia %s taškų jog pasikeltum į kitą lygį)'
-  infom: '&6Komandos lygis: &b%s &7(Reikia $%s kitam lygiui)'
-  infomm: '&6Komandos lygis: &b%s &7(Pasiekei lygio limitą)'
-  syntax: '&b%s: &6%s &7(%s)'
+  infos: '&6Komandos lygis: &b{0} &7(Reikia {1} taškų jog pasikeltum į kitą lygį)'
+  infom: '&6Komandos lygis: &b{0} &7(Reikia ${1} kitam lygiui)'
+  infomm: '&6Komandos lygis: &b{0} &7(Pasiekei lygio limitą)'
+  syntax: '&b{0}: &6{1} &7({2})'
 delhome:
   success: '&6Tavo komanda buvo ištrinta'
   noHome: '&4Tavo komanda nepasirinko namų'
@@ -71,25 +71,25 @@ disband:
   confirm: '&6Rašyk &b/team disband &6dar kartą jog patvirtinti'
 description:
   success: '&6Sėkmingai pakeitei komandos aprašymą'
-  view: '&6Komandos aprašymas: %s'
+  view: '&6Komandos aprašymas: {0}'
   noDesc: '&6Nėra komandos aprašymo'
   noPerm: '&4Neturi leidimo redaguoti komandos aprašymą'
 name:
   success: '&6Sėkmingai pakeitei komandos pavadinimą'
-  view: '&6Komandos pavadinimas: %s'
+  view: '&6Komandos pavadinimas: {0}'
   exists: '&4Ši komanda jau egzistuoja'
   noPerm: '&4Neturi leidimo keisti komandos pavadinimą'
 invite:
   success: '&6Šis žaidėjas buvo pakviestas'
-  invite: '&6Buvai pakviestas į komandą %s rašyk &b/team join <team> &6jog prisijungtum
+  invite: '&6Buvai pakviestas į komandą {0} rašyk &b/team join <team> &6jog prisijungtum
     į komandą'
   inTeam: '&6Šis žaidėjas jau yra komandoje'
   banned: '&6Šis žaidėjas yra užblokuotas jūsų komandoje'
   full: '&6Tavo komanda pasiekė žaidėjų limitą, Išmesk kažką prieš kviečiant dar žmonių'
-  expired: '&4Pakvietimo iš &b%s galiojimo laikas pasibaigė'
+  expired: '&4Pakvietimo iš &b{0} galiojimo laikas pasibaigė'
 join:
   success: '&6Tu prisijungei į komandą'
-  notify: '&6Sveikas &b%s &6 atvykęs į komandą!'
+  notify: '&6Sveikas &b{0} &6 atvykęs į komandą!'
   notInvited: '&6&4Tavęs niekas čia nekvietė...'
   banned: '&6&4Buvai užblokuotas komandoje'
   full: '&4Ši komanda pilna'
@@ -97,7 +97,7 @@ open:
   successopen: '&6Tavo komanda prieinama visiems'
   successclose: '&6Tavo komanda tik su pakvietimais'
 title:
-  change: '&6Užrašai buvo pakeisti į &b%s'
+  change: '&6Užrašai buvo pakeisti į &b{0}'
   remove: '&6Užrašas buvo panaikintas'
   success: '&6Užrašas buvo pakeistas'
   tooLong: '&4Šis užrašas per ilgas'
@@ -107,30 +107,30 @@ title:
   noPerm: '&4Neturi leidimo keisti komandos užrašą'
 info:
   needTeam: '&6Komanda ar žaidėjas tokiu vardu nerastas'
-  name: '&6Vardas: &b%s'
-  description: '&6Aprašymas: &b%s'
-  open: '&6Atidaryta: &b%s'
-  level: '&6Lygis: &b%s'
-  owner: '&6Kūrėjai: &b%s'
-  admin: '&6Administracija: &b%s'
-  default: '&6Nariai: &b%s'
-  tag: '&6Žymeklis: &b%s'
+  name: '&6Vardas: &b{0}'
+  description: '&6Aprašymas: &b{0}'
+  open: '&6Atidaryta: &b{0}'
+  level: '&6Lygis: &b{0}'
+  owner: '&6Kūrėjai: &b{0}'
+  admin: '&6Administracija: &b{0}'
+  default: '&6Nariai: &b{0}'
+  tag: '&6Žymeklis: &b{0}'
   fail: '&6Komanda ar žaidėjas nerastas'
-  score: '&6Taškai: &b%s'
-  money: '&6Balansas: &b%s'
-  ally: '&6sąjuningai: &b%s'
+  score: '&6Taškai: &b{0}'
+  money: '&6Balansas: &b{0}'
+  ally: '&6sąjuningai: &b{0}'
 kick:
   success: '&6šis žaidėjas buvo išmestas'
-  notify: '&6Buvai išmestas... %s'
+  notify: '&6Buvai išmestas... {0}'
   noPerm: '&6Neturi leidimo išmesti šį žaidėją'
 ban:
   success: '&6Šis žaidėjas buvo užblokuotas'
-  notify: '&6Buvai užblokuotas.. %s'
+  notify: '&6Buvai užblokuotas.. {0}'
   noPerm: '&6Neturi leidimo užblokuoti šį žaidėją'
   already: '&6Šis žaidėjas jau yra užblokuotas'
 unban:
   success: '&6šis žaidėjas buvo atblokuotas'
-  notify: '&6Tu buvai atblokuotas %s'
+  notify: '&6Tu buvai atblokuotas {0}'
   noPerm: '&6Neturi leidimo atblokuoti šį žaidėją'
   not: '&6Šis žaidėjas nebuvo užblokuotas'
 promote:
@@ -160,7 +160,7 @@ sethome:
 chat:
   enabled: '&6Tavo žinutės dabar siunčiamos į komandos pokalbį'
   disabled: '&6Tavo žinutės dabar siunčiamos į viešą pokalbį'
-  syntax: '&b[Team]&f%s&f: %s'
+  syntax: '&b[Team]&f{0}&f: {1}'
 color:
   success: '&6Komandos spalva buvo pakeista'
   fail: '&6Ši spalva neegzistuoja'
@@ -178,12 +178,12 @@ withdraw:
 ally:
   already: '&4Jūs jau sąjungininkai'
   success: '&6Jūsų komandos dabar sąjungininkai'
-  ally: '&6Jūsų komanda dabar yra sąjungininkai su &b%s'
+  ally: '&6Jūsų komanda dabar yra sąjungininkai su &b{0}'
   requested: '&6Sąjungos prašymas šiai komandai buvo išsiųstas'
-  request: '&b%s &6atsiuntė sąjungos pasiūlymą, rašyk &b/team ally <team> &6jog priimti
+  request: '&b{0} &6atsiuntė sąjungos pasiūlymą, rašyk &b/team ally <team> &6jog priimti
     pasiūlymą'
   self: '&4Negali susijungti su savo paties komanda'
-  from: '&6Turi sąjungos pasiūlymų iš: %s'
+  from: '&6Turi sąjungos pasiūlymų iš: {0}'
   noRequests: '&4Neturi jokių sąjungos pasiūlymų'
   onJoin: '&6Turi naujų sąjungos pasiūlymų, rašyk &b/team ally &6jog peržiūrėtum juos'
   limit: '&4Turi pakankamai sąjungininkų'
@@ -191,18 +191,18 @@ ally:
 allychat:
   disabled: '&6Tavo žinutės nebesiunčiamos į Sąjungininkų pokalbį'
   enabled: '&6Tavo žinutės dabar siunčiamos į Sąjungininkų pokalbį'
-  syntax: '&d[%s]&f%s&f: %s'
+  syntax: '&d[{0}]&f{1}&f: {2}'
 neutral:
   self: '&6Tai tavo paties komanda'
   requestremove: '&6Šis prašymas buvo atmestas'
-  reject: '&4Tavo prašymas iš &b%s &4buvo atmestas'
+  reject: '&4Tavo prašymas iš &b{0} &4buvo atmestas'
   notAlly: '&4Nesi sąjungoje su šia komandoje'
   success: '&4Nebesi sąjungoje su šia komanda'
-  remove: '&4Nebesi sąjungoje su &b%s'
+  remove: '&4Nebesi sąjungoje su &b{0}'
 list:
   noPage: '&6šis puslapis nerastas'
-  header: '&7--- &bKomandų sąrašo puslapis %s &7---'
-  body: '&6%s: &b%s'
+  header: '&7--- &bKomandų sąrašo puslapis {0} &7---'
+  body: '&6{0}: &b{1}'
   footer: '&7--- &6rašyk &b/team list [page] &6jog peržiūrėtum daugiau &7---'
 setowner:
   use: '&6Negali paaukštinti šio žaidėjo, naudok &b/team setowner <player> &6jog paaukštintum
@@ -221,13 +221,13 @@ warp:
   success: '&6Buvai nuteleportuotas'
   world: '&4Teleportacijos vieta nerasta'
 warps:
-  syntax: '&6Warps: &b%s'
+  syntax: '&6Warps: &b{0}'
   none: '&4Tavo komanda neturi teleportacijų'
 delwarp:
   success: '&4Ši teleportacija buvo ištrinta'
 teleport:
   fail: '&4Teleportacija nepavyko'
-  wait: '&6 Palauk &b%s &6sekundes'
+  wait: '&6 Palauk &b{0} &6sekundes'
 chest:
   claim:
     noChest: '&4Tu nestovi ant skrynios'
@@ -240,7 +240,7 @@ chest:
     success: '&4Tavo komanda nebeturi priėjimo galimybės prie šios skrynios'
   all:
     success: '&6Atsisakei visų skrynių'
-  claimed: '&4Ši skrynia jau pasisavinta &a%s'
+  claimed: '&4Ši skrynia jau pasisavinta &a{0}'
 echest:
   echest: Pabaigos pasaulio skrynia
 pvp:
@@ -248,8 +248,8 @@ pvp:
   disabled: '&6Pvp tavo komandai buvo išjungtas'
 rankup:
   max: '&4Tu jau pasiekei lygio limitą'
-  score: '&4Tau reikia %s taškų jog pasikeltum lygį'
-  money: '&4Tau reikia %s pinigų sumos komandos piniginėje jog pakeltum lygį'
+  score: '&4Tau reikia {0} taškų jog pasikeltum lygį'
+  money: '&4Tau reikia {0} pinigų sumos komandos piniginėje jog pakeltum lygį'
   success: '&6Tavo komanda pasikėlė lygį'
 tag:
   banned: '&4Ši žyma uždrausta'
@@ -275,7 +275,7 @@ admin:
   title:
     success: '&6Šios komandos užrašas buvo pakeistas'
     reset: '&6Šios komandos užrašas buvo pakeistas'
-  version: '&6Current plugin version: %s'
+  version: '&6Current plugin version: {0}'
   noTeam: '&4Čia ne komanda'
   home:
     success: '&6buvai nuteleportuotas į šios komandos namų teleportaciją'
@@ -294,7 +294,7 @@ admin:
   join:
     banned: '&4šis žaidėjas buvo užblokuotas iš komandos'
     success: '&6Šis žaidėjas prisijungė prie komandos'
-    notify: '&6tu prisijungei prie komandos &b%s'
+    notify: '&6tu prisijungei prie komandos &b{0}'
     full: '&4Ši komanda pilna'
   notInTeam: '&6Šis žaidėjas negali būti komandoje tai darydamas'
   inTeam: '&4šis žaidėjas nėra komandoje'
@@ -362,27 +362,27 @@ admin:
     noWorld: '&4Nurodytas pasaulis nerastas'
     all.success: '&6Visų komandų visi prisijungę nariai buvo perkelti'
     all.home.success: '&6Visų komandų visi prisijungę nariai su namais buvo perkelti'
-  versionstorage: '&6Storage Method: &b%s'
-  versionversion: '&6Minecraft Version: &b%s'
+  versionstorage: '&6Storage Method: &b{0}'
+  versionversion: '&6Minecraft Version: &b{0}'
 nametag:
-  syntax: '&6&l%s&r '
+  syntax: '&6&l{0}&r '
 holo:
   leaderboard: '&6Lyderių lentelė'
-  syntax: '&6%s: &b%s'
-  msyntax: '&6%s: &b$%s'
+  syntax: '&6{0}: &b{1}'
+  msyntax: '&6{0}: &b${1}'
 top:
   leaderboard: '&6Lyderių lentelė'
-  syntax: '&b%s: &6%s &7(%s)'
+  syntax: '&b{0}: &6{1} &7({2})'
   divide: '&f...'
 baltop:
   leaderboard: '&6Lyderių lentelė'
-  syntax: '&b%s: &6%s &7(%s)'
+  syntax: '&b{0}: &6{1} &7({2})'
   divide: '&f...'
 spy:
   stop: '&6nebešnipinėji komandos žinučių'
   start: '&6Tu dabar šnipinėji komandos žinutes'
-  team: '&7[&b%s&7]&f%s&f: %s'
-  ally: '&7[&d%s&7]&f%s&f: %s'
+  team: '&7[&b{0}&7]&f{1}&f: {2}'
+  ally: '&7[&d{0}&7]&f{1}&f: {2}'
 uclaim:
   team: '&4You must be in a team to create a claim'
   member: '&4You cannot leave your teams claim'

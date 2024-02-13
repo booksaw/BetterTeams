@@ -2,6 +2,7 @@ package com.booksaw.betterTeams.customEvents;
 
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
+import com.booksaw.betterTeams.message.MessageManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
@@ -68,10 +69,10 @@ public class TeamPreMessageEvent extends TeamPlayerEvent {
     }
 
     /**
-     * The format is as follows: '%s %s' -> '[player name] [message]'.
+     * The format is as follows: '{0} {1}' -> '[player name] [message]'.
      *
      * @param newFormat The new format for the message following the format provided.
-     * @apiNote If you do not understand how this works, research {@link String#format(String, Object...)} for details.
+     * @apiNote {0} is replaced with the player name and {1} is the message
      */
     public void setFormat(@NotNull String newFormat) {
         this.format = Objects.requireNonNull(newFormat, "Team message format cannot be null");
@@ -84,7 +85,7 @@ public class TeamPreMessageEvent extends TeamPlayerEvent {
      * @return The formatted message using the current format and raw message.
      */
     public String getFormattedMessage() {
-        return String.format(getFormat(), getFormattedSenderName(), getRawMessage());
+        return MessageManager.format(getFormat(), getFormattedSenderName(), getRawMessage());
     }
 
     /**

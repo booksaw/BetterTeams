@@ -28,16 +28,16 @@ public class InfoCommand extends SubCommand {
 	public static List<String> getInfoMessages(Team team) {
 		List<String> infoMessages = new ArrayList<>();
 
-		infoMessages.add(String.format(MessageManager.getMessage("info.name"), team.getDisplayName()));
+		infoMessages.add(MessageManager.getMessageF("info.name", team.getDisplayName()));
 		if (team.getDescription() != null && !team.getDescription().equals("")) {
-			infoMessages.add(String.format(MessageManager.getMessage("info.description"), team.getDescription()));
+			infoMessages.add(MessageManager.getMessageF("info.description", team.getDescription()));
 		}
 
-		infoMessages.add(String.format(MessageManager.getMessage("info.open"), team.isOpen() + ""));
-		infoMessages.add(String.format(MessageManager.getMessage("info.score"), team.getScore() + ""));
-		infoMessages.add(String.format(MessageManager.getMessage("info.money"), team.getBalance()));
-		infoMessages.add(String.format(MessageManager.getMessage("info.level"), team.getLevel() + ""));
-		infoMessages.add(String.format(MessageManager.getMessage("info.tag"), team.getTag() + ""));
+		infoMessages.add(MessageManager.getMessageF("info.open", team.isOpen() + ""));
+		infoMessages.add(MessageManager.getMessageF("info.score", team.getScore() + ""));
+		infoMessages.add(MessageManager.getMessageF("info.money", team.getBalance()));
+		infoMessages.add(MessageManager.getMessageF("info.level", team.getLevel() + ""));
+		infoMessages.add(MessageManager.getMessageF("info.tag", team.getTag() + ""));
 
 		String allyMessage = getAlliesMessage(team);
 		if (allyMessage != null) {
@@ -77,7 +77,7 @@ public class InfoCommand extends SubCommand {
 		if (allies.length() > 2) {
 			allies = new StringBuilder(allies.substring(0, allies.length() - 2));
 
-			return String.format(MessageManager.getMessage("info.ally"), allies.toString());
+			return MessageManager.getMessageF("info.ally", allies.toString());
 		}
 		return null;
 	}
@@ -101,7 +101,7 @@ public class InfoCommand extends SubCommand {
 				userStr.append(player.getPrefix(returnTo)).append(player.getPlayer().getName()).append(" ");
 			}
 
-			return String.format(MessageManager.getMessage("info." + rank.toString().toLowerCase()),
+			return MessageManager.getMessageF("info." + rank.toString().toLowerCase(),
 					userStr.toString());
 		}
 

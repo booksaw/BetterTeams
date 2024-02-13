@@ -19,25 +19,25 @@ noPlayer: "&4Joueur spécifié introuvable"
 notTeam: "&6&4Cette équipe n'existe pas, essayez &b/team create <nom>"
 needSameTeam: "&6Vous n'êtes pas dans la même équipe que cette personne"
 noPerm: "&4Vous n'avez pas la permission de faire cela"
-prefixSyntax: "&7[%s&7] &r%s"
+prefixSyntax: "&7[{0}&7] &r{1}"
 bannedChar: "&4Le caractère que vous avez essayé d'utiliser est interdit"
 noTeam: "&4Cette équipe n'existe pas"
 loading: "&6Chargement"
 cooldown:
-  wait: "&4Vous devez attendre encore %s secondes avant d'exécuter cela !"
+  wait: "&4Vous devez attendre encore {0} secondes avant d'exécuter cela !"
 cost:
   tooPoor: "&4Vous êtes trop pauvre pour exécuter cette commande"
-  run: "&4&l-%s"
+  run: "&4&l-{0}"
 placeholder:
   noTeam: ""
   noDescription: ""
-  money: "%s'"
+  money: "{0}'"
   owner: "Propriétaire"
   admin: "Admin"
   default: "Par défaut"
-  name: "%s'"
-  tag: "%s'"
-  displayname: "%s'"
+  name: "{0}'"
+  tag: "{0}'"
+  displayname: "{0}'"
   inteam: "true'"
   notinteam: "false'"
   noTitle: "'"
@@ -54,16 +54,16 @@ leave:
   success: "&6Vous avez quitté l'équipe"
   lastOwner: "&6Vous êtes le seul propriétaire dans l'équipe. Promouvez quelqu'un d'autre ou utilisez &b/team disband &6pour dissoudre l'équipe"
 announce:
-  join: "&3%s &7a rejoint l'équipe %s"
-  leave: "&3%s &7a quitté l'équipe %s"
-  disband: "&7L'équipe %s a été dissoute"
+  join: "&3{0} &7a rejoint l'équipe {1}"
+  leave: "&3{0} &7a quitté l'équipe {1}"
+  disband: "&7L'équipe {0} a été dissoute"
 rank:
   noTeam: "&4Équipe introuvable"
   info: "&6Position de l'équipe :'"
-  infos: "&6Rang de l'équipe : &b%s &7(%s points nécessaires pour passer au rang suivant)"
-  infom: "&6Rang de l'équipe : &b%s &7(%s $ nécessaires pour passer au rang suivant)"
-  infomm: "&6Rang de l'équipe : &b%s &7(Vous êtes déjà au rang maximum)"
-  syntax: "&b%s : &6%s &7(%s)"
+  infos: "&6Rang de l'équipe : &b{0} &7({1} points nécessaires pour passer au rang suivant)"
+  infom: "&6Rang de l'équipe : &b{0} &7({1} $ nécessaires pour passer au rang suivant)"
+  infomm: "&6Rang de l'équipe : &b{0} &7(Vous êtes déjà au rang maximum)"
+  syntax: "&b{0} : &6{1} &7({2})"
 delhome:
   success: "&6Le point de spawn de votre équipe a été supprimé"
   noHome: "&4Votre équipe n'a pas défini de point de spawn"
@@ -72,24 +72,24 @@ disband:
   confirm: "&6Tapez &b/team disband &6à nouveau pour confirmer"
 description:
   success: "&6Vous avez modifié la description de l'équipe"
-  view: "&6Description de l'équipe : %s"
+  view: "&6Description de l'équipe : {0}"
   noDesc: "&6Aucune description d'équipe définie"
   noPerm: "&4Vous n'avez pas la permission de modifier la description"
 name:
   success: "&6Vous avez changé le nom de l'équipe"
-  view: "&6Nom de l'équipe : %s"
+  view: "&6Nom de l'équipe : {0}"
   exists: "&4Cette équipe existe déjà"
   noPerm: "&4Vous n'avez pas la permission de changer le nom de votre équipe"
 invite:
   success: "&6Ce joueur a été invité"
-  invite: "&6Vous avez été invité à rejoindre l'équipe %s. Utilisez &b/team join <nom de l'équipe> &6pour rejoindre l'équipe"
+  invite: "&6Vous avez été invité à rejoindre l'équipe {0}. Utilisez &b/team join <nom de l'équipe> &6pour rejoindre l'équipe"
   inTeam: "&6Ce joueur est déjà dans une équipe"
   banned: "&6Ce joueur est banni de votre équipe"
   full: "&6Votre équipe est au maximum de sa capacité. Expulsez quelqu'un avant d'inviter d'autres personnes"
-  expired: "&4L'invitation de &b%s &4a expiré"
+  expired: "&4L'invitation de &b{0} &4a expiré"
 join:
   success: "&6Vous avez rejoint cette équipe"
-  notify: "&6Bienvenue &b%s &6dans l'équipe !"
+  notify: "&6Bienvenue &b{0} &6dans l'équipe !"
   notInvited: "&6&4Vous n'avez pas été invité dans cette équipe"
   banned: "&6&4Vous êtes banni de cette équipe"
   full: "&4Cette équipe est complète"
@@ -97,7 +97,7 @@ open:
   successopen: "&6Votre équipe est maintenant ouverte à tous"
   successclose: "&6Votre équipe est maintenant en mode invitation seulement"
 title:
-  change: "&6Votre titre a été modifié en &b%s"
+  change: "&6Votre titre a été modifié en &b{0}"
   remove: "&6Votre titre a été supprimé"
   success: "&6Ce titre a été modifié"
   tooLong: "&4Ce titre est trop long"
@@ -107,32 +107,32 @@ title:
   noPerm: "&4Vous n'avez pas la permission de changer le titre de votre équipe"
 info:
   needTeam: "&6Aucune équipe ou joueur trouvé avec ce nom"
-  name: "&6Nom : &b%s"
-  description: "&6Description : &b%s"
-  open: "&6Ouvert : &b%s"
-  level: "&6Niveau : &b%s"
-  owner: "&6Propriétaires : &b%s"
-  admin: "&6Administrateurs : &b%s"
-  default: "&6Membres : &b%s"
-  tag: "&6Tag : &b%s"
+  name: "&6Nom : &b{0}"
+  description: "&6Description : &b{0}"
+  open: "&6Ouvert : &b{0}"
+  level: "&6Niveau : &b{0}"
+  owner: "&6Propriétaires : &b{0}"
+  admin: "&6Administrateurs : &b{0}"
+  default: "&6Membres : &b{0}"
+  tag: "&6Tag : &b{0}"
   fail: "&6Aucune équipe ou joueur trouvé avec ce nom"
-  score: "&6Score : &b%s"
-  money: "&6Solde : &b%s"
-  ally: "&6Alliés : &b%s"
+  score: "&6Score : &b{0}"
+  money: "&6Solde : &b{0}"
+  ally: "&6Alliés : &b{0}"
 kick:
   success: "&6Ce joueur a été expulsé"
-  notify: "&6Vous avez été expulsé de l'équipe %s"
+  notify: "&6Vous avez été expulsé de l'équipe {0}"
   title: "&4Vous avez été expulsé de votre équipe"
   noPerm: "&6Vous n'avez pas la permission d'expulser cette personne"
 ban:
   success: "&6Ce joueur a été banni"
-  notify: "&6Vous avez été banni de l'équipe %s"
+  notify: "&6Vous avez été banni de l'équipe {0}"
   title: "&4Vous avez été banni de votre équipe'"
   noPerm: "&6Vous n'avez pas la permission de bannir cette personne"
   already: "&6Ce joueur est déjà banni"
 unban:
   success: "&6Ce joueur a été débanni"
-  notify: "&6Vous avez été débanni de l'équipe %s"
+  notify: "&6Vous avez été débanni de l'équipe {0}"
   noPerm: "&6Vous n'avez pas la permission de débannir cette personne"
   not: "&6Ce joueur n'est pas banni"
 promote:
@@ -159,7 +159,7 @@ sethome:
 chat:
   enabled: "&6Vos messages sont maintenant envoyés dans le chat de l'équipe"
   disabled: "&6Vos messages sont maintenant envoyés dans le chat global"
-  syntax: "&b[Équipe]&f%s&f: %s"
+  syntax: "&b[Équipe]&f{0}&f: {1}"
 color:
   success: "&6La couleur de votre équipe a été modifiée"
   fail: "&6Cette couleur n'est pas reconnue"
@@ -177,11 +177,11 @@ withdraw:
 ally:
   already: "&4Vous êtes déjà alliés"
   success: "&6Vos équipes sont maintenant alliées"
-  ally: "&6Votre équipe est maintenant alliée avec &b%s"
+  ally: "&6Votre équipe est maintenant alliée avec &b{0}"
   requested: "&6Une demande d'alliance a été envoyée à cette équipe"
-  request: "&b%s &6a envoyé une demande d'alliance, utilisez &b/team ally <team> &6pour accepter"
+  request: "&b{0} &6a envoyé une demande d'alliance, utilisez &b/team ally <team> &6pour accepter"
   self: "&4Vous ne pouvez pas vous allier avec votre propre équipe"
-  from: "&6Vous avez des demandes d'alliance de la part de : %s"
+  from: "&6Vous avez des demandes d'alliance de la part de : {0}"
   noRequests: "&4Vous n'avez aucune demande d'alliance"
   onJoin: "&6Vous avez de nouvelles demandes d'alliance, utilisez &b/team ally &6pour les afficher"
   limit: "&4La limite d'alliés a été atteinte"
@@ -189,18 +189,18 @@ ally:
 allychat:
   disabled: "&6Vos messages ne sont plus envoyés dans le chat des alliés"
   enabled: "&6Vos messages sont maintenant envoyés dans le chat des alliés"
-  syntax: "&d[%s]&f%s&f: %s"
+  syntax: "&d[{0}]&f{1}&f: {2}"
 neutral:
   self: "&6C'est votre propre équipe"
   requestremove: "&6Cette demande d'alliance a été supprimée"
-  reject: "&4Votre demande d'alliance avec &b%s &4a été rejetée"
+  reject: "&4Votre demande d'alliance avec &b{0} &4a été rejetée"
   notAlly: "&4Vous n'êtes pas allié avec cette équipe"
   success: "&4Vous n'êtes plus allié avec cette équipe"
-  remove: "&4Vous n'êtes plus allié avec &b%s"
+  remove: "&4Vous n'êtes plus allié avec &b{0}"
 list:
   noPage: "&6Cette page n'existe pas"
-  header: "&7--- &bListe des équipes page %s &7---"
-  body: "&6%s : &b%s"
+  header: "&7--- &bListe des équipes page {0} &7---"
+  body: "&6{0} : &b{1}"
   footer: "&7--- &6Utilisez &b/team list [page] &6pour afficher plus &7---"
 setowner:
   use: "&6Vous ne pouvez pas promouvoir ce joueur, utilisez &b/team setowner <joueur> &6pour promouvoir ce joueur en tant que propriétaire"
@@ -218,13 +218,13 @@ warp:
   success: "&6Vous avez été téléporté"
   world: "&4Impossible de trouver l'emplacement de ce point de passage"
 warps:
-  syntax: "&6Points de passage : &b%s"
+  syntax: "&6Points de passage : &b{0}"
   none: "&4Votre équipe n'a aucun point de passage"
 delwarp:
   success: "&4Ce point de passage a été supprimé"
 teleport:
   fail: "&4La téléportation a échoué"
-  wait: "&6Attendez &b%s &6secondes"
+  wait: "&6Attendez &b{0} &6secondes"
 chest:
   claim:
     noChest: "&4Vous n'êtes pas sur un coffre"
@@ -237,7 +237,7 @@ chest:
     success: "&4Votre équipe n'a plus de revendication sur ce coffre"
   all:
     success: "&6Tous les coffres ont été non revendiqués"
-  claimed: "&4Ce coffre est revendiqué par &a%s"
+  claimed: "&4Ce coffre est revendiqué par &a{0}"
 echest:
   echest: "EnderCoffre"
 pvp:
@@ -245,8 +245,8 @@ pvp:
   disabled: "&6Le PvP a été désactivé pour votre équipe"
 rankup:
   max: "&4Vous êtes déjà au rang maximum"
-  score: "&4Vous avez besoin de %s points pour passer au rang supérieur"
-  money: "&4Vous avez besoin de %s argent dans la balance de l'équipe pour passer au rang supérieur"
+  score: "&4Vous avez besoin de {0} points pour passer au rang supérieur"
+  money: "&4Vous avez besoin de {0} argent dans la balance de l'équipe pour passer au rang supérieur"
   success: "&6Votre équipe a monté de niveau"
 tag:
   banned: "&4Ce tag est interdit"
@@ -271,10 +271,10 @@ admin:
   title:
      success: "&6Le titre de ce joueur a été modifié"
      reset: "&6Le titre de ce joueur a été réinitialisé"
-  version: "&6Version actuelle du plugin : &b%s"
-  versionstorage: "&6Méthode de stockage : &b%s"
-  versionversion: "&6Version de Minecraft : &b%s"
-  versionlanguage: "&6Langue sélectionnée : &b%s"
+  version: "&6Version actuelle du plugin : &b{0}"
+  versionstorage: "&6Méthode de stockage : &b{0}"
+  versionversion: "&6Version de Minecraft : &b{0}"
+  versionlanguage: "&6Langue sélectionnée : &b{0}"
   noTeam: "&4Ce n'est pas une équipe"
   home:
      success: "&6Vous avez été téléporté à l'accueil de cette équipe"
@@ -293,7 +293,7 @@ admin:
   join:
      banned: "&4Ce joueur est banni de cette équipe"
      success: "&6Ce joueur a rejoint l'équipe"
-     notify: "&6Vous avez rejoint l'équipe &b%s"
+     notify: "&6Vous avez rejoint l'équipe &b{0}"
      full: "&4Cette équipe est complète"
   notInTeam: "&6Ce joueur ne peut pas rejoindre une équipe avant cela"
   inTeam: "&4Ce joueur n'appartient pas à une équipe"
@@ -360,24 +360,24 @@ admin:
      all.success: '&6Tous les membres en ligne de toutes les équipes ont été téléportés'
      all.home.success: '&6Tous les membres en ligne de toutes les équipes avec une base ont été téléportés'
 nametag:
-  syntax: "&6&l%s&r "
+  syntax: "&6&l{0}&r "
 holo:
   leaderboard: "&6Classement"
-  syntax: "&6%s: &b%s"
-  msyntax: "&6%s: &b%s $"
+  syntax: "&6{0}: &b{1}"
+  msyntax: "&6{0}: &b{1} $"
 top:
   leaderboard: "&6Classement"
-  syntax: "&b%s: &6%s &7(%s)"
+  syntax: "&b{0}: &6{1} &7({2})"
   divide: "&f..."
 baltop:
   leaderboard: "&6Classement"
-  syntax: "&b%s: &6%s &7(%s)"
+  syntax: "&b{0}: &6{1} &7({2})"
   divide: "&f..."
 spy:
   stop: "&6Vous n'espionnez plus les messages de l'équipe"
   start: "&6Vous espionnez maintenant les messages de l'équipe"
-  team: "&7[&b%s&7]&f%s&f: %s"
-  ally: "&7[&d%s&7]&f%s&f: %s"
+  team: "&7[&b{0}&7]&f{1}&f: {2}"
+  ally: "&7[&d{0}&7]&f{1}&f: {2}"
 uclaim:
   team: "&4Vous devez faire partie d'une équipe pour créer une revendication"
   member: "&4Vous ne pouvez pas quitter la revendication de votre équipe"
