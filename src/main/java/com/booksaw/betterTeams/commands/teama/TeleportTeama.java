@@ -42,16 +42,14 @@ public class TeleportTeama extends SubCommand {
 		// i.e. /teama team <team> anything here or /teama all anything here
 		String[] actionArgs = Arrays.copyOfRange(args, target.equals("team") ? 2 : 1, args.length);
 
-		boolean teleportResult = false;
-
-		boolean teleportAllHome = false;
+		boolean teleportedAllHome = false;
 
 		switch (actionArgs.length) {
 			case 0: // /teama team <team> or /teama all - teleport to player location
 				if (!(sender instanceof Player)) {
 					return new CommandResponse("needPlayer");
 				}
-				teleportResult = teleportTeams(targetTeams, ((Player) sender).getLocation());
+				teleportTeams(targetTeams, ((Player) sender).getLocation());
 				break;
 			case 1: // /teama team <team> home or /teama all home - teleport to team home
 				if (!actionArgs[0].equalsIgnoreCase("home")) {
@@ -62,9 +60,9 @@ public class TeleportTeama extends SubCommand {
 						return new CommandResponse("admin.home.noHome");
 					}
 				} else {
-					teleportAllHome = true;
+					teleportedAllHome = true;
 				}
-				teleportResult = teleportTeams(targetTeams, targetTeams.stream().map(Team::getTeamHome).toArray(Location[]::new));
+				teleportTeams(targetTeams, targetTeams.stream().map(Team::getTeamHome).toArray(Location[]::new));
 				break;
 			case 2: // /teama team <team> player <player> or /teama all player <player> - teleport to the player
 				if (!actionArgs[0].equalsIgnoreCase("player")) {
@@ -74,7 +72,7 @@ public class TeleportTeama extends SubCommand {
 				if (targetPlayer == null) {
 					return new CommandResponse("noPlayer");
 				}
-				teleportResult = teleportTeams(targetTeams, targetPlayer.getLocation());
+				teleportTeams(targetTeams, targetPlayer.getLocation());
 				break;
 			case 4: // location <x> <y> <z>
 			case 5: // location <x> <y> <z> [yaw|world]
@@ -125,20 +123,15 @@ public class TeleportTeama extends SubCommand {
 					}
 					world = ((Player) sender).getWorld();
 				}
-				teleportResult = teleportTeams(targetTeams, new Location(world, x, y, z, yaw, pitch));
+				teleportTeams(targetTeams, new Location(world, x, y, z, yaw, pitch));
 				break;
 			default: // Invalid number of arguments provided
 				return new CommandResponse(new HelpMessage(this, label));
 
 		}
 
-		if (!teleportResult) {
-			// Should never happen
-			return new CommandResponse("teleport.fail");
-		}
-
 		if (target.equals("all")) {
-			if (teleportAllHome) {
+			if (teleportedAllHome) {
 				return new CommandResponse(true, "admin.teleport.all.home.success");
 			}
 			return new CommandResponse(true, "admin.teleport.all.success");
@@ -167,10 +160,11 @@ public class TeleportTeama extends SubCommand {
 		return null;
 	}
 
-	private boolean teleportTeams(List<Team> targetTeams, Location... locations) {
+	private void teleportTeams(List<Team> targetTeams, Location... locations) {
 		// Either one location for all or separate locations for each
 		if (locations.length != 1 && locations.length != targetTeams.size()) {
-			return false;
+			// Should never happen
+			return;
 		}
 
 		new BukkitRunnable() {
@@ -194,7 +188,7 @@ public class TeleportTeama extends SubCommand {
 			}
 
 		}.runTask(Main.plugin);
-		return true;
+
 	}
 
 	@Override
@@ -240,7 +234,6 @@ public class TeleportTeama extends SubCommand {
 			options.add("all");
 			return;
 		}
-		String target = args[0].toLowerCase();
 		String lastFullArg = args[args.length - 2];
 		String lastArg = args[args.length - 1];
 		switch (lastFullArg.toLowerCase()) {
@@ -256,15 +249,17 @@ public class TeleportTeama extends SubCommand {
 				addPlayerStringList(options, lastArg);
 				break;
 			default:
-				if (target.equals("team") && args.length < 3) {
+				if (args[0].equalsIgnoreCase("team") && args.length < 3) {
 					return;
 				}
-				String[] actionArgs = Arrays.copyOfRange(args, target.equals("team") ? 2 : 1, args.length);
+				String[] actionArgs = Arrays.copyOfRange(args, args[0].equalsIgnoreCase("team") ? 2 : 1, args.length);
 				if (actionArgs.length == 1) {
 					options.add("home");
 					options.add("location");
 					options.add("player");
-				} else if (actionArgs[0].equalsIgnoreCase("location") && actionArgs.length > 2) {
+					return;
+				}
+				if (actionArgs[0].equalsIgnoreCase("location") && actionArgs.length > 2) {
 					switch (actionArgs.length) {
 						case 3:
 							options.add("[y]");
