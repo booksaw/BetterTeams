@@ -164,7 +164,7 @@ public class TeleportTeama extends SubCommand {
 		// Either one location for all or separate locations for each
 		if (locations.length != 1 && locations.length != targetTeams.size()) {
 			// Should never happen
-			return;
+			throw new IllegalArgumentException("No provided locations");
 		}
 
 		new BukkitRunnable() {
