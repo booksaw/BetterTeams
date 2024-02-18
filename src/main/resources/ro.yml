@@ -353,6 +353,9 @@ admin:
       bc: '&6&lToate lazile revendicate sunt blocate acum.'
   teleport:
     success: '&6Toti membrii online ai echipei respective au fost teleportati.'
+    noWorld: '&4Lumea specificată nu a fost găsită'
+    all.success: '&6Toți membrii online ai tuturor echipelor au fost teleportați'
+    all.home.success: '&6Toți membrii online ai tuturor echipelor cu o casă au fost teleportați'
   versionlanguage: '&6Limba selectata: &b{0}'
 nametag:
   

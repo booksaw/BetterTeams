@@ -279,6 +279,9 @@ admin.chest.enable.already: '&4Занятие сундуков уже включ
 admin.chest.enable.success: '&6Занятие сундуков включено'
 admin.chest.enabled.bc: '&6&lВсе занятые сундуки заблокированы'
 admin.teleport.success: '&6Все онлайн-члены этой команды были телепортированы'
+admin.teleport.noWorld: '&4Указанный мир не найден'
+admin.teleport.all.success: '&6Все онлайн-участники всех команд были телепортированы'
+admin.teleport.all.home.success: '&6Все онлайн-участники всех команд с домом были телепортированы'
 
 nametag.syntax: '&6&l{0}&r '
 holo.leaderboard: '&6Таблица лидеров'

@@ -365,6 +365,9 @@ admin:
       bc: '&6&lSvi zauzeti kovcezi su sada zakljucani'
   teleport:
     success: '&6Svi aktivni igraci tog tima su teleportovani'
+    noWorld: '&4Navedeni svet nije pronađen'
+    all.success: '&6Svi online članovi svih timova su teleportovani'
+    all.home.success: '&6Svi online članovi svih timova sa domom su teleportovani'
 nametag:
   
   syntax: '&6&l{0}&r '

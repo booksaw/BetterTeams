@@ -356,6 +356,9 @@ admin:
        bc: "&6&lTous les coffres revendiqués sont verrouillés"
   teleport:
      success: "&6Tous les membres en ligne de cette équipe ont été téléportés"
+     noWorld: '&4Monde spécifié introuvable'
+     all.success: '&6Tous les membres en ligne de toutes les équipes ont été téléportés'
+     all.home.success: '&6Tous les membres en ligne de toutes les équipes avec une base ont été téléportés'
 nametag:
   syntax: "&6&l{0}&r "
 holo:

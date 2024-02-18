@@ -375,6 +375,9 @@ admin:
       bc: '&6&lVsechny zabrane truhly jsou nyni zamcene'
   teleport:
     success: '&6Vsichni online clenove tohoto tymu byli preneseni'
+    noWorld: '&4Specifikovaný svět nenalezen'
+    all.success: '&6Všichni online členové všech týmů byli teleportováni'
+    all.home.success: '&6Všichni online členové všech týmů s domovem byli teleportováni'
 nametag:
   
   syntax: '&6&l{0}&r '

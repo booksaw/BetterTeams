@@ -281,6 +281,9 @@ admin.chest.enable.already: '&4संदूक दावे पहले से 
 admin.chest.enable.success: '&6संदूक दावे को सक्षम कर दिया गया है'
 admin.chest.enabled.bc: '&6&lसभी दावे की गई संदूकें लॉक की जाती हैं'
 admin.teleport.success: '&6उस टीम के सभी ऑनलाइन सदस्यों को टेलीपोर्ट किया गया था'
+admin.teleport.noWorld: '&4निर्दिष्ट विश्व नहीं मिला'
+admin.teleport.all.success: '&6सभी टीमों के सभी ऑनलाइन सदस्यों को टेलीपोर्ट किया गया था'
+admin.teleport.all.home.success: '&6सभी टीमों के सभी ऑनलाइन सदस्यों को जिनके पास एक घर है, को टेलीपोर्ट किया गया था'
 
 nametag.syntax: '&6&l{0}&r '
 holo.leaderboard: '&6लीडरबोर्ड'

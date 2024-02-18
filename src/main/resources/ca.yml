@@ -339,6 +339,9 @@ admin:
       success: "&6Chest claiming has been enabled"
     enabled:
       bc: "&6&lAll claimed chests are locked"
+  teleport.noWorld: "&4No s'ha trobat el món especificat"
+  teleport.all.success: "&6Tots els membres en línia de tots els equips han estat teleportats"
+  teleport.all.home.success: "&6Tots els membres en línia de tots els equips amb una llar han estat teleportats"
 nametag:
   syntax: "&6&l{0}&r "
 holo:
