@@ -28,8 +28,8 @@ public class TeleportTeama extends SubCommand {
 			return new CommandResponse(new HelpMessage(this, label));
 		}
 
-		// Either a single Team, all Teams, or a single Player
-		List<Object> targetList = getTargetList(args);
+		// Either a single player or all players in all teams
+		List<Player> targetList = getTargetList(args);
 
 		if (targetList == null) {
 			return new CommandResponse(new HelpMessage(this, label));
@@ -47,7 +47,7 @@ public class TeleportTeama extends SubCommand {
 		// i.e. /teama team <team> anything here or /teama all anything here
 		String[] actionArgs = Arrays.copyOfRange(args, target.equals("all") ? 1 : 2, args.length);
 
-		boolean teleportedAllHome = false;
+		boolean teleportedHome = false;
 
 		switch (actionArgs.length) {
 			case 0: // No arguments - Teleport to issuer (must be a player)
@@ -61,38 +61,23 @@ public class TeleportTeama extends SubCommand {
 					return new CommandResponse(new HelpMessage(this, label));
 				}
 				if (targetList.size() == 1) {
-					if (targetList.get(0) instanceof Team) {
-						if (((Team) targetList.get(0)).getTeamHome() == null) {
-							return new CommandResponse("admin.home.noHome");
-						}
-					} else if (targetList.get(0) instanceof Player) {
-						Team team = Team.getTeam((Player) targetList.get(0));
-						if (team == null) {
-							return new CommandResponse("admin.inTeam");
-						}
-						if (team.getTeamHome() == null) {
-							return new CommandResponse("admin.home.noHome");
-						}
-					} else {
-						// Should never happen
-						throw new IllegalArgumentException("Only Team or Player objects can be in the targetList");
+					Team team = Team.getTeam(targetList.get(0));
+					if (team == null) {
+						return new CommandResponse("admin.inTeam");
 					}
-				} else {
-					teleportedAllHome = true;
+					if (team.getTeamHome() == null) {
+						return new CommandResponse("admin.home.noHome");
+					}
 				}
-				teleportTargets(targetList, targetList.stream().map(o -> {
-					if (o instanceof Team) {
-						return ((Team) o).getTeamHome();
-					} else if (o instanceof Player) {
-						Team team = Team.getTeam((Player) o);
-						if (team != null) {
-							if (team.getTeamHome() != null) {
-								return team.getTeamHome();
-							}
+				teleportedHome = true;
+				teleportTargets(targetList, targetList.stream().map(player -> {
+					Team team = Team.getTeam(player);
+					if (team != null) {
+						if (team.getTeamHome() != null) {
+							return team.getTeamHome();
 						}
 					}
-					// Should never happen
-					throw new IllegalArgumentException("Only Team or Player objects can be in the targetList");
+					return null;
 				}).toArray(Location[]::new));
 				break;
 			case 2: // player <player>
@@ -162,7 +147,7 @@ public class TeleportTeama extends SubCommand {
 		}
 
 		if (target.equals("all")) {
-			if (teleportedAllHome) {
+			if (teleportedHome) {
 				return new CommandResponse(true, "admin.teleport.all.home.success");
 			}
 			return new CommandResponse(true, "admin.teleport.all.success");
@@ -175,29 +160,43 @@ public class TeleportTeama extends SubCommand {
 	}
 
 	@Nullable
-	private List<Object> getTargetList(String[] args) {
+	private List<Player> getTargetList(String[] args) {
 		if (args[0].equalsIgnoreCase("team") || args[0].equalsIgnoreCase("player")) {
 			if (args.length < 2) {
 				return null;
 			}
-			List<Object> targetList = new ArrayList<>();
-			Object specifiedTarget = args[0].equalsIgnoreCase("team") ? Team.getTeam(args[1]) : Bukkit.getPlayer(args[1]);
-			if (specifiedTarget == null) {
-				return targetList;
+			List<Player> targetList = new ArrayList<>();
+			if (args[0].equalsIgnoreCase("team")) {
+				Team specifiedTarget = Team.getTeam(args[1]);
+				if (specifiedTarget == null) {
+					return targetList;
+				}
+				targetList.addAll(specifiedTarget.getOnlineMembers());
+			} else {
+				Player specifiedTarget = Bukkit.getPlayer(args[1]);
+				if (specifiedTarget == null) {
+					return targetList;
+				}
+				targetList.add(specifiedTarget);
 			}
-			targetList.add(specifiedTarget);
 			return targetList;
 		} else if (args[0].equalsIgnoreCase("all")) {
-			return new ArrayList<>(Team.getTeamManager().getLoadedTeamListClone().values());
+			// Gets a List<Player> of all online members of all teams
+			return Team.getTeamManager()
+					.getLoadedTeamListClone()
+					.values()
+					.stream()
+					.flatMap(team -> team.getOnlineMembers().stream())
+					.toList();
 		}
 		return null;
 	}
 
-	private void teleportTargets(List<Object> targetList, Location... locations) {
+	private void teleportTargets(List<Player> targetList, Location... locations) {
 		// Either one location for all or separate locations for each
 		if (locations.length != 1 && locations.length != targetList.size()) {
 			// Should never happen
-			throw new IllegalArgumentException("Invalid location array. Either one location for all or separate locations for each");
+			throw new IllegalArgumentException("Invalid location array - Either one location for all or separate locations for each");
 		}
 
 		new BukkitRunnable() {
@@ -205,27 +204,14 @@ public class TeleportTeama extends SubCommand {
 			@Override
 			public void run() {
 				if (locations.length != 1) {
-					// Can only ever be a list of teams
-					List<Team> teamList = targetList.stream().map(o -> (Team) o).toList();
-					for (int i = 0; i < locations.length; i++) {
-						for (Player player : teamList.get(i).getOnlineMembers()) {
-							if (locations[i] == null) continue; // Some teams may not have their home set
-							player.teleport(locations[i]);
-						}
+					for (int i = 0; i < targetList.size(); i++) {
+						if (locations[i] == null) continue; // Some teams may not have their home set
+						targetList.get(i).teleport(locations[i]);
 					}
 					return;
 				}
-				for (Object targetObject : targetList) {
-					if (targetObject instanceof Team) {
-						for (Player player : ((Team) targetObject).getOnlineMembers()) {
-							player.teleport(locations[0]);
-						}
-					} else if (targetObject instanceof Player) {
-						((Player) targetObject).teleport(locations[0]);
-					} else {
-						// Should never happen
-						throw new IllegalArgumentException("Only Team or Player objects can be in the targetList");
-					}
+				for (Player player : targetList) {
+					player.teleport(locations[0]);
 				}
 			}
 
