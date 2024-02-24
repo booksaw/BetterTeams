@@ -66,7 +66,7 @@ public class ScoreManagement implements Listener {
 				}
 
 				run = true;
-				Team.getTeamManager().purgeTeams();
+				Team.getTeamManager().purgeTeams(true, true);
 				if (nextPurge + 1 < purges.size()) {
 					nextPurge++;
 				} else {

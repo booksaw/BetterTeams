@@ -763,10 +763,12 @@ Features:
 	- ! is for team chat, ? is for ally chat. Both are configurable by administrators
 - Added placeholders for positionscore, positionbal and positionmembmers, to show the teams position within the leaderboard - Credit EarthCow (#549, #538)
 - Added further functionality to the /teama teleport command - Teleport all teams home, teleport everyone in a team to a given location etc. - Credit EarthCow (#550, #534)
+- Added the ability to /teama purge a team's balance as well as score (#521)
 - Added pages to help messages and hover command suggestions (#310)
 
 Improvements:
 - Replaced %s with {0}, {1} etc. in messages.yml for clearer usage and support for reordering of placeholders - Credit EarthCow (#551, #169)
+- Support translation of command arguments and admin commnands (#553)
 
 Headings: 
 Features: 

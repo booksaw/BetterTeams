@@ -327,11 +327,19 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 
 	@Override
 	public void purgeTeamScore() {
+		setAllTeamsValue(StoredTeamValue.SCORE, 0, team -> team.setScore(0));
+	}
 
+	@Override
+	public void purgeTeamMoney() {
+		setAllTeamsValue(StoredTeamValue.MONEY, 0, team -> team.setMoney(0));
+	}
+	
+	private void setAllTeamsValue(StoredTeamValue storedTeamValue, Object value, ResetLoadedTeamValue function) {
 		Map<UUID, Team> loadedTeamsClone = getLoadedTeamListClone();
 
 		for (Entry<UUID, Team> team : loadedTeamsClone.entrySet()) {
-			team.getValue().setScore(0);
+			function.resetLoadedTeamValue(team.getValue());
 		}
 
 		// purging all teams that are not loaded async to minimise server impact
@@ -347,20 +355,23 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 					}
 
 					YamlConfiguration yamlConfig = YamlConfiguration.loadConfiguration(f);
-					yamlConfig.set(StoredTeamValue.SCORE.getReference(), 0);
+					yamlConfig.set(storedTeamValue.getReference(), value);
 					try {
 						yamlConfig.save(f);
 					} catch (IOException e) {
 						Bukkit.getLogger()
-								.warning("Failed to purge the score of the team with the file " + f.getPath());
+								.warning("Failed to purge the " + storedTeamValue.toString() + "of the team with the file " + f.getPath());
 						e.printStackTrace();
 					}
 				}
 			}
 		}.runTaskAsynchronously(Main.plugin);
-
 	}
-
+	
+	private interface ResetLoadedTeamValue {
+		public void resetLoadedTeamValue(Team team);
+	}
+	
 	public void savePlayerLookup() {
 		List<String> toSave = new ArrayList<>();
 

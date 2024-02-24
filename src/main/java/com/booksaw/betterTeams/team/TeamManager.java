@@ -317,7 +317,7 @@ public abstract class TeamManager {
 	 * 
 	 * @return If the teams were purged or not
 	 */
-	public boolean purgeTeams() {
+	public boolean purgeTeams(boolean money, boolean score) {
 		// calling custom bukkit event
 		PrePurgeEvent event = new PrePurgeEvent();
 		Bukkit.getPluginManager().callEvent(event);
@@ -325,8 +325,15 @@ public abstract class TeamManager {
 			return false;
 		}
 
-		Bukkit.getLogger().info("purging team score");
-		purgeTeamScore();
+		if (score) {
+			Bukkit.getLogger().info("purging team score");
+			purgeTeamScore();
+		}
+		if (money) {
+			Bukkit.getLogger().info("purging team score");
+			purgeTeamMoney();
+		}
+
 		return true;
 	}
 
@@ -396,8 +403,9 @@ public abstract class TeamManager {
 	 */
 	public void disbandTeam(Team team) {
 		loadedTeams.remove(team.getID());
-		
-		// if a team is being disbanded due to invalid team loading, the file should not be deleted to preserve data
+
+		// if a team is being disbanded due to invalid team loading, the file should not
+		// be deleted to preserve data
 		if (team.getName() != null) {
 			deleteTeamStorage(team);
 		}
@@ -481,6 +489,11 @@ public abstract class TeamManager {
 	 * Used to reset the score of all teams
 	 */
 	public abstract void purgeTeamScore();
+	
+	/**
+	 * Used to reset the balance of all teams
+	 */
+	public abstract void purgeTeamMoney();
 
 	/**
 	 * @return The stored hologram details

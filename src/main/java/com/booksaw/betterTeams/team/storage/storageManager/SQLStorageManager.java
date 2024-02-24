@@ -257,6 +257,17 @@ public class SQLStorageManager extends TeamManager implements Listener {
 
 	}
 
+	@Override
+	public void purgeTeamMoney() {
+		// reseting the loaded teams so the results are immediate
+		for (Entry<UUID, Team> team : loadedTeams.entrySet()) {
+			team.getValue().setMoney(0);
+		}
+
+		database.updateRecord(TableName.TEAM, "money = 0");
+
+	}
+	
 	private static final String HOLOPATH = "holos";
 
 	@Override
