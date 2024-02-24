@@ -768,7 +768,9 @@ Features:
 
 Improvements:
 - Replaced %s with {0}, {1} etc. in messages.yml for clearer usage and support for reordering of placeholders - Credit EarthCow (#551, #169)
-- Support translation of command arguments and admin commnands (#553)
+- Support translation of command arguments (#553)
+- Support the translation of admin commands
+- Color player names in /team info based on if they are online (#469)
 
 Headings: 
 Features: 

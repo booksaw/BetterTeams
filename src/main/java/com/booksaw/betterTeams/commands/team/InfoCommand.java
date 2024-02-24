@@ -26,13 +26,12 @@ import com.booksaw.betterTeams.message.MessageManager;
  */
 public class InfoCommand extends SubCommand {
 
-
 	private final ParentCommand parentCommand;
-	
+
 	public InfoCommand(ParentCommand parentCommand) {
 		this.parentCommand = parentCommand;
 	}
-	
+
 	public static List<String> getInfoMessages(Team team) {
 		List<String> infoMessages = new ArrayList<>();
 
@@ -106,11 +105,13 @@ public class InfoCommand extends SubCommand {
 				}
 			}
 			for (TeamPlayer player : users) {
-				userStr.append(player.getPrefix(returnTo)).append(player.getPlayer().getName()).append(" ");
+				userStr.append(
+						MessageManager.getMessage("info." + ((player.getPlayer().isOnline()) ? "online" : "offline"))
+								+ player.getPrefix(returnTo))
+						.append(player.getPlayer().getName()).append(" ");
 			}
 
-			return MessageManager.getMessageF("info." + rank.toString().toLowerCase(),
-					userStr.toString());
+			return MessageManager.getMessageF("info." + rank.toString().toLowerCase(), userStr.toString());
 		}
 
 		return null;
