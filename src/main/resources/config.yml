@@ -161,6 +161,14 @@ bannedChars: ',.!"�$%^&*()[]{};:#~\|`�'
 # Possible values: [Any characters]
 allowedChars: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 
+# This is a list of all banned chat colors for team names using /team color <color>
+# - List every character, for example to ban gold and red you would do bannedColors: '64' 
+#   As 6 is the character for gold, and 4 is the character for red
+# - Note some characters are always banned such as bold (l)
+# 
+# Possible Values: any number of: '0123456789abcdef'
+bannedColors: ''
+
 # This is the color of the command in the help menu, this can be changed 
 #
 # Possible values: [Any chat color code]
