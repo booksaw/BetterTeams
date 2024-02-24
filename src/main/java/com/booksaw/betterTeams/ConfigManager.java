@@ -178,7 +178,7 @@ public class ConfigManager {
 				Pattern pattern = Pattern.compile("%s");
 				Matcher matcher = pattern.matcher(stringVal);
 
-				StringBuilder sb = new StringBuilder();
+				StringBuffer sb = new StringBuffer();
 				int count = 0;
 				while (matcher.find()) {
 					matcher.appendReplacement(sb, "{" + count++ + "}");

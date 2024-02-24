@@ -16,6 +16,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TeleportTeama extends SubCommand {
 
@@ -187,7 +188,7 @@ public class TeleportTeama extends SubCommand {
 					.values()
 					.stream()
 					.flatMap(team -> team.getOnlineMembers().stream())
-					.toList();
+					.collect(Collectors.toList());
 		}
 		return null;
 	}
@@ -242,7 +243,7 @@ public class TeleportTeama extends SubCommand {
 	@Override
 	public String getArguments() {
 		// This is confusing and complex, but it expresses all the options
-		return "<team|player|all> [<team>|<player>|home|location|player] [home|location|player|<x> <y> <z> [yaw|world] [pitch] [world]|<player>] [<x> <y> <z> [yaw|world] [pitch] [world]|<player>]";
+		return "<team <team> | player <player> | all> [home | player <player> | location <x> <y> <z> [yaw] [pitch] [world]]";
 	}
 
 	@Override
@@ -301,7 +302,6 @@ public class TeleportTeama extends SubCommand {
 							options.add("[z]");
 							break;
 						case 5:
-							options.add("[world]");
 							options.add("[yaw]");
 							break;
 						case 6:
