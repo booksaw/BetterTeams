@@ -765,6 +765,7 @@ Features:
 - Added further functionality to the /teama teleport command - Teleport all teams home, teleport everyone in a team to a given location etc. - Credit EarthCow (#550, #534)
 - Added the ability to /teama purge a team's balance as well as score (#521)
 - Added pages to help messages and hover command suggestions (#310)
+- Added support for clickable invite messages (#423)
 
 Improvements:
 - Replaced %s with {0}, {1} etc. in messages.yml for clearer usage and support for reordering of placeholders - Credit EarthCow (#551, #169)
