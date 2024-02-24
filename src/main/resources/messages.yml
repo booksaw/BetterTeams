@@ -336,6 +336,46 @@ help.delhome: Delete your team's home
 help.ally: Used to request an alliance with another team
 help.neutral: Remove allies and reject ally requests
 help.allychat: Send a message only to your allies
+helpArg.delhome: ''
+helpArg.echest: ''
+helpArg.color: <color code>
+helpArg.allychat: '[message]'
+helpArg.description: '[description]'
+helpArg.setwarp: <name> [password]
+helpArg.title: '[player/me] [title]'
+helpArg.bal: ''
+helpArg.ban: <player>
+helpArg.promote: <player>
+helpArg.warps: ''
+helpArg.top: ''
+helpArg.ally: <team>
+helpArg.rankup: ''
+helpArg.leave: ''
+helpArg.sethome: ''
+helpArg.create: <name> [tag]
+helpArg.rank: '[team]'
+helpArg.join: <team>
+helpArg.tag: '[tag]'
+helpArg.disband: ''
+helpArg.info: '[team/player]'
+helpArg.delwarp: <name> [password]
+helpArg.chest: ''
+helpArg.neutral: <team>
+helpArg.pvp: ''
+helpArg.baltop: ''
+helpArg.list: '[page]'
+helpArg.home: ''
+helpArg.help: ''
+helpArg.unban: <player>
+helpArg.demote: <player>
+helpArg.kick: <player>
+helpArg.chat: '[message]'
+helpArg.name: <name>
+helpArg.deposit: <amount>
+helpArg.invite: <player>
+helpArg.open: ''
+helpArg.warp: <name>
+helpArg.withdraw: <amount>
 
 command.create: create
 command.leave: leave

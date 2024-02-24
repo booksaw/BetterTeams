@@ -57,8 +57,8 @@ public class HelpCommand extends SubCommand {
 		// Send specific help message if command found
 		if (args.length != 0 && command.getSubCommands().containsKey(args[0])) {
 			sender.sendMessage(
-					createHelpMessage(label, args[0] + " " + command.getSubCommands().get(args[0]).getArguments(),
-							command.getSubCommands().get(args[0]).getHelpMessage()));
+					createHelpMessage(label, args[0] + " " + command.getSubCommands().get(args[0]).getArgMessage(command),
+							command.getSubCommands().get(args[0]).getHelpMessage(command)));
 			return null;
 		}
 
@@ -82,10 +82,10 @@ public class HelpCommand extends SubCommand {
 		for (int i = commandsPerPage * page; i < permissiveCommands.size() && i < commandsPerPage * (page + 1); i++) {
 			SubCommand subCommand = permissiveCommands.get(i);
 			if (sender instanceof Player) {
-				((Player)sender).spigot().sendMessage(createClickableHelpMessage(label, subCommand.getCommand() + " " + subCommand.getArguments(), subCommand.getHelpMessage()));
+				((Player)sender).spigot().sendMessage(createClickableHelpMessage(label, subCommand.getCommand() + " " + subCommand.getArgMessage(command), subCommand.getHelpMessage(command)));
 			} else {
 				MessageManager.sendFullMessage(sender, createHelpMessage(label,
-						subCommand.getCommand() + " " + subCommand.getArguments(), subCommand.getHelpMessage()));
+						subCommand.getCommand() + " " + subCommand.getArgMessage(command), subCommand.getHelpMessage(command)));
 			}
 		}
 
@@ -113,7 +113,7 @@ public class HelpCommand extends SubCommand {
 				for (Entry<String, SubCommand> sub : command.getSubCommands().entrySet()) {
 					writer.println(
 							Main.plugin.getConfig().getString("prefixFormat") + "&b/" + label + " " + sub.getKey() + " "
-									+ sub.getValue().getArguments() + "&f - &6" + sub.getValue().getHelpMessage());
+									+ sub.getValue().getArgMessage(command) + "&f - &6" + sub.getValue().getHelpMessage(command));
 				}
 				writer.close();
 

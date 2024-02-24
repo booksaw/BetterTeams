@@ -14,6 +14,7 @@ import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
+import com.booksaw.betterTeams.commands.ParentCommand;
 import com.booksaw.betterTeams.commands.SubCommand;
 import com.booksaw.betterTeams.message.HelpMessage;
 import com.booksaw.betterTeams.message.MessageManager;
@@ -25,6 +26,13 @@ import com.booksaw.betterTeams.message.MessageManager;
  */
 public class InfoCommand extends SubCommand {
 
+
+	private final ParentCommand parentCommand;
+	
+	public InfoCommand(ParentCommand parentCommand) {
+		this.parentCommand = parentCommand;
+	}
+	
 	public static List<String> getInfoMessages(Team team) {
 		List<String> infoMessages = new ArrayList<>();
 
@@ -112,11 +120,11 @@ public class InfoCommand extends SubCommand {
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
 		if (args.length == 0) {
 			if (!(sender instanceof Player)) {
-				return new CommandResponse(new HelpMessage(this, label));
+				return new CommandResponse(new HelpMessage(this, label, parentCommand));
 			}
 			Team team = Team.getTeam((Player) sender);
 			if (team == null) {
-				return new CommandResponse(new HelpMessage(this, label));
+				return new CommandResponse(new HelpMessage(this, label, parentCommand));
 			}
 			displayTeamInfo(sender, team);
 			return new CommandResponse(true);

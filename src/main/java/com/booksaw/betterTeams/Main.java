@@ -338,14 +338,14 @@ public class Main extends JavaPlugin {
 	public void setupCommands() {
 		teamCommand = new PermissionParentCommand(new CostManager("team"), new CooldownManager("team"), "team");
 		// add all sub commands here
-		teamCommand.addSubCommands(new CreateCommand(), new LeaveCommand(), new DisbandCommand(),
+		teamCommand.addSubCommands(new CreateCommand(teamCommand), new LeaveCommand(), new DisbandCommand(),
 				new DescriptionCommand(), new InviteCommand(), new JoinCommand(), new NameCommand(), new OpenCommand(),
-				new InfoCommand(), new KickCommand(), new PromoteCommand(), new DemoteCommand(), new HomeCommand(),
-				new SethomeCommand(), new BanCommand(), new UnbanCommand(), new ChatCommand(), new ColorCommand(),
-				new TitleCommand(), new TopCommand(), new BaltopCommand(), new RankCommand(), new DelHome(),
-				new AllyCommand(), new NeutralCommand(), new AllyChatCommand(), new ListCommand(), new WarpCommand(),
-				new SetWarpCommand(), new DelwarpCommand(), new WarpsCommand(), new EchestCommand(),
-				new RankupCommand(), new TagCommand());
+				new InfoCommand(teamCommand), new KickCommand(), new PromoteCommand(), new DemoteCommand(),
+				new HomeCommand(), new SethomeCommand(), new BanCommand(), new UnbanCommand(),
+				new ChatCommand(teamCommand), new ColorCommand(), new TitleCommand(), new TopCommand(),
+				new BaltopCommand(), new RankCommand(), new DelHome(), new AllyCommand(), new NeutralCommand(),
+				new AllyChatCommand(teamCommand), new ListCommand(), new WarpCommand(), new SetWarpCommand(),
+				new DelwarpCommand(), new WarpsCommand(), new EchestCommand(), new RankupCommand(), new TagCommand());
 
 		if (getConfig().getBoolean("disableCombat")) {
 			teamCommand.addSubCommand(new PvpCommand());
@@ -368,8 +368,8 @@ public class Main extends JavaPlugin {
 				new HomeTeama(), new NameTeama(), new DescriptionTeama(), new OpenTeama(), new InviteTeama(),
 				new CreateTeama(), new JoinTeama(), new LeaveTeama(), new PromoteTeama(), new DemoteTeama(),
 				new WarpTeama(), new SetwarpTeama(), new DelwarpTeama(), new PurgeTeama(), new DisbandTeama(),
-				new ColorTeama(), new EchestTeama(), new SetrankTeama(), new TagTeama(), new TeleportTeama(),
-				new AllyTeama(), new NeutralTeama());
+				new ColorTeama(), new EchestTeama(), new SetrankTeama(teamaCommand), new TagTeama(),
+				new TeleportTeama(teamaCommand), new AllyTeama(), new NeutralTeama());
 
 		if (getConfig().getBoolean("singleOwner")) {
 			teamaCommand.addSubCommand(new SetOwnerTeama());
@@ -395,7 +395,8 @@ public class Main extends JavaPlugin {
 		}
 
 		if (econ != null) {
-			teamCommand.addSubCommands(new DepositCommand(), new BalCommand(), new WithdrawCommand());
+			teamCommand.addSubCommands(new DepositCommand(teamCommand), new BalCommand(),
+					new WithdrawCommand(teamCommand));
 		}
 
 		new BooksawCommand("teamadmin", teamaCommand, "betterteams.admin", "All admin commands for teams",

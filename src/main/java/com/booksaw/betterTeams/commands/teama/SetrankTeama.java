@@ -3,6 +3,7 @@ package com.booksaw.betterTeams.commands.teama;
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.commands.ParentCommand;
 import com.booksaw.betterTeams.commands.presets.TeamSelectSubCommand;
 import com.booksaw.betterTeams.message.HelpMessage;
 import org.bukkit.command.CommandSender;
@@ -11,6 +12,13 @@ import java.util.List;
 
 public class SetrankTeama extends TeamSelectSubCommand {
 
+
+	private final ParentCommand parentCommand;
+	
+	public SetrankTeama(ParentCommand parentCommand) {
+		this.parentCommand = parentCommand;
+	}
+	
 	@Override
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args, Team team) {
 
@@ -18,11 +26,11 @@ public class SetrankTeama extends TeamSelectSubCommand {
 		try {
 			level = Integer.parseInt(args[1]);
 		} catch (NumberFormatException e) {
-			return new CommandResponse(new HelpMessage(this, label));
+			return new CommandResponse(new HelpMessage(this, label, parentCommand));
 		}
 
 		if (level <= 0) {
-			return new CommandResponse(new HelpMessage(this, label));
+			return new CommandResponse(new HelpMessage(this, label, parentCommand));
 		}
 
 		String price = Main.plugin.getConfig().getString("levels.l" + level + ".price");

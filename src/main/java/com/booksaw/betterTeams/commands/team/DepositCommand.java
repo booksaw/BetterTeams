@@ -9,6 +9,7 @@ import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
+import com.booksaw.betterTeams.commands.ParentCommand;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 import com.booksaw.betterTeams.message.HelpMessage;
 
@@ -16,6 +17,12 @@ import net.milkbowl.vault.economy.EconomyResponse;
 
 public class DepositCommand extends TeamSubCommand {
 
+	private final ParentCommand parentCommand;
+	
+	public DepositCommand(ParentCommand parentCommand) {
+		this.parentCommand = parentCommand;
+	}
+	
 	@Override
 	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 
@@ -23,7 +30,7 @@ public class DepositCommand extends TeamSubCommand {
 		try {
 			amount = Double.parseDouble(args[0]);
 		} catch (Exception e) {
-			return new CommandResponse(new HelpMessage(this, label));
+			return new CommandResponse(new HelpMessage(this, label, parentCommand));
 		}
 
 		if (amount <= 0) {

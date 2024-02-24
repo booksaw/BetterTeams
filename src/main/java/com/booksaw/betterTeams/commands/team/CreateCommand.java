@@ -3,6 +3,7 @@ package com.booksaw.betterTeams.commands.team;
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.commands.ParentCommand;
 import com.booksaw.betterTeams.commands.presets.NoTeamSubCommand;
 import com.booksaw.betterTeams.message.HelpMessage;
 
@@ -17,12 +18,16 @@ import java.util.List;
  * @author booksaw
  */
 public class CreateCommand extends NoTeamSubCommand {
-
+	private final ParentCommand parentCommand;
 	boolean enforceTag;
-
-	public CreateCommand() {
+	
+	public CreateCommand(ParentCommand parentCommand) {
+		this.parentCommand = parentCommand;
 		enforceTag = Main.plugin.getConfig().getBoolean("enforceTag");
 	}
+
+
+
 
 	@Override
 	public CommandResponse onCommand(Player sender, String label, String[] args) {
@@ -32,7 +37,7 @@ public class CreateCommand extends NoTeamSubCommand {
 		}
 
 		if (args.length <= 1 && enforceTag) {
-			return new CommandResponse(new HelpMessage(this, label));
+			return new CommandResponse(new HelpMessage(this, label, parentCommand));
 		}
 
 		if (args.length > 1) {

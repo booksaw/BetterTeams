@@ -1,6 +1,7 @@
 package com.booksaw.betterTeams.commands.team;
 
 import com.booksaw.betterTeams.*;
+import com.booksaw.betterTeams.commands.ParentCommand;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 import com.booksaw.betterTeams.message.HelpMessage;
 import org.bukkit.command.CommandSender;
@@ -9,13 +10,19 @@ import java.util.List;
 
 public class AllyChatCommand extends TeamSubCommand {
 
+	private final ParentCommand parentCommand;
+	
+	public AllyChatCommand(ParentCommand parentCommand) {
+		this.parentCommand = parentCommand;
+	}
+	
 	@Override
 	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 
 		if (args.length == 0) {
 			// toggle chat
 			if (!Main.plugin.getConfig().getBoolean("allowToggleTeamChat")) {
-				return new CommandResponse(new HelpMessage(this, label));
+				return new CommandResponse(new HelpMessage(this, label, parentCommand));
 			}
 
 			if (player.isInAllyChat()) {

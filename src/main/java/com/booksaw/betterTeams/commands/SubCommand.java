@@ -29,11 +29,38 @@ public abstract class SubCommand {
 	 *
 	 * @return the help message for the subcommand
 	 */
-	public String getHelpMessage() {
-		String message = MessageManager.getDefaultMessages().getString("help." + getCommand());
+	public String getHelpMessage(ParentCommand parent) {
+		
+		String prefix = (parent.getCommand().equals("team")) ? "" : parent.getCommand() + ".";
+		System.out.println("prefix = " + prefix);
+		String message = MessageManager.getDefaultMessages().getString("help." + prefix + getCommand());
 		if (message == null || message.equals("")) {
 			message = getHelp();
-			MessageManager.getDefaultMessages().set("help." + getCommand(), getHelp());
+			MessageManager.getDefaultMessages().set("help."  + prefix +  getCommand(), getHelp());
+
+			File f = MessageManager.getFile();
+			try {
+				MessageManager.getDefaultMessages().save(f);
+			} catch (IOException ex) {
+				Bukkit.getLogger().log(Level.SEVERE, "Could not save config to " + f, ex);
+			}
+		}
+		return message;
+	}
+	
+	/**
+	 * This method is used to load the help message from the file, or if there is
+	 * not one, it will get the default message
+	 *
+	 * @return the help message for the subcommand
+	 */
+	public String getArgMessage(ParentCommand parent) {
+		
+		String prefix = (parent.getCommand().equals("team")) ? "" : parent.getCommand() + ".";
+		String message = MessageManager.getDefaultMessages().getString("helpArg."  + prefix +  getCommand());
+		if (message == null || message.equals("")) {
+			message = getArguments();
+			MessageManager.getDefaultMessages().set("helpArg." + prefix +  getCommand(), getArguments());
 
 			File f = MessageManager.getFile();
 			try {

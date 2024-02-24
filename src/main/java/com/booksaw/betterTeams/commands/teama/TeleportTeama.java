@@ -3,6 +3,7 @@ package com.booksaw.betterTeams.commands.teama;
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.commands.ParentCommand;
 import com.booksaw.betterTeams.commands.SubCommand;
 import com.booksaw.betterTeams.message.HelpMessage;
 import org.bukkit.Bukkit;
@@ -20,20 +21,26 @@ import java.util.stream.Collectors;
 
 public class TeleportTeama extends SubCommand {
 
+	private final ParentCommand parentCommand;
+	
+	public TeleportTeama(ParentCommand parentCommand) {
+		this.parentCommand = parentCommand;
+	}
+	
 	@Override
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
 
 		String target = args[0].toLowerCase();
 
 		if (!target.equals("team") && !target.equals("all") && !target.equals("player")) {
-			return new CommandResponse(new HelpMessage(this, label));
+			return new CommandResponse(new HelpMessage(this, label, parentCommand));
 		}
 
 		// Either a single player or all players in all teams
 		List<Player> targetList = getTargetList(args);
 
 		if (targetList == null) {
-			return new CommandResponse(new HelpMessage(this, label));
+			return new CommandResponse(new HelpMessage(this, label, parentCommand));
 		}
 
 		if (targetList.isEmpty()) {
@@ -59,7 +66,7 @@ public class TeleportTeama extends SubCommand {
 				break;
 			case 1: // home
 				if (!actionArgs[0].equalsIgnoreCase("home")) {
-					return new CommandResponse(new HelpMessage(this, label));
+					return new CommandResponse(new HelpMessage(this, label, parentCommand));
 				}
 				if (targetList.size() == 1) {
 					Team team = Team.getTeam(targetList.get(0));
@@ -83,7 +90,7 @@ public class TeleportTeama extends SubCommand {
 				break;
 			case 2: // player <player>
 				if (!actionArgs[0].equalsIgnoreCase("player")) {
-					return new CommandResponse(new HelpMessage(this, label));
+					return new CommandResponse(new HelpMessage(this, label, parentCommand));
 				}
 				Player targetPlayer = Bukkit.getPlayer(actionArgs[1]);
 				if (targetPlayer == null) {
@@ -96,7 +103,7 @@ public class TeleportTeama extends SubCommand {
 			case 6: // location <x> <y> <z> [yaw] [pitch]
 			case 7: // location <x> <y> <z> [yaw] [pitch] [world]
 				if (!actionArgs[0].equalsIgnoreCase("location")) {
-					return new CommandResponse(new HelpMessage(this, label));
+					return new CommandResponse(new HelpMessage(this, label, parentCommand));
 				}
 				double x, y, z;
 				float yaw = 0, pitch = 0;
@@ -106,7 +113,7 @@ public class TeleportTeama extends SubCommand {
 					y = Double.parseDouble(actionArgs[2]);
 					z = Double.parseDouble(actionArgs[3]);
 				} catch (NumberFormatException e) {
-					return new CommandResponse(new HelpMessage(this, label));
+					return new CommandResponse(new HelpMessage(this, label, parentCommand));
 				}
 				if (actionArgs.length >= 5) {
 					world = Bukkit.getWorld(actionArgs[4]);
@@ -114,18 +121,18 @@ public class TeleportTeama extends SubCommand {
 						try {
 							yaw = Float.parseFloat(actionArgs[4]);
 						} catch (NumberFormatException E) {
-							return new CommandResponse(new HelpMessage(this, label));
+							return new CommandResponse(new HelpMessage(this, label, parentCommand));
 						}
 					}
 				}
 				if (world != null && actionArgs.length > 5) {
-					return new CommandResponse(new HelpMessage(this, label));
+					return new CommandResponse(new HelpMessage(this, label, parentCommand));
 				}
 				if (actionArgs.length >= 6) {
 					try {
 						pitch = Float.parseFloat(actionArgs[5]);
 					} catch (NumberFormatException E) {
-						return new CommandResponse(new HelpMessage(this, label));
+						return new CommandResponse(new HelpMessage(this, label, parentCommand));
 					}
 				}
 				if (actionArgs.length == 7) {
@@ -143,7 +150,7 @@ public class TeleportTeama extends SubCommand {
 				teleportTargets(targetList, new Location(world, x, y, z, yaw, pitch));
 				break;
 			default: // Invalid number of arguments provided
-				return new CommandResponse(new HelpMessage(this, label));
+				return new CommandResponse(new HelpMessage(this, label, parentCommand));
 
 		}
 
