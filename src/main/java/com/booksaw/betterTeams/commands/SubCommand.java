@@ -32,7 +32,6 @@ public abstract class SubCommand {
 	public String getHelpMessage(ParentCommand parent) {
 		
 		String prefix = (parent.getCommand().equals("team")) ? "" : parent.getCommand() + ".";
-		System.out.println("prefix = " + prefix);
 		String message = MessageManager.getDefaultMessages().getString("help." + prefix + getCommand());
 		if (message == null || message.equals("")) {
 			message = getHelp();
