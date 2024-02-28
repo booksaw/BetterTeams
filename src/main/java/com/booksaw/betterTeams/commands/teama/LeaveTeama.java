@@ -2,11 +2,11 @@ package com.booksaw.betterTeams.commands.teama;
 
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.Utils;
 import com.booksaw.betterTeams.commands.SubCommand;
 import com.booksaw.betterTeams.message.MessageManager;
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
+import org.bukkit.OfflinePlayer;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class LeaveTeama extends SubCommand {
 	@Override
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
 
-		Player p = Bukkit.getPlayer(args[0]);
+		OfflinePlayer p = Utils.getOfflinePlayer(args[0]);
 		if (p == null) {
 			return new CommandResponse("noPlayer");
 		}
@@ -26,7 +26,9 @@ public class LeaveTeama extends SubCommand {
 		}
 
 		if (team.removePlayer(p)) {
-			MessageManager.sendMessage(p, "admin.leave.notify");
+			if (p.isOnline()) {
+				MessageManager.sendMessage((CommandSender) p, "admin.leave.notify");
+			}
 			return new CommandResponse(true, "admin.leave.success");
 		}
 		return new CommandResponse("admin.cancel");
