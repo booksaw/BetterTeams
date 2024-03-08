@@ -774,6 +774,14 @@ Improvements:
 - Support the translation of admin commands
 - Color player names in /team info based on if they are online (#469)
 
+
+4.9.1:
+
+Bug Fixes:
+- Fixed offline players not being targeted for /teama leave - Credit EarthCow (#557)
+- Fixed /team help not showing any commands when the player is not op (#564)
+- Removed missed debug output
+
 Headings: 
 Features: 
 
