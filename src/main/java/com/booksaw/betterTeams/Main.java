@@ -364,12 +364,13 @@ public class Main extends JavaPlugin {
 
 		ParentCommand teamaCommand = new ParentCommand("teamadmin");
 
-		teamaCommand.addSubCommands(new ReloadTeama(), new ChatSpyTeama(), new TitleTeama(), new VersionTeama(),
-				new HomeTeama(), new NameTeama(), new DescriptionTeama(), new OpenTeama(), new InviteTeama(),
-				new CreateTeama(), new JoinTeama(), new LeaveTeama(), new PromoteTeama(), new DemoteTeama(),
-				new WarpTeama(), new SetwarpTeama(), new DelwarpTeama(), new PurgeTeama(), new DisbandTeama(),
-				new ColorTeama(), new EchestTeama(), new SetrankTeama(teamaCommand), new TagTeama(),
-				new TeleportTeama(teamaCommand), new AllyTeama(), new NeutralTeama());
+		teamaCommand.addSubCommands(new ReloadTeama(), new ChatSpyTeama(), new TitleTeama(),
+				new VersionTeama("version"), new VersionTeama("debug"), new HomeTeama(), new NameTeama(),
+				new DescriptionTeama(), new OpenTeama(), new InviteTeama(), new CreateTeama(), new JoinTeama(),
+				new LeaveTeama(), new PromoteTeama(), new DemoteTeama(), new WarpTeama(), new SetwarpTeama(),
+				new DelwarpTeama(), new PurgeTeama(), new DisbandTeama(), new ColorTeama(), new EchestTeama(),
+				new SetrankTeama(teamaCommand), new TagTeama(), new TeleportTeama(teamaCommand), new AllyTeama(),
+				new NeutralTeama());
 
 		if (getConfig().getBoolean("singleOwner")) {
 			teamaCommand.addSubCommand(new SetOwnerTeama());
