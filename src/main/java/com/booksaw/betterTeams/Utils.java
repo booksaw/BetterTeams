@@ -1,14 +1,17 @@
 package com.booksaw.betterTeams;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.metadata.MetadataValue;
 
 public class Utils {
 
@@ -74,6 +77,19 @@ public class Utils {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	public static boolean isVanished(final Player player) {
+		if (!player.isOnline())
+			return false;
+
+		final List<MetadataValue> values = player.getMetadata("vanished");
+
+		for (final MetadataValue meta : values)
+			if (meta.asBoolean())
+				return true;
+
+		return false;
 	}
 
 }
