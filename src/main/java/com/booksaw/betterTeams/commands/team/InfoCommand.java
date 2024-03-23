@@ -4,16 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.booksaw.betterTeams.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.PlayerRank;
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.ParentCommand;
 import com.booksaw.betterTeams.commands.SubCommand;
 import com.booksaw.betterTeams.message.HelpMessage;
@@ -106,7 +103,7 @@ public class InfoCommand extends SubCommand {
 			}
 			for (TeamPlayer player : users) {
 				userStr.append(
-						MessageManager.getMessage("info." + ((player.getPlayer().isOnline()) ? "online" : "offline"))
+						MessageManager.getMessage("info." + ((player.getPlayer().isOnline() && player.getOnlinePlayer().map(p -> !Utils.isVanished(p)).orElse(false)) ? "online" : "offline"))
 								+ player.getPrefix(returnTo))
 						.append(player.getPlayer().getName()).append(" ");
 			}
