@@ -5,7 +5,7 @@
 	<groupId>com.booksaw.betterTeams</groupId>
 	<artifactId>BetterTeams</artifactId>
 	<version>4.9.1</version>
-	<name>BetterTeams</name>
+	<name>BetterTeams-${project.version}</name>
 	<packaging>jar</packaging>
 	<description>Create teams to fight to be the best</description>
 	<repositories>
@@ -41,7 +41,7 @@
 		<dependency>
 			<groupId>me.clip</groupId>
 			<artifactId>placeholderapi</artifactId>
-			<version>2.10.9</version>
+			<version>2.11.5</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
