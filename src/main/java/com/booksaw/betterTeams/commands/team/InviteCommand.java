@@ -23,7 +23,7 @@ public class InviteCommand extends TeamSubCommand {
 
 		Player toInvite = Bukkit.getPlayer(args[0]);
 
-		if (toInvite == null) {
+		if (toInvite == null || Utils.isVanished(toInvite)) {
 			return new CommandResponse("noPlayer");
 		}
 
