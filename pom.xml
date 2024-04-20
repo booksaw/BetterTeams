@@ -4,8 +4,8 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.booksaw.betterTeams</groupId>
 	<artifactId>BetterTeams</artifactId>
-	<version>4.9.1</version>
-	<name>BetterTeams-${project.version}</name>
+	<version>4.9.2</version>
+	<name>BetterTeams</name>
 	<packaging>jar</packaging>
 	<description>Create teams to fight to be the best</description>
 	<repositories>
@@ -86,7 +86,7 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>BetterTeams</finalName>
+		<finalName>BetterTeams-${project.version}</finalName>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
 			<plugin>

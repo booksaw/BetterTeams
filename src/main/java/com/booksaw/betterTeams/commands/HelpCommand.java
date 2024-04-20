@@ -82,7 +82,7 @@ public class HelpCommand extends SubCommand {
 		for (int i = commandsPerPage * page; i < permissiveCommands.size() && i < commandsPerPage * (page + 1); i++) {
 			SubCommand subCommand = permissiveCommands.get(i);
 			if (sender instanceof Player) {
-				((Player)sender).spigot().sendMessage(createClickableHelpMessage(label, subCommand.getCommand() + " " + subCommand.getArgMessage(command), subCommand.getHelpMessage(command)));
+				((Player)sender).spigot().sendMessage(createClickableHelpMessage(label, command.getReference(subCommand) + " " + subCommand.getArgMessage(command), subCommand.getHelpMessage(command)));
 			} else {
 				MessageManager.sendFullMessage(sender, createHelpMessage(label,
 						subCommand.getCommand() + " " + subCommand.getArgMessage(command), subCommand.getHelpMessage(command)));

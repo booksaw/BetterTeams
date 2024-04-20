@@ -794,6 +794,7 @@ Bug Fixes:
 - Fixed Bug causing vanished players to be shown as online in /team info and /team invite - Credit Hellinduction (#567, #525)
 - Improved error message when team chest claim data is invalid (#587)
 - Improved error message when there is a plugin conflict in the tab menu (#587)
+- Fixed translated commands not being shown in the help menu (#584)
 
 Headings: 
 Features: 
