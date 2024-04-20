@@ -1,5 +1,7 @@
 package com.booksaw.betterTeams.integrations.placeholder;
 
+import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.benmanes.caffeine.cache.LoadingCache;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -12,6 +14,8 @@ import com.booksaw.betterTeams.message.MessageManager;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 
+import java.time.Duration;
+
 /**
  * This class is used to set the placeholder values for placeholder API
  *
@@ -19,6 +23,11 @@ import me.clip.placeholderapi.expansion.PlaceholderExpansion;
  */
 public class TeamPlaceholders extends PlaceholderExpansion {
 	private final Plugin plugin;
+
+	private final LoadingCache<String, String> placeholderCache = Caffeine.newBuilder()
+			.maximumSize(300)
+			.expireAfterWrite(Duration.ofMinutes(5))
+			.build(this::getStaticPlaceholder);
 
 	public TeamPlaceholders(Plugin plugin) {
 		this.plugin = plugin;
@@ -84,22 +93,28 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 			return TeamPlaceholderService.getPlaceholder(identifier, team, tp);
 		}
 
-		// more complex request
-		switch (split[0]) {
-		case "position":
-			return processRankedTeamDataPlaceholder(identifier, SortType.SCORE);
-		case "balanceposition":
-			return processRankedTeamDataPlaceholder(identifier, SortType.BALANCE);
-		case "membersposition":
-			return processRankedTeamDataPlaceholder(identifier, SortType.MEMBERS);
-		case "static":
-			return processStaticTeamPlaceholder(split);
-		case "staticplayer_":
-			return processStaticTeamPlayerPlaceholder(split);
-		default:
-			return null;
-		}
+		return placeholderCache.get(identifier);
 
+	}
+
+	private String getStaticPlaceholder(String identifier) {
+		String[] split = identifier.split("_");
+
+		// more complex request though not individual player related so can be cached
+		switch (split[0]) {
+			case "position":
+				return processRankedTeamDataPlaceholder(identifier, SortType.SCORE);
+			case "balanceposition":
+				return processRankedTeamDataPlaceholder(identifier, SortType.BALANCE);
+			case "membersposition":
+				return processRankedTeamDataPlaceholder(identifier, SortType.MEMBERS);
+			case "static":
+				return processStaticTeamPlaceholder(split);
+			case "staticplayer_":
+				return processStaticTeamPlayerPlaceholder(split);
+			default:
+				return null;
+		}
 	}
 
 	private String processRankedTeamDataPlaceholder(String identifier, SortType type) {
