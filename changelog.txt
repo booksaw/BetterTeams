@@ -777,10 +777,21 @@ Improvements:
 
 4.9.1:
 
+Improvements: 
+- Improved /teama version output
+
 Bug Fixes:
 - Fixed offline players not being targeted for /teama leave - Credit EarthCow (#557)
 - Fixed /team help not showing any commands when the player is not op (#564)
 - Removed missed debug output
+
+4.9.2
+
+Improvements:
+- File name now includes version number - Credit ItzSave (#573)
+
+Bug Fixes:
+- Fixed Bug causing vanished players to be shown as online in /team info and /team invite - Credit Hellinduction (#567, #525)
 
 Headings: 
 Features: 
