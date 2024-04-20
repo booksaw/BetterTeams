@@ -788,6 +788,7 @@ Bug Fixes:
 4.9.2
 
 Improvements:
+- Added support for caching results for static placeholders to improve server load (#482)
 - File name now includes version number - Credit ItzSave (#573)
 
 Bug Fixes:
