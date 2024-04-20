@@ -426,13 +426,19 @@ titleRemoval: true
 purgeCommands:
 - 'give @a minecraft:dirt 1'
 
+# This is used to enable the auto purge configuration below
+# If this is set to true, team scores will be purged in correspondence of the timings below
+#
+# Possible values: true, false
+enableAutoPurge: false
+
 # This is used to track when the next purge should occur. This is a list of dates where a purge will be run 
 # If this list is left blank, no purges will occur
 # these dates must be in order of ealiest to latest
 # 
 # Possible values: [{dateOfMonth}:{Hour of day}]
 autoPurge: 
-#- '1:6'
+- '1:6'
 # This will purge the users score at 6am on the first of every month
 
 # The amount of time after an event occurs that repeat events are classed as spam
