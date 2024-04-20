@@ -16,6 +16,11 @@ public abstract class LocationListComponent extends ListTeamComponent<Location> 
 	 */
 	public static Location getLocation(String loc) {
 		String[] split = loc.split(":");
+
+		if (split.length < 6) {
+			throw new IllegalArgumentException("Invalid location string: " + loc);
+		}
+
 		return new Location(Bukkit.getWorld(split[0]), Double.parseDouble(split[1]), Double.parseDouble(split[2]),
 				Double.parseDouble(split[3]), Float.parseFloat(split[4]), Float.parseFloat(split[5]));
 	}

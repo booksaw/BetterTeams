@@ -349,7 +349,11 @@ public class Team {
 		warps.load(storage);
 
 		claims = new ChestClaimComponent();
-		claims.load(storage);
+		try {
+			claims.load(storage);
+		} catch (IllegalArgumentException e) {
+			Bukkit.getLogger().severe("Invalid location stored in the file for the team with the ID " + id.toString() + ", " + e.getMessage());
+		}
 
 		level = storage.getInt(StoredTeamValue.LEVEL);
 		if (level < 1) {
