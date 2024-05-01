@@ -2,6 +2,7 @@ package com.booksaw.betterTeams;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -93,7 +94,8 @@ public class BooksawCommand extends BukkitCommand {
 	}
 
 	public boolean checkPointers(CommandSender sender, String label, String[] args) {
-
+		System.out.println("SENDER PERMISSION RESPONSE = " + sender.hasPermission("betterteams.admin.selector") + " " + sender.getName());
+		System.out.println("Args = " + Arrays.toString(args));
 		if (!sender.hasPermission("betterteams.admin.selector")) {
 			return false;
 		}
@@ -111,7 +113,12 @@ public class BooksawCommand extends BukkitCommand {
 					if (e instanceof Player) {
 						found = true;
 						String[] newArgs = args.clone();
-						newArgs[i] = e.getName();
+						for (int j = 0; j < newArgs.length; j++) {
+							if (newArgs[j].equals(args[i])) {
+								newArgs[j] = e.getName();
+							}
+						}
+
 						execute(sender, label, newArgs);
 
 					}

@@ -236,12 +236,12 @@ permissions:
    betterTeams.chest.remove:
       default: true
       description: gives access to the command /team chest remove
-   betterTeams.admin.selector:
-      default: true
-      description: gives access to @a and @p
    betterTeams.chest.removeall:
       default: true
       description: gives access to the command /team chest removeall
+   betterTeams.admin.selector:
+      default: op
+      description: gives access to @a and @p
    betterTeams.admin.chest.claim:
       default: op
       description: gives access to the command /teama chest claim
