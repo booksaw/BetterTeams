@@ -7,6 +7,7 @@ import java.util.logging.Level;
 
 import com.booksaw.betterTeams.integrations.hologram.DHHologramManager;
 import com.booksaw.betterTeams.integrations.hologram.HDHologramManager;
+import com.booksaw.betterTeams.utils.WebhookPayload;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -198,6 +199,11 @@ public class Main extends JavaPlugin {
 			if (getConfig().getBoolean("ultimateClaims.enabled")) {
 				new UltimateClaimsManager();
 			}
+		}
+
+		Boolean hookSupport = getConfig().getBoolean("hookSupport");
+		if (hookSupport != null && hookSupport) {
+			getServer().getPluginManager().registerEvents(new WebhookPayload(), this);
 		}
 
 		useHolograms = setupHolograms();

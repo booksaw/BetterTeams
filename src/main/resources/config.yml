@@ -578,3 +578,27 @@ checkUpdates: true
 # This option can be used to rebuild lookups in the teams.yml file, this should never have to be used unless advised to by booksaw
 # Set this to true to rebuild the lookup tables in teams.yml for seperatedYamlStorage
 rebuildLookups: false
+
+# ------- Discord webhook manager -------
+
+# THIS FEATURE IS STILL IN BETA
+# IF YOU HAPPEN TO FIND ANY BUGS PLEASE REPORT THEM
+# Author: Ceymikey
+
+# The webhook URL
+# String []
+hookURL: WEBHOOKURL_HERE
+
+# Will this feature be enabled?
+# If set to false skip the rest of the settings
+# Bool default: false
+hookSupport: false
+
+# IF HOOKSUPPORT = FALSE SKIP THESE / LEAVE THESE FALSE
+# Next up you can select for which specific events
+# you would like to get notified about by webook.
+# Bool default: false
+create-hook: false
+disband-hook: false
+player-left-hook: false
+team-nameChange-hook: false
