@@ -798,6 +798,12 @@ Bug Fixes:
 - Fixed translated commands not being shown in the help menu (#584)
 - Added additional option to ensure autopurge does not activate accidentally (#574)
 
+4.9.3:
+
+Bug Fixes:
+- Removed output missed in the last update that was spamming consoles
+
+
 Headings: 
 Features: 
 
