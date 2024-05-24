@@ -11,7 +11,7 @@ import com.booksaw.betterTeams.commands.presets.MoneySubCommand;
 public class SetMoney extends MoneySubCommand {
 
 	@Override
-	public CommandResponse onCommand(CommandSender sender, Team team, int change) {
+	public CommandResponse onCommand(CommandSender sender, Team team, double change) {
 
 		team.setMoney(change);
 

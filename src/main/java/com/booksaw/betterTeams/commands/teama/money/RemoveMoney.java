@@ -10,7 +10,7 @@ import com.booksaw.betterTeams.commands.presets.MoneySubCommand;
 
 public class RemoveMoney extends MoneySubCommand {
 	@Override
-	public CommandResponse onCommand(CommandSender sender, Team team, int change) {
+	public CommandResponse onCommand(CommandSender sender, Team team, double change) {
 
 		team.setMoney(Math.max(team.getMoney() - change, 0));
 

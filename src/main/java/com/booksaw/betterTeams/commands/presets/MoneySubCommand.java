@@ -23,9 +23,9 @@ public abstract class MoneySubCommand extends SubCommand {
 		// team is not null
 		// getting the score change
 
-		int score;
+		double score;
 		try {
-			score = Integer.parseInt(args[1]);
+			score = Double.parseDouble(args[1]);
 		} catch (NumberFormatException e) {
 			return new CommandResponse("help");
 		}
@@ -37,7 +37,7 @@ public abstract class MoneySubCommand extends SubCommand {
 		return onCommand(sender, team, score);
 	}
 
-	public abstract CommandResponse onCommand(CommandSender sender, Team team, int change);
+	public abstract CommandResponse onCommand(CommandSender sender, Team team, double change);
 
 	@Override
 	public int getMaximumArguments() {
