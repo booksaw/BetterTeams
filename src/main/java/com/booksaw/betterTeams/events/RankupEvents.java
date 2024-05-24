@@ -34,13 +34,13 @@ public class RankupEvents implements Listener {
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
 	public void onPromote(PromotePlayerEvent e) {
-		List<String> commands = Main.plugin.getConfig().getStringList("promoteCommands");
+		List<String> commands = Main.plugin.getConfig().getStringList("promoteCommands." + e.getNewRank().toString().toUpperCase());
 		runCommandList(commands, e.getTeam(), e.getNewRank().toString(), e.getPlayer());
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
 	public void onDemote(DemotePlayerEvent e) {
-		List<String> commands = Main.plugin.getConfig().getStringList("demoteCommands." + e.getNewRank().toString());
+		List<String> commands = Main.plugin.getConfig().getStringList("demoteCommands." + e.getNewRank().toString().toUpperCase());
 		runCommandList(commands, e.getTeam(), e.getNewRank().toString(), e.getPlayer());
 	}
 

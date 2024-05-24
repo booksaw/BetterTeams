@@ -52,7 +52,8 @@ public class UpdateChecker implements Listener {
 				if (isLatestVersion())
 					return;
 				Bukkit.getLogger().warning(
-						"[BetterTeams] An update for BetterTeams has been released. Update here (https://www.spigotmc.org/resources/better-teams.17129/)");
+						MessageManager.getMessage("admin.update")
+				);
 				latest = false;
 				cancel();
 			}

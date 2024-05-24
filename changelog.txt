@@ -798,6 +798,27 @@ Bug Fixes:
 - Fixed translated commands not being shown in the help menu (#584)
 - Added additional option to ensure autopurge does not activate accidentally (#574)
 
+4.9.3:
+
+Bug Fixes:
+- Fixed bug causing users to be able to crash server
+
+4.9.4:
+
+Improvements:
+- Added missing French translations - Credit DoZys
+- Added missing Hungarian translations - Credit Config
+- Added missing German translations - Credit sarp_03
+
+
+Bug Fixes:
+- Removed output missed in the last update that was spamming consoles
+- Fixed issue where PromoteCommands were not working as expected (#591)
+- Fixed issue with the update link pasted in the console (#598)
+- Fixed issue not allowing /teama money to have decimal amounts (#599)
+- Fixed issue where DecentHologram displayswere not refreshing (#595)
+
+
 Headings: 
 Features: 
 
