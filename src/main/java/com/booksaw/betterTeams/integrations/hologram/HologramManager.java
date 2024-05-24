@@ -82,10 +82,10 @@ public abstract class HologramManager {
 	public void startUpdates() {
 		BukkitScheduler scheduler = Main.plugin.getServer().getScheduler();
 		scheduler.scheduleSyncRepeatingTask(Main.plugin, () -> {
-			if (Bukkit.getPluginManager().getPlugin("HolographicDisplays") == null || !Objects
-					.requireNonNull(Bukkit.getPluginManager().getPlugin("HolographicDisplays")).isEnabled()) {
+			if (isHolographicDisplaysEnabled() || isDecentHologramsEnabled()) {
 				return;
 			}
+			System.out.println("entering holo");
 			for (HologramType type : HologramType.values()) {
 				if (needsUpdating(type)) {
 					for (Entry<LocalHologram, HologramType> holo : holos.entrySet()) {
@@ -96,6 +96,16 @@ public abstract class HologramManager {
 				}
 			}
 		}, 0L, 20 * 60L);
+	}
+
+	private boolean isHolographicDisplaysEnabled() {
+		return Bukkit.getPluginManager().getPlugin("HolographicDisplays") == null || !Objects
+				.requireNonNull(Bukkit.getPluginManager().getPlugin("HolographicDisplays")).isEnabled();
+	}
+
+	private boolean isDecentHologramsEnabled() {
+		return Bukkit.getPluginManager().getPlugin("DecentHolograms") == null || !Objects
+				.requireNonNull(Bukkit.getPluginManager().getPlugin("DecentHolograms")).isEnabled();
 	}
 
 	public LocalHologram getNearestHologram(Location location) {

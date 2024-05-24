@@ -6,7 +6,8 @@
 # Any placeholders from placeholder API will work in this file
 
 
-invalidArg: '&4Ungültige Argumente, schreibe /help' 
+invalidArg: '&4Ungültige Argumente, schreibe /help'
+internalError: '&4Etwas ist falsch gelaufen während der Bearbeitung von dem Befehl! Bitte kontaktiere den Server Besitzer oder Admin!'
 inTeam: '&4Um das zu tun, musst du in einem Team sein' 
 notInTeam: '&4Um das zu tun, musst du dein Team zuvor verlassen' 
 needOwner: '&4Um das zu tun, musst du Eigentümer des Teams sein' 
@@ -23,7 +24,10 @@ loading: '&6Lädt'
 cooldown.wait: '&4Du musst weitere {0}Sekundem warten, bevor du das wieder benutzten kannst!' 
 cost.tooPoor: '&4Du bist zu arm, um diesen Befehl ausführen zu können' 
 cost.run: '&4&l-{0}' 
-placeholder.noTeam: '' 
+placeholder.noTeam: ''
+placeholder.inteam: 'true'
+placeholder.notinteam: 'false'
+placeholder.notitle: ''
 placeholder.noDescription: '' 
 placeholder.money: '{0}' 
 placeholder.owner: Eigentümer 
@@ -67,7 +71,8 @@ invite.invite: '&6Du wurdest zu Team {0} eingeladen. Schreibe &b/team join <Te
 invite.inTeam: '&6Dieser Spieler ist bereits in einem Team' 
 invite.banned: '&6Dieser Spieler ist in deinem Team verboten' 
 invite.full: '&6Dieses Team ist voll. Werfe zuerst Spieler heraus, bevor du neue einlädst' 
-invite.expired: '&4Die Einladung von &b{0} ist abgelaufen' 
+invite.expired: '&4Die Einladung von &b{0} ist abgelaufen'
+invite.hover: '&6Klicke um Beizutreten &b{0}'
 join.success: '&6Du bist dem Team beigetreten' 
 join.notify: '&6Willkommem &b{0} &6im Team!' 
 join.notInvited: '&6&4Du wurdest nicht zu diesem Team eingeladen' 
@@ -95,14 +100,18 @@ info.tag: '&6Tag: &b{0}'
 info.fail: '&6Unter diesem Namen wurde weder ein Spieler noch ein Team gefunden'
 info.score: '&6Punkte: &b{0}' 
 info.money: '&6Bilanz: &b{0}' 
-info.ally: '&6Verbündete: &b{0}' 
+info.ally: '&6Verbündete: &b{0}'
+info.online: '&a'
+info.offline: '&c'
 kick.success: '&6Dieser Spieler wurde aus dem Team geworfen' 
 kick.notify: '&6Du wurdest aus dem Team {0} geworfen' 
-kick.noPerm: '&6Du hast nicht die Berechtigung um jemanden aus dem Team zu werfen' 
+kick.noPerm: '&6Du hast nicht die Berechtigung um jemanden aus dem Team zu werfen'
+kick.title: '&4Du wurdest aus deinem Team gekickt!'
 ban.success: '&6Dieser Spieler wurde verboten' 
 ban.notify: '&6Du wurdest aus dem Team {0} verboten' 
 ban.noPerm: '&6Du hast keine Berechtigung um diesen Spieler zu verbieten' 
-ban.already: '&6Dieser Spieler ist bereits verboten' 
+ban.already: '&6Dieser Spieler ist bereits verboten'
+ban.title: '&4Du wurdest aus deinem Team gebannt!'
 unban.success: '&6Das Vebot über den Spieler wurde zurückgenommen' 
 unban.notify: '&6Dein Verbot im Team {0} wurde zurückgekommen' 
 unban.noPerm: '&6Du hast keine Berechtigung um das Verbot über diesen Spieler zurückzunehmen' 
@@ -214,7 +223,12 @@ admin.holo.remove.noHolo: '&4Keine Hologramme gefunden'
 admin.holo.remove.success: '&6Hologramm wurde entfernt' 
 admin.title.success: '&6Der Titel von dem Spieler wurde geändert' 
 admin.title.reset: '&6Der Titel von dem Spieler wurde zurückgesetzt' 
-admin.version: '&6Aktuelle Plugin-Version: {0}' 
+admin.version: '&6Aktuelle Plugin-Version: {0}'
+admin.versionstorage: '&6Speicherungsmethode: &b{0}'
+admin.versionversion: '&6Minecraft Version: &b{0}'
+admin.versionlanguage: '&6Ausgewählte Sprache: &b{0}'
+admin.versiononline: '&6Online mode: &b{0}'
+admin.versionplayers: '&6Aktive Spieler: &b{0}'
 admin.noTeam: '&4Das ist kein Team' 
 admin.home.success: '&6Du wurdest zu dem Zuhause dieses Teams teleportiert' 
 admin.home.noHome: '&4Dieses Team hat kein Zuhause gesetzt' 
@@ -269,6 +283,16 @@ admin.chest.enabled.bc: '&6&lAlle beanspruchten Kisten wurden verschlossen'
 admin.teleport.noWorld: '&4Angegebene Welt nicht gefunden'
 admin.teleport.all.success: '&6Alle online Mitglieder aller Teams wurden teleportiert'
 admin.teleport.all.home.success: '&6Alle online Mitglieder aller Teams mit einem Zuhause wurden teleportiert'
+admin.teleport.success: '&6Alle aktiven Spieler des Teams wurden erfolgreich teleportiert!'
+admin.teleport.player.success: '&6Der Spieler wurde erfolgreich teleportiert'
+admin.bal.toSmall: '&4Das Guthaben muss höher als 0 sein!'
+admin.bal.success: '&6Das Guthaben des Teams wurde erfolgreich verändert!'
+admin.ally.same: '&4Du kannst nicht das eigene Team zum Verbündeten machen'
+admin.ally.already: '&4Diese Teams sind bereits Verbündete'
+admin.ally.success: '&6Diese beiden Teams sind nun Verbündete'
+admin.neutral.same: '&4Du kannst das gleiche Team nicht zweimal betreten'
+admin.neutral.not: '&4Diese Teams sind nicht Verbündete'
+admin.neutral.success: '&6Diese Teams sind nicht mehr Verbündete'
 
 nametag.syntax: '&6&l{0}&r ' 
 holo.leaderboard: '&6Rangliste' 
@@ -289,8 +313,10 @@ uclaim.team: '&4Du musst in einem Team sein um einen Anspruch zu erstellen'
 uclaim.member: '&4Du kannst nicht den Anspruch deienes Teams verlassen' 
 uclaim.kick: '&4Du kannst nicht Mitglieder deines Teams von deinem Anspruch herunterwerfen' 
 uclaim.ban: '&4Du kannst nicht Mitglieder deines Teams von deinem Anspruch verbieten' 
-uclaim.dissolve: '&4Dein Team wurde aufgelöst und deine Ansprüche wurden ebenfalls aufgelöst' 
+uclaim.dissolve: '&4Dein Team wurde aufgelöst und deine Ansprüche wurden ebenfalls aufgelöst'
 
+help.header: '&6---- &bTeams Hilfe &6----'
+help.footer: '&6---- &bSeite {0}/{1} - /{2} help <seite> &6----'
 help.description: Schaue und ändere die Beschreibung deines Teams
 help.ban: Verbiete einen Spieler von deinem Team
 help.home: Teleportiere dich zu dem Zuhause deines Teams
@@ -320,6 +346,40 @@ help.delhome: Lösche das Zuhause deines Teams
 help.ally: Fordere eine Allianz mit einem anderen Team an 
 help.neutral: Entferne Allianzen und lehne Allianzanfragen ab
 help.allychat: Sende eine Nachricht zu deinen Verbündeten
+
+helpArg.bal: ''
+helpArg.ban: '<spieler>'
+helpArg.promote: '<spieler>'
+helpArg.warps: ''
+helpArg.top: ''
+helpArg.ally: '<team>'
+helpArg.rankup: ''
+helpArg.leave: ''
+helpArg.sethome: ''
+helpArg.create: '<name> [tag]'
+helpArg.rank: '[team]'
+helpArg.join: '<team>'
+helpArg.tag: '[tag]'
+helpArg.disband: ''
+helpArg.info: '[team/spieler]'
+helpArg.delwarp: '<name> [passwort]'
+helpArg.chest: ''
+helpArg.neutral: '<team>'
+helpArg.pvp: ''
+helpArg.baltop:
+helpArg.list: '[seite]'
+helpArg.home: ''
+helpArg.help: ''
+helpArg.unban: '<spieler>'
+helpArg.demote: '<spieler>'
+helpArg.kick: '<spieler>'
+helpArg.chat: '[nachricht]'
+helpArg.name: '<name>'
+helpArg.deposit: '<betrag>'
+helpArg.invite: '<spieler>'
+helpArg.open: ''
+helpArg.warp: '<name>'
+helpArg.withdraw: '<betrag>'
 
 command.create: create
 command.leave: leave
@@ -370,3 +430,9 @@ command.set: set
 command.score: score
 command.enableclaims: enableclaims
 command.disableclaims: disableclaims
+command.debug: debug
+command.teleport: teleport
+command.money: money
+command.deposit: deposit
+command.bal: bal
+command.withdraw: withdraw

@@ -5,7 +5,7 @@
 
 # Any placeholders from placeholder API will work in this file
 
-# Credit for contributions to this file: Timiliris_420, Silvex
+# Credit for contributions to this file: Timiliris_420, Silvex, DoZys
 
 
 invalidArg: "&4Arguments invalides, aide"
@@ -217,6 +217,8 @@ warp:
   invalidPassword: "&4Mot de passe incorrect pour ce point de passage"
   success: "&6Vous avez été téléporté"
   world: "&4Impossible de trouver l'emplacement de ce point de passage"
+  syntax: "&6Points de téléportation: &b%s"
+  none: "&4Votre team n'a pas de points de téléportation définis"
 warps:
   syntax: "&6Points de passage : &b{0}"
   none: "&4Votre équipe n'a aucun point de passage"
@@ -241,8 +243,8 @@ chest:
 echest:
   echest: "EnderCoffre"
 pvp:
-  enabled: "&6Le PvP a été activé pour votre équipe"
-  disabled: "&6Le PvP a été désactivé pour votre équipe"
+  enabled: "&6Le PvP a été activé pour votre team"
+  disabled: "&6Le PvP a été désactivé pour votre team"
 rankup:
   max: "&4Vous êtes déjà au rang maximum"
   score: "&4Vous avez besoin de {0} points pour passer au rang supérieur"
@@ -319,9 +321,6 @@ admin:
      notify: "&6Vous êtes maintenant propriétaire de votre équipe"
   warps:
      none: "&4Cette équipe n'a défini aucun point de téléportation"
-  setwarp:
-     success: "&6Ce point de téléportation a été défini"
-     max: "&6Cette équipe a déjà atteint le nombre maximum de points de téléportation"
   purge:
      confirm: "&6Exécutez cette commande dans les 10 prochaines secondes pour confirmer, &4CETTE ACTION NE PEUT PAS ÊTRE ANNULÉE ET RÉINITIALISERA LES SCORES DE TOUTES LES ÉQUIPES"
      success: "&6Les équipes ont été réinitialisées"
@@ -414,17 +413,17 @@ help:
   ally: Utilisé pour demander une alliance avec une autre équipe
   neutral: Supprimer les alliés et rejeter les demandes d'alliance
   allychat: Envoyer un message uniquement à vos alliés
-echest: Voir le coffre de l'ender de votre équipe
-setwarp: Définir un point de passage pour le reste de votre équipe
-warps: Voir la liste des points de passage de votre équipe
-rankup: Faire monter en grade votre équipe pour obtenir plus d'avantages
-tag: Définir la balise de votre équipe
-delwarp: Supprimer ce point de passage de votre équipe
-chest: ""
-pvp: Activer ou désactiver le mode PvP pour votre équipe
-baltop: Voir les équipes les plus riches
-list: Obtenir une liste de toutes les équipes sur le serveur
-warp: Se téléporter à un emplacement défini par votre équipe
+  echest: Voir le coffre de l'ender de votre équipe
+  setwarp: Définir un point de passage pour le reste de votre équipe
+  warps: Voir la liste des points de passage de votre équipe
+  rankup: Faire monter en grade votre équipe pour obtenir plus d'avantages
+  tag: Définir la balise de votre équipe
+  delwarp: Supprimer ce point de passage de votre équipe
+  chest: ""
+  pvp: Activer ou désactiver le mode PvP pour votre équipe
+  baltop: Voir les équipes les plus riches
+  list: Obtenir une liste de toutes les équipes sur le serveur
+  warp: Se téléporter à un emplacement défini par votre équipe
 command:
   create: create
   leave: leave
@@ -477,3 +476,20 @@ command:
   disableclaims: disableclaims
   teleport: teleport
   money: money
+
+
+
+help.echest: Voir l'ender chest de votre team
+help.setwarp: Définir un point de téléportation pour le reste de votre team
+help.warps: Voir la liste des points de téléportation de votre team
+help.rankup: Faire monter votre team en grade pour obtenir plus d'avantages
+help.tag: Définir le tag de votre team
+help.delwarp: Supprimer ce point de téléportation de votre team
+help.chest:
+help.pvp: Activer/Désactiver si le PvP est activé pour votre team
+help.baltop: Voir les teams les plus riches
+help.list: Obtenir une liste de toutes les teams sur le serveur
+help.warp: Se téléporter à un emplacement défini par votre team
+command.deposit: déposer
+command.bal: solde
+command.withdraw: retirer

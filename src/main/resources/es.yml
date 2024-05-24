@@ -5,7 +5,7 @@
 
 # Any placeholders from placeholder API will work in this file
 
-# Credit for contributions to this file: Casho, mattyhd0, Santos
+# Credit for contributions to this file: Casho, mattyhd0, Santos, Bruno
 
 invalidArg: '&4Argumentos inválidos.'
 inTeam: '&4Debes estar en un equipo para hacer eso.'
@@ -209,11 +209,6 @@ tag.success: '&6La etiqueta ha sido cambiada correctamente.'
 tag.maxLength: '&4La etiqueta es demasiado larga.'
 tag.noPerm: '&4No tienes permisos para cambiar la etiqueta del equipo.'
 
-tag.banned: '&4Esa tag esta prohibida'
-tag.success: '&6Tu tag se ha cambiado satisfactoriamente'
-tag.maxLength: '&4Esa tag es muy larga'
-tag.noPerm: '&4No tienes permisos para cambiar la tag del equipo'
-
 admin.cancel: '&4El comando fue cancelado por otro plugin.'
 admin.tag.success: '&6Se ha cambiado la etiqueta del equipo correctamente.'
 admin.setrank.success: '&6Se ha establecido el rango del equipo.'
@@ -414,4 +409,4 @@ command.money: money
 command.deposit: deposit
 command.bal: bal
 command.withdraw: withdraw
-
+command.holo: holo

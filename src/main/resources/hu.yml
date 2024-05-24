@@ -5,7 +5,7 @@
 
 # Any placeholders from placeholder API will work in this file
 
-# Credit for contributions to this file: Bercyy
+# Credit for contributions to this file: Bercyy, Config
 
 invalidArg: '&4Érvénytelen argumentumok, segítség'
 inTeam: '&4Csapatban kell lenned ahhoz, hogy ezt megtehesd'
@@ -88,6 +88,7 @@ invite:
   full: '&6A csapat maximum elérte maxlétszámot, távolíts el valakit, mielőtt újabb
     meghívásokat küldesz'
   expired: '&4Az &b{0} &6által küldött meghívó lejárt'
+  hover: '&6Kattints a csatlakozáshoz &b{0}'
 join:
   success: '&6Csatlakoztál a csapathoz'
   notify: '&6Üdvözöllek, &b{0} &6a csapatban!'
@@ -120,6 +121,8 @@ info:
   score: '&6Pontszám: &b{0}'
   money: '&6Egyenleg: &b{0}'
   ally: '&6Szövetségesek: &b{0}'
+  online: '&a'
+  offline: '&c'
 kick:
   success: '&6Az adott játékost kirúgtad'
   notify: '&6Kirúgtak a(z) {0} csapatból'
@@ -389,7 +392,17 @@ admin:
     noWorld: '&4A megadott világ nem található'
     all.success: '&6Az összes csapat összes online tagját teleportálták'
     all.home.success: '&6Az összes csapat összes online tagját, akiknek van otthonuk, teleportálták'
+    player.success: '&6A játékos el lett teleportáltatva'
   versionlanguage: '&6Kiválasztott nyelv: &b{0}'
+  versiononline: '&6Elérhető mód: &b{ 0 }'
+  versionplayers: '&6Játékosszám: &b{ 0 }'
+  ally:
+    already: '&4Ezek a csapatok már szövetségben vannak.'
+    success: '&6Ezek a csapatok mostantól szövetségben vannak.'
+  neutral:
+    same: '&4Nem léphetsz be ugyanabba a csapatba kétszer.'
+    not: '&4Azok a csapatok nem szövetségesek.'
+    success: '&6Azok a csapatok mostantól nem szövetségesek.'
 nametag:
   
   syntax: '&6&l{0}&r '
@@ -418,7 +431,8 @@ uclaim:
   ban: '&4Nem tilthatod el a saját csapatod tagjait az igényedből'
   dissolve: '&4A csapatod feloszlatásra került, így az igényed is megszűnt'
 help:
-  
+  header: '&6---- &bBetterTeams Segítség &6----'
+  footer: '&6---- &bOldal { 0 }/{1} - /{2} help <oldal> &6----'
   description: Tekintsd meg és változtasd meg a csapatod leírását
   ban: A megadott játékost kitiltja a csapatodból
   home: A csapatod otthonához teleportál téged
@@ -515,6 +529,6 @@ command:
   deposit: deposit
   bal: bal
   withdraw: withdraw
+  holo: holo
 internalError: '&4Valami hiba történt a parancs végrehajtása közben. Kérlek, jelentsd
   ezt a szerver tulajdonosainak.'
-#Fordítástvégezte:bercyy
