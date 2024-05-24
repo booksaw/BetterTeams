@@ -24,7 +24,7 @@ public class WebhookPayload implements Listener {
     private final Boolean disbandHook = Main.plugin.getConfig().getBoolean("disband-hook");
     private final Boolean pLeaveHook = Main.plugin.getConfig().getBoolean("player-left-hook");
     private final Boolean teamNameHook = Main.plugin.getConfig().getBoolean("team-nameChange-hook");
-    public String jsonPayload;
+    private final Boolean teamChatEvent = Main.plugin.getConfig().getBoolean("team-chat");
     public Team team;
     public TeamPlayer teamPlayer;
     public String newTeamName;
@@ -36,39 +36,49 @@ public class WebhookPayload implements Listener {
      * @param e
      */
     @EventHandler
-    public void OnTeamCreate(CreateTeamEvent e) {
+    public void onTeamCreate(CreateTeamEvent e) {
         if (createHook) {
             team = e.getTeam();
-            jsonPayload = String.format("{\"content\":\"\",\"embeds\":[{\"title\":\"TEAM CREATED\",\"description\":\"Somebody created the team `%s`\",\"color\":12370112}]}", team.getName());
+            String jsonPayload = String.format("{\"content\":\"\",\"embeds\":[{\"title\":\"TEAM CREATED\",\"description\":\"Somebody created the team `%s`\",\"color\":12370112}]}", team.getName());
             sendWebhookMessage(jsonPayload);
         }
     }
 
     @EventHandler
-    public void OnTeamDisband(DisbandTeamEvent e) {
+    public void onTeamDisband(DisbandTeamEvent e) {
         if (disbandHook) {
             team = e.getTeam();
-            jsonPayload = String.format("{\"content\":\"\",\"embeds\":[{\"title\":\"TEAM DISBAND\",\"description\":\"Somebody deleted the team `%s`\",\"color\":12370112}]}", team.getName());
+            String jsonPayload = String.format("{\"content\":\"\",\"embeds\":[{\"title\":\"TEAM DISBAND\",\"description\":\"Somebody deleted the team `%s`\",\"color\":12370112}]}", team.getName());
             sendWebhookMessage(jsonPayload);
         }
     }
 
     @EventHandler
-    public void OnTeamPlayerLeft(PlayerLeaveTeamEvent e) {
+    public void onTeamPlayerLeft(PlayerLeaveTeamEvent e) {
         if (pLeaveHook) {
             team = e.getTeam();
             teamPlayer = e.getTeamPlayer();
-            jsonPayload = String.format("{\"content\":\"\",\"embeds\":[{\"title\":\"TEAM MEMBER LEFT\",\"description\":\"`%s` has left the team `%s\",\"color\":12370112}]}", teamPlayer.getPlayer(), team.getName());
+            String jsonPayload = String.format("{\"content\":\"\",\"embeds\":[{\"title\":\"TEAM MEMBER LEFT\",\"description\":\"`%s` has left the team `%s\",\"color\":12370112}]}", teamPlayer.getPlayer(), team.getName());
             sendWebhookMessage(jsonPayload);
         }
     }
 
     @EventHandler
-    public void OnTeamRename(TeamNameChangeEvent e) {
+    public void onTeamRename(TeamNameChangeEvent e) {
         if (teamNameHook) {
             team = e.getTeam();
             newTeamName = e.getNewTeamName();
-            jsonPayload = String.format("{\"content\":\"\",\"embeds\":[{\"title\":\"TEAM NAME CHANGE\",\"description\":\"Changed name of team `%s` to `%s`\",\"color\":12370112}]}", team.getName(), newTeamName);
+            String jsonPayload = String.format("{\"content\":\"\",\"embeds\":[{\"title\":\"TEAM NAME CHANGE\",\"description\":\"Changed name of team `%s` to `%s`\",\"color\":12370112}]}", team.getName(), newTeamName);
+            sendWebhookMessage(jsonPayload);
+        }
+    }
+
+    @EventHandler
+    public void onTeamChat(TeamPreMessageEvent e) {
+        if (teamChatEvent) {
+            String eSender = e.getPlayer().getName();
+            String message = e.getRawMessage();
+            String jsonPayload = String.format("{\"content\":\"\",\"embeds\":[{\"title\":\"Team chat from `%s`\",\"description\":\"%s\",\"color\":12370112}]}", eSender, message);
             sendWebhookMessage(jsonPayload);
         }
     }

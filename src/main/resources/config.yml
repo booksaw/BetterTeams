@@ -589,7 +589,7 @@ rebuildLookups: false
 
 # The webhook URL
 # String []
-hookURL: WEBHOOKURL_HERE
+hookURL: "WEBHOOKURL_HERE"
 
 # Will this feature be enabled?
 # If set to false skip the rest of the settings
@@ -604,3 +604,4 @@ create-hook: false
 disband-hook: false
 player-left-hook: false
 team-nameChange-hook: false
+team-chat: false
