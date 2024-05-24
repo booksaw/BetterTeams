@@ -816,6 +816,7 @@ Bug Fixes:
 - Fixed issue where PromoteCommands were not working as expected (#591)
 - Fixed issue with the update link pasted in the console (#598)
 - Fixed issue not allowing /teama money to have decimal amounts (#599)
+- Fixed issue where DecentHologram displayswere not refreshing (#595)
 
 
 Headings: 

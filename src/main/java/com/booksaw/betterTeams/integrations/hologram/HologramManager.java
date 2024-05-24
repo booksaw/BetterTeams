@@ -67,7 +67,6 @@ public abstract class HologramManager {
 		int maxHologramLines = Main.plugin.getConfig().getInt("maxHologramLines");
 
 		holo.appendText(MessageManager.getMessage("holo.leaderboard"));
-
 		for (int i = 0; i < maxHologramLines && i < teams.length; i++) {
 			Team team = Team.getTeam(teams[i]);
 			if (team == null) {
@@ -82,10 +81,9 @@ public abstract class HologramManager {
 	public void startUpdates() {
 		BukkitScheduler scheduler = Main.plugin.getServer().getScheduler();
 		scheduler.scheduleSyncRepeatingTask(Main.plugin, () -> {
-			if (isHolographicDisplaysEnabled() || isDecentHologramsEnabled()) {
+			if (!isHolographicDisplaysEnabled() && !isDecentHologramsEnabled()) {
 				return;
 			}
-			System.out.println("entering holo");
 			for (HologramType type : HologramType.values()) {
 				if (needsUpdating(type)) {
 					for (Entry<LocalHologram, HologramType> holo : holos.entrySet()) {
@@ -99,12 +97,12 @@ public abstract class HologramManager {
 	}
 
 	private boolean isHolographicDisplaysEnabled() {
-		return Bukkit.getPluginManager().getPlugin("HolographicDisplays") == null || !Objects
+		return Bukkit.getPluginManager().getPlugin("HolographicDisplays") != null && Objects
 				.requireNonNull(Bukkit.getPluginManager().getPlugin("HolographicDisplays")).isEnabled();
 	}
 
 	private boolean isDecentHologramsEnabled() {
-		return Bukkit.getPluginManager().getPlugin("DecentHolograms") == null || !Objects
+		return Bukkit.getPluginManager().getPlugin("DecentHolograms") != null && Objects
 				.requireNonNull(Bukkit.getPluginManager().getPlugin("DecentHolograms")).isEnabled();
 	}
 
