@@ -802,6 +802,8 @@ Bug Fixes:
 
 Bug Fixes:
 - Removed output missed in the last update that was spamming consoles
+- Fixed issue where PromoteCommands were not working as expected (#591)
+- Fixed issue with the update link pasted in the console (#598)
 
 
 Headings: 
