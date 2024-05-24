@@ -580,6 +580,8 @@ checkUpdates: true
 rebuildLookups: false
 
 # ------- Discord webhook manager -------
+# But how do I create a discord webhook?
+# Read this article: https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks
 
 # THIS FEATURE IS STILL IN BETA
 # IF YOU HAPPEN TO FIND ANY BUGS PLEASE REPORT THEM
@@ -596,8 +598,8 @@ hookSupport: false
 
 # IF HOOKSUPPORT = FALSE SKIP THESE / LEAVE THESE FALSE
 # Next up you can select for which specific events
-# you would like to get notified about by webook.
-# Bool default: false
+# you would like to get notified about by the webhook.
+# Boolean default: false
 create-hook: false
 disband-hook: false
 player-left-hook: false
