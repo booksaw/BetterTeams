@@ -1,20 +1,19 @@
 package com.booksaw.betterTeams.commands.team;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
 import com.booksaw.betterTeams.*;
+import com.booksaw.betterTeams.commands.ParentCommand;
+import com.booksaw.betterTeams.commands.SubCommand;
+import com.booksaw.betterTeams.message.HelpMessage;
+import com.booksaw.betterTeams.message.MessageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.booksaw.betterTeams.commands.ParentCommand;
-import com.booksaw.betterTeams.commands.SubCommand;
-import com.booksaw.betterTeams.message.HelpMessage;
-import com.booksaw.betterTeams.message.MessageManager;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * This class handles the command /team info [team/player]
