@@ -2,6 +2,8 @@ package com.booksaw.betterTeams.commands.team;
 
 import java.util.List;
 
+import com.booksaw.betterTeams.customEvents.TeamDepositEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
 import com.booksaw.betterTeams.CommandResponse;
@@ -36,6 +38,17 @@ public class DepositCommand extends TeamSubCommand {
 		if (amount <= 0) {
 			return new CommandResponse("deposit.tooLittle");
 		}
+
+		final TeamDepositEvent event = new TeamDepositEvent(team, player, amount);
+
+		Bukkit.getPluginManager().callEvent(event);
+
+		if (event.isCancelled()) {
+			return new CommandResponse("deposit.fail");
+		}
+
+		if (amount != event.getAmount())
+			amount = event.getAmount();
 
 		double result = team.getMoney() + amount;
 

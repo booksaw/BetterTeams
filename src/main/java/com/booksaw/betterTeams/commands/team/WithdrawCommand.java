@@ -2,6 +2,8 @@ package com.booksaw.betterTeams.commands.team;
 
 import java.util.List;
 
+import com.booksaw.betterTeams.customEvents.TeamWithdrawEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
 import com.booksaw.betterTeams.CommandResponse;
@@ -37,9 +39,21 @@ public class WithdrawCommand extends TeamSubCommand {
 			return new CommandResponse("withdraw.tooLittle");
 		}
 
+		final TeamWithdrawEvent event = new TeamWithdrawEvent(team, player, amount);
+
+		Bukkit.getPluginManager().callEvent(event);
+
+		if (event.isCancelled()) {
+			return new CommandResponse("withdraw.fail");
+		}
+
+		if (amount != event.getAmount())
+			amount = event.getAmount();
+
 		if (team.getMoney() - amount < 0) {
 			return new CommandResponse("withdraw.notEnough");
 		}
+
 		EconomyResponse response = Main.econ.depositPlayer(player.getPlayer(), amount);
 
 		if (!response.transactionSuccess()) {
