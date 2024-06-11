@@ -17,7 +17,7 @@ public final class TeamDisallowedPvPEvent extends TeamEvent {
     private boolean isProtected; // Is an ally or on the same team
 
     public TeamDisallowedPvPEvent(final Team victimTeam, final Player source, final Team damagerTeam, final boolean isProtected) {
-        super(victimTeam);
+        super(victimTeam, false);
 
         this.source = source;
         this.damagerTeam = damagerTeam;

@@ -14,7 +14,7 @@ public final class TeamDepositEvent extends TeamPlayerEvent implements TeamMoney
     private double amount;
 
     public TeamDepositEvent(final Team team, final TeamPlayer teamPlayer, final double amount) {
-        super(team, teamPlayer);
+        super(team, teamPlayer, false);
 
         this.amount = amount;
     }

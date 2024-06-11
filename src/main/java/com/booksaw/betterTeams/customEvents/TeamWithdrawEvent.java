@@ -14,7 +14,7 @@ public final class TeamWithdrawEvent extends TeamPlayerEvent implements TeamMone
     private double amount;
 
     public TeamWithdrawEvent(final Team team, final TeamPlayer teamPlayer, final double amount) {
-        super(team, teamPlayer);
+        super(team, teamPlayer, false);
 
         this.amount = amount;
     }

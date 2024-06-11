@@ -135,8 +135,12 @@ public abstract class SubCommand {
 
 	public abstract void onTabComplete(List<String> options, CommandSender sender, String label, String[] args);
 
-	public boolean runAsync(String[] args) {
+	protected boolean runAsync(String[] args) {
 		return true;
+	}
+
+	public boolean checkAsync(final String[] args) {
+		return this.runAsync(args);
 	}
 	
 	/**

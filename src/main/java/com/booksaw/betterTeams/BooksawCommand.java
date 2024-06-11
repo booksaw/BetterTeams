@@ -52,7 +52,8 @@ public class BooksawCommand extends BukkitCommand {
 			return true;
 		}
 
-		boolean async = subCommand.runAsync(args);
+		boolean async = subCommand.checkAsync(args);
+
 		if (async) {
 			Bukkit.getScheduler().runTaskAsynchronously(Main.plugin, () -> {
 				runExecution(sender, label, args);
