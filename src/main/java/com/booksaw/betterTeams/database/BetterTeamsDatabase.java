@@ -1,10 +1,10 @@
 package com.booksaw.betterTeams.database;
 
+import com.booksaw.betterTeams.database.api.Database;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import com.booksaw.betterTeams.database.api.Database;
 
 public class BetterTeamsDatabase extends Database {
 

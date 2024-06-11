@@ -1,8 +1,12 @@
 package com.booksaw.betterTeams.events;
 
-import java.util.List;
-import java.util.Objects;
-
+import com.booksaw.betterTeams.Main;
+import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.TeamPlayer;
+import com.booksaw.betterTeams.customEvents.DemotePlayerEvent;
+import com.booksaw.betterTeams.customEvents.LevelupTeamEvent;
+import com.booksaw.betterTeams.customEvents.PromotePlayerEvent;
+import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.event.EventHandler;
@@ -10,14 +14,8 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.booksaw.betterTeams.Main;
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.customEvents.DemotePlayerEvent;
-import com.booksaw.betterTeams.customEvents.LevelupTeamEvent;
-import com.booksaw.betterTeams.customEvents.PromotePlayerEvent;
-
-import me.clip.placeholderapi.PlaceholderAPI;
+import java.util.List;
+import java.util.Objects;
 
 public class RankupEvents implements Listener {
 

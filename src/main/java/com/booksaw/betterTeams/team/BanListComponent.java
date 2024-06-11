@@ -1,11 +1,10 @@
 package com.booksaw.betterTeams.team;
 
-import java.util.UUID;
-
-import org.bukkit.OfflinePlayer;
-
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
+import org.bukkit.OfflinePlayer;
+
+import java.util.UUID;
 
 public class BanListComponent extends UuidListComponent {
 

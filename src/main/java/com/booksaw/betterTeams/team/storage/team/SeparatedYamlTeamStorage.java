@@ -1,14 +1,13 @@
 package com.booksaw.betterTeams.team.storage.team;
 
-import java.io.File;
-
-import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.file.FileConfiguration;
-
 import com.booksaw.betterTeams.ConfigManager;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.team.storage.storageManager.SeparatedYamlStorageManager;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.FileConfiguration;
+
+import java.io.File;
 
 public class SeparatedYamlTeamStorage extends YamlTeamStorage {
 

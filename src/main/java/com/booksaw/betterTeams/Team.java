@@ -1,22 +1,16 @@
 package com.booksaw.betterTeams;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.annotation.Nullable;
-
 import com.booksaw.betterTeams.customEvents.*;
+import com.booksaw.betterTeams.exceptions.CancelledEventException;
+import com.booksaw.betterTeams.message.Message;
+import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
+import com.booksaw.betterTeams.message.StaticMessage;
+import com.booksaw.betterTeams.team.*;
+import com.booksaw.betterTeams.team.storage.StorageType;
+import com.booksaw.betterTeams.team.storage.team.StoredTeamValue;
+import com.booksaw.betterTeams.team.storage.team.TeamStorage;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -25,24 +19,10 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
 
-import com.booksaw.betterTeams.exceptions.CancelledEventException;
-import com.booksaw.betterTeams.message.Message;
-import com.booksaw.betterTeams.message.MessageManager;
-import com.booksaw.betterTeams.message.StaticMessage;
-import com.booksaw.betterTeams.team.AllyListComponent;
-import com.booksaw.betterTeams.team.AllyRequestComponent;
-import com.booksaw.betterTeams.team.BanListComponent;
-import com.booksaw.betterTeams.team.ChestClaimComponent;
-import com.booksaw.betterTeams.team.EChestComponent;
-import com.booksaw.betterTeams.team.LocationListComponent;
-import com.booksaw.betterTeams.team.MemberListComponent;
-import com.booksaw.betterTeams.team.MoneyComponent;
-import com.booksaw.betterTeams.team.ScoreComponent;
-import com.booksaw.betterTeams.team.TeamManager;
-import com.booksaw.betterTeams.team.WarpListComponent;
-import com.booksaw.betterTeams.team.storage.StorageType;
-import com.booksaw.betterTeams.team.storage.team.StoredTeamValue;
-import com.booksaw.betterTeams.team.storage.team.TeamStorage;
+import javax.annotation.Nullable;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * This class is used to manage a team and all of it's participants
@@ -1309,17 +1289,30 @@ public class Team {
 	 * @return if players of this team can damage members of the other team
 	 */
 	public boolean canDamage(Team team, Player source) {
-		if (team.isAlly(getID()) || team == this) {
+		final boolean isProtected = team.isAlly(getID()) || team == this;
+
+		boolean disallow;
+
+		if (isProtected) {
 			if (pvp && team.pvp) {
-				return true;
+				disallow = true;
+			} else if (Main.plugin.wgManagement != null) {
+				disallow = Main.plugin.wgManagement.canTeamPvp(source);
+			} else
+				disallow = false;
+
+			if (disallow) {
+				final TeamDisallowedPvPEvent event = new TeamDisallowedPvPEvent(team, source, this, true);
+
+				Bukkit.getPluginManager().callEvent(event);
+
+				if (event.isCancelled())
+					return true;
 			}
 
-			if (Main.plugin.wgManagement != null) {
-				return Main.plugin.wgManagement.canTeamPvp(source);
-			}
-
-			return false;
+			return disallow;
 		}
+
 		return true;
 	}
 

@@ -257,7 +257,7 @@ public class ParentCommand extends SubCommand {
 	}
 	
 	@Override
-	public boolean runAsync(String[] args) {
+	public boolean checkAsync(String[] args) {
 		if(args.length == 0) {
 			return true;
 		}

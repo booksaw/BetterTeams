@@ -1,11 +1,10 @@
 package com.booksaw.betterTeams.customEvents;
 
-import org.bukkit.event.HandlerList;
-import org.jetbrains.annotations.NotNull;
-
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
+import org.bukkit.event.HandlerList;
+import org.jetbrains.annotations.NotNull;
 
 public class DemotePlayerEvent extends RankChangePlayerEvent {
 

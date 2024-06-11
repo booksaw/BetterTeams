@@ -1,9 +1,8 @@
 package com.booksaw.betterTeams.team;
 
-import org.bukkit.Location;
-
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
+import org.bukkit.Location;
 
 public class ChestClaimComponent extends LocationListComponent {
 

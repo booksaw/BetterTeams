@@ -1,16 +1,15 @@
 package com.booksaw.betterTeams.events;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.message.MessageManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryType;
 
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.message.MessageManager;
+import java.util.HashMap;
+import java.util.Map;
 
 public class InventoryManagement implements Listener {
 

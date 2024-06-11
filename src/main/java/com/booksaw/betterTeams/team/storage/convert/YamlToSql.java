@@ -1,5 +1,16 @@
 package com.booksaw.betterTeams.team.storage.convert;
 
+import com.booksaw.betterTeams.Main;
+import com.booksaw.betterTeams.PlayerRank;
+import com.booksaw.betterTeams.Utils;
+import com.booksaw.betterTeams.database.BetterTeamsDatabase;
+import com.booksaw.betterTeams.database.TableName;
+import com.booksaw.betterTeams.team.storage.storageManager.YamlStorageManager;
+import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -10,18 +21,6 @@ import java.util.Map.Entry;
 import java.util.UUID;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
-
-import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-
-import com.booksaw.betterTeams.Main;
-import com.booksaw.betterTeams.PlayerRank;
-import com.booksaw.betterTeams.Utils;
-import com.booksaw.betterTeams.database.BetterTeamsDatabase;
-import com.booksaw.betterTeams.database.TableName;
-import com.booksaw.betterTeams.team.storage.storageManager.YamlStorageManager;
 
 public class YamlToSql extends Converter {
 

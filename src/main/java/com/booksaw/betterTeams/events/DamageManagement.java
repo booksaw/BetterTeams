@@ -1,14 +1,8 @@
 package com.booksaw.betterTeams.events;
 
-import java.util.Collection;
-import java.util.Objects;
-
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Projectile;
-import org.bukkit.entity.TNTPrimed;
-import org.bukkit.entity.ThrownPotion;
+import com.booksaw.betterTeams.Main;
+import com.booksaw.betterTeams.Team;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -18,8 +12,8 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.projectiles.ProjectileSource;
 
-import com.booksaw.betterTeams.Main;
-import com.booksaw.betterTeams.Team;
+import java.util.Collection;
+import java.util.Objects;
 
 /**
  * This class is used to ensure that members of the same team cannot hit each

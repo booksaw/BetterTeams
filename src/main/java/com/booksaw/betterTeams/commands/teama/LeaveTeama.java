@@ -5,8 +5,8 @@ import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.Utils;
 import com.booksaw.betterTeams.commands.SubCommand;
 import com.booksaw.betterTeams.message.MessageManager;
-import org.bukkit.command.CommandSender;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.command.CommandSender;
 
 import java.util.List;
 

@@ -1,16 +1,15 @@
 package com.booksaw.betterTeams.team;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.booksaw.betterTeams.PlayerRank;
+import com.booksaw.betterTeams.TeamPlayer;
+import com.booksaw.betterTeams.message.Message;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import com.booksaw.betterTeams.PlayerRank;
-import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.message.Message;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class TeamPlayerListComponent extends ListTeamComponent<TeamPlayer> {
 

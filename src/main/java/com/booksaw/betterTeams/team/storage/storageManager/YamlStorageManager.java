@@ -1,16 +1,15 @@
 package com.booksaw.betterTeams.team.storage.storageManager;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-import java.util.logging.Level;
-
+import com.booksaw.betterTeams.Main;
+import com.booksaw.betterTeams.team.TeamManager;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import com.booksaw.betterTeams.Main;
-import com.booksaw.betterTeams.team.TeamManager;
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import java.util.logging.Level;
 
 public abstract class YamlStorageManager extends TeamManager {
 

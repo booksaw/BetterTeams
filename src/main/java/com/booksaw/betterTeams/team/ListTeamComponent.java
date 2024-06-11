@@ -1,9 +1,9 @@
 package com.booksaw.betterTeams.team;
 
+import com.booksaw.betterTeams.Team;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.booksaw.betterTeams.Team;
 
 public abstract class ListTeamComponent<T> implements TeamComponent<List<T>> {
 

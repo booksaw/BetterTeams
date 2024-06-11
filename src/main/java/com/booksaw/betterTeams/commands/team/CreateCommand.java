@@ -6,7 +6,6 @@ import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.ParentCommand;
 import com.booksaw.betterTeams.commands.presets.NoTeamSubCommand;
 import com.booksaw.betterTeams.message.HelpMessage;
-
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 

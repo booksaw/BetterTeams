@@ -1,9 +1,8 @@
 package com.booksaw.betterTeams.team;
 
+import com.booksaw.betterTeams.Team;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-
-import com.booksaw.betterTeams.Team;
 
 public abstract class LocationListComponent extends ListTeamComponent<Location> {
 

@@ -1,15 +1,10 @@
 package com.booksaw.betterTeams.commands.team;
 
-import java.util.List;
-
+import com.booksaw.betterTeams.*;
+import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 import org.bukkit.command.CommandSender;
 
-import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.PlayerRank;
-import com.booksaw.betterTeams.PlayerTeleport;
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
+import java.util.List;
 
 public class HomeCommand extends TeamSubCommand {
 

@@ -1,16 +1,5 @@
 package com.booksaw.betterTeams.integrations;
 
-import java.util.List;
-import java.util.Objects;
-
-import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
-
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
@@ -20,15 +9,21 @@ import com.booksaw.betterTeams.customEvents.PlayerJoinTeamEvent;
 import com.booksaw.betterTeams.customEvents.PlayerLeaveTeamEvent;
 import com.booksaw.betterTeams.message.MessageManager;
 import com.craftaro.ultimateclaims.UltimateClaims;
-import com.craftaro.ultimateclaims.api.events.ClaimCreateEvent;
-import com.craftaro.ultimateclaims.api.events.ClaimMemberLeaveEvent;
-import com.craftaro.ultimateclaims.api.events.ClaimPlayerBanEvent;
-import com.craftaro.ultimateclaims.api.events.ClaimPlayerKickEvent;
-import com.craftaro.ultimateclaims.api.events.ClaimTransferOwnershipEvent;
+import com.craftaro.ultimateclaims.api.events.*;
 import com.craftaro.ultimateclaims.claim.Claim;
 import com.craftaro.ultimateclaims.claim.ClaimDeleteReason;
 import com.craftaro.ultimateclaims.member.ClaimMember;
 import com.craftaro.ultimateclaims.member.ClaimRole;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.List;
+import java.util.Objects;
 
 public class UltimateClaimsManager implements Listener {
 

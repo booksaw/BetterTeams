@@ -1,12 +1,10 @@
 package com.booksaw.betterTeams.message;
 
-import org.bukkit.command.CommandSender;
-
 import com.booksaw.betterTeams.commands.HelpCommand;
 import com.booksaw.betterTeams.commands.ParentCommand;
 import com.booksaw.betterTeams.commands.SubCommand;
-
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.command.CommandSender;
 
 public class HelpMessage implements Message {
 

@@ -1,12 +1,11 @@
 package com.booksaw.betterTeams.commands.teama.money;
 
-import java.util.List;
-
-import org.bukkit.command.CommandSender;
-
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.presets.MoneySubCommand;
+import org.bukkit.command.CommandSender;
+
+import java.util.List;
 
 public class SetMoney extends MoneySubCommand {
 
