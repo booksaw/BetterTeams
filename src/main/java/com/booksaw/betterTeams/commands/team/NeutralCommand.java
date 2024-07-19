@@ -45,20 +45,6 @@ public class NeutralCommand extends TeamSubCommand {
 			toNeutral.removeAlly(team.getID());
 			team.removeAlly(toNeutral.getID());
 
-			// notifying both teams
-			List<String> channelsToUse = Main.plugin.getConfig().getStringList("onNeutralMessageChannel");
-			Message message1 = new ReferencedFormatMessage("neutral.remove", team.getDisplayName());
-			Message message2 = new ReferencedFormatMessage("neutral.remove", toNeutral.getDisplayName());
-
-			if (channelsToUse.isEmpty() || channelsToUse.contains("CHAT")) {
-				toNeutral.getMembers().broadcastMessage(message1);
-				team.getMembers().broadcastMessage(message2);
-			}
-			if (channelsToUse.isEmpty() || channelsToUse.contains("TITLE")) {
-				toNeutral.getMembers().broadcastTitle(message1);
-				team.getMembers().broadcastMessage(message2);
-			}
-
 			return new CommandResponse(true);
 		}
 

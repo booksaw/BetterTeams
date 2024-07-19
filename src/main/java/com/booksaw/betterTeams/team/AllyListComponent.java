@@ -20,19 +20,6 @@ public class AllyListComponent extends UuidListComponent {
 	public void add(Team team, UUID ally) {
 		super.add(team, ally);
 
-		Team allyTeam = Team.getTeam(ally);
-
-		// notifying all online members of the team
-		List<String> channelsToUse = Main.plugin.getConfig().getStringList("onAllyMessageChannel");
-		Message message = new ReferencedFormatMessage("ally.ally", allyTeam.getDisplayName());
-
-		if (channelsToUse.isEmpty() || channelsToUse.contains("CHAT")) {
-			team.getMembers().broadcastMessage(message);
-		}
-		if (channelsToUse.isEmpty() || channelsToUse.contains("TITLE")) {
-			team.getMembers().broadcastTitle(message);
-		}
-
 		team.getStorage().addAlly(ally);
 	}
 
