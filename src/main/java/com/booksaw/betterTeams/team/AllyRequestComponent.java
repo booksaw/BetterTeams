@@ -1,13 +1,13 @@
 package com.booksaw.betterTeams.team;
 
+import java.util.UUID;
+
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.message.Message;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
 
-import java.util.UUID;
-
-public class AllyRequestComponent extends UuidListComponent {
+public class AllyRequestComponent extends UuidSetComponent {
 
 	@Override
 	public void load(TeamStorage section) {

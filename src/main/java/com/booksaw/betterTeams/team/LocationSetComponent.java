@@ -1,10 +1,11 @@
 package com.booksaw.betterTeams.team;
 
-import com.booksaw.betterTeams.Team;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
-public abstract class LocationListComponent extends ListTeamComponent<Location> {
+import com.booksaw.betterTeams.Team;
+
+public abstract class LocationSetComponent extends SetTeamComponent<Location> {
 
 	/**
 	 * This method is used to convert a string into a location which can be stored
@@ -60,7 +61,7 @@ public abstract class LocationListComponent extends ListTeamComponent<Location> 
 	public void remove(Team team, Location component) {
 		for (Location loc : getClone()) {
 			if (loc.equals(component)) {
-				list.remove(loc);
+				set.remove(loc);
 				return;
 			}
 		}

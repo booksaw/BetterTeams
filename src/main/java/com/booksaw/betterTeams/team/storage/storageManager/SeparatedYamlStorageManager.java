@@ -1,12 +1,15 @@
 package com.booksaw.betterTeams.team.storage.storageManager;
 
-import com.booksaw.betterTeams.Main;
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.team.LocationListComponent;
-import com.booksaw.betterTeams.team.storage.team.SeparatedYamlTeamStorage;
-import com.booksaw.betterTeams.team.storage.team.StoredTeamValue;
-import com.booksaw.betterTeams.team.storage.team.TeamStorage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.UUID;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -19,11 +22,13 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.util.*;
-import java.util.Map.Entry;
+import com.booksaw.betterTeams.Main;
+import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.TeamPlayer;
+import com.booksaw.betterTeams.team.LocationSetComponent;
+import com.booksaw.betterTeams.team.storage.team.SeparatedYamlTeamStorage;
+import com.booksaw.betterTeams.team.storage.team.StoredTeamValue;
+import com.booksaw.betterTeams.team.storage.team.TeamStorage;
 
 public class SeparatedYamlStorageManager extends YamlStorageManager implements Listener {
 
@@ -96,7 +101,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 
 	@Override
 	public UUID getClaimingTeamUUID(Location location) {
-		return chestClaims.get(LocationListComponent.getString(location));
+		return chestClaims.get(LocationSetComponent.getString(location));
 	}
 
 	@Override
@@ -453,12 +458,12 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 
 	@Override
 	public void addChestClaim(Team team, Location loc) {
-		addToChestClaims(LocationListComponent.getString(loc), team.getID());
+		addToChestClaims(LocationSetComponent.getString(loc), team.getID());
 	}
 
 	@Override
 	public void removeChestclaim(Location loc) {
-		chestClaims.remove(LocationListComponent.getString(loc));
+		chestClaims.remove(LocationSetComponent.getString(loc));
 		saveChestClaims();
 	}
 
@@ -493,7 +498,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 				String teamName = config.getString(StoredTeamValue.NAME.getReference()).toLowerCase();
 
 				// the file is invalid
-				if (teamName == null || teamName.isEmpty()) {
+				if (teamName == null || teamName.length() == 0) {
 					continue;
 				}
 

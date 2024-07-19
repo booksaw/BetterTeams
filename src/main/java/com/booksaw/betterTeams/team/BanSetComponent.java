@@ -6,7 +6,7 @@ import org.bukkit.OfflinePlayer;
 
 import java.util.UUID;
 
-public class BanListComponent extends UuidListComponent {
+public class BanSetComponent extends UuidSetComponent {
 
 	@Override
 	public String getSectionHeading() {

@@ -11,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class TeamPlayerListComponent extends ListTeamComponent<TeamPlayer> {
+public abstract class TeamPlayerSetComponent extends SetTeamComponent<TeamPlayer> {
 
 	/**
 	 * @return A list of players which are currently online and on this team

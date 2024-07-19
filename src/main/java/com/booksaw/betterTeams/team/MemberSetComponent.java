@@ -16,7 +16,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class MemberListComponent extends TeamPlayerListComponent {
+public class MemberSetComponent extends TeamPlayerSetComponent {
 
 	@Override
 	public void add(Team team, TeamPlayer teamPlayer) {
@@ -34,7 +34,7 @@ public class MemberListComponent extends TeamPlayerListComponent {
 
 		// if the player is offline there will be no player object for them
 		if (p.isOnline()) {
-			for (TeamPlayer player : list) {
+			for (TeamPlayer player : set) {
 				if (player.getPlayer().isOnline()) {
 					MessageManager.sendMessage(player.getPlayer().getPlayer(), "join.notify", p.getPlayer().getDisplayName());
 				}
@@ -46,7 +46,7 @@ public class MemberListComponent extends TeamPlayerListComponent {
 		}
 
 		Team.getTeamManager().playerJoinTeam(team, teamPlayer);
-		list.add(teamPlayer);
+		set.add(teamPlayer);
 
 		if (Main.plugin.getConfig().getBoolean("announceTeamJoin")) {
 			Message message = new ReferencedFormatMessage("announce.join", p.getName(), team.getColor() + team.getName() + ChatColor.RESET);
@@ -71,7 +71,7 @@ public class MemberListComponent extends TeamPlayerListComponent {
 			Main.plugin.teamManagement.remove(p.getPlayer());
 		}
 		Team.getTeamManager().playerLeaveTeam(team, teamPlayer);
-		list.remove(teamPlayer);
+		set.remove(teamPlayer);
 
 		if (Main.plugin.getConfig().getBoolean("announceTeamLeave")) {
 			Message message = new ReferencedFormatMessage("announce.leave", p.getName(), team.getColor() + team.getName() + ChatColor.RESET);
@@ -88,7 +88,8 @@ public class MemberListComponent extends TeamPlayerListComponent {
 
 	@Override
 	public void load(TeamStorage section) {
-		list = section.getPlayerList();
+		set.clear();
+		set.addAll(section.getPlayerList());
 	}
 
 	@Override
