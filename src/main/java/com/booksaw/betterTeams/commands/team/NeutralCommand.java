@@ -95,12 +95,13 @@ public class NeutralCommand extends TeamSubCommand {
 			// Only be able to tab-complete allies
 			Team myTeam = getMyTeam(sender);
 
-			List<UUID> knownTeams = null;
+			List<UUID> knownTeams = null, ignoreTeam = null;
 			if (myTeam != null) {
 				knownTeams = myTeam.getAllies().get();
+				ignoreTeam = List.of(myTeam.getID());
 			}
 
-			addTeamStringList(options, args[0], null, knownTeams);
+			addTeamStringList(options, args[0], ignoreTeam, knownTeams);
 		}
 	}
 
