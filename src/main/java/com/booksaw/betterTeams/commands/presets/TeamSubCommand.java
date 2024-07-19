@@ -21,6 +21,11 @@ public abstract class TeamSubCommand extends SubCommand {
 	protected boolean checkRank = true;
 	PlayerRank requiredRank = getDefaultRank();
 
+	protected Team getMyTeam(CommandSender sender) {
+		Player player = (Player) sender;
+		return Team.getTeam(player);
+	}
+
 	@Override
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
 		Player player = (Player) sender;

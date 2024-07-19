@@ -90,7 +90,8 @@ public class NeutralCommand extends TeamSubCommand {
 	@Override
 	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
 		if (args.length == 1) {
-			addTeamStringList(options, args[0]);
+			// Only be able to tab-complete allies
+			addTeamStringList(options, args[0], null, getMyTeam(sender).getAllies().get());
 		}
 	}
 
