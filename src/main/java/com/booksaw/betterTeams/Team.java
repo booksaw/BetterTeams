@@ -1202,11 +1202,6 @@ public class Team {
 	public void addAlly(UUID ally) {
 		allies.add(this, ally);
 		saveAllies();
-
-		ReferencedFormatMessage msg = new ReferencedFormatMessage("ally.add_title", getTeam(ally).name);
-		for ( Player player : members.getOnlinePlayers()) {
-			msg.sendTitle(player);
-		}
 	}
 
 	/**
@@ -1217,11 +1212,6 @@ public class Team {
 	public void removeAlly(UUID ally) {
 		allies.remove(this, ally);
 		saveAllies();
-
-		ReferencedFormatMessage msg = new ReferencedFormatMessage("ally.removal_title", getTeam(ally).name);
-		for ( Player player : members.getOnlinePlayers()) {
-			msg.sendTitle(player);
-		}
 	}
 
 	/**

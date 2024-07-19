@@ -150,8 +150,6 @@ ally.noRequests: '&4You do not have any ally requests'
 ally.onJoin: '&6You have new ally requests do &b/team ally &6to view them'
 ally.limit: '&4The limit on allies has been reached'
 ally.alreadyrequest: '&4You have already requested to be allies with that team'
-ally.add_title: "&aYou are now allied with {0}"
-ally.removal_title: "You are no longer allied with {0}"
 allychat.disabled: '&6Your messages are no longer going to the ally chat'
 allychat.enabled: '&6Your messages are now going to the ally chat'
 allychat.syntax: '&d[{0}]&f{1}&f: {2}'

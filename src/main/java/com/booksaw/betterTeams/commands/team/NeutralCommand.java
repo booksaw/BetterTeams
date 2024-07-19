@@ -5,6 +5,7 @@ import java.util.List;
 import org.bukkit.command.CommandSender;
 
 import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
@@ -45,12 +46,19 @@ public class NeutralCommand extends TeamSubCommand {
 			team.removeAlly(toNeutral.getID());
 
 			// notifying both teams
-			Message message = new ReferencedFormatMessage("neutral.remove", team.getDisplayName());
-			toNeutral.getMembers().broadcastMessage(message);
+			List<String> channelsToUse = Main.plugin.getConfig().getStringList("onNeutralMessageChannel");
+			Message message1 = new ReferencedFormatMessage("neutral.remove", team.getDisplayName());
+			Message message2 = new ReferencedFormatMessage("neutral.remove", toNeutral.getDisplayName());
 
-			// notifying the other team
-			message = new ReferencedFormatMessage("neutral.remove", toNeutral.getDisplayName());
-			team.getMembers().broadcastMessage(message);
+			if (channelsToUse.isEmpty() || channelsToUse.contains("CHAT")) {
+				toNeutral.getMembers().broadcastMessage(message1);
+				team.getMembers().broadcastMessage(message2);
+			}
+			if (channelsToUse.isEmpty() || channelsToUse.contains("TITLE")) {
+				toNeutral.getMembers().broadcastTitle(message1);
+				team.getMembers().broadcastMessage(message2);
+			}
+
 			return new CommandResponse(true);
 		}
 

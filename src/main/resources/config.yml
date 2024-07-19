@@ -402,6 +402,18 @@ demoteCommands:
 # Possible values: [true, false]
 titleRemoval: true
 
+# determines which channel will be used to message online players when their team status changes with another
+# the messages themselves can be configured in the messages.yml file
+#
+# Possible values: [CHAT, TITLE, NONE] (default: CHAT,TITLE)
+onAllyMessageChannel:
+   - CHAT
+   - TITLE
+onNeutralMessageChannel:
+   - CHAT
+   - TITLE
+
+
 #####################################################################
 #                                                                   #
 #  ____                       ____       _   _   _                  #

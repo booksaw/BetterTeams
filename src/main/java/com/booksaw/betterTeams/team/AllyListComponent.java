@@ -1,7 +1,9 @@
 package com.booksaw.betterTeams.team;
 
+import java.util.List;
 import java.util.UUID;
 
+import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.message.Message;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
@@ -19,9 +21,17 @@ public class AllyListComponent extends UuidListComponent {
 		super.add(team, ally);
 
 		Team allyTeam = Team.getTeam(ally);
+
 		// notifying all online members of the team
+		List<String> channelsToUse = Main.plugin.getConfig().getStringList("onAllyMessageChannel");
 		Message message = new ReferencedFormatMessage("ally.ally", allyTeam.getDisplayName());
-		team.getMembers().broadcastMessage(message);
+
+		if (channelsToUse.isEmpty() || channelsToUse.contains("CHAT")) {
+			team.getMembers().broadcastMessage(message);
+		}
+		if (channelsToUse.isEmpty() || channelsToUse.contains("TITLE")) {
+			team.getMembers().broadcastTitle(message);
+		}
 
 		team.getStorage().addAlly(ally);
 	}
