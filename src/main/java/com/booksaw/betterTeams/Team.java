@@ -1204,12 +1204,13 @@ public class Team {
 		saveAllies();
 
 		List<String> channelsToUse = Main.plugin.getConfig().getStringList("onAllyMessageChannel");
-		Message message = new ReferencedFormatMessage("ally.ally", getTeam(ally).getDisplayName());
 
 		if (channelsToUse.isEmpty() || channelsToUse.contains("CHAT")) {
+			Message message = new ReferencedFormatMessage("ally.ally", getTeam(ally).getDisplayName());
 			getMembers().broadcastMessage(message);
 		}
 		if (channelsToUse.isEmpty() || channelsToUse.contains("TITLE")) {
+			Message message = new ReferencedFormatMessage("ally.ally_title", getTeam(ally).getDisplayName());
 			getMembers().broadcastTitle(message);
 		}
 	}
@@ -1224,12 +1225,13 @@ public class Team {
 		saveAllies();
 
 		List<String> channelsToUse = Main.plugin.getConfig().getStringList("onNeutralMessageChannel");
-		Message message = new ReferencedFormatMessage("neutral.remove", getTeam(ally).getDisplayName());
 
 		if (channelsToUse.isEmpty() || channelsToUse.contains("CHAT")) {
+			Message message = new ReferencedFormatMessage("neutral.remove", getTeam(ally).getDisplayName());
 			getMembers().broadcastMessage(message);
 		}
 		if (channelsToUse.isEmpty() || channelsToUse.contains("TITLE")) {
+			Message message = new ReferencedFormatMessage("neutral.remove_title", getTeam(ally).getDisplayName());
 			getMembers().broadcastTitle(message);
 		}
 	}
