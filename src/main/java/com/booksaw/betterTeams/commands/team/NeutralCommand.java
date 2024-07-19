@@ -1,6 +1,8 @@
 package com.booksaw.betterTeams.commands.team;
 
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 import org.bukkit.command.CommandSender;
 
@@ -91,7 +93,14 @@ public class NeutralCommand extends TeamSubCommand {
 	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
 		if (args.length == 1) {
 			// Only be able to tab-complete allies
-			addTeamStringList(options, args[0], null, getMyTeam(sender).getAllies().get());
+			Team myTeam = getMyTeam(sender);
+
+			List<UUID> knownTeams = null;
+			if (myTeam != null) {
+				knownTeams = myTeam.getAllies().get();
+			}
+
+			addTeamStringList(options, args[0], null, knownTeams);
 		}
 	}
 

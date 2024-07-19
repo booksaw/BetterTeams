@@ -9,6 +9,7 @@ import com.booksaw.betterTeams.commands.SubCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * This class can be extended for any sub commands which require players to be
@@ -21,7 +22,7 @@ public abstract class TeamSubCommand extends SubCommand {
 	protected boolean checkRank = true;
 	PlayerRank requiredRank = getDefaultRank();
 
-	protected Team getMyTeam(CommandSender sender) {
+	protected @Nullable Team getMyTeam(CommandSender sender) {
 		Player player = (Player) sender;
 		return Team.getTeam(player);
 	}
