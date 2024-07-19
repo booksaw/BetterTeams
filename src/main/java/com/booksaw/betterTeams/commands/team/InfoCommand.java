@@ -32,16 +32,16 @@ public class InfoCommand extends SubCommand {
 	public static List<String> getInfoMessages(Team team) {
 		List<String> infoMessages = new ArrayList<>();
 
-		infoMessages.add(MessageManager.getMessageF("info.name", team.getDisplayName()));
-		if (team.getDescription() != null && !team.getDescription().equals("")) {
-			infoMessages.add(MessageManager.getMessageF("info.description", team.getDescription()));
+		infoMessages.add(MessageManager.getMessage("info.name", team.getDisplayName()));
+		if (team.getDescription() != null && !team.getDescription().isEmpty()) {
+			infoMessages.add(MessageManager.getMessage("info.description", team.getDescription()));
 		}
 
-		infoMessages.add(MessageManager.getMessageF("info.open", team.isOpen() + ""));
-		infoMessages.add(MessageManager.getMessageF("info.score", team.getScore() + ""));
-		infoMessages.add(MessageManager.getMessageF("info.money", team.getBalance()));
-		infoMessages.add(MessageManager.getMessageF("info.level", team.getLevel() + ""));
-		infoMessages.add(MessageManager.getMessageF("info.tag", team.getTag() + ""));
+		infoMessages.add(MessageManager.getMessage("info.open", team.isOpen() + ""));
+		infoMessages.add(MessageManager.getMessage("info.score", team.getScore() + ""));
+		infoMessages.add(MessageManager.getMessage("info.money", team.getBalance()));
+		infoMessages.add(MessageManager.getMessage("info.level", team.getLevel() + ""));
+		infoMessages.add(MessageManager.getMessage("info.tag", team.getTag() + ""));
 
 		String allyMessage = getAlliesMessage(team);
 		if (allyMessage != null) {
@@ -81,7 +81,7 @@ public class InfoCommand extends SubCommand {
 		if (allies.length() > 2) {
 			allies = new StringBuilder(allies.substring(0, allies.length() - 2));
 
-			return MessageManager.getMessageF("info.ally", allies.toString());
+			return MessageManager.getMessage("info.ally", allies.toString());
 		}
 		return null;
 	}
@@ -108,7 +108,7 @@ public class InfoCommand extends SubCommand {
 						.append(player.getPlayer().getName()).append(" ");
 			}
 
-			return MessageManager.getMessageF("info." + rank.toString().toLowerCase(), userStr.toString());
+			return MessageManager.getMessage("info." + rank.toString().toLowerCase(), userStr.toString());
 		}
 
 		return null;

@@ -145,7 +145,7 @@ public class ParentCommand extends SubCommand {
 			}
 			if (price.getCost() > 0) {
 				NumberFormat formatter = NumberFormat.getCurrencyInstance();
-				MessageManager.sendMessageF(sender, "cost.run", formatter.format(price.getCost()));
+				MessageManager.sendMessage(sender, "cost.run", formatter.format(price.getCost()));
 			}
 		}
 

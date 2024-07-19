@@ -36,8 +36,7 @@ public class BaltopCommand extends SubCommand {
 
 				for (int i = 0; i < 10 && i < teams.length; i++) {
 					Team tempTeam = Team.getTeam(teams[i]);
-					MessageManager.sendMessageF(sender, "baltop.syntax", (i + 1) + "", tempTeam.getName(),
-							tempTeam.getBalance() + "");
+					MessageManager.sendMessage(sender, "baltop.syntax", (i + 1) + "", tempTeam.getName(), tempTeam.getBalance());
 					if (team == tempTeam) {
 						contained = true;
 					}
@@ -56,17 +55,14 @@ public class BaltopCommand extends SubCommand {
 							MessageManager.sendMessage(sender, "baltop.divide");
 							if (rank - 2 > 9) {
 								Team tm2 = Team.getTeam(teams[rank - 2]);
-								MessageManager.sendMessageF(sender, "baltop.syntax", (rank - 1) + "", tm2.getName(),
-										tm2.getBalance() + "");
+								MessageManager.sendMessage(sender, "baltop.syntax", (rank - 1) + "", tm2.getName(), tm2.getBalance());
 							}
 
-							MessageManager.sendMessageF(sender, "baltop.syntax", (rank) + "", team.getName(),
-									team.getBalance() + "");
+							MessageManager.sendMessage(sender, "baltop.syntax", (rank) + "", team.getName(), team.getBalance());
 
 							if (teams.length > rank) {
 								Team tm = Team.getTeam(teams[rank]);
-								MessageManager.sendMessageF(sender, "baltop.syntax", (rank + 1) + "", tm.getName(),
-										tm.getBalance() + "");
+								MessageManager.sendMessage(sender, "baltop.syntax", (rank + 1) + "", tm.getName(), tm.getBalance());
 							}
 						}
 					} catch (ArrayIndexOutOfBoundsException e) {

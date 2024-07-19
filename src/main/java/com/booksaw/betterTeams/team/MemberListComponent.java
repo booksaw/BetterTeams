@@ -37,8 +37,7 @@ public class MemberListComponent extends TeamPlayerListComponent {
 		if (p.isOnline()) {
 			for (TeamPlayer player : list) {
 				if (player.getPlayer().isOnline()) {
-					MessageManager.sendMessageF((CommandSender) player.getPlayer().getPlayer(), "join.notify",
-							p.getPlayer().getDisplayName());
+					MessageManager.sendMessage(player.getPlayer().getPlayer(), "join.notify", p.getPlayer().getDisplayName());
 				}
 			}
 

@@ -37,7 +37,7 @@ public class InviteTeama extends TeamSelectSubCommand {
 
 		// player being invited is not in a team
 		team.invite(toInvite.getUniqueId());
-		MessageManager.sendMessageF(toInvite, "invite.invite", team.getName());
+		MessageManager.sendMessage(toInvite, "invite.invite", team.getName());
 		return new CommandResponse(true, "admin.invite.success");
 	}
 

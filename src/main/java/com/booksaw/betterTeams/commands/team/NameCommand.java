@@ -22,7 +22,7 @@ public class NameCommand extends TeamSubCommand {
 		}
 
 		if (teamPlayer.getRank().value < getRequiredRank().value) {
-			MessageManager.sendMessageF(teamPlayer.getPlayer().getPlayer(), "name.view", team.getName());
+			MessageManager.sendMessage(teamPlayer.getPlayer().getPlayer(), "name.view", team.getName());
 			return new CommandResponse("name.noPerm");
 		}
 

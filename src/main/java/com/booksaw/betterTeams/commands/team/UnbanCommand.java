@@ -35,7 +35,7 @@ public class UnbanCommand extends TeamSubCommand {
 		}
 
 		team.unbanPlayer(player);
-		MessageManager.sendMessageF((CommandSender) player, "unban.notify", team.getName());
+		MessageManager.sendMessage((CommandSender) player, "unban.notify", team.getName());
 		return new CommandResponse(true, "unban.success");
 	}
 

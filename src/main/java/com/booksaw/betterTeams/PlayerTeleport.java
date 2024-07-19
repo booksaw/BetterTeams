@@ -51,7 +51,7 @@ public class PlayerTeleport {
 		}
 
 		// sending the wait message
-		MessageManager.sendMessageF(player, "teleport.wait", wait + "");
+		MessageManager.sendMessage(player, "teleport.wait", wait);
 
 		Bukkit.getScheduler().runTaskLater(Main.plugin, () -> {
 			if (canTp()) {

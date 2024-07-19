@@ -32,7 +32,7 @@ public class DescriptionCommand extends TeamSubCommand {
 
 		if (teamPlayer.getRank().value < getRequiredRank().value) {
 			if (team.getDescription() != null && !team.getDescription().equals("")) {
-				MessageManager.sendMessageF(teamPlayer.getPlayer().getPlayer(), "description.view",
+				MessageManager.sendMessage(teamPlayer.getPlayer().getPlayer(), "description.view",
 						team.getDescription());
 			} else {
 				MessageManager.sendMessage(teamPlayer.getPlayer().getPlayer(), "description.noDesc");

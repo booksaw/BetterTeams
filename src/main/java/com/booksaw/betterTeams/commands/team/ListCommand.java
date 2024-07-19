@@ -41,9 +41,9 @@ public class ListCommand extends SubCommand {
 					return;
 				}
 
-				MessageManager.sendMessageF(sender, "list.header", (page + 1) + "");
+				MessageManager.sendMessage(sender, "list.header", page + 1);
 				for (int i = page * 10; i < (page + 1) * 10 && i < teams.length; i++) {
-					MessageManager.sendMessageF(sender, "list.body", (i + 1) + "", teams[i]);
+					MessageManager.sendMessage(sender, "list.body", i + 1, teams[i]);
 				}
 
 				MessageManager.sendMessage(sender, "list.footer");

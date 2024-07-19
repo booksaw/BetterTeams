@@ -99,14 +99,14 @@ public class ChestManagement implements Listener {
 	private void cancelChestEvent(PlayerInteractEvent e, Team claimedBy) {
 		// checking if chest claims are currently enabled
 		if (enableClaims) {
-			MessageManager.sendMessageF(e.getPlayer(), "chest.claimed", claimedBy.getName());
+			MessageManager.sendMessage(e.getPlayer(), "chest.claimed", claimedBy.getName());
 			e.setCancelled(true);
 		}
 	}
 
 	private void cancelChestEvent(BlockBreakEvent e, Team claimedBy) {
 		if (enableClaims) {
-			MessageManager.sendMessageF(e.getPlayer(), "chest.claimed", claimedBy.getName());
+			MessageManager.sendMessage(e.getPlayer(), "chest.claimed", claimedBy.getName());
 			e.setCancelled(true);
 		}
 	}

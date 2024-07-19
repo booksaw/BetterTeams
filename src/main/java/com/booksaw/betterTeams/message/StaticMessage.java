@@ -1,6 +1,7 @@
 package com.booksaw.betterTeams.message;
 
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 /**
  * This class is used for any messages which should be sent as normal (literally
@@ -33,7 +34,10 @@ public class StaticMessage implements Message {
 	@Override
 	public void sendMessage(CommandSender sender) {
 		MessageManager.sendFullMessage(sender, message, prefix);
-
 	}
 
+	@Override
+	public void sendTitle(Player player) {
+		MessageManager.sendFullTitle(player, message, prefix);
+	}
 }
