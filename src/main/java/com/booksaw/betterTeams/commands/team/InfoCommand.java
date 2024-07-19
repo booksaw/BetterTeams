@@ -33,7 +33,7 @@ public class InfoCommand extends SubCommand {
 		List<String> infoMessages = new ArrayList<>();
 
 		infoMessages.add(MessageManager.getMessageF("info.name", team.getDisplayName()));
-		if (team.getDescription() != null && !team.getDescription().equals("")) {
+		if (team.getDescription() != null && !team.getDescription().isEmpty()) {
 			infoMessages.add(MessageManager.getMessageF("info.description", team.getDescription()));
 		}
 
@@ -160,7 +160,7 @@ public class InfoCommand extends SubCommand {
 		List<String> toDisplay = getInfoMessages(team);
 
 		for (String str : toDisplay) {
-			if (str.length() == 0) {
+			if (str.isEmpty()) {
 				continue;
 			}
 			MessageManager.sendFullMessage(sender, str);

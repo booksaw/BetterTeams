@@ -158,7 +158,7 @@ public class MessageManager {
 	public static void sendMessage(CommandSender sender, String reference) {
 		try {
 			String message = getMessage(sender, reference);
-			if (message.equals("")) {
+			if (message.isEmpty()) {
 				return;
 			}
 
@@ -181,7 +181,7 @@ public class MessageManager {
 	public static void sendMessageF(CommandSender sender, String reference, String... replacement) {
 		try {
 			String message = getMessage(sender, reference);
-			if (message.equals("")) {
+			if (message.isEmpty()) {
 				return;
 			}
 
@@ -204,7 +204,7 @@ public class MessageManager {
 	public static void sendMessageF(CommandSender sender, String reference, Object[] replacement) {
 		try {
 			String message = getMessage(sender, reference);
-			if (message.equals("")) {
+			if (message.isEmpty()) {
 				return;
 			}
 
@@ -256,7 +256,7 @@ public class MessageManager {
 	public static String getMessageF(String reference, String... replacement) {
 		try {
 			String message = getMessage(reference);
-			if (message.equals("")) {
+			if (message.isEmpty()) {
 				return "";
 			}
 

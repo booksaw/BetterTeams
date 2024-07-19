@@ -313,7 +313,7 @@ public class Team {
 
 		String colorStr = storage.getString(StoredTeamValue.COLOR);
 
-		if (colorStr == null || colorStr.length() == 0) {
+		if (colorStr == null || colorStr.isEmpty()) {
 			colorStr = "6";
 		}
 
@@ -338,7 +338,7 @@ public class Team {
 		bannedPlayers.load(storage);
 
 		String teamHomeStr = storage.getString(StoredTeamValue.HOME);
-		if (teamHomeStr != null && !teamHomeStr.equals("")) {
+		if (teamHomeStr != null && !teamHomeStr.isEmpty()) {
 			teamHome = LocationListComponent.getLocation(teamHomeStr);
 		}
 
@@ -517,7 +517,7 @@ public class Team {
 	}
 
 	public String getTag() {
-		if (tag == null || tag.length() == 0) {
+		if (tag == null || tag.isEmpty()) {
 			return getDisplayName();
 		}
 

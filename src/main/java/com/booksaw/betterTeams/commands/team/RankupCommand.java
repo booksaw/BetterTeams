@@ -16,7 +16,7 @@ public class RankupCommand extends TeamSubCommand {
 
 		String priceStr = Main.plugin.getConfig().getString("levels.l" + (team.getLevel() + 1) + ".price");
 
-		if (priceStr == null || priceStr.equals("")) {
+		if (priceStr == null || priceStr.isEmpty()) {
 			return new CommandResponse("rankup.max");
 		}
 
