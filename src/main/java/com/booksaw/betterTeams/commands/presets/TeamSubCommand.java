@@ -11,6 +11,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * This class can be extended for any sub commands which require players to be
  * in a team
@@ -21,10 +24,10 @@ public abstract class TeamSubCommand extends SubCommand {
 
 	protected boolean checkRank = true;
 	PlayerRank requiredRank = getDefaultRank();
+	private final Map<CommandSender, Team> player2team = new HashMap<>(500);
 
 	protected @Nullable Team getMyTeam(CommandSender sender) {
-		Player player = (Player) sender;
-		return Team.getTeam(player);
+		return player2team.computeIfAbsent(sender, s -> Team.getTeam((Player) s));
 	}
 
 	@Override
