@@ -132,7 +132,7 @@ public abstract class TeamPlayerListComponent extends ListTeamComponent<TeamPlay
 
 		List<Player> onlinePlayers = getOnlinePlayers();
 
-		if (onlinePlayers.size() == 0) {
+		if (onlinePlayers.isEmpty()) {
 			return "";
 		}
 
@@ -150,7 +150,7 @@ public abstract class TeamPlayerListComponent extends ListTeamComponent<TeamPlay
 
 		List<OfflinePlayer> offlinePlayers = getOfflinePlayers();
 
-		if (offlinePlayers.size() == 0) {
+		if (offlinePlayers.isEmpty()) {
 			return "";
 		}
 
