@@ -6,13 +6,14 @@ import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.SubCommand;
 
+import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.benmanes.caffeine.cache.LoadingCache;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.time.Duration;
 
 /**
  * This class can be extended for any sub commands which require players to be
@@ -24,10 +25,21 @@ public abstract class TeamSubCommand extends SubCommand {
 
 	protected boolean checkRank = true;
 	PlayerRank requiredRank = getDefaultRank();
-	private final Map<CommandSender, Team> player2team = new HashMap<>(500);
+
+	private final LoadingCache<CommandSender, Team> teamCache = Caffeine.newBuilder()
+																		.maximumSize(300)
+																		.expireAfterAccess(Duration.ofMinutes(5))
+																		.build(this::getTeam);
+
+	private Team getTeam(CommandSender sender) {
+		if (sender instanceof Player) {
+			return Team.getTeam((Player) sender);
+		}
+		return null;
+	}
 
 	protected @Nullable Team getMyTeam(CommandSender sender) {
-		return player2team.computeIfAbsent(sender, s -> Team.getTeam((Player) s));
+		return teamCache.get(sender);
 	}
 
 	@Override
