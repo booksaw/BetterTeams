@@ -1,19 +1,15 @@
 package com.booksaw.betterTeams.commands.team;
 
-import java.util.List;
-
-import org.bukkit.command.CommandSender;
-
-import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.Main;
-import com.booksaw.betterTeams.PlayerRank;
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.TeamPlayer;
+import com.booksaw.betterTeams.*;
 import com.booksaw.betterTeams.commands.ParentCommand;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
+import com.booksaw.betterTeams.customEvents.TeamWithdrawEvent;
 import com.booksaw.betterTeams.message.HelpMessage;
-
 import net.milkbowl.vault.economy.EconomyResponse;
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
+
+import java.util.List;
 
 public class WithdrawCommand extends TeamSubCommand {
 	
@@ -37,9 +33,21 @@ public class WithdrawCommand extends TeamSubCommand {
 			return new CommandResponse("withdraw.tooLittle");
 		}
 
+		final TeamWithdrawEvent event = new TeamWithdrawEvent(team, player, amount);
+
+		Bukkit.getPluginManager().callEvent(event);
+
+		if (event.isCancelled()) {
+			return new CommandResponse("withdraw.fail");
+		}
+
+		if (amount != event.getAmount())
+			amount = event.getAmount();
+
 		if (team.getMoney() - amount < 0) {
 			return new CommandResponse("withdraw.notEnough");
 		}
+
 		EconomyResponse response = Main.econ.depositPlayer(player.getPlayer(), amount);
 
 		if (!response.transactionSuccess()) {

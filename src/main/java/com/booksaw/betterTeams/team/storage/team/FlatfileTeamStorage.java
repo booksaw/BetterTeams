@@ -1,9 +1,8 @@
 package com.booksaw.betterTeams.team.storage.team;
 
-import org.bukkit.configuration.ConfigurationSection;
-
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.team.storage.storageManager.FlatfileStorageManager;
+import org.bukkit.configuration.ConfigurationSection;
 
 public class FlatfileTeamStorage extends YamlTeamStorage {
 

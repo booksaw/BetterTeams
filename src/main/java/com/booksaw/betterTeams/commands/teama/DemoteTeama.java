@@ -1,18 +1,13 @@
 package com.booksaw.betterTeams.commands.teama;
 
-import java.util.List;
-import java.util.Objects;
-
+import com.booksaw.betterTeams.*;
+import com.booksaw.betterTeams.commands.SubCommand;
+import com.booksaw.betterTeams.message.MessageManager;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 
-import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.PlayerRank;
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.Utils;
-import com.booksaw.betterTeams.commands.SubCommand;
-import com.booksaw.betterTeams.message.MessageManager;
+import java.util.List;
+import java.util.Objects;
 
 public class DemoteTeama extends SubCommand {
 

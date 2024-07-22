@@ -1,13 +1,12 @@
 package com.booksaw.betterTeams.team.storage.team;
 
-import java.util.List;
-import java.util.UUID;
-
-import org.bukkit.inventory.Inventory;
-
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.Warp;
+import org.bukkit.inventory.Inventory;
+
+import java.util.List;
+import java.util.UUID;
 
 /**
  * Used to manage the storage for a single team. All values in set using

@@ -1,17 +1,12 @@
 package com.booksaw.betterTeams.database.api;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Arrays;
-
+import com.booksaw.betterTeams.Main;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 
-import com.booksaw.betterTeams.Main;
+import java.sql.*;
+import java.util.Arrays;
 
 /**
  * API Class to managing databases
