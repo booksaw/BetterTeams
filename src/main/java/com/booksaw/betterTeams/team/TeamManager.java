@@ -18,10 +18,7 @@ import org.bukkit.inventory.InventoryHolder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public abstract class TeamManager {
 	/**
@@ -108,6 +105,12 @@ public abstract class TeamManager {
 	 */
 	@Nullable
 	public Team getTeam(@NotNull OfflinePlayer player) {
+
+		// checking if the player is in a loaded team (save hitting secondary storage every time)
+		Optional<Team> possibleTeam = loadedTeams.values().stream().filter(team -> team.getMembers().contains(player)).findFirst();
+		if (possibleTeam.isPresent()) {
+			return possibleTeam.get();
+		}
 
 		if (!isInTeam(player)) {
 			return null;
