@@ -1,23 +1,17 @@
 package com.booksaw.betterTeams;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import org.bukkit.Bukkit;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.jetbrains.annotations.NotNull;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.bukkit.Bukkit;
-import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.jetbrains.annotations.NotNull;
 
 public class ConfigManager {
 
@@ -196,9 +190,9 @@ public class ConfigManager {
 	}
 
 	public void saveResource(String resourcePath, String resultPath, boolean replace) {
-		if (resourcePath == null || resourcePath.equals(""))
+		if (resourcePath == null || resourcePath.isEmpty())
 			throw new IllegalArgumentException("ResourcePath cannot be null or empty");
-		if (resultPath == null || resultPath.equals(""))
+		if (resultPath == null || resultPath.isEmpty())
 			throw new IllegalArgumentException("ResultPath cannot be null or empty");
 
 		resourcePath = resourcePath.replace('\\', '/');

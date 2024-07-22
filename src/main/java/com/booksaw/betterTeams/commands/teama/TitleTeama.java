@@ -46,7 +46,7 @@ public class TitleTeama extends SubCommand {
 
 		team.setTitle(toTitle, args[1]);
 
-		MessageManager.sendMessageF(toTitle.getPlayer().getPlayer(), "title.change", args[1]);
+		MessageManager.sendMessage(toTitle.getPlayer().getPlayer(), "title.change", args[1]);
 
 		return new CommandResponse(true, "admin.title.success");
 	}

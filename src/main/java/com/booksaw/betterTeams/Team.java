@@ -1,10 +1,6 @@
 package com.booksaw.betterTeams;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,17 +25,17 @@ import com.booksaw.betterTeams.exceptions.CancelledEventException;
 import com.booksaw.betterTeams.message.Message;
 import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.message.StaticMessage;
-import com.booksaw.betterTeams.team.AllyListComponent;
+import com.booksaw.betterTeams.team.AllySetComponent;
 import com.booksaw.betterTeams.team.AllyRequestComponent;
-import com.booksaw.betterTeams.team.BanListComponent;
+import com.booksaw.betterTeams.team.BanSetComponent;
 import com.booksaw.betterTeams.team.ChestClaimComponent;
 import com.booksaw.betterTeams.team.EChestComponent;
-import com.booksaw.betterTeams.team.LocationListComponent;
-import com.booksaw.betterTeams.team.MemberListComponent;
+import com.booksaw.betterTeams.team.LocationSetComponent;
+import com.booksaw.betterTeams.team.MemberSetComponent;
 import com.booksaw.betterTeams.team.MoneyComponent;
 import com.booksaw.betterTeams.team.ScoreComponent;
 import com.booksaw.betterTeams.team.TeamManager;
-import com.booksaw.betterTeams.team.WarpListComponent;
+import com.booksaw.betterTeams.team.WarpSetComponent;
 import com.booksaw.betterTeams.team.storage.StorageType;
 import com.booksaw.betterTeams.team.storage.team.StoredTeamValue;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
@@ -223,12 +219,12 @@ public class Team {
 	/**
 	 * tracks and provides utility methods relating to the members of this team
 	 */
-	private MemberListComponent members;
+	private MemberSetComponent members;
 
 	/**
 	 * Used to track the allies of this team
 	 */
-	private final AllyListComponent allies;
+	private final AllySetComponent allies;
 
 	/**
 	 * This is a list of invited players to this team since the last restart of the
@@ -239,7 +235,7 @@ public class Team {
 	/**
 	 * This is used to store all players which are banned from the team
 	 */
-	private final BanListComponent bannedPlayers;
+	private final BanSetComponent bannedPlayers;
 
 	/**
 	 * Used to track the chests claimed by this team
@@ -283,7 +279,7 @@ public class Team {
 
 	private String tag;
 
-	private WarpListComponent warps;
+	private WarpSetComponent warps;
 
 	private org.bukkit.scoreboard.Team team;
 
@@ -319,10 +315,10 @@ public class Team {
 
 		color = ChatColor.getByChar(colorStr.charAt(0));
 
-		members = new MemberListComponent();
+		members = new MemberSetComponent();
 		members.load(storage);
 
-		allies = new AllyListComponent();
+		allies = new AllySetComponent();
 		allies.load(storage);
 
 		score = new ScoreComponent();
@@ -334,18 +330,18 @@ public class Team {
 		echest = new EChestComponent();
 		echest.load(storage);
 
-		bannedPlayers = new BanListComponent();
+		bannedPlayers = new BanSetComponent();
 		bannedPlayers.load(storage);
 
 		String teamHomeStr = storage.getString(StoredTeamValue.HOME);
 		if (teamHomeStr != null && !teamHomeStr.equals("")) {
-			teamHome = LocationListComponent.getLocation(teamHomeStr);
+			teamHome = LocationSetComponent.getLocation(teamHomeStr);
 		}
 
 		requests = new AllyRequestComponent();
 		requests.load(storage);
 
-		warps = new WarpListComponent();
+		warps = new WarpSetComponent();
 		warps.load(storage);
 
 		claims = new ChestClaimComponent();
@@ -416,14 +412,14 @@ public class Team {
 
 		requests = new AllyRequestComponent();
 
-		warps = new WarpListComponent();
+		warps = new WarpSetComponent();
 
 		claims = new ChestClaimComponent();
 		claims.save(storage);
 
-		allies = new AllyListComponent();
+		allies = new AllySetComponent();
 
-		members = new MemberListComponent();
+		members = new MemberSetComponent();
 		if (owner != null) {
 			members.add(this, new TeamPlayer(owner, PlayerRank.OWNER));
 		}
@@ -432,7 +428,7 @@ public class Team {
 		money = new MoneyComponent();
 		echest = new EChestComponent();
 
-		bannedPlayers = new BanListComponent();
+		bannedPlayers = new BanSetComponent();
 		savePlayers();
 		level = 1;
 		storage.set(StoredTeamValue.LEVEL, 1);
@@ -644,7 +640,7 @@ public class Team {
 		}
 	}
 
-	public MemberListComponent getMembers() {
+	public MemberSetComponent getMembers() {
 		return members;
 	}
 
@@ -901,7 +897,7 @@ public class Team {
 
 	public void setTeamHome(Location teamHome) {
 		this.teamHome = teamHome;
-		getStorage().set(StoredTeamValue.HOME, LocationListComponent.getString(teamHome));
+		getStorage().set(StoredTeamValue.HOME, LocationSetComponent.getString(teamHome));
 	}
 
 	public void deleteTeamHome() {
@@ -965,7 +961,7 @@ public class Team {
 		}
 
 		// These are variables which may be modified by TeamPreMessageEvent
-		List<TeamPlayer> recipients = members.getClone();
+		Set<TeamPlayer> recipients = members.getClone();
 		recipients.removeIf(teamPlayer -> !teamPlayer.getPlayer().isOnline()); // Offline players won't be recipients
 		String format = getChatSyntax(sender);
 		String prefix = sender.getPrefix(returnTo);
@@ -1255,16 +1251,16 @@ public class Team {
 	}
 
 	/**
-	 * @return the list of all UUIDS of teams that have sent ally requests
+	 * @return the set of all UUIDS of teams that have sent ally requests
 	 */
-	public List<UUID> getRequests() {
+	public Set<UUID> getRequests() {
 		return requests.get();
 	}
 
 	/**
 	 * @return the list of all UUIDS of teams that are allied with this team
 	 */
-	public AllyListComponent getAllies() {
+	public AllySetComponent getAllies() {
 		return allies;
 	}
 
@@ -1386,7 +1382,7 @@ public class Team {
 		saveWarps();
 	}
 
-	public WarpListComponent getWarps() {
+	public WarpSetComponent getWarps() {
 		return warps;
 	}
 

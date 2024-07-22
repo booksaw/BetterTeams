@@ -1,15 +1,14 @@
 package com.booksaw.betterTeams.commands.team;
 
-import java.util.List;
-
-import org.bukkit.command.CommandSender;
-import org.bukkit.scheduler.BukkitRunnable;
-
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.SubCommand;
 import com.booksaw.betterTeams.message.MessageManager;
+import org.bukkit.command.CommandSender;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.List;
 
 public class ListCommand extends SubCommand {
 
@@ -41,9 +40,9 @@ public class ListCommand extends SubCommand {
 					return;
 				}
 
-				MessageManager.sendMessageF(sender, "list.header", (page + 1) + "");
+				MessageManager.sendMessage(sender, "list.header", page + 1);
 				for (int i = page * 10; i < (page + 1) * 10 && i < teams.length; i++) {
-					MessageManager.sendMessageF(sender, "list.body", (i + 1) + "", teams[i]);
+					MessageManager.sendMessage(sender, "list.body", i + 1, teams[i]);
 				}
 
 				MessageManager.sendMessage(sender, "list.footer");

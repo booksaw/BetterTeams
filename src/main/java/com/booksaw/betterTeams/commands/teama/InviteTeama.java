@@ -1,15 +1,14 @@
 package com.booksaw.betterTeams.commands.teama;
 
-import java.util.List;
-
-import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.presets.TeamSelectSubCommand;
 import com.booksaw.betterTeams.message.MessageManager;
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+import java.util.List;
 
 public class InviteTeama extends TeamSelectSubCommand {
 
@@ -37,7 +36,7 @@ public class InviteTeama extends TeamSelectSubCommand {
 
 		// player being invited is not in a team
 		team.invite(toInvite.getUniqueId());
-		MessageManager.sendMessageF(toInvite, "invite.invite", team.getName());
+		MessageManager.sendMessage(toInvite, "invite.invite", team.getName());
 		return new CommandResponse(true, "admin.invite.success");
 	}
 

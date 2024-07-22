@@ -1,6 +1,7 @@
 package com.booksaw.betterTeams.message;
 
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 /**
  * Used when the program needs to send multiple messages to the user
@@ -21,5 +22,11 @@ public class CompositeMessage implements Message {
 	public void sendMessage(CommandSender sender) {
 		message1.sendMessage(sender);
 		message2.sendMessage(sender);
+	}
+
+	@Override
+	public void sendTitle(Player player) {
+		message1.sendTitle(player);
+		message2.sendTitle(player);
 	}
 }

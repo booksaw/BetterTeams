@@ -101,7 +101,7 @@ public class ParentCommand extends SubCommand {
 			return null;
 		}
 
-		if (!sender.hasPermission("betterteams." + command.getNode()) && !command.getNode().equals("")) {
+		if (!sender.hasPermission("betterteams." + command.getNode()) && !command.getNode().isEmpty()) {
 			MessageManager.sendMessage(sender, "noPerm");
 			return null;
 		}
@@ -145,7 +145,7 @@ public class ParentCommand extends SubCommand {
 			}
 			if (price.getCost() > 0) {
 				NumberFormat formatter = NumberFormat.getCurrencyInstance();
-				MessageManager.sendMessageF(sender, "cost.run", formatter.format(price.getCost()));
+				MessageManager.sendMessage(sender, "cost.run", formatter.format(price.getCost()));
 			}
 		}
 
@@ -210,7 +210,7 @@ public class ParentCommand extends SubCommand {
 
 	@Override
 	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
-		if (args.length <= 1 || args[0].equals("")) {
+		if (args.length <= 1 || args[0].isEmpty()) {
 			for (Entry<String, SubCommand> subCommand : subCommands.entrySet()) {
 				if ((args.length == 0 || subCommand.getKey().startsWith(args[0]))
 						&& sender.hasPermission("betterTeams." + subCommand.getValue().getNode()))
@@ -239,7 +239,7 @@ public class ParentCommand extends SubCommand {
 
 	public String getReference(SubCommand subCommand) {
 		String toReturn = MessageManager.getMessage("command." + subCommand.getCommand());
-		if (!toReturn.equals("")) {
+		if (!toReturn.isEmpty()) {
 			return toReturn;
 		}
 
@@ -257,7 +257,7 @@ public class ParentCommand extends SubCommand {
 	}
 	
 	@Override
-	public boolean runAsync(String[] args) {
+	public boolean checkAsync(String[] args) {
 		if(args.length == 0) {
 			return true;
 		}

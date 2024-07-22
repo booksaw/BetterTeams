@@ -1,16 +1,11 @@
 package com.booksaw.betterTeams.commands.team;
 
-import java.util.List;
-
-import org.bukkit.command.CommandSender;
-
-import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.PlayerRank;
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.Warp;
+import com.booksaw.betterTeams.*;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
+import org.bukkit.command.CommandSender;
+
+import java.util.List;
 
 public class WarpsCommand extends TeamSubCommand {
 
@@ -22,7 +17,7 @@ public class WarpsCommand extends TeamSubCommand {
 			replace.append(warp.getName()).append(", ");
 		}
 
-		if (replace.length() == 0) {
+		if (replace.isEmpty()) {
 			return new CommandResponse("warps.none");
 		}
 

@@ -1,5 +1,12 @@
 package com.booksaw.betterTeams.commands;
 
+import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.message.MessageManager;
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
@@ -35,7 +42,7 @@ public abstract class SubCommand {
 		
 		String prefix = (parent.getCommand().equals("team")) ? "" : parent.getCommand() + ".";
 		String message = MessageManager.getDefaultMessages().getString("help." + prefix + getCommand());
-		if (message == null || message.equals("")) {
+		if (message == null || message.isEmpty()) {
 			message = getHelp();
 			MessageManager.getDefaultMessages().set("help."  + prefix +  getCommand(), getHelp());
 
@@ -59,7 +66,7 @@ public abstract class SubCommand {
 		
 		String prefix = (parent.getCommand().equals("team")) ? "" : parent.getCommand() + ".";
 		String message = MessageManager.getDefaultMessages().getString("helpArg."  + prefix +  getCommand());
-		if (message == null || message.equals("")) {
+		if (message == null || message.isEmpty()) {
 			message = getArguments();
 			MessageManager.getDefaultMessages().set("helpArg." + prefix +  getCommand(), getArguments());
 
@@ -138,8 +145,12 @@ public abstract class SubCommand {
 
 	public abstract void onTabComplete(List<String> options, CommandSender sender, String label, String[] args);
 
-	public boolean runAsync(String[] args) {
+	protected boolean runAsync(String[] args) {
 		return true;
+	}
+
+	public boolean checkAsync(final String[] args) {
+		return this.runAsync(args);
 	}
 	
 	/**

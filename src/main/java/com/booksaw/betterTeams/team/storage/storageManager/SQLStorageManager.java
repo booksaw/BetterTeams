@@ -28,7 +28,7 @@ import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.database.BetterTeamsDatabase;
 import com.booksaw.betterTeams.database.TableName;
-import com.booksaw.betterTeams.team.LocationListComponent;
+import com.booksaw.betterTeams.team.LocationSetComponent;
 import com.booksaw.betterTeams.team.TeamManager;
 import com.booksaw.betterTeams.team.storage.team.SQLTeamStorage;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
@@ -85,7 +85,7 @@ public class SQLStorageManager extends TeamManager implements Listener {
 			}
 		}
 
-		return claims.get(LocationListComponent.getString(location));
+		return claims.get(LocationSetComponent.getString(location));
 	}
 
 	@Override
@@ -292,15 +292,15 @@ public class SQLStorageManager extends TeamManager implements Listener {
 
 	@Override
 	public void addChestClaim(Team team, Location loc) {
-		claims.put(LocationListComponent.getString(loc), team.getID());
+		claims.put(LocationSetComponent.getString(loc), team.getID());
 		database.insertRecord(TableName.CHESTCLAIMS, "teamID, chestLoc",
-				"'" + team.getID() + "', '" + LocationListComponent.getString(loc) + "'");
+                "'" + team.getID() + "', '" + LocationSetComponent.getString(loc) + "'");
 	}
 
 	@Override
 	public void removeChestclaim(Location loc) {
-		claims.remove(LocationListComponent.getString(loc));
-		database.deleteRecord(TableName.CHESTCLAIMS, "chestLoc LIKE '" + LocationListComponent.getString(loc) + "'");
+		claims.remove(LocationSetComponent.getString(loc));
+		database.deleteRecord(TableName.CHESTCLAIMS, "chestLoc LIKE '" + LocationSetComponent.getString(loc) + "'");
 	}
 
 	@Override

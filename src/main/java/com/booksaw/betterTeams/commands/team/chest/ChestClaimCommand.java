@@ -14,7 +14,7 @@ import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
-import com.booksaw.betterTeams.team.LocationListComponent;
+import com.booksaw.betterTeams.team.LocationSetComponent;
 
 
 public class ChestClaimCommand extends TeamSubCommand {
@@ -25,7 +25,7 @@ public class ChestClaimCommand extends TeamSubCommand {
 		Location loc = Objects.requireNonNull(player.getPlayer().getPlayer()).getLocation();
 
 		Block block = loc.getBlock();
-		loc = LocationListComponent.normalise(loc);
+		loc = LocationSetComponent.normalise(loc);
 
 		if (block.getType() != Material.CHEST) {
 			return new CommandResponse("chest.claim.noChest");

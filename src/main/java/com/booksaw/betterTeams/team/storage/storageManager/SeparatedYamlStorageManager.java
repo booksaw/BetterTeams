@@ -25,7 +25,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.team.LocationListComponent;
+import com.booksaw.betterTeams.team.LocationSetComponent;
 import com.booksaw.betterTeams.team.storage.team.SeparatedYamlTeamStorage;
 import com.booksaw.betterTeams.team.storage.team.StoredTeamValue;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
@@ -101,7 +101,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 
 	@Override
 	public UUID getClaimingTeamUUID(Location location) {
-		return chestClaims.get(LocationListComponent.getString(location));
+		return chestClaims.get(LocationSetComponent.getString(location));
 	}
 
 	@Override
@@ -458,12 +458,12 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 
 	@Override
 	public void addChestClaim(Team team, Location loc) {
-		addToChestClaims(LocationListComponent.getString(loc), team.getID());
+		addToChestClaims(LocationSetComponent.getString(loc), team.getID());
 	}
 
 	@Override
 	public void removeChestclaim(Location loc) {
-		chestClaims.remove(LocationListComponent.getString(loc));
+		chestClaims.remove(LocationSetComponent.getString(loc));
 		saveChestClaims();
 	}
 

@@ -1,18 +1,17 @@
 package com.booksaw.betterTeams.team;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.booksaw.betterTeams.PlayerRank;
+import com.booksaw.betterTeams.TeamPlayer;
+import com.booksaw.betterTeams.message.Message;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import com.booksaw.betterTeams.PlayerRank;
-import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.message.Message;
+import java.util.ArrayList;
+import java.util.List;
 
-public abstract class TeamPlayerListComponent extends ListTeamComponent<TeamPlayer> {
+public abstract class TeamPlayerSetComponent extends SetTeamComponent<TeamPlayer> {
 
 	/**
 	 * @return A list of players which are currently online and on this team
@@ -98,6 +97,17 @@ public abstract class TeamPlayerListComponent extends ListTeamComponent<TeamPlay
 		}
 	}
 
+	/**
+	 * Sends the specified title to all team players stored in the list
+	 *
+	 * @param message The message to send to all online players
+	 */
+	public void broadcastTitle(Message message) {
+		for (Player p : getOnlinePlayers()) {
+			message.sendTitle(p);
+		}
+	}
+
 	@Override
 	public TeamPlayer fromString(String str) {
 		return new TeamPlayer(str);
@@ -132,7 +142,7 @@ public abstract class TeamPlayerListComponent extends ListTeamComponent<TeamPlay
 
 		List<Player> onlinePlayers = getOnlinePlayers();
 
-		if (onlinePlayers.size() == 0) {
+		if (onlinePlayers.isEmpty()) {
 			return "";
 		}
 
@@ -150,7 +160,7 @@ public abstract class TeamPlayerListComponent extends ListTeamComponent<TeamPlay
 
 		List<OfflinePlayer> offlinePlayers = getOfflinePlayers();
 
-		if (offlinePlayers.size() == 0) {
+		if (offlinePlayers.isEmpty()) {
 			return "";
 		}
 

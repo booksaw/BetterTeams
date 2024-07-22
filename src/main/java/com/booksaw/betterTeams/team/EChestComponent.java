@@ -1,10 +1,9 @@
 package com.booksaw.betterTeams.team;
 
-import org.bukkit.Bukkit;
-import org.bukkit.inventory.Inventory;
-
 import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
+import org.bukkit.Bukkit;
+import org.bukkit.inventory.Inventory;
 
 public class EChestComponent implements TeamComponent<Inventory> {
 

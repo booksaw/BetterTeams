@@ -1,19 +1,17 @@
 package com.booksaw.betterTeams.commands.team;
 
-import java.util.List;
-import java.util.Objects;
-
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.SubCommand;
 import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
-
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+import java.util.List;
+import java.util.Objects;
 
 public class RankCommand extends SubCommand {
 
@@ -33,7 +31,7 @@ public class RankCommand extends SubCommand {
 
 		String priceStr = Main.plugin.getConfig().getString("levels.l" + (team.getLevel() + 1) + ".price");
 
-		if (priceStr == null || priceStr.length() == 0) {
+		if (priceStr == null || priceStr.isEmpty()) {
 			(new ReferencedFormatMessage("rank.infomm", team.getLevel() + "")).sendMessage(sender);
 		} else {
 			boolean score = Objects.requireNonNull(priceStr).contains("s");

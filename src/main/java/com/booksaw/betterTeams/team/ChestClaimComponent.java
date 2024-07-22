@@ -1,11 +1,10 @@
 package com.booksaw.betterTeams.team;
 
-import org.bukkit.Location;
-
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
+import org.bukkit.Location;
 
-public class ChestClaimComponent extends LocationListComponent {
+public class ChestClaimComponent extends LocationSetComponent {
 
 	@Override
 	public String getSectionHeading() {
@@ -36,7 +35,7 @@ public class ChestClaimComponent extends LocationListComponent {
 
 	@Override
 	public void clear() {
-		for (Location location : list) {
+		for (Location location : set) {
 			Team.getTeamManager().removeChestclaim(location);
 		}
 

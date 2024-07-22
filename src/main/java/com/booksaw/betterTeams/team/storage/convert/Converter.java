@@ -1,8 +1,7 @@
 package com.booksaw.betterTeams.team.storage.convert;
 
-import org.bukkit.Bukkit;
-
 import com.booksaw.betterTeams.team.storage.StorageType;
+import org.bukkit.Bukkit;
 
 public abstract class Converter {
 

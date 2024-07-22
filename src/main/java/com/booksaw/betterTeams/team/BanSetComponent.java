@@ -1,13 +1,12 @@
 package com.booksaw.betterTeams.team;
 
-import java.util.UUID;
-
-import org.bukkit.OfflinePlayer;
-
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
+import org.bukkit.OfflinePlayer;
 
-public class BanListComponent extends UuidListComponent {
+import java.util.UUID;
+
+public class BanSetComponent extends UuidSetComponent {
 
 	@Override
 	public String getSectionHeading() {

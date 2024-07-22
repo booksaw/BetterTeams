@@ -7,7 +7,7 @@ import com.booksaw.betterTeams.message.Message;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
 
-public class AllyListComponent extends UuidListComponent {
+public class AllySetComponent extends UuidSetComponent {
 
 	@Override
 	public String getSectionHeading() {

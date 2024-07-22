@@ -3,7 +3,7 @@ package com.booksaw.betterTeams;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-import com.booksaw.betterTeams.team.LocationListComponent;
+import com.booksaw.betterTeams.team.LocationSetComponent;
 
 public class Warp {
 
@@ -13,7 +13,7 @@ public class Warp {
 
 	public Warp(String[] args) {
 		name = args[0];
-		location = LocationListComponent.getLocation(args[1]);
+		location = LocationSetComponent.getLocation(args[1]);
 
 		if (args.length == 3) {
 			password = args[2];
@@ -44,9 +44,9 @@ public class Warp {
 	@Override
 	public String toString() {
 		if (password == null || password.equals("")) {
-			return name + ";" + LocationListComponent.getString(location);
+			return name + ";" + LocationSetComponent.getString(location);
 		} else {
-			return name + ";" + LocationListComponent.getString(location) + ";" + password;
+			return name + ";" + LocationSetComponent.getString(location) + ";" + password;
 		}
 	}
 
