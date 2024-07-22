@@ -1,6 +1,7 @@
 package com.booksaw.betterTeams.commands.team;
 
 import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
@@ -43,13 +44,6 @@ public class NeutralCommand extends TeamSubCommand {
 			toNeutral.removeAlly(team.getID());
 			team.removeAlly(toNeutral.getID());
 
-			// notifying both teams
-			Message message = new ReferencedFormatMessage("neutral.remove", team.getDisplayName());
-			toNeutral.getMembers().broadcastMessage(message);
-
-			// notifying the other team
-			message = new ReferencedFormatMessage("neutral.remove", toNeutral.getDisplayName());
-			team.getMembers().broadcastMessage(message);
 			return new CommandResponse(true);
 		}
 

@@ -21,13 +21,13 @@ public class VersionTeama extends SubCommand {
 	
 	@Override
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
-		MessageManager.sendMessageF(sender, "admin.versionstorage", Team.getTeamManager().getClass().getName());
-		MessageManager.sendMessageF(sender, "admin.versionversion", Main.plugin.getServer().getVersion());
-		MessageManager.sendMessageF(sender, "admin.versionlanguage", MessageManager.getLanguage());
-		MessageManager.sendMessageF(sender, "admin.versiononline", Boolean.toString(Bukkit.getOnlineMode()));
-		MessageManager.sendMessageF(sender, "admin.versionplayers", Integer.toString(Bukkit.getOnlinePlayers().size()));
+		MessageManager.sendMessage(sender, "admin.versionstorage", Team.getTeamManager().getClass().getName());
+		MessageManager.sendMessage(sender, "admin.versionversion", Main.plugin.getServer().getVersion());
+		MessageManager.sendMessage(sender, "admin.versionlanguage", MessageManager.getLanguage());
+		MessageManager.sendMessage(sender, "admin.versiononline", Boolean.toString(Bukkit.getOnlineMode()));
+		MessageManager.sendMessage(sender, "admin.versionplayers", Integer.toString(Bukkit.getOnlinePlayers().size()));
 		return new CommandResponse(true,
-				new ReferencedFormatMessage("admin.version", Main.plugin.getDescription().getVersion() + ""));
+				new ReferencedFormatMessage("admin.version", Main.plugin.getDescription().getVersion()));
 		
 		
 	}

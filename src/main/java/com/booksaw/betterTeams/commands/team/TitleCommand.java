@@ -92,7 +92,7 @@ public class TitleCommand extends TeamSubCommand {
 
 		if (player != toTitle && toTitle.getPlayer().isOnline()) {
 			if (args[1] != null) {
-				MessageManager.sendMessageF(toTitle.getPlayer().getPlayer(), "title.change", args[1]);
+				MessageManager.sendMessage(toTitle.getPlayer().getPlayer(), "title.change", args[1]);
 			} else {
 				MessageManager.sendMessage(toTitle.getPlayer().getPlayer(), "title.remove");
 			}

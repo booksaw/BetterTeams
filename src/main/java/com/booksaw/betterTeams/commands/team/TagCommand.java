@@ -22,7 +22,7 @@ public class TagCommand extends TeamSubCommand {
 		}
 
 		if (player.getRank().value < getRequiredRank().value) {
-			MessageManager.sendMessageF(player.getPlayer().getPlayer(), "info.tag", team.getTag());
+			MessageManager.sendMessage(player.getPlayer().getPlayer(), "info.tag", team.getTag());
 			return new CommandResponse("tag.noPerm");
 		}
 

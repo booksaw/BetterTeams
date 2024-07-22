@@ -97,6 +97,17 @@ public abstract class TeamPlayerListComponent extends ListTeamComponent<TeamPlay
 		}
 	}
 
+	/**
+	 * Sends the specified title to all team players stored in the list
+	 *
+	 * @param message The message to send to all online players
+	 */
+	public void broadcastTitle(Message message) {
+		for (Player p : getOnlinePlayers()) {
+			message.sendTitle(p);
+		}
+	}
+
 	@Override
 	public TeamPlayer fromString(String str) {
 		return new TeamPlayer(str);

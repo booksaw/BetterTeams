@@ -42,9 +42,9 @@ public class InviteCommand extends TeamSubCommand {
 		// player being invited is not in a team
 		team.invite(toInvite.getUniqueId());
 		
-		TextComponent component = new TextComponent(MessageManager.getMessageF("invite.invite", team.getName()));
+		TextComponent component = new TextComponent(MessageManager.getMessage("invite.invite", team.getName()));
 		component.setClickEvent(new ClickEvent(Action.RUN_COMMAND, "/team join " + team.getName()));
-		component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(MessageManager.getMessageF("invite.hover", team.getName()))));
+		component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(MessageManager.getMessage("invite.hover", team.getName()))));
 		toInvite.spigot().sendMessage(component);
 		
 		return new CommandResponse(true, "invite.success");

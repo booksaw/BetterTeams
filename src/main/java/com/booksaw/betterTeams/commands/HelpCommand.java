@@ -87,8 +87,7 @@ public class HelpCommand extends SubCommand {
 			}
 		}
 
-		MessageManager.sendMessageF(sender, "help.footer", Integer.toString(page + 1), Integer.toString(maxPage),
-				command.getCommand());
+		MessageManager.sendMessage(sender, "help.footer", page + 1, maxPage, command.getCommand());
 
 		return null;
 	}

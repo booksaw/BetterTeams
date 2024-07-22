@@ -35,7 +35,7 @@ public class BanCommand extends TeamSubCommand {
 		if (team != otherTeam) {
 			team.banPlayer(player);
 			if (player.isOnline()) {
-				MessageManager.sendMessageF((CommandSender) player.getPlayer(), "ban.notify", team.getName());
+				MessageManager.sendMessage(player.getPlayer(), "ban.notify", team.getName());
 			}
 			return new CommandResponse("ban.success");
 		}
@@ -52,7 +52,7 @@ public class BanCommand extends TeamSubCommand {
 		team.banPlayer(player);
 
 		if (player.isOnline()) {
-			MessageManager.sendMessageF(player.getPlayer(), "ban.notify", team.getName());
+			MessageManager.sendMessage(player.getPlayer(), "ban.notify", team.getName());
 
 			if (Main.plugin.getConfig().getBoolean("titleRemoval")) {
 				player.getPlayer().sendTitle(" ", MessageManager.getMessage("ban.title"), 10, 100, 20);

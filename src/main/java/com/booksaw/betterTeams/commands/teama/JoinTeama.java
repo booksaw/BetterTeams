@@ -41,7 +41,7 @@ public class JoinTeama extends SubCommand {
 		}
 
 		if (team.join(p)) {
-			MessageManager.sendMessageF(p, "admin.join.notify", team.getDisplayName());
+			MessageManager.sendMessage(p, "admin.join.notify", team.getDisplayName());
 
 			return new CommandResponse(true, "admin.join.success");
 		}
