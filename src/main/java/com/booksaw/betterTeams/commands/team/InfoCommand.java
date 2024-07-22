@@ -159,7 +159,7 @@ public class InfoCommand extends SubCommand {
 		List<String> toDisplay = getInfoMessages(team);
 
 		for (String str : toDisplay) {
-			if (str.length() == 0) {
+			if (str.isEmpty()) {
 				continue;
 			}
 			MessageManager.sendFullMessage(sender, str);

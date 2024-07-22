@@ -156,7 +156,7 @@ public class SQLTeamStorage extends TeamStorage {
 	public void getEchestContents(Inventory inventory) {
 
 		String result = storageManager.getDatabase().getResult("echest", TableName.TEAM, getCondition());
-		if (result == null || result.length() == 0) {
+		if (result == null || result.isEmpty()) {
 			return;
 		}
 		try {

@@ -34,7 +34,7 @@ public class SetrankTeama extends TeamSelectSubCommand {
 		}
 
 		String price = Main.plugin.getConfig().getString("levels.l" + level + ".price");
-		if (level > 1 && (price == null || price.equals(""))) {
+		if (level > 1 && (price == null || price.isEmpty())) {
 			return new CommandResponse(true, "admin.setrank.no");
 		}
 

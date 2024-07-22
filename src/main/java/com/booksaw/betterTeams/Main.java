@@ -99,7 +99,7 @@ public class Main extends JavaPlugin {
 
 		String language = getConfig().getString("language");
 		MessageManager.setLanguage(language);
-		if (Objects.requireNonNull(language).equals("en") || language.equals("")) {
+		if (Objects.requireNonNull(language).equals("en") || language.isEmpty()) {
 			MessageManager.setLanguage("messages");
 		}
 

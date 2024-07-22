@@ -190,9 +190,9 @@ public class ConfigManager {
 	}
 
 	public void saveResource(String resourcePath, String resultPath, boolean replace) {
-		if (resourcePath == null || resourcePath.equals(""))
+		if (resourcePath == null || resourcePath.isEmpty())
 			throw new IllegalArgumentException("ResourcePath cannot be null or empty");
-		if (resultPath == null || resultPath.equals(""))
+		if (resultPath == null || resultPath.isEmpty())
 			throw new IllegalArgumentException("ResultPath cannot be null or empty");
 
 		resourcePath = resourcePath.replace('\\', '/');

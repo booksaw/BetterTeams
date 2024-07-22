@@ -19,7 +19,7 @@ public class AllyManagement implements Listener {
 			return;
 		}
 
-		if (team.getRequests().size() == 0) {
+		if (team.getRequests().isEmpty()) {
 			return;
 		}
 

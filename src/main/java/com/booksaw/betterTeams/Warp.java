@@ -42,7 +42,7 @@ public class Warp {
 
 	@Override
 	public String toString() {
-		if (password == null || password.equals("")) {
+		if (password == null || password.isEmpty()) {
 			return name + ";" + LocationListComponent.getString(location);
 		} else {
 			return name + ";" + LocationListComponent.getString(location) + ";" + password;

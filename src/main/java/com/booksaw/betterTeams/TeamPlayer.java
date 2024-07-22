@@ -98,7 +98,7 @@ public class TeamPlayer {
 
 	@Override
 	public String toString() {
-		if (title == null || title.equals("")) {
+		if (title == null || title.isEmpty()) {
 			return playerUUID + "," + rank;
 		}
 		return playerUUID + "," + rank + "," + title;
@@ -127,7 +127,7 @@ public class TeamPlayer {
 	 * @return the prefix for messages that the player has sent
 	 */
 	public String getPrefix(ChatColor returnTo) {
-		if (title == null || title.equals("")) {
+		if (title == null || title.isEmpty()) {
 			return rank.getPrefix();
 		} else {
 			return rank.getPrefix() + title + returnTo + " ";

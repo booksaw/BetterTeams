@@ -32,7 +32,7 @@ public abstract class SubCommand {
 		
 		String prefix = (parent.getCommand().equals("team")) ? "" : parent.getCommand() + ".";
 		String message = MessageManager.getDefaultMessages().getString("help." + prefix + getCommand());
-		if (message == null || message.equals("")) {
+		if (message == null || message.isEmpty()) {
 			message = getHelp();
 			MessageManager.getDefaultMessages().set("help."  + prefix +  getCommand(), getHelp());
 
@@ -56,7 +56,7 @@ public abstract class SubCommand {
 		
 		String prefix = (parent.getCommand().equals("team")) ? "" : parent.getCommand() + ".";
 		String message = MessageManager.getDefaultMessages().getString("helpArg."  + prefix +  getCommand());
-		if (message == null || message.equals("")) {
+		if (message == null || message.isEmpty()) {
 			message = getArguments();
 			MessageManager.getDefaultMessages().set("helpArg." + prefix +  getCommand(), getArguments());
 

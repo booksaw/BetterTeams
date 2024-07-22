@@ -149,11 +149,13 @@ public class MessageManager {
 
 	/**
 	 * Used to send a (formatted) message to the specified user
+
 	 *
 	 * @param sender      the commandSender which the message should be sent to
 	 * @param reference   the reference for the message
 	 * @param replacement the value that the placeholder should be replaced with
 	 */
+
 	public static void sendMessage(CommandSender sender, String reference, Object... replacement) {
 		String message = getMessage(sender, reference, replacement);
 		if (message.isEmpty()) {
