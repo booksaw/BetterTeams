@@ -4,10 +4,13 @@ import java.util.List;
 import java.util.UUID;
 
 import com.booksaw.betterTeams.Main;
+
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.message.Message;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
+
+import java.util.UUID;
 
 public class AllyListComponent extends UuidListComponent {
 

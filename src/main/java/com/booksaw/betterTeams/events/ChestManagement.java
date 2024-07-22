@@ -1,7 +1,7 @@
 package com.booksaw.betterTeams.events;
 
-import java.util.Iterator;
-
+import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.message.MessageManager;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -16,8 +16,7 @@ import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.message.MessageManager;
+import java.util.Iterator;
 
 public class ChestManagement implements Listener {
 

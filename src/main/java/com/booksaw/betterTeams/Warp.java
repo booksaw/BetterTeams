@@ -1,9 +1,8 @@
 package com.booksaw.betterTeams;
 
+import com.booksaw.betterTeams.team.LocationListComponent;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-
-import com.booksaw.betterTeams.team.LocationListComponent;
 
 public class Warp {
 
