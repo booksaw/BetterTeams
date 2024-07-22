@@ -1,16 +1,15 @@
 package com.booksaw.betterTeams.team;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.booksaw.betterTeams.PlayerRank;
+import com.booksaw.betterTeams.TeamPlayer;
+import com.booksaw.betterTeams.message.Message;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import com.booksaw.betterTeams.PlayerRank;
-import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.message.Message;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class TeamPlayerListComponent extends ListTeamComponent<TeamPlayer> {
 
@@ -95,6 +94,17 @@ public abstract class TeamPlayerListComponent extends ListTeamComponent<TeamPlay
 	public void broadcastMessage(Message message) {
 		for (Player p : getOnlinePlayers()) {
 			message.sendMessage(p);
+		}
+	}
+
+	/**
+	 * Sends the specified title to all team players stored in the list
+	 *
+	 * @param message The message to send to all online players
+	 */
+	public void broadcastTitle(Message message) {
+		for (Player p : getOnlinePlayers()) {
+			message.sendTitle(p);
 		}
 	}
 

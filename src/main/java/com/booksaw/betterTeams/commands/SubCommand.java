@@ -1,19 +1,18 @@
 package com.booksaw.betterTeams.commands;
 
+import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.message.MessageManager;
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.UUID;
 import java.util.logging.Level;
-
-import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
-import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.message.MessageManager;
 
 /**
  * This class is used by any commands which are included within a command tree
@@ -136,8 +135,12 @@ public abstract class SubCommand {
 
 	public abstract void onTabComplete(List<String> options, CommandSender sender, String label, String[] args);
 
-	public boolean runAsync(String[] args) {
+	protected boolean runAsync(String[] args) {
 		return true;
+	}
+
+	public boolean checkAsync(final String[] args) {
+		return this.runAsync(args);
 	}
 	
 	/**

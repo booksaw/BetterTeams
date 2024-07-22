@@ -1,9 +1,9 @@
 package com.booksaw.betterTeams.events;
 
-import java.util.Map.Entry;
-import java.util.Objects;
-import java.util.UUID;
-
+import com.booksaw.betterTeams.Main;
+import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.customEvents.BelowNameChangeEvent;
+import com.booksaw.betterTeams.customEvents.BelowNameChangeEvent.ChangeType;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,10 +13,9 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team.Option;
 import org.bukkit.scoreboard.Team.OptionStatus;
 
-import com.booksaw.betterTeams.Main;
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.customEvents.BelowNameChangeEvent;
-import com.booksaw.betterTeams.customEvents.BelowNameChangeEvent.ChangeType;
+import java.util.Map.Entry;
+import java.util.Objects;
+import java.util.UUID;
 
 public class MCTeamManagement implements Listener {
 

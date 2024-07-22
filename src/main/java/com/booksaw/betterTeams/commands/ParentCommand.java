@@ -145,7 +145,7 @@ public class ParentCommand extends SubCommand {
 			}
 			if (price.getCost() > 0) {
 				NumberFormat formatter = NumberFormat.getCurrencyInstance();
-				MessageManager.sendMessageF(sender, "cost.run", formatter.format(price.getCost()));
+				MessageManager.sendMessage(sender, "cost.run", formatter.format(price.getCost()));
 			}
 		}
 
@@ -257,7 +257,7 @@ public class ParentCommand extends SubCommand {
 	}
 	
 	@Override
-	public boolean runAsync(String[] args) {
+	public boolean checkAsync(String[] args) {
 		if(args.length == 0) {
 			return true;
 		}

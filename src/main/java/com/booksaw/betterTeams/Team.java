@@ -1,22 +1,16 @@
 package com.booksaw.betterTeams;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.annotation.Nullable;
-
 import com.booksaw.betterTeams.customEvents.*;
+import com.booksaw.betterTeams.exceptions.CancelledEventException;
+import com.booksaw.betterTeams.message.Message;
+import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
+import com.booksaw.betterTeams.message.StaticMessage;
+import com.booksaw.betterTeams.team.*;
+import com.booksaw.betterTeams.team.storage.StorageType;
+import com.booksaw.betterTeams.team.storage.team.StoredTeamValue;
+import com.booksaw.betterTeams.team.storage.team.TeamStorage;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -25,24 +19,10 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
 
-import com.booksaw.betterTeams.exceptions.CancelledEventException;
-import com.booksaw.betterTeams.message.Message;
-import com.booksaw.betterTeams.message.MessageManager;
-import com.booksaw.betterTeams.message.StaticMessage;
-import com.booksaw.betterTeams.team.AllyListComponent;
-import com.booksaw.betterTeams.team.AllyRequestComponent;
-import com.booksaw.betterTeams.team.BanListComponent;
-import com.booksaw.betterTeams.team.ChestClaimComponent;
-import com.booksaw.betterTeams.team.EChestComponent;
-import com.booksaw.betterTeams.team.LocationListComponent;
-import com.booksaw.betterTeams.team.MemberListComponent;
-import com.booksaw.betterTeams.team.MoneyComponent;
-import com.booksaw.betterTeams.team.ScoreComponent;
-import com.booksaw.betterTeams.team.TeamManager;
-import com.booksaw.betterTeams.team.WarpListComponent;
-import com.booksaw.betterTeams.team.storage.StorageType;
-import com.booksaw.betterTeams.team.storage.team.StoredTeamValue;
-import com.booksaw.betterTeams.team.storage.team.TeamStorage;
+import javax.annotation.Nullable;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * This class is used to manage a team and all of it's participants
@@ -820,7 +800,7 @@ public class Team {
 				}
 				invitedPlayers.remove(uniqueId);
 
-				MessageManager.sendMessageF(p, "invite.expired", getName());
+				MessageManager.sendMessage(p, "invite.expired", getName());
 			}
 		}.runTaskLaterAsynchronously(Main.plugin, invite * 20L);
 
@@ -1002,7 +982,7 @@ public class Team {
 				continue;
 			}
 
-			MessageManager.sendMessageF(temp, "spy.team", getName(), sender.getPlayer().getPlayer().getName(), message);
+			MessageManager.sendMessage(temp, "spy.team", getName(), sender.getPlayer().getPlayer().getName(), message);
 		}
 		if (TEAMMANAGER.isLogChat()) {
 			Bukkit.getLogger().info("[BetterTeams]" + fMessage);
@@ -1047,7 +1027,7 @@ public class Team {
 			}
 		}
 
-		String fMessage = MessageManager.getMessageF("allychat.syntax", getName(),
+		String fMessage = MessageManager.getMessage("allychat.syntax", getName(),
 				sender.getPrefix(returnTo) + Objects.requireNonNull(sender.getPlayer().getPlayer()).getDisplayName(),
 				message);
 
@@ -1071,7 +1051,7 @@ public class Team {
 					continue;
 				}
 			}
-			MessageManager.sendMessageF(temp, "spy.ally", getName(), sender.getPlayer().getName(), message);
+			MessageManager.sendMessage(temp, "spy.ally", getName(), sender.getPlayer().getName(), message);
 		}
 
 		if (TEAMMANAGER.isLogChat()) {
@@ -1136,7 +1116,7 @@ public class Team {
 			return team;
 		}
 
-		String name = color + MessageManager.getMessageF("nametag.syntax", getTag());
+		String name = color + MessageManager.getMessage("nametag.syntax", getTag());
 		int attempt = 0;
 		do {
 			try {
@@ -1202,6 +1182,17 @@ public class Team {
 	public void addAlly(UUID ally) {
 		allies.add(this, ally);
 		saveAllies();
+
+		List<String> channelsToUse = Main.plugin.getConfig().getStringList("onAllyMessageChannel");
+
+		if (channelsToUse.isEmpty() || channelsToUse.contains("CHAT")) {
+			Message message = new ReferencedFormatMessage("ally.ally", getTeam(ally).getDisplayName());
+			getMembers().broadcastMessage(message);
+		}
+		if (channelsToUse.isEmpty() || channelsToUse.contains("TITLE")) {
+			Message message = new ReferencedFormatMessage("ally.ally_title", getTeam(ally).getDisplayName());
+			getMembers().broadcastTitle(message);
+		}
 	}
 
 	/**
@@ -1212,6 +1203,17 @@ public class Team {
 	public void removeAlly(UUID ally) {
 		allies.remove(this, ally);
 		saveAllies();
+
+		List<String> channelsToUse = Main.plugin.getConfig().getStringList("onNeutralMessageChannel");
+
+		if (channelsToUse.isEmpty() || channelsToUse.contains("CHAT")) {
+			Message message = new ReferencedFormatMessage("neutral.remove", getTeam(ally).getDisplayName());
+			getMembers().broadcastMessage(message);
+		}
+		if (channelsToUse.isEmpty() || channelsToUse.contains("TITLE")) {
+			Message message = new ReferencedFormatMessage("neutral.remove_title", getTeam(ally).getDisplayName());
+			getMembers().broadcastTitle(message);
+		}
 	}
 
 	/**
@@ -1309,17 +1311,30 @@ public class Team {
 	 * @return if players of this team can damage members of the other team
 	 */
 	public boolean canDamage(Team team, Player source) {
-		if (team.isAlly(getID()) || team == this) {
+		final boolean isProtected = team.isAlly(getID()) || team == this;
+
+		boolean disallow;
+
+		if (isProtected) {
 			if (pvp && team.pvp) {
-				return true;
+				disallow = true;
+			} else if (Main.plugin.wgManagement != null) {
+				disallow = Main.plugin.wgManagement.canTeamPvp(source);
+			} else
+				disallow = false;
+
+			if (disallow) {
+				final TeamDisallowedPvPEvent event = new TeamDisallowedPvPEvent(team, source, this, true);
+
+				Bukkit.getPluginManager().callEvent(event);
+
+				if (event.isCancelled())
+					return true;
 			}
 
-			if (Main.plugin.wgManagement != null) {
-				return Main.plugin.wgManagement.canTeamPvp(source);
-			}
-
-			return false;
+			return disallow;
 		}
+
 		return true;
 	}
 

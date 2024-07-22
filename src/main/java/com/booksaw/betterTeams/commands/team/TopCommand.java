@@ -5,7 +5,6 @@ import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.SubCommand;
 import com.booksaw.betterTeams.message.MessageManager;
-
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -119,7 +118,7 @@ public class TopCommand extends SubCommand {
 			return;
 		}
 
-		MessageManager.sendMessageF(sender, "top.syntax", (rank) + "", team.getName(), team.getScore() + "");
+		MessageManager.sendMessage(sender, "top.syntax", rank, team.getName(), team.getScore());
 
 	}
 

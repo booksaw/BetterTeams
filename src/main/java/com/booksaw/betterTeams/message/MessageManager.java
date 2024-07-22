@@ -1,13 +1,8 @@
 package com.booksaw.betterTeams.message;
 
-import java.io.File;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
-import java.util.logging.Logger;
-
+import com.booksaw.betterTeams.Main;
+import me.clip.placeholderapi.PlaceholderAPI;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
@@ -15,10 +10,13 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-import com.booksaw.betterTeams.Main;
-
-import me.clip.placeholderapi.PlaceholderAPI;
-import net.md_5.bungee.api.ChatColor;
+import java.io.File;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Objects;
+import java.util.logging.Logger;
 
 /**
  * Used to control all communications to the user
@@ -150,75 +148,21 @@ public class MessageManager {
 	}
 
 	/**
-	 * Used to send a message to the specified user
-	 *
-	 * @param sender    the commandSender which the message should be sent to
-	 * @param reference the reference for the message
-	 */
-	public static void sendMessage(CommandSender sender, String reference) {
-		try {
-			String message = getMessage(sender, reference);
-			if (message.isEmpty()) {
-				return;
-			}
+	 * Used to send a (formatted) message to the specified user
 
-			sender.sendMessage(prefix + message);
-
-		} catch (NullPointerException e) {
-			Bukkit.getLogger().warning("Could not find the message with the reference " + reference);
-			sender.sendMessage(prefix + "Something went wrong with the message, alert your server admins");
-		}
-
-	}
-
-	/**
-	 * Used to send a formatted message
 	 *
 	 * @param sender      the commandSender which the message should be sent to
 	 * @param reference   the reference for the message
 	 * @param replacement the value that the placeholder should be replaced with
 	 */
-	public static void sendMessageF(CommandSender sender, String reference, String... replacement) {
-		try {
-			String message = getMessage(sender, reference);
-			if (message.isEmpty()) {
-				return;
-			}
 
-			message = format(message, replacement);
-
-			sender.sendMessage(message);
-		} catch (NullPointerException e) {
-			Bukkit.getLogger().warning("Could not find the message with the reference " + reference);
-			sender.sendMessage(prefix + "Something went wrong with the message, alert your server admins");
+	public static void sendMessage(CommandSender sender, String reference, Object... replacement) {
+		String message = getMessage(sender, reference, replacement);
+		if (message.isEmpty()) {
+			return;
 		}
-	}
 
-	/**
-	 * Used to send a formatted message
-	 *
-	 * @param sender      the commandSender which the message should be sent to
-	 * @param reference   the reference for the message
-	 * @param replacement the value that the placeholder should be replaced with
-	 */
-	public static void sendMessageF(CommandSender sender, String reference, Object[] replacement) {
-		try {
-			String message = getMessage(sender, reference);
-			if (message.isEmpty()) {
-				return;
-			}
-
-			String[] strReplacement = new String[replacement.length];
-			for (int i = 0; i < replacement.length; i++) {
-				strReplacement[i] = replacement[i] + "";
-			}
-			message = format(message, strReplacement);
-
-			sender.sendMessage(message);
-		} catch (NullPointerException e) {
-			Bukkit.getLogger().warning("Could not find the message with the reference " + reference);
-			sender.sendMessage(prefix + "Something went wrong with the message, alert your server admins");
-		}
+		sender.sendMessage(message);
 	}
 
 	/**
@@ -228,21 +172,35 @@ public class MessageManager {
 	 * @param reference the reference for the message
 	 * @return the message (without prefix)
 	 */
-	public static String getMessage(String reference) {
+	public static String getMessage(String reference, Object... replacement) {
+		try {
+			if (!messages.containsKey(reference)) {
+				Bukkit.getLogger().warning("Could not find the message with the reference " + reference);
+				return "";
+			}
 
-		if (!messages.containsKey(reference)) {
+			String msg = messages.get(reference);
+			if (msg.isEmpty()) {
+				return "";
+			}
+
+			msg = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(msg));
+			msg = format(msg, replacement);
+
+			return msg;
+		} catch (NullPointerException e) {
 			Bukkit.getLogger().warning("Could not find the message with the reference " + reference);
 			return "";
 		}
-
-		String msg = messages.get(reference);
-
-		return ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(msg));
 	}
 
-	public static String getMessage(CommandSender sender, String reference) {
+	public static String getMessage(CommandSender sender, String reference, Object... replacement) {
 		try {
-			String msg = getMessage(reference);
+			String msg = getMessage(reference, replacement);
+			if (msg.isEmpty()) {
+				return "";
+			}
+
 			if (sender instanceof Player && Main.placeholderAPI) {
 				msg = PlaceholderAPI.setPlaceholders((Player) sender, msg);
 			}
@@ -253,28 +211,13 @@ public class MessageManager {
 		}
 	}
 
-	public static String getMessageF(String reference, String... replacement) {
-		try {
-			String message = getMessage(reference);
-			if (message.isEmpty()) {
-				return "";
-			}
-
-			message = format(message, replacement);
-
-			return message;
-		} catch (NullPointerException e) {
-			Bukkit.getLogger().warning("Could not find the message with the reference " + reference);
-			return "";
-		}
-	}
-
-	public static String format(String content, String... replacement) {
+	public static String format(String content, Object... replacement) {
 		if (content == null || content.isEmpty()) return "";
+		if (replacement == null || replacement.length == 0) return content;
 
 		String formatted = content;
 		for (int i = 0; i < replacement.length; i++) {
-			formatted = formatted.replace("{" + i + "}", replacement[i]);
+			formatted = formatted.replace("{" + i + "}", replacement[i].toString());
 		}
 		return formatted;
 	}
@@ -334,4 +277,32 @@ public class MessageManager {
 		defaultMessages = null;
 	}
 
+	/**
+	 * Used to send a (formatted) title to the specified user
+	 *
+	 * @param player      the commandSender which the message should be sent to
+	 * @param reference   the reference for the message
+	 * @param replacement the value that the placeholder should be replaced with
+	 */
+	public static void sendTitle(Player player, String reference, Object... replacement) {
+		String message = getMessage(player, reference, replacement);
+		sendFullTitle(player, message, false);
+	}
+
+	public static void sendFullTitle(Player player, String message) { sendFullTitle(player, message, true); }
+
+	public static void sendFullTitle(Player player, String message, boolean prefixMessage) {
+		if (prefixMessage) {
+			message = prefix + message;
+		}
+
+		if (message.isEmpty()) {
+			return;
+		}
+
+		// fadeIn - time in ticks for titles to fade in. Defaults to 10.
+		// stay - time in ticks for titles to stay. Defaults to 70.
+		// fadeOut - time in ticks for titles to fade out. Defaults to 20.
+		player.sendTitle(message, "", 10, 100, 20);
+	}
 }

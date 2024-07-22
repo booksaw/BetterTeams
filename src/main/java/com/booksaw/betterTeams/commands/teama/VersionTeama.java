@@ -1,16 +1,15 @@
 package com.booksaw.betterTeams.commands.teama;
 
-import java.util.List;
-
-import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
-
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.SubCommand;
 import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
+
+import java.util.List;
 
 public class VersionTeama extends SubCommand {
 
@@ -22,13 +21,13 @@ public class VersionTeama extends SubCommand {
 	
 	@Override
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
-		MessageManager.sendMessageF(sender, "admin.versionstorage", Team.getTeamManager().getClass().getName());
-		MessageManager.sendMessageF(sender, "admin.versionversion", Main.plugin.getServer().getVersion());
-		MessageManager.sendMessageF(sender, "admin.versionlanguage", MessageManager.getLanguage());
-		MessageManager.sendMessageF(sender, "admin.versiononline", Boolean.toString(Bukkit.getOnlineMode()));
-		MessageManager.sendMessageF(sender, "admin.versionplayers", Integer.toString(Bukkit.getOnlinePlayers().size()));
+		MessageManager.sendMessage(sender, "admin.versionstorage", Team.getTeamManager().getClass().getName());
+		MessageManager.sendMessage(sender, "admin.versionversion", Main.plugin.getServer().getVersion());
+		MessageManager.sendMessage(sender, "admin.versionlanguage", MessageManager.getLanguage());
+		MessageManager.sendMessage(sender, "admin.versiononline", Boolean.toString(Bukkit.getOnlineMode()));
+		MessageManager.sendMessage(sender, "admin.versionplayers", Integer.toString(Bukkit.getOnlinePlayers().size()));
 		return new CommandResponse(true,
-				new ReferencedFormatMessage("admin.version", Main.plugin.getDescription().getVersion() + ""));
+				new ReferencedFormatMessage("admin.version", Main.plugin.getDescription().getVersion()));
 		
 		
 	}

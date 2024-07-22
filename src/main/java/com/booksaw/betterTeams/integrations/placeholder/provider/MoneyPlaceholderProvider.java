@@ -15,7 +15,7 @@ public class MoneyPlaceholderProvider implements IndividualTeamPlaceholderProvid
 
 	@Override
 	public String getPlaceholderForTeam(Team team) {
-		return MessageManager.getMessageF("placeholder.money", team.getBalance());
+		return MessageManager.getMessage("placeholder.money", team.getBalance());
 	}
 	
 }
