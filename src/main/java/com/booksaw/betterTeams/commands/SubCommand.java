@@ -9,10 +9,20 @@ import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.UUID;
 import java.util.logging.Level;
+
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.message.MessageManager;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * This class is used by any commands which are included within a command tree
@@ -160,9 +170,22 @@ public abstract class SubCommand {
 	}
 
 	public void addTeamStringList(List<String> options, String argument) {
+		addTeamStringList(options, argument, null, null);
+	}
+
+	public void addTeamStringList(List<String> options, String argument, @Nullable Collection<UUID> ignoreTheseTeams, @Nullable Collection<UUID> onlyAllowTheseTeams) {
+		argument = argument.toLowerCase();
 		for (Entry<UUID, Team> team : Team.getTeamManager().getLoadedTeamListClone().entrySet()) {
-			if (team.getValue().getName().toLowerCase().startsWith(argument.toLowerCase())) {
-				options.add(team.getValue().getName());
+			if (ignoreTheseTeams != null && ignoreTheseTeams.contains(team.getKey())) {
+				continue;
+			}
+			else if (onlyAllowTheseTeams != null && !onlyAllowTheseTeams.contains(team.getKey())) {
+				continue;
+			}
+
+			final String teamName = team.getValue().getName();
+			if (teamName.toLowerCase().startsWith(argument)) {
+				options.add(teamName);
 			}
 		}
 	}
