@@ -1,14 +1,17 @@
 package com.booksaw.betterTeams.team.storage.storageManager;
 
-import com.booksaw.betterTeams.Main;
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.database.BetterTeamsDatabase;
-import com.booksaw.betterTeams.database.TableName;
-import com.booksaw.betterTeams.team.LocationListComponent;
-import com.booksaw.betterTeams.team.TeamManager;
-import com.booksaw.betterTeams.team.storage.team.SQLTeamStorage;
-import com.booksaw.betterTeams.team.storage.team.TeamStorage;
+import java.io.File;
+import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.logging.Level;
+import java.util.UUID;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -20,17 +23,15 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import java.io.File;
-import java.io.IOException;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map.Entry;
-import java.util.UUID;
-import java.util.logging.Level;
+import com.booksaw.betterTeams.Main;
+import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.TeamPlayer;
+import com.booksaw.betterTeams.database.BetterTeamsDatabase;
+import com.booksaw.betterTeams.database.TableName;
+import com.booksaw.betterTeams.team.LocationSetComponent;
+import com.booksaw.betterTeams.team.TeamManager;
+import com.booksaw.betterTeams.team.storage.team.SQLTeamStorage;
+import com.booksaw.betterTeams.team.storage.team.TeamStorage;
 
 public class SQLStorageManager extends TeamManager implements Listener {
 
@@ -84,7 +85,7 @@ public class SQLStorageManager extends TeamManager implements Listener {
 			}
 		}
 
-		return claims.get(LocationListComponent.getString(location));
+		return claims.get(LocationSetComponent.getString(location));
 	}
 
 	@Override
@@ -291,15 +292,15 @@ public class SQLStorageManager extends TeamManager implements Listener {
 
 	@Override
 	public void addChestClaim(Team team, Location loc) {
-		claims.put(LocationListComponent.getString(loc), team.getID());
+		claims.put(LocationSetComponent.getString(loc), team.getID());
 		database.insertRecord(TableName.CHESTCLAIMS, "teamID, chestLoc",
-				"'" + team.getID() + "', '" + LocationListComponent.getString(loc) + "'");
+                "'" + team.getID() + "', '" + LocationSetComponent.getString(loc) + "'");
 	}
 
 	@Override
 	public void removeChestclaim(Location loc) {
-		claims.remove(LocationListComponent.getString(loc));
-		database.deleteRecord(TableName.CHESTCLAIMS, "chestLoc LIKE '" + LocationListComponent.getString(loc) + "'");
+		claims.remove(LocationSetComponent.getString(loc));
+		database.deleteRecord(TableName.CHESTCLAIMS, "chestLoc LIKE '" + LocationSetComponent.getString(loc) + "'");
 	}
 
 	@Override
