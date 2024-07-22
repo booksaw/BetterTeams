@@ -28,7 +28,7 @@ public class WarpTeama extends SubCommand {
 				replace.append(warp.getName()).append(", ");
 			}
 
-			if (replace.isEmpty()) {
+			if (replace.length() == 0) {
 				return new CommandResponse("admin.warps.none");
 			}
 

@@ -818,6 +818,19 @@ Bug Fixes:
 - Fixed issue not allowing /teama money to have decimal amounts (#599)
 - Fixed issue where DecentHologram displayswere not refreshing (#595)
 
+4.10.0:
+
+Features:
+- Added TeamWithdrawEvent, TeamDepositEvent and TeamDisallowedPvpEvent (#613) - Credit Hellinduction
+- Added a title message when allying another team (#629) - Credit svaningelgem
+- Only tab complete teams that are allies for /team neutral (#632) - Credit svaningelgem
+
+Bug Fixes:
+- Fixed typo in config.yml (#620) - Credit dacoder101
+
+Code improvements:
+- Replaced equals/length with isEmpty (#630) - Credit svaningelgem
+- Replaced some uses of List with set (Warning developers, this may be a breaking change as class names are updated) (#631) - Credit svaningelgem
 
 Headings: 
 Features: 

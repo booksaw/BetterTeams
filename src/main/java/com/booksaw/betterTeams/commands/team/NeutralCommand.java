@@ -1,8 +1,6 @@
 package com.booksaw.betterTeams.commands.team;
 
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Main;
@@ -90,10 +88,10 @@ public class NeutralCommand extends TeamSubCommand {
 			// Only be able to tab-complete allies
 			Team myTeam = getMyTeam(sender);
 
-			List<UUID> knownTeams = null, ignoreTeam = null;
+			Set<UUID> knownTeams = null, ignoreTeam = null;
 			if (myTeam != null) {
 				knownTeams = myTeam.getAllies().get();
-				ignoreTeam = List.of(myTeam.getID());
+				ignoreTeam = Collections.singleton(myTeam.getID());
 			}
 
 			addTeamStringList(options, args[0], ignoreTeam, knownTeams);

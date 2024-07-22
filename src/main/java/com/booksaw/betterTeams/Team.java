@@ -816,7 +816,7 @@ public class Team {
 				}
 				invitedPlayers.remove(uniqueId);
 
-				MessageManager.sendMessageF(p, "invite.expired", getName());
+				MessageManager.sendMessage(p, "invite.expired", getName());
 			}
 		}.runTaskLaterAsynchronously(Main.plugin, invite * 20L);
 
@@ -998,7 +998,7 @@ public class Team {
 				continue;
 			}
 
-			MessageManager.sendMessageF(temp, "spy.team", getName(), sender.getPlayer().getPlayer().getName(), message);
+			MessageManager.sendMessage(temp, "spy.team", getName(), sender.getPlayer().getPlayer().getName(), message);
 		}
 		if (TEAMMANAGER.isLogChat()) {
 			Bukkit.getLogger().info("[BetterTeams]" + fMessage);
@@ -1043,7 +1043,7 @@ public class Team {
 			}
 		}
 
-		String fMessage = MessageManager.getMessageF("allychat.syntax", getName(),
+		String fMessage = MessageManager.getMessage("allychat.syntax", getName(),
 				sender.getPrefix(returnTo) + Objects.requireNonNull(sender.getPlayer().getPlayer()).getDisplayName(),
 				message);
 
@@ -1067,7 +1067,7 @@ public class Team {
 					continue;
 				}
 			}
-			MessageManager.sendMessageF(temp, "spy.ally", getName(), sender.getPlayer().getName(), message);
+			MessageManager.sendMessage(temp, "spy.ally", getName(), sender.getPlayer().getName(), message);
 		}
 
 		if (TEAMMANAGER.isLogChat()) {
@@ -1132,7 +1132,7 @@ public class Team {
 			return team;
 		}
 
-		String name = color + MessageManager.getMessageF("nametag.syntax", getTag());
+		String name = color + MessageManager.getMessage("nametag.syntax", getTag());
 		int attempt = 0;
 		do {
 			try {
