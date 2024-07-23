@@ -59,8 +59,7 @@ public class Utils {
 		return json.saveToString();
 	}
 
-	public static Inventory deserializeInventory(Inventory inventory, String jsons)
-			throws InvalidConfigurationException {
+	public static Inventory deserializeInventory(Inventory inventory, String jsons) {
 		try {
 			YamlConfiguration json = new YamlConfiguration();
 			json.loadFromString(jsons);
