@@ -72,7 +72,7 @@ public class ColorTeama extends TeamSelectSubCommand {
 		if (args.length == 2) {
 			for (ChatColor c : ChatColor.values()) {
 				if (!banned.contains(c.getChar()) && c.name().toLowerCase().startsWith(args[1].toLowerCase())) {
-					options.add(c.name().toLowerCase() + "");
+					options.add(c.name().toLowerCase());
 				}
 			}
 		} else if (args.length == 1) {

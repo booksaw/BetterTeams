@@ -167,7 +167,7 @@ public class SQLStorageManager extends TeamManager implements Listener {
 	@Override
 	public void playerJoinTeam(Team team, TeamPlayer player) {
 		database.insertRecord(TableName.PLAYERS, "playerUUID, teamID, playerRank",
-				"'" + player.getPlayer().getUniqueId() + "', '" + team.getID() + "', " + player.getRank().value + "");
+				"'" + player.getPlayer().getUniqueId() + "', '" + team.getID() + "', " + player.getRank().value);
 	}
 
 	@Override

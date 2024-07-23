@@ -80,7 +80,7 @@ public class ColorCommand extends TeamSubCommand {
 		if (args.length == 1) {
 			for (ChatColor c : ChatColor.values()) {
 				if (!banned.contains(c.getChar()) && c.name().toLowerCase().startsWith(args[0].toLowerCase())) {
-					options.add(c.name().toLowerCase() + "");
+					options.add(c.name().toLowerCase());
 				}
 			}
 		}

@@ -40,7 +40,7 @@ public class InfoCommand extends SubCommand {
 		infoMessages.add(MessageManager.getMessage("info.score", team.getScore() + ""));
 		infoMessages.add(MessageManager.getMessage("info.money", team.getBalance()));
 		infoMessages.add(MessageManager.getMessage("info.level", team.getLevel() + ""));
-		infoMessages.add(MessageManager.getMessage("info.tag", team.getTag() + ""));
+		infoMessages.add(MessageManager.getMessage("info.tag", team.getTag()));
 
 		String allyMessage = getAlliesMessage(team);
 		if (allyMessage != null) {
