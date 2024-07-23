@@ -154,12 +154,12 @@ public class YamlToSql extends Converter {
 
 	public static void pack(String sourceDirPath, String zipFilePath) throws IOException {
 		File f = new File(zipFilePath);
-		Path p;
-		if (f.exists()) {
-			p = Paths.get(zipFilePath);
-		} else {
-			p = Files.createFile(Paths.get(zipFilePath));
-		}
+
+		Path p = Paths.get(zipFilePath);
+
+		if (!f.exists()) {
+            Files.createFile(p);
+        }
 
 		try (ZipOutputStream zs = new ZipOutputStream(Files.newOutputStream(p))) {
 			Path pp = Paths.get(sourceDirPath);
