@@ -260,8 +260,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 			try {
 				YamlConfiguration yamlConfig = new YamlConfiguration();
 				yamlConfig.load(f);
-				teams.add(new DoubleCrossReference(yamlConfig.getString(StoredTeamValue.NAME.getReference()),
-						yamlConfig.getDouble(StoredTeamValue.MONEY.getReference())));
+				teams.add(new DoubleCrossReference(yamlConfig.getString(StoredTeamValue.NAME.getReference()), yamlConfig.getDouble(StoredTeamValue.MONEY.getReference())));
 
 			} catch (IOException | InvalidConfigurationException e) {
 				Bukkit.getLogger().severe("UNABLE TO READ TEAM DATA FROM " + f);
@@ -301,8 +300,8 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 			try {
 				YamlConfiguration yamlConfig = new YamlConfiguration();
 				yamlConfig.load(f);
-				teams.add(new IntCrossReference(yamlConfig.getString(StoredTeamValue.NAME.getReference()),
-						yamlConfig.getStringList("players").size()));
+				teams.add(new IntCrossReference(yamlConfig.getString(StoredTeamValue.NAME.getReference()), yamlConfig.getStringList("players")
+                                                                                                                     .size()));
 			} catch (Exception e) {
 				Bukkit.getLogger().severe("UNABLE TO READ TEAM DATA FROM " + f);
 			}
@@ -434,7 +433,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 
 	}
 
-	private class IntCrossReference {
+	private static class IntCrossReference {
 		final String name;
 		final int value;
 
@@ -444,7 +443,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 		}
 	}
 
-	private class DoubleCrossReference {
+	private static class DoubleCrossReference {
 		final String name;
 		final double value;
 
