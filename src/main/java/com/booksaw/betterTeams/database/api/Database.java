@@ -140,16 +140,17 @@ public class Database {
 	 */
 	public void executeStatement(String statement, String... placeholders) {
 
-		for (int i = 0; i < placeholders.length; i++) {
-			try {
-				statement = StringUtils.replaceOnce(statement, "?", placeholders[i]);
-			} catch (IndexOutOfBoundsException e) {
-				Bukkit.getLogger().severe("[BetterTeams] Invalid setup for replacing placeholders");
-				Bukkit.getLogger().severe("[BetterTeams] Statement: " + statement);
-				Bukkit.getLogger().severe("[BetterTeams] Placeholders: " + Arrays.toString(placeholders));
-				e.printStackTrace();
-			}
-		}
+        for (String placeholder : placeholders) {
+            try {
+                statement = StringUtils.replaceOnce(statement, "?", placeholder);
+            }
+            catch (IndexOutOfBoundsException e) {
+                Bukkit.getLogger().severe("[BetterTeams] Invalid setup for replacing placeholders");
+                Bukkit.getLogger().severe("[BetterTeams] Statement: " + statement);
+                Bukkit.getLogger().severe("[BetterTeams] Placeholders: " + Arrays.toString(placeholders));
+                e.printStackTrace();
+            }
+        }
 
 		statement = statement.replace("'false'", "false");
 		statement = statement.replace("'true'", "true");
@@ -180,9 +181,9 @@ public class Database {
 	 * @return The results of the query
 	 */
 	public PreparedStatement executeQuery(String query, String... placeholders) {
-		for (int i = 0; i < placeholders.length; i++) {
-			query = query.replaceFirst("\\?", placeholders[i]);
-		}
+        for (String placeholder : placeholders) {
+            query = query.replaceFirst("\\?", placeholder);
+        }
 
 		try {
 			if (!connection.isValid(2)) {
