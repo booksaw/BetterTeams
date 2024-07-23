@@ -78,7 +78,7 @@ public class YamlToSql extends Converter {
 							+ config.getString("color") + "', " + config.getInt("level") + ", '"
 							+ config.getString("tag") + "', " + config.getBoolean("pvp"));
 
-			if (echest != null && !echest.isEmpty()) {
+			if (!echest.isEmpty()) {
 				database.updateRecordWhere(TableName.TEAM, "echest = \"" + echest + "\"",
 						"teamID LIKE '" + teamName + "'");
 			}
