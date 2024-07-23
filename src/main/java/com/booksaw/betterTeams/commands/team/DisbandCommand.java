@@ -28,16 +28,16 @@ public class DisbandCommand extends TeamSubCommand {
 	@Override
 	public CommandResponse onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
 
-		UUID found = null;
 		// if they have already had the confirm dialogue
 
 		// can use secret command /team disband confirm to validate disband success
 		if (args.length > 1 && args[0].equals("confirm")) {
 			team.disband();
-			confirmation.remove(found);
+			confirmation.remove(null);
 			return new CommandResponse(true, "disband.success");
 		}
 
+		UUID found = null;
 		for (Entry<UUID, Long> temp : confirmation.entrySet()) {
 			if (temp.getKey().compareTo(teamPlayer.getPlayer().getUniqueId()) == 0
 					&& temp.getValue() < System.currentTimeMillis() + 10000) {
