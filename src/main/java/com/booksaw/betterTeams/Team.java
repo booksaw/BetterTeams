@@ -152,6 +152,7 @@ public class Team {
 	 * @param name The name of the team
 	 * @return If the team name is valid
 	 */
+	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 	public static boolean isValidTeamName(String name) {
 		for (String temp : Main.plugin.getConfig().getStringList("blacklist")) {
 			if (temp.equalsIgnoreCase(name.toLowerCase())) {
