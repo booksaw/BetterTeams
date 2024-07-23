@@ -13,7 +13,7 @@ public class TableBuilder {
 
 	private final Database database;
 	private final String tableName;
-	private StringBuilder tableInfo = new StringBuilder();
+	private final StringBuilder tableInfo = new StringBuilder();
 
 	public TableBuilder(Database database, String tableName) {
 		this.database = database;

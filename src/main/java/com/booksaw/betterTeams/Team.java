@@ -193,7 +193,7 @@ public class Team {
 	 * The ID of the team (this is a unique identifier of the team which will never
 	 * change)
 	 */
-	private UUID id;
+	private final UUID id;
 
 	/**
 	 * The name of the team, this can be changed after the creation of a teams, so
@@ -219,7 +219,7 @@ public class Team {
 	/**
 	 * tracks and provides utility methods relating to the members of this team
 	 */
-	private MemberSetComponent members;
+	private final MemberSetComponent members;
 
 	/**
 	 * Used to track the allies of this team
@@ -230,7 +230,7 @@ public class Team {
 	 * This is a list of invited players to this team since the last restart of the
 	 * server
 	 */
-	private List<UUID> invitedPlayers = new ArrayList<>();
+	private final List<UUID> invitedPlayers = new ArrayList<>();
 
 	/**
 	 * This is used to store all players which are banned from the team
@@ -271,7 +271,7 @@ public class Team {
 	/**
 	 * Used to track which teams have requested to be allies with this team
 	 */
-	private AllyRequestComponent requests;
+	private final AllyRequestComponent requests;
 
 	private final EChestComponent echest;
 
@@ -279,7 +279,7 @@ public class Team {
 
 	private String tag;
 
-	private WarpSetComponent warps;
+	private final WarpSetComponent warps;
 
 	private org.bukkit.scoreboard.Team team;
 

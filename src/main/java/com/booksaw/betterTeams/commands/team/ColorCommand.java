@@ -13,10 +13,9 @@ import java.util.stream.Collectors;
 public class ColorCommand extends TeamSubCommand {
 
 	final List<Character> alwaysBanned = Arrays.asList('l', 'n', 'o', 'k', 'n', 'r');
-	private List<Character> banned;
+	private final List<Character> banned = new ArrayList<>();
 
 	public ColorCommand() {
-		banned = new ArrayList<>();
 		banned.addAll(alwaysBanned);
 		banned.addAll(Main.plugin.getConfig().getString("bannedColors").chars().mapToObj(c -> (char) c)
 				.collect(Collectors.toList()));
