@@ -203,7 +203,7 @@ public class ConfigManager {
 					"The embedded resource '" + resourcePath + "' cannot be found in " + Main.plugin.getDataFolder());
 		File outFile = new File(resultPath);
 		int lastIndex = resourcePath.lastIndexOf('/');
-		File outDir = new File(resultPath.substring(0, (lastIndex >= 0) ? lastIndex : 0));
+		File outDir = new File(resultPath.substring(0, Math.max(lastIndex, 0)));
 
 		if (!outDir.exists())
 			outDir.mkdirs();
