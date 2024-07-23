@@ -35,7 +35,7 @@ public class CreateCommand extends NoTeamSubCommand {
 			return new CommandResponse("create.banned");
 		}
 
-		if (args.length <= 1 && enforceTag) {
+		if (args.length == 1 && enforceTag) {
 			return new CommandResponse(new HelpMessage(this, label, parentCommand));
 		}
 
