@@ -9,7 +9,7 @@ public abstract class SetTeamComponent<T> implements TeamComponent<Set<T>> {
 	protected final Set<T> set;
 
 	protected SetTeamComponent() {
-		set = new HashSet<T>();
+		set = new HashSet<>();
 	}
 
 	@Override
