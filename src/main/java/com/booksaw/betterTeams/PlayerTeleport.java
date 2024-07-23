@@ -25,7 +25,7 @@ public class PlayerTeleport {
 	 * @param location  the location to teleport them to
 	 * @param reference the reference for the message that should be sent when the
 	 *                  player is teleported
-	 * @throws Exception 
+	 * @throws Exception Well, isn't this a generic one?
 	 */
 	public PlayerTeleport(Player player, Location location, String reference) throws Exception {
 		if (location == null || location.getWorld() == null) {

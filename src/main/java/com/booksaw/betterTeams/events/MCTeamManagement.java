@@ -88,7 +88,7 @@ public class MCTeamManagement implements Listener {
 	/**
 	 * Remove a player from an async thread
 	 * 
-	 * @param player
+	 * @param player The player to remove
 	 */
 	public void remove(Player player) {
 		remove(player, true);

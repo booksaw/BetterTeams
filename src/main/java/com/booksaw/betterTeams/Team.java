@@ -647,8 +647,6 @@ public class Team {
 
 	/**
 	 * Used to save the members list to the configuration file
-	 *
-	 * @param config the configuration file to store the members list to
 	 */
 	private void savePlayers() {
 		members.save(getStorage());
@@ -656,8 +654,6 @@ public class Team {
 
 	/**
 	 * Used to save the bans list to the configuration file
-	 *
-	 * @param config the configuration file to store the ban list to
 	 */
 	private void saveBans() {
 		bannedPlayers.save(getStorage());

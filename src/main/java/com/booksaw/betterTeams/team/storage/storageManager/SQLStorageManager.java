@@ -214,7 +214,7 @@ public class SQLStorageManager extends TeamManager implements Listener {
 	 * convert a result set, supplied by a prepared statement into a list of teams
 	 * for sort methods
 	 * 
-	 * @param ps
+	 * @param ps the statement
 	 * @return the ordered team list or an empty array in the event of an error
 	 */
 	private String[] getTeamsFromResultSet(PreparedStatement ps) {
