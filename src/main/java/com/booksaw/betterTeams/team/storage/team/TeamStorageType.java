@@ -6,7 +6,7 @@ public enum TeamStorageType {
 
 	private final Class<?> storageClass;
 
-	private TeamStorageType(Class<?> storageClass) {
+	TeamStorageType(Class<?> storageClass) {
 		this.storageClass = storageClass;
 	}
 

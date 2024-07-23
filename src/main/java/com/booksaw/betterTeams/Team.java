@@ -49,7 +49,7 @@ public class Team {
 
 	private static TeamManager TEAMMANAGER;
 
-	public static final void setupTeamManager(StorageType storageType) {
+	public static void setupTeamManager(StorageType storageType) {
 		if (TEAMMANAGER != null) {
 			throw new IllegalArgumentException("The team manager has already been setup");
 		}
@@ -69,7 +69,7 @@ public class Team {
 	/**
 	 * Used to disable betterteams so the singleton is removed
 	 */
-	public static final void disable() {
+	public static void disable() {
 		TEAMMANAGER.disable();
 		TEAMMANAGER = null;
 	}
