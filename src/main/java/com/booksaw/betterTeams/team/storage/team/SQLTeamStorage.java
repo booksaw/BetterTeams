@@ -109,7 +109,7 @@ public class SQLTeamStorage extends TeamStorage {
 		List<String> toReturn = new ArrayList<>();
 
 		try (PreparedStatement ps = storageManager.getDatabase().selectWhere("*", TableName.ALLIES,
-				"team1ID LIKE '" + team.getID() + "' OR team2ID LIKE '" + team.getID() + "'");) {
+				"team1ID LIKE '" + team.getID() + "' OR team2ID LIKE '" + team.getID() + "'")) {
 			ResultSet result = ps.executeQuery();
 			if (!result.first()) {
 				return toReturn;
