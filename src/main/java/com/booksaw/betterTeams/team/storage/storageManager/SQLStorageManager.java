@@ -37,7 +37,7 @@ public class SQLStorageManager extends TeamManager implements Listener {
 
 	private BetterTeamsDatabase database;
 
-	protected FileConfiguration teamStorage;
+	protected final FileConfiguration teamStorage;
 
 	public static final String TEAMLISTSTORAGELOC = "teams";
 

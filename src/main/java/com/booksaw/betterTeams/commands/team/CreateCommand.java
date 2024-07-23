@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class CreateCommand extends NoTeamSubCommand {
 	private final ParentCommand parentCommand;
-	boolean enforceTag;
+	final boolean enforceTag;
 	
 	public CreateCommand(ParentCommand parentCommand) {
 		this.parentCommand = parentCommand;
