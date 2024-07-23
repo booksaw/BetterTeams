@@ -1,6 +1,7 @@
 package com.booksaw.betterTeams.database.api;
 
 import com.booksaw.betterTeams.Main;
+import com.booksaw.betterTeams.database.TableName;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
@@ -206,10 +207,7 @@ public class Database {
 	 * @param tableName The name of the table
 	 * @param tableInfo The column information about the table
 	 */
-	public void createTableIfNotExists(String tableName, String tableInfo) {
-
+	public void createTableIfNotExists(TableName tableName, String tableInfo) {
 		executeStatement("CREATE TABLE IF NOT EXISTS " + tableName + "(" + tableInfo + ");");
-
 	}
-
 }

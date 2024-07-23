@@ -12,29 +12,29 @@ public class BetterTeamsDatabase extends Database {
 		createTableIfNotExists(TableName.TEAM,
 				"teamID VARCHAR(50) NOT NULL PRIMARY KEY, name VARCHAR(50) NOT NULL, description VARCHAR(300), open BOOLEAN DEFAULT 0, score INT DEFAULT 0, money DOUBLE DEFAULT 0, home VARCHAR(200), color CHAR(1) DEFAULT '6', echest TEXT(20000), level INT DEFAULT 1, tag VARCHAR(50), pvp BOOLEAN DEFAULT 0");
 
-		createTableIfNotExists(TableName.PLAYERS.toString(),
+		createTableIfNotExists(TableName.PLAYERS,
 				"playerUUID VARCHAR(50) NOT NULL PRIMARY KEY, teamID VARCHAR(50) NOT NULL, playerRank INT NOT NULL, title VARCHAR(100), FOREIGN KEY (teamID) REFERENCES "
 						+ TableName.TEAM + "(teamID) ON DELETE CASCADE");
 
-		createTableIfNotExists(TableName.ALLYREQUESTS.toString(),
+		createTableIfNotExists(TableName.ALLYREQUESTS,
 				"requestingTeamID VARCHAR(50) NOT NULL, receivingTeamID VARCHAR(50) NOT NULL, PRIMARY KEY(requestingTeamID, receivingTeamID), FOREIGN KEY (requestingTeamID) REFERENCES "
 						+ TableName.TEAM
 						+ "(teamID) ON DELETE CASCADE, FOREIGN KEY (receivingTeamID) REFERENCES "
 						+ TableName.TEAM + "(teamID) ON DELETE CASCADE");
 
-		createTableIfNotExists(TableName.WARPS.toString(),
+		createTableIfNotExists(TableName.WARPS,
 				"TeamID VARCHAR(50) NOT NULL, warpInfo VARCHAR(200) NOT NULL, PRIMARY KEY(TeamID, warpInfo), FOREIGN KEY (TeamID) REFERENCES "
 						+ TableName.TEAM + "(teamID) ON DELETE CASCADE");
 
-		createTableIfNotExists(TableName.CHESTCLAIMS.toString(),
+		createTableIfNotExists(TableName.CHESTCLAIMS,
 				"TeamID VARCHAR(50) NOT NULL, chestLoc VARCHAR(50) NOT NULL, PRIMARY KEY(TeamID, chestLoc), FOREIGN KEY (TeamID) REFERENCES "
 						+ TableName.TEAM + "(teamID) ON DELETE CASCADE");
 
-		createTableIfNotExists(TableName.BANS.toString(),
+		createTableIfNotExists(TableName.BANS,
 				"PlayerUUID VARCHAR(50) NOT NULL, TeamID VARCHAR(50) NOT NULL, PRIMARY KEY(PlayerUUID, TeamID), FOREIGN KEY (teamID) REFERENCES "
 						+ TableName.TEAM + "(teamID) ON DELETE CASCADE");
 
-		createTableIfNotExists(TableName.ALLIES.toString(),
+		createTableIfNotExists(TableName.ALLIES,
 				"team1ID VARCHAR(50) NOT NULL, team2ID VARCHAR(50) NOT NULL, PRIMARY KEY(team1ID, team2ID), FOREIGN KEY (team1ID) REFERENCES "
 						+ TableName.TEAM + "(teamID) ON DELETE CASCADE, FOREIGN KEY (team2ID) REFERENCES "
 						+ TableName.TEAM + "(teamID) ON DELETE CASCADE");

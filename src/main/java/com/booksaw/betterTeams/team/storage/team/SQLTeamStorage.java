@@ -159,11 +159,8 @@ public class SQLTeamStorage extends TeamStorage {
 		if (result == null || result.isEmpty()) {
 			return;
 		}
-		try {
-			Utils.deserializeInventory(inventory, result);
-		} catch (InvalidConfigurationException e) {
-			e.printStackTrace();
-		}
+
+		Utils.deserializeInventory(inventory, result);
 	}
 
 	@Override
