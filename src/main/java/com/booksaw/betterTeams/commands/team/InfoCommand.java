@@ -94,7 +94,7 @@ public class InfoCommand extends SubCommand {
 			String toTest = MessageManager.getMessage("info." + rank.toString().toLowerCase());
 			if (toTest.length() > 1) {
 				for (int i = toTest.length() - 1; i >= 0; i--) {
-					if (toTest.charAt(i) == '\u00A7') {
+					if (toTest.charAt(i) == '§') {
 						returnTo = ChatColor.getByChar(toTest.charAt(i + 1));
 						break;
 					}

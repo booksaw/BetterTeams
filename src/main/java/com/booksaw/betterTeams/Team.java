@@ -953,7 +953,7 @@ public class Team {
 			int value = matcher.start();
 			if (value > 3) {
 				for (int i = value; i >= 0; i--) {
-					if (toTest.charAt(i) == '\u00A7') {
+					if (toTest.charAt(i) == '§') {
 						returnTo = ChatColor.getByChar(toTest.charAt(i + 1));
 						break;
 					}
@@ -1036,7 +1036,7 @@ public class Team {
 			int value = matcher.start();
 			if (value > 3) {
 				for (int i = value; i >= 0; i--) {
-					if (toTest.charAt(i) == '\u00A7') {
+					if (toTest.charAt(i) == '§') {
 						returnTo = ChatColor.getByChar(toTest.charAt(i + 1));
 						break;
 					}
