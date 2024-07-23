@@ -67,11 +67,6 @@ public class JoinCommand extends NoTeamSubCommand {
 	}
 
 	@Override
-	public boolean needPlayer() {
-		return true;
-	}
-
-	@Override
 	public int getMaximumArguments() {
 		return 1;
 	}
