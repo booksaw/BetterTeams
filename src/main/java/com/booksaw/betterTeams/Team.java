@@ -176,7 +176,7 @@ public class Team {
 
 		String allowed = Main.plugin.getConfig().getString("allowedChars");
 
-		if (allowed.length() != 0) {
+		if (allowed != null && !allowed.isEmpty()) {
 			for (char temp : name.toCharArray()) {
 				if (!allowed.contains(Character.toString(temp))) {
 					return false;
@@ -309,7 +309,7 @@ public class Team {
 
 		String colorStr = storage.getString(StoredTeamValue.COLOR);
 
-		if (colorStr == null || colorStr.length() == 0) {
+		if (colorStr == null || colorStr.isEmpty()) {
 			colorStr = "6";
 		}
 
@@ -513,7 +513,7 @@ public class Team {
 	}
 
 	public String getTag() {
-		if (tag == null || tag.length() == 0) {
+		if (tag == null || tag.isEmpty()) {
 			return getDisplayName();
 		}
 
