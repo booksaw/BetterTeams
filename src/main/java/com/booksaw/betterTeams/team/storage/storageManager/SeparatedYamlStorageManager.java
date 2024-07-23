@@ -209,9 +209,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 
 	@Override
 	public TeamStorage createNewTeamStorage(Team team) {
-		SeparatedYamlTeamStorage teamStorage = new SeparatedYamlTeamStorage(team, this);
-
-		return teamStorage;
+		return new SeparatedYamlTeamStorage(team, this);
 	}
 
 	@Override

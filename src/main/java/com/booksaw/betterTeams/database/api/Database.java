@@ -188,10 +188,8 @@ public class Database {
 			if (!connection.isValid(2)) {
 				resetConnection();
 			}
-			PreparedStatement ps = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE,
+			return connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE,
 					ResultSet.CONCUR_UPDATABLE);
-//			System.out.println("executing: " + ps.toString());
-			return ps;
 		} catch (SQLException e) {
 			Bukkit.getLogger().severe("Something went wrong while executing SQL");
 			Bukkit.getLogger().severe("SQL: " + query);
