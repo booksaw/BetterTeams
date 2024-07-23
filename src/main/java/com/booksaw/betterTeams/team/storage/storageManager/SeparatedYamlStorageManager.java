@@ -225,7 +225,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 				String name = yamlConfig.getString(StoredTeamValue.NAME.getReference());
 				int score = yamlConfig.getInt(StoredTeamValue.SCORE.getReference());
 				
-				if(name == null || "".equals(name)) {
+				if(name == null || name.isEmpty()) {
 					throw new Exception();
 				}
 				

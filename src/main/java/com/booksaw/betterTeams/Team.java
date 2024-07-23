@@ -335,7 +335,7 @@ public class Team {
 		bannedPlayers.load(storage);
 
 		String teamHomeStr = storage.getString(StoredTeamValue.HOME);
-		if (teamHomeStr != null && !teamHomeStr.equals("")) {
+		if (teamHomeStr != null && !teamHomeStr.isEmpty()) {
 			teamHome = LocationSetComponent.getLocation(teamHomeStr);
 		}
 
