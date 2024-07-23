@@ -31,8 +31,6 @@ public enum StorageType {
 		switch (this) {
 		case FLATFILE:
 			return new FlatfileStorageManager();
-		case YAML:
-			return new SeparatedYamlStorageManager();
 		case SQL:
 			return new SQLStorageManager();
 		default:
@@ -44,8 +42,6 @@ public enum StorageType {
 		switch (str.toUpperCase()) {
 		case "FLATFILE":
 			return FLATFILE;
-		case "YAML":
-			return YAML;
 		case "SQL":
 			return SQL;
 		default:
