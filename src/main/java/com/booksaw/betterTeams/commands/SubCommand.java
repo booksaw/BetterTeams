@@ -1,12 +1,5 @@
 package com.booksaw.betterTeams.commands;
 
-import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.message.MessageManager;
-import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
