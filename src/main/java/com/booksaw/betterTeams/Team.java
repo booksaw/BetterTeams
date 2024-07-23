@@ -349,7 +349,7 @@ public class Team {
 		try {
 			claims.load(storage);
 		} catch (IllegalArgumentException e) {
-			Bukkit.getLogger().severe("Invalid location stored in the file for the team with the ID " + id.toString() + ", " + e.getMessage());
+			Bukkit.getLogger().severe("Invalid location stored in the file for the team with the ID " + id + ", " + e.getMessage());
 		}
 
 		level = storage.getInt(StoredTeamValue.LEVEL);

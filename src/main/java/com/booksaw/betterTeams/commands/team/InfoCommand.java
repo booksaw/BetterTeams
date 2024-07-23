@@ -36,10 +36,10 @@ public class InfoCommand extends SubCommand {
 			infoMessages.add(MessageManager.getMessage("info.description", team.getDescription()));
 		}
 
-		infoMessages.add(MessageManager.getMessage("info.open", team.isOpen() + ""));
-		infoMessages.add(MessageManager.getMessage("info.score", team.getScore() + ""));
+		infoMessages.add(MessageManager.getMessage("info.open", team.isOpen()));
+		infoMessages.add(MessageManager.getMessage("info.score", team.getScore()));
 		infoMessages.add(MessageManager.getMessage("info.money", team.getBalance()));
-		infoMessages.add(MessageManager.getMessage("info.level", team.getLevel() + ""));
+		infoMessages.add(MessageManager.getMessage("info.level", team.getLevel()));
 		infoMessages.add(MessageManager.getMessage("info.tag", team.getTag()));
 
 		String allyMessage = getAlliesMessage(team);
@@ -80,7 +80,7 @@ public class InfoCommand extends SubCommand {
 		if (allies.length() > 2) {
 			allies = new StringBuilder(allies.substring(0, allies.length() - 2));
 
-			return MessageManager.getMessage("info.ally", allies.toString());
+			return MessageManager.getMessage("info.ally", allies);
 		}
 		return null;
 	}
@@ -109,7 +109,7 @@ public class InfoCommand extends SubCommand {
                        .append(player.getPlayer().getName()).append(" ");
 			}
 
-			return MessageManager.getMessage("info." + rank.toString().toLowerCase(), userStr.toString());
+			return MessageManager.getMessage("info." + rank.toString().toLowerCase(), userStr);
 		}
 
 		return null;
