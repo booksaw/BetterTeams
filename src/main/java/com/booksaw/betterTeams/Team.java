@@ -441,23 +441,26 @@ public class Team {
 		this.name = name;
 		getStorage().set(StoredTeamValue.NAME, name);
 
-		if (Main.plugin.teamManagement != null) {
+		removeFromTeamMgmt();
+	}
 
-			if (team != null) {
-				for (TeamPlayer p : members.getClone()) {
-					if (p.getPlayer().isOnline()) {
-						team.removeEntry(Objects.requireNonNull(p.getPlayer().getName()));
-					}
-				}
-				team.unregister();
-			}
+	private void removeFromTeamMgmt() {
+		if (Main.plugin.teamManagement == null) return;
 
-			team = null;
-
+		if (team != null) {
 			for (TeamPlayer p : members.getClone()) {
 				if (p.getPlayer().isOnline()) {
-					Main.plugin.teamManagement.displayBelowName(Objects.requireNonNull(p.getPlayer().getPlayer()));
+					team.removeEntry(Objects.requireNonNull(p.getPlayer().getName()));
 				}
+			}
+			team.unregister();
+		}
+
+		team = null;
+
+		for (TeamPlayer p : members.getClone()) {
+			if (p.getPlayer().isOnline()) {
+				Main.plugin.teamManagement.displayBelowName(Objects.requireNonNull(p.getPlayer().getPlayer()));
 			}
 		}
 	}
@@ -509,25 +512,7 @@ public class Team {
 		this.tag = tag;
 		getStorage().set(StoredTeamValue.TAG, tag);
 
-		if (Main.plugin.teamManagement != null) {
-
-			if (team != null) {
-				for (TeamPlayer p : members.getClone()) {
-					if (p.getPlayer().isOnline()) {
-						team.removeEntry(Objects.requireNonNull(p.getPlayer().getName()));
-					}
-				}
-				team.unregister();
-			}
-
-			team = null;
-
-			for (TeamPlayer p : members.getClone()) {
-				if (p.getPlayer().isOnline()) {
-					Main.plugin.teamManagement.displayBelowName(Objects.requireNonNull(p.getPlayer().getPlayer()));
-				}
-			}
-		}
+		removeFromTeamMgmt();
 	}
 
 	/**
@@ -592,25 +577,7 @@ public class Team {
 		this.color = color;
 		getStorage().set(StoredTeamValue.COLOR, color.getChar());
 
-		if (Main.plugin.teamManagement != null) {
-
-			if (team != null) {
-				for (TeamPlayer p : members.getClone()) {
-					if (p.getPlayer().isOnline()) {
-						team.removeEntry(Objects.requireNonNull(p.getPlayer().getName()));
-					}
-				}
-				team.unregister();
-			}
-
-			team = null;
-
-			for (TeamPlayer p : members.getClone()) {
-				if (p.getPlayer().isOnline()) {
-					Main.plugin.teamManagement.displayBelowName(Objects.requireNonNull(p.getPlayer().getPlayer()));
-				}
-			}
-		}
+		removeFromTeamMgmt();
 	}
 
 	public MemberSetComponent getMembers() {
