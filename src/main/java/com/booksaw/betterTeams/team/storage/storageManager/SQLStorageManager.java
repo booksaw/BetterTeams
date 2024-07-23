@@ -210,6 +210,7 @@ public class SQLStorageManager extends TeamManager implements Listener {
 		return getTeamsFromResultSet(ps);
 	}
 
+	private static final String[] EMPTY_STRING_ARRAY = new String[0];
 	/**
 	 * convert a result set, supplied by a prepared statement into a list of teams
 	 * for sort methods
@@ -236,7 +237,7 @@ public class SQLStorageManager extends TeamManager implements Listener {
 				toReturn.add(results.getString("name"));
 			}
 			ps.close();
-			return toReturn.toArray(new String[toReturn.size()]);
+			return toReturn.toArray(EMPTY_STRING_ARRAY);
 
 		} catch (Exception e) {
 			Bukkit.getLogger().severe("Could not sort teams for results, report the following error:");
