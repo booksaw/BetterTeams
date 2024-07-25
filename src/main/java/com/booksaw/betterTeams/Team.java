@@ -1311,11 +1311,11 @@ public class Team {
 
 		if (isProtected) {
 			if (pvp && team.pvp) {
-				disallow = true;
-			} else if (Main.plugin.wgManagement != null) {
-				disallow = Main.plugin.wgManagement.canTeamPvp(source);
-			} else
 				disallow = false;
+			} else if (Main.plugin.wgManagement != null) {
+				disallow = !Main.plugin.wgManagement.canTeamPvp(source);
+			} else
+				disallow = true;
 
 			if (disallow) {
 				final TeamDisallowedPvPEvent event = new TeamDisallowedPvPEvent(team, source, this, true);
@@ -1326,7 +1326,7 @@ public class Team {
 					return true;
 			}
 
-			return disallow;
+			return !disallow;
 		}
 
 		return true;
