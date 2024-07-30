@@ -1305,17 +1305,30 @@ public class Team {
 	 * @return if players of this team can damage members of the other team
 	 */
 	public boolean canDamage(Team team, Player source) {
-		if (team.isAlly(getID()) || team == this) {
+		final boolean isProtected = team.isAlly(getID()) || team == this;
+
+		boolean disallow;
+
+		if (isProtected) {
 			if (pvp && team.pvp) {
-				return true;
+				disallow = false;
+			} else if (Main.plugin.wgManagement != null) {
+				disallow = !Main.plugin.wgManagement.canTeamPvp(source);
+			} else
+				disallow = true;
+
+			if (disallow) {
+				final TeamDisallowedPvPEvent event = new TeamDisallowedPvPEvent(team, source, this, true);
+
+				Bukkit.getPluginManager().callEvent(event);
+
+				if (event.isCancelled())
+					return true;
 			}
 
-			if (Main.plugin.wgManagement != null) {
-				return Main.plugin.wgManagement.canTeamPvp(source);
-			}
-
-			return false;
+			return !disallow;
 		}
+
 		return true;
 	}
 
