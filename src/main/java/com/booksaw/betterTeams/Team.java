@@ -1,18 +1,16 @@
 package com.booksaw.betterTeams;
 
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.annotation.Nullable;
-
 import com.booksaw.betterTeams.customEvents.*;
+import com.booksaw.betterTeams.exceptions.CancelledEventException;
+import com.booksaw.betterTeams.message.Message;
+import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
+import com.booksaw.betterTeams.message.StaticMessage;
+import com.booksaw.betterTeams.team.*;
+import com.booksaw.betterTeams.team.storage.StorageType;
+import com.booksaw.betterTeams.team.storage.team.StoredTeamValue;
+import com.booksaw.betterTeams.team.storage.team.TeamStorage;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -21,24 +19,10 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
 
-import com.booksaw.betterTeams.exceptions.CancelledEventException;
-import com.booksaw.betterTeams.message.Message;
-import com.booksaw.betterTeams.message.MessageManager;
-import com.booksaw.betterTeams.message.StaticMessage;
-import com.booksaw.betterTeams.team.AllySetComponent;
-import com.booksaw.betterTeams.team.AllyRequestComponent;
-import com.booksaw.betterTeams.team.BanSetComponent;
-import com.booksaw.betterTeams.team.ChestClaimComponent;
-import com.booksaw.betterTeams.team.EChestComponent;
-import com.booksaw.betterTeams.team.LocationSetComponent;
-import com.booksaw.betterTeams.team.MemberSetComponent;
-import com.booksaw.betterTeams.team.MoneyComponent;
-import com.booksaw.betterTeams.team.ScoreComponent;
-import com.booksaw.betterTeams.team.TeamManager;
-import com.booksaw.betterTeams.team.WarpSetComponent;
-import com.booksaw.betterTeams.team.storage.StorageType;
-import com.booksaw.betterTeams.team.storage.team.StoredTeamValue;
-import com.booksaw.betterTeams.team.storage.team.TeamStorage;
+import javax.annotation.Nullable;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * This class is used to manage a team and all of it's participants
@@ -107,18 +91,17 @@ public class Team {
 	}
 
 	public static Location getClaimingLocation(Block block) {
-		if(block.getType() != Material.CHEST) {
+		if (block.getType() != Material.CHEST) {
 			return null;
 		}
 		return TEAMMANAGER.getClaimingLocation(block);
 	}
 
 	/**
-	 * @see Team#getClaimingTeam(Location) Used to get the team which has claimed
-	 *      the provided chest, will return null if that location is not claimed
-	 *
 	 * @param location the location of the chest - must already be normalised
 	 * @return The team which has claimed that chest
+	 * @see Team#getClaimingTeam(Location) Used to get the team which has claimed
+	 * the provided chest, will return null if that location is not claimed
 	 */
 	@Deprecated
 	public static Team getClamingTeam(Location location) {
@@ -129,7 +112,7 @@ public class Team {
 	 * This no longer produces the expected result when the team manager is using
 	 * anything but the flatfile storage method. Other methods should be used This
 	 * is as not all teams are loaded at any point in time.
-	 * 
+	 *
 	 * @return A list of loaded teams
 	 */
 	@Deprecated
@@ -148,7 +131,7 @@ public class Team {
 
 	/**
 	 * Used to check if the provided team name is a valid name for a team
-	 * 
+	 *
 	 * @param name The name of the team
 	 * @return If the team name is valid
 	 */
@@ -285,7 +268,7 @@ public class Team {
 
 	/**
 	 * this is used to load a team from the configuration file
-	 * 
+	 *
 	 * @param id the ID of the team to load
 	 */
 	public Team(UUID id) {
@@ -368,7 +351,7 @@ public class Team {
 	 * This is a private method as the creation of a new team should be done by the
 	 * Team.createNewTeam(name) method
 	 * </p>
-	 * 
+	 *
 	 * @param name  The selected name for the team
 	 * @param id    The UUID of the team
 	 * @param owner The owner of the team (whoever initiated the creation of the
@@ -532,7 +515,7 @@ public class Team {
 			throw new IllegalArgumentException("Changing tag was cancelled by another plugin");
 		}
 		tag = event.getNewTeamTag();
-		
+
 		this.tag = tag;
 		getStorage().set(StoredTeamValue.TAG, tag);
 
@@ -679,7 +662,6 @@ public class Team {
 	 * method)
 	 *
 	 * @param p the player to remove from the team
-	 * 
 	 * @return If the player was removed from the team
 	 */
 	public boolean removePlayer(TeamPlayer p) {
@@ -703,10 +685,13 @@ public class Team {
 	 *
 	 * @param player the player to search for
 	 * @return the team player object for that player [null - player is not in the
-	 *         team]
+	 * team]
 	 */
 	@Nullable
 	public TeamPlayer getTeamPlayer(OfflinePlayer player) {
+		if (player == null) {
+			return null;
+		}
 		return members.getTeamPlayer(player);
 	}
 
@@ -715,7 +700,7 @@ public class Team {
 	 *
 	 * @param rank the rank to search for
 	 * @return a list of players which have that rank [emtpy list - no players have
-	 *         that rank]
+	 * that rank]
 	 */
 	public List<TeamPlayer> getRank(PlayerRank rank) {
 		return members.getRank(rank);
@@ -1007,17 +992,18 @@ public class Team {
 		// Notify third party plugins that a message has been dispatched
 		Bukkit.getPluginManager().callEvent(new TeamMessageEvent(this, sender, fMessage, teamPreMessageEvent.getRecipients()));
 	}
-	
+
 	/**
 	 * Used to get the chat syntax and apply placeholders when possible
+	 *
 	 * @param sender - The team player who sent the command
 	 */
 	private String getChatSyntax(TeamPlayer sender) {
-		
+
 		if (sender != null && sender.getPlayer() != null && sender.getPlayer().isOnline() && (sender.getPlayer().getPlayer() instanceof CommandSender)) {
 			return MessageManager.getMessage(sender.getPlayer().getPlayer(), "chat.syntax");
 		}
-		
+
 		return MessageManager.getMessage("chat.syntax");
 	}
 
@@ -1462,7 +1448,7 @@ public class Team {
 	public int getLevel() {
 		return level;
 	}
-	
+
 	public int getMaxWarps() {
 		return Main.plugin.getConfig().getInt("levels.l" + getLevel() + ".maxWarps");
 	}
