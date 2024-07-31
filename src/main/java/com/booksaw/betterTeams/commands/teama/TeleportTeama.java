@@ -232,7 +232,7 @@ public class TeleportTeama extends SubCommand {
 		return "teleport";
 	}
 
-    @Override
+	@Override
 	public String getNode() {
 		return "admin.teleport";
 	}
