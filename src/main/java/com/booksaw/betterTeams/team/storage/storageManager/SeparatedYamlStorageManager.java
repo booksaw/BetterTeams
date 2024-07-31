@@ -1,19 +1,15 @@
 package com.booksaw.betterTeams.team.storage.storageManager;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.UUID;
-
+import com.booksaw.betterTeams.Main;
+import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.TeamPlayer;
+import com.booksaw.betterTeams.team.LocationSetComponent;
+import com.booksaw.betterTeams.team.storage.team.SeparatedYamlTeamStorage;
+import com.booksaw.betterTeams.team.storage.team.StoredTeamValue;
+import com.booksaw.betterTeams.team.storage.team.TeamStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -22,13 +18,11 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.booksaw.betterTeams.Main;
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.team.LocationSetComponent;
-import com.booksaw.betterTeams.team.storage.team.SeparatedYamlTeamStorage;
-import com.booksaw.betterTeams.team.storage.team.StoredTeamValue;
-import com.booksaw.betterTeams.team.storage.team.TeamStorage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.*;
+import java.util.Map.Entry;
 
 public class SeparatedYamlStorageManager extends YamlStorageManager implements Listener {
 
@@ -78,7 +72,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 
 	@Override
 	public boolean isTeam(String name) {
-		if(name == null) {
+		if (name == null) {
 			return false;
 		}
 		return teamNameLookup.containsKey(name.toLowerCase());
@@ -214,100 +208,43 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 
 	@Override
 	public String[] sortTeamsByScore() {
-		File folder = SeparatedYamlTeamStorage.getTeamSaveFile();
-		List<IntCrossReference> teams = new ArrayList<>();
-
-		for (File f : folder.listFiles()) {
-			// team has already been resetS
-			try {
-				YamlConfiguration yamlConfig = new YamlConfiguration();
-				yamlConfig.load(f);
-				String name = yamlConfig.getString(StoredTeamValue.NAME.getReference());
-				int score = yamlConfig.getInt(StoredTeamValue.SCORE.getReference());
-				
-				if(name == null || name.isEmpty()) {
-					throw new Exception();
-				}
-				
-				teams.add(new IntCrossReference(name, score));
-			} catch (Exception e) {
-				Bukkit.getLogger().severe("UNABLE TO READ TEAM DATA FROM " + f);
-			}
-		}
-
-		teams.sort((t1, t2) -> t2.value - t1.value);
-
-		String[] rankedTeamsStr = new String[teams.size()];
-
-		for (int i = 0; i < teams.size(); i++) {
-			rankedTeamsStr[i] = teams.get(i).name;
-			if (teams.get(i).name != null && isLoaded(getTeamUUID(teams.get(i).name))) {
-				Team team = getTeam(teams.get(i).name);
-				team.setTeamRank(i);
-			}
-		}
-
-		return rankedTeamsStr;
+		return sortTeamByX(configuration -> configuration.getInt(StoredTeamValue.SCORE.getReference()), (t1, t2) -> t2.value - t1.value);
 	}
 
 	@Override
 	public String[] sortTeamsByBalance() {
-		File folder = SeparatedYamlTeamStorage.getTeamSaveFile();
-		List<DoubleCrossReference> teams = new ArrayList<>();
-
-		for (File f : folder.listFiles()) {
-			// team has already been resetS
-			try {
-				YamlConfiguration yamlConfig = new YamlConfiguration();
-				yamlConfig.load(f);
-				teams.add(new DoubleCrossReference(yamlConfig.getString(StoredTeamValue.NAME.getReference()), yamlConfig.getDouble(StoredTeamValue.MONEY.getReference())));
-
-			} catch (IOException | InvalidConfigurationException e) {
-				Bukkit.getLogger().severe("UNABLE TO READ TEAM DATA FROM " + f);
-			}
-
-		}
-
-		teams.sort((t1, t2) -> {
-			if (t1.value == t2.value) {
-				return 0;
-			} else if (t1.value < t2.value) {
-				return 1;
-			}
-			return -1;
-		});
-
-		String[] rankedTeamsStr = new String[teams.size()];
-
-		for (int i = 0; i < teams.size(); i++) {
-			rankedTeamsStr[i] = teams.get(i).name;
-			if (teams.get(i).name != null && isLoaded(getTeamUUID(teams.get(i).name))) {
-				Team team = getTeam(teams.get(i).name);
-				team.setTeamRank(i);
-			}
-		}
-
-		return rankedTeamsStr;
-
+		return sortTeamByX(
+				configuration -> configuration.getDouble(StoredTeamValue.MONEY.getReference()),
+				(t1, t2) -> {
+					if (t1.value == t2.value) {
+						return 0;
+					} else if (t1.value < t2.value) {
+						return 1;
+					}
+					return -1;
+				});
 	}
 
 	@Override
 	public String[] sortTeamsByMembers() {
+		return sortTeamByX(configuration -> configuration.getStringList("players").size(), (t1, t2) -> t2.value - t1.value);
+	}
+
+	private <T> String[] sortTeamByX(ValueSorter<T> valueSorter, Comparator<? super CrossReference<T>> comparator) {
 		File folder = SeparatedYamlTeamStorage.getTeamSaveFile();
-		List<IntCrossReference> teams = new ArrayList<>();
+		List<CrossReference<T>> teams = new ArrayList<>();
 		for (File f : folder.listFiles()) {
 			// team has already been resetS
 			try {
 				YamlConfiguration yamlConfig = new YamlConfiguration();
 				yamlConfig.load(f);
-				teams.add(new IntCrossReference(yamlConfig.getString(StoredTeamValue.NAME.getReference()), yamlConfig.getStringList("players")
-                                                                                                                     .size()));
+				teams.add(new CrossReference<>(yamlConfig.getString(StoredTeamValue.NAME.getReference()), valueSorter.getValueToSort(yamlConfig)));
 			} catch (Exception e) {
 				Bukkit.getLogger().severe("UNABLE TO READ TEAM DATA FROM " + f);
 			}
 		}
 
-		teams.sort((t1, t2) -> t2.value - t1.value);
+		teams.sort(comparator);
 
 		String[] rankedTeamsStr = new String[teams.size()];
 
@@ -320,6 +257,21 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 		}
 
 		return rankedTeamsStr;
+	}
+
+	private static class CrossReference<T> {
+		final String name;
+
+		final T value;
+
+		CrossReference(String name, T value) {
+			this.name = name;
+			this.value = value;
+		}
+	}
+
+	private interface ValueSorter<T> {
+		T getValueToSort(YamlConfiguration configuration);
 	}
 
 	@Override
@@ -331,7 +283,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 	public void purgeTeamMoney() {
 		setAllTeamsValue(StoredTeamValue.MONEY, 0, team -> team.setMoney(0));
 	}
-	
+
 	private void setAllTeamsValue(StoredTeamValue storedTeamValue, Object value, ResetLoadedTeamValue function) {
 		Map<UUID, Team> loadedTeamsClone = getLoadedTeamListClone();
 
@@ -364,11 +316,11 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 			}
 		}.runTaskAsynchronously(Main.plugin);
 	}
-	
+
 	private interface ResetLoadedTeamValue {
 		void resetLoadedTeamValue(Team team);
 	}
-	
+
 	public void savePlayerLookup() {
 		List<String> toSave = new ArrayList<>();
 
@@ -431,26 +383,6 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 
 		unloadTeam(teamUUID);
 
-	}
-
-	private static class IntCrossReference {
-		final String name;
-		final int value;
-
-		public IntCrossReference(String name, int value) {
-			this.name = name;
-			this.value = value;
-		}
-	}
-
-	private static class DoubleCrossReference {
-		final String name;
-		final double value;
-
-		public DoubleCrossReference(String name, double value) {
-			this.name = name;
-			this.value = value;
-		}
 	}
 
 	@Override

@@ -828,6 +828,8 @@ Features:
 Bug Fixes:
 - Fixed typo in config.yml (#620) - Credit dacoder101
 - Fixed issue where the clickable invite message's command was not translatable (#602)
+- Fixed null pointer being thrown in unexpected way (#634)
+- Improved logging for /team baltop error (#623)
 
 Code improvements:
 - Replaced equals/length with isEmpty (#630) - Credit svaningelgem
