@@ -817,7 +817,6 @@ Bug Fixes:
 - Fixed issue with the update link pasted in the console (#598)
 - Fixed issue not allowing /teama money to have decimal amounts (#599)
 - Fixed issue where DecentHologram displays were not refreshing (#595)
-- Hopefully fixed a problem causing players to be kicked from teams (#618)
 
 4.10.0:
 
@@ -831,6 +830,8 @@ Bug Fixes:
 - Fixed issue where the clickable invite message's command was not translatable (#602)
 - Fixed null pointer being thrown in unexpected way (#634)
 - Improved logging for /team baltop error (#623)
+- Hopefully fixed a problem causing players to be kicked from teams (#618)
+- Fixed problem causing '?' in an item name to break SQL commands (#644)
 
 Code improvements:
 - Replaced equals/length with isEmpty (#630) - Credit svaningelgem
