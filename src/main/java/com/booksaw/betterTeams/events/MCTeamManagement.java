@@ -110,7 +110,7 @@ public class MCTeamManagement implements Listener {
 		if (team == null) {
 			return;
 		}
-		
+
 		if (!team.getScoreboardTeam(board).hasEntry(player.getName())) {
 			return;
 		}
