@@ -828,6 +828,9 @@ Features:
 
 Improvements:
 - Added missing Spanish messages (both translations) - Credit LeadVic
+- Added missing Italian messages - Credit YnsanitY
+- Added missing Polish translations - Credit Rain
+- Added missing Vietnamese translations - Credit Iamsad_VM
 
 Bug Fixes:
 - Fixed typo in config.yml (#620) - Credit dacoder101

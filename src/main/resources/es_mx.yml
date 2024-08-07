@@ -4,6 +4,8 @@
 # or message me on spigot: https://www.spigotmc.org/members/booksaw123.120955/
 
 # Any placeholders from placeholder API will work in this file
+# Credit for contributions to this file: LeadVic
+
 invalidArg: '&4Argumentos inválidos.'
 internalError: "&4Algo salió mal al ejecutar ese comando, por favor repórtalo a los administradores del servidor"
 inTeam: '&4Debes estar en un equipo para hacer eso.'
