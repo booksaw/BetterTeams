@@ -5,6 +5,7 @@
 
 # Any placeholders from placeholder API will work in this file
 invalidArg: '&4Argumentos inválidos.'
+internalError: "&4Algo salió mal al ejecutar ese comando, por favor repórtalo a los administradores del servidor"
 inTeam: '&4Debes estar en un equipo para hacer eso.'
 notInTeam: '&4Debes abandonar tu equipo antes de hacer eso'
 needOwner: '&4Debes ser el dueño del equipo para hacer eso.'
@@ -30,6 +31,9 @@ placeholder.default: Default
 placeholder.name: '{0}'
 placeholder.tag: '{0}'
 placeholder.displayname: '{0}'
+placeholder.inteam: true
+placeholder.notinteam: false
+placeholder.noTitle: ''
 prefix.owner: ' **'
 prefix.admin: ' *'
 prefix.default: ' '
@@ -66,6 +70,7 @@ invite.inTeam: '&6El jugador ya se encuentra en un equipo.'
 invite.banned: '&6El jugador esta baneado de tu equipo.'
 invite.full: '&6Equipo lleno, se requiere expulsar a alguien para invitar a otro jugador.'
 invite.expired: '&4La invitación de &b{0} ha expirado.'
+invite.hover: "&6Haz clic para unirte &b{0}"
 join.success: '&6Te has unido al equipo!'
 join.notify: '&6Bienvenido &b{0} &6al equipo!'
 join.notInvited: '&6No has sido invitado a ese equipo.'
@@ -94,9 +99,13 @@ info.fail: '&6No se pudo encontrar equipo o jugador con ese nombre.'
 info.score: '&6Puntuación: &b{0}'
 info.money: '&6Balance: &b{0}'
 info.ally: '&6Aliados: &b{0}'
+info.online: "&a"
+info.offline: "&c"
 kick.success: '&6El jugador ha sido expulsado.'
 kick.notify: '&6Has sido expulsado del equipo {0}'
 kick.noPerm: '&6No tienes permiso para expulsar al jugador.'
+kick.title: "&4Has sido expulsado de tu equipo"
+ban.title: "&4Has sido expulsado permanentemente de tu equipo"
 ban.success: '&6El jugador ha sido baneado del equipo.'
 ban.notify: '&6Has sido baneado del equipo {0}.'
 ban.noPerm: '&6No tienes permisos para banear al jugador.'
@@ -224,7 +233,7 @@ admin.join.success: '&6El jugador se ha unido al equipo.'
 admin.join.notify: '&6Te has unido al equipo &b{0}'
 admin.join.full: '&4El equipo especificado está lleno.'
 admin.notInTeam: '&6El jugador no puede estar en un equipo antes de realizar esa acción.'
-admin.inTeam: '&4El jugador especificado no se encuentra en un equipo.' 
+admin.inTeam: '&4El jugador especificado no se encuentra en un equipo.'
 admin.leave.success: '&6El jugador ha abandonado el equipo.'
 admin.leave.notify: '&6Has salido del equipo.'
 admin.demote.notify: '&6Tu rango en el equipo ha sido degradado.'
@@ -268,6 +277,19 @@ demote.maxAdmins: '&4Tu equipo ya ha alcanzado el maximo n�mero de administrad
 admin.demote.maxAdmins: '&4Ese equipo ya ha alcanzado el maximo n�mero de administradores, remueve uno antes de promover a este jugador'
 admin.promote.maxAdmins: '&4Ese equipo ya ha alcanzado el maximo n�mero de administradores, remueve uno antes de promover a otro jugador'
 admin.promote.maxOwners: '&4Ese equipo ya ha alcanzado el maximo n�mero de due�os, remueve uno antes de promover a otro jugador'
+admin.versionlanguage: "&6Idioma seleccionado: &b{0}"
+admin.versiononline: "&6Modo en línea: &b{0}"
+admin.versionplayers: "&6Número de jugadores: &b{0}"
+admin.bal.toSmall: "&4El balance debe ser mayor que 0"
+admin.bal.success: "&6El balance de ese equipo ha sido cambiado"
+admin.teleport.player.success: "&6Ese jugador fue teletransportado"
+admin.ally.same: "&4No puedes hacer que un equipo sea aliado de sí mismo"
+admin.ally.already: "&4Esos equipos ya son aliados"
+admin.ally.success: "&6Esos dos equipos ahora son aliados"
+admin.neutral.same: "&4No puedes ingresar el mismo equipo dos veces"
+admin.neutral.not: "&4Esos equipos no son aliados"
+admin.neutral.success: "&6Esos equipos ya no son aliados"
+
 
 nametag.syntax: '&6&l{0}&r '
 holo.leaderboard: '&6Tabla de clasificación'
@@ -319,6 +341,9 @@ help.delhome: Elimina el home de tu equipo
 help.ally: Solicita una alianza con otro equipo
 help.neutral: Remueve alianzas y rechaza las solicitudes pendientes.
 help.allychat: Envía un mensaje solo a tus aliados
+help.header: "&6---- &bAyuda de BetterTeams &6----"
+help.footer: "&6---- &bPágina {0}/{1} - /{2} ayuda <página> &6----"
+
 
 admin.versionstorage: '&6Método de almacenamiento: &b{0}'
 admin.versionversion: '&6Versión de Minecraft: &b{0}'
@@ -376,3 +401,48 @@ command.bal: bal
 command.withdraw: withdraw
 command.enableclaims: enableclaims
 command.disableclaims: disableclaims
+command.debug: debug
+command.teleport: teleport
+command.money: money
+command.holo: holo
+
+helpArg.delhome: ''
+helpArg.echest: ''
+helpArg.color: <código de color>
+helpArg.allychat: [ mensaje ]
+helpArg.description: [ descripción ]
+helpArg.setwarp: <nombre> [contraseña]
+helpArg.title: [ jugador/yo ] [ título ]
+helpArg.bal: ''
+helpArg.ban: <jugador>
+helpArg.promote: <jugador>
+helpArg.warps: ''
+helpArg.top: ''
+helpArg.ally: <equipo>
+helpArg.rankup: ''
+helpArg.leave: ''
+helpArg.sethome: ''
+helpArg.create: <nombre> [etiqueta]
+helpArg.rank: [ equipo ]
+helpArg.join: <equipo>
+helpArg.tag: [ etiqueta ]
+helpArg.disband: ''
+helpArg.info: [ equipo/jugador ]
+helpArg.delwarp: <nombre> [contraseña]
+helpArg.chest: ''
+helpArg.neutral: <equipo>
+helpArg.pvp: ''
+helpArg.baltop: ''
+helpArg.list: [ página ]
+helpArg.home: ''
+helpArg.help: ''
+helpArg.unban: <jugador>
+helpArg.demote: <jugador>
+helpArg.kick: <jugador>
+helpArg.chat: [ mensaje ]
+helpArg.name: <nombre>
+helpArg.deposit: <cantidad>
+helpArg.invite: <jugador>
+helpArg.open: ''
+helpArg.warp: <nombre>
+helpArg.withdraw: <cantidad>

@@ -288,6 +288,8 @@ admin.ally.success: '&6Those two teams are now allies'
 admin.neutral.same: '&4You cannot enter the same team twice'
 admin.neutral.not: '&4Those teams are not allies'
 admin.neutral.success: '&6Those teams are no longer allies'
+admin.import.fail: '&4The messages import failed, check the console for errors'
+admin.import.success: '&6The messages have been successfully imported'
 
 
 nametag.syntax: '&6&l{0}&r '

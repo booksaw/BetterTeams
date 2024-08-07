@@ -824,6 +824,10 @@ Features:
 - Added TeamWithdrawEvent, TeamDepositEvent and TeamDisallowedPvpEvent (#613) - Credit Hellinduction
 - Added a title message when allying another team (#629) - Credit svaningelgem
 - Only tab complete teams that are allies for /team neutral (#632) - Credit svaningelgem
+- Added /teama importmessages to import translations from "missingmessages.txt"
+
+Improvements:
+- Added missing Spanish messages (both translations) - Credit LeadVic
 
 Bug Fixes:
 - Fixed typo in config.yml (#620) - Credit dacoder101
@@ -832,6 +836,7 @@ Bug Fixes:
 - Improved logging for /team baltop error (#623)
 - Hopefully fixed a problem causing players to be kicked from teams (#618)
 - Fixed problem causing '?' in an item name to break SQL commands (#644)
+- Fixed missingmessages.txt getting overwritten when the server restarts losing translated messages
 
 Code improvements:
 - Replaced equals/length with isEmpty (#630) - Credit svaningelgem
