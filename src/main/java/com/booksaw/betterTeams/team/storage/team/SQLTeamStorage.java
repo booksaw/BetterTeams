@@ -168,8 +168,9 @@ public class SQLTeamStorage extends TeamStorage {
 		String serial = Utils.serializeInventory(inventory);
 		serial = serial.replace("\\", "\\\\");
 		serial = serial.replace("\"", "\\\"");
-		storageManager.getDatabase().executeStatement("UPDATE ? SET echest = \"" + serial + "\" WHERE ?",
-				TableName.TEAM.toString(), getCondition());
+		serial = "\"" + serial + "\"";
+		storageManager.getDatabase().executeStatement("UPDATE ? SET echest = ? WHERE ?",
+				TableName.TEAM.toString(), serial, getCondition());
 
 	}
 
@@ -178,8 +179,8 @@ public class SQLTeamStorage extends TeamStorage {
 
 		List<String> toReturn = new ArrayList<>();
 
-		try (PreparedStatement ps = storageManager.getDatabase().selectWhere("*", TableName.WARPS, getCondition())){
-			
+		try (PreparedStatement ps = storageManager.getDatabase().selectWhere("*", TableName.WARPS, getCondition())) {
+
 			ResultSet result = ps.executeQuery();
 			if (!result.first()) {
 				return toReturn;
@@ -202,7 +203,7 @@ public class SQLTeamStorage extends TeamStorage {
 		List<String> toReturn = new ArrayList<>();
 
 		try (PreparedStatement ps = storageManager.getDatabase().selectWhere("*", TableName.CHESTCLAIMS, getCondition())) {
-			
+
 			ResultSet result = ps.executeQuery();
 			if (!result.first()) {
 				return toReturn;

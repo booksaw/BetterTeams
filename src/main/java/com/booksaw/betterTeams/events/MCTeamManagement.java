@@ -87,7 +87,7 @@ public class MCTeamManagement implements Listener {
 
 	/**
 	 * Remove a player from an async thread
-	 * 
+	 *
 	 * @param player The player to remove
 	 */
 	public void remove(Player player) {
@@ -108,6 +108,10 @@ public class MCTeamManagement implements Listener {
 
 		Team team = Team.getTeam(player);
 		if (team == null) {
+			return;
+		}
+
+		if (!team.getScoreboardTeam(board).hasEntry(player.getName())) {
 			return;
 		}
 
@@ -163,13 +167,13 @@ public class MCTeamManagement implements Listener {
 		public static BelowNameType getType(String string) {
 
 			switch (string.toLowerCase()) {
-			case "prefix":
-			case "true":
-				return PREFIX;
-			case "suffix":
-				return SUFFIX;
-			default:
-				return FALSE;
+				case "prefix":
+				case "true":
+					return PREFIX;
+				case "suffix":
+					return SUFFIX;
+				default:
+					return FALSE;
 			}
 		}
 	}
