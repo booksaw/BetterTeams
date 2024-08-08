@@ -5,10 +5,12 @@
 
 # Any placeholders from placeholder API will work in this file
 
+# Credit for contributions to this file: YnsanitY
+
 invalidArg: '&4Argomento non valido, help'
 inTeam: '&4Per farlo è necessario fare parte di un team'
 notInTeam: '&4Devi lasciare il proprio team prima di farlo'
-needOwner: "&4Per poterlo fare bisogna essere l'owner del team"
+needOwner: '&4Per poterlo fare bisogna essere l''owner del team'
 needAdmin: '&4Per farlo devi essere admin o owner del team'
 needPlayer: '&4Devi essere un giocatore per farlo'
 noPlayer: '&4Il giocatore specificato non è stato trovato'
@@ -48,8 +50,8 @@ create:
   maxLength: '&4Il nome del team è troppo lungo'
 leave:
   success: '&6Hai lasciato il team'
-  lastOwner: "&6Sei l'unico con il rango owner all'interno del team, o promuovi qualcun
-    altro o usa &b/team disband &6per sciogliere il team"
+  lastOwner: '&6Sei l''unico con il rango owner all''interno del team, o promuovi
+    qualcun altro o usa &b/team disband &6per sciogliere il team'
 announce:
   join: '&3{0} &7si è unito al team {1}'
   leave: '&3{0} &7ha lasciato il team {1}'
@@ -79,12 +81,14 @@ name:
   noPerm: '&4Non hai il permesso di cambiare il nome del team'
 invite:
   success: '&6Questo giocatore è stato invitato'
-  invite: '&6Sei stato invitato a unirti al team {0} fai &b/team join <team> &6per unirti
-    al team'
+  invite: '&6Sei stato invitato a unirti al team {0} fai &b/team join <team> &6per
+    unirti al team'
   inTeam: '&6Questo giocatore è già in un team'
   banned: '&6Il giocatore è bannato dal tuo team'
-  full: '&6Il team ha raggiunto la dimensione massima, caccia qualcuno prima di invitare altre persone'
-  expired: "&4L'invito di &b{0} è scaduto"
+  full: '&6Il team ha raggiunto la dimensione massima, caccia qualcuno prima di invitare
+    altre persone'
+  expired: '&4L''invito di &b{0} è scaduto'
+  hover: '&6Clicca per unirti a &b{0}'
 join:
   success: '&6Sei entrato a far parte di questo team'
   notify: '&6Benvenuto &b{0} &6nel team!'
@@ -117,6 +121,8 @@ info:
   score: '&6Punteggio: &b{0}'
   money: '&6Saldo: &b{0}'
   ally: '&6Alleati: &b{0}'
+  online: '&a'
+  offline: '&c'
 kick:
   success: '&6Questo giocatore è stato cacciato'
   notify: '&6Sei stato cacciato dal team {0}'
@@ -138,22 +144,23 @@ promote:
   noPerm: '&6Non hai il permesso di promuovere questa persona'
   max: '&6Questa persona è già al massimo livello di promozione'
   notify: '&6Sei stato promosso!'
-  maxAdmins: '&4Il tuo team ha già il numero massimo di admin, declassa qualcuno
-    o fai salire di livello il tuo team'
-  maxOwners: '&4Il tuo team ha già il numero massimo di owner, declassa qualcuno 
-    o fai salire di livello il tuo team'
+  maxAdmins: '&4Il tuo team ha già il numero massimo di admin, declassa qualcuno o
+    fai salire di livello il tuo team'
+  maxOwners: '&4Il tuo team ha già il numero massimo di owner, declassa qualcuno o
+    fai salire di livello il tuo team'
 demote:
   success: '&6Questo giocatore è stato retrocesso'
   noPerm: '&6Non hai i permessi per retrocedere questa persona'
   min: '&6Questa persona è già del rango più basso'
   notify: '&6Sei stato retrocesso'
-  lastOwner: "&6Non è possibile retrocedere l'ultimo owner, ma è necessario promuovere prima qualcun altro"
-  maxAdmins: '&4Il tuo team ha già il numero massimo di admin, rimuovili
-    o fai salire di livello il tuo team'
+  lastOwner: '&6Non è possibile retrocedere l''ultimo owner, ma è necessario promuovere
+    prima qualcun altro'
+  maxAdmins: '&4Il tuo team ha già il numero massimo di admin, rimuovili o fai salire
+    di livello il tuo team'
 home:
   success: '&6Sei stato teletrasportato'
   noHome: '&6Il tuo team non ha settato una home'
-  world: "&4Non è stato possibile trovare l'home del team"
+  world: '&4Non è stato possibile trovare l''home del team'
 sethome:
   success: '&6La home del proprio team è stata settata'
   noPerm: '&6Non hai un rango sufficientemente alto per settare la home del team'
@@ -169,7 +176,8 @@ deposit:
   tooLittle: '&4Non è possibile depositare importi negativi'
   fail: '&4Il deposito è fallito'
   success: '&6Denaro depositato'
-  max: '&4In questo modo si supererebbe il limite massimo consentito per il saldo del team'
+  max: '&4In questo modo si supererebbe il limite massimo consentito per il saldo
+    del team'
 withdraw:
   tooLittle: '&4Non è possibile prelevare importi negativi'
   fail: '&4Il ritiro è fallito'
@@ -180,7 +188,8 @@ ally:
   success: '&6I vostri team ora sono alleati'
   ally: '&6Il tuo team è ora alleato con &b{0}'
   requested: '&6È stata inviata una richiesta di alleanza a questo team'
-  request: '&b{0} &6ha inviato una richiesta di alleanza, usa &b/team ally <team> &6per accettare'
+  request: '&b{0} &6ha inviato una richiesta di alleanza, usa &b/team ally <team>
+    &6per accettare'
   self: '&4Non è possibile allearsi con il proprio team'
   from: '&6Hai una richiesta di alleanza da parte di: {0}'
   noRequests: '&4Non hai richieste di alleanza'
@@ -204,8 +213,8 @@ list:
   body: '&6{0}: &b{1}'
   footer: '&7--- &6fai &b/team list [pagina] &6per vedere di più &7---'
 setowner:
-  use: '&6Non è possibile promuovere questo giocatore, usare &b/team setowner <giocatore> &6per promuoverlo
-    a owner'
+  use: '&6Non è possibile promuovere questo giocatore, usare &b/team setowner <giocatore>
+    &6per promuoverlo a owner'
   success: '&6Questo giocatore è ora un owner'
   notify: '&6Ora sei il proprietario del team'
   max: '&4Questo giocatore è già un owner'
@@ -263,8 +272,8 @@ admin:
     success: '&6Il ranking del team è stato stabilito'
     'no': '&4Il rango non esiste o non è impostato correttamente'
   config:
-    reload: "&6BetterTeams è stato ricaricato (se si riscontrano problemi durante l'uso
-      di questo comando, riavviare il server)"
+    reload: '&6BetterTeams è stato ricaricato (se si riscontrano problemi durante
+      l''uso di questo comando, riavviare il server)'
   holo:
     create:
       success: '&6Creazione Hologramma'
@@ -306,8 +315,8 @@ admin:
     notify: '&6Sei stato retrocesso'
     success: '&6Questo giocatore è stato retrocesso'
     min: '&4Questo giocatore non può più essere retrocesso'
-    maxAdmins: '&4Questo giocatore ha già il numero massimo di admin, rimuovine uno prima
-      di retrocedere'
+    maxAdmins: '&4Questo giocatore ha già il numero massimo di admin, rimuovine uno
+      prima di retrocedere'
   promote:
     max: '&6Questo giocatore è già al massimo rango'
     notify: '&6Sei stato promosso'
@@ -329,8 +338,8 @@ admin:
     success: '&6Il warp è stato settato'
     max: '&6Questo team ha già impostato il numero massimo di  warp'
   purge:
-    confirm: '&6Eseguire questo comando nei prossimi 10 secondi per confermare, &4non può essere
-      annullato e azzera i punteggi per tutti i team'
+    confirm: '&6Eseguire questo comando nei prossimi 10 secondi per confermare, &4non
+      può essere annullato e azzera i punteggi per tutti i team'
     success: '&6I team sono stati ripuliti'
   score:
     tooSmall: '&4Il punteggio deve essere maggiore di 0'
@@ -338,7 +347,8 @@ admin:
   bal:
     toSmall: '&4Il saldo deve essere maggiore di 0'
     success: '&6Il saldo del team è stato cambiato'
-  update: '&4Questa è una nuova versione di aggiornamento per BetterTeams rilasciata qui: https://www.spigotmc.org/resources/better-teams.17129/'
+  update: '&4Questa è una nuova versione di aggiornamento per BetterTeams rilasciata
+    qui: https://www.spigotmc.org/resources/better-teams.17129/'
   disband:
     success: '&6Il team è stato sciolto con successo'
   color:
@@ -364,8 +374,24 @@ admin:
   teleport:
     success: '&6Tutti i membri online di questo team sono stati teletrasportati'
     noWorld: '&4Mondo specificato non trovato'
-    all.success: '&6Tutti i membri online di tutti i team sono stati teletrasportati'
-    all.home.success: '&6Tutti i membri online di tutti i team con una casa sono stati teletrasportati'
+    all:
+      success: '&6Tutti i membri online di tutti i team sono stati teletrasportati'
+      home:
+        success: '&6Tutti i membri online di tutti i team con una casa sono stati
+          teletrasportati'
+    player:
+      success: '&6Quel giocatore è stato teletrasportato'
+  versionlanguage: '&6Lingua selezionata: &b{0}'
+  versiononline: '&6Modalità online: &b{0}'
+  versionplayers: '&6Numero di giocatori: &b{0}'
+  ally:
+    same: '&4Non puoi fare in modo che un team sia alleato con se stesso'
+    already: '&4Quei team sono già alleati'
+    success: '&6Quei due team sono ora alleati'
+  neutral:
+    same: '&4Non puoi inserire lo stesso team due volte'
+    not: '&4Quei team non sono alleati'
+    success: '&6Quei team non sono più alleati'
 nametag:
   syntax: '&6&l{0}&r '
 holo:
@@ -432,6 +458,8 @@ help:
   baltop: Visualizza i team più ricchi
   list: Ottieni un elenco di tutti i team presenti sul server
   warp: Teletrasportati in un warp stabilito dal proprio team
+  header: '&6---- &bBetterTeams aiuto &6----'
+  footer: '&6---- &bPagina {0}/{1} - /{2} help <pagina> &6----'
 command:
   create: create
   leave: leave
@@ -487,3 +515,49 @@ command:
   deposit: deposit
   bal: bal
   withdraw: withdraw
+  importmessages: importmessages
+  debug: debug
+  holo: ologramma
+internalError: '&4Qualcosa è andato storto durante l''esecuzione di quel comando,
+  per favore segnalalo agli staffer del server'
+helpArg:
+  delhome: ''
+  echest: ''
+  color: <codice colore>
+  allychat: '[messaggio]'
+  description: '[descrizione]'
+  setwarp: <nome> [password]
+  title: '[giocatore/io] [titolo]'
+  bal: ''
+  ban: <giocatore>
+  promote: <giocatore>
+  warps: ''
+  top: ''
+  ally: <team>
+  rankup: ''
+  leave: ''
+  sethome: ''
+  create: <nome> [tag]
+  rank: '[team]'
+  join: <team>
+  tag: '[tag]'
+  disband: ''
+  info: '[team/giocatore]'
+  delwarp: <nome> [password]
+  chest: ''
+  neutral: <team>
+  pvp: ''
+  baltop: ''
+  list: '[pagina]'
+  home: ''
+  help: ''
+  unban: <giocatore>
+  demote: <giocatore>
+  kick: <giocatore>
+  chat: '[messaggio]'
+  name: <nome>
+  deposit: <quantità>
+  invite: <giocatore>
+  open: ''
+  warp: <nome>
+  withdraw: <quantità>

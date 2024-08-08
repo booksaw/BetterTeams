@@ -5,7 +5,7 @@
 
 # Any placeholders from placeholder API will work in this file
 
-# Credit for contributions to this file: Duplon, Edekoo, Guaz, Kuszaa
+# Credit for contributions to this file: Duplon, Edekoo, Guaz, Kuszaa, Rain
 
 invalidArg: '&4Taka komenda nie istnieje'
 inTeam: '&4Musisz być w teamie żeby to zrobić'
@@ -33,6 +33,12 @@ placeholder:
   admin: Szef
   default: Członek
   name: '{0}'
+  money: '{0} '
+  tag: '{0}'
+  displayname: '{0}'
+  inteam: 'true'
+  notinteam: 'false'
+  noTitle: ''
 prefix:
   owner: ' **'
   admin: ' *'
@@ -54,6 +60,9 @@ rank:
   noTeam: '&4Nie ma takiego teamu'
   info: '&6Team position:'
   syntax: '&b{0}: &6{1} &7({2})'
+  infos: '&6Punktacja drużyny: &b{0} &7({1} punkty potrzebne do awansu)'
+  infom: '&6Punktacja drużyny: &b{0} &7(${1} potrzebne do awansu)'
+  infomm: '&6Ranga: &b{0} &7(Posiadasz maksymalną rangę)'
 delhome:
   success: '&6Usunąłeś sethome teamowy'
   noHome: '&4Twój team nie ma sethome'
@@ -64,16 +73,21 @@ description:
   success: '&6Zmieniłeś opis teamu'
   view: '&6Opis teamu: {0}'
   noDesc: '&6Opis teamu - nieustawiony'
+  noPerm: '&4Nie posiadasz uprawnień aby edytować opis'
 name:
   success: '&6Zmieniłeś nazwę teamu'
   view: '&6Nazwa: {0}'
   exists: '&4Taki team już istnieje'
+  noPerm: '&4Nie posiadasz uprawnień aby edytować nazwę drużyny'
 invite:
   success: '&6Gracz został zaproszony'
-  invite: '&6Zostałeś zaproszony do teamu: &f{0} &6wpisz &b/team join <team> &6 aby dołączyć do tego teamu'
+  invite: '&6Zostałeś zaproszony do teamu: &f{0} &6wpisz &b/team join <team> &6 aby
+    dołączyć do tego teamu'
   inTeam: '&6Ten gracz już jest w teamie'
   banned: '&6Ten gracz jest zbanowany w twoim teamie'
   full: '&6Twój team jest pełny, wyrzuć kogoś aby dodać nową osobę'
+  expired: '&4Zaproszenie od &b{0} wygasło'
+  hover: '&6Naciśnij aby dołączyć &b{0}'
 join:
   success: '&6Dołączyłeś do teamu'
   notify: '&6Witaj &b{0} &6w teamie!'
@@ -90,6 +104,8 @@ title:
   noFormat: '&4Nie masz uprawnień aby edytować tytuły'
   noColor: '&4Nie masz uprawnień aby edytować kolor tytułu'
   reset: '&6Zrestowano twój tytuł'
+  remove: '&6Twój tytył został usunięty'
+  noPerm: '&4Nie masz permisji aby zmienić tytuł twojej drużyny'
 info:
   needTeam: '&6Nie ma takiego teamu lub gracza'
   name: '&6Nazwa: &b{0}'
@@ -102,15 +118,21 @@ info:
   score: '&6Punkty: &b{0}'
   money: '&6Bank: &b{0}'
   ally: '&6Sojusznik: &b{0}'
+  level: '&6Poziom: &b{0}'
+  tag: '&6Tag: &b{0}'
+  online: '&a'
+  offline: '&c'
 kick:
   success: '&6Ten gracz został wyrzucony'
   notify: '&6Zostałeś wyrzucony z teamu {0}'
   noPerm: '&6Nie masz permisji aby wyrzucić tą osobę'
+  title: '&4Zostałeś wyrzucony ze swojej drużyny'
 ban:
   success: '&6Ten gracz został zbanowany'
   notify: '&6Zostałeś zbanowany z teamu {0}'
   noPerm: '&6Nie masz uprawnień aby zbanować tę osobę'
   already: '&6Ten gracz już jest zbanowany'
+  title: '&4Zostałeś zbanowany ze swojej drużyny '
 unban:
   success: '&6Gracz został odbanowany'
   notify: '&6Zostałeś odbanowany w teamie {0}'
@@ -121,15 +143,22 @@ promote:
   noPerm: '&6Nie masz uprawnień aby awansować osoby'
   max: '&6Ta osoba ma najwyższą rangę!'
   notify: '&6Otrzymałeś awans!'
+  maxAdmins: '&4Twoja drużyna ma maksymalną ilość administratorów,zdegraduj lub awanasuj
+    kogoś w drużynie'
+  maxOwners: '&4Twoja drużyna ma maksymalną ilość właścicieli,zdegraduj lub awanasuj
+    kogoś w drużynie '
 demote:
   success: '&6Ten gracz został zdegradowany'
   noPerm: '&6Nie masz uprawnień aby degradować osoby'
   min: '&6Ta osoba ma już najniższą rangę'
   notify: '&6Zostałeś zdegradowany na niższą rangę'
   lastOwner: '&6Nie możesz zdegradować założyciela'
+  maxAdmins: '&4Twoja drużyna ma maksymalną ilość administratorów,zdegraduj lub awanasuj
+    kogoś w drużynie'
 home:
   success: '&6Zostałeś teleportowany'
   noHome: '&6Twój team nie ma homea'
+  world: '&4Lokalizacja domu drużyny nie może zostać odnaleziona'
 sethome:
   success: '&6Ustawiono home w twoim teamie'
   noPerm: '&6Nie masz wystarczającej rangi aby ustawić home'
@@ -145,6 +174,7 @@ deposit:
   tooLittle: '&4Nie możesz wpłacić negatywnej wartości'
   fail: '&4Przelew nie powiódł się'
   success: '&6Wpłacono kasę do banku teamowego'
+  max: '&4To by przekroczyło maksymalny dozwolony balans drużyny'
 withdraw:
   tooLittle: '&4Nie możesz wypłacić takiej wartości'
   fail: '&4Wypłata nie powiodła się'
@@ -161,6 +191,7 @@ ally:
   noRequests: '&4Nie masz zaproszenia do sojuszu'
   onJoin: '&6Masz nową prośbę sojuszu, wpisz &b/team ally &6aby ją zobaczyć'
   limit: '&4Limit sojuszników został osiągnięty'
+  alreadyrequest: '&4Już poprosiłeś o sojusz z tą drużyną     '
 allychat:
   disabled: '&6Wyłączono chat z sojusznikami'
   enabled: '&6Włączono czat z sojusznikami'
@@ -187,10 +218,12 @@ setwarp:
   exist: '&4Ten warp już istnieje'
   max: '&4Nie możecie ustawić więcej warpów'
   success: '&6Stworzono warpa'
+  char: '&4Wybrana nazwa warpa zawiera niedozwolone znaki'
 warp:
   nowarp: '&4Ten warp nie istnieje'
   invalidPassword: '&4Nieprawidłowe hasło'
   success: '&6Zostałeś teleportowany'
+  world: '&4Lokalizacja warpu nie może zostać odnaleziona'
 warps:
   syntax: '&6Warpy: &b{0}'
   none: '&4Nie macie warpów w teamie'
@@ -254,11 +287,18 @@ admin:
     notify: '&6Zostałeś zdegradowany'
     success: '&6Gracz został zdegradowany'
     min: '&4Ten gracz ma już najniższą rangę'
+    maxAdmins: '&4That team already has the max number of admins, remove one before
+      demoting this player'
   promote:
     max: '&6Ten gracz ma już najwyższą rangę'
     notify: '&6Otrzymałeś awans'
     success: '&6Gracz otrzymał awans'
-    owner: '&6W teamie może być tylko jeden założyciel, &b/teama setowner <gracz> &6aby ustawić założyciela'
+    owner: '&6W teamie może być tylko jeden założyciel, &b/teama setowner <gracz>
+      &6aby ustawić założyciela'
+    maxAdmins: '&4That team already has the max number of admins, remove one before
+      promoting that player'
+    maxOwners: '&4That team already has the max number of owners, remove one before
+      promoting that player'
   setowner:
     already: '&4Ten gracz już jest założycielem'
     nonotify: '&6Już nie jesteś założycielem'
@@ -270,7 +310,8 @@ admin:
     success: '&6Ustawiono warpa'
     max: '&6Ten team osiągnał już limit warpów'
   purge:
-    confirm: '&6Wpisz tą komendę ponownie w ciągu 10 sek, &4TA AKCJA NIE MOŻE ZOSTAĆ COFNIĘTA!'
+    confirm: '&6Wpisz tą komendę ponownie w ciągu 10 sek, &4TA AKCJA NIE MOŻE ZOSTAĆ
+      COFNIĘTA!'
     success: '&6Teamy zostały wyczyszczone!'
   score:
     tooSmall: '&4Punkty muszą być większe niż 0'
@@ -298,6 +339,38 @@ admin:
       success: '&6Zabezpieczanie skrzynek zostało włączone'
     enabled:
       bc: '&6&lWszystkie zabezpieczone skrzynki są zablokowane'
+  setrank:
+    success: '&6Ranga drużyny została ustawiona'
+    'no': '&4Wybrana ranga nie istnieje lub nie jest ustawiona prawidłowo'
+  tag:
+    success: '&6Tag wybranej drużyny został pomyślnie zmieniony'
+  cancel: '&4Komenda została anulowana przez inny plugin'
+  teleport:
+    noWorld: '&4Podany świat nie został znaleziony'
+    all:
+      success: '&6Wszyscy online członkowie wszystkich zespołów zostali przeteleportowani'
+      home:
+        success: '&6Wszyscy online członkowie wszystkich zespołów z domem zostali
+          przeteleportowani'
+    success: '&6All online members of that team were teleported'
+    player:
+      success: '&6That player was teleported'
+  versionstorage: '&6Storage Method: &b{0}'
+  versionversion: '&6Minecraft Version: &b{0}'
+  versionlanguage: '&6Language Selected: &b{0}'
+  versiononline: '&6Online mode: &b{0}'
+  versionplayers: '&6Player count: &b{0}'
+  bal:
+    toSmall: '&4The balance must be greater than 0'
+    success: '&6That teams balance has been changed'
+  ally:
+    same: '&4You cannot make a team an ally of itself'
+    already: '&4Those teams are already allies'
+    success: '&6Those two teams are now allies'
+  neutral:
+    same: '&4You cannot enter the same team twice'
+    not: '&4Those teams are not allies'
+    success: '&6Those teams are no longer allies'
 nametag:
   syntax: '&6&l{0}&r '
 holo:
@@ -346,7 +419,11 @@ help:
   setwarp: Ustawia warp dla teamu
   warps: Pokazuje listę warpów w teamie
   delwarp: Usuwa warpa teamowego
-  chest: ''
+  chest:
+    help: Przeglądaj tą stronę pomocy
+    removeall: Usuń wszystkie zaclaimowane skrzynie (przydatne gdy zapomnisz o niektórych)
+    claim: Zaclaimuj skrzynie na której stoisz
+    remove: Usuwa claima twojej drużyny ze skrzyni na której stoisz
   list: Pokazuje listę wszystkich teamów
   warp: Teleportuje do warpa teamowego
   removeall: Usuwa wszystkie zabezpieczone skrzynki
@@ -359,6 +436,8 @@ help:
   reload: Reloadzik configu
   holo: ''
   setowner: Ustawia nowego założyciela teamu
+  header: '&6---- &bPomoc BetterTeams&6----'
+  footer: '&6---- &bStrona {0}/{1} - /{2} pomoc <strona> &6----'
 command:
   create: stworz
   leave: opusc
@@ -410,44 +489,58 @@ command:
   setowner: zalozyciel
   echest: ec
   pvp: pvp
+  importmessages: importmessages
+  baltop: saltop
+  rankup: awans
+  tag: tag
+  setrank: setrank
+  debug: debug
+  teleport: teleport
+  money: money
+  help: pomoc
 echest:
   echest: '&bTeamowy &9Enderchest'
 pvp:
   enabled: '&6PvP w Teamie zostało &awłączone'
   disabled: '&&6PvP w Teamie zostało &cwyłączone'
-baltop.leaderboard: '&6Tablica wyników'
-baltop.syntax: '&b{0}: &6{1} &7({2})'
-baltop.divide: '&f...'
-info.level: '&6Poziom: &b{0}'
-rankup.max: '&4Posiadasz już najwyższą rangę'
-rankup.score: '&4Potrzebujesz {0} punktów by podnieść rangę'
-rankup.money: '&4Potrzebujesz {0} waluty w drużynowym balansie by podnieść rangę'
-rankup.success: '&6Twoja drużyna awansowała na wyższy poziom'
-admin.setrank.success: '&6Ranga drużyny została ustawiona'
-admin.setrank.no: '&4Wybrana ranga nie istnieje lub nie jest ustawiona prawidłowo'
-rank.infos: '&6Punktacja drużyny: &b{0} &7({1} punkty potrzebne do awansu)'
-rank.infom: '&6Punktacja drużyny: &b{0} &7(${1} potrzebne do awansu)'
-placeholder.money: '{0} '
-info.tag: '&6Tag: &b{0}'
-tag.banned: '&4Wybrany tag jest zakazany'
-tag.success: '&6Twój tag został pomyślnie zmieniony'
-admin.tag.success: '&6Tag wybranej drużyny został pomyślnie zmieniony'
-tag.maxLength: '&4Wybrany tag jest zbyt długi'
-setwarp.char: '&4Wybrana nazwa warpa zawiera niedozwolone znaki'
-warp.world: '&4Lokalizacja warpu nie może zostać odnaleziona'
-home.world: '&4Lokalizacja domu drużyny nie może zostać odnaleziona'
-invite.expired: '&4Zaproszenie od &b{0} wygasło'
-admin.cancel: '&4Komenda została anulowana przez inny plugin'
-placeholder.tag: '{0}'
-placeholder.displayname: '{0}'
-description.noPerm: '&4Nie posiadasz uprawnień aby edytować opis'
-tag.noPerm: '&4Nie posiadasz uprawnień aby edytować tag drużynowy'
-name.noPerm: '&4Nie posiadasz uprawnień aby edytować nazwę drużyny'
-uclaim.member: '&4Nie możesz zdjąć działki drużyny'
-uclaim.kick: '&4Nie możesz wyrzucić członków drużyny ze swojego terenu'
-uclaim.ban: '&4Nie możesz zablokować członków drużyny na swoim terenie'
-uclaim.dissolve: '&4Twoja drużyna została rozwiązana, przez to twój teren również.'
-uclaim.team: '&4Musisz znajdować się w drużynie by stworzyć teren'
-admin.teleport.noWorld: '&4Podany świat nie został znaleziony'
-admin.teleport.all.success: '&6Wszyscy online członkowie wszystkich zespołów zostali przeteleportowani'
-admin.teleport.all.home.success: '&6Wszyscy online członkowie wszystkich zespołów z domem zostali przeteleportowani'
+baltop:
+  leaderboard: '&6Tablica wyników'
+  syntax: '&b{0}: &6{1} &7({2})'
+  divide: '&f...'
+rankup:
+  max: '&4Posiadasz już najwyższą rangę'
+  score: '&4Potrzebujesz {0} punktów by podnieść rangę'
+  money: '&4Potrzebujesz {0} waluty w drużynowym balansie by podnieść rangę'
+  success: '&6Twoja drużyna awansowała na wyższy poziom'
+tag:
+  banned: '&4Wybrany tag jest zakazany'
+  success: '&6Twój tag został pomyślnie zmieniony'
+  maxLength: '&4Wybrany tag jest zbyt długi'
+  noPerm: '&4Nie posiadasz uprawnień aby edytować tag drużynowy'
+uclaim:
+  member: '&4Nie możesz zdjąć działki drużyny'
+  kick: '&4Nie możesz wyrzucić członków drużyny ze swojego terenu'
+  ban: '&4Nie możesz zablokować członków drużyny na swoim terenie'
+  dissolve: '&4Twoja drużyna została rozwiązana, przez to twój teren również.'
+  team: '&4Musisz znajdować się w drużynie by stworzyć teren'
+internalError: '&4Coś poszło nie tak podczas wykonywania tej komendy.Zgłoś to do administracji
+  serwera.'
+loading: '&6Ładowanie'
+helpArg:
+  allychat: '[message]'
+  description: '[description]'
+  disband: ''
+  chest:
+    help: ''
+    removeall: ''
+    claim: ''
+    remove: ''
+  list: '[page]'
+  home: ''
+  help: ''
+  unban: <player>
+  chat: '[message]'
+  invite: <player>
+  open: ''
+  warp: <name>
+  withdraw: <amount>

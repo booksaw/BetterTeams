@@ -178,7 +178,7 @@ public class Main extends JavaPlugin {
 
 		ConfigManager messagesConfigManager = new ConfigManager(language, true);
 
-		MessageManager.addMessages(messagesConfigManager.config);
+		MessageManager.addMessages(messagesConfigManager);
 
 		if (!language.equals("messages")) {
 			messagesConfigManager = new ConfigManager("messages", true);
@@ -293,7 +293,7 @@ public class Main extends JavaPlugin {
 				new LeaveTeama(), new PromoteTeama(), new DemoteTeama(), new WarpTeama(), new SetwarpTeama(),
 				new DelwarpTeama(), new PurgeTeama(), new DisbandTeama(), new ColorTeama(), new EchestTeama(),
 				new SetrankTeama(teamaCommand), new TagTeama(), new TeleportTeama(teamaCommand), new AllyTeama(),
-				new NeutralTeama());
+				new NeutralTeama(), new ImportmessagesTeama());
 
 		if (getConfig().getBoolean("singleOwner")) {
 			teamaCommand.addSubCommand(new SetOwnerTeama());

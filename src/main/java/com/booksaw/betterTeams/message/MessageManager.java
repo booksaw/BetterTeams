@@ -1,5 +1,6 @@
 package com.booksaw.betterTeams.message;
 
+import com.booksaw.betterTeams.ConfigManager;
 import com.booksaw.betterTeams.Main;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.md_5.bungee.api.ChatColor;
@@ -10,8 +11,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-import java.io.File;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,12 +25,14 @@ import java.util.logging.Logger;
  */
 public class MessageManager {
 
+	public static final String MISSINGMESSAGES_FILENAME = "missingmessages.txt";
+
 	/**
 	 * Used to store all loaded messages
 	 */
 	private static HashMap<String, String> messages = new HashMap<>();
 
-	private static FileConfiguration defaultMessages;
+	private static ConfigManager defaultMessagesConfigManager;
 
 	/**
 	 * This is the prefix which goes before all messages related to this plugin
@@ -60,20 +62,20 @@ public class MessageManager {
 	 * This method is used to provide the configuration file in which all the
 	 * message references are stored, this method also loads the default prefix
 	 *
-	 * @param file the configuration file
+	 * @param configManager the configuration manager
 	 */
-	public static void addMessages(FileConfiguration file) {
+	public static void addMessages(ConfigManager configManager) {
 		prefix = ChatColor.translateAlternateColorCodes('&',
 				Objects.requireNonNull(Main.plugin.getConfig().getString("prefixFormat")));
-		defaultMessages = file;
-		addMessages(file, false);
+		defaultMessagesConfigManager = configManager;
 
+		addMessages(configManager.config, false);
 	}
 
 	/**
 	 * Used to select a file to contain backup messages in the event that the
 	 * community translations are incomplete
-	 * 
+	 *
 	 * @param file The file to load the backup messages from
 	 */
 	public static void addBackupMessages(YamlConfiguration file) {
@@ -114,7 +116,7 @@ public class MessageManager {
 			logger.info(
 					"[BetterTeams] If you are able to help with translation please join the discord server and make yourself known (https://discord.gg/JF9DNs3)");
 			logger.info(
-					"[BetterTeams] A file called `missingMessages.txt` has been created within this plugins folder. To contribute to the community translations, translate the messages within it and submit it to the discord");
+					"[BetterTeams] A file called `" + MISSINGMESSAGES_FILENAME + "` has been created within this plugins folder. To contribute to the community translations, translate the messages within it and submit it to the discord");
 			logger.info("[BetterTeams] ==================================================================");
 		}
 
@@ -122,9 +124,29 @@ public class MessageManager {
 
 	private static void saveMissingMessages(List<String> missingMessages) {
 
-		File f = new File(Main.plugin.getDataFolder() + File.separator + "missingMessages.txt");
+		File f = new File(Main.plugin.getDataFolder() + File.separator + MISSINGMESSAGES_FILENAME);
 
-		if (!f.exists()) {
+		List<String> existingKeys = new ArrayList<>();
+
+		if (f.exists()) {
+
+			try (BufferedReader reader = new BufferedReader(new FileReader(f))) {
+				String line;
+				while ((line = reader.readLine()) != null) {
+					if (line.isEmpty() || line.startsWith("#")) {
+						continue;
+					}
+					String[] split = line.split(": ", 2);
+					if (split.length == 2) {
+						existingKeys.add(split[0]);
+					}
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+				return;
+			}
+
+		} else {
 			try {
 				f.createNewFile();
 			} catch (Exception e) {
@@ -133,12 +155,17 @@ public class MessageManager {
 			}
 		}
 
-		try (PrintWriter writer = new PrintWriter(f)) {
-			writer.println(
-					"# Please translate these messages and then submit them to the Booksaw Development (https://discord.gg/JF9DNs3) in the #messages-submissions channel for a special rank");
-			writer.println("# Your translations will be included in the next update");
+		try (PrintWriter writer = new PrintWriter(new FileWriter(f, !existingKeys.isEmpty()))) {
+			if (existingKeys.isEmpty()) {
+				writer.println(
+						"# Please translate these messages and then submit them to the Booksaw Development (https://discord.gg/JF9DNs3) in the #messages-submissions channel for a special rank");
+				writer.println("# Your translations will be included in the next update");
+				writer.println("# When you are done translating, run '/teama importmessages' to include the translated messages in your main file");
+			}
 			for (String str : missingMessages) {
-				writer.println(str + ": " + messages.get(str));
+				if (!existingKeys.contains(str)) {
+					writer.println(str + ": " + messages.get(str));
+				}
 			}
 
 		} catch (Exception e) {
@@ -149,7 +176,6 @@ public class MessageManager {
 
 	/**
 	 * Used to send a (formatted) message to the specified user
-
 	 *
 	 * @param sender      the commandSender which the message should be sent to
 	 * @param reference   the reference for the message
@@ -228,7 +254,7 @@ public class MessageManager {
 
 	/**
 	 * @return the prefix for all messages Defaults to [BetterTeams] unless it is
-	 *         changed by end user
+	 * changed by end user
 	 */
 	public static String getPrefix() {
 		return prefix;
@@ -248,7 +274,7 @@ public class MessageManager {
 	/**
 	 * Used when you are sending a user a message instead of a message loaded from a
 	 * file
-	 * 
+	 *
 	 * @param sender        the player who sent the command
 	 * @param message       The message to send to that user
 	 * @param prefixMessage The prefix for that message
@@ -266,7 +292,11 @@ public class MessageManager {
 	}
 
 	public static FileConfiguration getDefaultMessages() {
-		return defaultMessages;
+		return defaultMessagesConfigManager.config;
+	}
+
+	public static ConfigManager getDefaultMessagesConfigManager() {
+		return defaultMessagesConfigManager;
 	}
 
 	/**
@@ -274,7 +304,7 @@ public class MessageManager {
 	 */
 	public static void dumpMessages() {
 		messages = new HashMap<>();
-		defaultMessages = null;
+		defaultMessagesConfigManager = null;
 	}
 
 	/**
@@ -289,7 +319,9 @@ public class MessageManager {
 		sendFullTitle(player, message, false);
 	}
 
-	public static void sendFullTitle(Player player, String message) { sendFullTitle(player, message, true); }
+	public static void sendFullTitle(Player player, String message) {
+		sendFullTitle(player, message, true);
+	}
 
 	public static void sendFullTitle(Player player, String message, boolean prefixMessage) {
 		if (prefixMessage) {
