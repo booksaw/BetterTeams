@@ -58,7 +58,7 @@ public class TitleCommand extends TeamSubCommand {
 			return new CommandResponse(true, "title.remove");
 		}
 
-		if (args[1] != null && args[1].length() > Main.plugin.getConfig().getInt("maxTitleLength")) {
+		if (args[1].length() > Main.plugin.getConfig().getInt("maxTitleLength")) {
 			return new CommandResponse("title.tooLong");
 		}
 

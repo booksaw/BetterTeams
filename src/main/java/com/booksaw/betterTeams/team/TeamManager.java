@@ -256,16 +256,10 @@ public abstract class TeamManager {
 				return claimedBy;
 			}
 
-			claimedBy = getClaimingTeam(ChestManagement.getLocation((Chest) doubleChest.getRightSide()));
-			if (claimedBy != null) {
-				return claimedBy;
-			}
+			return getClaimingTeam(ChestManagement.getLocation((Chest) doubleChest.getRightSide()));
 		} else if (holder instanceof Chest) {
 			// single chest
-			Team claimedBy = getClaimingTeam(ChestManagement.getLocation((Chest) holder));
-			if (claimedBy != null) {
-				return claimedBy;
-			}
+			return getClaimingTeam(ChestManagement.getLocation((Chest) holder));
 		}
 
 		return null;
@@ -345,6 +339,7 @@ public abstract class TeamManager {
 	 * @param uuid the UUID to check
 	 * @return If a team exists with that uuid
 	 */
+	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 	public abstract boolean isTeam(UUID uuid);
 
 	/**

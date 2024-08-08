@@ -11,6 +11,6 @@ import com.booksaw.betterTeams.Team;
  */
 public interface IndividualTeamPlaceholderProvider {
 	
-	public String getPlaceholderForTeam(Team team);
+	String getPlaceholderForTeam(Team team);
 
 }

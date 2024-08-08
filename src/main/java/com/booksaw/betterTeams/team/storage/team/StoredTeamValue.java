@@ -63,11 +63,11 @@ public enum StoredTeamValue {
 
 	private final TeamStorageType storageType;
 
-	private StoredTeamValue(String reference) {
+	StoredTeamValue(String reference) {
 		this(reference, TeamStorageType.STRING);
 	}
 
-	private StoredTeamValue(String reference, TeamStorageType storageType) {
+	StoredTeamValue(String reference, TeamStorageType storageType) {
 		this.reference = reference;
 		this.storageType = storageType;
 

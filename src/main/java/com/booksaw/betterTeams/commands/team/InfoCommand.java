@@ -36,11 +36,11 @@ public class InfoCommand extends SubCommand {
 			infoMessages.add(MessageManager.getMessage("info.description", team.getDescription()));
 		}
 
-		infoMessages.add(MessageManager.getMessage("info.open", team.isOpen() + ""));
-		infoMessages.add(MessageManager.getMessage("info.score", team.getScore() + ""));
+		infoMessages.add(MessageManager.getMessage("info.open", team.isOpen()));
+		infoMessages.add(MessageManager.getMessage("info.score", team.getScore()));
 		infoMessages.add(MessageManager.getMessage("info.money", team.getBalance()));
-		infoMessages.add(MessageManager.getMessage("info.level", team.getLevel() + ""));
-		infoMessages.add(MessageManager.getMessage("info.tag", team.getTag() + ""));
+		infoMessages.add(MessageManager.getMessage("info.level", team.getLevel()));
+		infoMessages.add(MessageManager.getMessage("info.tag", team.getTag()));
 
 		String allyMessage = getAlliesMessage(team);
 		if (allyMessage != null) {
@@ -80,7 +80,7 @@ public class InfoCommand extends SubCommand {
 		if (allies.length() > 2) {
 			allies = new StringBuilder(allies.substring(0, allies.length() - 2));
 
-			return MessageManager.getMessage("info.ally", allies.toString());
+			return MessageManager.getMessage("info.ally", allies);
 		}
 		return null;
 	}
@@ -94,20 +94,22 @@ public class InfoCommand extends SubCommand {
 			String toTest = MessageManager.getMessage("info." + rank.toString().toLowerCase());
 			if (toTest.length() > 1) {
 				for (int i = toTest.length() - 1; i >= 0; i--) {
-					if (toTest.charAt(i) == '\u00A7') {
+					if (toTest.charAt(i) == '§') {
 						returnTo = ChatColor.getByChar(toTest.charAt(i + 1));
 						break;
 					}
 				}
 			}
 			for (TeamPlayer player : users) {
-				userStr.append(
-						MessageManager.getMessage("info." + ((player.getPlayer().isOnline() && player.getOnlinePlayer().map(p -> !Utils.isVanished(p)).orElse(false)) ? "online" : "offline"))
-								+ player.getPrefix(returnTo))
-						.append(player.getPlayer().getName()).append(" ");
+				userStr.append(MessageManager.getMessage("info." + ((player.getPlayer().isOnline()
+                                                                     && player.getOnlinePlayer()
+                                                                              .map(p -> !Utils.isVanished(p))
+                                                                              .orElse(false)) ? "online" : "offline")))
+                       .append(player.getPrefix(returnTo))
+                       .append(player.getPlayer().getName()).append(" ");
 			}
 
-			return MessageManager.getMessage("info." + rank.toString().toLowerCase(), userStr.toString());
+			return MessageManager.getMessage("info." + rank.toString().toLowerCase(), userStr);
 		}
 
 		return null;

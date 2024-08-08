@@ -3,7 +3,7 @@ _Click on placeholderAPI to go to the spigot page_
 
 If you are unfamiliar with placeholderAPI please watch the explanation video by [Premiere Setups](https://www.youtube.com/watch?v=r8weU5HRxL4) for the basics.
 
-Placeholders are supported in many ways, primarily by [providing placeholders](#Provided). Along with the provided placeholders, all messages in messages.yml support placeholders so you can alter all messages to your heart's desire.
+Placeholders are supported in many ways, primarily by [providing placeholders](#Provided Placeholders). Along with the provided placeholders, all messages in messages.yml support placeholders so you can alter all messages to your heart's desire.
 
 Please note, there is no ecloud expansion required for these placeholders. As long as you have BetterTeams and PlaceholderAPI on your server, these will all work.
 

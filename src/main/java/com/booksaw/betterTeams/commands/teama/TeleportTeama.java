@@ -233,11 +233,6 @@ public class TeleportTeama extends SubCommand {
 	}
 
 	@Override
-	public boolean needPlayer() {
-		return false;
-	}
-
-	@Override
 	public String getNode() {
 		return "admin.teleport";
 	}

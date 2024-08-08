@@ -13,7 +13,7 @@ import java.util.logging.Level;
 
 public abstract class YamlStorageManager extends TeamManager {
 
-	protected FileConfiguration teamStorage;
+	protected final FileConfiguration teamStorage;
 
 	public static final String TEAMLISTSTORAGELOC = "teams";
 

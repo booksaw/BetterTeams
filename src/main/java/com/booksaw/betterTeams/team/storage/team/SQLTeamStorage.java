@@ -109,7 +109,7 @@ public class SQLTeamStorage extends TeamStorage {
 		List<String> toReturn = new ArrayList<>();
 
 		try (PreparedStatement ps = storageManager.getDatabase().selectWhere("*", TableName.ALLIES,
-				"team1ID LIKE '" + team.getID() + "' OR team2ID LIKE '" + team.getID() + "'");) {
+				"team1ID LIKE '" + team.getID() + "' OR team2ID LIKE '" + team.getID() + "'")) {
 			ResultSet result = ps.executeQuery();
 			if (!result.first()) {
 				return toReturn;
@@ -159,11 +159,8 @@ public class SQLTeamStorage extends TeamStorage {
 		if (result == null || result.isEmpty()) {
 			return;
 		}
-		try {
-			Utils.deserializeInventory(inventory, result);
-		} catch (InvalidConfigurationException e) {
-			e.printStackTrace();
-		}
+
+		Utils.deserializeInventory(inventory, result);
 	}
 
 	@Override

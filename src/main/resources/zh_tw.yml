@@ -466,7 +466,7 @@ uclaim:
   ban: '&4You cannot ban members of your own team from your claim'
   dissolve: '&4Your team has been disbanded so your claim has been dissolved'
   team: '&4You must be in a team to create a claim'
-loading: &6讀取中'
+loading: '&6讀取中'
 rank.infomm: '&6公會: &b{0} &7(你已經是最高等級了)'
 title.remove: '&6你的頭銜已被移除'
 title.noPerm: '&4你沒有更改公會頭銜的權限'

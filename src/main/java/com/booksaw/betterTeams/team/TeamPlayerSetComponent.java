@@ -133,44 +133,29 @@ public abstract class TeamPlayerSetComponent extends SetTeamComponent<TeamPlayer
 		return false;
 	}
 
+	private String getPlayersString(List<? extends OfflinePlayer> players) {
+		final StringBuilder str = new StringBuilder();
+
+		if (players.isEmpty()) {
+			return "";
+		}
+
+		for (OfflinePlayer player : players) {
+			str.append(player.getName()).append(", ");
+		}
+
+		return str.substring(0, str.length() - 2);
+	}
+
 	/**
 	 * @return the string of all online players
 	 */
 	public String getOnlinePlayersString() {
-
-		String str = "";
-
-		List<Player> onlinePlayers = getOnlinePlayers();
-
-		if (onlinePlayers.isEmpty()) {
-			return "";
-		}
-
-		for (Player player : onlinePlayers) {
-			str = str + player.getName() + ", ";
-		}
-
-		str = str.substring(0, str.length() - 2);
-
-		return str;
+		return getPlayersString(getOnlinePlayers());
 	}
 
 	public String getOfflinePlayersString() {
-		String str = "";
-
-		List<OfflinePlayer> offlinePlayers = getOfflinePlayers();
-
-		if (offlinePlayers.isEmpty()) {
-			return "";
-		}
-
-		for (OfflinePlayer player : offlinePlayers) {
-			str = str + player.getName() + ", ";
-		}
-
-		str = str.substring(0, str.length() - 2);
-
-		return str;
+		return getPlayersString(getOfflinePlayers());
 	}
 
 }

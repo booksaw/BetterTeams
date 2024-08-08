@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class CreateCommand extends NoTeamSubCommand {
 	private final ParentCommand parentCommand;
-	boolean enforceTag;
+	final boolean enforceTag;
 	
 	public CreateCommand(ParentCommand parentCommand) {
 		this.parentCommand = parentCommand;
@@ -35,7 +35,7 @@ public class CreateCommand extends NoTeamSubCommand {
 			return new CommandResponse("create.banned");
 		}
 
-		if (args.length <= 1 && enforceTag) {
+		if (args.length == 1 && enforceTag) {
 			return new CommandResponse(new HelpMessage(this, label, parentCommand));
 		}
 

@@ -203,9 +203,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 
 	@Override
 	public TeamStorage createNewTeamStorage(Team team) {
-		SeparatedYamlTeamStorage teamStorage = new SeparatedYamlTeamStorage(team, this);
-
-		return teamStorage;
+		return new SeparatedYamlTeamStorage(team, this);
 	}
 
 	@Override
@@ -240,8 +238,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 			try {
 				YamlConfiguration yamlConfig = new YamlConfiguration();
 				yamlConfig.load(f);
-				teams.add(new CrossReference<>(yamlConfig.getString(StoredTeamValue.NAME.getReference()),
-						valueSorter.getValueToSort(yamlConfig)));
+				teams.add(new CrossReference<>(yamlConfig.getString(StoredTeamValue.NAME.getReference()), valueSorter.getValueToSort(yamlConfig)));
 			} catch (Exception e) {
 				Bukkit.getLogger().severe("UNABLE TO READ TEAM DATA FROM " + f);
 			}
@@ -312,7 +309,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 						yamlConfig.save(f);
 					} catch (IOException e) {
 						Bukkit.getLogger()
-								.warning("Failed to purge the " + storedTeamValue.toString() + "of the team with the file " + f.getPath());
+								.warning("Failed to purge the " + storedTeamValue + "of the team with the file " + f.getPath());
 						e.printStackTrace();
 					}
 				}
@@ -321,7 +318,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 	}
 
 	private interface ResetLoadedTeamValue {
-		public void resetLoadedTeamValue(Team team);
+		void resetLoadedTeamValue(Team team);
 	}
 
 	public void savePlayerLookup() {
@@ -430,7 +427,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 				String teamName = config.getString(StoredTeamValue.NAME.getReference()).toLowerCase();
 
 				// the file is invalid
-				if (teamName == null || teamName.length() == 0) {
+				if (teamName.isEmpty()) {
 					continue;
 				}
 
