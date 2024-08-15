@@ -7,7 +7,7 @@ import java.util.logging.Level;
 
 import com.booksaw.betterTeams.integrations.hologram.DHHologramManager;
 import com.booksaw.betterTeams.integrations.hologram.HDHologramManager;
-import com.booksaw.betterTeams.utils.WebhookPayload;
+import com.booksaw.betterTeams.util.WebhookPayload;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
