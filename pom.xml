@@ -4,6 +4,10 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.booksaw.betterTeams</groupId>
     <artifactId>BetterTeams</artifactId>
+    <properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>20</java.version>
+	</properties>
     <version>4.10.0</version>
     <name>BetterTeams</name>
     <packaging>jar</packaging>
@@ -90,9 +94,14 @@
         <dependency>
             <groupId>com.github.ben-manes.caffeine</groupId>
             <artifactId>caffeine</artifactId>
-            <version>2.8.0</version>
-        </dependency>
-    </dependencies>
+			<version>2.8.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.NahuLD</groupId>
+			<artifactId>folia-scheduler-wrapper</artifactId>
+			<version>v0.0.3</version>
+		</dependency>
+	</dependencies>
     <build>
         <finalName>BetterTeams-${project.version}</finalName>
         <sourceDirectory>src</sourceDirectory>
@@ -100,16 +109,20 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.4</version>
-                <configuration>
-                    <relocations>
-                        <relocation>
-                            <pattern>com.github.benmanes.caffeine</pattern>
-                            <shadedPattern>booksawshaded.com.github.benmanes.caffeine</shadedPattern>
-                        </relocation>
-                    </relocations>
-                </configuration>
-                <executions>
+                <version>3.5.3</version>
+				<configuration>
+					<relocations>
+						<relocation>
+							<pattern>com.github.benmanes.caffeine</pattern>
+							<shadedPattern>booksawshaded.com.github.benmanes.caffeine</shadedPattern>
+						</relocation>
+						<relocation>
+							<pattern>me.nahu.scheduler.wrapper</pattern>
+							<shadedPattern>com.booksaw.betterTeams.lib.foliawrapper</shadedPattern>
+						</relocation>
+					</relocations>
+				</configuration>
+				<executions>
                     <execution>
                         <phase>package</phase>
                         <goals>

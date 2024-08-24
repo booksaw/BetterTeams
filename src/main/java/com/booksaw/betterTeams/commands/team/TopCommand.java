@@ -5,10 +5,10 @@ import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.SubCommand;
 import com.booksaw.betterTeams.message.MessageManager;
+import me.nahu.scheduler.wrapper.runnable.WrappedRunnable;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class TopCommand extends SubCommand {
 
 		MessageManager.sendMessage(sender, "loading");
 
-		new BukkitRunnable() {
+		new WrappedRunnable() {
 
 			@Override
 			public void run() {
@@ -71,7 +71,7 @@ public class TopCommand extends SubCommand {
 					}
 				}
 			}
-		}.runTaskAsynchronously(Main.plugin);
+		}.runTaskAsynchronously(Main.plugin.getScheduler());
 
 		return new CommandResponse(true);
 	}

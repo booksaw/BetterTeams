@@ -10,13 +10,13 @@ import com.booksaw.betterTeams.team.*;
 import com.booksaw.betterTeams.team.storage.StorageType;
 import com.booksaw.betterTeams.team.storage.team.StoredTeamValue;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
+import me.nahu.scheduler.wrapper.runnable.WrappedRunnable;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
 
 import javax.annotation.Nullable;
@@ -791,7 +791,7 @@ public class Team {
 			return;
 		}
 
-		new BukkitRunnable() {
+		new WrappedRunnable() {
 
 			@Override
 			public void run() {
@@ -803,7 +803,7 @@ public class Team {
 
 				MessageManager.sendMessage(p, "invite.expired", getName());
 			}
-		}.runTaskLaterAsynchronously(Main.plugin, invite * 20L);
+		}.runTaskLaterAsynchronously(Main.plugin.getScheduler(), invite * 20L);
 
 	}
 

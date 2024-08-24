@@ -5,7 +5,6 @@ import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.message.MessageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.scheduler.BukkitScheduler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -79,8 +78,7 @@ public abstract class HologramManager {
 	}
 
 	public void startUpdates() {
-		BukkitScheduler scheduler = Main.plugin.getServer().getScheduler();
-		scheduler.scheduleSyncRepeatingTask(Main.plugin, () -> {
+		Main.plugin.getScheduler().runTaskTimer(() -> {
 			if (!isHolographicDisplaysEnabled() && !isDecentHologramsEnabled()) {
 				return;
 			}
@@ -93,7 +91,7 @@ public abstract class HologramManager {
 					}
 				}
 			}
-		}, 0L, 20 * 60L);
+		}, 1L, 20 * 60L);
 	}
 
 	private boolean isHolographicDisplaysEnabled() {

@@ -1,5 +1,6 @@
 package com.booksaw.betterTeams.metrics;
 
+import com.booksaw.betterTeams.Main;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -251,7 +252,7 @@ public class Metrics {
 				// use the Bukkit scheduler
 				// Don't be afraid! The connection to the bStats server is still async, only the
 				// stats collection is sync ;)
-				Bukkit.getScheduler().runTask(plugin, () -> submitData());
+				Main.plugin.getScheduler().runTask(() -> submitData());
 			}
 		}, 1000 * 60 * 5, 1000 * 60 * 30);
 		// Submit the data every 30 minutes, first time after 5 minutes to give other

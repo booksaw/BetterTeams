@@ -32,6 +32,8 @@ import com.booksaw.betterTeams.score.ScoreManagement;
 import com.booksaw.betterTeams.team.storage.StorageType;
 import com.booksaw.betterTeams.team.storage.convert.Converter;
 import com.booksaw.betterTeams.team.storage.storageManager.YamlStorageManager;
+import me.nahu.scheduler.wrapper.WrappedScheduler;
+import me.nahu.scheduler.wrapper.WrappedSchedulerBuilder;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
@@ -62,6 +64,7 @@ public class Main extends JavaPlugin {
 	public ChatManagement chatManagement;
 	public WorldGaurdManagerV7 wgManagement;
 	private PermissionParentCommand teamCommand;
+	private WrappedScheduler scheduler;
 
 	private BooksawCommand teamBooksawCommand;
 
@@ -79,6 +82,9 @@ public class Main extends JavaPlugin {
 	public void onLoad() {
 		plugin = this;
 		configManager = new ConfigManager("config", true);
+
+		final WrappedSchedulerBuilder schedulerBuilder = WrappedSchedulerBuilder.builder().plugin(this);
+		scheduler = schedulerBuilder.build();
 
 		if (Bukkit.getPluginManager().getPlugin("WorldGuard") != null
 				&& configManager.config.getBoolean("worldGuard.enabled")) {
@@ -336,7 +342,7 @@ public class Main extends JavaPlugin {
 
 				teamManagement = new MCTeamManagement(type);
 
-				Bukkit.getScheduler().runTaskAsynchronously(this, () -> teamManagement.displayBelowNameForAll());
+				Main.plugin.getScheduler().runTaskAsynchronously(() -> teamManagement.displayBelowNameForAll());
 				getServer().getPluginManager().registerEvents(teamManagement, this);
 				Bukkit.getLogger().info("teamManagement declared: " + teamManagement);
 			}
@@ -420,5 +426,7 @@ public class Main extends JavaPlugin {
 	public PermissionParentCommand getTeamCommand() {
 		return teamCommand;
 	}
+
+	public WrappedScheduler getScheduler() { return scheduler; }
 
 }

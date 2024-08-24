@@ -1,5 +1,6 @@
 package com.booksaw.betterTeams.events;
 
+import com.booksaw.betterTeams.FoliaUtils;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.customEvents.BelowNameChangeEvent;
@@ -130,9 +131,13 @@ public class MCTeamManagement implements Listener {
 
 	@EventHandler
 	public void playerJoinEvent(PlayerJoinEvent e) {
-		Bukkit.getScheduler().runTaskAsynchronously(Main.plugin, () -> {
-			displayBelowName(e.getPlayer());
-		});
+		   final Player player = e.getPlayer();
+		   final Runnable runnable = () -> displayBelowName(player);
+
+		   if (FoliaUtils.isFolia())
+			       Main.plugin.getScheduler().runTaskAtEntity(player, runnable);
+		   else
+			       Main.plugin.getScheduler().runTaskAsynchronously(runnable);
 	}
 
 	public BelowNameType getType() {

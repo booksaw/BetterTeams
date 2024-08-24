@@ -14,13 +14,13 @@ import com.craftaro.ultimateclaims.claim.Claim;
 import com.craftaro.ultimateclaims.claim.ClaimDeleteReason;
 import com.craftaro.ultimateclaims.member.ClaimMember;
 import com.craftaro.ultimateclaims.member.ClaimRole;
+import me.nahu.scheduler.wrapper.runnable.WrappedRunnable;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
 import java.util.Objects;
@@ -74,14 +74,14 @@ public class UltimateClaimsManager implements Listener {
 				continue;
 			}
 
-			new BukkitRunnable() {
+			new WrappedRunnable() {
 
 				@Override
 				public void run() {
 					ClaimMember member = c.addMember(e.getPlayer(), ClaimRole.MEMBER);
 					JavaPlugin.getPlugin(UltimateClaims.class).getDataHelper().createMember(member);
 				}
-			}.runTaskLater(Main.plugin, 1);
+			}.runTaskLater(Main.plugin.getScheduler(), 1);
 
 		}
 	}
@@ -161,13 +161,13 @@ public class UltimateClaimsManager implements Listener {
 				continue;
 			}
 
-			new BukkitRunnable() {
+			new WrappedRunnable() {
 				
 				@Override
 				public void run() {
 					c.destroy(ClaimDeleteReason.PLAYER);
 				}
-			}.runTask(Main.plugin);
+			}.runTask(Main.plugin.getScheduler());
 			
 
 			if (player.getPlayer().isOnline()) {

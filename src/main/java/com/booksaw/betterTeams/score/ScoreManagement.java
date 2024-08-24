@@ -85,7 +85,7 @@ public class ScoreManagement implements Listener {
 
 	@EventHandler
 	public void onPurge(PrePurgeEvent e) {
-		Bukkit.getScheduler().runTask(Main.plugin, () -> {
+		Main.plugin.getScheduler().runTask(() -> {
 			Main.plugin.getConfig().getStringList("purgeCommands").forEach(cmd -> {
 				if (Main.plugin.getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
 					cmd = PlaceholderAPI.setPlaceholders(null, cmd);

@@ -27,7 +27,7 @@
     <plugins>
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>3.2.4</version>
+        <version>3.5.3</version>
         <executions>
           <execution>
             <phase>package</phase>
@@ -41,6 +41,10 @@
             <relocation>
               <pattern>com.github.benmanes.caffeine</pattern>
               <shadedPattern>booksawshaded.com.github.benmanes.caffeine</shadedPattern>
+            </relocation>
+            <relocation>
+              <pattern>me.nahu.scheduler.wrapper</pattern>
+              <shadedPattern>com.booksaw.betterTeams.lib.foliawrapper</shadedPattern>
             </relocation>
           </relocations>
         </configuration>
@@ -149,4 +153,8 @@
       <scope>provided</scope>
     </dependency>
   </dependencies>
+  <properties>
+    <java.version>20</java.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
 </project>

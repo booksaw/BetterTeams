@@ -1,17 +1,18 @@
 package com.booksaw.betterTeams.commands.teama;
 
 import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.FoliaUtils;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.ParentCommand;
 import com.booksaw.betterTeams.commands.SubCommand;
 import com.booksaw.betterTeams.message.HelpMessage;
+import me.nahu.scheduler.wrapper.runnable.WrappedRunnable;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -207,23 +208,26 @@ public class TeleportTeama extends SubCommand {
 			throw new IllegalArgumentException("Invalid location array - Either one location for all or separate locations for each");
 		}
 
-		new BukkitRunnable() {
+		new WrappedRunnable() {
 
 			@Override
 			public void run() {
 				if (locations.length != 1) {
 					for (int i = 0; i < targetList.size(); i++) {
 						if (locations[i] == null) continue; // Some teams may not have their home set
-						targetList.get(i).teleport(locations[i]);
+						final Player target = targetList.get(i);
+						final Location loc = locations[i];
+
+						FoliaUtils.teleport(target, loc);
 					}
 					return;
 				}
 				for (Player player : targetList) {
-					player.teleport(locations[0]);
+					FoliaUtils.teleport(player, locations[0]);
 				}
 			}
 
-		}.runTask(Main.plugin);
+		}.runTask(Main.plugin.getScheduler());
 
 	}
 

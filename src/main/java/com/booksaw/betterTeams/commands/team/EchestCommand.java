@@ -20,8 +20,7 @@ public class EchestCommand extends TeamSubCommand {
 					+ " this should never occur, report to booksaw");
 		}
 
-		Bukkit.getScheduler().runTask(Main.plugin,
-				() -> Objects.requireNonNull(player.getPlayer().getPlayer()).openInventory(team.getEchest()));
+		Main.plugin.getScheduler().runTask(() -> Objects.requireNonNull(player.getPlayer().getPlayer()).openInventory(team.getEchest()));
 
 		return new CommandResponse(true);
 	}

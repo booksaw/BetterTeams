@@ -1,13 +1,13 @@
 package com.booksaw.betterTeams;
 
 import com.booksaw.betterTeams.message.MessageManager;
+import me.nahu.scheduler.wrapper.runnable.WrappedRunnable;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
@@ -34,7 +34,7 @@ public class UpdateChecker implements Listener {
 	}
 
 	public void checkForUpdate() {
-		(new BukkitRunnable() {
+		(new WrappedRunnable() {
 			@Override
 			public void run() {
 				try {
@@ -57,7 +57,8 @@ public class UpdateChecker implements Listener {
 				latest = false;
 				cancel();
 			}
-		}).runTaskTimerAsynchronously(this.javaPlugin, 0L, 12000L);
+		}).runTaskTimerAsynchronously(Main.plugin.getScheduler(), 1L, 12000L);
+		
 	}
 
 	private boolean isLatestVersion() {

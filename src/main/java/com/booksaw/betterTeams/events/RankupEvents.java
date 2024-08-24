@@ -7,6 +7,7 @@ import com.booksaw.betterTeams.customEvents.DemotePlayerEvent;
 import com.booksaw.betterTeams.customEvents.LevelupTeamEvent;
 import com.booksaw.betterTeams.customEvents.PromotePlayerEvent;
 import me.clip.placeholderapi.PlaceholderAPI;
+import me.nahu.scheduler.wrapper.runnable.WrappedRunnable;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.event.EventHandler;
@@ -43,7 +44,7 @@ public class RankupEvents implements Listener {
 	}
 
 	private void runCommandList(List<String> commands, Team team, String level, OfflinePlayer source) {
-		new BukkitRunnable() {
+		new WrappedRunnable() {
 
 			@Override
 			public void run() {
@@ -70,7 +71,7 @@ public class RankupEvents implements Listener {
 					}
 				}
 			}
-		}.runTask(Main.plugin);
+		}.runTask(Main.plugin.getScheduler());
 
 	}
 
