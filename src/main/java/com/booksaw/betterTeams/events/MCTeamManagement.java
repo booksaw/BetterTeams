@@ -43,6 +43,9 @@ public class MCTeamManagement implements Listener {
 	}
 
 	public void displayBelowName(Player player) {
+		    if (FoliaUtils.isFolia())
+			        return; // Dit me folia deo support scoreboard :(
+
 		player.setScoreboard(board);
 
 		Team team = Team.getTeam(player);
@@ -102,6 +105,8 @@ public class MCTeamManagement implements Listener {
 	 * @param isAsync if the method is being run async or not
 	 */
 	public void remove(Player player, boolean isAsync) {
+		if (FoliaUtils.isFolia())
+			return; // Dit me Folia deo support scoreboard :(
 
 		if (player == null) {
 			return;

@@ -1114,6 +1114,9 @@ public class Team {
 	 * @return the team that has been created
 	 */
 	public org.bukkit.scoreboard.Team getScoreboardTeam(Scoreboard board) {
+		if (FoliaUtils.isFolia())
+			return null; // Dit me Folia deo support scoreboard :(
+
 		if (team != null) {
 			return team;
 		}
