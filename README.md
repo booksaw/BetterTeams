@@ -12,7 +12,7 @@ Create teams to compete to be the best. This plugin is designed to encourage tea
 [View the wiki for this project](https://booksaw.github.io/BetterTeams/)
 [Looking for the Discord Server for support?](https://discord.gg/JF9DNs3)
 
-##Thanks to
+## Thanks to
 - booksaw (Owner plugin)
 - Hellinduction (Support Folia)
 - And all Contributors
