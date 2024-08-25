@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.booksaw.betterTeams</groupId>
   <artifactId>BetterTeams</artifactId>
-  <name>BetterTeams-Folia</name>
+  <name>BetterTeams</name>
   <version>4.10.0</version>
   <description>Create teams to fight to be the best (Folia Support)</description>
   <build>
