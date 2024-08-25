@@ -9,9 +9,9 @@
 		<java.version>20</java.version>
 	</properties>
     <version>4.10.0</version>
-    <name>BetterTeams</name>
+    <name>BetterTeams-Folia</name>
     <packaging>jar</packaging>
-    <description>Create teams to fight to be the best</description>
+    <description>Create teams to fight to be the best (Folia Support)</description>
     <repositories>
         <repository>
             <id>spigot-repo</id>

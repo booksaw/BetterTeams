@@ -1,7 +1,7 @@
-name: BetterTeams
+name: BetterTeams-Folia
 version: ${project.version}
 author: booksaw
-description: A plugin to create teams with other players
+description: A plugin to create teams with other players (Folia Support)
 main: com.booksaw.betterTeams.Main
 website: https://www.spigotmc.org/resources/better-teams.17129/
 api-version: 1.13
