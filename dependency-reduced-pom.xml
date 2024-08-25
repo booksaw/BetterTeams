@@ -3,9 +3,9 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.booksaw.betterTeams</groupId>
   <artifactId>BetterTeams</artifactId>
-  <name>BetterTeams</name>
+  <name>BetterTeams-Folia</name>
   <version>4.10.0</version>
-  <description>Create teams to fight to be the best</description>
+  <description>Create teams to fight to be the best (Folia Support)</description>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <resources>
@@ -51,7 +51,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.0</version>
+        <version>3.13.0</version>
         <configuration>
           <encoding>UTF-8</encoding>
           <source>1.8</source>
@@ -60,14 +60,14 @@
       </plugin>
       <plugin>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>2.3.1</version>
+        <version>3.4.2</version>
         <configuration>
           <outputDirectory>${basedir}/server/plugins</outputDirectory>
         </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>3.3.2</version>
+        <version>3.5.0</version>
         <configuration>
           <reportOutputDirectory>docs\javadocs</reportOutputDirectory>
           <sourcepath>src/main/java</sourcepath>
