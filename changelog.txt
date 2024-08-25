@@ -828,6 +828,7 @@ Features:
 - Added /teama importmessages to import translations from "missingmessages.txt"
 
 Improvements:
+- Update Maven version
 - Added missing Spanish messages (both translations) - Credit LeadVic
 - Added missing Italian messages - Credit YnsanitY
 - Added missing Polish translations - Credit Rain
