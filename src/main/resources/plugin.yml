@@ -1,4 +1,4 @@
-name: BetterTeams-Folia
+name: BetterTeams
 version: ${project.version}
 author: booksaw
 description: A plugin to create teams with other players (Folia Support)
