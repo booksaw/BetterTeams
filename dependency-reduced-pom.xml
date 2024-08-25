@@ -23,7 +23,7 @@
         </excludes>
       </resource>
     </resources>
-    <finalName>BetterTeams-${project.version}</finalName>
+    <finalName>BetterTeams-Folia-${project.version}</finalName>
     <plugins>
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>
