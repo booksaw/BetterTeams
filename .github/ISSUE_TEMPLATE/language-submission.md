@@ -3,7 +3,7 @@ name: Language Submission
 about: Provide support with translations
 title: "[TRANSLATION]"
 labels: enhancement
-assignees: booksaw
+assignees: ''
 
 ---
 
