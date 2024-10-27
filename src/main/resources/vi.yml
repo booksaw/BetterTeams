@@ -5,7 +5,7 @@
 
 # Any placeholders from placeholder API will work in this file
 
-# Credit for contributions to this file: Shelly, Kitohazu, Iamsad_VN, maiminhdung
+# Credit for contributions to this file: Shelly, Kitohazu, Iamsad_VN
 
 invalidArg: '&4Sai câu lệnh kìa'
 inTeam: '&4Bạn cần phải ở trong team để làm vậy'
@@ -358,18 +358,18 @@ admin:
     claim:
       success: '&6Bạn đã chiếm rương đó thay mặt cho nhóm'
     remove:
-      success: '&6Bạn đã gỡ bỏ thành công chiếm hữu từ rương đó'
+      success: '&6Bạn đã gỡ bỏ thành công claim từ rương đó'
       notClaimed: '&4Không có nhóm nào chiếm rương đó'
     all:
-      success: '&6Đã gỡ bỏ tất cả chiếm hữu từ nhóm đó'
+      success: '&6Đã gỡ bỏ tất cả claim từ nhóm đó'
     disable:
-      already: '&4Chiếm hữu rương đã bị vô hiệu hóa'
-      success: '&6Chiếm hữu rương đã được vô hiệu hóa'
+      already: '&4claim rương đã bị vô hiệu hóa'
+      success: '&6claim rương đã được vô hiệu hóa'
     disabled:
       bc: '&6&lTất cả các rương đã chiếm có thể được mở'
     enable:
-      already: '&4Chiếm hữu rương đã được kích hoạt'
-      success: '&6Chiếm hữu rương đã được kích hoạt'
+      already: '&4claim rương đã được kích hoạt'
+      success: '&6claim rương đã được kích hoạt'
     enabled:
       bc: '&6&lTất cả các rương đã chiếm bị khóa'
   teleport:
@@ -406,17 +406,16 @@ baltop:
   syntax: '&b{0}: &6{1} &7({2})'
   divide: '&f...'
 spy:
-  stop: '&6You are no longer spying on team messages'
-  start: '&6You are now spying on team messages'
-  team: '&7[&b{0}&7]&f{1}&f: {2}'
-  ally: '&7[&d{0}&7]&f{1}&f: {2}'
+  stop: "&6Bạn không còn theo dõi tin nhắn nhóm"
+  start: "&6Bạn hiện đang theo dõi tin nhắn nhóm"
+  team: "&7[&b{0}&7]&f{1}&f: {2}"
+  ally: "&7[&d{0}&7]&f{1}&f: {2}"
 uclaim:
-  
-  team: '&4You must be in a team to create a claim'
-  member: '&4You cannot leave your teams claim'
-  kick: '&4You cannot kick members of your own team from your claim'
-  ban: '&4You cannot ban members of your own team from your claim'
-  dissolve: '&4Your team has been disbanded so your claim has been dissolved'
+  team: "&4Bạn phải ở trong một nhóm để tạo một claim"
+  member: "&4Bạn không thể rời khỏi claim của nhóm mình"
+  kick: "&4Bạn không thể đuổi thành viên của nhóm mình khỏi claim của bạn"
+  ban: "&4Bạn không thể cấm thành viên của nhóm mình khỏi claim của bạn"
+  dissolve: "&4Nhóm của bạn đã bị giải tán nên claim của bạn đã bị giải thể"
 help:
   header: '&6---- &bᴅᴀɴʜ sáᴄʜ ʟệɴʜ ᴛᴇᴀᴍ &6----'
   footer: '&6---- &bTrang {0}/{1} - /{2} help <page> &6----'
