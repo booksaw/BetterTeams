@@ -5,7 +5,7 @@
 
 # Any placeholders from placeholder API will work in this file
 
-# Credit for contributions to this file: Shelly, Kitohazu, Iamsad_VN
+# Credit for contributions to this file: Shelly, Kitohazu, Iamsad_VN, maiminhdung
 
 invalidArg: '&4Sai câu lệnh kìa'
 inTeam: '&4Bạn cần phải ở trong team để làm vậy'
@@ -51,7 +51,8 @@ create:
   maxLength: '&4Tên dài lằng nhằng quá, lấy tên gì đó ngắn hơn đi.'
 leave:
   success: '&6Bạn đã rời khỏi team'
-  lastOwner: '&6Bạn là Owner cuối cùng của team, hoặc là bạn thăng chức ai đó hoặc là bạn dùng &b/team disband &6 để Giải Tán Team'
+  lastOwner: '&6Bạn là Owner cuối cùng của team, hoặc là bạn thăng chức ai đó hoặc
+    là bạn dùng &b/team disband &6 để Giải Tán Team'
 announce:
   join: '&3{0} &7đã tham gia đội {1}'
   leave: '&3{0} &7đã rời khỏi đội {1}'
@@ -68,22 +69,27 @@ delhome:
   noHome: '&4Team của bạn chưa căn cứ, hãy dùng /ta'
 disband:
   success: '&6Team của bạn đã giải tán..... Tạm biệt'
-  confirm: '&6Dùng &b/team disband &6thêm một lần nữa để chắc chắn rằng, bạn muốn giải tán team này...'
+  confirm: '&6Dùng &b/team disband &6thêm một lần nữa để chắc chắn rằng, bạn muốn
+    giải tán team này...'
 description:
   success: '&6Bạn đã thay đổi mô tả của Team '
   view: '&6Mô tả của Team: {0}'
   noDesc: '&6Bạn chưa tạo mô tả của Team'
-  noPerm: '&4Bạn mất quyền công dâ-... À nhầm nhầm, bạn không có quyền đổi miêu tả của Team'
+  noPerm: '&4Bạn mất quyền công dâ-... À nhầm nhầm, bạn không có quyền đổi miêu tả
+    của Team'
 name:
   success: '&6Bạn đã đổi tên team'
   view: '&6Tên Team: {0}'
   exists: '&4Team đó đã tồn tại'
-  noPerm: '&4Bạn không có quyền đổi tên Team, đi mà hỏi thằng Owner hay Admin của team á'
+  noPerm: '&4Bạn không có quyền đổi tên Team, đi mà hỏi thằng Owner hay Admin của
+    team á'
 invite:
   success: '&6Người chơi đó đã được mời'
-  invite: '&6Bạn đã được mời vào team của {0} dùng &b/team join <team> &6 để vào team đó'
+  invite: '&6Bạn đã được mời vào team của {0} dùng &b/team join <team> &6 để vào team
+    đó'
   inTeam: '&6Người chơi đó đã có Team'
-  banned: '&6Người chơi đó đã bay màu khỏi team của bạn, và có vẻ như không còn lần 2 để tham gia mất rồi'
+  banned: '&6Người chơi đó đã bay màu khỏi team của bạn, và có vẻ như không còn lần
+    2 để tham gia mất rồi'
   full: '&6Team đầy rồi, kick đứa nào đó ra khỏi team đi rồi mời vào'
   expired: '&4Team của &b{0} &4đã hết hạn'
   hover: '&6Bấm để vào &b{0}'
@@ -181,7 +187,8 @@ ally:
   success: '&6Giờ bạn là đồng minh của họ'
   ally: '&6Giờ Team của bạn là đồng minh của &b{0}'
   requested: '&6Có một lời đề nghị đồng minh'
-  request: '&b{0} &6đã gửi lời đề nghị đồng minh, dùng &b/team ally <team> &6để chấp nhận'
+  request: '&b{0} &6đã gửi lời đề nghị đồng minh, dùng &b/team ally <team> &6để chấp
+    nhận'
   self: '&4Team mình đồng minh chính team mình???'
   from: '&6Bạn có lời đề nghị đồng minh từ {0}'
   noRequests: '&4Bạn không có lời đề nghị nào'
@@ -205,7 +212,8 @@ list:
   body: '&6{0}: &b{1}'
   footer: '&7--- &6dùng &b/team list [Trang] &6để xem thêm &7---'
 setowner:
-  use: '&6Không thể thăng chức người chơi đó, dùng &b/team setowner <player> &6để thăng chức nó lên Owner'
+  use: '&6Không thể thăng chức người chơi đó, dùng &b/team setowner <player> &6để
+    thăng chức nó lên Owner'
   success: '&6Giờ người chơi đó là Owner của team'
   notify: '&6Bạn là Owner của team bạn'
   max: '&4Người chơi đó đã là Owner của team rồi'
@@ -256,119 +264,122 @@ tag:
   maxLength: '&4Cái thẻ tag đó dài quá'
   noPerm: '&4Bạn không có quyền để thay thẻ tag'
 admin:
-  cancel: '&4The command was cancelled by another plugin'
+  cancel: '&4Lệnh đã bị hủy bởi plugin khác'
   tag:
-    success: '&6That teams tag successfully changed'
+    success: '&6Tag của nhóm đó đã được thay đổi thành công'
   setrank:
-    success: '&6That teams rank has been set'
-    'no': '&4That rank either does not exist or is not setup correctly'
+    success: '&6Hạng của nhóm đó đã được đặt'
+    'no': '&4Hạng đó không tồn tại hoặc không được thiết lập đúng'
   config:
-    reload: '&6BetterTeams has been reloaded (If you are having problems when using
-      this command, restart the server)'
+    reload: '&6BetterTeams đã được tải lại (Nếu bạn gặp vấn đề khi sử dụng lệnh này,
+      hãy khởi động lại máy chủ)'
   holo:
     create:
-      success: '&6Hologram created'
+      success: '&6Hologram đã được tạo'
     remove:
-      noHolo: '&4No holograms found'
-      success: '&6Hologram deleted'
+      noHolo: '&4Không tìm thấy hologram'
+      success: '&6Hologram đã bị xóa'
   title:
-    success: '&6that players title has been changed'
-    reset: '&6That players title has been reset'
-  version: '&6Current plugin version: &b{0}'
-  versionstorage: '&6Storage Method: &b{0}'
-  versionversion: '&6Minecraft Version: &b{0}'
-  versionlanguage: '&6Language Selected: &b{0}'
-  versiononline: '&6Online mode: &b{0}'
-  versionplayers: '&6Số người chơi: &b{0}'
-  noTeam: '&4That is not a team'
+    success: '&6Tiêu đề của người chơi đó đã được thay đổi'
+    reset: '&6Tiêu đề của người chơi đó đã được đặt lại'
+  version: '&6Phiên bản plugin hiện tại: &b{0}'
+  versionstorage: '&6Phương pháp lưu trữ: &b{0}'
+  versionversion: '&6Phiên bản Minecraft: &b{0}'
+  versionlanguage: '&6Ngôn ngữ đã chọn: &b{0}'
+  versiononline: '&6Chế độ trực tuyến: &b{0}'
+  versionplayers: '&6Số lượng người chơi: &b{0}'
+  noTeam: '&4Đó không phải là một nhóm'
   home:
-    success: '&6You have been teleported to that teams home'
-    noHome: '&4That team does not have a home set'
+    success: '&6Bạn đã được dịch chuyển đến nhà của nhóm đó'
+    noHome: '&4Nhóm đó không có nhà nào được đặt'
   name:
-    success: '&6The team name has been changed'
+    success: '&6Tên nhóm đã được thay đổi'
   description:
-    success: '&6That teams name has been changed'
-  open:
+    success: '&6Mô tả của nhóm đó đã được thay đổi'  open:
     successopen: '&6Team đó đã mở cổng cho bất kì ai có thể vào'
     successclose: '&6Team đó đã đóng cổng chỉ được mời mới được vào'
   invite:
-    success: '&6That player has been invited to that team'
+    success: '&6Người chơi đó đã được mời vào nhóm đó'
   create:
-    success: '&6That team has been created'
+    success: '&6Nhóm đó đã được tạo'
   join:
-    banned: '&4That player is banned from that team'
-    success: '&6That player has joined the team'
-    notify: '&6You have joined the team &b{0}'
-    full: '&4That team is full'
-  notInTeam: '&6That player cannot be in a team before doing that'
-  inTeam: '&4That player is not in a team'
+    banned: '&4Người chơi đó bị cấm khỏi nhóm đó'
+    success: '&6Người chơi đó đã tham gia nhóm'
+    notify: '&6Bạn đã tham gia nhóm &b{0}'
+    full: '&4Nhóm đó đã đầy'
+  notInTeam: '&6Người chơi đó không thể ở trong một nhóm trước khi làm điều đó'
+  inTeam: '&4Người chơi đó không ở trong một nhóm'
   leave:
-    success: '&6That player has left that team'
-    notify: '&6You have left that team'
+    success: '&6Người chơi đó đã rời khỏi nhóm đó'
+    notify: '&6Bạn đã rời khỏi nhóm đó'
   demote:
-    notify: '&6You have been demoted'
-    success: '&6That player has been demoted'
-    min: '&4That player cannot be demoted any more'
-    maxAdmins: '&4That team already has the max number of admins, remove one before
-      demoting this player'
+    notify: '&6Bạn đã bị hạ cấp'
+    success: '&6Người chơi đó đã bị hạ cấp'
+    min: '&4Người chơi đó không thể bị hạ cấp thêm'
+    maxAdmins: '&4Nhóm đó đã có số lượng quản trị viên tối đa, loại bỏ một quản trị
+      viên trước khi hạ cấp người chơi này'
   promote:
-    max: '&6That player is already the maximum rank'
-    notify: '&6You have been promoted'
-    success: '&6That player has been promoted'
-    owner: '&6It is configured that teams can only have a single owner, do &b/teama
-      setowner <player> &6to set the player as the owner'
-    maxAdmins: '&4That team already has the max number of admins, remove one before
-      promoting that player'
-    maxOwners: '&4That team already has the max number of owners, remove one before
-      promoting that player'
+    max: '&6Người chơi đó đã đạt cấp tối đa'
+    notify: '&6Bạn đã được thăng cấp'
+    success: '&6Người chơi đó đã được thăng cấp'
+    owner: '&6Đã cấu hình rằng nhóm chỉ có thể có một chủ sở hữu, làm &b/teama setowner
+      <player> &6để đặt người chơi làm chủ sở hữu'
+    maxAdmins: '&4Nhóm đó đã có số lượng quản trị viên tối đa, loại bỏ một trước khi
+      thăng cấp người chơi đó'
+    maxOwners: '&4Nhóm đó đã có số lượng chủ sở hữu tối đa, loại bỏ một trước khi
+      thăng cấp người chơi đó'
   setowner:
-    already: '&4That player is already an owner'
-    nonotify: '&6You are no longer owner of the team'
-    success: '&6That player is the new team owner'
-    notify: '&6You are now the owner of your team'
+    already: '&4Người chơi đó đã là chủ sở hữu'
+    nonotify: '&6Bạn không còn là chủ sở hữu của nhóm'
+    success: '&6Người chơi đó là chủ sở hữu mới của nhóm'
+    notify: '&6Bạn hiện là chủ sở hữu của nhóm bạn'
   warps:
-    none: '&4That team has not set any warps'
+    none: '&4Nhóm đó không có điểm dịch chuyển nào'
   setwarp:
-    success: '&6That warp has been set'
-    max: '&6That team has already set the maximum number of warps'
+    success: '&6Điểm dịch chuyển đó đã được đặt'
+    max: '&6Nhóm đó đã đặt số lượng điểm dịch chuyển tối đa'
   purge:
-    confirm: '&6Run that command in the next 10 seconds to confirm, &4THIS CANNOT
-      BE UNDONE AND WILL RESET SCORES FOR ALL TEAMS'
-    success: '&6The teams have been purged'
+    confirm: '&6Chạy lệnh đó trong 10 giây tới để xác nhận, &4ĐIỀU NÀY KHÔNG THỂ HOÀN
+      TÁC VÀ SẼ ĐẶT LẠI ĐIỂM CHO TẤT CẢ CÁC NHÓM'
+    success: '&6Các nhóm đã bị xóa'
   score:
-    tooSmall: '&4The score must be greater than 0'
-    success: '&6That teams score has been changed'
+    tooSmall: '&4Điểm phải lớn hơn 0'
+    success: '&6Điểm của nhóm đó đã được thay đổi'
   bal:
-    toSmall: '&4The balance must be greater than 0'
-    success: '&6That teams balance has been changed'
-  update: '&4There is a new version of better teams released update here: https://www.spigotmc.org/resources/better-teams.17129/'
+    toSmall: '&4Số dư phải lớn hơn 0'
+    success: '&6Số dư của nhóm đó đã được thay đổi'
+  update: '&4Có phiên bản mới của better teams đã được phát hành, cập nhật tại đây:
+    https://www.spigotmc.org/resources/better-teams.17129/'
   disband:
-    success: '&6That team has been disbanded successfully'
+    success: '&6Nhóm đó đã được giải tán thành công'
   color:
-    success: '&6That teams color has been changed'
+    success: '&6Màu của nhóm đó đã được thay đổi'
   chest:
     claim:
-      success: '&6You have claimed that chest on behalf of the team'
+      success: '&6Bạn đã chiếm rương đó thay mặt cho nhóm'
     remove:
-      success: '&6You have successfully removed the claim from that chest'
-      notClaimed: '&4No team has claimed that chest'
+      success: '&6Bạn đã gỡ bỏ thành công chiếm hữu từ rương đó'
+      notClaimed: '&4Không có nhóm nào chiếm rương đó'
     all:
-      success: '&6All claims removed from that team'
+      success: '&6Đã gỡ bỏ tất cả chiếm hữu từ nhóm đó'
     disable:
-      already: '&4Chest claims are already disabled'
-      success: '&6Chest claiming has been disabled'
+      already: '&4Chiếm hữu rương đã bị vô hiệu hóa'
+      success: '&6Chiếm hữu rương đã được vô hiệu hóa'
     disabled:
-      bc: '&6&lAll claimed chests are able to be opened'
+      bc: '&6&lTất cả các rương đã chiếm có thể được mở'
     enable:
-      already: '&4Chest claims are already enabled'
-      success: '&6Chest claiming has been enabled'
+      already: '&4Chiếm hữu rương đã được kích hoạt'
+      success: '&6Chiếm hữu rương đã được kích hoạt'
     enabled:
-      bc: '&6&lAll claimed chests are locked'
+      bc: '&6&lTất cả các rương đã chiếm bị khóa'
   teleport:
-    success: '&6All online members of that team were teleported'
     noWorld: '&4Không tìm thấy thế giới được chỉ định'
-    all.success: '&6Tất cả thành viên trực tuyến của tất cả các đội đã được di chuyển'
-    all.home.success: '&6Tất cả thành viên trực tuyến của tất cả các đội có nhà đã được di chuyển'
+    success: '&6Tất cả thành viên trực tuyến của nhóm đó đã được dịch chuyển'
+    all:
+      success: '&6Tất cả thành viên trực tuyến của tất cả các đội đã được di chuyển'
+      home:
+        success: '&6Tất cả thành viên trực tuyến của tất cả các đội có nhà đã được
+          di chuyển'
     player:
       success: '&6Người chơi đó đã được dịch chuyển'
   ally:
@@ -407,7 +418,7 @@ uclaim:
   ban: '&4You cannot ban members of your own team from your claim'
   dissolve: '&4Your team has been disbanded so your claim has been dissolved'
 help:
-  header: '&6---- &bBetterTeams Help &6----'
+  header: '&6---- &bᴅᴀɴʜ sáᴄʜ ʟệɴʜ ᴛᴇᴀᴍ &6----'
   footer: '&6---- &bTrang {0}/{1} - /{2} help <page> &6----'
   description: Xem và thay đổi miêu tả Team bạn
   ban: Làm pay màu người chơi khỏi team bạn
@@ -550,3 +561,44 @@ command:
   debug: debug
   help: help
   holo: holo
+helpArg:
+  delhome: ''
+  echest: ''
+  color: <mã màu>
+  allychat: '[tin nhắn]'
+  description: '[mô tả]'
+  setwarp: <tên> [mật khẩu]
+  title: '[người chơi] [tiêu đề]'
+  bal: ''
+  ban: <người chơi>
+  promote: <người chơi>
+  warps: ''
+  top: ''
+  ally: <nhóm>
+  rankup: ''
+  leave: ''
+  sethome: ''
+  create: <tên> [tag]
+  rank: '[nhóm]'
+  join: <nhóm>
+  tag: '[tag]'
+  disband: ''
+  info: '[nhóm/người chơi]'
+  delwarp: <tên> [mật khẩu]
+  chest: ''
+  neutral: <nhóm>
+  pvp: ''
+  baltop: ''
+  list: '[trang]'
+  home: ''
+  help: ''
+  unban: <người chơi>
+  demote: <người chơi>
+  kick: <người chơi>
+  chat: '[tin nhắn]'
+  name: <tên>
+  deposit: <số tiền>
+  invite: <người chơi>
+  open: ''
+  warp: <tên>
+  withdraw: <số tiền>
