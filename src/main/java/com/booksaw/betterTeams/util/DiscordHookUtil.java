@@ -14,7 +14,7 @@ import java.util.List;
  * Class for sending the json payload to discord.
  * @author Ceymikey
  */
-public class SendPayload {
+public class DiscordHookUtil {
 
     private String url;
     private String title;
@@ -22,48 +22,48 @@ public class SendPayload {
     private int color = 12370112; // Default color - gray
     private List<Field> fields = new ArrayList<>();
 
-    private SendPayload(Builder builder) {
-        this.url = builder.url;
-        this.title = builder.title;
-        this.description = builder.description;
-        this.color = builder.color;
-        this.fields = builder.fields;
+    private DiscordHookUtil(EmbedBuilder embedBuilder) {
+        this.url = embedBuilder.url;
+        this.title = embedBuilder.title;
+        this.description = embedBuilder.description;
+        this.color = embedBuilder.color;
+        this.fields = embedBuilder.fields;
     }
 
-    public static class Builder {
+    public static class EmbedBuilder {
         private String url;
         private String title;
         private String description;
         private int color = 12370112; // Default color - gray
         private List<Field> fields = new ArrayList<>();
 
-        public Builder setUrl(String url) {
+        public EmbedBuilder setUrl(String url) {
             this.url = url;
             return this;
         }
 
-        public Builder setTitle(String title) {
+        public EmbedBuilder setTitle(String title) {
             this.title = title;
             return this;
         }
 
-        public Builder setDescription(String description) {
+        public EmbedBuilder setDescription(String description) {
             this.description = description;
             return this;
         }
 
-        public Builder setColor(int color) {
+        public EmbedBuilder setColor(int color) {
             this.color = color;
             return this;
         }
 
-        public Builder addField(String name, String value) {
+        public EmbedBuilder addField(String name, String value) {
             fields.add(new Field(name, value));
             return this;
         }
 
-        public SendPayload inject() {
-            return new SendPayload(this);
+        public DiscordHookUtil inject() {
+            return new DiscordHookUtil(this);
         }
     }
 
@@ -77,10 +77,8 @@ public class SendPayload {
         }
     }
 
-    /**
-     * Injects the payload
-     */
-    public void injectJsonPayload() {
+    /* Injects the payload */
+    public void sendEmbed() {
         try {
             JSONObject embed = new JSONObject();
             embed.put("title", title);

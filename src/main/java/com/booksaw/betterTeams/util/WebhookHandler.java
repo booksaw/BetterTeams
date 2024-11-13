@@ -14,7 +14,7 @@ import org.bukkit.event.Listener;
  *
  * @author ceymikey
  */
-public class WebhookPayload implements Listener {
+public class WebhookHandler implements Listener {
 
     private final String configURL = Main.plugin.getConfig().getString("hookURL");
     private final Boolean createHook = Main.plugin.getConfig().getBoolean("create-hook");
@@ -74,12 +74,12 @@ public class WebhookPayload implements Listener {
      * rather than using an existing library.
      */
     public void sendWebhookMessage(String title, String description) {
-        DiscordHookUtil payload = new DiscordHookUtil.Builder()
+        DiscordHookUtil discordUtil = new DiscordHookUtil.EmbedBuilder()
                 .setUrl(configURL)
                 .setTitle(title)
                 .setDescription(description)
                 .setColor(12370112)
                 .inject();
-        payload.injectJsonPayload();
+        discordUtil.sendEmbed();
     }
 }
