@@ -1,9 +1,9 @@
 package com.booksaw.betterTeams.events;
 
-import java.util.Map.Entry;
-import java.util.Objects;
-import java.util.UUID;
-
+import com.booksaw.betterTeams.Main;
+import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.customEvents.BelowNameChangeEvent;
+import com.booksaw.betterTeams.customEvents.BelowNameChangeEvent.ChangeType;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,10 +13,9 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team.Option;
 import org.bukkit.scoreboard.Team.OptionStatus;
 
-import com.booksaw.betterTeams.Main;
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.customEvents.BelowNameChangeEvent;
-import com.booksaw.betterTeams.customEvents.BelowNameChangeEvent.ChangeType;
+import java.util.Map.Entry;
+import java.util.Objects;
+import java.util.UUID;
 
 public class MCTeamManagement implements Listener {
 
@@ -88,7 +87,7 @@ public class MCTeamManagement implements Listener {
 
 	/**
 	 * Remove a player from an async thread
-	 * 
+	 *
 	 * @param player
 	 */
 	public void remove(Player player) {
@@ -109,6 +108,10 @@ public class MCTeamManagement implements Listener {
 
 		Team team = Team.getTeam(player);
 		if (team == null) {
+			return;
+		}
+
+		if (!team.getScoreboardTeam(board).hasEntry(player.getName())) {
 			return;
 		}
 
@@ -166,13 +169,13 @@ public class MCTeamManagement implements Listener {
 		public static BelowNameType getType(String string) {
 
 			switch (string.toLowerCase()) {
-			case "prefix":
-			case "true":
-				return PREFIX;
-			case "suffix":
-				return SUFFIX;
-			default:
-				return FALSE;
+				case "prefix":
+				case "true":
+					return PREFIX;
+				case "suffix":
+					return SUFFIX;
+				default:
+					return FALSE;
 			}
 		}
 	}

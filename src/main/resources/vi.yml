@@ -5,7 +5,7 @@
 
 # Any placeholders from placeholder API will work in this file
 
-# Credit for contributions to this file: Shelly and Kitohazu
+# Credit for contributions to this file: Shelly, Kitohazu, Iamsad_VN
 
 invalidArg: '&4Sai câu lệnh kìa'
 inTeam: '&4Bạn cần phải ở trong team để làm vậy'
@@ -86,6 +86,7 @@ invite:
   banned: '&6Người chơi đó đã bay màu khỏi team của bạn, và có vẻ như không còn lần 2 để tham gia mất rồi'
   full: '&6Team đầy rồi, kick đứa nào đó ra khỏi team đi rồi mời vào'
   expired: '&4Team của &b{0} &4đã hết hạn'
+  hover: '&6Bấm để vào &b{0}'
 join:
   success: '&6Bạn đã vào team đó'
   notify: '&6Chào mừng, &b{0} &6đến Team của chúng ta!'
@@ -118,6 +119,8 @@ info:
   score: '&6Số điểm: &b{0}'
   money: '&6Quỹ của team: &b{0}'
   ally: '&6Đồng minh: &b{0}'
+  online: '&a'
+  offline: '&c'
 kick:
   success: '&6Người chơi đó bị kick'
   notify: '&6Bạn đã bị kick khỏi team {0}'
@@ -275,6 +278,8 @@ admin:
   versionstorage: '&6Storage Method: &b{0}'
   versionversion: '&6Minecraft Version: &b{0}'
   versionlanguage: '&6Language Selected: &b{0}'
+  versiononline: '&6Online mode: &b{0}'
+  versionplayers: '&6Số người chơi: &b{0}'
   noTeam: '&4That is not a team'
   home:
     success: '&6You have been teleported to that teams home'
@@ -364,6 +369,16 @@ admin:
     noWorld: '&4Không tìm thấy thế giới được chỉ định'
     all.success: '&6Tất cả thành viên trực tuyến của tất cả các đội đã được di chuyển'
     all.home.success: '&6Tất cả thành viên trực tuyến của tất cả các đội có nhà đã được di chuyển'
+    player:
+      success: '&6Người chơi đó đã được dịch chuyển'
+  ally:
+    same: '&4Bạn không thể biến một đội thành đồng minh của chính nó'
+    already: '&4Những đội đó đã là đồng minh'
+    success: '&6Hai đội đó bây giờ là đồng minh'
+  neutral:
+    same: '&4Bạn không thể vào cùng một đội hai lần'
+    not: '&4Những đội đó không phải là đồng minh'
+    success: '&6Những đội đó không còn là đồng minh'
 nametag:
   
   syntax: '&6&l{0}&r '
@@ -392,7 +407,8 @@ uclaim:
   ban: '&4You cannot ban members of your own team from your claim'
   dissolve: '&4Your team has been disbanded so your claim has been dissolved'
 help:
-  
+  header: '&6---- &bBetterTeams Help &6----'
+  footer: '&6---- &bTrang {0}/{1} - /{2} help <page> &6----'
   description: Xem và thay đổi miêu tả Team bạn
   ban: Làm pay màu người chơi khỏi team bạn
   home: Dịch chuyển đến căn cứ của Team
@@ -409,7 +425,7 @@ help:
   invite: Mời người chơi vào Team của bạn
   disband: Giải tán Team của bạn
   open: Bật/tắt chế độ ai cũng vào được Team của bạn
-  info: Xem thông tin của Người chơi / Team 
+  info: Xem thông tin của Người chơi / Team
   color: Đổi màu Team
   deposit: Bỏ tiền vào Team của Bạn
   bal: Xem Tiền của Team
@@ -436,6 +452,45 @@ help:
   removeall: Xoá tất cả các rương được chiếm (Không nên dùng)
   claim: Claim chest mà bạn đang đứng (không nên dùng)
   remove: Xoá team claim của bạn (không nên dùng)
+  teamadmin:
+    echest: Xem và chỉnh sửa ender chest của đội đó
+    color: Thay đổi màu của đội đó
+    teleport: Dịch chuyển mục tiêu được chỉ định đến vị trí được chỉ định (hoặc vị
+      trí của người dùng lệnh)
+    description: Thay đổi mô tả đội được chỉ định
+    setwarp: Đặt một warp cho đội đó
+    purge: Đặt lại điểm số và tiền cho tất cả các đội, nếu chỉ định một giá trị (VD
+      là tiền) thì giá trị đó sẽ được đặt lại
+    title: Thay đổi tiêu đề của người chơi thành tiêu đề được chỉ định
+    setrank: Đặt cấp độ của đội được chỉ định
+    promote: Thăng cấp người chơi trong đội của họ
+    score:
+      add: Thêm số tiền được chỉ định vào điểm của người chơi đó
+      help: Bạn đang xem cái này :)
+      set: Đặt điểm của đội được chỉ định
+      remove: Xóa số điểm được chỉ định khỏi điểm của người chơi
+    reload: Tải lại config của BetterTeams
+    setowner: Đặt người chơi trở thành Owner của team của họ
+    ally: Đặt hai đội làm đồng minh của nhau
+    leave: Bắt người chơi phải rời đội
+    neutral: Đặt hai đội không còn là đồng minh
+    chatspy: Theo dõi tin nhắn của team
+    version: Kiểm tra phiên bản Plugin
+    home: Dịch chuyển đến nhà của đội khác
+    help: Bạn đang xem cái này :)
+    demote: Hạ cấp một người chơi trong đội của họ
+    create: Tạo một đội mà không có Owner
+    join: Bắt người chơi phải vào đội
+    tag: Thay đổi tag của đội được chỉ định
+    disband: Giải tán đội được chỉ định§c ĐIỀU NÀY KHÔNG THỂ KHÔI PHỤC!!!!!
+    delwarp: Xóa warp đó khỏi đội của bạn
+    debug: Kiểm tra phiên bản của plugin
+    name: Đặt tên cho đội được chỉ định
+    invite: Mời người chơi đến đội được chỉ định
+    open: Bật/Tắt trạng thái tham gia của team
+    warp: Dịch chuyển đến warp của team
+    chest: ''
+    money: ''
 command:
   
   create: create
@@ -492,3 +547,6 @@ command:
   deposit: deposit
   bal: bal
   withdraw: withdraw
+  debug: debug
+  help: help
+  holo: holo

@@ -4,7 +4,7 @@
   <groupId>com.booksaw.betterTeams</groupId>
   <artifactId>BetterTeams</artifactId>
   <name>BetterTeams</name>
-  <version>4.9.4</version>
+  <version>4.10.0</version>
   <description>Create teams to fight to be the best</description>
   <build>
     <sourceDirectory>src</sourceDirectory>

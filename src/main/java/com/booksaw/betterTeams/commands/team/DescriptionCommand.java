@@ -21,7 +21,7 @@ public class DescriptionCommand extends TeamSubCommand {
 	public CommandResponse onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
 
 		if (args.length == 0) {
-			if (team.getDescription() != null && !team.getDescription().equals("")) {
+			if (team.getDescription() != null && !team.getDescription().isEmpty()) {
 				return new CommandResponse(true,
 						new ReferencedFormatMessage("description.view", team.getDescription()));
 			} else {
@@ -31,8 +31,9 @@ public class DescriptionCommand extends TeamSubCommand {
 		}
 
 		if (teamPlayer.getRank().value < getRequiredRank().value) {
-			if (team.getDescription() != null && !team.getDescription().equals("")) {
-				MessageManager.sendMessageF(teamPlayer.getPlayer().getPlayer(), "description.view",
+
+			if (team.getDescription() != null && !team.getDescription().isEmpty()) {
+				MessageManager.sendMessage(teamPlayer.getPlayer().getPlayer(), "description.view",
 						team.getDescription());
 			} else {
 				MessageManager.sendMessage(teamPlayer.getPlayer().getPlayer(), "description.noDesc");

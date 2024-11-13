@@ -1,11 +1,12 @@
 package com.booksaw.betterTeams.team;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
+import com.booksaw.betterTeams.Main;
+import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.customEvents.CreateTeamEvent;
+import com.booksaw.betterTeams.customEvents.PrePurgeEvent;
+import com.booksaw.betterTeams.events.ChestManagement;
+import com.booksaw.betterTeams.team.storage.team.TeamStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -17,12 +18,7 @@ import org.bukkit.inventory.InventoryHolder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import com.booksaw.betterTeams.Main;
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.customEvents.PrePurgeEvent;
-import com.booksaw.betterTeams.events.ChestManagement;
-import com.booksaw.betterTeams.team.storage.team.TeamStorage;
+import java.util.*;
 
 public abstract class TeamManager {
 	/**
@@ -109,6 +105,12 @@ public abstract class TeamManager {
 	 */
 	@Nullable
 	public Team getTeam(@NotNull OfflinePlayer player) {
+
+		// checking if the player is in a loaded team (save hitting secondary storage every time)
+		Optional<Team> possibleTeam = loadedTeams.values().stream().filter(team -> team.getMembers().contains(player)).findFirst();
+		if (possibleTeam.isPresent()) {
+			return possibleTeam.get();
+		}
 
 		if (!isInTeam(player)) {
 			return null;

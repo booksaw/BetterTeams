@@ -1,5 +1,18 @@
 package com.booksaw.betterTeams.commands;
 
+import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.Main;
+import com.booksaw.betterTeams.message.MessageManager;
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ClickEvent.Action;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.chat.hover.content.Text;
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -9,21 +22,6 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.logging.Level;
-
-import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
-import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.Main;
-import com.booksaw.betterTeams.message.MessageManager;
-
-import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.ClickEvent.Action;
-import net.md_5.bungee.api.chat.HoverEvent;
-import net.md_5.bungee.api.chat.TextComponent;
-import net.md_5.bungee.api.chat.hover.content.Text;
 
 public class HelpCommand extends SubCommand {
 
@@ -89,8 +87,7 @@ public class HelpCommand extends SubCommand {
 			}
 		}
 
-		MessageManager.sendMessageF(sender, "help.footer", Integer.toString(page + 1), Integer.toString(maxPage),
-				command.getCommand());
+		MessageManager.sendMessage(sender, "help.footer", page + 1, maxPage, command.getCommand());
 
 		return null;
 	}

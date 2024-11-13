@@ -3,13 +3,12 @@
  */
 package com.booksaw.betterTeams.commands.teama;
 
-import java.util.List;
-
-import org.bukkit.command.CommandSender;
-
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.SubCommand;
+import org.bukkit.command.CommandSender;
+
+import java.util.List;
 
 public class AllyTeama extends SubCommand {
 

@@ -17,7 +17,7 @@ public class TitlePlaceholderProvider implements IndividualTeamPlayerPlaceholder
 	@Override
 	public String getPlaceholderForTeamPlayer(Team team, TeamPlayer player) {
 		
-		if (player.getTitle() == null || player.getTitle().length() == 0) {
+		if (player.getTitle() == null || player.getTitle().isEmpty()) {
 			return MessageManager.getMessage("placeholder.noTitle");
 		}
 		

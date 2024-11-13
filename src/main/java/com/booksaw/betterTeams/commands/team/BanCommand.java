@@ -1,19 +1,13 @@
 package com.booksaw.betterTeams.commands.team;
 
-import java.util.List;
-import java.util.Objects;
-
+import com.booksaw.betterTeams.*;
+import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
+import com.booksaw.betterTeams.message.MessageManager;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 
-import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.Main;
-import com.booksaw.betterTeams.PlayerRank;
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.Utils;
-import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
-import com.booksaw.betterTeams.message.MessageManager;
+import java.util.List;
+import java.util.Objects;
 
 public class BanCommand extends TeamSubCommand {
 
@@ -41,7 +35,7 @@ public class BanCommand extends TeamSubCommand {
 		if (team != otherTeam) {
 			team.banPlayer(player);
 			if (player.isOnline()) {
-				MessageManager.sendMessageF((CommandSender) player.getPlayer(), "ban.notify", team.getName());
+				MessageManager.sendMessage(player.getPlayer(), "ban.notify", team.getName());
 			}
 			return new CommandResponse("ban.success");
 		}
@@ -58,7 +52,7 @@ public class BanCommand extends TeamSubCommand {
 		team.banPlayer(player);
 
 		if (player.isOnline()) {
-			MessageManager.sendMessageF(player.getPlayer(), "ban.notify", team.getName());
+			MessageManager.sendMessage(player.getPlayer(), "ban.notify", team.getName());
 
 			if (Main.plugin.getConfig().getBoolean("titleRemoval")) {
 				player.getPlayer().sendTitle(" ", MessageManager.getMessage("ban.title"), 10, 100, 20);

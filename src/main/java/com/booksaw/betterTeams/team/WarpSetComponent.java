@@ -6,7 +6,7 @@ import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.Warp;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
 
-public class WarpListComponent extends ListTeamComponent<Warp> {
+public class WarpSetComponent extends SetTeamComponent<Warp> {
 
 	@Override
 	public void load(TeamStorage section) {
@@ -47,7 +47,7 @@ public class WarpListComponent extends ListTeamComponent<Warp> {
 	
 
 	public Warp get(String name) {
-		for(Warp warp : new ArrayList<>(list)) {
+		for(Warp warp : new ArrayList<>(set)) {
 			if(warp.getName().equalsIgnoreCase(name)) {
 				return warp;
 			}

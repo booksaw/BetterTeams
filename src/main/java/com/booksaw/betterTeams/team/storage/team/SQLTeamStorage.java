@@ -1,23 +1,18 @@
 package com.booksaw.betterTeams.team.storage.team;
 
+import com.booksaw.betterTeams.*;
+import com.booksaw.betterTeams.database.TableName;
+import com.booksaw.betterTeams.team.storage.storageManager.SQLStorageManager;
+import org.bukkit.Bukkit;
+import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.inventory.Inventory;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
-import org.bukkit.Bukkit;
-import org.bukkit.configuration.InvalidConfigurationException;
-import org.bukkit.inventory.Inventory;
-
-import com.booksaw.betterTeams.PlayerRank;
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.Utils;
-import com.booksaw.betterTeams.Warp;
-import com.booksaw.betterTeams.database.TableName;
-import com.booksaw.betterTeams.team.storage.storageManager.SQLStorageManager;
 
 public class SQLTeamStorage extends TeamStorage {
 
@@ -161,7 +156,7 @@ public class SQLTeamStorage extends TeamStorage {
 	public void getEchestContents(Inventory inventory) {
 
 		String result = storageManager.getDatabase().getResult("echest", TableName.TEAM, getCondition());
-		if (result == null || result.length() == 0) {
+		if (result == null || result.isEmpty()) {
 			return;
 		}
 		try {
@@ -176,8 +171,9 @@ public class SQLTeamStorage extends TeamStorage {
 		String serial = Utils.serializeInventory(inventory);
 		serial = serial.replace("\\", "\\\\");
 		serial = serial.replace("\"", "\\\"");
-		storageManager.getDatabase().executeStatement("UPDATE ? SET echest = \"" + serial + "\" WHERE ?",
-				TableName.TEAM.toString(), getCondition());
+		serial = "\"" + serial + "\"";
+		storageManager.getDatabase().executeStatement("UPDATE ? SET echest = ? WHERE ?",
+				TableName.TEAM.toString(), serial, getCondition());
 
 	}
 
@@ -186,8 +182,8 @@ public class SQLTeamStorage extends TeamStorage {
 
 		List<String> toReturn = new ArrayList<>();
 
-		try (PreparedStatement ps = storageManager.getDatabase().selectWhere("*", TableName.WARPS, getCondition())){
-			
+		try (PreparedStatement ps = storageManager.getDatabase().selectWhere("*", TableName.WARPS, getCondition())) {
+
 			ResultSet result = ps.executeQuery();
 			if (!result.first()) {
 				return toReturn;
@@ -210,7 +206,7 @@ public class SQLTeamStorage extends TeamStorage {
 		List<String> toReturn = new ArrayList<>();
 
 		try (PreparedStatement ps = storageManager.getDatabase().selectWhere("*", TableName.CHESTCLAIMS, getCondition())) {
-			
+
 			ResultSet result = ps.executeQuery();
 			if (!result.first()) {
 				return toReturn;

@@ -1,22 +1,16 @@
 package com.booksaw.betterTeams;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.annotation.Nullable;
-
 import com.booksaw.betterTeams.customEvents.*;
+import com.booksaw.betterTeams.exceptions.CancelledEventException;
+import com.booksaw.betterTeams.message.Message;
+import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
+import com.booksaw.betterTeams.message.StaticMessage;
+import com.booksaw.betterTeams.team.*;
+import com.booksaw.betterTeams.team.storage.StorageType;
+import com.booksaw.betterTeams.team.storage.team.StoredTeamValue;
+import com.booksaw.betterTeams.team.storage.team.TeamStorage;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -25,24 +19,10 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
 
-import com.booksaw.betterTeams.exceptions.CancelledEventException;
-import com.booksaw.betterTeams.message.Message;
-import com.booksaw.betterTeams.message.MessageManager;
-import com.booksaw.betterTeams.message.StaticMessage;
-import com.booksaw.betterTeams.team.AllyListComponent;
-import com.booksaw.betterTeams.team.AllyRequestComponent;
-import com.booksaw.betterTeams.team.BanListComponent;
-import com.booksaw.betterTeams.team.ChestClaimComponent;
-import com.booksaw.betterTeams.team.EChestComponent;
-import com.booksaw.betterTeams.team.LocationListComponent;
-import com.booksaw.betterTeams.team.MemberListComponent;
-import com.booksaw.betterTeams.team.MoneyComponent;
-import com.booksaw.betterTeams.team.ScoreComponent;
-import com.booksaw.betterTeams.team.TeamManager;
-import com.booksaw.betterTeams.team.WarpListComponent;
-import com.booksaw.betterTeams.team.storage.StorageType;
-import com.booksaw.betterTeams.team.storage.team.StoredTeamValue;
-import com.booksaw.betterTeams.team.storage.team.TeamStorage;
+import javax.annotation.Nullable;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * This class is used to manage a team and all of it's participants
@@ -111,18 +91,17 @@ public class Team {
 	}
 
 	public static Location getClaimingLocation(Block block) {
-		if(block.getType() != Material.CHEST) {
+		if (block.getType() != Material.CHEST) {
 			return null;
 		}
 		return TEAMMANAGER.getClaimingLocation(block);
 	}
 
 	/**
-	 * @see Team#getClaimingTeam(Location) Used to get the team which has claimed
-	 *      the provided chest, will return null if that location is not claimed
-	 *
 	 * @param location the location of the chest - must already be normalised
 	 * @return The team which has claimed that chest
+	 * @see Team#getClaimingTeam(Location) Used to get the team which has claimed
+	 * the provided chest, will return null if that location is not claimed
 	 */
 	@Deprecated
 	public static Team getClamingTeam(Location location) {
@@ -133,7 +112,7 @@ public class Team {
 	 * This no longer produces the expected result when the team manager is using
 	 * anything but the flatfile storage method. Other methods should be used This
 	 * is as not all teams are loaded at any point in time.
-	 * 
+	 *
 	 * @return A list of loaded teams
 	 */
 	@Deprecated
@@ -152,7 +131,7 @@ public class Team {
 
 	/**
 	 * Used to check if the provided team name is a valid name for a team
-	 * 
+	 *
 	 * @param name The name of the team
 	 * @return If the team name is valid
 	 */
@@ -223,12 +202,12 @@ public class Team {
 	/**
 	 * tracks and provides utility methods relating to the members of this team
 	 */
-	private MemberListComponent members;
+	private MemberSetComponent members;
 
 	/**
 	 * Used to track the allies of this team
 	 */
-	private final AllyListComponent allies;
+	private final AllySetComponent allies;
 
 	/**
 	 * This is a list of invited players to this team since the last restart of the
@@ -239,7 +218,7 @@ public class Team {
 	/**
 	 * This is used to store all players which are banned from the team
 	 */
-	private final BanListComponent bannedPlayers;
+	private final BanSetComponent bannedPlayers;
 
 	/**
 	 * Used to track the chests claimed by this team
@@ -283,13 +262,13 @@ public class Team {
 
 	private String tag;
 
-	private WarpListComponent warps;
+	private WarpSetComponent warps;
 
 	private org.bukkit.scoreboard.Team team;
 
 	/**
 	 * this is used to load a team from the configuration file
-	 * 
+	 *
 	 * @param id the ID of the team to load
 	 */
 	public Team(UUID id) {
@@ -319,10 +298,10 @@ public class Team {
 
 		color = ChatColor.getByChar(colorStr.charAt(0));
 
-		members = new MemberListComponent();
+		members = new MemberSetComponent();
 		members.load(storage);
 
-		allies = new AllyListComponent();
+		allies = new AllySetComponent();
 		allies.load(storage);
 
 		score = new ScoreComponent();
@@ -334,18 +313,18 @@ public class Team {
 		echest = new EChestComponent();
 		echest.load(storage);
 
-		bannedPlayers = new BanListComponent();
+		bannedPlayers = new BanSetComponent();
 		bannedPlayers.load(storage);
 
 		String teamHomeStr = storage.getString(StoredTeamValue.HOME);
 		if (teamHomeStr != null && !teamHomeStr.equals("")) {
-			teamHome = LocationListComponent.getLocation(teamHomeStr);
+			teamHome = LocationSetComponent.getLocation(teamHomeStr);
 		}
 
 		requests = new AllyRequestComponent();
 		requests.load(storage);
 
-		warps = new WarpListComponent();
+		warps = new WarpSetComponent();
 		warps.load(storage);
 
 		claims = new ChestClaimComponent();
@@ -372,7 +351,7 @@ public class Team {
 	 * This is a private method as the creation of a new team should be done by the
 	 * Team.createNewTeam(name) method
 	 * </p>
-	 * 
+	 *
 	 * @param name  The selected name for the team
 	 * @param id    The UUID of the team
 	 * @param owner The owner of the team (whoever initiated the creation of the
@@ -416,14 +395,14 @@ public class Team {
 
 		requests = new AllyRequestComponent();
 
-		warps = new WarpListComponent();
+		warps = new WarpSetComponent();
 
 		claims = new ChestClaimComponent();
 		claims.save(storage);
 
-		allies = new AllyListComponent();
+		allies = new AllySetComponent();
 
-		members = new MemberListComponent();
+		members = new MemberSetComponent();
 		if (owner != null) {
 			members.add(this, new TeamPlayer(owner, PlayerRank.OWNER));
 		}
@@ -432,7 +411,7 @@ public class Team {
 		money = new MoneyComponent();
 		echest = new EChestComponent();
 
-		bannedPlayers = new BanListComponent();
+		bannedPlayers = new BanSetComponent();
 		savePlayers();
 		level = 1;
 		storage.set(StoredTeamValue.LEVEL, 1);
@@ -536,7 +515,7 @@ public class Team {
 			throw new IllegalArgumentException("Changing tag was cancelled by another plugin");
 		}
 		tag = event.getNewTeamTag();
-		
+
 		this.tag = tag;
 		getStorage().set(StoredTeamValue.TAG, tag);
 
@@ -644,7 +623,7 @@ public class Team {
 		}
 	}
 
-	public MemberListComponent getMembers() {
+	public MemberSetComponent getMembers() {
 		return members;
 	}
 
@@ -683,7 +662,6 @@ public class Team {
 	 * method)
 	 *
 	 * @param p the player to remove from the team
-	 * 
 	 * @return If the player was removed from the team
 	 */
 	public boolean removePlayer(TeamPlayer p) {
@@ -707,10 +685,13 @@ public class Team {
 	 *
 	 * @param player the player to search for
 	 * @return the team player object for that player [null - player is not in the
-	 *         team]
+	 * team]
 	 */
 	@Nullable
 	public TeamPlayer getTeamPlayer(OfflinePlayer player) {
+		if (player == null) {
+			return null;
+		}
 		return members.getTeamPlayer(player);
 	}
 
@@ -719,7 +700,7 @@ public class Team {
 	 *
 	 * @param rank the rank to search for
 	 * @return a list of players which have that rank [emtpy list - no players have
-	 *         that rank]
+	 * that rank]
 	 */
 	public List<TeamPlayer> getRank(PlayerRank rank) {
 		return members.getRank(rank);
@@ -820,7 +801,7 @@ public class Team {
 				}
 				invitedPlayers.remove(uniqueId);
 
-				MessageManager.sendMessageF(p, "invite.expired", getName());
+				MessageManager.sendMessage(p, "invite.expired", getName());
 			}
 		}.runTaskLaterAsynchronously(Main.plugin, invite * 20L);
 
@@ -901,7 +882,7 @@ public class Team {
 
 	public void setTeamHome(Location teamHome) {
 		this.teamHome = teamHome;
-		getStorage().set(StoredTeamValue.HOME, LocationListComponent.getString(teamHome));
+		getStorage().set(StoredTeamValue.HOME, LocationSetComponent.getString(teamHome));
 	}
 
 	public void deleteTeamHome() {
@@ -965,7 +946,7 @@ public class Team {
 		}
 
 		// These are variables which may be modified by TeamPreMessageEvent
-		List<TeamPlayer> recipients = members.getClone();
+		Set<TeamPlayer> recipients = members.getClone();
 		recipients.removeIf(teamPlayer -> !teamPlayer.getPlayer().isOnline()); // Offline players won't be recipients
 		String format = getChatSyntax(sender);
 		String prefix = sender.getPrefix(returnTo);
@@ -1002,7 +983,7 @@ public class Team {
 				continue;
 			}
 
-			MessageManager.sendMessageF(temp, "spy.team", getName(), sender.getPlayer().getPlayer().getName(), message);
+			MessageManager.sendMessage(temp, "spy.team", getName(), sender.getPlayer().getPlayer().getName(), message);
 		}
 		if (TEAMMANAGER.isLogChat()) {
 			Bukkit.getLogger().info("[BetterTeams]" + fMessage);
@@ -1011,17 +992,18 @@ public class Team {
 		// Notify third party plugins that a message has been dispatched
 		Bukkit.getPluginManager().callEvent(new TeamMessageEvent(this, sender, fMessage, teamPreMessageEvent.getRecipients()));
 	}
-	
+
 	/**
 	 * Used to get the chat syntax and apply placeholders when possible
+	 *
 	 * @param sender - The team player who sent the command
 	 */
 	private String getChatSyntax(TeamPlayer sender) {
-		
+
 		if (sender != null && sender.getPlayer() != null && sender.getPlayer().isOnline() && (sender.getPlayer().getPlayer() instanceof CommandSender)) {
 			return MessageManager.getMessage(sender.getPlayer().getPlayer(), "chat.syntax");
 		}
-		
+
 		return MessageManager.getMessage("chat.syntax");
 	}
 
@@ -1047,7 +1029,7 @@ public class Team {
 			}
 		}
 
-		String fMessage = MessageManager.getMessageF("allychat.syntax", getName(),
+		String fMessage = MessageManager.getMessage("allychat.syntax", getName(),
 				sender.getPrefix(returnTo) + Objects.requireNonNull(sender.getPlayer().getPlayer()).getDisplayName(),
 				message);
 
@@ -1071,7 +1053,7 @@ public class Team {
 					continue;
 				}
 			}
-			MessageManager.sendMessageF(temp, "spy.ally", getName(), sender.getPlayer().getName(), message);
+			MessageManager.sendMessage(temp, "spy.ally", getName(), sender.getPlayer().getName(), message);
 		}
 
 		if (TEAMMANAGER.isLogChat()) {
@@ -1136,7 +1118,7 @@ public class Team {
 			return team;
 		}
 
-		String name = color + MessageManager.getMessageF("nametag.syntax", getTag());
+		String name = color + MessageManager.getMessage("nametag.syntax", getTag());
 		int attempt = 0;
 		do {
 			try {
@@ -1255,16 +1237,16 @@ public class Team {
 	}
 
 	/**
-	 * @return the list of all UUIDS of teams that have sent ally requests
+	 * @return the set of all UUIDS of teams that have sent ally requests
 	 */
-	public List<UUID> getRequests() {
+	public Set<UUID> getRequests() {
 		return requests.get();
 	}
 
 	/**
 	 * @return the list of all UUIDS of teams that are allied with this team
 	 */
-	public AllyListComponent getAllies() {
+	public AllySetComponent getAllies() {
 		return allies;
 	}
 
@@ -1309,17 +1291,30 @@ public class Team {
 	 * @return if players of this team can damage members of the other team
 	 */
 	public boolean canDamage(Team team, Player source) {
-		if (team.isAlly(getID()) || team == this) {
+		final boolean isProtected = team.isAlly(getID()) || team == this;
+
+		boolean disallow;
+
+		if (isProtected) {
 			if (pvp && team.pvp) {
-				return true;
+				disallow = false;
+			} else if (Main.plugin.wgManagement != null) {
+				disallow = !Main.plugin.wgManagement.canTeamPvp(source);
+			} else
+				disallow = true;
+
+			if (disallow) {
+				final TeamDisallowedPvPEvent event = new TeamDisallowedPvPEvent(team, source, this, true);
+
+				Bukkit.getPluginManager().callEvent(event);
+
+				if (event.isCancelled())
+					return true;
 			}
 
-			if (Main.plugin.wgManagement != null) {
-				return Main.plugin.wgManagement.canTeamPvp(source);
-			}
-
-			return false;
+			return !disallow;
 		}
+
 		return true;
 	}
 
@@ -1386,7 +1381,7 @@ public class Team {
 		saveWarps();
 	}
 
-	public WarpListComponent getWarps() {
+	public WarpSetComponent getWarps() {
 		return warps;
 	}
 
@@ -1453,7 +1448,7 @@ public class Team {
 	public int getLevel() {
 		return level;
 	}
-	
+
 	public int getMaxWarps() {
 		return Main.plugin.getConfig().getInt("levels.l" + getLevel() + ".maxWarps");
 	}

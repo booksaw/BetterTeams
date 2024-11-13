@@ -8,8 +8,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
 /**
- * This is where we listen for the
- * events and define the info for the webhook.
+ * This is where we listen for the events and define the info for the webhook.
+ * There is some webhook events available not for all event
  * The actual injecting logic is done at 'com.booksaw.betterTeams.util'
  *
  * @author ceymikey
@@ -22,14 +22,10 @@ public class WebhookPayload implements Listener {
     private final Boolean pLeaveHook = Main.plugin.getConfig().getBoolean("player-left-hook");
     private final Boolean teamNameHook = Main.plugin.getConfig().getBoolean("team-nameChange-hook");
     private final Boolean teamChatEvent = Main.plugin.getConfig().getBoolean("team-chat");
-    public Team team;
-    public TeamPlayer teamPlayer;
-    public String newTeamName;
+    private Team team;
+    private TeamPlayer teamPlayer;
+    private String newTeamName;
 
-    /**
-     * There is some webhook events available not for all event
-     * @param e  the event
-     */
     @EventHandler
     public void onTeamCreate(CreateTeamEvent e) {
         if (createHook) {
@@ -78,7 +74,7 @@ public class WebhookPayload implements Listener {
      * rather than using an existing library.
      */
     public void sendWebhookMessage(String title, String description) {
-        SendPayload payload = new SendPayload.Builder()
+        DiscordHookUtil payload = new DiscordHookUtil.Builder()
                 .setUrl(configURL)
                 .setTitle(title)
                 .setDescription(description)

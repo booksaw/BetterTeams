@@ -1,15 +1,14 @@
 package com.booksaw.betterTeams.commands.teama;
 
-import java.util.List;
-
-import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.SubCommand;
 import com.booksaw.betterTeams.message.MessageManager;
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+import java.util.List;
 
 public class JoinTeama extends SubCommand {
 
@@ -42,7 +41,7 @@ public class JoinTeama extends SubCommand {
 		}
 
 		if (team.join(p)) {
-			MessageManager.sendMessageF(p, "admin.join.notify", team.getDisplayName());
+			MessageManager.sendMessage(p, "admin.join.notify", team.getDisplayName());
 
 			return new CommandResponse(true, "admin.join.success");
 		}

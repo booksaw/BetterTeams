@@ -1,6 +1,7 @@
 package com.booksaw.betterTeams.message;
 
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 /**
  * Used when sending a message to the user which has a fixed format and is
@@ -24,7 +25,9 @@ public class ReferencedFormatMessage implements Message {
 
 	@Override
 	public void sendMessage(CommandSender sender) {
-		MessageManager.sendMessageF(sender, reference, replacement);
+		MessageManager.sendMessage(sender, reference, replacement);
 	}
 
+	@Override
+	public void sendTitle(Player player) { MessageManager.sendTitle(player, reference, replacement); }
 }

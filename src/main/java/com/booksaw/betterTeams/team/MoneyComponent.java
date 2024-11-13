@@ -1,8 +1,8 @@
 package com.booksaw.betterTeams.team;
 
-import java.text.DecimalFormat;
-
 import com.booksaw.betterTeams.team.storage.team.StoredTeamValue;
+
+import java.text.DecimalFormat;
 
 public class MoneyComponent extends DoubleTeamComponent {
 

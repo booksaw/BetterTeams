@@ -1,13 +1,9 @@
 package com.booksaw.betterTeams.message;
 
-import java.io.File;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
-import java.util.logging.Logger;
-
+import com.booksaw.betterTeams.ConfigManager;
+import com.booksaw.betterTeams.Main;
+import me.clip.placeholderapi.PlaceholderAPI;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
@@ -15,10 +11,12 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-import com.booksaw.betterTeams.Main;
-
-import me.clip.placeholderapi.PlaceholderAPI;
-import net.md_5.bungee.api.ChatColor;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Objects;
+import java.util.logging.Logger;
 
 /**
  * Used to control all communications to the user
@@ -27,12 +25,14 @@ import net.md_5.bungee.api.ChatColor;
  */
 public class MessageManager {
 
+	public static final String MISSINGMESSAGES_FILENAME = "missingmessages.txt";
+
 	/**
 	 * Used to store all loaded messages
 	 */
 	private static HashMap<String, String> messages = new HashMap<>();
 
-	private static FileConfiguration defaultMessages;
+	private static ConfigManager defaultMessagesConfigManager;
 
 	/**
 	 * This is the prefix which goes before all messages related to this plugin
@@ -62,20 +62,20 @@ public class MessageManager {
 	 * This method is used to provide the configuration file in which all the
 	 * message references are stored, this method also loads the default prefix
 	 *
-	 * @param file the configuration file
+	 * @param configManager the configuration manager
 	 */
-	public static void addMessages(FileConfiguration file) {
+	public static void addMessages(ConfigManager configManager) {
 		prefix = ChatColor.translateAlternateColorCodes('&',
 				Objects.requireNonNull(Main.plugin.getConfig().getString("prefixFormat")));
-		defaultMessages = file;
-		addMessages(file, false);
+		defaultMessagesConfigManager = configManager;
 
+		addMessages(configManager.config, false);
 	}
 
 	/**
 	 * Used to select a file to contain backup messages in the event that the
 	 * community translations are incomplete
-	 * 
+	 *
 	 * @param file The file to load the backup messages from
 	 */
 	public static void addBackupMessages(YamlConfiguration file) {
@@ -116,7 +116,7 @@ public class MessageManager {
 			logger.info(
 					"[BetterTeams] If you are able to help with translation please join the discord server and make yourself known (https://discord.gg/JF9DNs3)");
 			logger.info(
-					"[BetterTeams] A file called `missingMessages.txt` has been created within this plugins folder. To contribute to the community translations, translate the messages within it and submit it to the discord");
+					"[BetterTeams] A file called `" + MISSINGMESSAGES_FILENAME + "` has been created within this plugins folder. To contribute to the community translations, translate the messages within it and submit it to the discord");
 			logger.info("[BetterTeams] ==================================================================");
 		}
 
@@ -124,9 +124,29 @@ public class MessageManager {
 
 	private static void saveMissingMessages(List<String> missingMessages) {
 
-		File f = new File(Main.plugin.getDataFolder() + File.separator + "missingMessages.txt");
+		File f = new File(Main.plugin.getDataFolder() + File.separator + MISSINGMESSAGES_FILENAME);
 
-		if (!f.exists()) {
+		List<String> existingKeys = new ArrayList<>();
+
+		if (f.exists()) {
+
+			try (BufferedReader reader = new BufferedReader(new FileReader(f))) {
+				String line;
+				while ((line = reader.readLine()) != null) {
+					if (line.isEmpty() || line.startsWith("#")) {
+						continue;
+					}
+					String[] split = line.split(": ", 2);
+					if (split.length == 2) {
+						existingKeys.add(split[0]);
+					}
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+				return;
+			}
+
+		} else {
 			try {
 				f.createNewFile();
 			} catch (Exception e) {
@@ -135,12 +155,17 @@ public class MessageManager {
 			}
 		}
 
-		try (PrintWriter writer = new PrintWriter(f)) {
-			writer.println(
-					"# Please translate these messages and then submit them to the Booksaw Development (https://discord.gg/JF9DNs3) in the #messages-submissions channel for a special rank");
-			writer.println("# Your translations will be included in the next update");
+		try (PrintWriter writer = new PrintWriter(new FileWriter(f, !existingKeys.isEmpty()))) {
+			if (existingKeys.isEmpty()) {
+				writer.println(
+						"# Please translate these messages and then submit them to the Booksaw Development (https://discord.gg/JF9DNs3) in the #messages-submissions channel for a special rank");
+				writer.println("# Your translations will be included in the next update");
+				writer.println("# When you are done translating, run '/teama importmessages' to include the translated messages in your main file");
+			}
 			for (String str : missingMessages) {
-				writer.println(str + ": " + messages.get(str));
+				if (!existingKeys.contains(str)) {
+					writer.println(str + ": " + messages.get(str));
+				}
 			}
 
 		} catch (Exception e) {
@@ -150,75 +175,20 @@ public class MessageManager {
 	}
 
 	/**
-	 * Used to send a message to the specified user
-	 *
-	 * @param sender    the commandSender which the message should be sent to
-	 * @param reference the reference for the message
-	 */
-	public static void sendMessage(CommandSender sender, String reference) {
-		try {
-			String message = getMessage(sender, reference);
-			if (message.equals("")) {
-				return;
-			}
-
-			sender.sendMessage(prefix + message);
-
-		} catch (NullPointerException e) {
-			Bukkit.getLogger().warning("Could not find the message with the reference " + reference);
-			sender.sendMessage(prefix + "Something went wrong with the message, alert your server admins");
-		}
-
-	}
-
-	/**
-	 * Used to send a formatted message
+	 * Used to send a (formatted) message to the specified user
 	 *
 	 * @param sender      the commandSender which the message should be sent to
 	 * @param reference   the reference for the message
 	 * @param replacement the value that the placeholder should be replaced with
 	 */
-	public static void sendMessageF(CommandSender sender, String reference, String... replacement) {
-		try {
-			String message = getMessage(sender, reference);
-			if (message.equals("")) {
-				return;
-			}
 
-			message = format(message, replacement);
-
-			sender.sendMessage(message);
-		} catch (NullPointerException e) {
-			Bukkit.getLogger().warning("Could not find the message with the reference " + reference);
-			sender.sendMessage(prefix + "Something went wrong with the message, alert your server admins");
+	public static void sendMessage(CommandSender sender, String reference, Object... replacement) {
+		String message = getMessage(sender, reference, replacement);
+		if (message.isEmpty()) {
+			return;
 		}
-	}
 
-	/**
-	 * Used to send a formatted message
-	 *
-	 * @param sender      the commandSender which the message should be sent to
-	 * @param reference   the reference for the message
-	 * @param replacement the value that the placeholder should be replaced with
-	 */
-	public static void sendMessageF(CommandSender sender, String reference, Object[] replacement) {
-		try {
-			String message = getMessage(sender, reference);
-			if (message.equals("")) {
-				return;
-			}
-
-			String[] strReplacement = new String[replacement.length];
-			for (int i = 0; i < replacement.length; i++) {
-				strReplacement[i] = replacement[i] + "";
-			}
-			message = format(message, strReplacement);
-
-			sender.sendMessage(message);
-		} catch (NullPointerException e) {
-			Bukkit.getLogger().warning("Could not find the message with the reference " + reference);
-			sender.sendMessage(prefix + "Something went wrong with the message, alert your server admins");
-		}
+		sender.sendMessage(message);
 	}
 
 	/**
@@ -228,21 +198,35 @@ public class MessageManager {
 	 * @param reference the reference for the message
 	 * @return the message (without prefix)
 	 */
-	public static String getMessage(String reference) {
+	public static String getMessage(String reference, Object... replacement) {
+		try {
+			if (!messages.containsKey(reference)) {
+				Bukkit.getLogger().warning("Could not find the message with the reference " + reference);
+				return "";
+			}
 
-		if (!messages.containsKey(reference)) {
+			String msg = messages.get(reference);
+			if (msg.isEmpty()) {
+				return "";
+			}
+
+			msg = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(msg));
+			msg = format(msg, replacement);
+
+			return msg;
+		} catch (NullPointerException e) {
 			Bukkit.getLogger().warning("Could not find the message with the reference " + reference);
 			return "";
 		}
-
-		String msg = messages.get(reference);
-
-		return ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(msg));
 	}
 
-	public static String getMessage(CommandSender sender, String reference) {
+	public static String getMessage(CommandSender sender, String reference, Object... replacement) {
 		try {
-			String msg = getMessage(reference);
+			String msg = getMessage(reference, replacement);
+			if (msg.isEmpty()) {
+				return "";
+			}
+
 			if (sender instanceof Player && Main.placeholderAPI) {
 				msg = PlaceholderAPI.setPlaceholders((Player) sender, msg);
 			}
@@ -253,28 +237,13 @@ public class MessageManager {
 		}
 	}
 
-	public static String getMessageF(String reference, String... replacement) {
-		try {
-			String message = getMessage(reference);
-			if (message.equals("")) {
-				return "";
-			}
-
-			message = format(message, replacement);
-
-			return message;
-		} catch (NullPointerException e) {
-			Bukkit.getLogger().warning("Could not find the message with the reference " + reference);
-			return "";
-		}
-	}
-
-	public static String format(String content, String... replacement) {
+	public static String format(String content, Object... replacement) {
 		if (content == null || content.isEmpty()) return "";
+		if (replacement == null || replacement.length == 0) return content;
 
 		String formatted = content;
 		for (int i = 0; i < replacement.length; i++) {
-			formatted = formatted.replace("{" + i + "}", replacement[i]);
+			formatted = formatted.replace("{" + i + "}", replacement[i].toString());
 		}
 		return formatted;
 	}
@@ -285,7 +254,7 @@ public class MessageManager {
 
 	/**
 	 * @return the prefix for all messages Defaults to [BetterTeams] unless it is
-	 *         changed by end user
+	 * changed by end user
 	 */
 	public static String getPrefix() {
 		return prefix;
@@ -305,7 +274,7 @@ public class MessageManager {
 	/**
 	 * Used when you are sending a user a message instead of a message loaded from a
 	 * file
-	 * 
+	 *
 	 * @param sender        the player who sent the command
 	 * @param message       The message to send to that user
 	 * @param prefixMessage The prefix for that message
@@ -323,7 +292,11 @@ public class MessageManager {
 	}
 
 	public static FileConfiguration getDefaultMessages() {
-		return defaultMessages;
+		return defaultMessagesConfigManager.config;
+	}
+
+	public static ConfigManager getDefaultMessagesConfigManager() {
+		return defaultMessagesConfigManager;
 	}
 
 	/**
@@ -331,7 +304,37 @@ public class MessageManager {
 	 */
 	public static void dumpMessages() {
 		messages = new HashMap<>();
-		defaultMessages = null;
+		defaultMessagesConfigManager = null;
 	}
 
+	/**
+	 * Used to send a (formatted) title to the specified user
+	 *
+	 * @param player      the commandSender which the message should be sent to
+	 * @param reference   the reference for the message
+	 * @param replacement the value that the placeholder should be replaced with
+	 */
+	public static void sendTitle(Player player, String reference, Object... replacement) {
+		String message = getMessage(player, reference, replacement);
+		sendFullTitle(player, message, false);
+	}
+
+	public static void sendFullTitle(Player player, String message) {
+		sendFullTitle(player, message, true);
+	}
+
+	public static void sendFullTitle(Player player, String message, boolean prefixMessage) {
+		if (prefixMessage) {
+			message = prefix + message;
+		}
+
+		if (message.isEmpty()) {
+			return;
+		}
+
+		// fadeIn - time in ticks for titles to fade in. Defaults to 10.
+		// stay - time in ticks for titles to stay. Defaults to 70.
+		// fadeOut - time in ticks for titles to fade out. Defaults to 20.
+		player.sendTitle(message, "", 10, 100, 20);
+	}
 }

@@ -1,16 +1,18 @@
 package com.booksaw.betterTeams.commands.team;
 
-import java.util.List;
-
-import org.bukkit.command.CommandSender;
+import java.util.*;
 
 import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 import com.booksaw.betterTeams.message.Message;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
+import org.bukkit.command.CommandSender;
+
+import java.util.List;
 
 
 public class NeutralCommand extends TeamSubCommand {
@@ -44,13 +46,6 @@ public class NeutralCommand extends TeamSubCommand {
 			toNeutral.removeAlly(team.getID());
 			team.removeAlly(toNeutral.getID());
 
-			// notifying both teams
-			Message message = new ReferencedFormatMessage("neutral.remove", team.getDisplayName());
-			toNeutral.getMembers().broadcastMessage(message);
-
-			// notifying the other team
-			message = new ReferencedFormatMessage("neutral.remove", toNeutral.getDisplayName());
-			team.getMembers().broadcastMessage(message);
 			return new CommandResponse(true);
 		}
 
@@ -90,7 +85,16 @@ public class NeutralCommand extends TeamSubCommand {
 	@Override
 	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
 		if (args.length == 1) {
-			addTeamStringList(options, args[0]);
+			// Only be able to tab-complete allies
+			Team myTeam = getMyTeam(sender);
+
+			Set<UUID> knownTeams = null, ignoreTeam = null;
+			if (myTeam != null) {
+				knownTeams = myTeam.getAllies().get();
+				ignoreTeam = Collections.singleton(myTeam.getID());
+			}
+
+			addTeamStringList(options, args[0], ignoreTeam, knownTeams);
 		}
 	}
 

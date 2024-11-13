@@ -1,21 +1,20 @@
 package com.booksaw.betterTeams.team;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import com.booksaw.betterTeams.Team;
 
-public abstract class ListTeamComponent<T> implements TeamComponent<List<T>> {
+public abstract class SetTeamComponent<T> implements TeamComponent<Set<T>> {
 
-	protected List<T> list;
+	protected final Set<T> set;
 
-	protected ListTeamComponent() {
-		list = new ArrayList<>();
+	protected SetTeamComponent() {
+		set = new HashSet<T>();
 	}
 
 	@Override
-	public List<T> get() {
-		return list;
+	public Set<T> get() {
+		return set;
 	}
 
 	/**
@@ -24,41 +23,41 @@ public abstract class ListTeamComponent<T> implements TeamComponent<List<T>> {
 	 * 
 	 * @return A clone of the stored list
 	 */
-	public List<T> getClone() {
-		return new ArrayList<>(list);
+	public Set<T> getClone() {
+		return new HashSet<>(set);
 	}
 
 	@Override
-	public void set(List<T> list) {
-		this.list = list;
+	public void set(Set<T> newSet) {
+		this.set.clear();
+		this.set.addAll(newSet);
 	}
 
 	/**
 	 * @return The number of members stored within the list
 	 */
 	public int size() {
-		return list.size();
+		return set.size();
 	}
 
 	/**
 	 * @return If the list is empty
 	 */
 	public boolean isEmpty() {
-		return list.isEmpty();
+		return set.isEmpty();
 	}
 
-	public void load(List<String> strList) {
-		list = new ArrayList<>();
-
+	public void load(Iterable<String> strList) {
+		set.clear();
 		for (String str : strList) {
-			list.add(fromString(str));
+			set.add(fromString(str));
 		}
 	}
 
 	public List<String> getConvertedList() {
 		List<String> componentStrings = new ArrayList<>();
 
-		for (T component : list) {
+		for (T component : set) {
 			componentStrings.add(toString(component));
 		}
 
@@ -72,7 +71,7 @@ public abstract class ListTeamComponent<T> implements TeamComponent<List<T>> {
 	 * @param component The component to add
 	 */
 	public void add(Team team, T component) {
-		list.add(component);
+		set.add(component);
 	}
  
 	/**
@@ -82,7 +81,7 @@ public abstract class ListTeamComponent<T> implements TeamComponent<List<T>> {
 	 * @param component The component to remove
 	 */
 	public void remove(Team team, T component) {
-		list.remove(component);
+		set.remove(component);
 	}
 
 	/**
@@ -92,14 +91,14 @@ public abstract class ListTeamComponent<T> implements TeamComponent<List<T>> {
 	 * @return If the component is within this component list
 	 */
 	public boolean contains(T component) {
-		return list.contains(component);
+		return set.contains(component);
 	}
 
 	/**
 	 * Clears all values from the list.
 	 */
 	public void clear() {
-		list.clear();
+		set.clear();
 	}
 
 	/**

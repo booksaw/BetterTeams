@@ -1,23 +1,17 @@
 package com.booksaw.betterTeams.database.api;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Arrays;
-
-import org.apache.commons.lang.StringUtils;
+import com.booksaw.betterTeams.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 
-import com.booksaw.betterTeams.Main;
+import java.sql.*;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * API Class to managing databases
  *
  * @author booksaw
- *
  */
 public class Database {
 
@@ -144,10 +138,14 @@ public class Database {
 	 * @param placeholders The placeholders for the statement
 	 */
 	public void executeStatement(String statement, String... placeholders) {
-
-		for (int i = 0; i < placeholders.length; i++) {
+		List<String> statementChars = Arrays.asList(statement.split(""));
+		for (String placeholder : placeholders) {
 			try {
-				statement = StringUtils.replaceOnce(statement, "?", placeholders[i]);
+				int index = statementChars.indexOf("?");
+				if (index == -1) {
+					throw new IndexOutOfBoundsException();
+				}
+				statementChars.set(index, placeholder);
 			} catch (IndexOutOfBoundsException e) {
 				Bukkit.getLogger().severe("[BetterTeams] Invalid setup for replacing placeholders");
 				Bukkit.getLogger().severe("[BetterTeams] Statement: " + statement);
@@ -155,7 +153,7 @@ public class Database {
 				e.printStackTrace();
 			}
 		}
-
+		statement = String.join("", statementChars);
 		statement = statement.replace("'false'", "false");
 		statement = statement.replace("'true'", "true");
 
