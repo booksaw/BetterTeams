@@ -5,7 +5,7 @@
 
 # Any placeholders from placeholder API will work in this file
 
-# Credit for contributions to this file: Shelly, Kitohazu, Iamsad_VN
+# Credit for contributions to this file: Shelly, Kitohazu, Iamsad_VN, maiminhdung
 
 invalidArg: '&4Sai câu lệnh kìa'
 inTeam: '&4Bạn cần phải ở trong team để làm vậy'
@@ -295,7 +295,7 @@ admin:
   name:
     success: '&6Tên nhóm đã được thay đổi'
   description:
-    success: '&6Mô tả của nhóm đó đã được thay đổi'  open:
+    success: '&6Mô tả của nhóm đó đã được thay đổi' 
     successopen: '&6Team đó đã mở cổng cho bất kì ai có thể vào'
     successclose: '&6Team đó đã đóng cổng chỉ được mời mới được vào'
   invite:
