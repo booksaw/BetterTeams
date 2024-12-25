@@ -22,6 +22,18 @@ public class KickCommand extends TeamSubCommand {
 		 */
 		OfflinePlayer player = Utils.getOfflinePlayer(args[0]);
 
+		/*
+		 * This method is retarded but it just work. - Godl1nk
+		 */
+		if (player == null) {
+			for (OfflinePlayer off : team.members.getOfflinePlayers()) {
+				if (args[0].equals(off.getName())) {
+					player = off;
+					break;
+				}
+			}
+		}
+
 		if (player == null) {
 			return new CommandResponse("noPlayer");
 		}
