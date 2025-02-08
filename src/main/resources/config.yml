@@ -595,23 +595,17 @@ rebuildLookups: false
 # But how do I create a discord webhook?
 # Read this article: https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks
 
-# THIS FEATURE IS STILL IN BETA
-# IF YOU HAPPEN TO FIND ANY BUGS PLEASE REPORT THEM
-# Author: Ceymikey
-
-# The webhook URL
-# String []
+# The webhook URL of your webhook.
 hookURL: "WEBHOOKURL_HERE"
 
 # Will this feature be enabled?
 # If set to false skip the rest of the settings
-# Bool default: false
 hookSupport: false
 
-# IF HOOKSUPPORT = FALSE SKIP THESE / LEAVE THESE FALSE
-# Next up you can select for which specific events
-# you would like to get notified about by the webhook.
-# Boolean default: false
+# If you disabled support for webhooks these settings won't matter
+# You can change for what specific events the webhook should be triggered.
+# For example, if you set the create-hook option to true the webhook will send a message
+# on team creation.
 create-hook: false
 disband-hook: false
 player-left-hook: false

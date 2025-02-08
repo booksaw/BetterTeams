@@ -27,7 +27,7 @@
     <plugins>
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>3.2.4</version>
+        <version>3.6.0</version>
         <executions>
           <execution>
             <phase>package</phase>
@@ -50,8 +50,8 @@
         <version>3.8.0</version>
         <configuration>
           <encoding>UTF-8</encoding>
-          <source>8</source>
-          <target>8</target>
+          <source>1.8</source>
+          <target>1.8</target>
         </configuration>
       </plugin>
       <plugin>
@@ -91,6 +91,10 @@
     <repository>
       <id>sk89q-repo</id>
       <url>https://maven.enginehub.org/repo/</url>
+    </repository>
+    <repository>
+      <id>ceymikey-repo</id>
+      <url>https://repo.ceymikey.dev/releases</url>
     </repository>
   </repositories>
   <dependencies>

@@ -4,13 +4,14 @@ import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.customEvents.*;
+import dev.ceymikey.injection.DiscordPayload;
+import dev.ceymikey.injection.EmbedBuilder;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
 /**
  * This is where we listen for the events and define the info for the webhook.
  * There is some webhook events available not for all event
- * The actual injecting logic is done at 'com.booksaw.betterTeams.util'
  *
  * @author ceymikey
  */
@@ -65,21 +66,19 @@ public class WebhookHandler implements Listener {
         if (teamChatEvent) {
             String eSender = e.getPlayer().getName();
             String message = e.getRawMessage();
-            sendWebhookMessage("Team chat from " + eSender, message);
+            String teamName = e.getTeam().getName();
+            sendWebhookMessage("Team chat from `" + eSender + "` in `" + teamName + "`", message);
         }
     }
 
-    /**
-     * Tried out a new approach here
-     * rather than using an existing library.
-     */
+    /* Sends the actual webhook message with the event info */
     public void sendWebhookMessage(String title, String description) {
-        DiscordHookUtil discordUtil = new DiscordHookUtil.EmbedBuilder()
+        EmbedBuilder embed = new EmbedBuilder.Construct()
                 .setUrl(configURL)
                 .setTitle(title)
                 .setDescription(description)
                 .setColor(12370112)
-                .inject();
-        discordUtil.sendEmbed();
+                .build();
+        DiscordPayload.inject(embed);
     }
 }

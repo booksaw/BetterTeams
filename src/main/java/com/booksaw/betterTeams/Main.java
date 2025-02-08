@@ -1,98 +1,14 @@
 package com.booksaw.betterTeams;
 
-import java.io.File;
-import java.util.Map.Entry;
-import java.util.Objects;
-import java.util.logging.Level;
-
-import com.booksaw.betterTeams.integrations.hologram.DHHologramManager;
-import com.booksaw.betterTeams.integrations.hologram.HDHologramManager;
-import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.RegisteredServiceProvider;
-import org.bukkit.plugin.java.JavaPlugin;
-
 import com.booksaw.betterTeams.commands.HelpCommand;
 import com.booksaw.betterTeams.commands.ParentCommand;
 import com.booksaw.betterTeams.commands.PermissionParentCommand;
-import com.booksaw.betterTeams.commands.team.AllyChatCommand;
-import com.booksaw.betterTeams.commands.team.AllyCommand;
-import com.booksaw.betterTeams.commands.team.BalCommand;
-import com.booksaw.betterTeams.commands.team.BaltopCommand;
-import com.booksaw.betterTeams.commands.team.BanCommand;
-import com.booksaw.betterTeams.commands.team.ChatCommand;
-import com.booksaw.betterTeams.commands.team.ColorCommand;
-import com.booksaw.betterTeams.commands.team.CreateCommand;
-import com.booksaw.betterTeams.commands.team.DelHome;
-import com.booksaw.betterTeams.commands.team.DelwarpCommand;
-import com.booksaw.betterTeams.commands.team.DemoteCommand;
-import com.booksaw.betterTeams.commands.team.DepositCommand;
-import com.booksaw.betterTeams.commands.team.DescriptionCommand;
-import com.booksaw.betterTeams.commands.team.DisbandCommand;
-import com.booksaw.betterTeams.commands.team.EchestCommand;
-import com.booksaw.betterTeams.commands.team.HomeCommand;
-import com.booksaw.betterTeams.commands.team.InfoCommand;
-import com.booksaw.betterTeams.commands.team.InviteCommand;
-import com.booksaw.betterTeams.commands.team.JoinCommand;
-import com.booksaw.betterTeams.commands.team.KickCommand;
-import com.booksaw.betterTeams.commands.team.LeaveCommand;
-import com.booksaw.betterTeams.commands.team.ListCommand;
-import com.booksaw.betterTeams.commands.team.NameCommand;
-import com.booksaw.betterTeams.commands.team.NeutralCommand;
-import com.booksaw.betterTeams.commands.team.OpenCommand;
-import com.booksaw.betterTeams.commands.team.PromoteCommand;
-import com.booksaw.betterTeams.commands.team.PvpCommand;
-import com.booksaw.betterTeams.commands.team.RankCommand;
-import com.booksaw.betterTeams.commands.team.RankupCommand;
-import com.booksaw.betterTeams.commands.team.SetOwnerCommand;
-import com.booksaw.betterTeams.commands.team.SetWarpCommand;
-import com.booksaw.betterTeams.commands.team.SethomeCommand;
-import com.booksaw.betterTeams.commands.team.TagCommand;
-import com.booksaw.betterTeams.commands.team.TitleCommand;
-import com.booksaw.betterTeams.commands.team.TopCommand;
-import com.booksaw.betterTeams.commands.team.UnbanCommand;
-import com.booksaw.betterTeams.commands.team.WarpCommand;
-import com.booksaw.betterTeams.commands.team.WarpsCommand;
-import com.booksaw.betterTeams.commands.team.WithdrawCommand;
+import com.booksaw.betterTeams.commands.team.*;
 import com.booksaw.betterTeams.commands.team.chest.ChestClaimCommand;
 import com.booksaw.betterTeams.commands.team.chest.ChestRemoveCommand;
 import com.booksaw.betterTeams.commands.team.chest.ChestRemoveallCommand;
-import com.booksaw.betterTeams.commands.teama.AllyTeama;
-import com.booksaw.betterTeams.commands.teama.ChatSpyTeama;
-import com.booksaw.betterTeams.commands.teama.ColorTeama;
-import com.booksaw.betterTeams.commands.teama.CreateHoloTeama;
-import com.booksaw.betterTeams.commands.teama.CreateTeama;
-import com.booksaw.betterTeams.commands.teama.DelwarpTeama;
-import com.booksaw.betterTeams.commands.teama.DemoteTeama;
-import com.booksaw.betterTeams.commands.teama.DescriptionTeama;
-import com.booksaw.betterTeams.commands.teama.DisbandTeama;
-import com.booksaw.betterTeams.commands.teama.EchestTeama;
-import com.booksaw.betterTeams.commands.teama.HomeTeama;
-import com.booksaw.betterTeams.commands.teama.InviteTeama;
-import com.booksaw.betterTeams.commands.teama.JoinTeama;
-import com.booksaw.betterTeams.commands.teama.LeaveTeama;
-import com.booksaw.betterTeams.commands.teama.NameTeama;
-import com.booksaw.betterTeams.commands.teama.NeutralTeama;
-import com.booksaw.betterTeams.commands.teama.OpenTeama;
-import com.booksaw.betterTeams.commands.teama.PromoteTeama;
-import com.booksaw.betterTeams.commands.teama.PurgeTeama;
-import com.booksaw.betterTeams.commands.teama.ReloadTeama;
-import com.booksaw.betterTeams.commands.teama.RemoveHoloTeama;
-import com.booksaw.betterTeams.commands.teama.SetOwnerTeama;
-import com.booksaw.betterTeams.commands.teama.SetrankTeama;
-import com.booksaw.betterTeams.commands.teama.SetwarpTeama;
-import com.booksaw.betterTeams.commands.teama.TagTeama;
-import com.booksaw.betterTeams.commands.teama.TeleportTeama;
-import com.booksaw.betterTeams.commands.teama.TitleTeama;
-import com.booksaw.betterTeams.commands.teama.VersionTeama;
-import com.booksaw.betterTeams.commands.teama.WarpTeama;
-import com.booksaw.betterTeams.commands.teama.chest.ChestClaimTeama;
-import com.booksaw.betterTeams.commands.teama.chest.ChestDisableClaims;
-import com.booksaw.betterTeams.commands.teama.chest.ChestEnableClaims;
-import com.booksaw.betterTeams.commands.teama.chest.ChestRemoveTeama;
-import com.booksaw.betterTeams.commands.teama.chest.ChestRemoveallTeama;
+import com.booksaw.betterTeams.commands.teama.*;
+import com.booksaw.betterTeams.commands.teama.chest.*;
 import com.booksaw.betterTeams.commands.teama.money.AddMoney;
 import com.booksaw.betterTeams.commands.teama.money.RemoveMoney;
 import com.booksaw.betterTeams.commands.teama.money.SetMoney;
@@ -101,28 +17,35 @@ import com.booksaw.betterTeams.commands.teama.score.RemoveScore;
 import com.booksaw.betterTeams.commands.teama.score.SetScore;
 import com.booksaw.betterTeams.cooldown.CooldownManager;
 import com.booksaw.betterTeams.cost.CostManager;
-import com.booksaw.betterTeams.events.AllyManagement;
-import com.booksaw.betterTeams.events.ChatManagement;
-import com.booksaw.betterTeams.events.ChestManagement;
-import com.booksaw.betterTeams.events.DamageManagement;
-import com.booksaw.betterTeams.events.InventoryManagement;
-import com.booksaw.betterTeams.events.MCTeamManagement;
+import com.booksaw.betterTeams.events.*;
 import com.booksaw.betterTeams.events.MCTeamManagement.BelowNameType;
-import com.booksaw.betterTeams.events.RankupEvents;
-import com.booksaw.betterTeams.integrations.hologram.HologramManager;
-import com.booksaw.betterTeams.integrations.placeholder.TeamPlaceholders;
 import com.booksaw.betterTeams.integrations.UltimateClaimsManager;
 import com.booksaw.betterTeams.integrations.WorldGaurdManagerV7;
 import com.booksaw.betterTeams.integrations.ZKothManager;
+import com.booksaw.betterTeams.integrations.hologram.DHHologramManager;
+import com.booksaw.betterTeams.integrations.hologram.HDHologramManager;
+import com.booksaw.betterTeams.integrations.hologram.HologramManager;
+import com.booksaw.betterTeams.integrations.placeholder.TeamPlaceholders;
 import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.metrics.Metrics;
 import com.booksaw.betterTeams.score.ScoreManagement;
 import com.booksaw.betterTeams.team.storage.StorageType;
 import com.booksaw.betterTeams.team.storage.convert.Converter;
 import com.booksaw.betterTeams.team.storage.storageManager.YamlStorageManager;
-
+import com.booksaw.betterTeams.util.WebhookHandler;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
+import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.RegisteredServiceProvider;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.File;
+import java.util.Map.Entry;
+import java.util.Objects;
+import java.util.logging.Level;
 
 /**
  * Main class of the plugin, extends JavaPlugin
@@ -177,7 +100,7 @@ public class Main extends JavaPlugin {
 
 		String language = getConfig().getString("language");
 		MessageManager.setLanguage(language);
-		if (Objects.requireNonNull(language).equals("en") || language.equals("")) {
+		if (Objects.requireNonNull(language).equals("en") || language.isEmpty()) {
 			MessageManager.setLanguage("messages");
 		}
 
@@ -255,7 +178,7 @@ public class Main extends JavaPlugin {
 
 		ConfigManager messagesConfigManager = new ConfigManager(language, true);
 
-		MessageManager.addMessages(messagesConfigManager.config);
+		MessageManager.addMessages(messagesConfigManager);
 
 		if (!language.equals("messages")) {
 			messagesConfigManager = new ConfigManager("messages", true);
@@ -370,7 +293,7 @@ public class Main extends JavaPlugin {
 				new LeaveTeama(), new PromoteTeama(), new DemoteTeama(), new WarpTeama(), new SetwarpTeama(),
 				new DelwarpTeama(), new PurgeTeama(), new DisbandTeama(), new ColorTeama(), new EchestTeama(),
 				new SetrankTeama(teamaCommand), new TagTeama(), new TeleportTeama(teamaCommand), new AllyTeama(),
-				new NeutralTeama());
+				new NeutralTeama(), new ImportmessagesTeama());
 
 		if (getConfig().getBoolean("singleOwner")) {
 			teamaCommand.addSubCommand(new SetOwnerTeama());
@@ -434,6 +357,11 @@ public class Main extends JavaPlugin {
 		getServer().getPluginManager().registerEvents((chatManagement = new ChatManagement()), this);
 		getServer().getPluginManager().registerEvents(new ScoreManagement(), this);
 		getServer().getPluginManager().registerEvents(new AllyManagement(), this);
+
+		// Only register webhook when hook support is enabled
+		if (getConfig().getBoolean("hookSupport")) {
+			getServer().getPluginManager().registerEvents(new WebhookHandler(), this);
+		}
 
 		if (getConfig().getBoolean("checkUpdates")) {
 			getServer().getPluginManager().registerEvents(new UpdateChecker(this), this);
