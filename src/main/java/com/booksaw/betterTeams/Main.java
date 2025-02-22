@@ -4,6 +4,7 @@ import com.booksaw.betterTeams.commands.HelpCommand;
 import com.booksaw.betterTeams.commands.ParentCommand;
 import com.booksaw.betterTeams.commands.PermissionParentCommand;
 import com.booksaw.betterTeams.commands.team.*;
+import com.booksaw.betterTeams.commands.team.chest.ChestCheckCommand;
 import com.booksaw.betterTeams.commands.team.chest.ChestClaimCommand;
 import com.booksaw.betterTeams.commands.team.chest.ChestRemoveCommand;
 import com.booksaw.betterTeams.commands.team.chest.ChestRemoveallCommand;
@@ -278,7 +279,7 @@ public class Main extends JavaPlugin {
 		}
 
 		ParentCommand chest = new PermissionParentCommand("chest");
-		chest.addSubCommands(new ChestClaimCommand(), new ChestRemoveCommand(), new ChestRemoveallCommand());
+		chest.addSubCommands(new ChestClaimCommand(), new ChestRemoveCommand(), new ChestRemoveallCommand(), new ChestCheckCommand());
 		teamCommand.addSubCommand(chest);
 
 		teamBooksawCommand = new BooksawCommand("team", teamCommand, "betterteams.standard", "All commands for teams",

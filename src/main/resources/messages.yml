@@ -192,6 +192,9 @@ chest.remove.notClaimed: '&4Your team has not claimed that chest'
 chest.remove.success: '&4Your team no longer has a claim to that chest'
 chest.all.success: '&6Unclaimed all chests'
 chest.claimed: '&4That chest is claimed by &a{0}'
+chest.check.self: '&6Your team has claimed that chest'
+chest.check.notClaimed: "&6That chest has not been claimed"
+chest.check.claimed: "&6That chest is claimed by &a{0}"
 
 echest.echest: 'Enderchest'
 

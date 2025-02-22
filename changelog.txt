@@ -847,6 +847,9 @@ Code improvements:
 
 4.11.0
 
+Features:
+- Added /team chest check to check if a chest is claimed (#673)
+
 Improvements:
 - Added tracking of the player name in CreateTeamEvent and TeamDisbandEvent - Credit PikaMug
 - Updated Vietnamese translations - Credit maiminhdung
