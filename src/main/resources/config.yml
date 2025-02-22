@@ -53,11 +53,11 @@ storageType: YAML
 
 # This section is only used if you select the storageType of SQL 
 database:
-   host: localhost
-   port: 3306
-   database: spigot
-   user: root
-   password: password
+  host: localhost
+  port: 3306
+  database: spigot
+  user: root
+  password: password
 
 # This is the value to determine if the chat prefix is enabled
 # - If this is enabled (true / name) a prefix [TeamName] will be displayed at the begining of chat messages.
@@ -89,12 +89,12 @@ announceTeamDisband: false
 # These are prefix shortcuts to change where a chat message is sent
 # Possible values: [Any text/character(s)]
 chatPrefixes:
-   # This prefix will instead send the global message to the team chat
-   globalToTeam: '!'
-   # This prefix will instead send the global message to the ally chat
-   globalToAlly: '?'
-   # This prefix will instead send the team or ally message to the global chat
-   teamOrAllyToGlobal: '!'
+  # This prefix will instead send the global message to the team chat
+  globalToTeam: '!'
+  # This prefix will instead send the global message to the ally chat
+  globalToAlly: '?'
+  # This prefix will instead send the team or ally message to the global chat
+  teamOrAllyToGlobal: '!'
 
 # This is used to set the maxmimum number of allies a team can have
 # - If this feature is unwanted, set the allyLimit to -1 and there will be unlimited allies for each team
@@ -104,10 +104,16 @@ chatPrefixes:
 allyLimit: 5
 
 # This is used to limit the length of a team name (if chat prefixes are enabled, this will stop the team names clogging up the chat)
-# - If this feature is unwanted, set the teamLimit to -1 and team name lengths will be unlimited
+# - If this feature is unwanted, set the maxTeamLength to -1 and team name lengths will be unlimited
 #
 # Possible values: [-1, any positive whole number]
 maxTeamLength: 12
+
+# This is used to limit the shortest team name
+# - If this feature is unwatned, set the minTeamLength to 0 and all team names will be allowed
+#
+# Possible values: [0, any positive whole number]
+minTeamLength: 2
 
 # This is used to limit the length of the teams tag (If enabled, this will display next to the players nametag above their character)
 # - If this feature is unwanted, set the teamLimit to -1 and team name lengths will be unlimited
@@ -119,7 +125,7 @@ maxTagLength: 12
 # If you are using belowNameManagement, any names over 16 characters will be clipped through some handling of the plugin
 #
 # Possible values: [Any whole number]
-maxTitleLength: 10 
+maxTitleLength: 10
 
 # This is used to toggle if teams can attack members of their own team
 # - If this is enabled, members of the same team will not be able to damage each other
@@ -148,8 +154,8 @@ playerDamageSelf: true
 #
 # Possible values: [Any String (surround with '')]
 blacklist:
-   - 'betterteamsisbad'
-  
+  - 'betterteamsisbad'
+
 # This is a list of characters wich will not be allowed in team names or tags
 #
 # Possible values: [Any characters]
@@ -182,7 +188,7 @@ helpDescriptionColor: '6'
 # If you are using holographics displays, this is how many of the top teams will be displayed on the hologram
 #
 # Possible values: [Any positive whole number]
-maxHologramLines: 10 
+maxHologramLines: 10
 
 #This is used to configure if the help messages are fully custom or the automatically generated messages by the plugin 
 # - If this is false, /team help and /teama help will only display commands a user has permission for
@@ -203,7 +209,7 @@ useVault: true
 # - If this is disabled, team chat messages will not be stored anywhere
 # 
 # Posssible values: [true, false]
-logTeamChat: true 
+logTeamChat: true
 
 # This option determines if users are allowed to do /team chat to toggle their team chat, instead of just /team chat message 
 # - If team chat messages are not being cancelled correctly (this will be caused by some other plugin on your server) This can be enabled to at least hide the problem 
@@ -285,77 +291,77 @@ invite: 120
 # 
 # Possible values: [Any set of lower case letters]
 command:
-   team: []
-   teama: 
-   - teama
+  team: [ ]
+  teama:
+    - teama
 
 levels:
-# View the wiki page on this section for more information: https://github.com/booksaw/BetterTeams/wiki/Team-Levels
-   l1: 
-      # This is used set a maximum size for a team.
-      # - If this feature is unwanted, set the teamLimit to -1 and there will be unlimited places in each team
-      # - Keep this value reasonable, as Java cannot cope with larger numbers (over 2 billion), so if you want the team to be limitless, set the value to -1 instead of something large
-      #
-      # Possible values: [-1, any positive whole number]
-      teamLimit: 10
-      # This is used to determine the maximum number of chests that a team can claim
-      # - If this is set to 0 teams will not be allowed any claims (though it is recommended you do that through permissions instead of the config option)
-      # - If this is set to -1 there will be no limit on the number of chests
-      # 
-      # Possible values: [Any positive whole number, 0, -1]
-      maxChests: 2
-      # This is used to determine the maximum number of warps that a team can set 
-      # - If this is set to 0 teams will not be allowed any warps (though it is recommended you do that through permissions instead of the config option) 
-      # - If this is set to -1 there will be no limit on the number of warps
-      #
-      # Possible values: [Any positive whole number, 0, -1]
-      maxWarps: 2
-      # Used to limit the balance the team can have in their team bank
-      # - If this is set to -1 there will be no limit on team balance 
-      # - If this is set to 0, teams of that level will not have a team bank (to completely disable use teampermissions.yml)
-      #
-      # Possible values [-1, 0, any positive number]
-      maxBal: -1 
-      # The maximum number of admins a team is allowed while is has this rank
-      # - If this is set to -1 there will not be a limit
-      # 
-      # Possible values [-1, any positive number]
-      maxAdmins: 5
-      # The maximum number of owners a team is allowed at this rank
-      # - If singleOwner is set to true this value will be ignored
-      # 
-      # Possible values [any positive whole number]
-      maxOwners: 2
-      
-      # This is a list of commands that are run when a team 
-      # Any player which contains %player% will be run for every player on the team
-      # Placeholders:
-      # %team% is replaced with the team name
-      # %player% is replaced with all players in the team
-      # %level% is replaced with the level that the team is becomming 
-      endCommands:
-#      - say %player% is no longer level 1
+  # View the wiki page on this section for more information: https://github.com/booksaw/BetterTeams/wiki/Team-Levels
+  l1:
+    # This is used set a maximum size for a team.
+    # - If this feature is unwanted, set the teamLimit to -1 and there will be unlimited places in each team
+    # - Keep this value reasonable, as Java cannot cope with larger numbers (over 2 billion), so if you want the team to be limitless, set the value to -1 instead of something large
+    #
+    # Possible values: [-1, any positive whole number]
+    teamLimit: 10
+    # This is used to determine the maximum number of chests that a team can claim
+    # - If this is set to 0 teams will not be allowed any claims (though it is recommended you do that through permissions instead of the config option)
+    # - If this is set to -1 there will be no limit on the number of chests
+    #
+    # Possible values: [Any positive whole number, 0, -1]
+    maxChests: 2
+    # This is used to determine the maximum number of warps that a team can set
+    # - If this is set to 0 teams will not be allowed any warps (though it is recommended you do that through permissions instead of the config option)
+    # - If this is set to -1 there will be no limit on the number of warps
+    #
+    # Possible values: [Any positive whole number, 0, -1]
+    maxWarps: 2
+    # Used to limit the balance the team can have in their team bank
+    # - If this is set to -1 there will be no limit on team balance
+    # - If this is set to 0, teams of that level will not have a team bank (to completely disable use teampermissions.yml)
+    #
+    # Possible values [-1, 0, any positive number]
+    maxBal: -1
+    # The maximum number of admins a team is allowed while is has this rank
+    # - If this is set to -1 there will not be a limit
+    #
+    # Possible values [-1, any positive number]
+    maxAdmins: 5
+    # The maximum number of owners a team is allowed at this rank
+    # - If singleOwner is set to true this value will be ignored
+    #
+    # Possible values [any positive whole number]
+    maxOwners: 2
 
-      # This message is included in /team rank command to give more details about the rank
-      # this message, for example could include the perks of this team rank along with the perks of the next rank
-      rankLore:
+    # This is a list of commands that are run when a team
+    # Any player which contains %player% will be run for every player on the team
+    # Placeholders:
+    # %team% is replaced with the team name
+    # %player% is replaced with all players in the team
+    # %level% is replaced with the level that the team is becomming
+    endCommands:
+    #      - say %player% is no longer level 1
+
+    # This message is included in /team rank command to give more details about the rank
+    # this message, for example could include the perks of this team rank along with the perks of the next rank
+    rankLore:
       - '&7The first level'
-   l2: 
-      # Price is determined for all levels aside level 1,
-      # - If this value ends with 's' it will take score from the team
-      # - If this value ends with 'm' it will take money from the team balance
-      price: 100s 
-      # This is commands that are run when the team levels up
-      # View endCommands above for placeholders
-      startCommands:
-#      - say %player% leveled up
-      teamLimit: 20
-      maxChests: 2
-      maxWarps: 2
-      maxBal: -1
-      maxAdmins: 5
-      maxOwners: 1
-      rankLore:
+  l2:
+    # Price is determined for all levels aside level 1,
+    # - If this value ends with 's' it will take score from the team
+    # - If this value ends with 'm' it will take money from the team balance
+    price: 100s
+    # This is commands that are run when the team levels up
+    # View endCommands above for placeholders
+    startCommands:
+    #      - say %player% leveled up
+    teamLimit: 20
+    maxChests: 2
+    maxWarps: 2
+    maxBal: -1
+    maxAdmins: 5
+    maxOwners: 1
+    rankLore:
       - '&7The second level'
 
 # This determines if the team limits defined by team level are used
@@ -366,7 +372,7 @@ levels:
 # 
 # Possible values: [true, false]
 permissionLevels: false
-      
+
 
 # Commands that are called when a player is promoted
 # - If this is left blank, no commands will be called
@@ -375,13 +381,13 @@ permissionLevels: false
 # %team% is replaced with the team name
 #
 # Possible values: [Any valid commands]
-promoteCommands: 
-   ADMIN: 
-   # commands for standard --> admin
-   OWNER:
-   # commands for admin --> owner 
-   # - say %player% has been promoted
- 
+promoteCommands:
+  ADMIN:
+  # commands for standard --> admin
+  OWNER:
+  # commands for admin --> owner
+  # - say %player% has been promoted
+
 # Commands that are called when a player is promoted
 # - If this is left blank, no commands will be called
 # %player% is replaced with all players in the team
@@ -390,11 +396,11 @@ promoteCommands:
 #
 # Possible values: [Any valid commands]
 demoteCommands:
-   STANDARD:
-   # commands for admin --> standard
-   ADMIN: 
-   # commands for owner --> admin
-   # - say %player% has been demoted 
+  STANDARD:
+  # commands for admin --> standard
+  ADMIN:
+  # commands for owner --> admin
+  # - say %player% has been demoted
 
 # determines if a title message will be displayed to players when they are kicked or banned from their team
 # the messages themselves can be configured in the messages.yml file
@@ -407,26 +413,26 @@ titleRemoval: true
 #
 # Possible values: [CHAT, TITLE, NONE] (default: CHAT,TITLE)
 onAllyMessageChannel:
-   - CHAT
-   - TITLE
+  - CHAT
+  - TITLE
 onNeutralMessageChannel:
-   - CHAT
-   - TITLE
+  - CHAT
+  - TITLE
 
 
-#####################################################################
-#                                                                   #
-#  ____                       ____       _   _   _                  #
-# / ___|  ___ ___  _ __ ___  / ___|  ___| |_| |_(_)_ __   __ _ ___  #
-# \___ \ / __/ _ \| '__/ _ \ \___ \ / _ \ __| __| | '_ \ / _` / __| #
-#  ___) | (_| (_) | | |  __/  ___) |  __/ |_| |_| | | | | (_| \__ \ # 
-# |____/ \___\___/|_|  \___| |____/ \___|\__|\__|_|_| |_|\__, |___/ #
-#                                                        |___/      #
-#                                                                   #
-#####################################################################
-# All settings depending on the score aspect of this plugin
-# For integrations of other plugins with score see the bottom section of the config
- 
+  #####################################################################
+  #                                                                   #
+  #  ____                       ____       _   _   _                  #
+  # / ___|  ___ ___  _ __ ___  / ___|  ___| |_| |_(_)_ __   __ _ ___  #
+  # \___ \ / __/ _ \| '__/ _ \ \___ \ / _ \ __| __| | '_ \ / _` / __| #
+  #  ___) | (_| (_) | | |  __/  ___) |  __/ |_| |_| | | | | (_| \__ \ #
+  # |____/ \___\___/|_|  \___| |____/ \___|\__|\__|_|_| |_|\__, |___/ #
+  #                                                        |___/      #
+  #                                                                   #
+  #####################################################################
+  # All settings depending on the score aspect of this plugin
+  # For integrations of other plugins with score see the bottom section of the config
+
 
 # This is a list of commands which are run by the console before a purge occurs
 # A purge is where all teams scores are reset to 0
@@ -436,7 +442,7 @@ onNeutralMessageChannel:
 # 
 # Possible values: [Any command valid on your server]
 purgeCommands:
-- 'give @a minecraft:dirt 1'
+  - 'give @a minecraft:dirt 1'
 
 # This is used to enable the auto purge configuration below
 # If this is set to true, team scores will be purged in correspondence of the timings below
@@ -449,8 +455,8 @@ enableAutoPurge: false
 # these dates must be in order of ealiest to latest
 # 
 # Possible values: [{dateOfMonth}:{Hour of day}]
-autoPurge: 
-- '1:6'
+autoPurge:
+  - '1:6'
 # This will purge the users score at 6am on the first of every month
 
 # The amount of time after an event occurs that repeat events are classed as spam
@@ -465,15 +471,15 @@ spamThreshold: 60
 # If something happens on your server you want to influence score is not listed below, make a request for it here: https://github.com/booksaw/BetterTeams/issues/new/choose
 
 # Score changes for when a player dies
-events: 
-   death:
-      score: 0
-      spam: -1
+events:
+  death:
+    score: 0
+    spam: -1
 
-# Score changes for when a player kills another player
-   kill:
-      score: 1
-      spam: 0
+  # Score changes for when a player kills another player
+  kill:
+    score: 1
+    spam: 0
 
 # The minimum score a team can have
 # 
@@ -558,28 +564,28 @@ canSeeFriendlyInvisibles: false
 # INTEGRATION WITH ZKOTH
 # Plugin link: https://www.spigotmc.org/resources/zkoth-king-of-the-hill.76749/
 zkoth:
-   # This is used to determine how many points are awarded when a team captures a KOTH location 
-   # If this is set to 0, players will not get any points for capturing a koth location
-   #
-   # Possible values: [Any positive number, 0]
-   pointsPerCapture: 5
+  # This is used to determine how many points are awarded when a team captures a KOTH location
+  # If this is set to 0, players will not get any points for capturing a koth location
+  #
+  # Possible values: [Any positive number, 0]
+  pointsPerCapture: 5
 
 # INTEGRATION WITH ULTIMATECLAIMS 
 # Plugin link: https://songoda.com/marketplace/product/ultimateclaims-the-ultimate-claiming-plugin.65
 ultimateClaims:
-   # This is used to determine if the utlimateclaims integration is active 
-   # If it is, only team owners will be able to make claims
-   # All members of a team are trusted in the claim
-   enabled: true
+  # This is used to determine if the utlimateclaims integration is active
+  # If it is, only team owners will be able to make claims
+  # All members of a team are trusted in the claim
+  enabled: true
 
 # INTEGRATION WITH WORLDGUARD
 # Plugin link: https://dev.bukkit.org/projects/worldguard
-worldGuard: 
-   # This is used to determine if the worldgaurd integration is active
-   # Currently worldgaurd versions below 7.0 are not supported, set this to false if your server is running anything less than 1.13
-   enabled: true
+worldGuard:
+  # This is used to determine if the worldgaurd integration is active
+  # Currently worldgaurd versions below 7.0 are not supported, set this to false if your server is running anything less than 1.13
+  enabled: true
 
-   
+
 # Debug options: 
 
 # Used to disable the in game notifier about update release

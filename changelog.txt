@@ -854,6 +854,7 @@ Improvements:
 - Added tracking of the player name in CreateTeamEvent and TeamDisbandEvent - Credit PikaMug
 - Updated Vietnamese translations - Credit maiminhdung
 - Improved warp password handling
+- Added minimum team length parameter (#572)
 
 Bug Fixes:
 - Fixed cheat claim giving an asynchronous error (#656)

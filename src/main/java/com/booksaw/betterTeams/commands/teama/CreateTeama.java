@@ -26,6 +26,15 @@ public class CreateTeama extends SubCommand {
 			return new CommandResponse("create.maxLength");
 		}
 
+		int min = Main.plugin.getConfig().getInt("minTeamLength");
+		if (min <= 0 || min > 55) {
+			min = 0;
+		}
+
+		if (min != 0 && min > args[0].length()) {
+			return new CommandResponse("create.minLength");
+		}
+
 		if (Team.getTeam(args[0]) != null) {
 			// team already exists
 			return new CommandResponse("create.exists");
