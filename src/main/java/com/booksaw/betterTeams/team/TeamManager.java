@@ -169,7 +169,7 @@ public abstract class TeamManager {
 		}
 		Team team = new Team(name, id, owner);
 
-		CreateTeamEvent event = new CreateTeamEvent(team);
+		CreateTeamEvent event = new CreateTeamEvent(team, owner);
 		Bukkit.getPluginManager().callEvent(event);
 
 		if (event.isCancelled()) {
