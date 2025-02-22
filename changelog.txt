@@ -830,7 +830,7 @@ Improvements:
 - Added missing Spanish messages (both translations) - Credit LeadVic
 - Added missing Italian messages - Credit YnsanitY
 - Added missing Polish translations - Credit Rain
-- Added missing Vietnamese translations - Credit Iamsad_VM
+- Added missing Vietnamese translations - Credit Iamsad_VN
 
 Bug Fixes:
 - Fixed typo in config.yml (#620) - Credit dacoder101
@@ -844,6 +844,12 @@ Bug Fixes:
 Code improvements:
 - Replaced equals/length with isEmpty (#630) - Credit svaningelgem
 - Replaced some uses of List with set (Warning developers, this may be a breaking change as class names are updated) (#631) - Credit svaningelgem
+
+4.11.0
+
+Improvements:
+- Added tracking of the player name in CreateTeamEvent and TeamDisbandEvent - Credit PikaMug
+- Updated Vietnamese translations - Credit maiminhdung
 
 Headings: 
 Features: 

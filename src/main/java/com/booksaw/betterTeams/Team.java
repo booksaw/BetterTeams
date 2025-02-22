@@ -801,7 +801,7 @@ public class Team {
 			@Override
 			public void run() {
 				Player p = Bukkit.getPlayer(uniqueId);
-				if (getTeamPlayer(p) != null) {
+				if (p == null || getTeamPlayer(p) != null) {
 					return;
 				}
 				invitedPlayers.remove(uniqueId);
