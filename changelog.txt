@@ -856,6 +856,7 @@ Bug Fixes:
 - Fixed player going offline during an invite period throwing errors (#654)
 - Added better null handling for /team top (#660)
 - Fixed issue with /team setwarp not removing price from team (#669)
+- Fixed an issue where betterteams messages were not getting the plugin prefix (#685)
 
 Headings: 
 Features: 
