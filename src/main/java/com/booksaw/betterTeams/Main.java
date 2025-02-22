@@ -33,6 +33,7 @@ import com.booksaw.betterTeams.score.ScoreManagement;
 import com.booksaw.betterTeams.team.storage.StorageType;
 import com.booksaw.betterTeams.team.storage.convert.Converter;
 import com.booksaw.betterTeams.team.storage.storageManager.YamlStorageManager;
+import com.booksaw.betterTeams.util.WebhookHandler;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
@@ -357,6 +358,11 @@ public class Main extends JavaPlugin {
 		getServer().getPluginManager().registerEvents((chatManagement = new ChatManagement()), this);
 		getServer().getPluginManager().registerEvents(new ScoreManagement(), this);
 		getServer().getPluginManager().registerEvents(new AllyManagement(), this);
+
+		// Only register webhook when hook support is enabled
+		if (getConfig().getBoolean("hookSupport")) {
+			getServer().getPluginManager().registerEvents(new WebhookHandler(), this);
+		}
 
 		if (getConfig().getBoolean("checkUpdates")) {
 			getServer().getPluginManager().registerEvents(new UpdateChecker(this), this);
