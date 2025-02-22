@@ -435,3 +435,14 @@ command.set: set
 command.score: score
 command.enableclaims: enableclaims
 command.disableclaims: disableclaims
+
+webhook.create.title: "New team created"
+webhook.create.description: "A team called {0} has been created"
+webhook.disband.title: "New team disband"
+webhook.disband.description: "A team called {0} has been disbanded"
+webhook.left.title: "Team member left"
+webhook.left.description: "A user named {0} has left a team called {1}"
+webhook.rename.title: "Team name change"
+webhook.rename.description: "A team called {0} had its name changed to {1}"
+webhook.chat.title: "New team chatmessage"
+webhook.chat.description: "Sender: {0}\nMessage: {1}\nIn team: {2}"
