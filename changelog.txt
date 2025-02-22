@@ -851,6 +851,10 @@ Improvements:
 - Added tracking of the player name in CreateTeamEvent and TeamDisbandEvent - Credit PikaMug
 - Updated Vietnamese translations - Credit maiminhdung
 
+Bug Fixes:
+- Fixed cheat claim giving an asynchronous error (#656)
+- Fixed player going offline during an invite period throwing errors (#654)
+
 Headings: 
 Features: 
 
