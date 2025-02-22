@@ -33,7 +33,7 @@ public class DisbandCommand extends TeamSubCommand {
 
 		// can use secret command /team disband confirm to validate disband success
 		if (args.length > 1 && args[0].equals("confirm")) {
-			team.disband();
+			team.disband(teamPlayer.getPlayer().getPlayer());
 			confirmation.remove(found);
 			return new CommandResponse(true, "disband.success");
 		}
@@ -46,7 +46,7 @@ public class DisbandCommand extends TeamSubCommand {
 		}
 
 		if (found != null) {
-			team.disband();
+			team.disband(teamPlayer.getPlayer().getPlayer());
 			confirmation.remove(found);
 			return new CommandResponse(true, "disband.success");
 		}

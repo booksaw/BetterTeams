@@ -19,14 +19,11 @@ import java.util.List;
 public class CreateCommand extends NoTeamSubCommand {
 	private final ParentCommand parentCommand;
 	boolean enforceTag;
-	
+
 	public CreateCommand(ParentCommand parentCommand) {
 		this.parentCommand = parentCommand;
 		enforceTag = Main.plugin.getConfig().getBoolean("enforceTag");
 	}
-
-
-
 
 	@Override
 	public CommandResponse onCommand(Player sender, String label, String[] args) {
@@ -61,6 +58,15 @@ public class CreateCommand extends NoTeamSubCommand {
 
 		if (max != -1 && max < args[0].length()) {
 			return new CommandResponse("create.maxLength");
+		}
+
+		int min = Main.plugin.getConfig().getInt("minTeamLength");
+		if (min <= 0 || min > 55) {
+			min = 0;
+		}
+
+		if (min != 0 && min > args[0].length()) {
+			return new CommandResponse("create.minLength");
 		}
 
 		if (Team.getTeamManager().isTeam(args[0])) {

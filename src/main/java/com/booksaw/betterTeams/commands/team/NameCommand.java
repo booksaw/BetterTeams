@@ -38,6 +38,15 @@ public class NameCommand extends TeamSubCommand {
 			return new CommandResponse("create.maxLength");
 		}
 
+		int min = Main.plugin.getConfig().getInt("minTeamLength");
+		if (min <= 0 || min > 55) {
+			min = 0;
+		}
+
+		if (min != 0 && min > args[0].length()) {
+			return new CommandResponse("create.minLength");
+		}
+
 		if (Team.getTeamManager().isTeam(args[0])) {
 			return new CommandResponse("name.exists");
 		}

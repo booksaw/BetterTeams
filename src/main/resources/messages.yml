@@ -36,6 +36,7 @@ create.exists: '&6That team already exists'
 create.success: '&6Your team has been created'
 create.banned: '&4That team name is banned'
 create.maxLength: '&4That team name is too long'
+create.minLength: '&4That team name is too short'
 leave.success: '&6You have left the team'
 leave.lastOwner: '&6You are the only owner rank within the team, Either promote someone else or use &b/team disband &6to disband command. the team'
 announce.join: '&3{0} &7has joined team {1}'
@@ -192,6 +193,9 @@ chest.remove.notClaimed: '&4Your team has not claimed that chest'
 chest.remove.success: '&4Your team no longer has a claim to that chest'
 chest.all.success: '&6Unclaimed all chests'
 chest.claimed: '&4That chest is claimed by &a{0}'
+chest.check.self: '&6Your team has claimed that chest'
+chest.check.notClaimed: "&6That chest has not been claimed"
+chest.check.claimed: "&6That chest is claimed by &a{0}"
 
 echest.echest: 'Enderchest'
 

@@ -24,6 +24,15 @@ public class NameTeama extends TeamSelectSubCommand {
 			return new CommandResponse("create.maxLength");
 		}
 
+		int min = Main.plugin.getConfig().getInt("minTeamLength");
+		if (min <= 0 || min > 55) {
+			min = 0;
+		}
+
+		if (min != 0 && min > args[1].length()) {
+			return new CommandResponse("create.minLength");
+		}
+
 		if (Team.getTeam(args[1]) != null) {
 			return new CommandResponse("name.exists");
 		}

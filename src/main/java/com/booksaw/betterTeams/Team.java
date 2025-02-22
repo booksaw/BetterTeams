@@ -18,8 +18,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -629,8 +629,6 @@ public class Team {
 
 	/**
 	 * Used to save the members list to the configuration file
-	 *
-	 * @param config the configuration file to store the members list to
 	 */
 	private void savePlayers() {
 		members.save(getStorage());
@@ -638,8 +636,6 @@ public class Team {
 
 	/**
 	 * Used to save the bans list to the configuration file
-	 *
-	 * @param config the configuration file to store the ban list to
 	 */
 	private void saveBans() {
 		bannedPlayers.save(getStorage());
@@ -710,7 +706,16 @@ public class Team {
 	 * This command is used to disband a team, BE CAREFUL, this is irreversible
 	 */
 	public void disband() {
-		DisbandTeamEvent event = new DisbandTeamEvent(this);
+		disband(null);
+	}
+
+	/**
+	 * This command is used to disband a team, BE CAREFUL, this is irreversible
+	 *
+	 * @param player The player responsible for disbandment [null - initiated by console]
+	 */
+	public void disband(Player player) {
+		DisbandTeamEvent event = new DisbandTeamEvent(this, player);
 		Bukkit.getPluginManager().callEvent(event);
 
 		if (event.isCancelled()) {
@@ -733,8 +738,8 @@ public class Team {
 //			}
 //		}
 
-		for (TeamPlayer player : getMembers().get()) {
-			getTeamManager().playerLeaveTeam(this, player);
+		for (TeamPlayer teamPlayer : getMembers().get()) {
+			getTeamManager().playerLeaveTeam(this, teamPlayer);
 		}
 
 		// removing it from the team list, the java GC will handle the reset
@@ -756,8 +761,8 @@ public class Team {
 
 		if (Main.plugin.getConfig().getBoolean("announceTeamDisband")) {
 			Message message = new ReferencedFormatMessage("announce.disband", getColor() + getName() + ChatColor.RESET);
-			for (Player player : Bukkit.getOnlinePlayers()) {
-				message.sendMessage(player);
+			for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+				message.sendMessage(onlinePlayer);
 			}
 		}
 	}
@@ -796,7 +801,7 @@ public class Team {
 			@Override
 			public void run() {
 				Player p = Bukkit.getPlayer(uniqueId);
-				if (getTeamPlayer(p) != null) {
+				if (p == null || getTeamPlayer(p) != null) {
 					return;
 				}
 				invitedPlayers.remove(uniqueId);

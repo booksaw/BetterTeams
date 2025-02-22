@@ -33,11 +33,8 @@ public class WarpCommand extends TeamSubCommand {
 			return new CommandResponse("warp.nowarp");
 		}
 
-		if (warp.getPassword() != null && !warp.getPassword().isEmpty()
-				&& Main.plugin.getConfig().getBoolean("allowPassword")) {
-			if (args.length == 1 || !warp.getPassword().equals(args[1])) {
-				return new CommandResponse("warp.invalidPassword");
-			}
+		if (warp.hasPassword() && (args.length == 1 || !warp.isCorrectPassword(args[1]))) {
+			return new CommandResponse("warp.invalidPassword");
 		}
 
 		// the user is allowed to go to the warp

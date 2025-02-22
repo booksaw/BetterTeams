@@ -4,6 +4,7 @@ import com.booksaw.betterTeams.commands.HelpCommand;
 import com.booksaw.betterTeams.commands.ParentCommand;
 import com.booksaw.betterTeams.commands.PermissionParentCommand;
 import com.booksaw.betterTeams.commands.team.*;
+import com.booksaw.betterTeams.commands.team.chest.ChestCheckCommand;
 import com.booksaw.betterTeams.commands.team.chest.ChestClaimCommand;
 import com.booksaw.betterTeams.commands.team.chest.ChestRemoveCommand;
 import com.booksaw.betterTeams.commands.team.chest.ChestRemoveallCommand;
@@ -20,7 +21,7 @@ import com.booksaw.betterTeams.cost.CostManager;
 import com.booksaw.betterTeams.events.*;
 import com.booksaw.betterTeams.events.MCTeamManagement.BelowNameType;
 import com.booksaw.betterTeams.integrations.UltimateClaimsManager;
-import com.booksaw.betterTeams.integrations.WorldGaurdManagerV7;
+import com.booksaw.betterTeams.integrations.WorldGuardManagerV7;
 import com.booksaw.betterTeams.integrations.ZKothManager;
 import com.booksaw.betterTeams.integrations.hologram.DHHologramManager;
 import com.booksaw.betterTeams.integrations.hologram.HDHologramManager;
@@ -61,7 +62,7 @@ public class Main extends JavaPlugin {
 	public boolean useHolograms = false;
 	public MCTeamManagement teamManagement;
 	public ChatManagement chatManagement;
-	public WorldGaurdManagerV7 wgManagement;
+	public WorldGuardManagerV7 wgManagement;
 	private PermissionParentCommand teamCommand;
 
 	private BooksawCommand teamBooksawCommand;
@@ -85,7 +86,7 @@ public class Main extends JavaPlugin {
 				&& configManager.config.getBoolean("worldGuard.enabled")) {
 			char ver = Bukkit.getPluginManager().getPlugin("WorldGuard").getDescription().getVersion().charAt(0);
 			if (ver == '7') {
-				wgManagement = new WorldGaurdManagerV7();
+				wgManagement = new WorldGuardManagerV7();
 			} else {
 				Bukkit.getLogger().warning("[BetterTeams] Your version of worldgaurd ("
 						+ Bukkit.getPluginManager().getPlugin("WorldGuard").getDescription().getVersion()
@@ -279,7 +280,7 @@ public class Main extends JavaPlugin {
 		}
 
 		ParentCommand chest = new PermissionParentCommand("chest");
-		chest.addSubCommands(new ChestClaimCommand(), new ChestRemoveCommand(), new ChestRemoveallCommand());
+		chest.addSubCommands(new ChestClaimCommand(), new ChestRemoveCommand(), new ChestRemoveallCommand(), new ChestCheckCommand());
 		teamCommand.addSubCommand(chest);
 
 		teamBooksawCommand = new BooksawCommand("team", teamCommand, "betterteams.standard", "All commands for teams",

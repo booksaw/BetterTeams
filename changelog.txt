@@ -830,7 +830,7 @@ Improvements:
 - Added missing Spanish messages (both translations) - Credit LeadVic
 - Added missing Italian messages - Credit YnsanitY
 - Added missing Polish translations - Credit Rain
-- Added missing Vietnamese translations - Credit Iamsad_VM
+- Added missing Vietnamese translations - Credit Iamsad_VN
 
 Bug Fixes:
 - Fixed typo in config.yml (#620) - Credit dacoder101
@@ -844,6 +844,24 @@ Bug Fixes:
 Code improvements:
 - Replaced equals/length with isEmpty (#630) - Credit svaningelgem
 - Replaced some uses of List with set (Warning developers, this may be a breaking change as class names are updated) (#631) - Credit svaningelgem
+
+4.11.0
+
+Features:
+- Added /team chest check to check if a chest is claimed (#673)
+
+Improvements:
+- Added tracking of the player name in CreateTeamEvent and TeamDisbandEvent - Credit PikaMug
+- Updated Vietnamese translations - Credit maiminhdung
+- Improved warp password handling
+- Added minimum team length parameter (#572)
+
+Bug Fixes:
+- Fixed cheat claim giving an asynchronous error (#656)
+- Fixed player going offline during an invite period throwing errors (#654)
+- Added better null handling for /team top (#660)
+- Fixed issue with /team setwarp not removing price from team (#669)
+- Fixed an issue where betterteams messages were not getting the plugin prefix (#685)
 
 Headings: 
 Features: 

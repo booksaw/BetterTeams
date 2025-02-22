@@ -17,11 +17,11 @@ import org.bukkit.entity.Player;
 
 import java.util.logging.Level;
 
-public class WorldGaurdManagerV7 {
+public class WorldGuardManagerV7 {
 
 	public static StateFlag TEAM_PVP_FLAG;
 
-	public WorldGaurdManagerV7() {
+	public WorldGuardManagerV7() {
 
 		FlagRegistry registry = WorldGuard.getInstance().getFlagRegistry();
 

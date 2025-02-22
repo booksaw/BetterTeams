@@ -22,7 +22,7 @@ public class PermissionParentCommand extends ParentCommand {
 	}
 
 	public PermissionParentCommand(CostManager prices, CooldownManager cooldowns, String command) {
-		super(prices, cooldowns, command);
+		super(prices, cooldowns, command, false);
 		loadConfig(command);
 	}
 
