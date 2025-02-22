@@ -854,6 +854,8 @@ Improvements:
 Bug Fixes:
 - Fixed cheat claim giving an asynchronous error (#656)
 - Fixed player going offline during an invite period throwing errors (#654)
+- Added better null handling for /team top (#660)
+- Fixed issue with /team setwarp not removing price from team (#669)
 
 Headings: 
 Features: 
