@@ -51,7 +51,7 @@ public class NameCommand extends TeamSubCommand {
 			return new CommandResponse("name.exists");
 		}
 
-		team.setName(args[0]);
+		team.setName(args[0], teamPlayer.getPlayer().getPlayer());
 
 		return new CommandResponse(true, "name.success");
 	}
