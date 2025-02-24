@@ -6,9 +6,12 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * This command is called just before a purge occurs
+ * This event is called after a team purge has been completed.
+ * This event cannot be cancelled since it occurs after the purge.
  *
- * @author booksaw
+ * To modify or cancel the purge, use {@link PurgeEvent}.
+ *
+ * @author svaningelgem
  */
 public class PostPurgeEvent extends Event implements Cancellable {
 

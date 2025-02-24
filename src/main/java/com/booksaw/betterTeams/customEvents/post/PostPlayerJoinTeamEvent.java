@@ -7,9 +7,12 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Called when a player joins a team
+ * Called after a player has successfully joined a team.
+ * This event cannot be cancelled since it occurs after the player has joined.
  *
- * @author booksaw
+ * To modify or cancel the join action, use {@link PlayerJoinTeamEvent}.
+ *
+ * @author svaningelgem
  */
 public class PostPlayerJoinTeamEvent extends TeamPlayerEvent {
 

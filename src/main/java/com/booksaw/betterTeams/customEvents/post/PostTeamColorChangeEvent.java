@@ -7,7 +7,13 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * An event which is called right before the recoloring of a {@link Team}
+ * An event which is called after a {@link Team}'s color has been changed.
+ * Contains information about both the old and new team colors.
+ * This event cannot be cancelled since it occurs after the color change.
+ *
+ * To modify or cancel the color change, use {@link TeamColorChangeEvent}.
+ *
+ * @author svaningelgem
  */
 public class PostTeamColorChangeEvent extends TeamEvent {
     private final ChatColor oldColor;

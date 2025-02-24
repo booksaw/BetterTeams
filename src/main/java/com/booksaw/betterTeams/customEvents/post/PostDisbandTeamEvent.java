@@ -12,6 +12,16 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+/**
+ * An event which is called after a team has been disbanded.
+ * Contains information about the player who disbanded the team (if applicable),
+ * the team's previous allies, and all former team members.
+ * This event cannot be cancelled since it occurs after the disbanding.
+ *
+ * To modify or cancel the disbanding, use {@link DisbandTeamEvent}.
+ *
+ * @author svaningelgem
+ */
 public class PostDisbandTeamEvent extends TeamEvent {
 
 	private static final HandlerList HANDLERS = new HandlerList();

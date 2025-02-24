@@ -8,7 +8,13 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * An event which is called when a player deposits money into their {@link Team}'s balance
+ * An event which is called after a player has deposited money into their {@link Team}'s balance.
+ * Contains information about the amount deposited and the player who made the deposit.
+ * This event cannot be cancelled since it occurs after the deposit.
+ *
+ * To modify or cancel the deposit, use {@link TeamDepositEvent}.
+ *
+ * @author svaningelgem
  */
 public final class PostTeamDepositEvent extends TeamPlayerEvent implements TeamMoneyEvent {
     private static final HandlerList HANDLERS = new HandlerList();

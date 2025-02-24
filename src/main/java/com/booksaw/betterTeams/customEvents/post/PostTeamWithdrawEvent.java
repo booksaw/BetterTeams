@@ -8,7 +8,13 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * An event which is called when a player withdraws money from their {@link Team}'s balance
+ * An event which is called after a player has withdrawn money from their {@link Team}'s balance.
+ * Contains information about the amount withdrawn and the player who made the withdrawal.
+ * This event cannot be cancelled since it occurs after the withdrawal.
+ *
+ * To modify or cancel the withdrawal, use {@link TeamWithdrawEvent}.
+ *
+ * @author svaningelgem
  */
 public final class PostTeamWithdrawEvent extends TeamPlayerEvent implements TeamMoneyEvent {
     private static final HandlerList HANDLERS = new HandlerList();

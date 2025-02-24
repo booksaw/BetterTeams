@@ -6,7 +6,13 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * An event which is called right before the renaming of a {@link Team}
+ * An event which is called after a {@link Team}'s name has been changed.
+ * Contains information about both the old and new team names.
+ * This event cannot be cancelled since it occurs after the name change.
+ *
+ * To modify or cancel the name change, use {@link TeamNameChangeEvent}.
+ *
+ * @author svaningelgem
  */
 public class PostTeamNameChangeEvent extends TeamEvent {
 	private final String oldName;
