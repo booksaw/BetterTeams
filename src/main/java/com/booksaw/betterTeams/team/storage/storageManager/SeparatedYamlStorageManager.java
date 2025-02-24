@@ -321,7 +321,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 	}
 
 	private interface ResetLoadedTeamValue {
-		public void resetLoadedTeamValue(Team team);
+		void resetLoadedTeamValue(Team team);
 	}
 
 	public void savePlayerLookup() {
