@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class ColorCommand extends TeamSubCommand {
 
 	final List<Character> alwaysBanned = Arrays.asList('l', 'n', 'o', 'k', 'n', 'r');
-	private List<Character> banned;
+	private final List<Character> banned;
 
 	public ColorCommand() {
 		banned = new ArrayList<>();

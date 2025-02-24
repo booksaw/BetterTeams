@@ -11,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
  */
 public class TeamNameChangeEvent extends TeamEvent {
 	private String newName;
-	private Player player;
+	private final Player player;
 
 	public TeamNameChangeEvent(@NotNull Team team,
 							   @NotNull String newName,
