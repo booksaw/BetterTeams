@@ -203,12 +203,12 @@ public class Team {
 	/**
 	 * tracks and provides utility methods relating to the members of this team
 	 */
-	private final MemberSetComponent members;
+	private final MemberSetComponent members = new MemberSetComponent();
 
 	/**
 	 * Used to track the allies of this team
 	 */
-	private final AllySetComponent allies;
+	private final AllySetComponent allies = new AllySetComponent();
 
 	/**
 	 * This is a list of invited players to this team since the last restart of the
@@ -219,29 +219,29 @@ public class Team {
 	/**
 	 * This is used to store all players which are banned from the team
 	 */
-	private final BanSetComponent bannedPlayers;
+	private final BanSetComponent bannedPlayers = new BanSetComponent();
 
 	/**
 	 * Used to track the chests claimed by this team
 	 */
-	private final ChestClaimComponent claims;
+	private final ChestClaimComponent claims = new ChestClaimComponent();
 
 	/**
 	 * The score for the team
 	 */
-	private final ScoreComponent score;
+	private final ScoreComponent score = new ScoreComponent();
 
 	/**
 	 * The money that the team has
 	 */
-	private final MoneyComponent money;
+	private final MoneyComponent money = new MoneyComponent();
 
 	/**
 	 * Tracks if the team has pvp enabled between team members
 	 */
 	private boolean pvp = false;
 
-	private ChatColor color;
+	private ChatColor color = null;
 	/**
 	 * the rank of the team
 	 */
@@ -255,15 +255,15 @@ public class Team {
 	/**
 	 * Used to track which teams have requested to be allies with this team
 	 */
-	private final AllyRequestComponent requests;
+	private final AllyRequestComponent requests = new AllyRequestComponent();
 
-	private final EChestComponent echest;
+	private final EChestComponent echest = new EChestComponent();
 
 	private int level;
 
 	private String tag;
 
-	private final WarpSetComponent warps;
+	private final WarpSetComponent warps = new WarpSetComponent();
 
 	private org.bukkit.scoreboard.Team team;
 
@@ -299,22 +299,11 @@ public class Team {
 
 		color = ChatColor.getByChar(colorStr.charAt(0));
 
-		members = new MemberSetComponent();
 		members.load(storage);
-
-		allies = new AllySetComponent();
 		allies.load(storage);
-
-		score = new ScoreComponent();
 		score.load(storage);
-
-		money = new MoneyComponent();
 		money.load(storage);
-
-		echest = new EChestComponent();
 		echest.load(storage);
-
-		bannedPlayers = new BanSetComponent();
 		bannedPlayers.load(storage);
 
 		String teamHomeStr = storage.getString(StoredTeamValue.HOME);
@@ -322,13 +311,9 @@ public class Team {
 			teamHome = LocationSetComponent.getLocation(teamHomeStr);
 		}
 
-		requests = new AllyRequestComponent();
 		requests.load(storage);
-
-		warps = new WarpSetComponent();
 		warps.load(storage);
 
-		claims = new ChestClaimComponent();
 		try {
 			claims.load(storage);
 		} catch (IllegalArgumentException e) {
@@ -394,25 +379,11 @@ public class Team {
 		color = ChatColor.getByChar(Main.plugin.getConfig().getString("defaultColor").charAt(0));
 		storage.set(StoredTeamValue.COLOR, color.getChar());
 
-		requests = new AllyRequestComponent();
-
-		warps = new WarpSetComponent();
-
-		claims = new ChestClaimComponent();
 		claims.save(storage);
-
-		allies = new AllySetComponent();
-
-		members = new MemberSetComponent();
 		if (owner != null) {
 			members.add(this, new TeamPlayer(owner, PlayerRank.OWNER));
 		}
 
-		score = new ScoreComponent();
-		money = new MoneyComponent();
-		echest = new EChestComponent();
-
-		bannedPlayers = new BanSetComponent();
 		savePlayers();
 		level = 1;
 		storage.set(StoredTeamValue.LEVEL, 1);
