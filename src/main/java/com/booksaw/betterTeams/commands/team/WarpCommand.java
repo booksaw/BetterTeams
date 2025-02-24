@@ -19,7 +19,7 @@ public class WarpCommand extends TeamSubCommand {
 				replace.append(warp.getName()).append(", ");
 			}
 
-			if (replace.length() == 0) {
+			if (replace.isEmpty()) {
 				return new CommandResponse("warps.none");
 			}
 

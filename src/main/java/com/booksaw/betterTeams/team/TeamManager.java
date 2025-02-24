@@ -256,16 +256,10 @@ public abstract class TeamManager {
 				return claimedBy;
 			}
 
-			claimedBy = getClaimingTeam(ChestManagement.getLocation((Chest) doubleChest.getRightSide()));
-			if (claimedBy != null) {
-				return claimedBy;
-			}
+			return getClaimingTeam(ChestManagement.getLocation((Chest) doubleChest.getRightSide()));
 		} else if (holder instanceof Chest) {
 			// single chest
-			Team claimedBy = getClaimingTeam(ChestManagement.getLocation((Chest) holder));
-			if (claimedBy != null) {
-				return claimedBy;
-			}
+			return getClaimingTeam(ChestManagement.getLocation((Chest) holder));
 		}
 
 		return null;

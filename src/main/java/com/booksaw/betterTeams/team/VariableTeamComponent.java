@@ -7,27 +7,27 @@ public interface VariableTeamComponent<T> {
 	 * 
 	 * @param amount The amount to add
 	 */
-	public void add(T amount);
+	void add(T amount);
 
 	/**
 	 * Subtract the given amount from this variable
 	 * 
 	 * @param amount The amount to subtract
 	 */
-	public void sub(T amount);
+	void sub(T amount);
 
 	/**
 	 * Multiply this variable by the given amount
 	 * 
 	 * @param amount The scaler
 	 */
-	public void mult(T amount);
+	void mult(T amount);
 
 	/**
 	 * Divide this variable by the given amount
 	 * 
 	 * @param amount The scalar
 	 */
-	public void div(T amount);
+	void div(T amount);
 
 }

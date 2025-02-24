@@ -312,7 +312,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 						yamlConfig.save(f);
 					} catch (IOException e) {
 						Bukkit.getLogger()
-								.warning("Failed to purge the " + storedTeamValue.toString() + "of the team with the file " + f.getPath());
+								.warning("Failed to purge the " + storedTeamValue + "of the team with the file " + f.getPath());
 						e.printStackTrace();
 					}
 				}
@@ -321,7 +321,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 	}
 
 	private interface ResetLoadedTeamValue {
-		public void resetLoadedTeamValue(Team team);
+		void resetLoadedTeamValue(Team team);
 	}
 
 	public void savePlayerLookup() {
@@ -430,7 +430,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 				String teamName = config.getString(StoredTeamValue.NAME.getReference()).toLowerCase();
 
 				// the file is invalid
-				if (teamName == null || teamName.length() == 0) {
+				if (teamName == null || teamName.isEmpty()) {
 					continue;
 				}
 

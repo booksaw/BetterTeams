@@ -32,11 +32,11 @@ public class RankCommand extends SubCommand {
 		String priceStr = Main.plugin.getConfig().getString("levels.l" + (team.getLevel() + 1) + ".price");
 
 		if (priceStr == null || priceStr.isEmpty()) {
-			(new ReferencedFormatMessage("rank.infomm", team.getLevel() + "")).sendMessage(sender);
+			(new ReferencedFormatMessage("rank.infomm", team.getLevel())).sendMessage(sender);
 		} else {
 			boolean score = Objects.requireNonNull(priceStr).contains("s");
 
-			(new ReferencedFormatMessage("rank.info" + ((score) ? "s" : "m"), team.getLevel() + "",
+			(new ReferencedFormatMessage("rank.info" + ((score) ? "s" : "m"), team.getLevel(),
 					priceStr.substring(0, priceStr.length() - 1))).sendMessage(sender);
 		}
 

@@ -123,7 +123,7 @@ public class ParentCommand extends SubCommand {
 			CommandCooldown cooldown = cooldowns.getCooldown(command.getCommand());
 			int remaining = cooldown.getRemaining((Player) sender);
 			if (remaining != -1) {
-				return new CommandResponse(false, new ReferencedFormatMessage("cooldown.wait", remaining + ""));
+				return new CommandResponse(false, new ReferencedFormatMessage("cooldown.wait", remaining));
 			}
 
 		}

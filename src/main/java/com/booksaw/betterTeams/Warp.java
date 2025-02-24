@@ -73,7 +73,7 @@ public class Warp {
 
 	@Override
 	public String toString() {
-		if (encrypPassword == null || encrypPassword.equals("")) {
+		if (encrypPassword == null || encrypPassword.isEmpty()) {
 			return name + ";" + LocationSetComponent.getString(location);
 		} else {
 			return name + ";" + LocationSetComponent.getString(location) + ";" + encrypPassword + ";E";

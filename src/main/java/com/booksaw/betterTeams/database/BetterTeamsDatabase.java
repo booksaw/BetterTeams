@@ -14,30 +14,30 @@ public class BetterTeamsDatabase extends Database {
 
 		createTableIfNotExists(TableName.PLAYERS.toString(),
 				"playerUUID VARCHAR(50) NOT NULL PRIMARY KEY, teamID VARCHAR(50) NOT NULL, playerRank INT NOT NULL, title VARCHAR(100), FOREIGN KEY (teamID) REFERENCES "
-						+ TableName.TEAM.toString() + "(teamID) ON DELETE CASCADE");
+						+ TableName.TEAM + "(teamID) ON DELETE CASCADE");
 
 		createTableIfNotExists(TableName.ALLYREQUESTS.toString(),
 				"requestingTeamID VARCHAR(50) NOT NULL, receivingTeamID VARCHAR(50) NOT NULL, PRIMARY KEY(requestingTeamID, receivingTeamID), FOREIGN KEY (requestingTeamID) REFERENCES "
-						+ TableName.TEAM.toString()
+						+ TableName.TEAM
 						+ "(teamID) ON DELETE CASCADE, FOREIGN KEY (receivingTeamID) REFERENCES "
-						+ TableName.TEAM.toString() + "(teamID) ON DELETE CASCADE");
+						+ TableName.TEAM + "(teamID) ON DELETE CASCADE");
 
 		createTableIfNotExists(TableName.WARPS.toString(),
 				"TeamID VARCHAR(50) NOT NULL, warpInfo VARCHAR(200) NOT NULL, PRIMARY KEY(TeamID, warpInfo), FOREIGN KEY (TeamID) REFERENCES "
-						+ TableName.TEAM.toString() + "(teamID) ON DELETE CASCADE");
+						+ TableName.TEAM + "(teamID) ON DELETE CASCADE");
 
 		createTableIfNotExists(TableName.CHESTCLAIMS.toString(),
 				"TeamID VARCHAR(50) NOT NULL, chestLoc VARCHAR(50) NOT NULL, PRIMARY KEY(TeamID, chestLoc), FOREIGN KEY (TeamID) REFERENCES "
-						+ TableName.TEAM.toString() + "(teamID) ON DELETE CASCADE");
+						+ TableName.TEAM + "(teamID) ON DELETE CASCADE");
 
 		createTableIfNotExists(TableName.BANS.toString(),
 				"PlayerUUID VARCHAR(50) NOT NULL, TeamID VARCHAR(50) NOT NULL, PRIMARY KEY(PlayerUUID, TeamID), FOREIGN KEY (teamID) REFERENCES "
-						+ TableName.TEAM.toString() + "(teamID) ON DELETE CASCADE");
+						+ TableName.TEAM + "(teamID) ON DELETE CASCADE");
 
 		createTableIfNotExists(TableName.ALLIES.toString(),
 				"team1ID VARCHAR(50) NOT NULL, team2ID VARCHAR(50) NOT NULL, PRIMARY KEY(team1ID, team2ID), FOREIGN KEY (team1ID) REFERENCES "
-						+ TableName.TEAM.toString() + "(teamID) ON DELETE CASCADE, FOREIGN KEY (team2ID) REFERENCES "
-						+ TableName.TEAM.toString() + "(teamID) ON DELETE CASCADE");
+						+ TableName.TEAM + "(teamID) ON DELETE CASCADE, FOREIGN KEY (team2ID) REFERENCES "
+						+ TableName.TEAM + "(teamID) ON DELETE CASCADE");
 
 	}
 
