@@ -3,9 +3,9 @@ package com.booksaw.betterTeams.events;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.customEvents.DemotePlayerEvent;
-import com.booksaw.betterTeams.customEvents.LevelupTeamEvent;
 import com.booksaw.betterTeams.customEvents.PromotePlayerEvent;
+import com.booksaw.betterTeams.customEvents.post.PostDemotePlayerEvent;
+import com.booksaw.betterTeams.customEvents.post.PostLevelupTeamEvent;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -20,7 +20,7 @@ import java.util.Objects;
 public class RankupEvents implements Listener {
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
-	public void onRankup(LevelupTeamEvent e) {
+	public void onRankup(PostLevelupTeamEvent e) {
 		List<String> endCommands = Main.plugin.getConfig()
 				.getStringList("levels.l" + e.getCurrentLevel() + ".endCommands");
 		runCommandList(endCommands, e.getTeam(), e.getCurrentLevel() + "", e.getCommandSender());
@@ -37,7 +37,7 @@ public class RankupEvents implements Listener {
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
-	public void onDemote(DemotePlayerEvent e) {
+	public void onDemote(PostDemotePlayerEvent e) {
 		List<String> commands = Main.plugin.getConfig().getStringList("demoteCommands." + e.getNewRank().toString().toUpperCase());
 		runCommandList(commands, e.getTeam(), e.getNewRank().toString(), e.getPlayer());
 	}

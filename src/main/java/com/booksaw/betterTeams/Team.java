@@ -1,6 +1,8 @@
 package com.booksaw.betterTeams;
 
 import com.booksaw.betterTeams.customEvents.*;
+import com.booksaw.betterTeams.customEvents.post.PostDemotePlayerEvent;
+import com.booksaw.betterTeams.customEvents.post.PostDisbandTeamEvent;
 import com.booksaw.betterTeams.exceptions.CancelledEventException;
 import com.booksaw.betterTeams.message.Message;
 import com.booksaw.betterTeams.message.MessageManager;
@@ -33,7 +35,7 @@ public class Team {
 
 	private static TeamManager TEAMMANAGER;
 
-	public static final void setupTeamManager(StorageType storageType) {
+	public static void setupTeamManager(StorageType storageType) {
 		if (TEAMMANAGER != null) {
 			throw new IllegalArgumentException("The team manager has already been setup");
 		}
@@ -53,7 +55,7 @@ public class Team {
 	/**
 	 * Used to disable betterteams so the singleton is removed
 	 */
-	public static final void disable() {
+	public static void disable() {
 		TEAMMANAGER.disable();
 		TEAMMANAGER = null;
 	}
@@ -722,23 +724,18 @@ public class Team {
 			throw new IllegalArgumentException("Disbanding was cancelled by another plugin");
 		}
 
-		for (UUID ally : allies.getClone()) {
+		Set<UUID> prevAllies = allies.getClone();
+		for (UUID ally : prevAllies) {
 			Team team = Team.getTeam(ally);
 			if (team == null) {
 				// this should not occur but is a failsafe
 				continue;
 			}
 			Objects.requireNonNull(team).removeAlly(getID());
-
 		}
 
-//		for (Entry<UUID, Team> requestedTeam : getTeamManager().getTeamListClone().entrySet()) {
-//			if (requestedTeam.getValue().hasRequested(getID())) {
-//				requestedTeam.getValue().removeAllyRequest(getID());
-//			}
-//		}
-
-		for (TeamPlayer teamPlayer : getMembers().get()) {
+		Set<TeamPlayer> prevMembers = members.getClone();
+		for (TeamPlayer teamPlayer : prevMembers) {
 			getTeamManager().playerLeaveTeam(this, teamPlayer);
 		}
 
@@ -746,8 +743,7 @@ public class Team {
 		getTeamManager().disbandTeam(this);
 
 		if (Main.plugin.teamManagement != null) {
-
-			for (TeamPlayer p : members.getClone()) {
+			for (TeamPlayer p : prevMembers) {
 				if (p.getPlayer().isOnline()) {
 					Main.plugin.teamManagement.remove(p.getPlayer().getPlayer());
 				}
@@ -756,15 +752,9 @@ public class Team {
 			if (team != null)
 				team.unregister();
 			team = null;
-
 		}
 
-		if (Main.plugin.getConfig().getBoolean("announceTeamDisband")) {
-			Message message = new ReferencedFormatMessage("announce.disband", getColor() + getName() + ChatColor.RESET);
-			for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-				message.sendMessage(onlinePlayer);
-			}
-		}
+		Bukkit.getPluginManager().callEvent(new PostDisbandTeamEvent(this, player, prevAllies, prevMembers));
 	}
 
 	/**
@@ -866,13 +856,14 @@ public class Team {
 	 */
 	public void demotePlayer(TeamPlayer demotePlayer) {
 
+		PlayerRank oldRank = demotePlayer.getRank();
 		PlayerRank newRank;
-		if (demotePlayer.getRank() == PlayerRank.ADMIN) {
+		if (oldRank == PlayerRank.ADMIN) {
 			newRank = PlayerRank.DEFAULT;
 		} else {
 			newRank = PlayerRank.ADMIN;
 		}
-		DemotePlayerEvent event = new DemotePlayerEvent(this, demotePlayer, demotePlayer.getRank(), newRank);
+		DemotePlayerEvent event = new DemotePlayerEvent(this, demotePlayer, oldRank, newRank);
 
 		Bukkit.getPluginManager().callEvent(event);
 
@@ -883,6 +874,8 @@ public class Team {
 		demotePlayer.setRank(newRank);
 		storage.demotePlayer(demotePlayer);
 		savePlayers();
+
+		Bukkit.getPluginManager().callEvent(new PostDemotePlayerEvent(this, demotePlayer, oldRank, newRank));
 	}
 
 	public void setTeamHome(Location teamHome) {

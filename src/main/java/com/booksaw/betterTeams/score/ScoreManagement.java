@@ -2,7 +2,7 @@ package com.booksaw.betterTeams.score;
 
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.customEvents.PrePurgeEvent;
+import com.booksaw.betterTeams.customEvents.post.PostPurgeEvent;
 import com.booksaw.betterTeams.score.ScoreChange.ChangeType;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
@@ -84,7 +84,7 @@ public class ScoreManagement implements Listener {
 	}
 
 	@EventHandler
-	public void onPurge(PrePurgeEvent e) {
+	public void onPurge(PostPurgeEvent e) {
 		Bukkit.getScheduler().runTask(Main.plugin, () -> {
 			Main.plugin.getConfig().getStringList("purgeCommands").forEach(cmd -> {
 				if (Main.plugin.getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
@@ -92,7 +92,6 @@ public class ScoreManagement implements Listener {
 				}
 
 				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);
-
 			});
 		});
 	}

@@ -1,7 +1,6 @@
 package com.booksaw.betterTeams.customEvents;
 
 import com.booksaw.betterTeams.Team;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;

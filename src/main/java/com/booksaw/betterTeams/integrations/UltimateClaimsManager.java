@@ -4,9 +4,9 @@ import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.customEvents.DisbandTeamEvent;
-import com.booksaw.betterTeams.customEvents.PlayerJoinTeamEvent;
-import com.booksaw.betterTeams.customEvents.PlayerLeaveTeamEvent;
+import com.booksaw.betterTeams.customEvents.post.PostDisbandTeamEvent;
+import com.booksaw.betterTeams.customEvents.post.PostPlayerJoinTeamEvent;
+import com.booksaw.betterTeams.customEvents.post.PostPlayerLeaveTeamEvent;
 import com.booksaw.betterTeams.message.MessageManager;
 import com.craftaro.ultimateclaims.UltimateClaims;
 import com.craftaro.ultimateclaims.api.events.*;
@@ -65,7 +65,7 @@ public class UltimateClaimsManager implements Listener {
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-	public void onJoin(PlayerJoinTeamEvent e) {
+	public void onJoin(PostPlayerJoinTeamEvent e) {
 		List<TeamPlayer> players = e.getTeam().getRank(PlayerRank.OWNER);
 
 		for (TeamPlayer player : players) {
@@ -82,12 +82,11 @@ public class UltimateClaimsManager implements Listener {
 					JavaPlugin.getPlugin(UltimateClaims.class).getDataHelper().createMember(member);
 				}
 			}.runTaskLater(Main.plugin, 1);
-
 		}
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-	public void onLeave(PlayerLeaveTeamEvent e) {
+	public void onLeave(PostPlayerLeaveTeamEvent e) {
 		List<TeamPlayer> players = e.getTeam().getRank(PlayerRank.OWNER);
 
 		for (TeamPlayer player : players) {
@@ -99,7 +98,6 @@ public class UltimateClaimsManager implements Listener {
 			ClaimMember member = c.getMember(e.getPlayer());
 			c.removeMember(member);
 			JavaPlugin.getPlugin(UltimateClaims.class).getDataHelper().deleteMember(member);
-
 		}
 	}
 
@@ -153,28 +151,29 @@ public class UltimateClaimsManager implements Listener {
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-	public void disbandEvent(DisbandTeamEvent event) {
+	public void disbandEvent(PostDisbandTeamEvent event) {
+		for (TeamPlayer player : event.getMembers()) {
+			if (player.getRank() != PlayerRank.OWNER) {
+				continue;
+			}
 
-		for (TeamPlayer player : event.getTeam().getRank(PlayerRank.OWNER)) {
 			Claim c = JavaPlugin.getPlugin(UltimateClaims.class).getClaimManager().getClaim(player.getPlayer().getUniqueId());
 			if (c == null) {
 				continue;
 			}
 
 			new BukkitRunnable() {
-				
+
 				@Override
 				public void run() {
 					c.destroy(ClaimDeleteReason.PLAYER);
 				}
 			}.runTask(Main.plugin);
-			
+
 
 			if (player.getPlayer().isOnline()) {
 				MessageManager.sendMessage(player.getPlayer().getPlayer(), "uclaim.dissolve");
 			}
 		}
-
 	}
-
 }
