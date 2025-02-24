@@ -870,8 +870,12 @@ Features:
 This feature sends messages to discord on configurable events, such as team chat messages, team creation and players leaving teams.
 All you need is a discord webhook url in the webhooks section of the config, then just enable the messages you want to send, and they will start showing up.
 
-Headings: 
-Features: 
+Improvements:
+- Add post-occurrence events matching all existing events which are only called on success - Credit svaningelgem
+- Many instances of code refactoring and improvement - Credit svaningelgem
+
+Headings:
+Features:
 
 Improvements:
 
