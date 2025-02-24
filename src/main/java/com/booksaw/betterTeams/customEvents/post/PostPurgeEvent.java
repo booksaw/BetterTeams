@@ -35,8 +35,7 @@ public class PostPurgeEvent extends Event implements Cancellable {
 
 	@Override
 	public void setCancelled(boolean b) {
-		cancelled = b;
-
+		throw new UnsupportedOperationException("You can't cancel a post event.");
 	}
 
 }

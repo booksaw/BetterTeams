@@ -6,6 +6,7 @@ import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.customEvents.PromotePlayerEvent;
 import com.booksaw.betterTeams.customEvents.post.PostDemotePlayerEvent;
 import com.booksaw.betterTeams.customEvents.post.PostLevelupTeamEvent;
+import com.booksaw.betterTeams.customEvents.post.PostPromotePlayerEvent;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -31,7 +32,7 @@ public class RankupEvents implements Listener {
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
-	public void onPromote(PromotePlayerEvent e) {
+	public void onPromote(PostPromotePlayerEvent e) {
 		List<String> commands = Main.plugin.getConfig().getStringList("promoteCommands." + e.getNewRank().toString().toUpperCase());
 		runCommandList(commands, e.getTeam(), e.getNewRank().toString(), e.getPlayer());
 	}

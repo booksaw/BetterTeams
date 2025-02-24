@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class TeamNameChangeEvent extends TeamEvent {
     private String newName;
+
     public TeamNameChangeEvent(@NotNull Team team,
                                @NotNull String newName) {
         super(team);
