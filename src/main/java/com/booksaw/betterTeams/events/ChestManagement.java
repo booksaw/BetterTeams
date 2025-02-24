@@ -36,7 +36,7 @@ public class ChestManagement implements Listener {
 		Team team = Team.getTeam(e.getPlayer());
 
 		Team claimedBy = Team.getClaimingTeam(e.getClickedBlock());
-		if (claimedBy != null && team != claimedBy && (team == null || !claimedBy.isAlly(team.getID()))) {
+		if (claimedBy != null && team != claimedBy && (team == null || !claimedBy.isAlly(team))) {
 			cancelChestEvent(e, claimedBy);
 		}
 	}

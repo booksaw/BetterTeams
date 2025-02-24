@@ -1,9 +1,6 @@
 package com.booksaw.betterTeams.commands.team;
 
-import java.util.*;
-
 import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
@@ -12,7 +9,10 @@ import com.booksaw.betterTeams.message.Message;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
 import org.bukkit.command.CommandSender;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 
 public class NeutralCommand extends TeamSubCommand {
@@ -29,9 +29,9 @@ public class NeutralCommand extends TeamSubCommand {
 		}
 
 		// if there is an ally request
-		if (team.hasRequested(toNeutral.getID())) {
+		if (team.hasRequested(toNeutral)) {
 			// removing the ally request
-			team.removeAllyRequest(toNeutral.getID());
+			team.removeAllyRequest(toNeutral);
 
 			// notifying the other team
 
@@ -42,9 +42,9 @@ public class NeutralCommand extends TeamSubCommand {
 		}
 
 		// if they are allies
-		if (toNeutral.isAlly(team.getID())) {
-			toNeutral.removeAlly(team.getID());
-			team.removeAlly(toNeutral.getID());
+		if (toNeutral.isAlly(team)) {
+			toNeutral.removeAlly(team);
+			team.removeAlly(toNeutral);
 
 			return new CommandResponse(true);
 		}

@@ -26,14 +26,14 @@ public class AllyTeama extends SubCommand {
 			return new CommandResponse("admin.ally.same");
 		}
 		
-		if(team1.isAlly(team2.getID())) {
+		if(team1.isAlly(team2)) {
 			return new CommandResponse("admin.ally.already");
 		}
 		
-		team1.addAlly(team2.getID());
-		team2.addAlly(team1.getID());
-		team1.removeAllyRequest(team2.getID());
-		team2.removeAllyRequest(team1.getID());
+		team1.addAlly(team2);
+		team2.addAlly(team1);
+		team1.removeAllyRequest(team2);
+		team2.removeAllyRequest(team1);
 		
 		return new CommandResponse(true, "admin.ally.success");
 	}

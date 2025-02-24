@@ -39,13 +39,13 @@ public class RankupCommand extends TeamSubCommand {
 		if (score) {
 
 			if (team.getScore() < price) {
-				return new CommandResponse(new ReferencedFormatMessage("rankup.score", price + ""));
+				return new CommandResponse(new ReferencedFormatMessage("rankup.score", price));
 			}
 
 		} else {
 
 			if (team.getMoney() < price) {
-				return new CommandResponse(new ReferencedFormatMessage("rankup.money", price + ""));
+				return new CommandResponse(new ReferencedFormatMessage("rankup.money", price));
 			}
 
 		}
