@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.booksaw.betterTeams.integrations.placeholder;
 
@@ -10,7 +10,7 @@ import com.booksaw.betterTeams.Team;
  * Class is defined to provide an individual team placeholder
  */
 public interface IndividualTeamPlaceholderProvider {
-	
-	public String getPlaceholderForTeam(Team team);
+
+	String getPlaceholderForTeam(Team team);
 
 }
