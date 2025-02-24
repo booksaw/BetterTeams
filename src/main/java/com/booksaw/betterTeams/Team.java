@@ -18,6 +18,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -159,7 +160,7 @@ public class Team {
 
 		String allowed = Main.plugin.getConfig().getString("allowedChars");
 
-		if (allowed.length() != 0) {
+		if (allowed != null && !allowed.isEmpty()) {
 			for (char temp : name.toCharArray()) {
 				if (!allowed.contains(Character.toString(temp))) {
 					return false;
@@ -176,7 +177,7 @@ public class Team {
 	 * The ID of the team (this is a unique identifier of the team which will never
 	 * change)
 	 */
-	private UUID id;
+	private final UUID id;
 
 	/**
 	 * The name of the team, this can be changed after the creation of a teams, so
@@ -202,45 +203,45 @@ public class Team {
 	/**
 	 * tracks and provides utility methods relating to the members of this team
 	 */
-	private MemberSetComponent members;
+	private final MemberSetComponent members = new MemberSetComponent();
 
 	/**
 	 * Used to track the allies of this team
 	 */
-	private final AllySetComponent allies;
+	private final AllySetComponent allies = new AllySetComponent();
 
 	/**
 	 * This is a list of invited players to this team since the last restart of the
 	 * server
 	 */
-	private List<UUID> invitedPlayers = new ArrayList<>();
+	private final List<UUID> invitedPlayers = new ArrayList<>();
 
 	/**
 	 * This is used to store all players which are banned from the team
 	 */
-	private final BanSetComponent bannedPlayers;
+	private final BanSetComponent bannedPlayers = new BanSetComponent();
 
 	/**
 	 * Used to track the chests claimed by this team
 	 */
-	private final ChestClaimComponent claims;
+	private final ChestClaimComponent claims = new ChestClaimComponent();
 
 	/**
 	 * The score for the team
 	 */
-	private final ScoreComponent score;
+	private final ScoreComponent score = new ScoreComponent();
 
 	/**
 	 * The money that the team has
 	 */
-	private final MoneyComponent money;
+	private final MoneyComponent money = new MoneyComponent();
 
 	/**
 	 * Tracks if the team has pvp enabled between team members
 	 */
 	private boolean pvp = false;
 
-	private ChatColor color;
+	private ChatColor color = null;
 	/**
 	 * the rank of the team
 	 */
@@ -254,15 +255,15 @@ public class Team {
 	/**
 	 * Used to track which teams have requested to be allies with this team
 	 */
-	private AllyRequestComponent requests;
+	private final AllyRequestComponent requests = new AllyRequestComponent();
 
-	private final EChestComponent echest;
+	private final EChestComponent echest = new EChestComponent();
 
 	private int level;
 
 	private String tag;
 
-	private WarpSetComponent warps;
+	private final WarpSetComponent warps = new WarpSetComponent();
 
 	private org.bukkit.scoreboard.Team team;
 
@@ -283,7 +284,7 @@ public class Team {
 			getTeamManager().disbandTeam(this);
 
 			throw new IllegalArgumentException(
-					"The team that attempted loading is invalid, disbanding the team to avoid problems");
+				"The team that attempted loading is invalid, disbanding the team to avoid problems");
 		}
 
 		description = storage.getString(StoredTeamValue.DESCRIPTION);
@@ -292,42 +293,27 @@ public class Team {
 
 		String colorStr = storage.getString(StoredTeamValue.COLOR);
 
-		if (colorStr == null || colorStr.length() == 0) {
+		if (colorStr == null || colorStr.isEmpty()) {
 			colorStr = "6";
 		}
 
 		color = ChatColor.getByChar(colorStr.charAt(0));
 
-		members = new MemberSetComponent();
 		members.load(storage);
-
-		allies = new AllySetComponent();
 		allies.load(storage);
-
-		score = new ScoreComponent();
 		score.load(storage);
-
-		money = new MoneyComponent();
 		money.load(storage);
-
-		echest = new EChestComponent();
 		echest.load(storage);
-
-		bannedPlayers = new BanSetComponent();
 		bannedPlayers.load(storage);
 
 		String teamHomeStr = storage.getString(StoredTeamValue.HOME);
-		if (teamHomeStr != null && !teamHomeStr.equals("")) {
+		if (teamHomeStr != null && !teamHomeStr.isEmpty()) {
 			teamHome = LocationSetComponent.getLocation(teamHomeStr);
 		}
 
-		requests = new AllyRequestComponent();
 		requests.load(storage);
-
-		warps = new WarpSetComponent();
 		warps.load(storage);
 
-		claims = new ChestClaimComponent();
 		try {
 			claims.load(storage);
 		} catch (IllegalArgumentException e) {
@@ -362,7 +348,7 @@ public class Team {
 
 		if (name == null) {
 			Bukkit.getLogger()
-					.warning("[BetterTeams] Provided team name was null, this should never occur. Team uuid = " + id);
+				.warning("[BetterTeams] Provided team name was null, this should never occur. Team uuid = " + id);
 			name = "invalidName";
 
 			try {
@@ -393,25 +379,11 @@ public class Team {
 		color = ChatColor.getByChar(Main.plugin.getConfig().getString("defaultColor").charAt(0));
 		storage.set(StoredTeamValue.COLOR, color.getChar());
 
-		requests = new AllyRequestComponent();
-
-		warps = new WarpSetComponent();
-
-		claims = new ChestClaimComponent();
 		claims.save(storage);
-
-		allies = new AllySetComponent();
-
-		members = new MemberSetComponent();
 		if (owner != null) {
 			members.add(this, new TeamPlayer(owner, PlayerRank.OWNER));
 		}
 
-		score = new ScoreComponent();
-		money = new MoneyComponent();
-		echest = new EChestComponent();
-
-		bannedPlayers = new BanSetComponent();
 		savePlayers();
 		level = 1;
 		storage.set(StoredTeamValue.LEVEL, 1);
@@ -496,7 +468,7 @@ public class Team {
 	}
 
 	public String getTag() {
-		if (tag == null || tag.length() == 0) {
+		if (tag == null || tag.isEmpty()) {
 			return getDisplayName();
 		}
 
@@ -935,20 +907,8 @@ public class Team {
 	 * @param message the message to send to the team chat
 	 */
 	public void sendMessage(TeamPlayer sender, String message) {
-		ChatColor returnTo = ChatColor.RESET;
 		String toTest = getChatSyntax(sender);
-		Matcher matcher = Pattern.compile("\\{\\d+\\}").matcher(toTest);
-		if (matcher.find()) {
-			int value = matcher.start();
-			if (value > 3) {
-				for (int i = value; i >= 0; i--) {
-					if (toTest.charAt(i) == '\u00A7') {
-						returnTo = ChatColor.getByChar(toTest.charAt(i + 1));
-						break;
-					}
-				}
-			}
-		}
+		ChatColor returnTo = getPreviousChatColor(toTest);
 
 		// These are variables which may be modified by TeamPreMessageEvent
 		Set<TeamPlayer> recipients = members.getClone();
@@ -958,7 +918,7 @@ public class Team {
 
 		// Notify third party plugins that a team message is going to be sent
 		TeamPreMessageEvent teamPreMessageEvent = new TeamPreMessageEvent(this, sender, message, format,
-				prefix, recipients);
+			prefix, recipients);
 		Bukkit.getPluginManager().callEvent(teamPreMessageEvent);
 
 		// Process any updates after the event has been dispatched
@@ -971,8 +931,8 @@ public class Team {
 		}
 
 		String fMessage = MessageManager.format(format,
-				prefix + Objects.requireNonNull(sender.getPlayer().getPlayer()).getDisplayName(),
-				message);
+			prefix + Objects.requireNonNull(sender.getPlayer().getPlayer()).getDisplayName(),
+			message);
 
 		fMessage = fMessage.replace("$name$", prefix + sender.getPlayer().getPlayer().getName());
 		fMessage = fMessage.replace("$message$", message);
@@ -998,6 +958,25 @@ public class Team {
 		Bukkit.getPluginManager().callEvent(new TeamMessageEvent(this, sender, fMessage, teamPreMessageEvent.getRecipients()));
 	}
 
+	private static @NotNull ChatColor getPreviousChatColor(String toTest) {
+		Matcher matcher = Pattern.compile("\\{\\d+}").matcher(toTest);
+		if (matcher.find()) {
+			int value = matcher.start();
+			if (value > 3) {
+				for (int i = value; i >= 0; i--) {
+					if (toTest.charAt(i) == ChatColor.COLOR_CHAR) {
+						ChatColor returnTo = ChatColor.getByChar(toTest.charAt(i + 1));
+						if (returnTo != null) {
+							return returnTo;
+						}
+					}
+				}
+			}
+		}
+
+		return ChatColor.RESET;
+	}
+
 	/**
 	 * Used to get the chat syntax and apply placeholders when possible
 	 *
@@ -1019,24 +998,12 @@ public class Team {
 	 * @param message the message that the player sent
 	 */
 	public void sendAllyMessage(TeamPlayer sender, String message) {
-		ChatColor returnTo = ChatColor.RESET;
 		String toTest = MessageManager.getMessage(sender.getPlayer().getPlayer(), "chat.syntax");
-		Matcher matcher = Pattern.compile("\\{\\d+\\}").matcher(toTest);
-		if (matcher.find()) {
-			int value = matcher.start();
-			if (value > 3) {
-				for (int i = value; i >= 0; i--) {
-					if (toTest.charAt(i) == '\u00A7') {
-						returnTo = ChatColor.getByChar(toTest.charAt(i + 1));
-						break;
-					}
-				}
-			}
-		}
+		ChatColor returnTo = getPreviousChatColor(toTest);
 
 		String fMessage = MessageManager.getMessage("allychat.syntax", getName(),
-				sender.getPrefix(returnTo) + Objects.requireNonNull(sender.getPlayer().getPlayer()).getDisplayName(),
-				message);
+			sender.getPrefix(returnTo) + Objects.requireNonNull(sender.getPlayer().getPlayer()).getDisplayName(),
+			message);
 
 		fMessage = fMessage.replace("$name$", sender.getPrefix(returnTo) + sender.getPlayer().getPlayer().getName());
 		fMessage = fMessage.replace("$message$", message);
@@ -1150,7 +1117,7 @@ public class Team {
 
 		if (team == null) {
 			Bukkit.getLogger().warning(
-					"An avaliable team cannot be found, be prepared for a lot of errors. (this should never happen, and should always be reported to booksaw)");
+				"An avaliable team cannot be found, be prepared for a lot of errors. (this should never happen, and should always be reported to booksaw)");
 			Bukkit.getLogger().warning("This catch is merely here to stop the server crashing");
 			return null;
 		}
