@@ -2,7 +2,6 @@ package com.booksaw.betterTeams.customEvents.post;
 
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.customEvents.TeamMoneyEvent;
 import com.booksaw.betterTeams.customEvents.TeamPlayerEvent;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
@@ -16,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
  *
  * @author svaningelgem
  */
-public final class PostTeamDepositEvent extends TeamPlayerEvent implements TeamMoneyEvent {
+public final class PostTeamDepositEvent extends TeamPlayerEvent implements PostTeamMoneyEvent {
     private static final HandlerList HANDLERS = new HandlerList();
 
     private final double amount;
@@ -39,10 +38,5 @@ public final class PostTeamDepositEvent extends TeamPlayerEvent implements TeamM
     @Override
     public double getAmount() {
         return this.amount;
-    }
-
-    @Override
-    public void setAmount(final double amount) {
-        throw new UnsupportedOperationException("You can't change the amount in a post event.");
     }
 }
