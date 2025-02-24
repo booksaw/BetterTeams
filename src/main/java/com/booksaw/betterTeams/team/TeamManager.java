@@ -5,6 +5,8 @@ import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.customEvents.CreateTeamEvent;
 import com.booksaw.betterTeams.customEvents.PrePurgeEvent;
+import com.booksaw.betterTeams.customEvents.post.PostCreateTeamEvent;
+import com.booksaw.betterTeams.customEvents.post.PostPurgeEvent;
 import com.booksaw.betterTeams.events.ChestManagement;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
 import org.bukkit.Bukkit;
@@ -183,6 +185,8 @@ public abstract class TeamManager {
 			Main.plugin.teamManagement.displayBelowName(owner);
 		}
 
+		Bukkit.getPluginManager().callEvent(new PostCreateTeamEvent(team, owner));
+
 		return team;
 	}
 
@@ -330,6 +334,7 @@ public abstract class TeamManager {
 			purgeTeamMoney();
 		}
 
+		Bukkit.getPluginManager().callEvent(new PostPurgeEvent());
 		return true;
 	}
 

@@ -10,6 +10,7 @@ import org.jetbrains.annotations.Nullable;
  * An event which is called right before the renaming of a {@link Team}
  */
 public class TeamNameChangeEvent extends TeamEvent {
+
 	private String newName;
 	private final Player player;
 
