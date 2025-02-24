@@ -9,7 +9,6 @@ import org.bukkit.command.CommandSender;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.UUID;
 
 /**
@@ -29,7 +28,7 @@ public class DisbandCommand extends TeamSubCommand {
 	public CommandResponse onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
 		UUID playerId = teamPlayer.getPlayer().getUniqueId();
 
-		if ((args.length > 1 && args[0].equals("confirm")) ||
+		if ((args.length >= 1 && args[0].equals("confirm")) ||
 			(System.currentTimeMillis() - confirmation.getOrDefault(playerId, 0L) < 10000)) {
 
 			team.disband(teamPlayer.getPlayer().getPlayer());
