@@ -38,7 +38,7 @@ public class TableBuilder {
 	 * Execute the built command
 	 */
 	public void execute() {
-		if (tableInfo.length() == 0) {
+		if (tableInfo.isEmpty()) {
 			return;
 		}
 		database.createTableIfNotExists(tableName, tableInfo.toString());

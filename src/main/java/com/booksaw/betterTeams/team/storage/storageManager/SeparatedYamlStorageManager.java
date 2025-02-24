@@ -430,7 +430,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 				String teamName = config.getString(StoredTeamValue.NAME.getReference()).toLowerCase();
 
 				// the file is invalid
-				if (teamName == null || teamName.length() == 0) {
+				if (teamName == null || teamName.isEmpty()) {
 					continue;
 				}
 
