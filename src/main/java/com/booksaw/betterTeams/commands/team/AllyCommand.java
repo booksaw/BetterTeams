@@ -46,7 +46,7 @@ public class AllyCommand extends TeamSubCommand {
 		}
 
 		// check if they are already allies
-		if (toAlly.isAlly(team.getID())) {
+		if (toAlly.isAlly(team)) {
 			return new CommandResponse("ally.already");
 		}
 
@@ -56,21 +56,21 @@ public class AllyCommand extends TeamSubCommand {
 		}
 
 		// checking if they have already sent an ally request
-		if (toAlly.hasRequested(team.getID())) {
+		if (toAlly.hasRequested(team)) {
 			return new CommandResponse("ally.alreadyrequest");
 		}
 
 		// checking if an ally request has been sent
-		if (team.hasRequested(toAlly.getID())) {
+		if (team.hasRequested(toAlly)) {
 
-			toAlly.addAlly(team.getID());
-			team.addAlly(toAlly.getID());
-			toAlly.removeAllyRequest(team.getID());
-			team.removeAllyRequest(toAlly.getID());
+			toAlly.addAlly(team);
+			team.addAlly(toAlly);
+			toAlly.removeAllyRequest(team);
+			team.removeAllyRequest(toAlly);
 			return new CommandResponse(true, "ally.success");
 		}
 		// sending an ally request
-		toAlly.addAllyRequest(team.getID());
+		toAlly.addAllyRequest(team);
 
 		return new CommandResponse(true, "ally.requested");
 	}

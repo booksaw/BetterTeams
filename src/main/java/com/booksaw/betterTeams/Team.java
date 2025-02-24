@@ -18,6 +18,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -728,15 +729,9 @@ public class Team {
 				// this should not occur but is a failsafe
 				continue;
 			}
-			Objects.requireNonNull(team).removeAlly(getID());
+			Objects.requireNonNull(team).removeAlly(this);
 
 		}
-
-//		for (Entry<UUID, Team> requestedTeam : getTeamManager().getTeamListClone().entrySet()) {
-//			if (requestedTeam.getValue().hasRequested(getID())) {
-//				requestedTeam.getValue().removeAllyRequest(getID());
-//			}
-//		}
 
 		for (TeamPlayer teamPlayer : getMembers().get()) {
 			getTeamManager().playerLeaveTeam(this, teamPlayer);
@@ -1054,7 +1049,7 @@ public class Team {
 			if (temp instanceof Player) {
 				Team spyTeam = Team.getTeam((Player) temp);
 				// if they are receiving the message without chat spy
-				if (spyTeam == this || (spyTeam != null && isAlly(spyTeam.getID()))) {
+				if (spyTeam == this || (spyTeam != null && isAlly(spyTeam))) {
 					continue;
 				}
 			}
@@ -1190,6 +1185,14 @@ public class Team {
 		allies.add(this, ally);
 		saveAllies();
 	}
+	/**
+	 * Used to add an ally for this team
+	 *
+	 * @param ally the UUID of the new ally
+	 */
+	public void addAlly(@NotNull Team ally) {
+		addAlly(ally.getID());
+	}
 
 	/**
 	 * Used to remove an ally from this team
@@ -1199,6 +1202,14 @@ public class Team {
 	public void removeAlly(UUID ally) {
 		allies.remove(this, ally);
 		saveAllies();
+	}
+	/**
+	 * Used to remove an ally from this team
+	 *
+	 * @param ally the ally to remove
+	 */
+	public void removeAlly(@NotNull Team ally) {
+		removeAlly(ally.getID());
 	}
 
 	/**
@@ -1210,6 +1221,15 @@ public class Team {
 	public boolean isAlly(UUID team) {
 		return allies.contains(team);
 	}
+	/**
+	 * Used to check if a team is in alliance with this team
+	 *
+	 * @param team the team to check for allies
+	 * @return if the team is an ally
+	 */
+	public boolean isAlly(@NotNull Team team) {
+		return isAlly(team.getID());
+	}
 
 	/**
 	 * Used to add an ally request to this team
@@ -1219,6 +1239,14 @@ public class Team {
 	public void addAllyRequest(UUID team) {
 		requests.add(this, team);
 		saveAllyRequests();
+	}
+	/**
+	 * Used to add an ally request to this team
+	 *
+	 * @param team the team that has sent the request
+	 */
+	public void addAllyRequest(@NotNull Team team) {
+		addAllyRequest(team.getID());
 	}
 
 	/**
@@ -1230,6 +1258,14 @@ public class Team {
 		requests.remove(this, team);
 		saveAllyRequests();
 	}
+	/**
+	 * Used to remove an ally request from this team
+	 *
+	 * @param team the team to remove the ally request for
+	 */
+	public void removeAllyRequest(@NotNull Team team) {
+		removeAllyRequest(team.getID());
+	}
 
 	/**
 	 * Used to check if a team has sent an ally request for this team
@@ -1239,6 +1275,15 @@ public class Team {
 	 */
 	public boolean hasRequested(UUID team) {
 		return requests.contains(team);
+	}
+	/**
+	 * Used to check if a team has sent an ally request for this team
+	 *
+	 * @param team the team to check for
+	 * @return if they have sent an ally request
+	 */
+	public boolean hasRequested(@NotNull Team team) {
+		return hasRequested(team.getID());
 	}
 
 	/**
