@@ -438,10 +438,10 @@ public class Team {
 	 *
 	 * @param name the new team namexg
 	 */
-	public void setName(String name) {
+	public void setName(String name, Player playerSource) {
 		final String previousName = this.name;
 
-		TeamNameChangeEvent event = new TeamNameChangeEvent(this, name);
+		TeamNameChangeEvent event = new TeamNameChangeEvent(this, name, playerSource);
 		Bukkit.getPluginManager().callEvent(event);
 
 		if (event.isCancelled()) {
