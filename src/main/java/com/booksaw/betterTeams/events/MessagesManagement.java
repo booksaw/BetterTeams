@@ -2,7 +2,9 @@ package com.booksaw.betterTeams.events;
 
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.customEvents.post.*;
+import com.booksaw.betterTeams.customEvents.post.PostDisbandTeamEvent;
+import com.booksaw.betterTeams.customEvents.post.PostPlayerJoinTeamEvent;
+import com.booksaw.betterTeams.customEvents.post.PostPlayerLeaveTeamEvent;
 import com.booksaw.betterTeams.message.Message;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
 import org.bukkit.Bukkit;
@@ -60,6 +62,6 @@ public class MessagesManagement implements Listener {
 
 	@EventHandler
 	public void onPostDisbandTeamEvent(@NotNull PostDisbandTeamEvent e) {
-		broadcastTeamMessage(TeamAnnouncement.DISBAND, e.getTeam(), null);
+		broadcastTeamMessage(TeamAnnouncement.DISBAND, e.getTeam(), e.getPlayer() == null ? null : e.getPlayer().getName());
 	}
 }
