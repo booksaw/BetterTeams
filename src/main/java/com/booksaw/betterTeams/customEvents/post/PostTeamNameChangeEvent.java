@@ -2,8 +2,10 @@ package com.booksaw.betterTeams.customEvents.post;
 
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.customEvents.TeamEvent;
+import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * An event which is called after a {@link Team}'s name has been changed.
@@ -17,11 +19,14 @@ import org.jetbrains.annotations.NotNull;
 public class PostTeamNameChangeEvent extends TeamEvent {
 	private final String oldName;
 	private final String newName;
+	private final Player player;
 
-	public PostTeamNameChangeEvent(@NotNull Team team, @NotNull String oldName, @NotNull String newName) {
+	public PostTeamNameChangeEvent(@NotNull Team team, @NotNull String oldName, @NotNull String newName,
+	                               @Nullable Player player) {
 		super(team);
 		this.oldName = oldName;
 		this.newName = newName;
+		this.player = player;
 	}
 
 	public String getOldTeamName() {
@@ -30,6 +35,10 @@ public class PostTeamNameChangeEvent extends TeamEvent {
 
 	public String getNewTeamName() {
 		return newName;
+	}
+
+	public Player getPlayer() {
+		return player;
 	}
 
 	private static final HandlerList HANDLERS = new HandlerList();

@@ -455,7 +455,7 @@ public class Team {
 
 		registerTeamName();
 
-		Bukkit.getPluginManager().callEvent(new PostTeamNameChangeEvent(this, previousName, name));
+		Bukkit.getPluginManager().callEvent(new PostTeamNameChangeEvent(this, previousName, name, playerSource));
 	}
 
 	private void registerTeamName() {
