@@ -312,7 +312,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 						yamlConfig.save(f);
 					} catch (IOException e) {
 						Bukkit.getLogger()
-								.warning("Failed to purge the " + storedTeamValue.toString() + "of the team with the file " + f.getPath());
+								.warning("Failed to purge the " + storedTeamValue + "of the team with the file " + f.getPath());
 						e.printStackTrace();
 					}
 				}

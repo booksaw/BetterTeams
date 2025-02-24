@@ -54,7 +54,7 @@ public class TableBuilder {
 					"The data type " + type + " needs an argument, and no argument was provided");
 		}
 
-		tableInfo.append(columnName + " " + type.toString() + ((notNull) ? " NOT NULL, " : ", "));
+		tableInfo.append(columnName + " " + type + ((notNull) ? " NOT NULL, " : ", "));
 		return this;
 	}
 
@@ -69,7 +69,7 @@ public class TableBuilder {
 		}
 
 		tableInfo
-				.append(columnName + " " + type.toString() + "(" + argument + ")" + ((notNull) ? " NOT NULL, " : ", "));
+				.append(columnName + " " + type + "(" + argument + ")" + ((notNull) ? " NOT NULL, " : ", "));
 		return this;
 	}
 
