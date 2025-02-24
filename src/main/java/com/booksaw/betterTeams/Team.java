@@ -1,10 +1,10 @@
 package com.booksaw.betterTeams;
 
 import com.booksaw.betterTeams.customEvents.*;
+import com.booksaw.betterTeams.customEvents.post.*;
 import com.booksaw.betterTeams.exceptions.CancelledEventException;
 import com.booksaw.betterTeams.message.Message;
 import com.booksaw.betterTeams.message.MessageManager;
-import com.booksaw.betterTeams.message.ReferencedFormatMessage;
 import com.booksaw.betterTeams.message.StaticMessage;
 import com.booksaw.betterTeams.team.*;
 import com.booksaw.betterTeams.team.storage.StorageType;
@@ -33,7 +33,7 @@ public class Team {
 
 	private static TeamManager TEAMMANAGER;
 
-	public static final void setupTeamManager(StorageType storageType) {
+	public static void setupTeamManager(StorageType storageType) {
 		if (TEAMMANAGER != null) {
 			throw new IllegalArgumentException("The team manager has already been setup");
 		}
@@ -53,7 +53,7 @@ public class Team {
 	/**
 	 * Used to disable betterteams so the singleton is removed
 	 */
-	public static final void disable() {
+	public static void disable() {
 		TEAMMANAGER.disable();
 		TEAMMANAGER = null;
 	}
@@ -283,7 +283,7 @@ public class Team {
 			getTeamManager().disbandTeam(this);
 
 			throw new IllegalArgumentException(
-					"The team that attempted loading is invalid, disbanding the team to avoid problems");
+				"The team that attempted loading is invalid, disbanding the team to avoid problems");
 		}
 
 		description = storage.getString(StoredTeamValue.DESCRIPTION);
@@ -362,7 +362,7 @@ public class Team {
 
 		if (name == null) {
 			Bukkit.getLogger()
-					.warning("[BetterTeams] Provided team name was null, this should never occur. Team uuid = " + id);
+				.warning("[BetterTeams] Provided team name was null, this should never occur. Team uuid = " + id);
 			name = "invalidName";
 
 			try {
@@ -439,6 +439,8 @@ public class Team {
 	 * @param name the new team namexg
 	 */
 	public void setName(String name, Player playerSource) {
+		final String previousName = this.name;
+
 		TeamNameChangeEvent event = new TeamNameChangeEvent(this, name, playerSource);
 		Bukkit.getPluginManager().callEvent(event);
 
@@ -451,8 +453,13 @@ public class Team {
 		this.name = name;
 		getStorage().set(StoredTeamValue.NAME, name);
 
-		if (Main.plugin.teamManagement != null) {
+		registerTeamName();
 
+		Bukkit.getPluginManager().callEvent(new PostTeamNameChangeEvent(this, previousName, name, playerSource));
+	}
+
+	private void registerTeamName() {
+		if (Main.plugin.teamManagement != null) {
 			if (team != null) {
 				for (TeamPlayer p : members.getClone()) {
 					if (p.getPlayer().isOnline()) {
@@ -496,7 +503,7 @@ public class Team {
 	}
 
 	public String getTag() {
-		if (tag == null || tag.length() == 0) {
+		if (tag == null || tag.isEmpty()) {
 			return getDisplayName();
 		}
 
@@ -508,6 +515,8 @@ public class Team {
 	}
 
 	public void setTag(String tag) {
+		final String oldTag = getTag();
+
 		TeamTagChangeEvent event = new TeamTagChangeEvent(this, tag);
 		Bukkit.getPluginManager().callEvent(event);
 
@@ -519,25 +528,9 @@ public class Team {
 		this.tag = tag;
 		getStorage().set(StoredTeamValue.TAG, tag);
 
-		if (Main.plugin.teamManagement != null) {
+		registerTeamName();
 
-			if (team != null) {
-				for (TeamPlayer p : members.getClone()) {
-					if (p.getPlayer().isOnline()) {
-						team.removeEntry(Objects.requireNonNull(p.getPlayer().getName()));
-					}
-				}
-				team.unregister();
-			}
-
-			team = null;
-
-			for (TeamPlayer p : members.getClone()) {
-				if (p.getPlayer().isOnline()) {
-					Main.plugin.teamManagement.displayBelowName(Objects.requireNonNull(p.getPlayer().getPlayer()));
-				}
-			}
-		}
+		Bukkit.getPluginManager().callEvent(new PostTeamTagChangeEvent(this, oldTag, getTag()));
 	}
 
 	/**
@@ -599,28 +592,13 @@ public class Team {
 		}
 		color = event.getNewTeamColor();
 
+		ChatColor oldColor = this.color;
 		this.color = color;
 		getStorage().set(StoredTeamValue.COLOR, color.getChar());
 
-		if (Main.plugin.teamManagement != null) {
+		registerTeamName();
 
-			if (team != null) {
-				for (TeamPlayer p : members.getClone()) {
-					if (p.getPlayer().isOnline()) {
-						team.removeEntry(Objects.requireNonNull(p.getPlayer().getName()));
-					}
-				}
-				team.unregister();
-			}
-
-			team = null;
-
-			for (TeamPlayer p : members.getClone()) {
-				if (p.getPlayer().isOnline()) {
-					Main.plugin.teamManagement.displayBelowName(Objects.requireNonNull(p.getPlayer().getPlayer()));
-				}
-			}
-		}
+		Bukkit.getPluginManager().callEvent(new PostTeamColorChangeEvent(this, oldColor, color));
 	}
 
 	public MemberSetComponent getMembers() {
@@ -722,23 +700,18 @@ public class Team {
 			throw new IllegalArgumentException("Disbanding was cancelled by another plugin");
 		}
 
-		for (UUID ally : allies.getClone()) {
+		Set<UUID> prevAllies = allies.getClone();
+		for (UUID ally : prevAllies) {
 			Team team = Team.getTeam(ally);
 			if (team == null) {
 				// this should not occur but is a failsafe
 				continue;
 			}
 			Objects.requireNonNull(team).removeAlly(getID());
-
 		}
 
-//		for (Entry<UUID, Team> requestedTeam : getTeamManager().getTeamListClone().entrySet()) {
-//			if (requestedTeam.getValue().hasRequested(getID())) {
-//				requestedTeam.getValue().removeAllyRequest(getID());
-//			}
-//		}
-
-		for (TeamPlayer teamPlayer : getMembers().get()) {
+		Set<TeamPlayer> prevMembers = members.getClone();
+		for (TeamPlayer teamPlayer : prevMembers) {
 			getTeamManager().playerLeaveTeam(this, teamPlayer);
 		}
 
@@ -746,8 +719,7 @@ public class Team {
 		getTeamManager().disbandTeam(this);
 
 		if (Main.plugin.teamManagement != null) {
-
-			for (TeamPlayer p : members.getClone()) {
+			for (TeamPlayer p : prevMembers) {
 				if (p.getPlayer().isOnline()) {
 					Main.plugin.teamManagement.remove(p.getPlayer().getPlayer());
 				}
@@ -756,15 +728,9 @@ public class Team {
 			if (team != null)
 				team.unregister();
 			team = null;
-
 		}
 
-		if (Main.plugin.getConfig().getBoolean("announceTeamDisband")) {
-			Message message = new ReferencedFormatMessage("announce.disband", getColor() + getName() + ChatColor.RESET);
-			for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-				message.sendMessage(onlinePlayer);
-			}
-		}
+		Bukkit.getPluginManager().callEvent(new PostDisbandTeamEvent(this, player, prevAllies, prevMembers));
 	}
 
 	/**
@@ -837,6 +803,7 @@ public class Team {
 	 * @param promotePlayer the player to be promoted
 	 */
 	public void promotePlayer(TeamPlayer promotePlayer) {
+		PlayerRank oldRank = promotePlayer.getRank();
 		PlayerRank newRank;
 		if (promotePlayer.getRank() == PlayerRank.DEFAULT) {
 			newRank = PlayerRank.ADMIN;
@@ -844,7 +811,8 @@ public class Team {
 			newRank = PlayerRank.OWNER;
 		}
 
-		PromotePlayerEvent event = new PromotePlayerEvent(this, promotePlayer, promotePlayer.getRank(), newRank);
+
+		PromotePlayerEvent event = new PromotePlayerEvent(this, promotePlayer, oldRank, newRank);
 
 		Bukkit.getPluginManager().callEvent(event);
 
@@ -855,6 +823,8 @@ public class Team {
 		promotePlayer.setRank(newRank);
 		storage.promotePlayer(promotePlayer);
 		savePlayers();
+
+		Bukkit.getPluginManager().callEvent(new PostPromotePlayerEvent(this, promotePlayer, oldRank, newRank));
 	}
 
 	/**
@@ -866,13 +836,14 @@ public class Team {
 	 */
 	public void demotePlayer(TeamPlayer demotePlayer) {
 
+		PlayerRank oldRank = demotePlayer.getRank();
 		PlayerRank newRank;
-		if (demotePlayer.getRank() == PlayerRank.ADMIN) {
+		if (oldRank == PlayerRank.ADMIN) {
 			newRank = PlayerRank.DEFAULT;
 		} else {
 			newRank = PlayerRank.ADMIN;
 		}
-		DemotePlayerEvent event = new DemotePlayerEvent(this, demotePlayer, demotePlayer.getRank(), newRank);
+		DemotePlayerEvent event = new DemotePlayerEvent(this, demotePlayer, oldRank, newRank);
 
 		Bukkit.getPluginManager().callEvent(event);
 
@@ -883,6 +854,8 @@ public class Team {
 		demotePlayer.setRank(newRank);
 		storage.demotePlayer(demotePlayer);
 		savePlayers();
+
+		Bukkit.getPluginManager().callEvent(new PostDemotePlayerEvent(this, demotePlayer, oldRank, newRank));
 	}
 
 	public void setTeamHome(Location teamHome) {
@@ -958,21 +931,22 @@ public class Team {
 
 		// Notify third party plugins that a team message is going to be sent
 		TeamPreMessageEvent teamPreMessageEvent = new TeamPreMessageEvent(this, sender, message, format,
-				prefix, recipients);
+			prefix, recipients);
 		Bukkit.getPluginManager().callEvent(teamPreMessageEvent);
 
 		// Process any updates after the event has been dispatched
 		if (teamPreMessageEvent.isCancelled()) {
 			return;
-		} else {
-			message = teamPreMessageEvent.getRawMessage();
-			format = teamPreMessageEvent.getFormat();
-			prefix = teamPreMessageEvent.getSenderNamePrefix();
 		}
 
+		message = teamPreMessageEvent.getRawMessage();
+		format = teamPreMessageEvent.getFormat();
+		prefix = teamPreMessageEvent.getSenderNamePrefix();
+
+
 		String fMessage = MessageManager.format(format,
-				prefix + Objects.requireNonNull(sender.getPlayer().getPlayer()).getDisplayName(),
-				message);
+			prefix + Objects.requireNonNull(sender.getPlayer().getPlayer()).getDisplayName(),
+			message);
 
 		fMessage = fMessage.replace("$name$", prefix + sender.getPlayer().getPlayer().getName());
 		fMessage = fMessage.replace("$message$", message);
@@ -1035,8 +1009,8 @@ public class Team {
 		}
 
 		String fMessage = MessageManager.getMessage("allychat.syntax", getName(),
-				sender.getPrefix(returnTo) + Objects.requireNonNull(sender.getPlayer().getPlayer()).getDisplayName(),
-				message);
+			sender.getPrefix(returnTo) + Objects.requireNonNull(sender.getPlayer().getPlayer()).getDisplayName(),
+			message);
 
 		fMessage = fMessage.replace("$name$", sender.getPrefix(returnTo) + sender.getPlayer().getPlayer().getName());
 		fMessage = fMessage.replace("$message$", message);
@@ -1150,7 +1124,7 @@ public class Team {
 
 		if (team == null) {
 			Bukkit.getLogger().warning(
-					"An avaliable team cannot be found, be prepared for a lot of errors. (this should never happen, and should always be reported to booksaw)");
+				"An avaliable team cannot be found, be prepared for a lot of errors. (this should never happen, and should always be reported to booksaw)");
 			Bukkit.getLogger().warning("This catch is merely here to stop the server crashing");
 			return null;
 		}

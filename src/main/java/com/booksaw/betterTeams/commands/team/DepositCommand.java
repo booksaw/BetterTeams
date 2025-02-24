@@ -4,6 +4,7 @@ import com.booksaw.betterTeams.*;
 import com.booksaw.betterTeams.commands.ParentCommand;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 import com.booksaw.betterTeams.customEvents.TeamDepositEvent;
+import com.booksaw.betterTeams.customEvents.post.PostTeamDepositEvent;
 import com.booksaw.betterTeams.message.HelpMessage;
 import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Bukkit;
@@ -56,6 +57,8 @@ public class DepositCommand extends TeamSubCommand {
 		}
 
 		team.setMoney(result);
+
+		Bukkit.getPluginManager().callEvent(new PostTeamDepositEvent(team, player, amount));
 
 		return new CommandResponse(true, "deposit.success");
 	}

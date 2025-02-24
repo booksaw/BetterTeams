@@ -125,7 +125,6 @@ public class MCTeamManagement implements Listener {
 
 		BelowNameChangeEvent event = new BelowNameChangeEvent(player, ChangeType.REMOVE, isAsync);
 		Bukkit.getPluginManager().callEvent(event);
-
 	}
 
 	@EventHandler

@@ -358,6 +358,7 @@ public class Main extends JavaPlugin {
 		getServer().getPluginManager().registerEvents((chatManagement = new ChatManagement()), this);
 		getServer().getPluginManager().registerEvents(new ScoreManagement(), this);
 		getServer().getPluginManager().registerEvents(new AllyManagement(), this);
+		getServer().getPluginManager().registerEvents(new MessagesManagement(), this);
 
 		// Only register webhook when hook support is enabled
 		if (getConfig().getBoolean("hookSupport")) {
