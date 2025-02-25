@@ -38,7 +38,7 @@ public class TableBuilder {
 	 * Execute the built command
 	 */
 	public void execute() {
-		if (tableInfo.isEmpty()) {
+		if (tableInfo.length() == 0) { // JDK 8 doesn't have StringBuilder::isEmpty yet
 			return;
 		}
 		database.createTableIfNotExists(tableName, tableInfo.toString());
