@@ -273,7 +273,6 @@ public class CacheTest {
 
 		// Access frequently to prevent access expiration
 		for (int i = 0; i < 5; i++) { // Here it should just reload once due to write expiration
-			System.out.println(System.currentTimeMillis() + " (sleeping 50ms)");
 			Thread.sleep(50);
 			assertThat(cache.get("key2")).isEqualTo("value-key2");
 		}

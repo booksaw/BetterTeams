@@ -1,5 +1,6 @@
 package com.booksaw.betterTeams.util;
 
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
@@ -43,23 +44,18 @@ public class Cache<K, V> {
 	 * @return the value associated with the key
 	 */
 	public V get(K key) {
-		CachedValue<V> cached = cache.get(key);
-
-		if (cached == null || cached.isExpired(expireAfterAccessMillis, expireAfterWriteMillis)) {
-			V value = loader.apply(key);
-			if (value == null) {
-				return null;
+		return cache.compute(key, (k, cached) -> {
+			if (cached == null || cached.isExpired(expireAfterAccessMillis, expireAfterWriteMillis)) {
+				V value = loader.apply(k);
+				return (value != null) ? new CachedValue<>(value) : null;
 			}
 
-			cache.put(key, new CachedValue<>(value));
-			return value;
-		}
+			if (expireAfterAccessMillis > 0) {
+				cached.updateAccessTime();
+			}
 
-		if (expireAfterAccessMillis > 0) {
-			cached.updateAccessTime();
-		}
-
-		return cached.getValue();
+			return cached;
+		}) == null ? null : cache.get(key).getValue();
 	}
 
 	/**
@@ -150,40 +146,27 @@ public class Cache<K, V> {
 	 * A value in the cache with expiration metadata.
 	 */
 	private static class CachedValue<V> {
-		private final V value;
+		@Getter private final V value;
 		private final long creationTime;
 		private long accessTime;
-
-		V getValue() {
-			System.out.println(System.currentTimeMillis() + " (" + value + ") get");
-			return value;
-		}
 
 		public CachedValue(V value) {
 			this.value = value;
 			this.creationTime = System.currentTimeMillis();
 			this.accessTime = 0;
-			System.out.println(System.currentTimeMillis() + " (" + value + ") creation");
 		}
 
 		public boolean isExpired(long expireAfterAccessMillis, long expireAfterWriteMillis) {
 			long now = System.currentTimeMillis();
 
-			if (accessTime > 0 && expireAfterAccessMillis > 0 && now - accessTime > expireAfterAccessMillis) {
-				System.out.println(System.currentTimeMillis() + " (" + value + ") access expiry: " + expireAfterAccessMillis + " - " + creationTime + " - " + now);
-				return true;
-			}
-
 			if (expireAfterWriteMillis > 0 && now - creationTime > expireAfterWriteMillis) {
-				System.out.println(System.currentTimeMillis() + " (" + value + ") write expiry: " + expireAfterWriteMillis + " - " + creationTime + " - " + now);
 				return true;
 			}
 
-			return false;
+			return accessTime > 0 && expireAfterAccessMillis > 0 && now - accessTime > expireAfterAccessMillis;
 		}
 
 		public void updateAccessTime() {
-			System.out.println(System.currentTimeMillis() + " (" + value + ") new access time");
 			this.accessTime = System.currentTimeMillis();
 		}
 	}
