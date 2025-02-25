@@ -15,7 +15,7 @@ public class CommandCost {
 	 * Used within Cost manager to track a new commands Cost
 	 *
 	 * @param command the reference for the command
-	 * @param Cost    how long of a Cost that command has (in seconds)
+	 * @param cost    how long of a Cost that command has (in seconds)
 	 */
 	public CommandCost(String command, double cost) {
 		this.command = command;

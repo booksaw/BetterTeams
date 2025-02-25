@@ -1,6 +1,7 @@
 package com.booksaw.betterTeams.customEvents.post;
 
 import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.customEvents.LevelupTeamEvent;
 import com.booksaw.betterTeams.customEvents.TeamEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
