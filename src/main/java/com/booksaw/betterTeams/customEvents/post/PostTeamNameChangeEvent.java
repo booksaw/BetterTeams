@@ -2,6 +2,7 @@ package com.booksaw.betterTeams.customEvents.post;
 
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.customEvents.TeamEvent;
+import com.booksaw.betterTeams.customEvents.TeamNameChangeEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
