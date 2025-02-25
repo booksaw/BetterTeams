@@ -1,9 +1,9 @@
 package com.booksaw.betterTeams.commands.teama;
 
 import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.SubCommand;
+import com.booksaw.betterTeams.util.TeamUtil;
 import org.bukkit.command.CommandSender;
 
 import java.util.List;
@@ -12,26 +12,9 @@ public class CreateTeama extends SubCommand {
 
 	@Override
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
-
-		if (!Team.isValidTeamName(args[0])) {
-			return new CommandResponse("create.banned");
-		}
-
-		int max = Main.plugin.getConfig().getInt("maxTeamLength");
-		if (max > 55) {
-			max = 55;
-		}
-		if (max != -1 && max < args[0].length()) {
-			return new CommandResponse("create.maxLength");
-		}
-
-		int min = Main.plugin.getConfig().getInt("minTeamLength");
-		if (min <= 0 || min > 55) {
-			min = 0;
-		}
-
-		if (min != 0 && min > args[0].length()) {
-			return new CommandResponse("create.minLength");
+		CommandResponse response = TeamUtil.verifyTeamName(args[0]);
+		if (response != null) {
+			return response;
 		}
 
 		if (Team.getTeam(args[0]) != null) {

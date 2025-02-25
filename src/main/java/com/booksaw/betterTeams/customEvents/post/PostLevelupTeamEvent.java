@@ -3,6 +3,7 @@ package com.booksaw.betterTeams.customEvents.post;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.customEvents.LevelupTeamEvent;
 import com.booksaw.betterTeams.customEvents.TeamEvent;
+import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
@@ -17,6 +18,7 @@ import org.jetbrains.annotations.NotNull;
  *
  * @author svaningelgem
  */
+@Getter
 public class PostLevelupTeamEvent extends TeamEvent {
 
 	private static final HandlerList HANDLERS = new HandlerList();
@@ -43,25 +45,4 @@ public class PostLevelupTeamEvent extends TeamEvent {
 	public @NotNull HandlerList getHandlers() {
 		return HANDLERS;
 	}
-
-	public int getCurrentLevel() {
-		return currentLevel;
-	}
-
-	public int getNewLevel() {
-		return newLevel;
-	}
-
-	public int getCost() {
-		return cost;
-	}
-
-	public boolean isScore() {
-		return score;
-	}
-
-	public Player getCommandSender() {
-		return commandSender;
-	}
-
 }

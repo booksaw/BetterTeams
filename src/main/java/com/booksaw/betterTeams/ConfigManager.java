@@ -1,9 +1,11 @@
 package com.booksaw.betterTeams;
 
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -14,6 +16,7 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Getter
 public class ConfigManager {
 
 	public final YamlConfiguration config;
@@ -45,7 +48,7 @@ public class ConfigManager {
 	/**
 	 * Used to load / create a config file where the resource name is different from
 	 * the destination path
-	 * 
+	 *
 	 * @param resourceName The name of the resource within the jar file
 	 * @param filePath     The path to save the resource to
 	 */
@@ -114,7 +117,7 @@ public class ConfigManager {
 				}
 
 				logger.info("[BetterTeams] " + resourceName
-						+ " is now updated to the latest version, thank you for using BetterTeams");
+					+ " is now updated to the latest version, thank you for using BetterTeams");
 				logger.info("[BetterTeams] ==================================================================");
 
 			}
@@ -126,7 +129,11 @@ public class ConfigManager {
 
 	}
 
-	private @NotNull List<String> updateFileConfig(@NotNull InputStream input) {
+	private @NotNull List<String> updateFileConfig(@Nullable InputStream input) {
+		if (input == null) {
+			return new ArrayList<>();
+		}
+
 		BufferedReader reader = new BufferedReader(new InputStreamReader(input));
 		return updateFileConfig(reader);
 	}
@@ -201,7 +208,7 @@ public class ConfigManager {
 
 		if (in == null)
 			throw new IllegalArgumentException(
-					"The embedded resource '" + resourcePath + "' cannot be found in " + Main.plugin.getDataFolder());
+				"The embedded resource '" + resourcePath + "' cannot be found in " + Main.plugin.getDataFolder());
 		File outFile = new File(resultPath);
 		int lastIndex = resourcePath.lastIndexOf('/');
 		File outDir = new File(resultPath.substring(0, Math.max(lastIndex, 0)));
@@ -224,19 +231,10 @@ public class ConfigManager {
 				in.close();
 			} else {
 				Main.plugin.getLogger().log(Level.WARNING, "Could not save " + resourcePath + " to " + outFile
-						+ " because " + outFile.getName() + " already exists.");
+					+ " because " + outFile.getName() + " already exists.");
 			}
 		} catch (IOException ex) {
 			Main.plugin.getLogger().log(Level.SEVERE, "Could not save " + resourcePath + " to " + resultPath, ex);
 		}
 	}
-
-	public String getResourceName() {
-		return resourceName;
-	}
-
-	public String getFilePath() {
-		return filePath;
-	}
-
 }

@@ -195,6 +195,5 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 
 	private enum SortType {
 		SCORE, BALANCE, MEMBERS
-	}
-
+    }
 }

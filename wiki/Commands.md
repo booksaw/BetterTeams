@@ -93,6 +93,6 @@ Admin commands can have the prefix [teamadmin] or [teama] both work exactly the 
 * /teama chest disableclaims - Disables chest claims until they are re-enabled or the server restarts
 * /teama chest enableclaims - Enables chest claims
 * /teama echest <team> - view the specified team's ender chest
-* /teama teleport <team> [x] [y] [z] [pitch] [yaw] - Teleport the team to the specified location
+* /teama teleport <team> \[x] \[y] \[z] \[pitch] \[yaw] - Teleport the team to the specified location
 * /teama holo create - Creates a hologram at your location (requires [DecentHolograms](https://www.spigotmc.org/resources/96927/) or [HolographicDisplays](https://dev.bukkit.org/projects/holographic-displays))
 * /teama holo remove - Deletes the closest hologram to you (requires [DecentHolograms](https://www.spigotmc.org/resources/96927/) or [HolographicDisplays](https://dev.bukkit.org/projects/holographic-displays))

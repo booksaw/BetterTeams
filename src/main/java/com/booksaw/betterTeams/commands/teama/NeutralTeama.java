@@ -26,7 +26,7 @@ public class NeutralTeama extends SubCommand {
 			return new CommandResponse("admin.neutral.same");
 		}
 		
-		if(!team1.isAlly(team2)) {
+		if(team1.isNeutral(team2)) {
 			return new CommandResponse("admin.neutral.not");
 		}
 		

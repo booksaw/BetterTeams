@@ -8,7 +8,6 @@ import org.bukkit.command.CommandSender;
 import java.util.List;
 
 public class AddMoney extends MoneySubCommand {
-
 	@Override
 	public CommandResponse onCommand(CommandSender sender, Team team, double change) {
 

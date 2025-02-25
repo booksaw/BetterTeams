@@ -3,6 +3,7 @@ package com.booksaw.betterTeams.customEvents.post;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.customEvents.TeamColorChangeEvent;
 import com.booksaw.betterTeams.customEvents.TeamEvent;
+import lombok.Getter;
 import org.bukkit.ChatColor;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
@@ -16,24 +17,17 @@ import org.jetbrains.annotations.NotNull;
  *
  * @author svaningelgem
  */
+@Getter
 public class PostTeamColorChangeEvent extends TeamEvent {
-    private final ChatColor oldColor;
-    private final ChatColor newColor;
+    private final ChatColor oldTeamColor;
+    private final ChatColor newTeamColor;
 
     public PostTeamColorChangeEvent(@NotNull Team team,
-                                    @NotNull ChatColor oldColor,
-                                    @NotNull ChatColor newColor) {
+                                    @NotNull ChatColor oldTeamColor,
+                                    @NotNull ChatColor newTeamColor) {
         super(team, true);
-        this.oldColor = oldColor;
-        this.newColor = newColor;
-    }
-
-    public ChatColor getOldTeamColor() {
-        return oldColor;
-    }
-
-    public ChatColor getNewTeamColor() {
-        return newColor;
+        this.oldTeamColor = oldTeamColor;
+        this.newTeamColor = newTeamColor;
     }
 
     private static final HandlerList HANDLERS = new HandlerList();

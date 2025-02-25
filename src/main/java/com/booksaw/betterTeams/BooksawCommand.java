@@ -55,9 +55,7 @@ public class BooksawCommand extends BukkitCommand {
 		boolean async = subCommand.checkAsync(args);
 
 		if (async) {
-			Bukkit.getScheduler().runTaskAsynchronously(Main.plugin, () -> {
-				runExecution(sender, label, args);
-			});
+			Bukkit.getScheduler().runTaskAsynchronously(Main.plugin, () -> runExecution(sender, label, args));
 		} else {
 			runExecution(sender, label, args);
 		}
@@ -97,39 +95,37 @@ public class BooksawCommand extends BukkitCommand {
 			return false;
 		}
 
-		for (int i = 0; i < args.length; i++) {
-			String str = args[i];
+        for (String str : args) {
+            if (!str.startsWith("@")) {
+                continue;
+            }
+            // a selector is found
+            boolean found = false;
+            try {
+                for (Entity e : Bukkit.selectEntities(sender, str)) {
+                    if (e instanceof Player) {
+                        found = true;
+                        String[] newArgs = args.clone();
+                        for (int j = 0; j < newArgs.length; j++) {
+                            if (newArgs[j].equals(str)) {
+                                newArgs[j] = e.getName();
+                            }
+                        }
 
-			if (!str.startsWith("@")) {
-				continue;
-			}
-			// a selector is found
-			boolean found = false;
-			try {
-				for (Entity e : Bukkit.selectEntities(sender, str)) {
-					if (e instanceof Player) {
-						found = true;
-						String[] newArgs = args.clone();
-						for (int j = 0; j < newArgs.length; j++) {
-							if (newArgs[j].equals(args[i])) {
-								newArgs[j] = e.getName();
-							}
-						}
+                        execute(sender, label, newArgs);
 
-						execute(sender, label, newArgs);
+                    }
+                }
+            }
+            catch (Exception e) {
+                return false;
+            }
 
-					}
-				}
-			} catch (Exception e) {
-				return false;
-			}
-
-			return found;
-		}
+            return found;
+        }
 
 		// no selector was found
 		return false;
-
 	}
 
 	public SubCommand getSubCommand() {
