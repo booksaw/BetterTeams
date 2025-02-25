@@ -1,5 +1,6 @@
 package com.booksaw.betterTeams.customEvents.post;
 
+import com.booksaw.betterTeams.customEvents.PrePurgeEvent;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
@@ -8,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
  * This event is called after a team purge has been completed.
  * This event cannot be cancelled since it occurs after the purge.
  *
- * To modify or cancel the purge, use {@link PurgeEvent}.
+ * To modify or cancel the purge, use {@link PrePurgeEvent}.
  *
  * @author svaningelgem
  */
