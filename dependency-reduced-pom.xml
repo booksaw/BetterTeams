@@ -92,10 +92,6 @@
       <id>sk89q-repo</id>
       <url>https://maven.enginehub.org/repo/</url>
     </repository>
-    <repository>
-      <id>ceymikey-repo</id>
-      <url>https://repo.ceymikey.dev/releases</url>
-    </repository>
   </repositories>
   <dependencies>
     <dependency>
@@ -150,6 +146,24 @@
       <groupId>com.github.craftaro</groupId>
       <artifactId>UltimateClaims</artifactId>
       <version>2.0.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.12.1</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>4.5.14</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.36</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>
