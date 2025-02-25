@@ -1,6 +1,5 @@
 package com.booksaw.betterTeams.util;
 
-import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
@@ -48,6 +47,10 @@ public class Cache<K, V> {
 
 		if (cached == null || cached.isExpired(expireAfterAccessMillis, expireAfterWriteMillis)) {
 			V value = loader.apply(key);
+			if (value == null) {
+				return null;
+			}
+
 			cache.put(key, new CachedValue<>(value));
 			return value;
 		}
@@ -147,28 +150,40 @@ public class Cache<K, V> {
 	 * A value in the cache with expiration metadata.
 	 */
 	private static class CachedValue<V> {
-		@Getter
 		private final V value;
 		private final long creationTime;
 		private long accessTime;
 
+		V getValue() {
+			System.out.println(System.currentTimeMillis() + " (" + value + ") get");
+			return value;
+		}
+
 		public CachedValue(V value) {
 			this.value = value;
 			this.creationTime = System.currentTimeMillis();
-			this.accessTime = this.creationTime;
+			this.accessTime = 0;
+			System.out.println(System.currentTimeMillis() + " (" + value + ") creation");
 		}
 
 		public boolean isExpired(long expireAfterAccessMillis, long expireAfterWriteMillis) {
 			long now = System.currentTimeMillis();
 
-			if (expireAfterWriteMillis > 0 && now - creationTime > expireAfterWriteMillis) {
+			if (accessTime > 0 && expireAfterAccessMillis > 0 && now - accessTime > expireAfterAccessMillis) {
+				System.out.println(System.currentTimeMillis() + " (" + value + ") access expiry: " + expireAfterAccessMillis + " - " + creationTime + " - " + now);
 				return true;
 			}
 
-			return expireAfterAccessMillis > 0 && now - accessTime > expireAfterAccessMillis;
+			if (expireAfterWriteMillis > 0 && now - creationTime > expireAfterWriteMillis) {
+				System.out.println(System.currentTimeMillis() + " (" + value + ") write expiry: " + expireAfterWriteMillis + " - " + creationTime + " - " + now);
+				return true;
+			}
+
+			return false;
 		}
 
 		public void updateAccessTime() {
+			System.out.println(System.currentTimeMillis() + " (" + value + ") new access time");
 			this.accessTime = System.currentTimeMillis();
 		}
 	}

@@ -1,13 +1,12 @@
 package util;
 
 import com.booksaw.betterTeams.util.Cache;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class CacheTest {
 
@@ -24,16 +23,16 @@ public class CacheTest {
 			.build();
 
 		// First call should invoke loader
-		assertEquals("value-key1", cache.get("key1"));
-		assertEquals(1, loaderCallCount.get());
+		assertThat(cache.get("key1")).isEqualTo("value-key1");
+		assertThat(loaderCallCount.get()).isEqualTo(1);
 
 		// Second call should use cached value
-		assertEquals("value-key1", cache.get("key1"));
-		assertEquals(1, loaderCallCount.get());
+		assertThat(cache.get("key1")).isEqualTo("value-key1");
+		assertThat(loaderCallCount.get()).isEqualTo(1);
 
 		// Different key should invoke loader again
-		assertEquals("value-key2", cache.get("key2"));
-		assertEquals(2, loaderCallCount.get());
+		assertThat(cache.get("key2")).isEqualTo("value-key2");
+		assertThat(loaderCallCount.get()).isEqualTo(2);
 	}
 
 	@Test
@@ -49,19 +48,19 @@ public class CacheTest {
 			.build();
 
 		// First call should invoke loader
-		assertEquals("value-key1", cache.get("key1"));
-		assertEquals(1, loaderCallCount.get());
+		assertThat(cache.get("key1")).isEqualTo("value-key1");
+		assertThat(loaderCallCount.get()).isEqualTo(1);
 
 		// Second call before expiration should use cached value
-		assertEquals("value-key1", cache.get("key1"));
-		assertEquals(1, loaderCallCount.get());
+		assertThat(cache.get("key1")).isEqualTo("value-key1");
+		assertThat(loaderCallCount.get()).isEqualTo(1);
 
 		// Wait for expiration
 		Thread.sleep(150);
 
 		// Call after expiration should invoke loader again
-		assertEquals("value-key1", cache.get("key1"));
-		assertEquals(2, loaderCallCount.get());
+		assertThat(cache.get("key1")).isEqualTo("value-key1");
+		assertThat(loaderCallCount.get()).isEqualTo(2);
 	}
 
 	@Test
@@ -77,29 +76,29 @@ public class CacheTest {
 			.build();
 
 		// First call should invoke loader
-		assertEquals("value-key1", cache.get("key1"));
-		assertEquals(1, loaderCallCount.get());
+		assertThat(cache.get("key1")).isEqualTo("value-key1");
+		assertThat(loaderCallCount.get()).isEqualTo(1);
 
 		// Wait some time but not enough for expiration
 		Thread.sleep(50);
 
 		// Access again to reset timer
-		assertEquals("value-key1", cache.get("key1"));
-		assertEquals(1, loaderCallCount.get());
+		assertThat(cache.get("key1")).isEqualTo("value-key1");
+		assertThat(loaderCallCount.get()).isEqualTo(1);
 
 		// Wait some more time but total since last access < expiration
 		Thread.sleep(50);
 
 		// Should still use cached value
-		assertEquals("value-key1", cache.get("key1"));
-		assertEquals(1, loaderCallCount.get());
+		assertThat(cache.get("key1")).isEqualTo("value-key1");
+		assertThat(loaderCallCount.get()).isEqualTo(1);
 
 		// Wait for expiration since last access
 		Thread.sleep(150);
 
 		// Call after expiration should invoke loader again
-		assertEquals("value-key1", cache.get("key1"));
-		assertEquals(2, loaderCallCount.get());
+		assertThat(cache.get("key1")).isEqualTo("value-key1");
+		assertThat(loaderCallCount.get()).isEqualTo(2);
 	}
 
 	@Test
@@ -115,26 +114,26 @@ public class CacheTest {
 			.build();
 
 		// Fill the cache
-		assertEquals("value-1", cache.get(1));
-		assertEquals("value-2", cache.get(2));
-		assertEquals(2, loaderCallCount.get());
-		assertEquals(2, cache.size());
+		assertThat(cache.get(1)).isEqualTo("value-1");
+		assertThat(cache.get(2)).isEqualTo("value-2");
+		assertThat(loaderCallCount.get()).isEqualTo(2);
+		assertThat(cache.size()).isEqualTo(2);
 
 		// Access an existing entry
-		assertEquals("value-1", cache.get(1));
+		assertThat(cache.get(1)).isEqualTo("value-1");
 
 		// Add a new entry that should evict the least recently used (key 2)
-		assertEquals("value-3", cache.get(3));
-		assertEquals(3, loaderCallCount.get());
-		assertEquals(2, cache.size()); // Size should still be 2
+		assertThat(cache.get(3)).isEqualTo("value-3");
+		assertThat(loaderCallCount.get()).isEqualTo(3);
+		assertThat(cache.size()).isEqualTo(2); // Size should still be 2
 
 		// Key 1 should be in cache (recently accessed)
-		assertEquals("value-1", cache.get(1));
-		assertEquals(3, loaderCallCount.get());
+		assertThat(cache.get(1)).isEqualTo("value-1");
+		assertThat(loaderCallCount.get()).isEqualTo(3);
 
 		// Key 2 should have been evicted
-		assertEquals("value-2", cache.get(2));
-		assertEquals(4, loaderCallCount.get());
+		assertThat(cache.get(2)).isEqualTo("value-2");
+		assertThat(loaderCallCount.get()).isEqualTo(4);
 	}
 
 	@Test
@@ -149,20 +148,20 @@ public class CacheTest {
 			.build();
 
 		// Add entries
-		assertEquals("value-key1", cache.get("key1"));
-		assertEquals("value-key2", cache.get("key2"));
-		assertEquals(2, loaderCallCount.get());
+		assertThat(cache.get("key1")).isEqualTo("value-key1");
+		assertThat(cache.get("key2")).isEqualTo("value-key2");
+		assertThat(loaderCallCount.get()).isEqualTo(2);
 
 		// Invalidate one entry
 		cache.invalidate("key1");
 
 		// Next get should invoke loader again for invalidated key
-		assertEquals("value-key1", cache.get("key1"));
-		assertEquals(3, loaderCallCount.get());
+		assertThat(cache.get("key1")).isEqualTo("value-key1");
+		assertThat(loaderCallCount.get()).isEqualTo(3);
 
 		// Non-invalidated key should still be cached
-		assertEquals("value-key2", cache.get("key2"));
-		assertEquals(3, loaderCallCount.get());
+		assertThat(cache.get("key2")).isEqualTo("value-key2");
+		assertThat(loaderCallCount.get()).isEqualTo(3);
 	}
 
 	@Test
@@ -177,18 +176,18 @@ public class CacheTest {
 			.build();
 
 		// Add entries
-		assertEquals("value-key1", cache.get("key1"));
-		assertEquals("value-key2", cache.get("key2"));
-		assertEquals(2, loaderCallCount.get());
+		assertThat(cache.get("key1")).isEqualTo("value-key1");
+		assertThat(cache.get("key2")).isEqualTo("value-key2");
+		assertThat(loaderCallCount.get()).isEqualTo(2);
 
 		// Invalidate all entries
 		cache.invalidateAll();
-		assertEquals(0, cache.size());
+		assertThat(cache.size()).isEqualTo(0);
 
 		// Next gets should invoke loader again
-		assertEquals("value-key1", cache.get("key1"));
-		assertEquals("value-key2", cache.get("key2"));
-		assertEquals(4, loaderCallCount.get());
+		assertThat(cache.get("key1")).isEqualTo("value-key1");
+		assertThat(cache.get("key2")).isEqualTo("value-key2");
+		assertThat(loaderCallCount.get()).isEqualTo(4);
 	}
 
 	@Test
@@ -214,7 +213,7 @@ public class CacheTest {
 
 		for (int i = 0; i < threadCount; i++) {
 			threads[i] = new Thread(() -> {
-				assertEquals("value-shared", cache.get("shared"));
+				assertThat(cache.get("shared")).isEqualTo("value-shared");
 			});
 		}
 
@@ -229,7 +228,7 @@ public class CacheTest {
 		}
 
 		// Should only call the loader once despite multiple threads
-		assertEquals(1, loaderCallCount.get());
+		assertThat(loaderCallCount.get()).isEqualTo(1);
 	}
 
 	@Test
@@ -246,36 +245,39 @@ public class CacheTest {
 			.build();
 
 		// First call should invoke loader
-		assertEquals("value-key1", cache.get("key1"));
-		assertEquals(1, loaderCallCount.get());
+		assertThat(cache.get("key1")).isEqualTo("value-key1");
+		assertThat(loaderCallCount.get()).isEqualTo(1);
+
+		assertThat(cache.get("key2")).isEqualTo("value-key2");
+		assertThat(loaderCallCount.get()).isEqualTo(2);
 
 		// Access within access expiration time
-		Thread.sleep(50);
-		assertEquals("value-key1", cache.get("key1"));
-		assertEquals(1, loaderCallCount.get());
+		Thread.sleep(50); // running total: 50ms
+		assertThat(cache.get("key1")).isEqualTo("value-key1");
+		assertThat(loaderCallCount.get()).isEqualTo(2);
 
 		// Wait for access expiration but not write expiration
-		Thread.sleep(150);
-
+		Thread.sleep(100); // running total: 150ms
 		// Should expire due to access expiration
-		assertEquals("value-key1", cache.get("key1"));
-		assertEquals(2, loaderCallCount.get());
+		assertThat(cache.get("key1")).isEqualTo("value-key1");
+		assertThat(loaderCallCount.get()).isEqualTo(3);
 
-		// Test write expiration with frequent access
-		assertEquals("value-key2", cache.get("key2"));
-		assertEquals(3, loaderCallCount.get());
+		assertThat(cache.get("key2")).isEqualTo("value-key2");
+		assertThat(loaderCallCount.get()).isEqualTo(3);
+
+		// Now the 2nd key expired due to write access
+		Thread.sleep(70); // running total: 220ms
+		assertThat(cache.get("key2")).isEqualTo("value-key2");
+		// running total reset to 0
+		assertThat(loaderCallCount.get()).isEqualTo(4);
 
 		// Access frequently to prevent access expiration
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 5; i++) { // Here it should just reload once due to write expiration
+			System.out.println(System.currentTimeMillis() + " (sleeping 50ms)");
 			Thread.sleep(50);
-			assertEquals("value-key2", cache.get("key2"));
+			assertThat(cache.get("key2")).isEqualTo("value-key2");
 		}
-		assertEquals(3, loaderCallCount.get());
-
-		// But wait for write expiration
-		Thread.sleep(100);
-		assertEquals("value-key2", cache.get("key2"));
-		assertEquals(4, loaderCallCount.get());
+		assertThat(loaderCallCount.get()).isEqualTo(5);
 	}
 
 	@Test
@@ -285,21 +287,22 @@ public class CacheTest {
 		Cache<String, String> cache = new Cache.Builder<String, String>()
 			.loader(key -> {
 				loaderCallCount.incrementAndGet();
-				return key.equals("nullKey") ? null : "value-" + key;
+				return key.equals("nullKey") ? null : key;
 			})
 			.build();
 
 		// Test null value
-		assertNull(cache.get("nullKey"));
-		assertEquals(1, loaderCallCount.get());
+		assertThat(cache.get("nullKey")).isNull();
+		assertThat(loaderCallCount.get()).isEqualTo(1);
 
 		// Second call should still invoke loader since null values aren't cached
-		assertNull(cache.get("nullKey"));
-		assertEquals(2, loaderCallCount.get());
+		assertThat(cache.get("nullKey")).isNull();
+		assertThat(loaderCallCount.get()).isEqualTo(2);
 
 		// Non-null value should be cached
-		assertEquals("value-key1", cache.get("key1"));
-		assertEquals("value-key1", cache.get("key1"));
-		assertEquals(3, loaderCallCount.get());
+		assertThat(cache.get("key1")).isEqualTo("key1");
+		assertThat(loaderCallCount.get()).isEqualTo(3);
+		assertThat(cache.get("key1")).isEqualTo("key1");
+		assertThat(loaderCallCount.get()).isEqualTo(3);
 	}
 }
