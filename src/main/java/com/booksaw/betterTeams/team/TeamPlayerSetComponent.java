@@ -109,10 +109,7 @@ public abstract class TeamPlayerSetComponent extends SetTeamComponent<TeamPlayer
 	 * @return true if the player is in this team, false otherwise
 	 */
 	public boolean contains(OfflinePlayer player) {
-		return getClone().stream()
-			.map(TeamPlayer::getPlayer)
-			.map(OfflinePlayer::getUniqueId)
-			.anyMatch(uuid -> uuid.equals(player.getUniqueId()));
+		return getTeamPlayer(player) != null;
 	}
 
 	/**
