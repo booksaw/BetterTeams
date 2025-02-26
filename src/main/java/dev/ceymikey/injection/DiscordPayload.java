@@ -15,79 +15,100 @@
  */
 package dev.ceymikey.injection;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import dev.ceymikey.exceptions.FailedEndpointException;
 import dev.ceymikey.exceptions.InjectionFailureException;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
+import dev.ceymikey.json.JsonArray;
+import dev.ceymikey.json.JsonObject;
+import org.jetbrains.annotations.NotNull;
+
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 public class DiscordPayload {
+    private DiscordPayload() {
+    }
 
-    public static void inject(EmbedBuilder builder) {
+    public static void inject(@NotNull EmbedBuilder builder) {
         if (builder.getUrl() == null || builder.getUrl().isEmpty()) {
-            try {
-                throw new FailedEndpointException();
-            } catch (FailedEndpointException e) {
-                throw new RuntimeException(e);
-            }
+            throw new FailedEndpointException();
         }
 
         if ((builder.getTitle() == null || builder.getTitle().isEmpty())
                 && (builder.getDescription() == null || builder.getDescription().isEmpty())
                 && (builder.getFields() == null || builder.getFields().isEmpty())) {
-            try {
-                throw new InjectionFailureException();
-            } catch (InjectionFailureException e) {
-                throw new RuntimeException(e);
-            }
+            throw new InjectionFailureException();
         }
 
+        HttpURLConnection connection = null;
+
         try {
-            JsonObject embed = new JsonObject();
-            embed.addProperty("title", builder.getTitle());
-            embed.addProperty("description", builder.getDescription());
-            embed.addProperty("color", builder.getColor());
+            // Build the JSON payload
+            JsonObject payload = getPayload(builder);
 
-            if (builder.getThumbnailUrl() != null && !builder.getThumbnailUrl().isEmpty()) {
-                JsonObject thumbnail = new JsonObject();
-                thumbnail.addProperty("url", builder.getThumbnailUrl());
-                embed.add("thumbnail", thumbnail);
+            // Set up HTTP connection
+            URL url = new URL(builder.getUrl());
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type", "application/json");
+            connection.setDoOutput(true);
+
+            // Send the payload
+            byte[] payloadBytes = payload.toString().getBytes(StandardCharsets.UTF_8);
+            connection.setFixedLengthStreamingMode(payloadBytes.length);
+
+            try (OutputStream os = connection.getOutputStream()) {
+                os.write(payloadBytes);
+                os.flush();
             }
 
-            JsonArray fieldsArray = new JsonArray();
-            for (EmbedBuilder.Field field : builder.getFields()) {
-                JsonObject fieldObject = new JsonObject();
-                fieldObject.addProperty("name", field.name);
-                fieldObject.addProperty("value", field.value);
-                fieldsArray.add(fieldObject);
-            }
-            embed.add("fields", fieldsArray);
-
-            // Add footer if available
-            if (builder.getFooterText() != null && !builder.getFooterText().isEmpty()) {
-                JsonObject footer = new JsonObject();
-                footer.addProperty("text", builder.getFooterText());
-                embed.add("footer", footer);
+            // Get response code to ensure the request is complete
+            int responseCode = connection.getResponseCode();
+            if (responseCode < 200 || responseCode >= 300) {
+                System.out.println("HTTP Error: " + responseCode);
             }
 
-            JsonObject payload = new JsonObject();
-            JsonArray embeds = new JsonArray();
-            embeds.add(embed);
-            payload.add("embeds", embeds);
-
-            CloseableHttpClient httpClient = HttpClients.createDefault();
-            HttpPost httpPost = new HttpPost(builder.getUrl());
-            httpPost.addHeader("content-type", "application/json");
-            httpPost.setEntity(new StringEntity(payload.toString()));
-
-            httpClient.execute(httpPost);
-            httpClient.close();
         } catch (Exception e) {
             System.out.println("INJECTION FAILURE! | " + e.getMessage());
             e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
         }
+    }
+
+    private static @NotNull JsonObject getPayload(@NotNull EmbedBuilder builder) {
+        JsonObject embed = new JsonObject();
+        embed.put("title", builder.getTitle());
+        embed.put("description", builder.getDescription());
+        embed.put("color", builder.getColor());
+
+        if (builder.getThumbnailUrl() != null && !builder.getThumbnailUrl().isEmpty()) {
+            JsonObject thumbnail = new JsonObject();
+            thumbnail.put("url", builder.getThumbnailUrl());
+            embed.put("thumbnail", thumbnail);
+        }
+
+        JsonArray fieldsArray = new JsonArray();
+        for (EmbedBuilder.Field field : builder.getFields()) {
+            JsonObject fieldObject = new JsonObject();
+            fieldObject.put("name", field.name);
+            fieldObject.put("value", field.value);
+            fieldsArray.put(fieldObject);
+        }
+        embed.put("fields", fieldsArray);
+
+        // Add footer if available
+        if (builder.getFooterText() != null && !builder.getFooterText().isEmpty()) {
+            JsonObject footer = new JsonObject();
+            footer.put("text", builder.getFooterText());
+            embed.put("footer", footer);
+        }
+
+        JsonObject payload = new JsonObject();
+        payload.put("embeds", new JsonArray(embed));
+        return payload;
     }
 }
