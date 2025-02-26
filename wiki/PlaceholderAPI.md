@@ -3,7 +3,7 @@ _Click on placeholderAPI to go to the spigot page_
 
 If you are unfamiliar with placeholderAPI please watch the explanation video by [Premiere Setups](https://www.youtube.com/watch?v=r8weU5HRxL4) for the basics.
 
-Placeholders are supported in many ways, primarily by [providing placeholders](#Provided). Along with the provided placeholders, all messages in messages.yml support placeholders so you can alter all messages to your heart's desire.
+Placeholders are supported in many ways, primarily by [providing placeholders](#Provided-Placeholders). Along with the provided placeholders, all messages in messages.yml support placeholders so you can alter all messages to your heart's desire.
 
 Please note, there is no ecloud expansion required for these placeholders. As long as you have BetterTeams and PlaceholderAPI on your server, these will all work.
 
@@ -12,7 +12,7 @@ If you need a placeholder from better teams that is not currently listed below, 
 
 ### Provided Placeholders
 
-As there are so many placeholders, every iteration cannot be displayed. Instead a method for building placeholders is shown.
+As there are so many placeholders, every iteration cannot be displayed. Instead, a method for building placeholders is shown.
 There are several different types of placeholders. Firstly you need to pick the context of the placeholder that is relevant to you. Secondly the {type} variable in the placeholder can be replaced with the specific placeholder you want, see below the first list for options.
 * `%betterteams_{type}%` - A placeholder in the context of the current player, used for example to display team information on a scoreboard
 * `%betterteams_position_{type}_{rank}%` - Displays information about the team at the defined {rank} on the `/team score` leaderboard
