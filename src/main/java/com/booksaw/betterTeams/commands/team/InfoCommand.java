@@ -101,9 +101,7 @@ public class InfoCommand extends SubCommand {
 				}
 			}
 			for (TeamPlayer player : users) {
-				userStr.append(
-						MessageManager.getMessage("info." + ((player.getPlayer().isOnline() && player.getOnlinePlayer().map(p -> !Utils.isVanished(p)).orElse(false)) ? "online" : "offline"))
-								+ player.getPrefix(returnTo))
+				userStr.append(MessageManager.getMessage("info." + ((player.getPlayer().isOnline() && player.getOnlinePlayer().map(p -> !Utils.isVanished(p)).orElse(false)) ? "online" : "offline"))).append(player.getPrefix(returnTo))
 						.append(player.getPlayer().getName()).append(" ");
 			}
 

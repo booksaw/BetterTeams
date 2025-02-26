@@ -3,6 +3,7 @@ package com.booksaw.betterTeams.customEvents.post;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
+import com.booksaw.betterTeams.customEvents.DemotePlayerEvent;
 import com.booksaw.betterTeams.customEvents.RankChangePlayerEvent;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;

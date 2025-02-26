@@ -8,6 +8,12 @@
     <name>BetterTeams</name>
     <packaging>jar</packaging>
     <description>Create teams to fight to be the best</description>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
     <repositories>
         <repository>
             <id>spigot-repo</id>
@@ -124,6 +130,15 @@
                             <shadedPattern>booksawshaded.com.github.benmanes.caffeine</shadedPattern>
                         </relocation>
                     </relocations>
+                    <filters>
+                        <filter>
+                            <artifact>*:*</artifact>
+                            <excludes>
+                                <exclude>META-INF/*</exclude>
+                                <exclude>META-INF/versions/**</exclude>
+                            </excludes>
+                        </filter>
+                    </filters>
                 </configuration>
                 <executions>
                     <execution>
@@ -139,7 +154,6 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.0</version>
                 <configuration>
-                    <encoding>UTF-8</encoding>
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>

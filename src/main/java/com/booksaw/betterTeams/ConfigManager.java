@@ -6,6 +6,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -203,7 +204,7 @@ public class ConfigManager {
 					"The embedded resource '" + resourcePath + "' cannot be found in " + Main.plugin.getDataFolder());
 		File outFile = new File(resultPath);
 		int lastIndex = resourcePath.lastIndexOf('/');
-		File outDir = new File(resultPath.substring(0, (lastIndex >= 0) ? lastIndex : 0));
+		File outDir = new File(resultPath.substring(0, Math.max(lastIndex, 0)));
 
 		if (!outDir.exists())
 			outDir.mkdirs();
@@ -214,7 +215,7 @@ public class ConfigManager {
 					outFile.createNewFile();
 				}
 
-				OutputStream out = new FileOutputStream(outFile);
+				OutputStream out = Files.newOutputStream(outFile.toPath());
 				byte[] buf = new byte[1024];
 				int len;
 				while ((len = in.read(buf)) > 0)
