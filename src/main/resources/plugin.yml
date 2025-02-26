@@ -8,8 +8,6 @@ api-version: 1.13
 softdepend: [PlaceholderAPI, HolographicDisplays, Vault, WorldGuard, UltimateClaims, DecentHolograms]
 loadbefore: [zKoth]
 
-website: https://github.com/booksaw/BetterTeams
-
 permissions:
    betterTeams.standard:
       description: This permission gives the user access to the teams system (joining, leaving teams etc.)
