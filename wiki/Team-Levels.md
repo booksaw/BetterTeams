@@ -81,10 +81,10 @@ note at the start of each individual level number there is an l (This is caused 
 ### A visual representation 
 As the config above is hard to understand, below is a visual representation of what it is signifying
 
-| Level| Price | teamLimit | maxChests | maxWarps |
-| ----- | ---- | ---- | - | - |
-| l1 | Free | 10 | 2 | 2 |
-| l2 | 100 score | 20 | 2 | 2 | 
+| Level | Price     | teamLimit | maxChests | maxWarps |
+|-------|-----------|-----------|-----------|----------|
+| l1    | Free      | 10        | 2         | 2        |
+| l2    | 100 score | 20        | 2         | 2        | 
 
 Notice how the max chests are declared for both the first level and the second level thought it has not changed. This is currently required for the plugin to work, else the maxChests will be assumed to be 0.
 
