@@ -30,7 +30,7 @@ public abstract class TeamPlayerSetComponent extends SetTeamComponent<TeamPlayer
 	public List<OfflinePlayer> getOfflinePlayers() {
 		return getClone().stream()
 			.map(TeamPlayer::getPlayer)
-			.filter(OfflinePlayer::isOnline)
+			.filter(p -> !p.isOnline())
 			.collect(Collectors.toList());
 	}
 
