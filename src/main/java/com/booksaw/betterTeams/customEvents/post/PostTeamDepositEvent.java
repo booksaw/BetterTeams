@@ -2,6 +2,7 @@ package com.booksaw.betterTeams.customEvents.post;
 
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
+import com.booksaw.betterTeams.customEvents.TeamDepositEvent;
 import com.booksaw.betterTeams.customEvents.TeamPlayerEvent;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;

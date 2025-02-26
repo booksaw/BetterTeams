@@ -235,7 +235,7 @@ public class SQLStorageManager extends TeamManager implements Listener {
 				toReturn.add(results.getString("name"));
 			}
 			ps.close();
-			return toReturn.toArray(new String[toReturn.size()]);
+			return toReturn.toArray(new String[0]);
 
 		} catch (Exception e) {
 			Bukkit.getLogger().severe("Could not sort teams for results, report the following error:");
