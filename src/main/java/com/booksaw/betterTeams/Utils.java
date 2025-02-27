@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.MetadataValue;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +27,7 @@ public class Utils {
 	 * @param name The name of the player
 	 * @return The offlinePlayer object
 	 */
-	public static OfflinePlayer getOfflinePlayer(String name) {
+	public static @Nullable OfflinePlayer getOfflinePlayer(String name) {
 
 		@SuppressWarnings("deprecation")
 		OfflinePlayer player = Bukkit.getOfflinePlayer(name);
