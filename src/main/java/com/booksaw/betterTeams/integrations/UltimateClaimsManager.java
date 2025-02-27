@@ -152,7 +152,7 @@ public class UltimateClaimsManager implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
 	public void disbandEvent(PostDisbandTeamEvent event) {
-		for (TeamPlayer player : event.getMembers()) {
+		for (TeamPlayer player : event.getPrevMembers()) {
 			if (player.getRank() != PlayerRank.OWNER) {
 				continue;
 			}
