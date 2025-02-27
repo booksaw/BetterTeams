@@ -4,7 +4,6 @@ import com.booksaw.betterTeams.*;
 import com.booksaw.betterTeams.database.TableName;
 import com.booksaw.betterTeams.team.storage.storageManager.SQLStorageManager;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.inventory.Inventory;
 
 import java.sql.PreparedStatement;
@@ -103,12 +102,11 @@ public class SQLTeamStorage extends TeamStorage {
 		return toReturn;
 	}
 
-	@Override
-	public List<String> getAllyList() {
+	private List<String> getTeamList(final TableName table) {
 
 		List<String> toReturn = new ArrayList<>();
 
-		try (PreparedStatement ps = storageManager.getDatabase().selectWhere("*", TableName.ALLIES,
+		try (PreparedStatement ps = storageManager.getDatabase().selectWhere("*", table,
 				"team1ID LIKE '" + team.getID() + "' OR team2ID LIKE '" + team.getID() + "'")) {
 			ResultSet result = ps.executeQuery();
 			if (!result.first()) {
@@ -127,6 +125,11 @@ public class SQLTeamStorage extends TeamStorage {
 		}
 
 		return toReturn;
+	}
+
+	@Override
+	public List<String> getAllyList() {
+		return getTeamList(TableName.ALLIES);
 	}
 
 	@Override
@@ -159,11 +162,8 @@ public class SQLTeamStorage extends TeamStorage {
 		if (result == null || result.isEmpty()) {
 			return;
 		}
-		try {
-			Utils.deserializeInventory(inventory, result);
-		} catch (InvalidConfigurationException e) {
-			e.printStackTrace();
-		}
+
+		Utils.deserializeIntoInventory(inventory, result);
 	}
 
 	@Override

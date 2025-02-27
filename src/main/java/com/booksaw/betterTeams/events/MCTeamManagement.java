@@ -88,7 +88,7 @@ public class MCTeamManagement implements Listener {
 	/**
 	 * Remove a player from an async thread
 	 *
-	 * @param player
+	 * @param player The player to remove
 	 */
 	public void remove(Player player) {
 		remove(player, true);
@@ -129,9 +129,7 @@ public class MCTeamManagement implements Listener {
 
 	@EventHandler
 	public void playerJoinEvent(PlayerJoinEvent e) {
-		Bukkit.getScheduler().runTaskAsynchronously(Main.plugin, () -> {
-			displayBelowName(e.getPlayer());
-		});
+		Bukkit.getScheduler().runTaskAsynchronously(Main.plugin, () -> displayBelowName(e.getPlayer()));
 	}
 
 	public BelowNameType getType() {

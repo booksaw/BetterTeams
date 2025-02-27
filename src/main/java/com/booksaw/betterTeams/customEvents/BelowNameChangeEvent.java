@@ -26,6 +26,7 @@ public class BelowNameChangeEvent extends Event {
 		this.type = type;
 	}
 
+	@SuppressWarnings("unused")
 	public static HandlerList getHandlerList() {
 		return HANDLERS;
 	}

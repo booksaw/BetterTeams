@@ -6,6 +6,7 @@ import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.ParentCommand;
 import com.booksaw.betterTeams.commands.presets.NoTeamSubCommand;
 import com.booksaw.betterTeams.message.HelpMessage;
+import com.booksaw.betterTeams.util.TeamUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -18,7 +19,7 @@ import java.util.List;
  */
 public class CreateCommand extends NoTeamSubCommand {
 	private final ParentCommand parentCommand;
-	boolean enforceTag;
+	private final boolean enforceTag;
 
 	public CreateCommand(ParentCommand parentCommand) {
 		this.parentCommand = parentCommand;
@@ -27,9 +28,9 @@ public class CreateCommand extends NoTeamSubCommand {
 
 	@Override
 	public CommandResponse onCommand(Player sender, String label, String[] args) {
-
-		if (!Team.isValidTeamName(args[0])) {
-			return new CommandResponse("create.banned");
+		CommandResponse response = TeamUtil.verifyTeamName(args[0]);
+		if (response != null) {
+			return response;
 		}
 
 		if (args.length <= 1 && enforceTag) {
@@ -37,40 +38,13 @@ public class CreateCommand extends NoTeamSubCommand {
 		}
 
 		if (args.length > 1) {
-			if (!Team.isValidTeamName(args[1])) {
-				return new CommandResponse("tag.banned");
+			response = TeamUtil.verifyTagName(args[1]);
+			if (response != null) {
+				return response;
 			}
-
-			int max = Main.plugin.getConfig().getInt("maxTagLength");
-			if (max > 55) {
-				max = 55;
-			}
-			if (max != -1 && max < args[1].length()) {
-				return new CommandResponse("tag.maxLength");
-			}
-
-		}
-
-		int max = Main.plugin.getConfig().getInt("maxTeamLength");
-		if (max > 55) {
-			max = 55;
-		}
-
-		if (max != -1 && max < args[0].length()) {
-			return new CommandResponse("create.maxLength");
-		}
-
-		int min = Main.plugin.getConfig().getInt("minTeamLength");
-		if (min <= 0 || min > 55) {
-			min = 0;
-		}
-
-		if (min != 0 && min > args[0].length()) {
-			return new CommandResponse("create.minLength");
 		}
 
 		if (Team.getTeamManager().isTeam(args[0])) {
-			// team already exists
 			return new CommandResponse("create.exists");
 		}
 

@@ -1,10 +1,10 @@
 package com.booksaw.betterTeams.team;
 
-import java.util.ArrayList;
-
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.Warp;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
+
+import java.util.ArrayList;
 
 public class WarpSetComponent extends SetTeamComponent<Warp> {
 

@@ -26,5 +26,4 @@ public abstract class TeamPlayerEvent extends TeamEvent {
 	public OfflinePlayer getPlayer() {
 		return teamPlayer.getPlayer();
 	}
-
 }

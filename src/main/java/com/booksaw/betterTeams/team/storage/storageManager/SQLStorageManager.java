@@ -32,11 +32,13 @@ import java.util.Map.Entry;
 import java.util.UUID;
 import java.util.logging.Level;
 
+import static com.booksaw.betterTeams.util.StringUtil.EMPTY_STRING_ARRAY;
+
 public class SQLStorageManager extends TeamManager implements Listener {
 
 	private BetterTeamsDatabase database;
 
-	protected FileConfiguration teamStorage;
+	protected final FileConfiguration teamStorage;
 
 	public static final String TEAMLISTSTORAGELOC = "teams";
 
@@ -213,7 +215,7 @@ public class SQLStorageManager extends TeamManager implements Listener {
 	 * convert a result set, supplied by a prepared statement into a list of teams
 	 * for sort methods
 	 * 
-	 * @param ps
+	 * @param ps the statement
 	 * @return the ordered team list or an empty array in the event of an error
 	 */
 	private String[] getTeamsFromResultSet(PreparedStatement ps) {
@@ -228,19 +230,19 @@ public class SQLStorageManager extends TeamManager implements Listener {
 				toReturn.add(results.getString("name"));
 			} catch (SQLException e) {
 				// called when no teams have been created
-				return new String[0];
+				return EMPTY_STRING_ARRAY;
 			}
 
 			while (results.next()) {
 				toReturn.add(results.getString("name"));
 			}
 			ps.close();
-			return toReturn.toArray(new String[0]);
+			return toReturn.toArray(EMPTY_STRING_ARRAY);
 
 		} catch (Exception e) {
 			Bukkit.getLogger().severe("Could not sort teams for results, report the following error:");
 			e.printStackTrace();
-			return new String[0];
+			return EMPTY_STRING_ARRAY;
 		}
 
 	}

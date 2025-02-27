@@ -4,6 +4,7 @@ import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.customEvents.TeamDepositEvent;
 import com.booksaw.betterTeams.customEvents.TeamPlayerEvent;
+import lombok.Getter;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
@@ -16,6 +17,7 @@ import org.jetbrains.annotations.NotNull;
  *
  * @author svaningelgem
  */
+@Getter
 public final class PostTeamDepositEvent extends TeamPlayerEvent implements PostTeamMoneyEvent {
     private static final HandlerList HANDLERS = new HandlerList();
 
@@ -34,10 +36,5 @@ public final class PostTeamDepositEvent extends TeamPlayerEvent implements PostT
     @Override
     public @NotNull HandlerList getHandlers() {
         return HANDLERS;
-    }
-
-    @Override
-    public double getAmount() {
-        return this.amount;
     }
 }

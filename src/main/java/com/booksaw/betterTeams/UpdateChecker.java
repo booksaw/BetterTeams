@@ -13,7 +13,8 @@ import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.stream.IntStream;
 
@@ -38,26 +39,28 @@ public class UpdateChecker implements Listener {
 			@Override
 			public void run() {
 				try {
-					HttpsURLConnection connection = (HttpsURLConnection) (new URL(
-							"https://api.spigotmc.org/legacy/update.php?resource=" + ID)).openConnection();
+					// Create URL using the URI class which handles IDNs properly
+					URI uri = new URI("https://api.spigotmc.org/legacy/update.php?resource=" + ID);
+					HttpsURLConnection connection = (HttpsURLConnection) uri.toURL().openConnection();
 					connection.setRequestMethod("GET");
 					UpdateChecker.this.spigotPluginVersion = (new BufferedReader(
-							new InputStreamReader(connection.getInputStream()))).readLine();
-				} catch (IOException e) {
+						new InputStreamReader(connection.getInputStream()))).readLine();
+				} catch (IOException | URISyntaxException e) {
 					Bukkit.getServer().getConsoleSender().sendMessage(
-							ChatColor.translateAlternateColorCodes('&', "&cUpdate checker failed! Disabling."));
+						ChatColor.translateAlternateColorCodes('&', "&cUpdate checker failed! Disabling."));
 					cancel();
 					return;
 				}
+
 				if (isLatestVersion())
 					return;
-				Bukkit.getLogger().warning(
-						MessageManager.getMessage("admin.update")
-				);
+
+				Bukkit.getLogger().warning(MessageManager.getMessage("admin.update"));
+
 				latest = false;
 				cancel();
 			}
-		}).runTaskTimerAsynchronously(this.javaPlugin, 0L, 12000L);
+		}).runTaskTimerAsynchronously(this.javaPlugin, 0L, 10*60*20);
 	}
 
 	private boolean isLatestVersion() {
@@ -65,7 +68,7 @@ public class UpdateChecker implements Listener {
 			int[] local = Arrays.stream(this.localPluginVersion.split("\\.")).mapToInt(Integer::parseInt).toArray();
 			int[] spigot = Arrays.stream(this.spigotPluginVersion.split("\\.")).mapToInt(Integer::parseInt).toArray();
 			return IntStream.range(0, local.length).filter(i -> (local[i] != spigot[i])).limit(1L)
-					.mapToObj(i -> (local[i] >= spigot[i])).findFirst().orElse(Boolean.TRUE);
+				.mapToObj(i -> (local[i] >= spigot[i])).findFirst().orElse(Boolean.TRUE);
 		} catch (NumberFormatException ignored) {
 			return this.localPluginVersion.equals(this.spigotPluginVersion);
 		}

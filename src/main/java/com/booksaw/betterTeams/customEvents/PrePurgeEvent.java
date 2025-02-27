@@ -15,6 +15,7 @@ public class PrePurgeEvent extends Event implements Cancellable {
 	private static final HandlerList HANDLERS = new HandlerList();
 	private boolean cancelled = false;
 
+	@SuppressWarnings("unused")
 	public static HandlerList getHandlerList() {
 		return HANDLERS;
 	}
@@ -22,7 +23,7 @@ public class PrePurgeEvent extends Event implements Cancellable {
 	public PrePurgeEvent() {
 		super(true);
 	}
-	
+
 	@Override
 	public @NotNull HandlerList getHandlers() {
 		return HANDLERS;
@@ -36,7 +37,6 @@ public class PrePurgeEvent extends Event implements Cancellable {
 	@Override
 	public void setCancelled(boolean b) {
 		cancelled = b;
-
 	}
 
 }

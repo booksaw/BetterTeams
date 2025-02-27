@@ -3,7 +3,6 @@ package com.booksaw.betterTeams.events;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.customEvents.PromotePlayerEvent;
 import com.booksaw.betterTeams.customEvents.post.PostDemotePlayerEvent;
 import com.booksaw.betterTeams.customEvents.post.PostLevelupTeamEvent;
 import com.booksaw.betterTeams.customEvents.post.PostPromotePlayerEvent;

@@ -6,6 +6,7 @@ import com.booksaw.betterTeams.message.MessageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,15 +15,6 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.UUID;
 import java.util.logging.Level;
-
-import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
-import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.message.MessageManager;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * This class is used by any commands which are included within a command tree

@@ -4,6 +4,7 @@ import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.customEvents.DisbandTeamEvent;
 import com.booksaw.betterTeams.customEvents.TeamEvent;
+import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
@@ -26,8 +27,10 @@ import java.util.UUID;
 public class PostDisbandTeamEvent extends TeamEvent {
 
 	private static final HandlerList HANDLERS = new HandlerList();
+	@Getter
 	private final Player player;
 	private final Set<UUID> prevAllies;
+	@Getter
 	private final Set<TeamPlayer> prevMembers;
 	private Set<Team> processedAllies = null;
 
@@ -47,11 +50,6 @@ public class PostDisbandTeamEvent extends TeamEvent {
 		return HANDLERS;
 	}
 
-	@Nullable
-	public Player getPlayer() {
-		return player;
-	}
-
 	@NotNull
 	public Set<Team> getAllies() {
 		if (processedAllies == null) {
@@ -65,10 +63,5 @@ public class PostDisbandTeamEvent extends TeamEvent {
 		}
 
 		return processedAllies;
-	}
-
-	@NotNull
-	public Set<TeamPlayer> getMembers() {
-		return prevMembers;
 	}
 }

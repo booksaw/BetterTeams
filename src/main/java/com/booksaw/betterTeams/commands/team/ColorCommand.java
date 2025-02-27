@@ -5,19 +5,18 @@ import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ColorCommand extends TeamSubCommand {
 
-	final List<Character> alwaysBanned = Arrays.asList('l', 'n', 'o', 'k', 'n', 'r');
-	private final List<Character> banned;
+	private final Set<Character> alwaysBanned = new HashSet<>(Arrays.asList('l', 'n', 'o', 'k', 'n', 'r'));
+	private final Set<Character> banned = new HashSet<>(alwaysBanned);
 
 	public ColorCommand() {
-		banned = new ArrayList<>();
-		banned.addAll(alwaysBanned);
 		banned.addAll(Main.plugin.getConfig().getString("bannedColors").chars().mapToObj(c -> (char) c)
 				.collect(Collectors.toList()));
 	}

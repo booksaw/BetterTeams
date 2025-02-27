@@ -15,8 +15,8 @@ public class AllyTeama extends SubCommand {
 	@Override
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
 		
-		Team team1 = Team.getTeam(args[0]);
-		Team team2 = Team.getTeam(args[1]);
+		Team team1 = Team.getTeam(args.length >= 1 ? args[0] : null);
+		Team team2 = Team.getTeam(args.length >= 2 ? args[1] : null);
 		
 		if(team1 == null || team2 == null) {
 			return new CommandResponse("admin.noTeam");
