@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class ColorCommand extends TeamSubCommand {
 
 	final List<Character> alwaysBanned = Arrays.asList('l', 'n', 'o', 'k', 'n', 'r');
-	private List<Character> banned;
+	private final List<Character> banned;
 
 	public ColorCommand() {
 		banned = new ArrayList<>();
@@ -81,7 +81,7 @@ public class ColorCommand extends TeamSubCommand {
 		if (args.length == 1) {
 			for (ChatColor c : ChatColor.values()) {
 				if (!banned.contains(c.getChar()) && c.name().toLowerCase().startsWith(args[0].toLowerCase())) {
-					options.add(c.name().toLowerCase() + "");
+					options.add(c.name().toLowerCase());
 				}
 			}
 		}

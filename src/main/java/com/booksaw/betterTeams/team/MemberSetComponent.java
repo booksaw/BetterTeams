@@ -5,6 +5,8 @@ import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.customEvents.PlayerJoinTeamEvent;
 import com.booksaw.betterTeams.customEvents.PlayerLeaveTeamEvent;
+import com.booksaw.betterTeams.customEvents.post.PostPlayerJoinTeamEvent;
+import com.booksaw.betterTeams.customEvents.post.PostPlayerLeaveTeamEvent;
 import com.booksaw.betterTeams.exceptions.CancelledEventException;
 import com.booksaw.betterTeams.message.Message;
 import com.booksaw.betterTeams.message.MessageManager;
@@ -48,12 +50,7 @@ public class MemberSetComponent extends TeamPlayerSetComponent {
 		Team.getTeamManager().playerJoinTeam(team, teamPlayer);
 		set.add(teamPlayer);
 
-		if (Main.plugin.getConfig().getBoolean("announceTeamJoin")) {
-			Message message = new ReferencedFormatMessage("announce.join", p.getName(), team.getColor() + team.getName() + ChatColor.RESET);
-			for (Player player : Bukkit.getOnlinePlayers()) {
-				message.sendMessage(player);
-			}
-		}
+		Bukkit.getPluginManager().callEvent(new PostPlayerJoinTeamEvent(team, teamPlayer));
 	}
 
 	@Override
@@ -73,12 +70,7 @@ public class MemberSetComponent extends TeamPlayerSetComponent {
 		Team.getTeamManager().playerLeaveTeam(team, teamPlayer);
 		set.remove(teamPlayer);
 
-		if (Main.plugin.getConfig().getBoolean("announceTeamLeave")) {
-			Message message = new ReferencedFormatMessage("announce.leave", p.getName(), team.getColor() + team.getName() + ChatColor.RESET);
-			for (Player player : Bukkit.getOnlinePlayers()) {
-				message.sendMessage(player);
-			}
-		}
+		Bukkit.getPluginManager().callEvent(new PostPlayerLeaveTeamEvent(team, teamPlayer));
 	}
 
 	@Override

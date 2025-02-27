@@ -10,6 +10,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -35,8 +36,8 @@ public class FlatFileToYaml extends Converter {
 			}
 		}
 
-		try (InputStream in = new BufferedInputStream(new FileInputStream(f));
-				OutputStream out = new BufferedOutputStream(new FileOutputStream(copied))) {
+		try (InputStream in = new BufferedInputStream(Files.newInputStream(f.toPath()));
+		     OutputStream out = new BufferedOutputStream(Files.newOutputStream(copied.toPath()))) {
 
 			byte[] buffer = new byte[1024];
 			int lengthRead;

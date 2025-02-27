@@ -17,11 +17,8 @@ public class DelwarpCommand extends TeamSubCommand {
 		}
 
 		if (player.getRank() == PlayerRank.ADMIN) {
-			if (warp.getPassword() != null && !warp.getPassword().isEmpty()
-					&& Main.plugin.getConfig().getBoolean("allowPassword")) {
-				if (args.length == 1 || !warp.getPassword().equals(args[1])) {
-					return new CommandResponse("warp.invaildPassword");
-				}
+			if (warp.hasPassword() && (args.length == 1 || !warp.isCorrectPassword(args[1]))) {
+				return new CommandResponse("warp.invaildPassword");
 			}
 		}
 		team.delWarp(args[0]);

@@ -5,6 +5,7 @@ import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.presets.TeamSelectSubCommand;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.util.List;
 
@@ -12,8 +13,11 @@ public class DisbandTeama extends TeamSelectSubCommand {
 
 	@Override
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args, Team team) {
-
-		team.disband();
+		if (sender instanceof Player) {
+			team.disband((Player)sender);
+		} else {
+			team.disband();
+		}
 
 		return new CommandResponse(true, "admin.disband.success");
 	}

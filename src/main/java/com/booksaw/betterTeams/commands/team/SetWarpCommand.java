@@ -21,7 +21,7 @@ public class SetWarpCommand extends TeamSubCommand {
 		if (args.length >= 2 && Main.plugin.getConfig().getBoolean("allowPassword")) {
 			password = args[1];
 		}
-		
+
 		int maxWarps = team.getMaxWarps();
 		if (team.getWarps().size() >= maxWarps && maxWarps != -1) {
 			return new CommandResponse("setwarp.max");
@@ -35,7 +35,7 @@ public class SetWarpCommand extends TeamSubCommand {
 
 		team.addWarp(new Warp(args[0], Objects.requireNonNull(player.getPlayer().getPlayer()).getLocation(), password));
 
-		return new CommandResponse("setwarp.success");
+		return new CommandResponse(true, "setwarp.success");
 	}
 
 	@Override

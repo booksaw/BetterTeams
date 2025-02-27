@@ -39,6 +39,8 @@ public class ParentCommand extends SubCommand {
 	private CooldownManager cooldowns = null;
 	private CostManager prices = null;
 
+	private boolean runAsync = false;
+
 	/**
 	 * Creates a new parent command with a set of sub commands
 	 *
@@ -50,10 +52,11 @@ public class ParentCommand extends SubCommand {
 		subCommands.put("help", new HelpCommand(this));
 	}
 
-	public ParentCommand(CostManager prices, CooldownManager cooldowns, String command) {
+	public ParentCommand(CostManager prices, CooldownManager cooldowns, String command, boolean runAsync) {
 		this(command);
 		this.cooldowns = cooldowns;
 		this.prices = prices;
+		this.runAsync = runAsync;
 	}
 
 	/**
@@ -120,7 +123,7 @@ public class ParentCommand extends SubCommand {
 			CommandCooldown cooldown = cooldowns.getCooldown(command.getCommand());
 			int remaining = cooldown.getRemaining((Player) sender);
 			if (remaining != -1) {
-				return new CommandResponse(false, new ReferencedFormatMessage("cooldown.wait", remaining + ""));
+				return new CommandResponse(false, new ReferencedFormatMessage("cooldown.wait", remaining));
 			}
 
 		}
@@ -255,10 +258,15 @@ public class ParentCommand extends SubCommand {
 		return subCommand.getCommand();
 
 	}
-	
+
+	@Override
+	protected boolean runAsync(String[] args) {
+		return runAsync;
+	}
+
 	@Override
 	public boolean checkAsync(String[] args) {
-		if(args.length == 0) {
+		if (args.length == 0) {
 			return true;
 		}
 		SubCommand command = subCommands.get(args[0].toLowerCase());
@@ -266,7 +274,7 @@ public class ParentCommand extends SubCommand {
 			return true;
 		}
 		return command.runAsync(removeFirstElement(args));
-		
+
 	}
-	
+
 }

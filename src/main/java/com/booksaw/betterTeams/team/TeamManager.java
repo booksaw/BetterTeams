@@ -5,6 +5,8 @@ import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.customEvents.CreateTeamEvent;
 import com.booksaw.betterTeams.customEvents.PrePurgeEvent;
+import com.booksaw.betterTeams.customEvents.post.PostCreateTeamEvent;
+import com.booksaw.betterTeams.customEvents.post.PostPurgeEvent;
 import com.booksaw.betterTeams.events.ChestManagement;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
 import org.bukkit.Bukkit;
@@ -169,7 +171,7 @@ public abstract class TeamManager {
 		}
 		Team team = new Team(name, id, owner);
 
-		CreateTeamEvent event = new CreateTeamEvent(team);
+		CreateTeamEvent event = new CreateTeamEvent(team, owner);
 		Bukkit.getPluginManager().callEvent(event);
 
 		if (event.isCancelled()) {
@@ -182,6 +184,8 @@ public abstract class TeamManager {
 		if (Main.plugin.teamManagement != null && owner != null) {
 			Main.plugin.teamManagement.displayBelowName(owner);
 		}
+
+		Bukkit.getPluginManager().callEvent(new PostCreateTeamEvent(team, owner));
 
 		return team;
 	}
@@ -256,16 +260,10 @@ public abstract class TeamManager {
 				return claimedBy;
 			}
 
-			claimedBy = getClaimingTeam(ChestManagement.getLocation((Chest) doubleChest.getRightSide()));
-			if (claimedBy != null) {
-				return claimedBy;
-			}
+			return getClaimingTeam(ChestManagement.getLocation((Chest) doubleChest.getRightSide()));
 		} else if (holder instanceof Chest) {
 			// single chest
-			Team claimedBy = getClaimingTeam(ChestManagement.getLocation((Chest) holder));
-			if (claimedBy != null) {
-				return claimedBy;
-			}
+			return getClaimingTeam(ChestManagement.getLocation((Chest) holder));
 		}
 
 		return null;
@@ -336,6 +334,7 @@ public abstract class TeamManager {
 			purgeTeamMoney();
 		}
 
+		Bukkit.getPluginManager().callEvent(new PostPurgeEvent());
 		return true;
 	}
 

@@ -13,7 +13,7 @@ public class TableBuilder {
 
 	private final Database database;
 	private final String tableName;
-	private StringBuilder tableInfo = new StringBuilder();
+	private final StringBuilder tableInfo = new StringBuilder();
 
 	public TableBuilder(Database database, String tableName) {
 		this.database = database;
@@ -38,7 +38,7 @@ public class TableBuilder {
 	 * Execute the built command
 	 */
 	public void execute() {
-		if (tableInfo.length() == 0) {
+		if (tableInfo.length() == 0) { // JDK 8 doesn't have StringBuilder::isEmpty yet
 			return;
 		}
 		database.createTableIfNotExists(tableName, tableInfo.toString());
@@ -54,7 +54,7 @@ public class TableBuilder {
 					"The data type " + type + " needs an argument, and no argument was provided");
 		}
 
-		tableInfo.append(columnName + " " + type.toString() + ((notNull) ? " NOT NULL, " : ", "));
+		tableInfo.append(columnName).append(" ").append(type).append((notNull) ? " NOT NULL, " : ", ");
 		return this;
 	}
 
@@ -68,8 +68,7 @@ public class TableBuilder {
 					"The data type " + type + " needs an argument, and no argument was provided");
 		}
 
-		tableInfo
-				.append(columnName + " " + type.toString() + "(" + argument + ")" + ((notNull) ? " NOT NULL, " : ", "));
+		tableInfo.append(columnName).append(" ").append(type).append("(").append(argument).append(")").append((notNull) ? " NOT NULL, " : ", ");
 		return this;
 	}
 

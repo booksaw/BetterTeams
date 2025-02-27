@@ -188,7 +188,7 @@ public class MessageManager {
 			return;
 		}
 
-		sender.sendMessage(message);
+		sender.sendMessage(prefix + message);
 	}
 
 	/**

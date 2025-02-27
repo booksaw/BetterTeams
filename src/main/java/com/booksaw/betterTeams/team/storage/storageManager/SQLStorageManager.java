@@ -1,17 +1,14 @@
 package com.booksaw.betterTeams.team.storage.storageManager;
 
-import java.io.File;
-import java.io.IOException;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map.Entry;
-import java.util.logging.Level;
-import java.util.UUID;
-
+import com.booksaw.betterTeams.Main;
+import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.TeamPlayer;
+import com.booksaw.betterTeams.database.BetterTeamsDatabase;
+import com.booksaw.betterTeams.database.TableName;
+import com.booksaw.betterTeams.team.LocationSetComponent;
+import com.booksaw.betterTeams.team.TeamManager;
+import com.booksaw.betterTeams.team.storage.team.SQLTeamStorage;
+import com.booksaw.betterTeams.team.storage.team.TeamStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -23,15 +20,17 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import com.booksaw.betterTeams.Main;
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.database.BetterTeamsDatabase;
-import com.booksaw.betterTeams.database.TableName;
-import com.booksaw.betterTeams.team.LocationSetComponent;
-import com.booksaw.betterTeams.team.TeamManager;
-import com.booksaw.betterTeams.team.storage.team.SQLTeamStorage;
-import com.booksaw.betterTeams.team.storage.team.TeamStorage;
+import java.io.File;
+import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.UUID;
+import java.util.logging.Level;
 
 public class SQLStorageManager extends TeamManager implements Listener {
 
@@ -167,7 +166,7 @@ public class SQLStorageManager extends TeamManager implements Listener {
 	@Override
 	public void playerJoinTeam(Team team, TeamPlayer player) {
 		database.insertRecord(TableName.PLAYERS, "playerUUID, teamID, playerRank",
-				"'" + player.getPlayer().getUniqueId() + "', '" + team.getID() + "', " + player.getRank().value + "");
+				"'" + player.getPlayer().getUniqueId() + "', '" + team.getID() + "', " + player.getRank().value);
 	}
 
 	@Override
@@ -236,7 +235,7 @@ public class SQLStorageManager extends TeamManager implements Listener {
 				toReturn.add(results.getString("name"));
 			}
 			ps.close();
-			return toReturn.toArray(new String[toReturn.size()]);
+			return toReturn.toArray(new String[0]);
 
 		} catch (Exception e) {
 			Bukkit.getLogger().severe("Could not sort teams for results, report the following error:");

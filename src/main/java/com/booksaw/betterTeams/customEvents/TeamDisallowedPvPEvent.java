@@ -14,7 +14,7 @@ public final class TeamDisallowedPvPEvent extends TeamEvent {
     private final Player source;
     private final Team damagerTeam;
 
-    private boolean isProtected; // Is an ally or on the same team
+    private final boolean isProtected; // Is an ally or on the same team
 
     public TeamDisallowedPvPEvent(final Team victimTeam, final Player source, final Team damagerTeam, final boolean isProtected) {
         super(victimTeam, false);

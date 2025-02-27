@@ -1,10 +1,10 @@
 package com.booksaw.betterTeams;
 
 import com.booksaw.betterTeams.customEvents.*;
+import com.booksaw.betterTeams.customEvents.post.*;
 import com.booksaw.betterTeams.exceptions.CancelledEventException;
 import com.booksaw.betterTeams.message.Message;
 import com.booksaw.betterTeams.message.MessageManager;
-import com.booksaw.betterTeams.message.ReferencedFormatMessage;
 import com.booksaw.betterTeams.message.StaticMessage;
 import com.booksaw.betterTeams.team.*;
 import com.booksaw.betterTeams.team.storage.StorageType;
@@ -18,8 +18,9 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -33,7 +34,7 @@ public class Team {
 
 	private static TeamManager TEAMMANAGER;
 
-	public static final void setupTeamManager(StorageType storageType) {
+	public static void setupTeamManager(StorageType storageType) {
 		if (TEAMMANAGER != null) {
 			throw new IllegalArgumentException("The team manager has already been setup");
 		}
@@ -53,7 +54,7 @@ public class Team {
 	/**
 	 * Used to disable betterteams so the singleton is removed
 	 */
-	public static final void disable() {
+	public static void disable() {
 		TEAMMANAGER.disable();
 		TEAMMANAGER = null;
 	}
@@ -159,7 +160,7 @@ public class Team {
 
 		String allowed = Main.plugin.getConfig().getString("allowedChars");
 
-		if (allowed.length() != 0) {
+		if (allowed != null && !allowed.isEmpty()) {
 			for (char temp : name.toCharArray()) {
 				if (!allowed.contains(Character.toString(temp))) {
 					return false;
@@ -176,7 +177,7 @@ public class Team {
 	 * The ID of the team (this is a unique identifier of the team which will never
 	 * change)
 	 */
-	private UUID id;
+	private final UUID id;
 
 	/**
 	 * The name of the team, this can be changed after the creation of a teams, so
@@ -202,45 +203,45 @@ public class Team {
 	/**
 	 * tracks and provides utility methods relating to the members of this team
 	 */
-	private MemberSetComponent members;
+	private final MemberSetComponent members = new MemberSetComponent();
 
 	/**
 	 * Used to track the allies of this team
 	 */
-	private final AllySetComponent allies;
+	private final AllySetComponent allies = new AllySetComponent();
 
 	/**
 	 * This is a list of invited players to this team since the last restart of the
 	 * server
 	 */
-	private List<UUID> invitedPlayers = new ArrayList<>();
+	private final List<UUID> invitedPlayers = new ArrayList<>();
 
 	/**
 	 * This is used to store all players which are banned from the team
 	 */
-	private final BanSetComponent bannedPlayers;
+	private final BanSetComponent bannedPlayers = new BanSetComponent();
 
 	/**
 	 * Used to track the chests claimed by this team
 	 */
-	private final ChestClaimComponent claims;
+	private final ChestClaimComponent claims = new ChestClaimComponent();
 
 	/**
 	 * The score for the team
 	 */
-	private final ScoreComponent score;
+	private final ScoreComponent score = new ScoreComponent();
 
 	/**
 	 * The money that the team has
 	 */
-	private final MoneyComponent money;
+	private final MoneyComponent money = new MoneyComponent();
 
 	/**
 	 * Tracks if the team has pvp enabled between team members
 	 */
 	private boolean pvp = false;
 
-	private ChatColor color;
+	private ChatColor color = null;
 	/**
 	 * the rank of the team
 	 */
@@ -254,15 +255,15 @@ public class Team {
 	/**
 	 * Used to track which teams have requested to be allies with this team
 	 */
-	private AllyRequestComponent requests;
+	private final AllyRequestComponent requests = new AllyRequestComponent();
 
-	private final EChestComponent echest;
+	private final EChestComponent echest = new EChestComponent();
 
 	private int level;
 
 	private String tag;
 
-	private WarpSetComponent warps;
+	private final WarpSetComponent warps = new WarpSetComponent();
 
 	private org.bukkit.scoreboard.Team team;
 
@@ -283,7 +284,7 @@ public class Team {
 			getTeamManager().disbandTeam(this);
 
 			throw new IllegalArgumentException(
-					"The team that attempted loading is invalid, disbanding the team to avoid problems");
+				"The team that attempted loading is invalid, disbanding the team to avoid problems");
 		}
 
 		description = storage.getString(StoredTeamValue.DESCRIPTION);
@@ -292,42 +293,27 @@ public class Team {
 
 		String colorStr = storage.getString(StoredTeamValue.COLOR);
 
-		if (colorStr == null || colorStr.length() == 0) {
+		if (colorStr == null || colorStr.isEmpty()) {
 			colorStr = "6";
 		}
 
 		color = ChatColor.getByChar(colorStr.charAt(0));
 
-		members = new MemberSetComponent();
 		members.load(storage);
-
-		allies = new AllySetComponent();
 		allies.load(storage);
-
-		score = new ScoreComponent();
 		score.load(storage);
-
-		money = new MoneyComponent();
 		money.load(storage);
-
-		echest = new EChestComponent();
 		echest.load(storage);
-
-		bannedPlayers = new BanSetComponent();
 		bannedPlayers.load(storage);
 
 		String teamHomeStr = storage.getString(StoredTeamValue.HOME);
-		if (teamHomeStr != null && !teamHomeStr.equals("")) {
+		if (teamHomeStr != null && !teamHomeStr.isEmpty()) {
 			teamHome = LocationSetComponent.getLocation(teamHomeStr);
 		}
 
-		requests = new AllyRequestComponent();
 		requests.load(storage);
-
-		warps = new WarpSetComponent();
 		warps.load(storage);
 
-		claims = new ChestClaimComponent();
 		try {
 			claims.load(storage);
 		} catch (IllegalArgumentException e) {
@@ -362,7 +348,7 @@ public class Team {
 
 		if (name == null) {
 			Bukkit.getLogger()
-					.warning("[BetterTeams] Provided team name was null, this should never occur. Team uuid = " + id);
+				.warning("[BetterTeams] Provided team name was null, this should never occur. Team uuid = " + id);
 			name = "invalidName";
 
 			try {
@@ -393,25 +379,11 @@ public class Team {
 		color = ChatColor.getByChar(Main.plugin.getConfig().getString("defaultColor").charAt(0));
 		storage.set(StoredTeamValue.COLOR, color.getChar());
 
-		requests = new AllyRequestComponent();
-
-		warps = new WarpSetComponent();
-
-		claims = new ChestClaimComponent();
 		claims.save(storage);
-
-		allies = new AllySetComponent();
-
-		members = new MemberSetComponent();
 		if (owner != null) {
 			members.add(this, new TeamPlayer(owner, PlayerRank.OWNER));
 		}
 
-		score = new ScoreComponent();
-		money = new MoneyComponent();
-		echest = new EChestComponent();
-
-		bannedPlayers = new BanSetComponent();
 		savePlayers();
 		level = 1;
 		storage.set(StoredTeamValue.LEVEL, 1);
@@ -438,8 +410,10 @@ public class Team {
 	 *
 	 * @param name the new team namexg
 	 */
-	public void setName(String name) {
-		TeamNameChangeEvent event = new TeamNameChangeEvent(this, name);
+	public void setName(String name, Player playerSource) {
+		final String previousName = this.name;
+
+		TeamNameChangeEvent event = new TeamNameChangeEvent(this, name, playerSource);
 		Bukkit.getPluginManager().callEvent(event);
 
 		if (event.isCancelled()) {
@@ -451,8 +425,13 @@ public class Team {
 		this.name = name;
 		getStorage().set(StoredTeamValue.NAME, name);
 
-		if (Main.plugin.teamManagement != null) {
+		registerTeamName();
 
+		Bukkit.getPluginManager().callEvent(new PostTeamNameChangeEvent(this, previousName, name, playerSource));
+	}
+
+	private void registerTeamName() {
+		if (Main.plugin.teamManagement != null) {
 			if (team != null) {
 				for (TeamPlayer p : members.getClone()) {
 					if (p.getPlayer().isOnline()) {
@@ -496,7 +475,7 @@ public class Team {
 	}
 
 	public String getTag() {
-		if (tag == null || tag.length() == 0) {
+		if (tag == null || tag.isEmpty()) {
 			return getDisplayName();
 		}
 
@@ -508,6 +487,8 @@ public class Team {
 	}
 
 	public void setTag(String tag) {
+		final String oldTag = getTag();
+
 		TeamTagChangeEvent event = new TeamTagChangeEvent(this, tag);
 		Bukkit.getPluginManager().callEvent(event);
 
@@ -519,25 +500,9 @@ public class Team {
 		this.tag = tag;
 		getStorage().set(StoredTeamValue.TAG, tag);
 
-		if (Main.plugin.teamManagement != null) {
+		registerTeamName();
 
-			if (team != null) {
-				for (TeamPlayer p : members.getClone()) {
-					if (p.getPlayer().isOnline()) {
-						team.removeEntry(Objects.requireNonNull(p.getPlayer().getName()));
-					}
-				}
-				team.unregister();
-			}
-
-			team = null;
-
-			for (TeamPlayer p : members.getClone()) {
-				if (p.getPlayer().isOnline()) {
-					Main.plugin.teamManagement.displayBelowName(Objects.requireNonNull(p.getPlayer().getPlayer()));
-				}
-			}
-		}
+		Bukkit.getPluginManager().callEvent(new PostTeamTagChangeEvent(this, oldTag, getTag()));
 	}
 
 	/**
@@ -599,28 +564,13 @@ public class Team {
 		}
 		color = event.getNewTeamColor();
 
+		ChatColor oldColor = this.color;
 		this.color = color;
 		getStorage().set(StoredTeamValue.COLOR, color.getChar());
 
-		if (Main.plugin.teamManagement != null) {
+		registerTeamName();
 
-			if (team != null) {
-				for (TeamPlayer p : members.getClone()) {
-					if (p.getPlayer().isOnline()) {
-						team.removeEntry(Objects.requireNonNull(p.getPlayer().getName()));
-					}
-				}
-				team.unregister();
-			}
-
-			team = null;
-
-			for (TeamPlayer p : members.getClone()) {
-				if (p.getPlayer().isOnline()) {
-					Main.plugin.teamManagement.displayBelowName(Objects.requireNonNull(p.getPlayer().getPlayer()));
-				}
-			}
-		}
+		Bukkit.getPluginManager().callEvent(new PostTeamColorChangeEvent(this, oldColor, color));
 	}
 
 	public MemberSetComponent getMembers() {
@@ -629,8 +579,6 @@ public class Team {
 
 	/**
 	 * Used to save the members list to the configuration file
-	 *
-	 * @param config the configuration file to store the members list to
 	 */
 	private void savePlayers() {
 		members.save(getStorage());
@@ -638,8 +586,6 @@ public class Team {
 
 	/**
 	 * Used to save the bans list to the configuration file
-	 *
-	 * @param config the configuration file to store the ban list to
 	 */
 	private void saveBans() {
 		bannedPlayers.save(getStorage());
@@ -710,39 +656,43 @@ public class Team {
 	 * This command is used to disband a team, BE CAREFUL, this is irreversible
 	 */
 	public void disband() {
-		DisbandTeamEvent event = new DisbandTeamEvent(this);
+		disband(null);
+	}
+
+	/**
+	 * This command is used to disband a team, BE CAREFUL, this is irreversible
+	 *
+	 * @param player The player responsible for disbandment [null - initiated by console]
+	 */
+	public void disband(Player player) {
+		DisbandTeamEvent event = new DisbandTeamEvent(this, player);
 		Bukkit.getPluginManager().callEvent(event);
 
 		if (event.isCancelled()) {
 			throw new IllegalArgumentException("Disbanding was cancelled by another plugin");
 		}
 
-		for (UUID ally : allies.getClone()) {
+		Set<UUID> prevAllies = allies.getClone();
+		for (UUID ally : prevAllies) {
 			Team team = Team.getTeam(ally);
 			if (team == null) {
 				// this should not occur but is a failsafe
 				continue;
 			}
-			Objects.requireNonNull(team).removeAlly(getID());
+			Objects.requireNonNull(team).removeAlly(this);
 
 		}
 
-//		for (Entry<UUID, Team> requestedTeam : getTeamManager().getTeamListClone().entrySet()) {
-//			if (requestedTeam.getValue().hasRequested(getID())) {
-//				requestedTeam.getValue().removeAllyRequest(getID());
-//			}
-//		}
-
-		for (TeamPlayer player : getMembers().get()) {
-			getTeamManager().playerLeaveTeam(this, player);
+		Set<TeamPlayer> prevMembers = members.getClone();
+		for (TeamPlayer teamPlayer : prevMembers) {
+			getTeamManager().playerLeaveTeam(this, teamPlayer);
 		}
 
 		// removing it from the team list, the java GC will handle the reset
 		getTeamManager().disbandTeam(this);
 
 		if (Main.plugin.teamManagement != null) {
-
-			for (TeamPlayer p : members.getClone()) {
+			for (TeamPlayer p : prevMembers) {
 				if (p.getPlayer().isOnline()) {
 					Main.plugin.teamManagement.remove(p.getPlayer().getPlayer());
 				}
@@ -751,15 +701,9 @@ public class Team {
 			if (team != null)
 				team.unregister();
 			team = null;
-
 		}
 
-		if (Main.plugin.getConfig().getBoolean("announceTeamDisband")) {
-			Message message = new ReferencedFormatMessage("announce.disband", getColor() + getName() + ChatColor.RESET);
-			for (Player player : Bukkit.getOnlinePlayers()) {
-				message.sendMessage(player);
-			}
-		}
+		Bukkit.getPluginManager().callEvent(new PostDisbandTeamEvent(this, player, prevAllies, prevMembers));
 	}
 
 	/**
@@ -796,7 +740,7 @@ public class Team {
 			@Override
 			public void run() {
 				Player p = Bukkit.getPlayer(uniqueId);
-				if (getTeamPlayer(p) != null) {
+				if (p == null || getTeamPlayer(p) != null) {
 					return;
 				}
 				invitedPlayers.remove(uniqueId);
@@ -832,6 +776,7 @@ public class Team {
 	 * @param promotePlayer the player to be promoted
 	 */
 	public void promotePlayer(TeamPlayer promotePlayer) {
+		PlayerRank oldRank = promotePlayer.getRank();
 		PlayerRank newRank;
 		if (promotePlayer.getRank() == PlayerRank.DEFAULT) {
 			newRank = PlayerRank.ADMIN;
@@ -839,7 +784,8 @@ public class Team {
 			newRank = PlayerRank.OWNER;
 		}
 
-		PromotePlayerEvent event = new PromotePlayerEvent(this, promotePlayer, promotePlayer.getRank(), newRank);
+
+		PromotePlayerEvent event = new PromotePlayerEvent(this, promotePlayer, oldRank, newRank);
 
 		Bukkit.getPluginManager().callEvent(event);
 
@@ -850,6 +796,8 @@ public class Team {
 		promotePlayer.setRank(newRank);
 		storage.promotePlayer(promotePlayer);
 		savePlayers();
+
+		Bukkit.getPluginManager().callEvent(new PostPromotePlayerEvent(this, promotePlayer, oldRank, newRank));
 	}
 
 	/**
@@ -861,13 +809,14 @@ public class Team {
 	 */
 	public void demotePlayer(TeamPlayer demotePlayer) {
 
+		PlayerRank oldRank = demotePlayer.getRank();
 		PlayerRank newRank;
-		if (demotePlayer.getRank() == PlayerRank.ADMIN) {
+		if (oldRank == PlayerRank.ADMIN) {
 			newRank = PlayerRank.DEFAULT;
 		} else {
 			newRank = PlayerRank.ADMIN;
 		}
-		DemotePlayerEvent event = new DemotePlayerEvent(this, demotePlayer, demotePlayer.getRank(), newRank);
+		DemotePlayerEvent event = new DemotePlayerEvent(this, demotePlayer, oldRank, newRank);
 
 		Bukkit.getPluginManager().callEvent(event);
 
@@ -878,6 +827,8 @@ public class Team {
 		demotePlayer.setRank(newRank);
 		storage.demotePlayer(demotePlayer);
 		savePlayers();
+
+		Bukkit.getPluginManager().callEvent(new PostDemotePlayerEvent(this, demotePlayer, oldRank, newRank));
 	}
 
 	public void setTeamHome(Location teamHome) {
@@ -930,20 +881,8 @@ public class Team {
 	 * @param message the message to send to the team chat
 	 */
 	public void sendMessage(TeamPlayer sender, String message) {
-		ChatColor returnTo = ChatColor.RESET;
 		String toTest = getChatSyntax(sender);
-		Matcher matcher = Pattern.compile("\\{\\d+\\}").matcher(toTest);
-		if (matcher.find()) {
-			int value = matcher.start();
-			if (value > 3) {
-				for (int i = value; i >= 0; i--) {
-					if (toTest.charAt(i) == '\u00A7') {
-						returnTo = ChatColor.getByChar(toTest.charAt(i + 1));
-						break;
-					}
-				}
-			}
-		}
+		ChatColor returnTo = getPreviousChatColor(toTest);
 
 		// These are variables which may be modified by TeamPreMessageEvent
 		Set<TeamPlayer> recipients = members.getClone();
@@ -953,21 +892,22 @@ public class Team {
 
 		// Notify third party plugins that a team message is going to be sent
 		TeamPreMessageEvent teamPreMessageEvent = new TeamPreMessageEvent(this, sender, message, format,
-				prefix, recipients);
+			prefix, recipients);
 		Bukkit.getPluginManager().callEvent(teamPreMessageEvent);
 
 		// Process any updates after the event has been dispatched
 		if (teamPreMessageEvent.isCancelled()) {
 			return;
-		} else {
-			message = teamPreMessageEvent.getRawMessage();
-			format = teamPreMessageEvent.getFormat();
-			prefix = teamPreMessageEvent.getSenderNamePrefix();
 		}
 
+		message = teamPreMessageEvent.getRawMessage();
+		format = teamPreMessageEvent.getFormat();
+		prefix = teamPreMessageEvent.getSenderNamePrefix();
+
+
 		String fMessage = MessageManager.format(format,
-				prefix + Objects.requireNonNull(sender.getPlayer().getPlayer()).getDisplayName(),
-				message);
+			prefix + Objects.requireNonNull(sender.getPlayer().getPlayer()).getDisplayName(),
+			message);
 
 		fMessage = fMessage.replace("$name$", prefix + sender.getPlayer().getPlayer().getName());
 		fMessage = fMessage.replace("$message$", message);
@@ -993,6 +933,25 @@ public class Team {
 		Bukkit.getPluginManager().callEvent(new TeamMessageEvent(this, sender, fMessage, teamPreMessageEvent.getRecipients()));
 	}
 
+	private static @NotNull ChatColor getPreviousChatColor(String toTest) {
+		Matcher matcher = Pattern.compile("\\{\\d+}").matcher(toTest);
+		if (matcher.find()) {
+			int value = matcher.start();
+			if (value > 3) {
+				for (int i = value; i >= 0; i--) {
+					if (toTest.charAt(i) == ChatColor.COLOR_CHAR) {
+						ChatColor returnTo = ChatColor.getByChar(toTest.charAt(i + 1));
+						if (returnTo != null) {
+							return returnTo;
+						}
+					}
+				}
+			}
+		}
+
+		return ChatColor.RESET;
+	}
+
 	/**
 	 * Used to get the chat syntax and apply placeholders when possible
 	 *
@@ -1014,24 +973,12 @@ public class Team {
 	 * @param message the message that the player sent
 	 */
 	public void sendAllyMessage(TeamPlayer sender, String message) {
-		ChatColor returnTo = ChatColor.RESET;
 		String toTest = MessageManager.getMessage(sender.getPlayer().getPlayer(), "chat.syntax");
-		Matcher matcher = Pattern.compile("\\{\\d+\\}").matcher(toTest);
-		if (matcher.find()) {
-			int value = matcher.start();
-			if (value > 3) {
-				for (int i = value; i >= 0; i--) {
-					if (toTest.charAt(i) == '\u00A7') {
-						returnTo = ChatColor.getByChar(toTest.charAt(i + 1));
-						break;
-					}
-				}
-			}
-		}
+		ChatColor returnTo = getPreviousChatColor(toTest);
 
 		String fMessage = MessageManager.getMessage("allychat.syntax", getName(),
-				sender.getPrefix(returnTo) + Objects.requireNonNull(sender.getPlayer().getPlayer()).getDisplayName(),
-				message);
+			sender.getPrefix(returnTo) + Objects.requireNonNull(sender.getPlayer().getPlayer()).getDisplayName(),
+			message);
 
 		fMessage = fMessage.replace("$name$", sender.getPrefix(returnTo) + sender.getPlayer().getPlayer().getName());
 		fMessage = fMessage.replace("$message$", message);
@@ -1049,7 +996,7 @@ public class Team {
 			if (temp instanceof Player) {
 				Team spyTeam = Team.getTeam((Player) temp);
 				// if they are receiving the message without chat spy
-				if (spyTeam == this || (spyTeam != null && isAlly(spyTeam.getID()))) {
+				if (spyTeam == this || (spyTeam != null && isAlly(spyTeam))) {
 					continue;
 				}
 			}
@@ -1145,7 +1092,7 @@ public class Team {
 
 		if (team == null) {
 			Bukkit.getLogger().warning(
-					"An avaliable team cannot be found, be prepared for a lot of errors. (this should never happen, and should always be reported to booksaw)");
+				"An avaliable team cannot be found, be prepared for a lot of errors. (this should never happen, and should always be reported to booksaw)");
 			Bukkit.getLogger().warning("This catch is merely here to stop the server crashing");
 			return null;
 		}
@@ -1185,6 +1132,14 @@ public class Team {
 		allies.add(this, ally);
 		saveAllies();
 	}
+	/**
+	 * Used to add an ally for this team
+	 *
+	 * @param ally the UUID of the new ally
+	 */
+	public void addAlly(@NotNull Team ally) {
+		addAlly(ally.getID());
+	}
 
 	/**
 	 * Used to remove an ally from this team
@@ -1194,6 +1149,14 @@ public class Team {
 	public void removeAlly(UUID ally) {
 		allies.remove(this, ally);
 		saveAllies();
+	}
+	/**
+	 * Used to remove an ally from this team
+	 *
+	 * @param ally the ally to remove
+	 */
+	public void removeAlly(@NotNull Team ally) {
+		removeAlly(ally.getID());
 	}
 
 	/**
@@ -1205,6 +1168,15 @@ public class Team {
 	public boolean isAlly(UUID team) {
 		return allies.contains(team);
 	}
+	/**
+	 * Used to check if a team is in alliance with this team
+	 *
+	 * @param team the team to check for allies
+	 * @return if the team is an ally
+	 */
+	public boolean isAlly(@NotNull Team team) {
+		return isAlly(team.getID());
+	}
 
 	/**
 	 * Used to add an ally request to this team
@@ -1214,6 +1186,14 @@ public class Team {
 	public void addAllyRequest(UUID team) {
 		requests.add(this, team);
 		saveAllyRequests();
+	}
+	/**
+	 * Used to add an ally request to this team
+	 *
+	 * @param team the team that has sent the request
+	 */
+	public void addAllyRequest(@NotNull Team team) {
+		addAllyRequest(team.getID());
 	}
 
 	/**
@@ -1225,6 +1205,14 @@ public class Team {
 		requests.remove(this, team);
 		saveAllyRequests();
 	}
+	/**
+	 * Used to remove an ally request from this team
+	 *
+	 * @param team the team to remove the ally request for
+	 */
+	public void removeAllyRequest(@NotNull Team team) {
+		removeAllyRequest(team.getID());
+	}
 
 	/**
 	 * Used to check if a team has sent an ally request for this team
@@ -1234,6 +1222,15 @@ public class Team {
 	 */
 	public boolean hasRequested(UUID team) {
 		return requests.contains(team);
+	}
+	/**
+	 * Used to check if a team has sent an ally request for this team
+	 *
+	 * @param team the team to check for
+	 * @return if they have sent an ally request
+	 */
+	public boolean hasRequested(@NotNull Team team) {
+		return hasRequested(team.getID());
 	}
 
 	/**

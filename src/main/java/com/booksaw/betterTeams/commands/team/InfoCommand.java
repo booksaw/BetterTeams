@@ -36,11 +36,11 @@ public class InfoCommand extends SubCommand {
 			infoMessages.add(MessageManager.getMessage("info.description", team.getDescription()));
 		}
 
-		infoMessages.add(MessageManager.getMessage("info.open", team.isOpen() + ""));
-		infoMessages.add(MessageManager.getMessage("info.score", team.getScore() + ""));
+		infoMessages.add(MessageManager.getMessage("info.open", team.isOpen()));
+		infoMessages.add(MessageManager.getMessage("info.score", team.getScore()));
 		infoMessages.add(MessageManager.getMessage("info.money", team.getBalance()));
-		infoMessages.add(MessageManager.getMessage("info.level", team.getLevel() + ""));
-		infoMessages.add(MessageManager.getMessage("info.tag", team.getTag() + ""));
+		infoMessages.add(MessageManager.getMessage("info.level", team.getLevel()));
+		infoMessages.add(MessageManager.getMessage("info.tag", team.getTag()));
 
 		String allyMessage = getAlliesMessage(team);
 		if (allyMessage != null) {
@@ -101,9 +101,7 @@ public class InfoCommand extends SubCommand {
 				}
 			}
 			for (TeamPlayer player : users) {
-				userStr.append(
-						MessageManager.getMessage("info." + ((player.getPlayer().isOnline() && player.getOnlinePlayer().map(p -> !Utils.isVanished(p)).orElse(false)) ? "online" : "offline"))
-								+ player.getPrefix(returnTo))
+				userStr.append(MessageManager.getMessage("info." + ((player.getPlayer().isOnline() && player.getOnlinePlayer().map(p -> !Utils.isVanished(p)).orElse(false)) ? "online" : "offline"))).append(player.getPrefix(returnTo))
 						.append(player.getPlayer().getName()).append(" ");
 			}
 

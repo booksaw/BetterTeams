@@ -36,6 +36,10 @@ public class TopCommand extends SubCommand {
 				MessageManager.sendMessage(sender, "top.leaderboard");
 
 				for (int i = 0; i < 10 && i < teams.length; i++) {
+					if (teams[i] == null) {
+						Bukkit.getLogger().severe("Team at position [" + i + "] had a null name");
+						continue;
+					}
 					Team tempTeam = Team.getTeam(teams[i]);
 					sendTopSyntaxMessage(sender, i + 1, tempTeam, teams[i]);
 					if (team == tempTeam) {

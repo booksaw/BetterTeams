@@ -19,7 +19,7 @@ public class WarpCommand extends TeamSubCommand {
 				replace.append(warp.getName()).append(", ");
 			}
 
-			if (replace.length() == 0) {
+			if (replace.length() == 0) { // JDK 8 doesn't have StringBuilder::isEmpty yet
 				return new CommandResponse("warps.none");
 			}
 
@@ -33,11 +33,8 @@ public class WarpCommand extends TeamSubCommand {
 			return new CommandResponse("warp.nowarp");
 		}
 
-		if (warp.getPassword() != null && !warp.getPassword().isEmpty()
-				&& Main.plugin.getConfig().getBoolean("allowPassword")) {
-			if (args.length == 1 || !warp.getPassword().equals(args[1])) {
-				return new CommandResponse("warp.invalidPassword");
-			}
+		if (warp.hasPassword() && (args.length == 1 || !warp.isCorrectPassword(args[1]))) {
+			return new CommandResponse("warp.invalidPassword");
 		}
 
 		// the user is allowed to go to the warp

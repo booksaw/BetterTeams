@@ -5,7 +5,6 @@ import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.SubCommand;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 import java.util.List;
 
@@ -26,12 +25,21 @@ public class CreateTeama extends SubCommand {
 			return new CommandResponse("create.maxLength");
 		}
 
+		int min = Main.plugin.getConfig().getInt("minTeamLength");
+		if (min <= 0 || min > 55) {
+			min = 0;
+		}
+
+		if (min != 0 && min > args[0].length()) {
+			return new CommandResponse("create.minLength");
+		}
+
 		if (Team.getTeam(args[0]) != null) {
 			// team already exists
 			return new CommandResponse("create.exists");
 		}
 
-		Team.getTeamManager().createNewTeam(args[0], (Player) null);
+		Team.getTeamManager().createNewTeam(args[0], null);
 //		Team team = Team.getTeam(args[0]);
 //		Objects.requireNonNull(team).removePlayer((Player) sender);
 

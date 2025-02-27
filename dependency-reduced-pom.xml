@@ -4,7 +4,7 @@
   <groupId>com.booksaw.betterTeams</groupId>
   <artifactId>BetterTeams</artifactId>
   <name>BetterTeams</name>
-  <version>4.10.0</version>
+  <version>4.11.0</version>
   <description>Create teams to fight to be the best</description>
   <build>
     <sourceDirectory>src</sourceDirectory>
@@ -27,7 +27,7 @@
     <plugins>
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>3.2.4</version>
+        <version>3.6.0</version>
         <executions>
           <execution>
             <phase>package</phase>
@@ -146,6 +146,24 @@
       <groupId>com.github.craftaro</groupId>
       <artifactId>UltimateClaims</artifactId>
       <version>2.0.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.12.1</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>4.5.14</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.36</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>

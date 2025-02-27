@@ -4,6 +4,7 @@ import com.booksaw.betterTeams.*;
 import com.booksaw.betterTeams.commands.ParentCommand;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 import com.booksaw.betterTeams.customEvents.TeamWithdrawEvent;
+import com.booksaw.betterTeams.customEvents.post.PostTeamWithdrawEvent;
 import com.booksaw.betterTeams.message.HelpMessage;
 import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Bukkit;
@@ -55,6 +56,8 @@ public class WithdrawCommand extends TeamSubCommand {
 		}
 
 		team.setMoney(team.getMoney() - amount);
+
+		Bukkit.getPluginManager().callEvent(new PostTeamWithdrawEvent(team, player, amount));
 
 		return new CommandResponse(true, "withdraw.success");
 	}
