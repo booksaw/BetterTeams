@@ -30,7 +30,7 @@ public abstract class TeamPlayerSetComponent extends SetTeamComponent<TeamPlayer
 	public List<OfflinePlayer> getOfflinePlayers() {
 		return getClone().stream()
 			.map(TeamPlayer::getPlayer)
-			.filter(OfflinePlayer::isOnline)
+			.filter(p -> !p.isOnline())
 			.collect(Collectors.toList());
 	}
 
@@ -38,7 +38,6 @@ public abstract class TeamPlayerSetComponent extends SetTeamComponent<TeamPlayer
 	 * @return A list of all teamPlayers which are currently online
 	 */
 	public List<TeamPlayer> getOnlineTeamPlayers() {
-		// Get all team players, filter for those who are online
 		return getClone().stream()
 			.filter(TeamPlayer::isOnline)
 			.collect(Collectors.toList());
@@ -52,7 +51,6 @@ public abstract class TeamPlayerSetComponent extends SetTeamComponent<TeamPlayer
 	 */
 	@Nullable
 	public TeamPlayer getTeamPlayer(@NotNull OfflinePlayer p) {
-		// Find the first team player whose UUID matches the given player
 		return getClone().stream()
 			.filter(teamPlayer -> p.getUniqueId().equals(teamPlayer.getPlayer().getUniqueId()))
 			.findFirst()
@@ -111,18 +109,13 @@ public abstract class TeamPlayerSetComponent extends SetTeamComponent<TeamPlayer
 	 * @return true if the player is in this team, false otherwise
 	 */
 	public boolean contains(OfflinePlayer player) {
-		// Check if any team player has the same UUID as the given player
-		return getClone().stream()
-			.map(TeamPlayer::getPlayer)
-			.map(OfflinePlayer::getUniqueId)
-			.anyMatch(uuid -> uuid.equals(player.getUniqueId()));
+		return getTeamPlayer(player) != null;
 	}
 
 	/**
 	 * @return A comma-separated string of all online player names
 	 */
 	public String getOnlinePlayersString() {
-		// Create a comma-separated list of player names
 		return getOnlinePlayers().stream()
 			.map(Player::getName)
 			.collect(Collectors.joining(", "));
@@ -132,7 +125,6 @@ public abstract class TeamPlayerSetComponent extends SetTeamComponent<TeamPlayer
 	 * @return A comma-separated string of all offline player names
 	 */
 	public String getOfflinePlayersString() {
-		// Create a comma-separated list of player names
 		return getOfflinePlayers().stream()
 			.map(OfflinePlayer::getName)
 			.collect(Collectors.joining(", "));
