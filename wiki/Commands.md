@@ -36,8 +36,8 @@ Commands that admins and owners of teams have access to:
 * /team sethome - Sets the location of the team home (accessed by /team home)
 * /team delhome - Delete your teams home
 * /team withdraw <amount> - Withdraw money from the teams balance
-* /team setwarp <name> [password] - Set a new warp for your team
-* /team delwarp <warp> [password] - Delete a warp from your team, the password is not required for owners]
+* /team setwarp <name> \[password] - Set a new warp for your team
+* /team delwarp <warp> \[password] - Delete a warp from your team, the password is not required for owners]
 * /team chest claim - Claim the chest you are standing on
 * /team chest remove - Remove the claim on the chest you are standing on
 * /team pvp - Toggle if pvp is enabled between team members
@@ -78,7 +78,7 @@ Admin commands can have the prefix [teamadmin] or [teama] both work exactly the 
 * /teama demote <player> - Demote a player within their team
 * /teama setowner <player> - Set that player to be owner of their team (only avaliable if "singleOwner" is enabled) 
 * /teama warp <team> <warp> - Warp to a location set by a team, leave the warp blank for a list of that teams warps
-* /teama setwarp <team> <warp> [password] - Set a new warp for that team with the specified password (leave blank for no password) 
+* /teama setwarp <team> <warp> \[password] - Set a new warp for that team with the specified password (leave blank for no password) 
 * /teama delwarp <team> <warp> - Delete a warp from the specified team
 * /teama purge - Reset all team scores back to 0
 * /teama score <set/add/remove> <player/team> <score> - Edit a team/players score through commands
