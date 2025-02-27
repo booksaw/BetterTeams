@@ -149,4 +149,12 @@ public class TeamPlayer {
 		this.title = title;
 	}
 
+	/**
+	 * Checks if the player associated with this TeamPlayer is currently online.
+	 *
+	 * @return true if the player is online, false otherwise
+	 */
+	public boolean isOnline() {
+		return getPlayer().isOnline();
+	}
 }
