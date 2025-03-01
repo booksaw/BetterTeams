@@ -4,6 +4,7 @@ import com.booksaw.betterTeams.*;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 import com.booksaw.betterTeams.message.MessageManager;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.util.List;
 import java.util.Objects;
@@ -31,13 +32,14 @@ public class KickCommand extends TeamSubCommand {
 			return new CommandResponse("kick.noPerm");
 		}
 
-		team.removePlayer(player);
+		team.removePlayer(kickedPlayer);
 
-		if (player.isOnline()) {
-			MessageManager.sendMessage((CommandSender) player, "kick.notify", team.getName());
+		Player player = kickedPlayer.getPlayer().getPlayer();
+		if (player != null) {
+			MessageManager.sendMessage(player, "kick.notify", team.getName());
 
 			if (Main.plugin.getConfig().getBoolean("titleRemoval")) {
-				player.getPlayer().sendTitle(" ", MessageManager.getMessage("kick.title"), 10, 100, 20);
+				player.sendTitle(" ", MessageManager.getMessage("kick.title"), 10, 100, 20);
 			}
 
 		}
