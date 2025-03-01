@@ -3,7 +3,6 @@ package com.booksaw.betterTeams.commands.team;
 import com.booksaw.betterTeams.*;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 import com.booksaw.betterTeams.message.MessageManager;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 
 import java.util.List;
@@ -20,18 +19,12 @@ public class KickCommand extends TeamSubCommand {
 		 * to name changes This method is appropriate to use in this use case (so users
 		 * can view offline users teams by name not just by team name)
 		 */
-		OfflinePlayer player = Utils.getOfflinePlayer(args[0]);
-
-		if (player == null) {
-			return new CommandResponse("noPlayer");
+		TeamPlayerResult teamPlayerResult = getTeamPlayer(team, args[0]);
+		if (teamPlayerResult.isCR()) {
+			return teamPlayerResult.getCr();
 		}
 
-		Team otherTeam = Team.getTeam(player);
-		if (team != otherTeam) {
-			return new CommandResponse("needSameTeam");
-		}
-
-		TeamPlayer kickedPlayer = team.getTeamPlayer(player);
+		TeamPlayer kickedPlayer = teamPlayerResult.getPlayer();
 
 		// ensuring the player they are banning has less perms than them
 		if (teamPlayer.getRank().value <= Objects.requireNonNull(kickedPlayer).getRank().value) {

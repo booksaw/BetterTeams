@@ -1,17 +1,15 @@
 package com.booksaw.betterTeams.commands.presets;
 
-import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.PlayerRank;
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.TeamPlayer;
+import com.booksaw.betterTeams.*;
 import com.booksaw.betterTeams.commands.SubCommand;
-
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;
-
+import lombok.Getter;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.time.Duration;
@@ -116,4 +114,38 @@ public abstract class TeamSubCommand extends SubCommand {
 		return null;
 	}
 
+	@Getter
+	protected static class TeamPlayerResult {
+		private final @Nullable CommandResponse cr;
+		private final @Nullable TeamPlayer player;
+
+		TeamPlayerResult(@NotNull String cr) {
+			this.cr = new CommandResponse(cr);
+			this.player = null;
+		}
+
+		TeamPlayerResult(@Nullable TeamPlayer player) {
+			this.cr = null;
+			this.player = player;
+		}
+
+		public boolean isCR() {
+			return cr != null;
+		}
+	}
+
+	protected TeamPlayerResult getTeamPlayer(final Team team, final String name) {
+		OfflinePlayer player = Utils.getOfflinePlayer(name);
+
+		if (player == null) {
+			return new TeamPlayerResult("noPlayer");
+		}
+
+		Team otherTeam = Team.getTeam(player);
+		if (team != otherTeam) {
+			return new TeamPlayerResult("needSameTeam");
+		}
+
+		return new TeamPlayerResult(team.getTeamPlayer(player));
+	}
 }
