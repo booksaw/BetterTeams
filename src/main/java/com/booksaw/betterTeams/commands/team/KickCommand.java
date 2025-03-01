@@ -3,8 +3,8 @@ package com.booksaw.betterTeams.commands.team;
 import com.booksaw.betterTeams.*;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 import com.booksaw.betterTeams.message.MessageManager;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.util.List;
 import java.util.Objects;
@@ -20,31 +20,26 @@ public class KickCommand extends TeamSubCommand {
 		 * to name changes This method is appropriate to use in this use case (so users
 		 * can view offline users teams by name not just by team name)
 		 */
-		OfflinePlayer player = Utils.getOfflinePlayer(args[0]);
-
-		if (player == null) {
-			return new CommandResponse("noPlayer");
+		TeamPlayerResult teamPlayerResult = getTeamPlayer(team, args[0]);
+		if (teamPlayerResult.isCR()) {
+			return teamPlayerResult.getCr();
 		}
 
-		Team otherTeam = Team.getTeam(player);
-		if (team != otherTeam) {
-			return new CommandResponse("needSameTeam");
-		}
-
-		TeamPlayer kickedPlayer = team.getTeamPlayer(player);
+		TeamPlayer kickedPlayer = teamPlayerResult.getPlayer();
 
 		// ensuring the player they are banning has less perms than them
 		if (teamPlayer.getRank().value <= Objects.requireNonNull(kickedPlayer).getRank().value) {
 			return new CommandResponse("kick.noPerm");
 		}
 
-		team.removePlayer(player);
+		team.removePlayer(kickedPlayer);
 
-		if (player.isOnline()) {
-			MessageManager.sendMessage((CommandSender) player, "kick.notify", team.getName());
+		Player player = kickedPlayer.getPlayer().getPlayer();
+		if (player != null) {
+			MessageManager.sendMessage(player, "kick.notify", team.getName());
 
 			if (Main.plugin.getConfig().getBoolean("titleRemoval")) {
-				player.getPlayer().sendTitle(" ", MessageManager.getMessage("kick.title"), 10, 100, 20);
+				player.sendTitle(" ", MessageManager.getMessage("kick.title"), 10, 100, 20);
 			}
 
 		}

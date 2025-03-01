@@ -1,9 +1,11 @@
 package com.booksaw.betterTeams.commands.team;
 
-import com.booksaw.betterTeams.*;
+import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.PlayerRank;
+import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 import com.booksaw.betterTeams.message.MessageManager;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 
 import java.util.List;
@@ -19,18 +21,12 @@ public class SetOwnerCommand extends TeamSubCommand {
 		 * to name changes This method is appropriate to use in this use case (so users
 		 * can view offline users teams by name not just by team name)
 		 */
-		OfflinePlayer player = Utils.getOfflinePlayer(args[0]);
-
-		if (player == null) {
-			return new CommandResponse("noPlayer");
+		TeamPlayerResult teamPlayerResult = getTeamPlayer(team, args[0]);
+		if (teamPlayerResult.isCR()) {
+			return teamPlayerResult.getCr();
 		}
 
-		Team otherTeam = Team.getTeam(player);
-		if (team != otherTeam) {
-			return new CommandResponse("needSameTeam");
-		}
-
-		TeamPlayer promotePlayer = team.getTeamPlayer(player);
+		TeamPlayer promotePlayer = teamPlayerResult.getPlayer();
 
 		if (Objects.requireNonNull(promotePlayer).getRank() == PlayerRank.OWNER) {
 			return new CommandResponse("setowner.max");

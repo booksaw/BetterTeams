@@ -133,7 +133,7 @@ public class InfoCommand extends SubCommand {
 		 * can view offline users teams by name not just by team name)
 		 */
 		@SuppressWarnings("deprecation")
-		OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
+		OfflinePlayer player = Utils.getOfflinePlayer(args[0]);
 
 		team = Team.getTeam(player);
 		if (team != null) {

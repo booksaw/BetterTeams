@@ -33,8 +33,17 @@ public class Utils {
 		OfflinePlayer player = Bukkit.getOfflinePlayer(name);
 
 		if (!player.hasPlayedBefore()) {
+			for (Team team : Team.getTeamManager().getLoadedTeamListClone().values()) {
+				for (OfflinePlayer offlinePlayer : team.getMembers().getOfflinePlayers()) {
+					if (offlinePlayer.getName().equalsIgnoreCase(name)) {
+						return offlinePlayer;
+					}
+				}
+			}
+
 			return null;
 		}
+
 		return player;
 	}
 
