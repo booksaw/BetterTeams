@@ -46,7 +46,6 @@ public class BetterTeamsDatabase extends Database {
 	}
 
 	/**
-	 * 
 	 * @param select the element to select
 	 * @param from   the table which the data is from
 	 * @param where  the condition required for the data to be included
@@ -57,7 +56,6 @@ public class BetterTeamsDatabase extends Database {
 	}
 
 	/**
-	 * 
 	 * @param select  the element to select
 	 * @param from    the table which the data is from
 	 * @param where   the condition required for the data to be included
@@ -69,7 +67,6 @@ public class BetterTeamsDatabase extends Database {
 	}
 
 	/**
-	 * 
 	 * @param select  the element to select
 	 * @param from    the table which the data is from
 	 * @param orderBy what to order the data by
@@ -80,7 +77,6 @@ public class BetterTeamsDatabase extends Database {
 	}
 
 	/**
-	 * 
 	 * @param select      the element to select
 	 * @param table       the table which the data is from
 	 * @param joinTable   the table to join
@@ -89,20 +85,20 @@ public class BetterTeamsDatabase extends Database {
 	 * @return The resultSet of the select
 	 */
 	public PreparedStatement selectInnerJoinOrder(String select, TableName table, TableName joinTable, String columToJoin,
-			String orderBy) {
+												  String orderBy) {
 		return executeQuery("SELECT ? FROM ? INNER JOIN ? on (?) ORDER BY ?;", select, table.toString(),
 				joinTable.toString(), columToJoin, orderBy);
 	}
 
 	public PreparedStatement selectInnerJoinGroupByOrder(String select, TableName table, TableName joinTable,
-			String columToJoin, String groupBy, String orderBy) {
+														 String columToJoin, String groupBy, String orderBy) {
 		return executeQuery("SELECT ? FROM ? INNER JOIN ? on (?) GROUP BY ? ORDER BY ?;", select, table.toString(),
 				joinTable.toString(), columToJoin, groupBy, orderBy);
 	}
 
 	/**
 	 * Used to check if an SQL query has a result
-	 * 
+	 *
 	 * @param from  the table which the data is from
 	 * @param where the condition required for the data to be included
 	 * @return if the query has a result
@@ -124,12 +120,12 @@ public class BetterTeamsDatabase extends Database {
 
 	/**
 	 * Used to a specific column value from the
-	 * 
+	 *
 	 * @param column The column name
 	 * @param from   the table
 	 * @param where  the condition
 	 * @return the first returned result, the specified column. Will return "" if an
-	 *         error occurs
+	 * error occurs
 	 */
 	public String getResult(String column, TableName from, String where) {
 
@@ -145,7 +141,7 @@ public class BetterTeamsDatabase extends Database {
 
 	/**
 	 * Used to delete a record from the specified table
-	 * 
+	 *
 	 * @param table     The table to update
 	 * @param condition The condition for the update
 	 */
@@ -156,7 +152,7 @@ public class BetterTeamsDatabase extends Database {
 
 	/**
 	 * Used to modify a record in the database
-	 * 
+	 *
 	 * @param table     the table the record is in
 	 * @param update    the values to update (ie "col = exp1, col2 = exp2")
 	 * @param condition The condition for which records should be updated
@@ -167,7 +163,7 @@ public class BetterTeamsDatabase extends Database {
 
 	/**
 	 * Used to modify all records in a database
-	 * 
+	 *
 	 * @param table  the table to modify
 	 * @param update the value to update (ie "col = exp1, col2 = exp2")
 	 */
@@ -177,7 +173,7 @@ public class BetterTeamsDatabase extends Database {
 
 	/**
 	 * Used to add a record into a table
-	 * 
+	 *
 	 * @param table   The table to insert the record into
 	 * @param columns The columns that data is being provided for (ie "col1, col2,
 	 *                col3)

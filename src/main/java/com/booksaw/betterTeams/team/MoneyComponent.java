@@ -12,7 +12,7 @@ public class MoneyComponent extends DoubleTeamComponent {
 		df.setGroupingSize(3);
 		return df.format(amount);
 	}
-	
+
 	@Override
 	public StoredTeamValue getSectionHeading() {
 		return StoredTeamValue.MONEY;

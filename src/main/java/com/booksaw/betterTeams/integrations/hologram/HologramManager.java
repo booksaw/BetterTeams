@@ -74,7 +74,7 @@ public abstract class HologramManager {
 				continue;
 			}
 			holo.appendText(MessageManager.getMessage(type.getSyntaxReference(), team.getName(),
-				getValue(type, team)));
+					getValue(type, team)));
 		}
 	}
 
@@ -123,12 +123,12 @@ public abstract class HologramManager {
 
 	public String getValue(HologramType type, Team team) {
 		switch (type) {
-		case MONEY:
-			return team.getBalance();
-		case SCORE:
-			return team.getScore() + "";
-		default:
-			return "";
+			case MONEY:
+				return team.getBalance();
+			case SCORE:
+				return team.getScore() + "";
+			default:
+				return "";
 		}
 	}
 

@@ -31,14 +31,14 @@ public class PlayerTeleport {
 		if (location == null || location.getWorld() == null) {
 			throw new Exception("Location or world is null");
 		}
-		
+
 		this.player = player;
 		this.location = location;
 		this.reference = reference;
 
 		this.playerLoc = player.getLocation();
 
-		
+
 		if (player.hasPermission("betterteams.warmup.bypass")) {
 			Bukkit.getScheduler().runTask(Main.plugin, this::runTp);
 			return;

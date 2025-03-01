@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
  * Contains information about the previous and new levels, the cost of the levelup,
  * whether score was used for payment, and the player who initiated the levelup.
  * This event cannot be cancelled since it occurs after the level increase.
- *
+ * <p>
  * To modify or cancel the level up, use {@link LevelupTeamEvent}.
  *
  * @author svaningelgem

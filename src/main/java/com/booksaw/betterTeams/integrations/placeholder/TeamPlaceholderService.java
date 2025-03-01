@@ -5,9 +5,8 @@ import com.booksaw.betterTeams.TeamPlayer;
 
 /**
  * Class to provide all placeholders in relation to a team
- * 
- * @author booksaw
  *
+ * @author booksaw
  */
 public final class TeamPlaceholderService {
 

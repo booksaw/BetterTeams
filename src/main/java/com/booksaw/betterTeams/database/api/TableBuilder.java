@@ -45,7 +45,7 @@ public class TableBuilder {
 	public TableBuilder addColumn(String columnName, @NotNull DataType type, boolean notNull) {
 		if (type.needArg) {
 			throw new IllegalArgumentException(
-				"The data type " + type + " needs an argument, and no argument was provided");
+					"The data type " + type + " needs an argument, and no argument was provided");
 		}
 
 		tableInfo.append(columnName).append(" ").append(type).append(notNull ? " NOT NULL, " : ", ");
@@ -59,7 +59,7 @@ public class TableBuilder {
 	public TableBuilder addColumn(String columnName, @NotNull DataType type, String argument, boolean notNull) {
 		if (type.needArg) {
 			throw new IllegalArgumentException(
-				"The data type " + type + " needs an argument, and no argument was provided");
+					"The data type " + type + " needs an argument, and no argument was provided");
 		}
 
 		tableInfo.append(columnName).append(" ").append(type).append("(").append(argument).append(")").append(notNull ? " NOT NULL, " : ", ");

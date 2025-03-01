@@ -158,8 +158,8 @@ public class YamlToSql extends Converter {
 		Path p = Paths.get(zipFilePath);
 
 		if (!f.exists()) {
-            Files.createFile(p);
-        }
+			Files.createFile(p);
+		}
 
 		try (ZipOutputStream zs = new ZipOutputStream(Files.newOutputStream(p))) {
 			Path pp = Paths.get(sourceDirPath);

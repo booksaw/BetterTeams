@@ -26,5 +26,7 @@ public class ReferenceMessage implements Message {
 	}
 
 	@Override
-	public void sendTitle(Player player) { MessageManager.sendTitle(player, reference); }
+	public void sendTitle(Player player) {
+		MessageManager.sendTitle(player, reference);
+	}
 }

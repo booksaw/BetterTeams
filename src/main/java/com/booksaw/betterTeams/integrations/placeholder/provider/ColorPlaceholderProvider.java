@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.booksaw.betterTeams.integrations.placeholder.provider;
 
@@ -10,7 +10,7 @@ import com.booksaw.betterTeams.integrations.placeholder.IndividualTeamPlaceholde
  * @author booksaw
  *
  */
-public class ColorPlaceholderProvider implements IndividualTeamPlaceholderProvider{
+public class ColorPlaceholderProvider implements IndividualTeamPlaceholderProvider {
 
 	@Override
 	public String getPlaceholderForTeam(Team team) {

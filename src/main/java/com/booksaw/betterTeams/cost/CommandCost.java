@@ -27,7 +27,7 @@ public class CommandCost {
 	 *
 	 * @param player the player to add a Cost for
 	 * @return If the player can run the command (if the transaction is a success or
-	 *         failure)
+	 * failure)
 	 */
 	public boolean runCommand(Player player) {
 		if (player.hasPermission("betterteams.cost.bypass")) {
@@ -69,7 +69,7 @@ public class CommandCost {
 	/**
 	 * @param player the player to check for
 	 * @return if a player has the money to run that command (to check before
-	 *         executing the command)
+	 * executing the command)
 	 */
 	public boolean hasBalance(Player player) {
 		if (player.hasPermission("betterteams.cost.bypass")) {

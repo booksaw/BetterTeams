@@ -22,11 +22,11 @@ import java.util.stream.Collectors;
 public class TeleportTeama extends SubCommand {
 
 	private final ParentCommand parentCommand;
-	
+
 	public TeleportTeama(ParentCommand parentCommand) {
 		this.parentCommand = parentCommand;
 	}
-	
+
 	@Override
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
 

@@ -13,7 +13,7 @@ import org.jetbrains.annotations.Nullable;
  * An event which is called after a {@link Team}'s name has been changed.
  * Contains information about both the old and new team names.
  * This event cannot be cancelled since it occurs after the name change.
- *
+ * <p>
  * To modify or cancel the name change, use {@link TeamNameChangeEvent}.
  *
  * @author svaningelgem
@@ -25,7 +25,7 @@ public class PostTeamNameChangeEvent extends TeamEvent {
 	private final Player player;
 
 	public PostTeamNameChangeEvent(@NotNull Team team, @NotNull String oldTeamName, @NotNull String newTeamName,
-	                               @Nullable Player player) {
+								   @Nullable Player player) {
 		super(team);
 		this.oldTeamName = oldTeamName;
 		this.newTeamName = newTeamName;

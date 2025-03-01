@@ -37,7 +37,7 @@ public class FlatFileToYaml extends Converter {
 		}
 
 		try (InputStream in = new BufferedInputStream(Files.newInputStream(f.toPath()));
-		     OutputStream out = new BufferedOutputStream(Files.newOutputStream(copied.toPath()))) {
+			 OutputStream out = new BufferedOutputStream(Files.newOutputStream(copied.toPath()))) {
 
 			byte[] buffer = new byte[1024];
 			int lengthRead;

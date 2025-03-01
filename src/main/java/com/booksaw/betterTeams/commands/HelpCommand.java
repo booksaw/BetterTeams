@@ -80,7 +80,7 @@ public class HelpCommand extends SubCommand {
 		for (int i = COMMANDS_PER_PAGE * page; i < permissiveCommands.size() && i < COMMANDS_PER_PAGE * (page + 1); i++) {
 			SubCommand subCommand = permissiveCommands.get(i);
 			if (sender instanceof Player) {
-				((Player)sender).spigot().sendMessage(createClickableHelpMessage(label, command.getReference(subCommand) + " " + subCommand.getArgMessage(command), subCommand.getHelpMessage(command)));
+				((Player) sender).spigot().sendMessage(createClickableHelpMessage(label, command.getReference(subCommand) + " " + subCommand.getArgMessage(command), subCommand.getHelpMessage(command)));
 			} else {
 				MessageManager.sendFullMessage(sender, createHelpMessage(label,
 						subCommand.getCommand() + " " + subCommand.getArgMessage(command), subCommand.getHelpMessage(command)));
@@ -158,7 +158,7 @@ public class HelpCommand extends SubCommand {
 				+ description);
 		message.setClickEvent(new ClickEvent(Action.SUGGEST_COMMAND, "/" + label + " " + commandPath));
 		message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(prefix + "/" + label + " " + commandPath)));
-		
+
 		return message;
 	}
 

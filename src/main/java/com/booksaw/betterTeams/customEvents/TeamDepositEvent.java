@@ -9,32 +9,32 @@ import org.jetbrains.annotations.NotNull;
  * An event which is called when a player deposits money into their {@link com.booksaw.betterTeams.Team}'s balance
  */
 public final class TeamDepositEvent extends TeamPlayerEvent implements TeamMoneyEvent {
-    private static final HandlerList HANDLERS = new HandlerList();
+	private static final HandlerList HANDLERS = new HandlerList();
 
-    private double amount;
+	private double amount;
 
-    public TeamDepositEvent(final Team team, final TeamPlayer teamPlayer, final double amount) {
-        super(team, teamPlayer, false);
+	public TeamDepositEvent(final Team team, final TeamPlayer teamPlayer, final double amount) {
+		super(team, teamPlayer, false);
 
-        this.amount = amount;
-    }
+		this.amount = amount;
+	}
 
-    public static HandlerList getHandlerList() {
-        return HANDLERS;
-    }
+	public static HandlerList getHandlerList() {
+		return HANDLERS;
+	}
 
-    @Override
-    public @NotNull HandlerList getHandlers() {
-        return HANDLERS;
-    }
+	@Override
+	public @NotNull HandlerList getHandlers() {
+		return HANDLERS;
+	}
 
-    @Override
-    public double getAmount() {
-        return this.amount;
-    }
+	@Override
+	public double getAmount() {
+		return this.amount;
+	}
 
-    @Override
-    public void setAmount(final double amount) {
-        this.amount = amount;
-    }
+	@Override
+	public void setAmount(final double amount) {
+		this.amount = amount;
+	}
 }

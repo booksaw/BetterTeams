@@ -31,12 +31,12 @@ public abstract class SubCommand {
 	 * @return the help message for the subcommand
 	 */
 	public String getHelpMessage(ParentCommand parent) {
-		
+
 		String prefix = (parent.getCommand().equals("team")) ? "" : parent.getCommand() + ".";
 		String message = MessageManager.getDefaultMessages().getString("help." + prefix + getCommand());
 		if (message == null || message.isEmpty()) {
 			message = getHelp();
-			MessageManager.getDefaultMessages().set("help."  + prefix +  getCommand(), getHelp());
+			MessageManager.getDefaultMessages().set("help." + prefix + getCommand(), getHelp());
 
 			File f = MessageManager.getFile();
 			try {
@@ -47,7 +47,7 @@ public abstract class SubCommand {
 		}
 		return message;
 	}
-	
+
 	/**
 	 * This method is used to load the help message from the file, or if there is
 	 * not one, it will get the default message
@@ -55,12 +55,12 @@ public abstract class SubCommand {
 	 * @return the help message for the subcommand
 	 */
 	public String getArgMessage(ParentCommand parent) {
-		
+
 		String prefix = (parent.getCommand().equals("team")) ? "" : parent.getCommand() + ".";
-		String message = MessageManager.getDefaultMessages().getString("helpArg."  + prefix +  getCommand());
+		String message = MessageManager.getDefaultMessages().getString("helpArg." + prefix + getCommand());
 		if (message == null || message.isEmpty()) {
 			message = getArguments();
-			MessageManager.getDefaultMessages().set("helpArg." + prefix +  getCommand(), getArguments());
+			MessageManager.getDefaultMessages().set("helpArg." + prefix + getCommand(), getArguments());
 
 			File f = MessageManager.getFile();
 			try {
@@ -102,7 +102,7 @@ public abstract class SubCommand {
 
 	/**
 	 * @return the help information for that sub command (this does not include the
-	 *         arguments)
+	 * arguments)
 	 */
 	public abstract String getHelp();
 
@@ -144,7 +144,7 @@ public abstract class SubCommand {
 	public boolean checkAsync(final String[] args) {
 		return this.runAsync(args);
 	}
-	
+
 	/**
 	 * This can be used during the tab complete process to get a string list of all
 	 * players on the server
@@ -170,8 +170,7 @@ public abstract class SubCommand {
 		for (Entry<UUID, Team> team : Team.getTeamManager().getLoadedTeamListClone().entrySet()) {
 			if (ignoreTheseTeams != null && ignoreTheseTeams.contains(team.getKey())) {
 				continue;
-			}
-			else if (onlyAllowTheseTeams != null && !onlyAllowTheseTeams.contains(team.getKey())) {
+			} else if (onlyAllowTheseTeams != null && !onlyAllowTheseTeams.contains(team.getKey())) {
 				continue;
 			}
 

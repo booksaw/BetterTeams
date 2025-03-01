@@ -21,11 +21,11 @@ public class TitleCommand extends TeamSubCommand {
 		TeamPlayer toTitle;
 
 		if (args.length == 0) {
-			args = new String[] { "me", null };
+			args = new String[]{"me", null};
 		}
 
 		if (args.length == 1) {
-			args = new String[] { "me", args[0] };
+			args = new String[]{"me", args[0]};
 		}
 
 		Player toTitlePlayer;
@@ -51,7 +51,7 @@ public class TitleCommand extends TeamSubCommand {
 				&& Objects.requireNonNull(player.getPlayer().getPlayer()).hasPermission("betterteams.title.self"))) {
 			return new CommandResponse("title.noPerm");
 		}
-		
+
 		if (args[1] == null) {
 			team.setTitle(toTitle, "");
 			return new CommandResponse(true, "title.remove");

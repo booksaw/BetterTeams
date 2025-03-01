@@ -24,7 +24,7 @@ public class BooksawCommand extends BukkitCommand {
 	private SubCommand subCommand;
 
 	public BooksawCommand(String command, SubCommand subCommand, String permission, String description,
-			List<String> alises) {
+						  List<String> alises) {
 		super(command);
 		this.description = description;
 		usageMessage = "/<command> help";
@@ -95,34 +95,33 @@ public class BooksawCommand extends BukkitCommand {
 			return false;
 		}
 
-        for (String str : args) {
-            if (!str.startsWith("@")) {
-                continue;
-            }
-            // a selector is found
-            boolean found = false;
-            try {
-                for (Entity e : Bukkit.selectEntities(sender, str)) {
-                    if (e instanceof Player) {
-                        found = true;
-                        String[] newArgs = args.clone();
-                        for (int j = 0; j < newArgs.length; j++) {
-                            if (newArgs[j].equals(str)) {
-                                newArgs[j] = e.getName();
-                            }
-                        }
+		for (String str : args) {
+			if (!str.startsWith("@")) {
+				continue;
+			}
+			// a selector is found
+			boolean found = false;
+			try {
+				for (Entity e : Bukkit.selectEntities(sender, str)) {
+					if (e instanceof Player) {
+						found = true;
+						String[] newArgs = args.clone();
+						for (int j = 0; j < newArgs.length; j++) {
+							if (newArgs[j].equals(str)) {
+								newArgs[j] = e.getName();
+							}
+						}
 
-                        execute(sender, label, newArgs);
+						execute(sender, label, newArgs);
 
-                    }
-                }
-            }
-            catch (Exception e) {
-                return false;
-            }
+					}
+				}
+			} catch (Exception e) {
+				return false;
+			}
 
-            return found;
-        }
+			return found;
+		}
 
 		// no selector was found
 		return false;

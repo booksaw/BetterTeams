@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.booksaw.betterTeams.integrations.placeholder.provider;
 
@@ -16,5 +16,5 @@ public class MembersPlaceholderProvider implements IndividualTeamPlaceholderProv
 	public String getPlaceholderForTeam(Team team) {
 		return Integer.toString(team.getMembers().size());
 	}
-	
+
 }

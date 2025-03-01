@@ -8,30 +8,32 @@ import org.jetbrains.annotations.NotNull;
  * An event which is called right before the tag of a {@link Team} is changed
  */
 public class TeamTagChangeEvent extends TeamEvent {
-    private String newTag;
-    public TeamTagChangeEvent(@NotNull Team team,
-                               @NotNull String newTag) {
-        super(team);
-        this.newTag = newTag;
-    }
+	private String newTag;
 
-    public String getNewTeamTag() {
-        return newTag;
-    }
-    public void setNewTeamTag(String newTagToSet) {
-        this.newTag = newTagToSet;
-    }
+	public TeamTagChangeEvent(@NotNull Team team,
+							  @NotNull String newTag) {
+		super(team);
+		this.newTag = newTag;
+	}
 
-    private static final HandlerList HANDLERS = new HandlerList();
+	public String getNewTeamTag() {
+		return newTag;
+	}
 
-    public static HandlerList getHandlerList() {
-        return HANDLERS;
-    }
+	public void setNewTeamTag(String newTagToSet) {
+		this.newTag = newTagToSet;
+	}
 
-    @NotNull
-    @Override
-    public HandlerList getHandlers() {
-        return HANDLERS;
-    }
+	private static final HandlerList HANDLERS = new HandlerList();
+
+	public static HandlerList getHandlerList() {
+		return HANDLERS;
+	}
+
+	@NotNull
+	@Override
+	public HandlerList getHandlers() {
+		return HANDLERS;
+	}
 
 }

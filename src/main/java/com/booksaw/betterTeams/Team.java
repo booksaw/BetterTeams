@@ -142,7 +142,7 @@ public class Team {
 	@Contract("null -> false")
 	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 	public static boolean isValidTeamName(@Nullable String name) {
-		if ( name == null ) {
+		if (name == null) {
 			return false;
 		}
 
@@ -207,6 +207,7 @@ public class Team {
 
 	/**
 	 * If the team is open or invite only
+	 *
 	 * @return [true - anyone can join the team] [false - the team is invite only]
 	 * @todo: change this to an enum - which is more expressive
 	 */
@@ -313,7 +314,7 @@ public class Team {
 			getTeamManager().disbandTeam(this);
 
 			throw new IllegalArgumentException(
-				"The team that attempted loading is invalid, disbanding the team to avoid problems");
+					"The team that attempted loading is invalid, disbanding the team to avoid problems");
 		}
 
 		description = storage.getString(StoredTeamValue.DESCRIPTION);
@@ -373,7 +374,7 @@ public class Team {
 
 		if (name == null) {
 			Bukkit.getLogger()
-				.warning("[BetterTeams] Provided team name was null, this should never occur. Team uuid = " + id);
+					.warning("[BetterTeams] Provided team name was null, this should never occur. Team uuid = " + id);
 			name = "invalidName";
 
 			try {
@@ -871,7 +872,7 @@ public class Team {
 
 		// Notify third party plugins that a team message is going to be sent
 		TeamPreMessageEvent teamPreMessageEvent = new TeamPreMessageEvent(this, sender, message, format,
-			prefix, recipients);
+				prefix, recipients);
 		Bukkit.getPluginManager().callEvent(teamPreMessageEvent);
 
 		// Process any updates after the event has been dispatched
@@ -884,8 +885,8 @@ public class Team {
 		prefix = teamPreMessageEvent.getSenderNamePrefix();
 
 		String fMessage = MessageManager.format(format,
-			prefix + Objects.requireNonNull(sender.getPlayer().getPlayer()).getDisplayName(),
-			message);
+				prefix + Objects.requireNonNull(sender.getPlayer().getPlayer()).getDisplayName(),
+				message);
 
 		fMessage = fMessage.replace("$name$", prefix + sender.getPlayer().getPlayer().getName());
 		fMessage = fMessage.replace("$message$", message);
@@ -955,8 +956,8 @@ public class Team {
 		ChatColor returnTo = getPreviousChatColor(toTest);
 
 		String fMessage = MessageManager.getMessage("allychat.syntax", getName(),
-			sender.getPrefix(returnTo) + Objects.requireNonNull(sender.getPlayer().getPlayer()).getDisplayName(),
-			message);
+				sender.getPrefix(returnTo) + Objects.requireNonNull(sender.getPlayer().getPlayer()).getDisplayName(),
+				message);
 
 		fMessage = fMessage.replace("$name$", sender.getPrefix(returnTo) + sender.getPlayer().getPlayer().getName());
 		fMessage = fMessage.replace("$message$", message);
@@ -1070,7 +1071,7 @@ public class Team {
 
 		if (team == null) {
 			Bukkit.getLogger().warning(
-				"An avaliable team cannot be found, be prepared for a lot of errors. (this should never happen, and should always be reported to booksaw)");
+					"An avaliable team cannot be found, be prepared for a lot of errors. (this should never happen, and should always be reported to booksaw)");
 			Bukkit.getLogger().warning("This catch is merely here to stop the server crashing");
 			return null;
 		}
@@ -1116,7 +1117,9 @@ public class Team {
 	/**
 	 * Used to add an ally for this team
 	 *
-	 * @param otherTeam the UUID of the new ally
+	 * @param otherTeam     the UUID of the new ally
+	 * @param sendPostEvent If you want the post event to be sent. This is useful if you are switching from one relation
+	 *                      to another.
 	 */
 	public void addAlly(UUID otherTeam, boolean sendPostEvent) {
 		if (isAlly(otherTeam)) return;
@@ -1144,17 +1147,25 @@ public class Team {
 		if (sendPostEvent)
 			Bukkit.getPluginManager().callEvent(new PostRelationChangeTeamEvent(this, other, prevRelation, RelationType.ALLY));
 	}
+
 	/**
 	 * Used to add an ally for this team
 	 *
-	 * @param ally the UUID of the new ally
+	 * @param ally 			the UUID of the new ally
+	 * @param sendPostEvent If you want the post event to be sent. This is useful if you are switching from one relation
+	 *                      to another.
 	 */
 	public void addAlly(@Nullable Team ally, boolean sendPostEvent) {
 		if (ally == null) return;
 
 		addAlly(ally.getID(), sendPostEvent);
 	}
+
 	public void addAlly(@Nullable Team ally) {
+		addAlly(ally, true);
+	}
+
+	public void addAlly(@Nullable UUID ally) {
 		addAlly(ally, true);
 	}
 
@@ -1167,6 +1178,7 @@ public class Team {
 		allies.remove(this, ally);
 		saveAllies();
 	}
+
 	/**
 	 * Used to remove an ally from this team
 	 *
@@ -1181,15 +1193,16 @@ public class Team {
 	/**
 	 * Used to become neutral to a team
 	 *
-	 * @param otherTeam the team to become neutral to
+	 * @param otherTeam 	the team to become neutral to
+	 * @param sendPostEvent If you want the post event to be sent. This is useful if you are switching from one relation
+	 *                      to another.
 	 */
 	public void becomeNeutral(UUID otherTeam, boolean sendPostEvent) {
 		if (!isAlly(otherTeam)) return;
 
 		final Team other = Team.getTeam(otherTeam);
 
-		RelationType prevRelation;
-		prevRelation = RelationType.ALLY;
+		RelationType prevRelation = RelationType.ALLY;
 		if (callUserEvent(other, prevRelation, RelationType.NEUTRAL)) return;
 
 		allies.remove(this, otherTeam);
@@ -1216,6 +1229,7 @@ public class Team {
 		if (otherTeam == null) return;
 		becomeNeutral(otherTeam.getID(), sendPostEvent);
 	}
+
 	/**
 	 * Used to check if a team is in alliance with this team
 	 *
@@ -1263,6 +1277,7 @@ public class Team {
 		allyRequests.add(this, team);
 		saveAllyRequests();
 	}
+
 	/**
 	 * Used to add an ally request to this team
 	 *
@@ -1283,6 +1298,7 @@ public class Team {
 		allyRequests.remove(this, team);
 		saveAllyRequests();
 	}
+
 	/**
 	 * Used to remove an ally request from this team
 	 *
@@ -1303,6 +1319,7 @@ public class Team {
 	public boolean hasRequested(UUID team) {
 		return allyRequests.contains(team);
 	}
+
 	/**
 	 * Used to check if a team has sent an ally request for this team
 	 *

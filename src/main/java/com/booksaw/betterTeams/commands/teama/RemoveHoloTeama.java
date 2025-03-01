@@ -57,7 +57,7 @@ public class RemoveHoloTeama extends SubCommand {
 	@Override
 	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
 	}
-	
+
 	@Override
 	public boolean runAsync(String[] args) {
 		return false;

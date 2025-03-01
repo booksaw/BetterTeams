@@ -44,10 +44,10 @@ public class UpdateChecker implements Listener {
 					HttpsURLConnection connection = (HttpsURLConnection) uri.toURL().openConnection();
 					connection.setRequestMethod("GET");
 					UpdateChecker.this.spigotPluginVersion = (new BufferedReader(
-						new InputStreamReader(connection.getInputStream()))).readLine();
+							new InputStreamReader(connection.getInputStream()))).readLine();
 				} catch (IOException | URISyntaxException e) {
 					Bukkit.getServer().getConsoleSender().sendMessage(
-						ChatColor.translateAlternateColorCodes('&', "&cUpdate checker failed! Disabling."));
+							ChatColor.translateAlternateColorCodes('&', "&cUpdate checker failed! Disabling."));
 					cancel();
 					return;
 				}
@@ -60,7 +60,7 @@ public class UpdateChecker implements Listener {
 				latest = false;
 				cancel();
 			}
-		}).runTaskTimerAsynchronously(this.javaPlugin, 0L, 10*60*20);
+		}).runTaskTimerAsynchronously(this.javaPlugin, 0L, 10 * 60 * 20);
 	}
 
 	private boolean isLatestVersion() {
@@ -68,7 +68,7 @@ public class UpdateChecker implements Listener {
 			int[] local = Arrays.stream(this.localPluginVersion.split("\\.")).mapToInt(Integer::parseInt).toArray();
 			int[] spigot = Arrays.stream(this.spigotPluginVersion.split("\\.")).mapToInt(Integer::parseInt).toArray();
 			return IntStream.range(0, local.length).filter(i -> (local[i] != spigot[i])).limit(1L)
-				.mapToObj(i -> (local[i] >= spigot[i])).findFirst().orElse(Boolean.TRUE);
+					.mapToObj(i -> (local[i] >= spigot[i])).findFirst().orElse(Boolean.TRUE);
 		} catch (NumberFormatException ignored) {
 			return this.localPluginVersion.equals(this.spigotPluginVersion);
 		}

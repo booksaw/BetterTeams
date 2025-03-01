@@ -40,8 +40,8 @@ public class TeamPlayer {
 	private boolean allyChat = false;
 
 	/**
-	 *  Do not use this method (only should be used in the class Team, instead use
-	 *  Team.setTitle() as that will save the updated value)
+	 * Do not use this method (only should be used in the class Team, instead use
+	 * Team.setTitle() as that will save the updated value)
 	 */
 	@Setter
 	@Getter

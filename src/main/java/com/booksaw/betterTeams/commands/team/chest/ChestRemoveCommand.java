@@ -72,7 +72,7 @@ public class ChestRemoveCommand extends TeamSubCommand {
 	public PlayerRank getDefaultRank() {
 		return PlayerRank.ADMIN;
 	}
-	
+
 	@Override
 	public boolean runAsync(String[] args) {
 		return false;

@@ -20,8 +20,8 @@ public class UnbanCommand extends TeamSubCommand {
 		 * can view offline users teams by name not just by team name)
 		 */
 		OfflinePlayer player = Utils.getOfflinePlayer(args[0]);
-		
-		if(player == null) {
+
+		if (player == null) {
 			return new CommandResponse("noPlayer");
 		}
 

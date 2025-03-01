@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.booksaw.betterTeams.integrations.placeholder;
 
@@ -30,7 +30,7 @@ public enum TeamPlaceholderOptionsEnum {
 	/**
 	 * Constructor to take in an interface per enum value
 	 */
-    TeamPlaceholderOptionsEnum(IndividualTeamPlaceholderProvider teamProvider) {
+	TeamPlaceholderOptionsEnum(IndividualTeamPlaceholderProvider teamProvider) {
 		this.teamProvider = teamProvider;
 		this.teamPlayerProvider = null;
 	}
@@ -38,7 +38,7 @@ public enum TeamPlaceholderOptionsEnum {
 	/**
 	 * Constructor to take in an interface per enum value
 	 */
-    TeamPlaceholderOptionsEnum(IndividualTeamPlayerPlaceholderProvider teamPlayerProvider) {
+	TeamPlaceholderOptionsEnum(IndividualTeamPlayerPlaceholderProvider teamPlayerProvider) {
 		this.teamPlayerProvider = teamPlayerProvider;
 		this.teamProvider = null;
 	}

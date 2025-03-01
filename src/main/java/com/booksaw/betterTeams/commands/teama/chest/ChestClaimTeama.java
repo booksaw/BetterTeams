@@ -78,7 +78,7 @@ public class ChestClaimTeama extends TeamSelectSubCommand {
 	public boolean needPlayer() {
 		return true;
 	}
-	
+
 	@Override
 	public boolean runAsync(String[] args) {
 		return false;

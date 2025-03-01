@@ -13,30 +13,32 @@ import org.jetbrains.annotations.NotNull;
 @Getter
 public class RelationChangeTeamEvent extends TeamEvent {
 
-    final private @NotNull Team otherTeam;
-    final private @NotNull RelationType previousRelation;
-    final private @NotNull RelationType newRelation;
+	final private @NotNull Team otherTeam;
+	final private @NotNull RelationType previousRelation;
+	final private @NotNull RelationType newRelation;
 
-    public RelationChangeTeamEvent(@NotNull Team team,
-                                   @NotNull Team otherTeam,
-                                   @NotNull RelationType previousRelation,
-                                   @NotNull RelationType newRelation
-    ) {
-        super(team, true);
+	public RelationChangeTeamEvent(@NotNull Team team,
+								   @NotNull Team otherTeam,
+								   @NotNull RelationType previousRelation,
+								   @NotNull RelationType newRelation
+	) {
+		super(team, true);
 
-        this.otherTeam = otherTeam;
-        this.previousRelation = previousRelation;
-        this.newRelation = newRelation;
-    }
+		this.otherTeam = otherTeam;
+		this.previousRelation = previousRelation;
+		this.newRelation = newRelation;
+	}
 
-    private static final HandlerList HANDLERS = new HandlerList();
+	private static final HandlerList HANDLERS = new HandlerList();
 
-    @SuppressWarnings("unused")
-    public static HandlerList getHandlerList() { return HANDLERS; }
+	@SuppressWarnings("unused")
+	public static HandlerList getHandlerList() {
+		return HANDLERS;
+	}
 
-    @NotNull
-    @Override
-    public HandlerList getHandlers() {
-        return HANDLERS;
-    }
+	@NotNull
+	@Override
+	public HandlerList getHandlers() {
+		return HANDLERS;
+	}
 }

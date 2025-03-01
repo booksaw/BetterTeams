@@ -8,9 +8,9 @@ import org.jetbrains.annotations.Nullable;
 
 public class TeamUtil {
 	private TeamUtil() {
-		
+
 	}
-	
+
 	public static @Nullable CommandResponse verifyTeamName(@Nullable String teamName) {
 		if (!Team.isValidTeamName(teamName)) {
 			return new CommandResponse("create.banned");
@@ -28,6 +28,7 @@ public class TeamUtil {
 
 		return null;
 	}
+
 	public static @Nullable CommandResponse verifyTagName(@Nullable String tagName) {
 		if (!Team.isValidTeamName(tagName)) {
 			return new CommandResponse("tag.banned");

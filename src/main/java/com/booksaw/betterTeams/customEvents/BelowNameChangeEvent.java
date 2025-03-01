@@ -17,9 +17,9 @@ public class BelowNameChangeEvent extends Event {
 	private final ChangeType type;
 
 	public BelowNameChangeEvent(Player player, ChangeType type) {
-		this(player, type, true); 
+		this(player, type, true);
 	}
-	
+
 	public BelowNameChangeEvent(Player player, ChangeType type, boolean isAsync) {
 		super(isAsync);
 		this.player = player;

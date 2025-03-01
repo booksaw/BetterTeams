@@ -117,7 +117,7 @@ public class ConfigManager {
 				}
 
 				logger.info("[BetterTeams] " + resourceName
-					+ " is now updated to the latest version, thank you for using BetterTeams");
+						+ " is now updated to the latest version, thank you for using BetterTeams");
 				logger.info("[BetterTeams] ==================================================================");
 
 			}
@@ -208,7 +208,7 @@ public class ConfigManager {
 
 		if (in == null)
 			throw new IllegalArgumentException(
-				"The embedded resource '" + resourcePath + "' cannot be found in " + Main.plugin.getDataFolder());
+					"The embedded resource '" + resourcePath + "' cannot be found in " + Main.plugin.getDataFolder());
 		File outFile = new File(resultPath);
 		int lastIndex = resourcePath.lastIndexOf('/');
 		File outDir = new File(resultPath.substring(0, Math.max(lastIndex, 0)));
@@ -231,7 +231,7 @@ public class ConfigManager {
 				in.close();
 			} else {
 				Main.plugin.getLogger().log(Level.WARNING, "Could not save " + resourcePath + " to " + outFile
-					+ " because " + outFile.getName() + " already exists.");
+						+ " because " + outFile.getName() + " already exists.");
 			}
 		} catch (IOException ex) {
 			Main.plugin.getLogger().log(Level.SEVERE, "Could not save " + resourcePath + " to " + resultPath, ex);

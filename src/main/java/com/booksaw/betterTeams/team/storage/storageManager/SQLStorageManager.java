@@ -214,7 +214,7 @@ public class SQLStorageManager extends TeamManager implements Listener {
 	/**
 	 * convert a result set, supplied by a prepared statement into a list of teams
 	 * for sort methods
-	 * 
+	 *
 	 * @param ps the statement
 	 * @return the ordered team list or an empty array in the event of an error
 	 */
@@ -268,7 +268,7 @@ public class SQLStorageManager extends TeamManager implements Listener {
 		database.updateRecord(TableName.TEAM, "money = 0");
 
 	}
-	
+
 	private static final String HOLOPATH = "holos";
 
 	@Override
@@ -295,7 +295,7 @@ public class SQLStorageManager extends TeamManager implements Listener {
 	public void addChestClaim(Team team, Location loc) {
 		claims.put(LocationSetComponent.getString(loc), team.getID());
 		database.insertRecord(TableName.CHESTCLAIMS, "teamID, chestLoc",
-                "'" + team.getID() + "', '" + LocationSetComponent.getString(loc) + "'");
+				"'" + team.getID() + "', '" + LocationSetComponent.getString(loc) + "'");
 	}
 
 	@Override

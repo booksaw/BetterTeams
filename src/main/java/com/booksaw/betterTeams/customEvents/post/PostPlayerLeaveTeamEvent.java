@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * An event which is called after a player has left their team.
  * This event cannot be cancelled since it occurs after the player has left.
- *
+ * <p>
  * To modify or cancel the leave action, use {@link PlayerLeaveTeamEvent}.
  *
  * @author svaningelgem

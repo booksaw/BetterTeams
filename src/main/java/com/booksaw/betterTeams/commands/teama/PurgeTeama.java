@@ -19,17 +19,17 @@ public class PurgeTeama extends SubCommand {
 			return new CommandResponse("admin.purge.confirm");
 		}
 
-		boolean money = true; 
+		boolean money = true;
 		boolean score = true;
-		
-		if(args.length >= 1) {
-			if(args[0].equals("money")) {
+
+		if (args.length >= 1) {
+			if (args[0].equals("money")) {
 				score = false;
 			} else if (args[0].equals("score")) {
 				money = false;
 			}
 		}
-		
+
 		if (Team.getTeamManager().purgeTeams(money, score))
 			return new CommandResponse(true, "admin.purge.success");
 

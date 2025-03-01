@@ -184,9 +184,9 @@ public class Database {
 	 * @return The results of the query
 	 */
 	public PreparedStatement executeQuery(String query, String... placeholders) {
-        for (String placeholder : placeholders) {
-            query = query.replaceFirst("\\?", placeholder);
-        }
+		for (String placeholder : placeholders) {
+			query = query.replaceFirst("\\?", placeholder);
+		}
 
 		try {
 			if (!connection.isValid(2)) {
