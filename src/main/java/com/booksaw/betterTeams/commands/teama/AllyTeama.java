@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.booksaw.betterTeams.commands.teama;
 
@@ -14,27 +14,27 @@ public class AllyTeama extends SubCommand {
 
 	@Override
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
-		
+
 		Team team1 = Team.getTeam(args[0]);
 		Team team2 = Team.getTeam(args[1]);
-		
-		if(team1 == null || team2 == null) {
+
+		if (team1 == null || team2 == null) {
 			return new CommandResponse("admin.noTeam");
 		}
-		
-		if(team1 == team2) {
+
+		if (team1 == team2) {
 			return new CommandResponse("admin.ally.same");
 		}
-		
-		if(team1.isAlly(team2)) {
+
+		if (team1.isAlly(team2)) {
 			return new CommandResponse("admin.ally.already");
 		}
-		
+
 		team1.addAlly(team2);
 		team2.addAlly(team1);
 		team1.removeAllyRequest(team2);
 		team2.removeAllyRequest(team1);
-		
+
 		return new CommandResponse(true, "admin.ally.success");
 	}
 
@@ -77,7 +77,6 @@ public class AllyTeama extends SubCommand {
 			addTeamStringList(options, args[1]);
 		}
 	}
-
 
 
 }

@@ -2,7 +2,6 @@ package com.booksaw.betterTeams.team.storage.team;
 
 /**
  * @author James
- *
  */
 public enum StoredTeamValue {
 

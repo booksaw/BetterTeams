@@ -81,5 +81,5 @@ public class ChestRemoveTeama extends SubCommand {
 	public boolean runAsync(String[] args) {
 		return false;
 	}
-	
+
 }

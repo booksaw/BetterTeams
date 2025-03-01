@@ -1,6 +1,7 @@
 package com.booksaw.betterTeams.database.api;
 
 import com.booksaw.betterTeams.Main;
+import com.booksaw.betterTeams.database.TableName;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 
@@ -183,18 +184,16 @@ public class Database {
 	 * @return The results of the query
 	 */
 	public PreparedStatement executeQuery(String query, String... placeholders) {
-		for (int i = 0; i < placeholders.length; i++) {
-			query = query.replaceFirst("\\?", placeholders[i]);
+		for (String placeholder : placeholders) {
+			query = query.replaceFirst("\\?", placeholder);
 		}
 
 		try {
 			if (!connection.isValid(2)) {
 				resetConnection();
 			}
-			PreparedStatement ps = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE,
+			return connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE,
 					ResultSet.CONCUR_UPDATABLE);
-//			System.out.println("executing: " + ps.toString());
-			return ps;
 		} catch (SQLException e) {
 			Bukkit.getLogger().severe("Something went wrong while executing SQL");
 			Bukkit.getLogger().severe("SQL: " + query);
@@ -210,10 +209,7 @@ public class Database {
 	 * @param tableName The name of the table
 	 * @param tableInfo The column information about the table
 	 */
-	public void createTableIfNotExists(String tableName, String tableInfo) {
-
+	public void createTableIfNotExists(TableName tableName, String tableInfo) {
 		executeStatement("CREATE TABLE IF NOT EXISTS " + tableName + "(" + tableInfo + ");");
-
 	}
-
 }

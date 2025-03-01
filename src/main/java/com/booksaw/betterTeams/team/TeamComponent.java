@@ -16,14 +16,14 @@ public interface TeamComponent<T> {
 
 	/**
 	 * Load the value stored in the config into this component
-	 * 
+	 *
 	 * @param section The configuration section where all the team data is stored
 	 */
 	void load(TeamStorage section);
 
 	/**
 	 * Store the loaded value to the configuration section
-	 * 
+	 *
 	 * @param storage The storage class where all team storage takes place
 	 */
 	void save(TeamStorage storage);

@@ -1,11 +1,11 @@
 package com.booksaw.betterTeams.customEvents;
 
 public interface TeamMoneyEvent {
-    double getAmount();
+	double getAmount();
 
-    void setAmount(final double amount);
+	void setAmount(final double amount);
 
-    boolean isCancelled();
+	boolean isCancelled();
 
-    void setCancelled(final boolean value);
+	void setCancelled(final boolean value);
 }

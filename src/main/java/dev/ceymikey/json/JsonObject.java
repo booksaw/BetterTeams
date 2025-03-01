@@ -24,16 +24,16 @@ import java.util.Map;
  * @author svaningelgem
  */
 public class JsonObject extends JsonElement {
-    private final Map<String, Object> data = new LinkedHashMap<>();
+	private final Map<String, Object> data = new LinkedHashMap<>();
 
-    public JsonObject put(String key, Object value) {
-        this.data.put(key, value);
-        return this;
-    }
+	public JsonObject put(String key, Object value) {
+		this.data.put(key, value);
+		return this;
+	}
 
-    @Override
-    public String toString() {
-        return serializeObject(this.data);
-    }
+	@Override
+	public String toString() {
+		return serializeObject(this.data);
+	}
 
 }

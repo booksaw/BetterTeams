@@ -43,7 +43,7 @@ public abstract class TeamManager {
 	/**
 	 * Used to get an clone of the loaded team list. The team objects are not
 	 * cloned, just the hashmap to avoid concurrent modification
-	 * 
+	 *
 	 * @return A clone of the team list
 	 */
 	@SuppressWarnings("unchecked")
@@ -53,7 +53,7 @@ public abstract class TeamManager {
 
 	/**
 	 * Used to get the team with the provided ID
-	 * 
+	 *
 	 * @param uuid the ID of the team
 	 * @return the team with that ID [null - the team does not exist]
 	 */
@@ -77,7 +77,7 @@ public abstract class TeamManager {
 
 	/**
 	 * Used to get the team by it's display name or a player within it
-	 * 
+	 *
 	 * @param name the display name of the team or an online player within the team
 	 * @return the team which matches the data[null - no team could be found]
 	 */
@@ -101,7 +101,7 @@ public abstract class TeamManager {
 	 * Used to find the team that a specified player is in, this is the highest time
 	 * complexity search to find a team (O(n^2)) so only use when the other provided
 	 * methods are not possible
-	 * 
+	 *
 	 * @param player the player which is in a team
 	 * @return the team they are in [null - they are not in a team]
 	 */
@@ -129,10 +129,10 @@ public abstract class TeamManager {
 
 	/**
 	 * Used to get the team by its team name
-	 * 
+	 *
 	 * @param name The name of the team
 	 * @return The team with that display name [null - no team with that name could
-	 *         be found]
+	 * be found]
 	 */
 	@Nullable
 	public Team getTeamByName(@NotNull String name) {
@@ -156,10 +156,9 @@ public abstract class TeamManager {
 	 * Checks are not carried out to ensure that the name is available, so that
 	 * should be done before this method is called
 	 * </p>
-	 * 
+	 *
 	 * @param name  the name of the new team
 	 * @param owner the owner of the new team (the player who ran /team create)
-	 * 
 	 * @return The created team
 	 */
 	public Team createNewTeam(String name, Player owner) {
@@ -193,7 +192,7 @@ public abstract class TeamManager {
 	/**
 	 * Used to get the team which has claimed the provided chest, will return null
 	 * if that location is not claimed
-	 * 
+	 *
 	 * @param location the location of the chest - must already be normalised
 	 * @return The team which has claimed that chest
 	 */
@@ -214,7 +213,7 @@ public abstract class TeamManager {
 	/**
 	 * Used to get the UUID of the team which has claimed the provided chest, will
 	 * return null if that location is not claimed
-	 * 
+	 *
 	 * @param location The location of the chest - must already be normalised
 	 * @return the team which has claimed that chest
 	 */
@@ -223,7 +222,7 @@ public abstract class TeamManager {
 	/**
 	 * Used to get the claiming team of a chest, will check both parts of a double
 	 * chest, it is assumed that the provided block is known to be a chest
-	 * 
+	 *
 	 * @param block The block being checked
 	 * @return The team which has claimed that block
 	 */
@@ -246,7 +245,7 @@ public abstract class TeamManager {
 	/**
 	 * Used to get the claiming team of a chest, will check both parts of a double
 	 * chest, it is assumed that the provided block is known to be a chest
-	 * 
+	 *
 	 * @param holder the inventory holder of the block to check
 	 * @return The team which has claimed that block
 	 */
@@ -272,7 +271,7 @@ public abstract class TeamManager {
 	/**
 	 * Used to get the claiming location, will check both parts of a double chest,
 	 * it is assumed that the provided block is known to be a chest
-	 * 
+	 *
 	 * @param block Part of the chest
 	 * @return The location of the claim
 	 */
@@ -314,7 +313,7 @@ public abstract class TeamManager {
 
 	/**
 	 * Used to reset all teams scores to 0
-	 * 
+	 *
 	 * @return If the teams were purged or not
 	 */
 	public boolean purgeTeams(boolean money, boolean score) {
@@ -340,7 +339,7 @@ public abstract class TeamManager {
 
 	/**
 	 * Used to check if a team exists with that uuid
-	 * 
+	 *
 	 * @param uuid the UUID to check
 	 * @return If a team exists with that uuid
 	 */
@@ -348,7 +347,7 @@ public abstract class TeamManager {
 
 	/**
 	 * Used to check if a team exists with that name
-	 * 
+	 *
 	 * @param name the name to check
 	 * @return If a team exists with that name
 	 */
@@ -356,7 +355,7 @@ public abstract class TeamManager {
 
 	/**
 	 * Used to check if the specified player is in a team
-	 * 
+	 *
 	 * @param player The player to check
 	 * @return If they are in a team
 	 */
@@ -364,7 +363,7 @@ public abstract class TeamManager {
 
 	/**
 	 * Used to get the uuid of the team that the specified player is in
-	 * 
+	 *
 	 * @param player the plyaer to check for
 	 * @return The team uuid
 	 */
@@ -372,7 +371,7 @@ public abstract class TeamManager {
 
 	/**
 	 * Used to get the team uuid from the team name
-	 * 
+	 *
 	 * @param name The name of the team
 	 * @return The UUID of the specified team
 	 */
@@ -391,7 +390,7 @@ public abstract class TeamManager {
 	 * Called when a new team is registered, this can be used to register it in any
 	 * full team trackers The team file will be fully prepared with the members
 	 * within the team
-	 * 
+	 *
 	 * @param team   The new team
 	 * @param player The player that created the team
 	 */
@@ -399,7 +398,7 @@ public abstract class TeamManager {
 
 	/**
 	 * Used to disband a team
-	 * 
+	 *
 	 * @param team The team that is being disbanded
 	 */
 	public void disbandTeam(Team team) {
@@ -415,7 +414,7 @@ public abstract class TeamManager {
 	/**
 	 * Used when a team is disbanded, can be used to remove it from any team
 	 * trackers
-	 * 
+	 *
 	 * @param team The team that is being disbanded
 	 */
 	protected abstract void deleteTeamStorage(Team team);
@@ -423,7 +422,7 @@ public abstract class TeamManager {
 	/**
 	 * Called when a team changes its name as this will effect the getTeam(String
 	 * teamName) method
-	 * 
+	 *
 	 * @param team    The new team
 	 * @param newName The name the team has changed to
 	 */
@@ -432,7 +431,7 @@ public abstract class TeamManager {
 	/**
 	 * Called when a player joins a team, this can be used to track the players
 	 * location
-	 * 
+	 *
 	 * @param team   The team that the player has joined
 	 * @param player The player that has joined the team
 	 */
@@ -440,7 +439,7 @@ public abstract class TeamManager {
 
 	/**
 	 * Called when a player leaves a team
-	 * 
+	 *
 	 * @param team   The team that the player has left
 	 * @param player The team that the player has left
 	 */
@@ -449,7 +448,7 @@ public abstract class TeamManager {
 	/**
 	 * Called when a team needs a storage manager to manage all information, this is
 	 * called for preexisting teams
-	 * 
+	 *
 	 * @param team The team instance
 	 * @return The created team storage
 	 */
@@ -457,7 +456,7 @@ public abstract class TeamManager {
 
 	/**
 	 * Called when a new team is made
-	 * 
+	 *
 	 * @param team The team
 	 * @return The created team storage
 	 */
@@ -466,7 +465,7 @@ public abstract class TeamManager {
 	/**
 	 * This method is used to sort all the teams into an array ranking from highest
 	 * score to lowest
-	 * 
+	 *
 	 * @return the array of teams in order of their rank
 	 */
 	public abstract String[] sortTeamsByScore();
@@ -474,14 +473,14 @@ public abstract class TeamManager {
 	/**
 	 * This method is used to sort all the team names into an array ranking from
 	 * highest to lowest
-	 * 
+	 *
 	 * @return The sorted array
 	 */
 	public abstract String[] sortTeamsByBalance();
 
 	/**
 	 * Used to sort all members from largest to smallest by number of members
-	 * 
+	 *
 	 * @return the sorted array
 	 */
 	public abstract String[] sortTeamsByMembers();
@@ -490,7 +489,7 @@ public abstract class TeamManager {
 	 * Used to reset the score of all teams
 	 */
 	public abstract void purgeTeamScore();
-	
+
 	/**
 	 * Used to reset the balance of all teams
 	 */
@@ -503,7 +502,7 @@ public abstract class TeamManager {
 
 	/**
 	 * Used to store and save the updated hologram details
-	 * 
+	 *
 	 * @param details the details to save
 	 */
 	public abstract void setHoloDetails(List<String> details);

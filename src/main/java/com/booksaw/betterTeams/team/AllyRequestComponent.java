@@ -1,11 +1,11 @@
 package com.booksaw.betterTeams.team;
 
-import java.util.UUID;
-
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.message.Message;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
+
+import java.util.UUID;
 
 public class AllyRequestComponent extends UuidSetComponent {
 
@@ -32,15 +32,15 @@ public class AllyRequestComponent extends UuidSetComponent {
 		// notifying all online owners of the team
 		Message message = new ReferencedFormatMessage("ally.request", t.getDisplayName());
 		team.getMembers().broadcastMessage(message);
-		
+
 		team.getStorage().addAllyRequest(component);
 
 	}
-	
+
 	@Override
 	public void remove(Team team, UUID component) {
 		super.remove(team, component);
-		
+
 		team.getStorage().removeAllyRequest(component);
 	}
 

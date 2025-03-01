@@ -13,13 +13,13 @@ import org.bukkit.command.CommandSender;
 import java.util.List;
 
 public class WithdrawCommand extends TeamSubCommand {
-	
+
 	private final ParentCommand parentCommand;
-	
+
 	public WithdrawCommand(ParentCommand parentCommand) {
 		this.parentCommand = parentCommand;
 	}
-	
+
 	@Override
 	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 

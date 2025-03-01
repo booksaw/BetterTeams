@@ -18,10 +18,10 @@ public abstract class TeamPlayerSetComponent extends SetTeamComponent<TeamPlayer
 	 */
 	public List<Player> getOnlinePlayers() {
 		return getClone().stream()
-			.map(TeamPlayer::getPlayer)
-			.filter(OfflinePlayer::isOnline)
-			.map(OfflinePlayer::getPlayer)
-			.collect(Collectors.toList());
+				.map(TeamPlayer::getPlayer)
+				.filter(OfflinePlayer::isOnline)
+				.map(OfflinePlayer::getPlayer)
+				.collect(Collectors.toList());
 	}
 
 	/**
@@ -29,9 +29,9 @@ public abstract class TeamPlayerSetComponent extends SetTeamComponent<TeamPlayer
 	 */
 	public List<OfflinePlayer> getOfflinePlayers() {
 		return getClone().stream()
-			.map(TeamPlayer::getPlayer)
-			.filter(p -> !p.isOnline())
-			.collect(Collectors.toList());
+				.map(TeamPlayer::getPlayer)
+				.filter(p -> !p.isOnline())
+				.collect(Collectors.toList());
 	}
 
 	/**
@@ -39,8 +39,8 @@ public abstract class TeamPlayerSetComponent extends SetTeamComponent<TeamPlayer
 	 */
 	public List<TeamPlayer> getOnlineTeamPlayers() {
 		return getClone().stream()
-			.filter(TeamPlayer::isOnline)
-			.collect(Collectors.toList());
+				.filter(TeamPlayer::isOnline)
+				.collect(Collectors.toList());
 	}
 
 	/**
@@ -52,9 +52,9 @@ public abstract class TeamPlayerSetComponent extends SetTeamComponent<TeamPlayer
 	@Nullable
 	public TeamPlayer getTeamPlayer(@NotNull OfflinePlayer p) {
 		return getClone().stream()
-			.filter(teamPlayer -> p.getUniqueId().equals(teamPlayer.getPlayer().getUniqueId()))
-			.findFirst()
-			.orElse(null);
+				.filter(teamPlayer -> p.getUniqueId().equals(teamPlayer.getPlayer().getUniqueId()))
+				.findFirst()
+				.orElse(null);
 	}
 
 	/**
@@ -65,8 +65,8 @@ public abstract class TeamPlayerSetComponent extends SetTeamComponent<TeamPlayer
 	 */
 	public List<TeamPlayer> getRank(PlayerRank rank) {
 		return getClone().stream()
-			.filter(player -> player.getRank() == rank)
-			.collect(Collectors.toList());
+				.filter(player -> player.getRank() == rank)
+				.collect(Collectors.toList());
 	}
 
 	/**
@@ -117,8 +117,8 @@ public abstract class TeamPlayerSetComponent extends SetTeamComponent<TeamPlayer
 	 */
 	public String getOnlinePlayersString() {
 		return getOnlinePlayers().stream()
-			.map(Player::getName)
-			.collect(Collectors.joining(", "));
+				.map(Player::getName)
+				.collect(Collectors.joining(", "));
 	}
 
 	/**
@@ -126,7 +126,7 @@ public abstract class TeamPlayerSetComponent extends SetTeamComponent<TeamPlayer
 	 */
 	public String getOfflinePlayersString() {
 		return getOfflinePlayers().stream()
-			.map(OfflinePlayer::getName)
-			.collect(Collectors.joining(", "));
+				.map(OfflinePlayer::getName)
+				.collect(Collectors.joining(", "));
 	}
 }

@@ -84,7 +84,7 @@ public class DamageManagement implements Listener {
 					}
 					e.setCancelled(true);
 				}
-			} 
+			}
 		} catch (NullPointerException ex) {
 			// thrown if the players team is null
 		}

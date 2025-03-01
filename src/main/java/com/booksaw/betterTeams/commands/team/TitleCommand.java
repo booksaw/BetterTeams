@@ -8,13 +8,12 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class TitleCommand extends TeamSubCommand {
 
-	private final String[] bannedColor = new String[] { "&1", "&2", "&3", "&4", "&5", "&6", "&7", "&8", "&9", "&a",
-			"&b", "&c", "&d", "&e", "&f" };
+	private final Set<String> bannedColor = new HashSet<>(Arrays.asList("&1", "&2", "&3", "&4", "&5", "&6", "&7", "&8", "&9", "&a",
+			"&b", "&c", "&d", "&e", "&f"));
 
 	@Override
 	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
@@ -22,11 +21,11 @@ public class TitleCommand extends TeamSubCommand {
 		TeamPlayer toTitle;
 
 		if (args.length == 0) {
-			args = new String[] { "me", null };
+			args = new String[]{"me", null};
 		}
 
 		if (args.length == 1) {
-			args = new String[] { "me", args[0] };
+			args = new String[]{"me", args[0]};
 		}
 
 		Player toTitlePlayer;
@@ -52,7 +51,7 @@ public class TitleCommand extends TeamSubCommand {
 				&& Objects.requireNonNull(player.getPlayer().getPlayer()).hasPermission("betterteams.title.self"))) {
 			return new CommandResponse("title.noPerm");
 		}
-		
+
 		if (args[1] == null) {
 			team.setTitle(toTitle, "");
 			return new CommandResponse(true, "title.remove");
@@ -75,12 +74,8 @@ public class TitleCommand extends TeamSubCommand {
 			}
 		}
 
-		if (!sender.hasPermission("betterteams.title.color.color")) {
-			for (String bannedChar : bannedColor) {
-				if (args[1].contains(bannedChar)) {
-					return new CommandResponse("title.noColor");
-				}
-			}
+		if (!sender.hasPermission("betterteams.title.color.color") && bannedColor.contains(args[1])) {
+			return new CommandResponse("title.noColor");
 		}
 
 		if (sender.hasPermission("betterteams.title.color.color")

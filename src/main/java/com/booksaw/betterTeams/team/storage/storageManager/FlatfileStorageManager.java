@@ -233,7 +233,7 @@ public class FlatfileStorageManager extends YamlStorageManager {
 			team.getValue().setScore(0);
 		}
 	}
-	
+
 	@Override
 	public void purgeTeamMoney() {
 		for (Entry<UUID, Team> team : getLoadedTeamListClone().entrySet()) {
@@ -255,7 +255,6 @@ public class FlatfileStorageManager extends YamlStorageManager {
 	public void rebuildLookups() {
 		// not needed 
 	}
-
 
 
 }

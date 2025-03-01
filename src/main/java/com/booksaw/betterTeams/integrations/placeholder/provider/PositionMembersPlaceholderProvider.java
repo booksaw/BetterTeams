@@ -6,9 +6,9 @@ import com.booksaw.betterTeams.team.TeamManager;
 
 public class PositionMembersPlaceholderProvider implements IndividualTeamPlaceholderProvider {
 
-    @Override
-    public String getPlaceholderForTeam(Team team) {
-        return getPlaceholderForTeam(team, TeamManager::sortTeamsByMembers);
-    }
+	@Override
+	public String getPlaceholderForTeam(Team team) {
+		return getPlaceholderForTeam(team, TeamManager::sortTeamsByMembers);
+	}
 
 }

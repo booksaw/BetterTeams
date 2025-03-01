@@ -29,5 +29,7 @@ public class ReferencedFormatMessage implements Message {
 	}
 
 	@Override
-	public void sendTitle(Player player) { MessageManager.sendTitle(player, reference, replacement); }
+	public void sendTitle(Player player) {
+		MessageManager.sendTitle(player, reference, replacement);
+	}
 }

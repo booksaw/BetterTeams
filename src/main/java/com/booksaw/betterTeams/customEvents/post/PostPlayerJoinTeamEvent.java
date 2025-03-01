@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Called after a player has successfully joined a team.
  * This event cannot be cancelled since it occurs after the player has joined.
- *
+ * <p>
  * To modify or cancel the join action, use {@link PlayerJoinTeamEvent}.
  *
  * @author svaningelgem

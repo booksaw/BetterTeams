@@ -25,19 +25,19 @@ import java.util.List;
  * @author svaningelgem
  */
 public class JsonArray extends JsonElement {
-    private final List<Object> items = new ArrayList<>();
+	private final List<Object> items = new ArrayList<>();
 
-    public JsonArray(Object... items) {
-        this.items.addAll(Arrays.asList(items));
-    }
+	public JsonArray(Object... items) {
+		this.items.addAll(Arrays.asList(items));
+	}
 
-    public JsonArray put(Object value) {
-        this.items.add(value);
-        return this;
-    }
+	public JsonArray put(Object value) {
+		this.items.add(value);
+		return this;
+	}
 
-    @Override
-    public String toString() {
-        return serializeArray(items);
-    }
+	@Override
+	public String toString() {
+		return serializeArray(items);
+	}
 }
