@@ -11,11 +11,11 @@ import java.util.List;
 public class ChatCommand extends TeamSubCommand {
 
 	private final ParentCommand parentCommand;
-	
+
 	public ChatCommand(ParentCommand parentCommand) {
 		this.parentCommand = parentCommand;
 	}
-	
+
 	@Override
 	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 

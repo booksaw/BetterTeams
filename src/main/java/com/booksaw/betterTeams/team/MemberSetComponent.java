@@ -8,15 +8,10 @@ import com.booksaw.betterTeams.customEvents.PlayerLeaveTeamEvent;
 import com.booksaw.betterTeams.customEvents.post.PostPlayerJoinTeamEvent;
 import com.booksaw.betterTeams.customEvents.post.PostPlayerLeaveTeamEvent;
 import com.booksaw.betterTeams.exceptions.CancelledEventException;
-import com.booksaw.betterTeams.message.Message;
 import com.booksaw.betterTeams.message.MessageManager;
-import com.booksaw.betterTeams.message.ReferencedFormatMessage;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 public class MemberSetComponent extends TeamPlayerSetComponent {
 
@@ -55,8 +50,7 @@ public class MemberSetComponent extends TeamPlayerSetComponent {
 
 	@Override
 	public void remove(Team team, TeamPlayer teamPlayer) {
-
-		PlayerLeaveTeamEvent event = new PlayerLeaveTeamEvent(team, teamPlayer);
+		final PlayerLeaveTeamEvent event = new PlayerLeaveTeamEvent(team, teamPlayer);
 		Bukkit.getPluginManager().callEvent(event);
 		if (event.isCancelled()) {
 			throw new CancelledEventException(event);

@@ -27,88 +27,88 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 public class DiscordPayload {
-    private DiscordPayload() {
-    }
+	private DiscordPayload() {
+	}
 
-    public static void inject(@NotNull EmbedBuilder builder) {
-        if (builder.getUrl() == null || builder.getUrl().isEmpty()) {
-            throw new FailedEndpointException();
-        }
+	public static void inject(@NotNull EmbedBuilder builder) {
+		if (builder.getUrl() == null || builder.getUrl().isEmpty()) {
+			throw new FailedEndpointException();
+		}
 
-        if ((builder.getTitle() == null || builder.getTitle().isEmpty())
-                && (builder.getDescription() == null || builder.getDescription().isEmpty())
-                && (builder.getFields() == null || builder.getFields().isEmpty())) {
-            throw new InjectionFailureException();
-        }
+		if ((builder.getTitle() == null || builder.getTitle().isEmpty())
+				&& (builder.getDescription() == null || builder.getDescription().isEmpty())
+				&& (builder.getFields() == null || builder.getFields().isEmpty())) {
+			throw new InjectionFailureException();
+		}
 
-        HttpURLConnection connection = null;
+		HttpURLConnection connection = null;
 
-        try {
-            // Build the JSON payload
-            JsonObject payload = getPayload(builder);
+		try {
+			// Build the JSON payload
+			JsonObject payload = getPayload(builder);
 
-            // Set up HTTP connection
-            URL url = new URL(builder.getUrl());
-            connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("POST");
-            connection.setRequestProperty("Content-Type", "application/json");
-            connection.setDoOutput(true);
+			// Set up HTTP connection
+			URL url = new URL(builder.getUrl());
+			connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("POST");
+			connection.setRequestProperty("Content-Type", "application/json");
+			connection.setDoOutput(true);
 
-            // Send the payload
-            byte[] payloadBytes = payload.toString().getBytes(StandardCharsets.UTF_8);
-            connection.setFixedLengthStreamingMode(payloadBytes.length);
+			// Send the payload
+			byte[] payloadBytes = payload.toString().getBytes(StandardCharsets.UTF_8);
+			connection.setFixedLengthStreamingMode(payloadBytes.length);
 
-            try (OutputStream os = connection.getOutputStream()) {
-                os.write(payloadBytes);
-                os.flush();
-            }
+			try (OutputStream os = connection.getOutputStream()) {
+				os.write(payloadBytes);
+				os.flush();
+			}
 
-            // Get response code to ensure the request is complete
-            int responseCode = connection.getResponseCode();
-            if (responseCode < 200 || responseCode >= 300) {
-                System.out.println("HTTP Error: " + responseCode);
-            }
+			// Get response code to ensure the request is complete
+			int responseCode = connection.getResponseCode();
+			if (responseCode < 200 || responseCode >= 300) {
+				System.out.println("HTTP Error: " + responseCode);
+			}
 
-        } catch (Exception e) {
-            System.out.println("INJECTION FAILURE! | " + e.getMessage());
-            e.printStackTrace();
-        } finally {
-            if (connection != null) {
-                connection.disconnect();
-            }
-        }
-    }
+		} catch (Exception e) {
+			System.out.println("INJECTION FAILURE! | " + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			if (connection != null) {
+				connection.disconnect();
+			}
+		}
+	}
 
-    private static @NotNull JsonObject getPayload(@NotNull EmbedBuilder builder) {
-        JsonObject embed = new JsonObject();
-        embed.put("title", builder.getTitle());
-        embed.put("description", builder.getDescription());
-        embed.put("color", builder.getColor());
+	private static @NotNull JsonObject getPayload(@NotNull EmbedBuilder builder) {
+		JsonObject embed = new JsonObject();
+		embed.put("title", builder.getTitle());
+		embed.put("description", builder.getDescription());
+		embed.put("color", builder.getColor());
 
-        if (builder.getThumbnailUrl() != null && !builder.getThumbnailUrl().isEmpty()) {
-            JsonObject thumbnail = new JsonObject();
-            thumbnail.put("url", builder.getThumbnailUrl());
-            embed.put("thumbnail", thumbnail);
-        }
+		if (builder.getThumbnailUrl() != null && !builder.getThumbnailUrl().isEmpty()) {
+			JsonObject thumbnail = new JsonObject();
+			thumbnail.put("url", builder.getThumbnailUrl());
+			embed.put("thumbnail", thumbnail);
+		}
 
-        JsonArray fieldsArray = new JsonArray();
-        for (EmbedBuilder.Field field : builder.getFields()) {
-            JsonObject fieldObject = new JsonObject();
-            fieldObject.put("name", field.name);
-            fieldObject.put("value", field.value);
-            fieldsArray.put(fieldObject);
-        }
-        embed.put("fields", fieldsArray);
+		JsonArray fieldsArray = new JsonArray();
+		for (EmbedBuilder.Field field : builder.getFields()) {
+			JsonObject fieldObject = new JsonObject();
+			fieldObject.put("name", field.name);
+			fieldObject.put("value", field.value);
+			fieldsArray.put(fieldObject);
+		}
+		embed.put("fields", fieldsArray);
 
-        // Add footer if available
-        if (builder.getFooterText() != null && !builder.getFooterText().isEmpty()) {
-            JsonObject footer = new JsonObject();
-            footer.put("text", builder.getFooterText());
-            embed.put("footer", footer);
-        }
+		// Add footer if available
+		if (builder.getFooterText() != null && !builder.getFooterText().isEmpty()) {
+			JsonObject footer = new JsonObject();
+			footer.put("text", builder.getFooterText());
+			embed.put("footer", footer);
+		}
 
-        JsonObject payload = new JsonObject();
-        payload.put("embeds", new JsonArray(embed));
-        return payload;
-    }
+		JsonObject payload = new JsonObject();
+		payload.put("embeds", new JsonArray(embed));
+		return payload;
+	}
 }

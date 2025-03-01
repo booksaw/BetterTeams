@@ -24,7 +24,7 @@ public class BooksawCommand extends BukkitCommand {
 	private SubCommand subCommand;
 
 	public BooksawCommand(String command, SubCommand subCommand, String permission, String description,
-			List<String> alises) {
+						  List<String> alises) {
 		super(command);
 		this.description = description;
 		usageMessage = "/<command> help";
@@ -55,9 +55,7 @@ public class BooksawCommand extends BukkitCommand {
 		boolean async = subCommand.checkAsync(args);
 
 		if (async) {
-			Bukkit.getScheduler().runTaskAsynchronously(Main.plugin, () -> {
-				runExecution(sender, label, args);
-			});
+			Bukkit.getScheduler().runTaskAsynchronously(Main.plugin, () -> runExecution(sender, label, args));
 		} else {
 			runExecution(sender, label, args);
 		}
@@ -97,9 +95,7 @@ public class BooksawCommand extends BukkitCommand {
 			return false;
 		}
 
-		for (int i = 0; i < args.length; i++) {
-			String str = args[i];
-
+		for (String str : args) {
 			if (!str.startsWith("@")) {
 				continue;
 			}
@@ -111,7 +107,7 @@ public class BooksawCommand extends BukkitCommand {
 						found = true;
 						String[] newArgs = args.clone();
 						for (int j = 0; j < newArgs.length; j++) {
-							if (newArgs[j].equals(args[i])) {
+							if (newArgs[j].equals(str)) {
 								newArgs[j] = e.getName();
 							}
 						}
@@ -129,7 +125,6 @@ public class BooksawCommand extends BukkitCommand {
 
 		// no selector was found
 		return false;
-
 	}
 
 	public SubCommand getSubCommand() {

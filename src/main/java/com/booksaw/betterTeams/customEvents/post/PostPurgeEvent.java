@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * This event is called after a team purge has been completed.
  * This event cannot be cancelled since it occurs after the purge.
- *
+ * <p>
  * To modify or cancel the purge, use {@link PrePurgeEvent}.
  *
  * @author svaningelgem
@@ -24,7 +24,7 @@ public class PostPurgeEvent extends Event {
 	public PostPurgeEvent() {
 		super(true);
 	}
-	
+
 	@Override
 	public @NotNull HandlerList getHandlers() {
 		return HANDLERS;

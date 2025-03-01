@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
  * An event which is called after a player's rank has been increased within their team.
  * This event tracks both the previous and new rank of the affected player.
  * This event cannot be cancelled since it occurs after the promotion.
- *
+ * <p>
  * To modify or cancel the promotion, use {@link PromotePlayerEvent}.
  *
  * @author svaningelgem

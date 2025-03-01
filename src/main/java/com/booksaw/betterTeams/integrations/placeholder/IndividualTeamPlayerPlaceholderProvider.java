@@ -8,7 +8,6 @@ import com.booksaw.betterTeams.TeamPlayer;
 
 /**
  * @author booksaw
- *
  */
 public interface IndividualTeamPlayerPlaceholderProvider {
 

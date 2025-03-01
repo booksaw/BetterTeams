@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.booksaw.betterTeams.commands.teama;
 
@@ -14,25 +14,25 @@ public class NeutralTeama extends SubCommand {
 
 	@Override
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
-		
+
 		Team team1 = Team.getTeam(args[0]);
 		Team team2 = Team.getTeam(args[1]);
-		
-		if(team1 == null || team2 == null) {
+
+		if (team1 == null || team2 == null) {
 			return new CommandResponse("admin.noTeam");
 		}
-		
-		if(team1 == team2) {
+
+		if (team1 == team2) {
 			return new CommandResponse("admin.neutral.same");
 		}
-		
-		if(!team1.isAlly(team2)) {
+
+		if (team1.isNeutral(team2)) {
 			return new CommandResponse("admin.neutral.not");
 		}
-		
+
 		team1.removeAlly(team2);
 		team2.removeAlly(team1);
-		
+
 		return new CommandResponse(true, "admin.neutral.success");
 	}
 
@@ -75,7 +75,6 @@ public class NeutralTeama extends SubCommand {
 			addTeamStringList(options, args[1]);
 		}
 	}
-
 
 
 }

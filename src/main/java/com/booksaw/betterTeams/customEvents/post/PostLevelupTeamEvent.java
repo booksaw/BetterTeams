@@ -3,6 +3,7 @@ package com.booksaw.betterTeams.customEvents.post;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.customEvents.LevelupTeamEvent;
 import com.booksaw.betterTeams.customEvents.TeamEvent;
+import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
@@ -12,11 +13,12 @@ import org.jetbrains.annotations.NotNull;
  * Contains information about the previous and new levels, the cost of the levelup,
  * whether score was used for payment, and the player who initiated the levelup.
  * This event cannot be cancelled since it occurs after the level increase.
- *
+ * <p>
  * To modify or cancel the level up, use {@link LevelupTeamEvent}.
  *
  * @author svaningelgem
  */
+@Getter
 public class PostLevelupTeamEvent extends TeamEvent {
 
 	private static final HandlerList HANDLERS = new HandlerList();
@@ -43,25 +45,4 @@ public class PostLevelupTeamEvent extends TeamEvent {
 	public @NotNull HandlerList getHandlers() {
 		return HANDLERS;
 	}
-
-	public int getCurrentLevel() {
-		return currentLevel;
-	}
-
-	public int getNewLevel() {
-		return newLevel;
-	}
-
-	public int getCost() {
-		return cost;
-	}
-
-	public boolean isScore() {
-		return score;
-	}
-
-	public Player getCommandSender() {
-		return commandSender;
-	}
-
 }

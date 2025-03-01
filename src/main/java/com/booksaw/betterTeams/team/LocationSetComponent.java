@@ -1,16 +1,15 @@
 package com.booksaw.betterTeams.team;
 
+import com.booksaw.betterTeams.Team;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-
-import com.booksaw.betterTeams.Team;
 
 public abstract class LocationSetComponent extends SetTeamComponent<Location> {
 
 	/**
 	 * This method is used to convert a string into a location which can be stored
 	 * for later use
-	 * 
+	 *
 	 * @param loc the string to convert into a location
 	 * @return the location which that string reference
 	 */
@@ -28,7 +27,7 @@ public abstract class LocationSetComponent extends SetTeamComponent<Location> {
 	/**
 	 * This method is used to convert a location into a string which can be stored
 	 * in a configuration file
-	 * 
+	 *
 	 * @param loc the location to convert into a string
 	 * @return the string which references that location
 	 */
@@ -39,7 +38,7 @@ public abstract class LocationSetComponent extends SetTeamComponent<Location> {
 
 	/**
 	 * Normalise the location to the 0,0,0 coords of the current block
-	 * 
+	 *
 	 * @param loc The location to normalise
 	 * @return The normalised location
 	 */
@@ -66,7 +65,7 @@ public abstract class LocationSetComponent extends SetTeamComponent<Location> {
 			}
 		}
 	}
-	
+
 	@Override
 	public boolean contains(Location component) {
 		for (Location loc : getClone()) {

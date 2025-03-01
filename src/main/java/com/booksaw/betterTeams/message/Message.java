@@ -22,8 +22,8 @@ public interface Message {
 	/**
 	 * Used to send a title to a player.
 	 * A 'title' is a big text, centered on the player screen.
-	 *   It fades in and out and is only shortly visible.
-	 *   This message is not logged in the chat. if you need this, use {@link #sendMessage(CommandSender)} instead.
+	 * It fades in and out and is only shortly visible.
+	 * This message is not logged in the chat. if you need this, use {@link #sendMessage(CommandSender)} instead.
 	 *
 	 * @param player the player to send the title to
 	 * @since 4.9.5

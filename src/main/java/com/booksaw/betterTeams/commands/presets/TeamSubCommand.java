@@ -5,10 +5,8 @@ import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.SubCommand;
-
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;
-
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -28,9 +26,9 @@ public abstract class TeamSubCommand extends SubCommand {
 	PlayerRank requiredRank = getDefaultRank();
 
 	private final LoadingCache<CommandSender, Team> teamCache = Caffeine.newBuilder()
-																		.maximumSize(300)
-																		.expireAfterAccess(Duration.ofMinutes(5))
-																		.build(this::getTeam);
+			.maximumSize(300)
+			.expireAfterAccess(Duration.ofMinutes(5))
+			.build(this::getTeam);
 
 	private Team getTeam(CommandSender sender) {
 		if (sender instanceof Player) {
@@ -53,11 +51,11 @@ public abstract class TeamSubCommand extends SubCommand {
 		}
 		TeamPlayer teamPlayer = team.getTeamPlayer(player);
 
-		if(teamPlayer == null) {
+		if (teamPlayer == null) {
 			Bukkit.getLogger().severe("[BetterTeams] For some reason your storage has desynchronised, set `rebuildLookups` to true in config.yml and restart your server");
 			Bukkit.getLogger().severe("[BetterTeams] If this keeps occuring after performing this change, please report it as a bug");
 		}
-		
+
 		if (checkRank) {
 			CommandResponse response = checkRank(teamPlayer);
 			if (response != null) {
