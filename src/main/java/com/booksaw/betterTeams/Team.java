@@ -864,25 +864,25 @@ public class Team {
 		String toTest = getChatSyntax(sender);
 		ChatColor returnTo = getPreviousChatColor(toTest);
 
-		// These are variables which may be modified by TeamPreMessageEvent
+		// These are variables which may be modified by TeamMessageEvent
 		Set<TeamPlayer> recipients = members.getClone();
 		recipients.removeIf(teamPlayer -> !teamPlayer.getPlayer().isOnline()); // Offline players won't be recipients
 		String format = getChatSyntax(sender);
 		String prefix = sender.getPrefix(returnTo);
 
 		// Notify third party plugins that a team message is going to be sent
-		TeamPreMessageEvent teamPreMessageEvent = new TeamPreMessageEvent(this, sender, message, format,
+		TeamMessageEvent teamMessageEvent = new TeamMessageEvent(this, sender, message, format,
 				prefix, recipients);
-		Bukkit.getPluginManager().callEvent(teamPreMessageEvent);
+		Bukkit.getPluginManager().callEvent(teamMessageEvent);
 
 		// Process any updates after the event has been dispatched
-		if (teamPreMessageEvent.isCancelled()) {
+		if (teamMessageEvent.isCancelled()) {
 			return;
 		}
 
-		message = teamPreMessageEvent.getRawMessage();
-		format = teamPreMessageEvent.getFormat();
-		prefix = teamPreMessageEvent.getSenderNamePrefix();
+		message = Objects.requireNonNull(teamMessageEvent.getRawMessage(), "Team message cannot be null");
+		format = Objects.requireNonNull(teamMessageEvent.getFormat(), "Team message format cannot be null");
+		prefix = Objects.requireNonNull(teamMessageEvent.getSenderNamePrefix(), "The prefix cannot be null");
 
 		String fMessage = MessageManager.format(format,
 				prefix + Objects.requireNonNull(sender.getPlayer().getPlayer()).getDisplayName(),
@@ -891,7 +891,7 @@ public class Team {
 		fMessage = fMessage.replace("$name$", prefix + sender.getPlayer().getPlayer().getName());
 		fMessage = fMessage.replace("$message$", message);
 
-		for (TeamPlayer player : teamPreMessageEvent.getRecipients()) {
+		for (TeamPlayer player : teamMessageEvent.getRecipients()) {
 			if (player.getPlayer().isOnline()) {
 				Objects.requireNonNull(player.getPlayer().getPlayer()).sendMessage(fMessage);
 			}
@@ -909,7 +909,7 @@ public class Team {
 		}
 
 		// Notify third party plugins that a message has been dispatched
-		Bukkit.getPluginManager().callEvent(new TeamMessageEvent(this, sender, fMessage, teamPreMessageEvent.getRecipients()));
+		Bukkit.getPluginManager().callEvent(new PostTeamMessageEvent(this, sender, fMessage, teamMessageEvent.getRecipients()));
 	}
 
 	private static @NotNull ChatColor getPreviousChatColor(String toTest) {
@@ -1106,12 +1106,12 @@ public class Team {
 	 * call the event, let the user do stuff.
 	 *
 	 * @param otherTeam the other team
-	 * @return true when the event is cancelled
+	 * @return true when the no status change should be effected
 	 */
 	private boolean callUserEvent(Team otherTeam, RelationType prevStatus, RelationType newStatus) {
 		final RelationChangeTeamEvent event = new RelationChangeTeamEvent(this, otherTeam, prevStatus, newStatus);
 		Bukkit.getPluginManager().callEvent(event);
-		return event.isCancelled();
+		return event.isCancelled() || prevStatus == event.getNewRelation();
 	}
 
 	/**

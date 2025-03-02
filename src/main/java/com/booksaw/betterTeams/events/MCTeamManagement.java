@@ -71,7 +71,7 @@ public class MCTeamManagement implements Listener {
 	 */
 	public void removeAll() {
 		for (Player p : Bukkit.getOnlinePlayers()) {
-			remove(p, false);
+			remove(p);
 		}
 
 		// only loaded teams will have a team manager
@@ -86,21 +86,11 @@ public class MCTeamManagement implements Listener {
 	}
 
 	/**
-	 * Remove a player from an async thread
-	 *
-	 * @param player The player to remove
-	 */
-	public void remove(Player player) {
-		remove(player, true);
-	}
-
-	/**
 	 * Used to remove the prefix / suffix from the specified player
 	 *
 	 * @param player  the player to remove the prefix/suffix from
-	 * @param isAsync if the method is being run async or not
 	 */
-	public void remove(Player player, boolean isAsync) {
+	public void remove(Player player) {
 
 		if (player == null) {
 			return;
@@ -123,7 +113,7 @@ public class MCTeamManagement implements Listener {
 			return;
 		}
 
-		BelowNameChangeEvent event = new BelowNameChangeEvent(player, ChangeType.REMOVE, isAsync);
+		BelowNameChangeEvent event = new BelowNameChangeEvent(player, ChangeType.REMOVE);
 		Bukkit.getPluginManager().callEvent(event);
 	}
 

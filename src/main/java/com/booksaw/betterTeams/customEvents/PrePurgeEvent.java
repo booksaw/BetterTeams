@@ -1,5 +1,7 @@
 package com.booksaw.betterTeams.customEvents;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
@@ -10,6 +12,8 @@ import org.jetbrains.annotations.NotNull;
  *
  * @author booksaw
  */
+@Getter
+@Setter
 public class PrePurgeEvent extends Event implements Cancellable {
 
 	private static final HandlerList HANDLERS = new HandlerList();
@@ -28,15 +32,4 @@ public class PrePurgeEvent extends Event implements Cancellable {
 	public @NotNull HandlerList getHandlers() {
 		return HANDLERS;
 	}
-
-	@Override
-	public boolean isCancelled() {
-		return cancelled;
-	}
-
-	@Override
-	public void setCancelled(boolean b) {
-		cancelled = b;
-	}
-
 }

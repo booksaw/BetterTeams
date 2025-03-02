@@ -24,7 +24,7 @@ public final class PostTeamDepositEvent extends TeamPlayerEvent implements PostT
 	private final double amount;
 
 	public PostTeamDepositEvent(final Team team, final TeamPlayer teamPlayer, final double amount) {
-		super(team, teamPlayer, false);
+		super(team, teamPlayer, true);
 
 		this.amount = amount;
 	}

@@ -9,11 +9,12 @@ import org.jetbrains.annotations.NotNull;
 public class DemotePlayerEvent extends RankChangePlayerEvent {
 
 	public DemotePlayerEvent(Team team, TeamPlayer teamPlayer, PlayerRank currentRank, PlayerRank newRank) {
-		super(team, teamPlayer, currentRank, newRank);
+		super(team, teamPlayer, currentRank, newRank, false);
 	}
 
 	private static final HandlerList HANDLERS = new HandlerList();
 
+	@SuppressWarnings("unused")
 	public static HandlerList getHandlerList() {
 		return HANDLERS;
 	}
