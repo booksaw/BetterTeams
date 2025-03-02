@@ -16,7 +16,7 @@ import java.util.Set;
  * An event which is called after a team message has been sent (notification only).
  */
 @Getter
-public class PostTeamMessageEvent extends TeamPlayerEvent {
+public class PostTeamSendMessageEvent extends TeamPlayerEvent {
 
 	/// The contents of the message which has been sent (with formatting).
 	private final String formattedMessage;
@@ -32,10 +32,10 @@ public class PostTeamMessageEvent extends TeamPlayerEvent {
 	 * @param formattedMessage the message which has been sent (with the included formatting)
 	 * @param recipients       the current recipients of the message
 	 */
-	public PostTeamMessageEvent(@NotNull Team team,
-								@NotNull TeamPlayer sender,
-								@NotNull String formattedMessage,
-								@NotNull Collection<TeamPlayer> recipients) {
+	public PostTeamSendMessageEvent(@NotNull Team team,
+									@NotNull TeamPlayer sender,
+									@NotNull String formattedMessage,
+									@NotNull Collection<TeamPlayer> recipients) {
 		super(team, sender, true);
 
 		this.formattedMessage = formattedMessage;

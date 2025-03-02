@@ -854,6 +854,18 @@ public class Team {
 		return bannedPlayers.contains(player);
 	}
 
+	@Deprecated
+	@Nullable <T> T getFromEvents(final T original, final T new_, final T deprecated, String warning) {
+		T retVal = original;
+		if (new_ != null && !retVal.equals(new_)) {
+			retVal = new_;
+		} else if (deprecated != null && !retVal.equals(deprecated)) {
+			retVal = deprecated;
+		}
+
+		return Objects.requireNonNull(retVal, warning);
+	}
+
 	/**
 	 * Used when a player sends a message to the team chat
 	 *
@@ -864,25 +876,27 @@ public class Team {
 		String toTest = getChatSyntax(sender);
 		ChatColor returnTo = getPreviousChatColor(toTest);
 
-		// These are variables which may be modified by TeamMessageEvent
+		// These are variables which may be modified by TeamSendMessageEvent
 		Set<TeamPlayer> recipients = members.getClone();
 		recipients.removeIf(teamPlayer -> !teamPlayer.getPlayer().isOnline()); // Offline players won't be recipients
 		String format = getChatSyntax(sender);
 		String prefix = sender.getPrefix(returnTo);
 
 		// Notify third party plugins that a team message is going to be sent
-		TeamMessageEvent teamMessageEvent = new TeamMessageEvent(this, sender, message, format,
-				prefix, recipients);
-		Bukkit.getPluginManager().callEvent(teamMessageEvent);
+		TeamSendMessageEvent teamSendMessageEvent = new TeamSendMessageEvent(this, sender, message, format, prefix, recipients);
+		TeamPreMessageEvent deprecatedPreTeamMessageEvent = new TeamPreMessageEvent(this, sender, message, format, prefix, recipients);
+		Bukkit.getPluginManager().callEvent(teamSendMessageEvent);
+		Bukkit.getPluginManager().callEvent(deprecatedPreTeamMessageEvent);
 
 		// Process any updates after the event has been dispatched
-		if (teamMessageEvent.isCancelled()) {
+		if (teamSendMessageEvent.isCancelled() || deprecatedPreTeamMessageEvent.isCancelled()) {
 			return;
 		}
 
-		message = Objects.requireNonNull(teamMessageEvent.getRawMessage(), "Team message cannot be null");
-		format = Objects.requireNonNull(teamMessageEvent.getFormat(), "Team message format cannot be null");
-		prefix = Objects.requireNonNull(teamMessageEvent.getSenderNamePrefix(), "The prefix cannot be null");
+		message = getFromEvents(message, teamSendMessageEvent.getRawMessage(), deprecatedPreTeamMessageEvent.getRawMessage(), "Team message cannot be null");
+		format = getFromEvents(format, teamSendMessageEvent.getFormat(), deprecatedPreTeamMessageEvent.getFormat(), "Team message format cannot be null");
+		prefix = getFromEvents(prefix, teamSendMessageEvent.getSenderNamePrefix(), deprecatedPreTeamMessageEvent.getSenderNamePrefix(), "The prefix cannot be null");
+		recipients = getFromEvents(members.getClone(), teamSendMessageEvent.getRecipients(), deprecatedPreTeamMessageEvent.getRecipients(), "Team message recipients cannot be null");
 
 		String fMessage = MessageManager.format(format,
 				prefix + Objects.requireNonNull(sender.getPlayer().getPlayer()).getDisplayName(),
@@ -891,7 +905,7 @@ public class Team {
 		fMessage = fMessage.replace("$name$", prefix + sender.getPlayer().getPlayer().getName());
 		fMessage = fMessage.replace("$message$", message);
 
-		for (TeamPlayer player : teamMessageEvent.getRecipients()) {
+		for (TeamPlayer player : recipients) {
 			if (player.getPlayer().isOnline()) {
 				Objects.requireNonNull(player.getPlayer().getPlayer()).sendMessage(fMessage);
 			}
@@ -909,7 +923,8 @@ public class Team {
 		}
 
 		// Notify third party plugins that a message has been dispatched
-		Bukkit.getPluginManager().callEvent(new PostTeamMessageEvent(this, sender, fMessage, teamMessageEvent.getRecipients()));
+		Bukkit.getPluginManager().callEvent(new PostTeamSendMessageEvent(this, sender, fMessage, recipients));
+		Bukkit.getPluginManager().callEvent(new TeamMessageEvent(this, sender, fMessage, recipients));
 	}
 
 	private static @NotNull ChatColor getPreviousChatColor(String toTest) {
