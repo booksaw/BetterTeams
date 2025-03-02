@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
  */
 @Getter
 @Setter
-public class PrePurgeEvent extends Event implements Cancellable {
+public class PurgeEvent extends Event implements Cancellable {
 
 	private static final HandlerList HANDLERS = new HandlerList();
 	private boolean cancelled = false;
@@ -24,7 +24,7 @@ public class PrePurgeEvent extends Event implements Cancellable {
 		return HANDLERS;
 	}
 
-	public PrePurgeEvent() {
+	public PurgeEvent() {
 		super(true);
 	}
 

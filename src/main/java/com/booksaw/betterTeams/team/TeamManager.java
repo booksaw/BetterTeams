@@ -4,7 +4,7 @@ import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.customEvents.CreateTeamEvent;
-import com.booksaw.betterTeams.customEvents.PrePurgeEvent;
+import com.booksaw.betterTeams.customEvents.PurgeEvent;
 import com.booksaw.betterTeams.customEvents.post.PostCreateTeamEvent;
 import com.booksaw.betterTeams.customEvents.post.PostPurgeEvent;
 import com.booksaw.betterTeams.events.ChestManagement;
@@ -318,7 +318,7 @@ public abstract class TeamManager {
 	 */
 	public boolean purgeTeams(boolean money, boolean score) {
 		// calling custom bukkit event
-		PrePurgeEvent event = new PrePurgeEvent();
+		PurgeEvent event = new PurgeEvent();
 		Bukkit.getPluginManager().callEvent(event);
 		if (event.isCancelled()) {
 			return false;
