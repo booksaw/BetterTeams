@@ -9,7 +9,6 @@ import com.booksaw.betterTeams.team.MoneyComponent;
 
 /**
  * @author booksaw
- *
  */
 public class MaxMoneyPlaceholderProvider implements IndividualTeamPlaceholderProvider {
 

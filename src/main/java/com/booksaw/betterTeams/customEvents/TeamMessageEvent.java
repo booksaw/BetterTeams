@@ -90,7 +90,9 @@ public class TeamMessageEvent extends TeamPlayerEvent {
 	private static final HandlerList HANDLERS = new HandlerList();
 
 	@SuppressWarnings("unused")
-	public static HandlerList getHandlerList() { return HANDLERS; }
+	public static HandlerList getHandlerList() {
+		return HANDLERS;
+	}
 
 	@NotNull
 	@Override

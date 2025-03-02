@@ -1151,7 +1151,7 @@ public class Team {
 	/**
 	 * Used to add an ally for this team
 	 *
-	 * @param ally 			the UUID of the new ally
+	 * @param ally          the UUID of the new ally
 	 * @param sendPostEvent If you want the post event to be sent. This is useful if you are switching from one relation
 	 *                      to another.
 	 */
@@ -1193,7 +1193,7 @@ public class Team {
 	/**
 	 * Used to become neutral to a team
 	 *
-	 * @param otherTeam 	the team to become neutral to
+	 * @param otherTeam     the team to become neutral to
 	 * @param sendPostEvent If you want the post event to be sent. This is useful if you are switching from one relation
 	 *                      to another.
 	 */

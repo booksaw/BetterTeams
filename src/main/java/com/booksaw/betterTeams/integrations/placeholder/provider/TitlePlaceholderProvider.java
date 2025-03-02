@@ -10,7 +10,6 @@ import com.booksaw.betterTeams.message.MessageManager;
 
 /**
  * @author booksaw
- *
  */
 public class TitlePlaceholderProvider implements IndividualTeamPlayerPlaceholderProvider {
 

@@ -88,7 +88,7 @@ public class MCTeamManagement implements Listener {
 	/**
 	 * Used to remove the prefix / suffix from the specified player
 	 *
-	 * @param player  the player to remove the prefix/suffix from
+	 * @param player the player to remove the prefix/suffix from
 	 */
 	public void remove(Player player) {
 
