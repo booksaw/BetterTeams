@@ -5,6 +5,7 @@ import com.booksaw.betterTeams.commands.SubCommand;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;
 import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
@@ -23,6 +24,8 @@ import java.time.Duration;
 public abstract class TeamSubCommand extends SubCommand {
 
 	protected boolean checkRank = true;
+	@Setter
+	@Getter
 	PlayerRank requiredRank = getDefaultRank();
 
 	private final LoadingCache<CommandSender, Team> teamCache = Caffeine.newBuilder()
@@ -87,19 +90,11 @@ public abstract class TeamSubCommand extends SubCommand {
 	 */
 	public abstract PlayerRank getDefaultRank();
 
-	public PlayerRank getRequiredRank() {
-		return requiredRank;
-	}
-
-	public void setRequiredRank(PlayerRank requiredRank) {
-		this.requiredRank = requiredRank;
-	}
-
 	public CommandResponse checkRank(TeamPlayer player) {
 		return checkRank(player, requiredRank);
 	}
 
-	protected CommandResponse checkRank(TeamPlayer player, PlayerRank rank) {
+	protected CommandResponse checkRank(@NotNull TeamPlayer player, PlayerRank rank) {
 
 		if (player.getRank() != PlayerRank.OWNER && rank != PlayerRank.DEFAULT) {
 			if (rank == PlayerRank.OWNER) {
