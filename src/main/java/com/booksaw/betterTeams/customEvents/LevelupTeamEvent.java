@@ -19,7 +19,7 @@ public class LevelupTeamEvent extends TeamEvent {
 	private final Player commandSender;
 
 	public LevelupTeamEvent(Team team, int currentLevel, int newLevel, int cost, boolean score, Player commandSender) {
-		super(team, false);
+		super(team, true);
 
 		this.currentLevel = currentLevel;
 		this.newLevel = newLevel;

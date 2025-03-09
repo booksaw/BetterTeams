@@ -54,7 +54,7 @@ public class TeamSendMessageEvent extends TeamPlayerEvent {
 								@NotNull String proposedFormat,
 								@NotNull String senderNamePrefix,
 								@NotNull Collection<TeamPlayer> recipients) {
-		super(team, sender, false);
+		super(team, sender, true);
 		this.rawMessage = rawMessage;
 		this.format = proposedFormat;
 		this.senderNamePrefix = senderNamePrefix;
