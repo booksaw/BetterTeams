@@ -5,10 +5,12 @@ import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.customEvents.CreateTeamEvent;
 import com.booksaw.betterTeams.customEvents.PrePurgeEvent;
+import com.booksaw.betterTeams.customEvents.PurgeEvent;
 import com.booksaw.betterTeams.customEvents.post.PostCreateTeamEvent;
 import com.booksaw.betterTeams.customEvents.post.PostPurgeEvent;
 import com.booksaw.betterTeams.events.ChestManagement;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -28,6 +30,12 @@ public abstract class TeamManager {
 	 */
 	protected final HashMap<UUID, Team> loadedTeams;
 
+	/**
+	 * -- GETTER --
+	 *
+	 * @return If chat is being logged to the console
+	 */
+	@Getter
 	private final boolean logChat;
 
 	/**
@@ -305,22 +313,17 @@ public abstract class TeamManager {
 	}
 
 	/**
-	 * @return If chat is being logged to the console
-	 */
-	public boolean isLogChat() {
-		return logChat;
-	}
-
-	/**
 	 * Used to reset all teams scores to 0
 	 *
 	 * @return If the teams were purged or not
 	 */
 	public boolean purgeTeams(boolean money, boolean score) {
 		// calling custom bukkit event
-		PrePurgeEvent event = new PrePurgeEvent();
+		PurgeEvent event = new PurgeEvent();
+		PrePurgeEvent deprecatedEvent = new PrePurgeEvent();
 		Bukkit.getPluginManager().callEvent(event);
-		if (event.isCancelled()) {
+		Bukkit.getPluginManager().callEvent(deprecatedEvent);
+		if (event.isCancelled() || deprecatedEvent.isCancelled()) {
 			return false;
 		}
 

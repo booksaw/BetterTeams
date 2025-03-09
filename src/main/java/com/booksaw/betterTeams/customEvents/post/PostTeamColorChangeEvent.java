@@ -26,6 +26,7 @@ public class PostTeamColorChangeEvent extends TeamEvent {
 									@NotNull ChatColor oldTeamColor,
 									@NotNull ChatColor newTeamColor) {
 		super(team, true);
+
 		this.oldTeamColor = oldTeamColor;
 		this.newTeamColor = newTeamColor;
 	}

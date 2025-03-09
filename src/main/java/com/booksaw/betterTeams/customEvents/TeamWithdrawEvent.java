@@ -2,12 +2,16 @@ package com.booksaw.betterTeams.customEvents;
 
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * An event which is called when a player withdraws money from their {@link com.booksaw.betterTeams.Team}'s balance
  */
+@Getter
+@Setter
 public final class TeamWithdrawEvent extends TeamPlayerEvent implements TeamMoneyEvent {
 	private static final HandlerList HANDLERS = new HandlerList();
 
@@ -26,15 +30,5 @@ public final class TeamWithdrawEvent extends TeamPlayerEvent implements TeamMone
 	@Override
 	public @NotNull HandlerList getHandlers() {
 		return HANDLERS;
-	}
-
-	@Override
-	public double getAmount() {
-		return this.amount;
-	}
-
-	@Override
-	public void setAmount(final double amount) {
-		this.amount = amount;
 	}
 }

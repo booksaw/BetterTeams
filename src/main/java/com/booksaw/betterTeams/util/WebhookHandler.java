@@ -71,7 +71,7 @@ public class WebhookHandler implements Listener {
 	}
 
 	@EventHandler
-	public void onTeamChat(TeamPreMessageEvent e) {
+	public void onTeamChat(TeamSendMessageEvent e) {
 		if (teamChatEvent) {
 			String eSender = e.getPlayer().getName();
 			String message = e.getRawMessage();

@@ -36,6 +36,7 @@ public class PostDisbandTeamEvent extends TeamEvent {
 
 	public PostDisbandTeamEvent(Team team, @Nullable Player player, Set<UUID> previousAllies, Set<TeamPlayer> previousMembers) {
 		super(team, true);
+
 		this.player = player;
 		this.prevAllies = previousAllies;
 		this.prevMembers = previousMembers;

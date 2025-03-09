@@ -1,18 +1,21 @@
 package com.booksaw.betterTeams.customEvents;
 
 import com.booksaw.betterTeams.Team;
+import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@Getter
 public class DisbandTeamEvent extends TeamEvent {
 
 	private static final HandlerList HANDLERS = new HandlerList();
-	private final Player player;
+	private final @Nullable Player player;
 
 	public DisbandTeamEvent(Team team, @Nullable Player player) {
-		super(team);
+		super(team, false);
+
 		this.player = player;
 	}
 
@@ -24,10 +27,4 @@ public class DisbandTeamEvent extends TeamEvent {
 	public @NotNull HandlerList getHandlers() {
 		return HANDLERS;
 	}
-
-	@Nullable
-	public Player getPlayer() {
-		return player;
-	}
-
 }

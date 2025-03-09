@@ -2,8 +2,10 @@ package com.booksaw.betterTeams.customEvents;
 
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
+import lombok.Getter;
 import org.bukkit.OfflinePlayer;
 
+@Getter
 public abstract class TeamPlayerEvent extends TeamEvent {
 
 	protected final TeamPlayer teamPlayer;
@@ -12,15 +14,6 @@ public abstract class TeamPlayerEvent extends TeamEvent {
 		super(team, isAsync);
 
 		this.teamPlayer = teamPlayer;
-
-	}
-
-	public TeamPlayerEvent(final Team team, final TeamPlayer teamPlayer) {
-		this(team, teamPlayer, true);
-	}
-
-	public TeamPlayer getTeamPlayer() {
-		return teamPlayer;
 	}
 
 	public OfflinePlayer getPlayer() {

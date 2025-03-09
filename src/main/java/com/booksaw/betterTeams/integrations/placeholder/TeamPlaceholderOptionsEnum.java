@@ -9,7 +9,6 @@ import com.booksaw.betterTeams.integrations.placeholder.provider.*;
 
 /**
  * @author booksaw
- *
  */
 public enum TeamPlaceholderOptionsEnum {
 	NAME(new NamePlaceholderProvider()), TAG(new TagPlaceholderProvider()),

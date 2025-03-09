@@ -3,6 +3,7 @@ package com.booksaw.betterTeams.customEvents;
 import com.booksaw.betterTeams.RelationType;
 import com.booksaw.betterTeams.Team;
 import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
@@ -11,11 +12,12 @@ import org.jetbrains.annotations.NotNull;
  */
 @SuppressWarnings("unused")
 @Getter
+@Setter
 public class RelationChangeTeamEvent extends TeamEvent {
 
 	final private @NotNull Team otherTeam;
 	final private @NotNull RelationType previousRelation;
-	final private @NotNull RelationType newRelation;
+	private @NotNull RelationType newRelation;
 
 	public RelationChangeTeamEvent(@NotNull Team team,
 								   @NotNull Team otherTeam,
