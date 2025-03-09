@@ -43,10 +43,10 @@ public class NeutralCommand extends TeamSubCommand {
 
 		// if they are allies
 		if (toNeutral.isAlly(team)) {
-			toNeutral.removeAlly(team);
-			team.removeAlly(toNeutral);
+			toNeutral.becomeNeutral(team, false);
+			team.becomeNeutral(toNeutral, true);
 
-			return new CommandResponse(true);
+			return new CommandResponse(true, "neutral.success");
 		}
 
 		return new CommandResponse("neutral.notAlly");

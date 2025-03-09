@@ -1188,21 +1188,22 @@ public class Team {
 	 * Used to remove an ally from this team
 	 *
 	 * @param ally the ally to remove
+	 * @deprecated Use becomeNeutral
 	 */
 	public void removeAlly(UUID ally) {
-		allies.remove(this, ally);
-		saveAllies();
+		becomeNeutral(ally, true);
 	}
 
 	/**
 	 * Used to remove an ally from this team
 	 *
 	 * @param ally the ally to remove
+	 * @deprecated Use becomeNeutral
 	 */
+	@Deprecated
 	public void removeAlly(@Nullable Team ally) {
 		if (ally == null) return;
-
-		removeAlly(ally.getID());
+		becomeNeutral(ally, true);
 	}
 
 	/**

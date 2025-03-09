@@ -24,7 +24,7 @@ public final class PostTeamWithdrawEvent extends TeamPlayerEvent implements Post
 	private final double amount;
 
 	public PostTeamWithdrawEvent(final Team team, final TeamPlayer teamPlayer, final double amount) {
-		super(team, teamPlayer, true);
+		super(team, teamPlayer, false);
 
 		this.amount = amount;
 	}
