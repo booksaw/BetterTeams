@@ -1,6 +1,7 @@
 BetterTeams supports many languages, for a full list look below.
 
-If you select a language that is not English remember they are translations done by the community, this means they may lag behind the English version or have slight inaccuracies, but it will still be better than nothing
+If you select a language that is not English remember they are translations done by the community, this means they may
+lag behind the English version or have slight inaccuracies, but it will still be better than nothing
 
 ## Supported languages
 
@@ -34,9 +35,11 @@ If you select a language that is not English remember they are translations done
 | uk            | Ukrainian           |
 | vi            | Vietnamese          | 
 
-
 ***
 
-
 ## Adding support
-BetterTeams is always looking to expand its supported languages, if you have translated better teams messages into another language and would be interested in sharing them with the world, please [create an issue](https://github.com/booksaw/BetterTeams/issues/new/choose) about it. Any support to any language is greatly appreciated
+
+BetterTeams is always looking to expand its supported languages, if you have translated better teams messages into
+another language and would be interested in sharing them with the world,
+please [create an issue](https://github.com/booksaw/BetterTeams/issues/new/choose) about it. Any support to any language
+is greatly appreciated

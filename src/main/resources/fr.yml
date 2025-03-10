@@ -265,99 +265,99 @@ admin:
   config:
     reload: "&6BetterTeams a été rechargé (Si vous rencontrez des problèmes lors de l'utilisation de cette commande, redémarrez le serveur)"
   holo:
-     create:
-       success: "&6Hologramme créé"
-     remove:
-       noHolo: "&4Aucun hologramme trouvé"
-       success: "&6Hologramme supprimé"
+    create:
+      success: "&6Hologramme créé"
+    remove:
+      noHolo: "&4Aucun hologramme trouvé"
+      success: "&6Hologramme supprimé"
   title:
-     success: "&6Le titre de ce joueur a été modifié"
-     reset: "&6Le titre de ce joueur a été réinitialisé"
+    success: "&6Le titre de ce joueur a été modifié"
+    reset: "&6Le titre de ce joueur a été réinitialisé"
   version: "&6Version actuelle du plugin : &b{0}"
   versionstorage: "&6Méthode de stockage : &b{0}"
   versionversion: "&6Version de Minecraft : &b{0}"
   versionlanguage: "&6Langue sélectionnée : &b{0}"
   noTeam: "&4Ce n'est pas une équipe"
   home:
-     success: "&6Vous avez été téléporté à l'accueil de cette équipe"
-     noHome: "&4Cette équipe n\a pas défini d'accueil"
+    success: "&6Vous avez été téléporté à l'accueil de cette équipe"
+    noHome: "&4Cette équipe n\a pas défini d'accueil"
   name:
-     success: "&6Le nom de l'équipe a été modifié"
+    success: "&6Le nom de l'équipe a été modifié"
   description:
-     success: "&6Le nom de cette équipe a été modifié"
+    success: "&6Le nom de cette équipe a été modifié"
   open:
-     successopen: "&6Cette équipe est maintenant ouverte à tous"
-     successclose: "&6Cette équipe est maintenant sur invitation seulement"
+    successopen: "&6Cette équipe est maintenant ouverte à tous"
+    successclose: "&6Cette équipe est maintenant sur invitation seulement"
   invite:
-     success: "&6Ce joueur a été invité dans cette équipe"
+    success: "&6Ce joueur a été invité dans cette équipe"
   create:
-     success: "&6Cette équipe a été créée"
+    success: "&6Cette équipe a été créée"
   join:
-     banned: "&4Ce joueur est banni de cette équipe"
-     success: "&6Ce joueur a rejoint l'équipe"
-     notify: "&6Vous avez rejoint l'équipe &b{0}"
-     full: "&4Cette équipe est complète"
+    banned: "&4Ce joueur est banni de cette équipe"
+    success: "&6Ce joueur a rejoint l'équipe"
+    notify: "&6Vous avez rejoint l'équipe &b{0}"
+    full: "&4Cette équipe est complète"
   notInTeam: "&6Ce joueur ne peut pas rejoindre une équipe avant cela"
   inTeam: "&4Ce joueur n'appartient pas à une équipe"
   leave:
-     success: "&6Ce joueur a quitté cette équipe"
-     notify: "&6Vous avez quitté cette équipe"
+    success: "&6Ce joueur a quitté cette équipe"
+    notify: "&6Vous avez quitté cette équipe"
   demote:
-     notify: "&6Vous avez été rétrogradé"
-     success: "&6Ce joueur a été rétrogradé"
-     min: "&4Ce joueur ne peut plus être rétrogradé"
-     maxAdmins: "&4Cette équipe a déjà atteint le nombre maximal d'administrateurs, supprimez-en un avant de rétrograder ce joueur"
+    notify: "&6Vous avez été rétrogradé"
+    success: "&6Ce joueur a été rétrogradé"
+    min: "&4Ce joueur ne peut plus être rétrogradé"
+    maxAdmins: "&4Cette équipe a déjà atteint le nombre maximal d'administrateurs, supprimez-en un avant de rétrograder ce joueur"
   promote:
-     max: "&6Ce joueur est déjà au rang maximum"
-     notify: "&6Vous avez été promu"
-     success: "&6Ce joueur a été promu"
-     owner: "&6Il est configuré que les équipes ne peuvent avoir qu'un seul propriétaire, utilisez &b/teama setowner <joueur> &6pour définir le joueur en tant que propriétaire"
-     maxAdmins: "&4Cette équipe a déjà atteint le nombre maximum d'administrateurs, supprimez-en un avant de promouvoir ce joueur"
-     maxOwners: "&4Cette équipe a déjà atteint le nombre maximum de propriétaires, supprimez-en un avant de promouvoir ce joueur"
+    max: "&6Ce joueur est déjà au rang maximum"
+    notify: "&6Vous avez été promu"
+    success: "&6Ce joueur a été promu"
+    owner: "&6Il est configuré que les équipes ne peuvent avoir qu'un seul propriétaire, utilisez &b/teama setowner <joueur> &6pour définir le joueur en tant que propriétaire"
+    maxAdmins: "&4Cette équipe a déjà atteint le nombre maximum d'administrateurs, supprimez-en un avant de promouvoir ce joueur"
+    maxOwners: "&4Cette équipe a déjà atteint le nombre maximum de propriétaires, supprimez-en un avant de promouvoir ce joueur"
   setowner:
-     already: "&4Ce joueur est déjà propriétaire"
-     nonotify: "&6Vous n'êtes plus propriétaire de l'équipe"
-     success: "&6Ce joueur est le nouveau propriétaire de l'équipe"
-     notify: "&6Vous êtes maintenant propriétaire de votre équipe"
+    already: "&4Ce joueur est déjà propriétaire"
+    nonotify: "&6Vous n'êtes plus propriétaire de l'équipe"
+    success: "&6Ce joueur est le nouveau propriétaire de l'équipe"
+    notify: "&6Vous êtes maintenant propriétaire de votre équipe"
   warps:
-     none: "&4Cette équipe n'a défini aucun point de téléportation"
+    none: "&4Cette équipe n'a défini aucun point de téléportation"
   purge:
-     confirm: "&6Exécutez cette commande dans les 10 prochaines secondes pour confirmer, &4CETTE ACTION NE PEUT PAS ÊTRE ANNULÉE ET RÉINITIALISERA LES SCORES DE TOUTES LES ÉQUIPES"
-     success: "&6Les équipes ont été réinitialisées"
+    confirm: "&6Exécutez cette commande dans les 10 prochaines secondes pour confirmer, &4CETTE ACTION NE PEUT PAS ÊTRE ANNULÉE ET RÉINITIALISERA LES SCORES DE TOUTES LES ÉQUIPES"
+    success: "&6Les équipes ont été réinitialisées"
   score:
-     tooSmall: "&4Le score doit être supérieur à 0"
-     success: "&6Le score de cette équipe a été modifié"
+    tooSmall: "&4Le score doit être supérieur à 0"
+    success: "&6Le score de cette équipe a été modifié"
   bal:
-     toSmall: "&4Le solde doit être supérieur à 0"
-     success: "&6Le solde de cette équipe a été modifié"
+    toSmall: "&4Le solde doit être supérieur à 0"
+    success: "&6Le solde de cette équipe a été modifié"
   update: "&4Une nouvelle version de BetterTeams est disponible, mettez à jour ici : https://www.spigotmc.org/resources/better-teams.17129/"
   disband:
-     success: "&6Cette équipe a été dissoute avec succès"
+    success: "&6Cette équipe a été dissoute avec succès"
   color:
-     success: "&6La couleur de cette équipe a été modifiée"
+    success: "&6La couleur de cette équipe a été modifiée"
   chest:
-     claim:
-       success: "&6Vous avez revendiqué ce coffre au nom de l'équipe"
-     remove:
-       success: "&6Vous avez supprimé la revendication de ce coffre avec succès"
-       notClaimed: "&4Aucune équipe n'a revendiqué ce coffre"
-     all:
-       success: "&6Toutes les revendications ont été supprimées pour cette équipe"
-     disable:
-       already: "&4Les revendications de coffre sont déjà désactivées"
-       success: "&6La revendication de coffre a été désactivée"
-     disabled:
-       bc: "&6&lTous les coffres revendiqués peuvent être ouverts"
-     enable:
-       already: "&4Les revendications de coffre sont déjà activées"
-       success: "&6La revendication de coffre a été activée"
-     enabled:
-       bc: "&6&lTous les coffres revendiqués sont verrouillés"
+    claim:
+      success: "&6Vous avez revendiqué ce coffre au nom de l'équipe"
+    remove:
+      success: "&6Vous avez supprimé la revendication de ce coffre avec succès"
+      notClaimed: "&4Aucune équipe n'a revendiqué ce coffre"
+    all:
+      success: "&6Toutes les revendications ont été supprimées pour cette équipe"
+    disable:
+      already: "&4Les revendications de coffre sont déjà désactivées"
+      success: "&6La revendication de coffre a été désactivée"
+    disabled:
+      bc: "&6&lTous les coffres revendiqués peuvent être ouverts"
+    enable:
+      already: "&4Les revendications de coffre sont déjà activées"
+      success: "&6La revendication de coffre a été activée"
+    enabled:
+      bc: "&6&lTous les coffres revendiqués sont verrouillés"
   teleport:
-     success: "&6Tous les membres en ligne de cette équipe ont été téléportés"
-     noWorld: '&4Monde spécifié introuvable'
-     all.success: '&6Tous les membres en ligne de toutes les équipes ont été téléportés'
-     all.home.success: '&6Tous les membres en ligne de toutes les équipes avec une base ont été téléportés'
+    success: "&6Tous les membres en ligne de cette équipe ont été téléportés"
+    noWorld: '&4Monde spécifié introuvable'
+    all.success: '&6Tous les membres en ligne de toutes les équipes ont été téléportés'
+    all.home.success: '&6Tous les membres en ligne de toutes les équipes avec une base ont été téléportés'
 nametag:
   syntax: "&6&l{0}&r "
 holo:
