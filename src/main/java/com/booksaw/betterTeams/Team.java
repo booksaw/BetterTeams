@@ -1,7 +1,10 @@
 package com.booksaw.betterTeams;
 
 import com.booksaw.betterTeams.customEvents.*;
-import com.booksaw.betterTeams.customEvents.post.*;
+import com.booksaw.betterTeams.customEvents.post.PostDemotePlayerEvent;
+import com.booksaw.betterTeams.customEvents.post.PostTeamNameChangeEvent;
+import com.booksaw.betterTeams.customEvents.post.PostTeamSendMessageEvent;
+import com.booksaw.betterTeams.customEvents.post.PostTeamTagChangeEvent;
 import com.booksaw.betterTeams.exceptions.CancelledEventException;
 import com.booksaw.betterTeams.message.Message;
 import com.booksaw.betterTeams.message.MessageManager;
@@ -549,6 +552,7 @@ public class Team {
 		if (event.isCancelled()) {
 			throw new IllegalArgumentException("Recoloring was cancelled by another plugin");
 		}
+
 		color = event.getNewTeamColor();
 
 		final ChatColor oldColor = getColor();
@@ -773,7 +777,7 @@ public class Team {
 			return;
 		}
 
-		promotePlayer.setRank(newRank);
+		promotePlayer.setRank(event.getNewRank());
 		storage.promotePlayer(promotePlayer);
 		savePlayers();
 
@@ -804,7 +808,7 @@ public class Team {
 			return;
 		}
 
-		demotePlayer.setRank(newRank);
+		demotePlayer.setRank(event.getNewRank());
 		storage.demotePlayer(demotePlayer);
 		savePlayers();
 

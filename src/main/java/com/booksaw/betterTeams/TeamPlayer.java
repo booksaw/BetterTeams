@@ -81,6 +81,10 @@ public class TeamPlayer {
 		teamChat = false;
 	}
 
+	public UUID getID() {
+		return playerUUID;
+	}
+
 	/**
 	 * @return The player which is associated with this object
 	 */

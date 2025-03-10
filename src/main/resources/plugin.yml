@@ -5,8 +5,16 @@ description: A plugin to create teams with other players
 main: com.booksaw.betterTeams.Main
 website: https://www.spigotmc.org/resources/better-teams.17129/
 api-version: 1.13
-softdepend: [ PlaceholderAPI, HolographicDisplays, Vault, WorldGuard, UltimateClaims, DecentHolograms ]
-loadbefore: [ zKoth ]
+softdepend:
+  - PlaceholderAPI
+  - HolographicDisplays
+  - Vault
+  - WorldGuard
+  - UltimateClaims
+  - DecentHolograms
+
+loadbefore:
+  - zKoth
 
 permissions:
   betterTeams.standard:
