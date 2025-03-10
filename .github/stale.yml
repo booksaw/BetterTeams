@@ -4,9 +4,9 @@ daysUntilStale: 40
 daysUntilClose: 1000
 
 onlyLabels:
-- question
+  - question
 # Issues with these labels will never be considered stale
-exemptLabels: []
+exemptLabels: [ ]
 
 # Label to use when marking an issue as stale
 staleLabel: inactive

@@ -1,21 +1,27 @@
-Players are awarded score for kills (1 score for 1 kill), they lose score for dying and can be given score through plugin integrations, both direct and indirect. 
+Players are awarded score for kills (1 score for 1 kill), they lose score for dying and can be given score through
+plugin integrations, both direct and indirect.
 
 ## Direct integrations
+
 * [Zkoth](https://github.com/booksaw/BetterTeams/wiki/Dependencies#zkoth)
 
-Check the [dependencies section](https://github.com/booksaw/BetterTeams/wiki/Dependencies) of the wiki for more details. 
+Check the [dependencies section](https://github.com/booksaw/BetterTeams/wiki/Dependencies) of the wiki for more details.
 
 ## Indirect Integrations
 
 Any plugin which lets you run a command can be used to give a team score using the inbuilt admin command set:
+
 * `/teama score <set/add/remove> <player/team>`
 
 ## Configuration
 
 This is where you configure the number of points gained and lost through performing certain actions.
-The spam values are used to stop things like spawn camping which can often be considered bad sportsmanship. They allow score increases to be limited so players cannot be targeted by a team aiming to increase their team score. If spam reduction does not suit your server you can always disable it by setting `spamThreashold` to 0
+The spam values are used to stop things like spawn camping which can often be considered bad sportsmanship. They allow
+score increases to be limited so players cannot be targeted by a team aiming to increase their team score. If spam
+reduction does not suit your server you can always disable it by setting `spamThreashold` to 0
 
 This is an exert of config.yml.
+
 ```
 # All settings depending on the score aspect of this plugin
 # For integrations of other plugins with score see the bottom section of the config
