@@ -33,6 +33,7 @@ import com.booksaw.betterTeams.team.storage.StorageType;
 import com.booksaw.betterTeams.team.storage.convert.Converter;
 import com.booksaw.betterTeams.team.storage.storageManager.YamlStorageManager;
 import com.booksaw.betterTeams.util.WebhookHandler;
+import lombok.Getter;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 import org.bstats.bukkit.Metrics;
@@ -65,8 +66,10 @@ public class Main extends JavaPlugin {
 	public MCTeamManagement teamManagement;
 	public ChatManagement chatManagement;
 	public WorldGuardManagerV7 wgManagement;
+	@Getter
 	private PermissionParentCommand teamCommand;
 
+	@Getter
 	private BooksawCommand teamBooksawCommand;
 
 	private Metrics metrics = null;
@@ -422,13 +425,4 @@ public class Main extends JavaPlugin {
 		Team.setupTeamManager(to);
 		Team.getTeamManager().loadTeams();
 	}
-
-	public BooksawCommand getTeamBooksawCommand() {
-		return teamBooksawCommand;
-	}
-
-	public PermissionParentCommand getTeamCommand() {
-		return teamCommand;
-	}
-
 }

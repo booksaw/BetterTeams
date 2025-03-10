@@ -9,8 +9,8 @@ import com.booksaw.betterTeams.message.ReferencedFormatMessage;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
-import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 public class AllyCommand extends TeamSubCommand {
@@ -63,13 +63,13 @@ public class AllyCommand extends TeamSubCommand {
 
 		// checking if an ally request has been sent
 		if (team.hasRequested(toAlly)) {
-
 			toAlly.addAlly(team, false);
 			team.addAlly(toAlly, true);
 			toAlly.removeAllyRequest(team);
 			team.removeAllyRequest(toAlly);
 			return new CommandResponse(true, "ally.success");
 		}
+
 		// sending an ally request
 		toAlly.addAllyRequest(team);
 
@@ -111,7 +111,7 @@ public class AllyCommand extends TeamSubCommand {
 		if (args.length == 1) {
 			Team myTeam = getMyTeam(sender);
 
-			addTeamStringList(options, args[0], myTeam != null ? Collections.singletonList(myTeam.getID()) : null, null);
+			addTeamStringList(options, args[0], myTeam != null ? Set.of(myTeam.getID()) : null, null);
 		}
 	}
 

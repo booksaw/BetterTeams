@@ -3,6 +3,8 @@ package com.booksaw.betterTeams;
 import com.booksaw.betterTeams.commands.ParentCommand;
 import com.booksaw.betterTeams.commands.SubCommand;
 import com.booksaw.betterTeams.message.MessageManager;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
@@ -20,6 +22,8 @@ import java.util.List;
  *
  * @author booksaw
  */
+@Getter
+@Setter
 public class BooksawCommand extends BukkitCommand {
 	private SubCommand subCommand;
 
@@ -90,7 +94,7 @@ public class BooksawCommand extends BukkitCommand {
 		return options;
 	}
 
-	public boolean checkPointers(CommandSender sender, String label, String[] args) {
+	public boolean checkPointers(@NotNull CommandSender sender, String label, String[] args) {
 		if (!sender.hasPermission("betterteams.admin.selector")) {
 			return false;
 		}
@@ -126,13 +130,4 @@ public class BooksawCommand extends BukkitCommand {
 		// no selector was found
 		return false;
 	}
-
-	public SubCommand getSubCommand() {
-		return subCommand;
-	}
-
-	public void setSubCommand(SubCommand subCommand) {
-		this.subCommand = subCommand;
-	}
-
 }

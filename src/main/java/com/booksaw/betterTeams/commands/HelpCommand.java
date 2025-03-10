@@ -25,7 +25,7 @@ import java.util.logging.Level;
 
 public class HelpCommand extends SubCommand {
 
-	private final int COMMANDS_PER_PAGE = 7;
+	private final static int COMMANDS_PER_PAGE = 7;
 
 	public static ChatColor prefix, description;
 	private static boolean fullyCustom = false;

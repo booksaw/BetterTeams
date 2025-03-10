@@ -30,8 +30,8 @@ public class AllyTeama extends SubCommand {
 			return new CommandResponse("admin.ally.already");
 		}
 
-		team1.addAlly(team2);
-		team2.addAlly(team1);
+		team1.addAlly(team2, false);
+		team2.addAlly(team1, true);
 		team1.removeAllyRequest(team2);
 		team2.removeAllyRequest(team1);
 

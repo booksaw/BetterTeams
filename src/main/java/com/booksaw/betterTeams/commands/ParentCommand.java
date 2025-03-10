@@ -7,6 +7,7 @@ import com.booksaw.betterTeams.cost.CommandCost;
 import com.booksaw.betterTeams.cost.CostManager;
 import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -29,11 +30,13 @@ public class ParentCommand extends SubCommand {
 	/**
 	 * Used to store all applicable sub commands
 	 */
+	@Getter
 	private final HashMap<String, SubCommand> subCommands = new HashMap<>();
 
 	/**
 	 * Used to store what the parent command reference is
 	 */
+	@Getter
 	private final String command;
 
 	private CooldownManager cooldowns = null;
@@ -180,15 +183,6 @@ public class ParentCommand extends SubCommand {
 		System.arraycopy(args, 1, toReturn, 0, toReturn.length);
 		return toReturn;
 
-	}
-
-	public HashMap<String, SubCommand> getSubCommands() {
-		return subCommands;
-	}
-
-	@Override
-	public String getCommand() {
-		return command;
 	}
 
 	@Override

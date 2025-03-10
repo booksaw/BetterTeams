@@ -12,19 +12,21 @@ or [open a blank issue](https://github.com/booksaw/BetterTeams/issues/new/choose
 You can either add this plugin as a build path to your project or add it via maven:
 
 ```xml
-    <repository>
-        <id>jitpack.io</id>
-        <url>https://jitpack.io</url>
-    </repository>
+
+<repository>
+    <id>jitpack.io</id>
+    <url>https://jitpack.io</url>
+</repository>
 ```
 
 ```xml
-    <dependency>
-       <groupId>com.github.booksaw</groupId>
-       <artifactId>BetterTeams</artifactId>
-       <version>VERSION</version>
-       <scope>provided</scope>
-    </dependency>
+
+<dependency>
+    <groupId>com.github.booksaw</groupId>
+    <artifactId>BetterTeams</artifactId>
+    <version>VERSION</version>
+    <scope>provided</scope>
+</dependency>
 ```
 
 ## Adding the dependency

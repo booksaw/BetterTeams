@@ -9,6 +9,7 @@ import com.booksaw.betterTeams.team.LocationSetComponent;
 import com.booksaw.betterTeams.team.TeamManager;
 import com.booksaw.betterTeams.team.storage.team.SQLTeamStorage;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -36,6 +37,7 @@ import static com.booksaw.betterTeams.util.StringUtil.EMPTY_STRING_ARRAY;
 
 public class SQLStorageManager extends TeamManager implements Listener {
 
+	@Getter
 	private BetterTeamsDatabase database;
 
 	protected final FileConfiguration teamStorage;
@@ -334,10 +336,6 @@ public class SQLStorageManager extends TeamManager implements Listener {
 
 		unloadTeam(teamUUID);
 
-	}
-
-	public BetterTeamsDatabase getDatabase() {
-		return database;
 	}
 
 }
