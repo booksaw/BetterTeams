@@ -41,6 +41,8 @@ public abstract class TeamSubCommand extends SubCommand {
 	}
 
 	protected @Nullable Team getMyTeam(CommandSender sender) {
+		if (!(sender instanceof Player)) return null;
+
 		return teamCache.get(sender);
 	}
 
