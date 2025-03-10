@@ -1,6 +1,7 @@
 package com.booksaw.betterTeams;
 
 import com.booksaw.betterTeams.team.LocationSetComponent;
+import lombok.Getter;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -9,6 +10,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
+@Getter
 public class Warp {
 
 	private final Location location;
@@ -57,18 +59,6 @@ public class Warp {
 
 	public boolean isCorrectPassword(String password) {
 		return encrypPassword.equals(hashString(password)) || !Main.plugin.getConfig().getBoolean("allowPassword");
-	}
-
-	public Location getLocation() {
-		return location;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public String getEncrypPassword() {
-		return encrypPassword;
 	}
 
 	@Override
