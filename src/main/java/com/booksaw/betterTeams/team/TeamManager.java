@@ -344,6 +344,7 @@ public abstract class TeamManager {
 	 * @param uuid the UUID to check
 	 * @return If a team exists with that uuid
 	 */
+	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 	public abstract boolean isTeam(UUID uuid);
 
 	/**
