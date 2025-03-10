@@ -62,17 +62,11 @@ public enum StoredTeamValue {
 
 	/**
 	 * Used to store the reference that the value is saved by
-	 * -- GETTER --
-	 *
-	 * @return The saving reference of this value
-
 	 */
 	private final String reference;
 
 	/**
-	 * -- GETTER --
-	 *
-	 * @return The datatype of this variable
+	 * The datatype of this variable
 	 */
 	private final TeamStorageType storageType;
 

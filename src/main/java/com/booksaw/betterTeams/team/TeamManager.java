@@ -31,9 +31,7 @@ public abstract class TeamManager {
 	protected final HashMap<UUID, Team> loadedTeams;
 
 	/**
-	 * -- GETTER --
-	 *
-	 * @return If chat is being logged to the console
+	 * If chat is being logged to the console
 	 */
 	@Getter
 	private final boolean logChat;
