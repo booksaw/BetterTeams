@@ -104,6 +104,12 @@
             <version>1.18.36</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>org.bstats</groupId>
+            <artifactId>bstats-bukkit</artifactId>
+            <version>3.0.2</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
     <build>
         <finalName>BetterTeams-${project.version}</finalName>
@@ -119,6 +125,10 @@
                         <relocation>
                             <pattern>com.github.benmanes.caffeine</pattern>
                             <shadedPattern>booksawshaded.com.github.benmanes.caffeine</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>org.bstats</pattern>
+                            <shadedPattern>booksawshaded.com.org.bstats</shadedPattern>
                         </relocation>
                     </relocations>
                     <filters>

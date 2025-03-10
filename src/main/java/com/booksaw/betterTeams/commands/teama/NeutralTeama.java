@@ -30,8 +30,8 @@ public class NeutralTeama extends SubCommand {
 			return new CommandResponse("admin.neutral.not");
 		}
 
-		team1.removeAlly(team2);
-		team2.removeAlly(team1);
+		team1.becomeNeutral(team2, false);
+		team2.becomeNeutral(team1, true);
 
 		return new CommandResponse(true, "admin.neutral.success");
 	}

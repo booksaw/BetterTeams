@@ -1,26 +1,31 @@
 package com.booksaw.betterTeams.customEvents;
 
-import com.booksaw.betterTeams.Team;
 import lombok.Getter;
-import org.bukkit.entity.Player;
+import lombok.Setter;
+import org.bukkit.event.Cancellable;
+import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+/**
+ * This command is called just before a purge occurs
+ *
+ * @author booksaw
+ */
 @Getter
-public class DisbandTeamEvent extends TeamEvent {
+@Setter
+public class PurgeEvent extends Event implements Cancellable {
 
 	private static final HandlerList HANDLERS = new HandlerList();
-	private final @Nullable Player player;
+	private boolean cancelled = false;
 
-	public DisbandTeamEvent(Team team, @Nullable Player player) {
-		super(team, true);
-
-		this.player = player;
-	}
-
+	@SuppressWarnings("unused")
 	public static HandlerList getHandlerList() {
 		return HANDLERS;
+	}
+
+	public PurgeEvent() {
+		super(true);
 	}
 
 	@Override

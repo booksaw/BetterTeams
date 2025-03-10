@@ -2,6 +2,7 @@ package com.booksaw.betterTeams.message;
 
 import com.booksaw.betterTeams.ConfigManager;
 import com.booksaw.betterTeams.Main;
+import lombok.Getter;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
@@ -10,6 +11,9 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -30,13 +34,16 @@ public class MessageManager {
 	/**
 	 * Used to store all loaded messages
 	 */
+	@Getter
 	private static HashMap<String, String> messages = new HashMap<>();
 
+	@Getter
 	private static ConfigManager defaultMessagesConfigManager;
 
 	/**
 	 * This is the prefix which goes before all messages related to this plugin
 	 */
+	@Getter
 	private static String prefix;
 
 	/**
@@ -64,7 +71,7 @@ public class MessageManager {
 	 *
 	 * @param configManager the configuration manager
 	 */
-	public static void addMessages(ConfigManager configManager) {
+	public static void addMessages(@NotNull ConfigManager configManager) {
 		prefix = ChatColor.translateAlternateColorCodes('&',
 				Objects.requireNonNull(Main.plugin.getConfig().getString("prefixFormat")));
 		defaultMessagesConfigManager = configManager;
@@ -82,7 +89,7 @@ public class MessageManager {
 		addMessages(file, true);
 	}
 
-	private static void addMessages(FileConfiguration file, boolean backup) {
+	private static void addMessages(@NotNull FileConfiguration file, boolean backup) {
 
 		List<String> backupMessages = new ArrayList<>();
 
@@ -182,7 +189,11 @@ public class MessageManager {
 	 * @param replacement the value that the placeholder should be replaced with
 	 */
 
-	public static void sendMessage(CommandSender sender, String reference, Object... replacement) {
+	public static void sendMessage(@Nullable CommandSender sender, String reference, Object... replacement) {
+		if (sender == null) {
+			return;
+		}
+
 		String message = getMessage(sender, reference, replacement);
 		if (message.isEmpty()) {
 			return;
@@ -220,7 +231,7 @@ public class MessageManager {
 		}
 	}
 
-	public static String getMessage(CommandSender sender, String reference, Object... replacement) {
+	public static String getMessage(@Nullable CommandSender sender, String reference, Object... replacement) {
 		try {
 			String msg = getMessage(reference, replacement);
 			if (msg.isEmpty()) {
@@ -248,18 +259,6 @@ public class MessageManager {
 		return formatted;
 	}
 
-	public static HashMap<String, String> getMessages() {
-		return messages;
-	}
-
-	/**
-	 * @return the prefix for all messages Defaults to [BetterTeams] unless it is
-	 * changed by end user
-	 */
-	public static String getPrefix() {
-		return prefix;
-	}
-
 	/**
 	 * Used when you are sending a user a message instead of a message loaded from a
 	 * file
@@ -267,7 +266,7 @@ public class MessageManager {
 	 * @param sender  the player who sent the command
 	 * @param message the message to send to that user
 	 */
-	public static void sendFullMessage(CommandSender sender, String message) {
+	public static void sendFullMessage(@Nullable CommandSender sender, String message) {
 		sendFullMessage(sender, message, true);
 	}
 
@@ -279,7 +278,11 @@ public class MessageManager {
 	 * @param message       The message to send to that user
 	 * @param prefixMessage The prefix for that message
 	 */
-	public static void sendFullMessage(CommandSender sender, String message, boolean prefixMessage) {
+	public static void sendFullMessage(@Nullable CommandSender sender, String message, boolean prefixMessage) {
+		if (sender == null) {
+			return;
+		}
+
 		if (prefixMessage) {
 			sender.sendMessage(prefix + message);
 		} else {
@@ -287,16 +290,13 @@ public class MessageManager {
 		}
 	}
 
-	public static File getFile() {
+	@Contract(value = " -> new", pure = true)
+	public static @NotNull File getFile() {
 		return new File("plugins/BetterTeams/" + lang + ".yml");
 	}
 
 	public static FileConfiguration getDefaultMessages() {
 		return defaultMessagesConfigManager.config;
-	}
-
-	public static ConfigManager getDefaultMessagesConfigManager() {
-		return defaultMessagesConfigManager;
 	}
 
 	/**
@@ -314,16 +314,20 @@ public class MessageManager {
 	 * @param reference   the reference for the message
 	 * @param replacement the value that the placeholder should be replaced with
 	 */
-	public static void sendTitle(Player player, String reference, Object... replacement) {
+	public static void sendTitle(@Nullable Player player, String reference, Object... replacement) {
 		String message = getMessage(player, reference, replacement);
 		sendFullTitle(player, message, false);
 	}
 
-	public static void sendFullTitle(Player player, String message) {
+	public static void sendFullTitle(@Nullable Player player, String message) {
 		sendFullTitle(player, message, true);
 	}
 
-	public static void sendFullTitle(Player player, String message, boolean prefixMessage) {
+	public static void sendFullTitle(@Nullable Player player, String message, boolean prefixMessage) {
+		if (player == null) {
+			return;
+		}
+
 		if (prefixMessage) {
 			message = prefix + message;
 		}

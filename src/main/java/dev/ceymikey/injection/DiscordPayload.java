@@ -19,6 +19,7 @@ import dev.ceymikey.exceptions.FailedEndpointException;
 import dev.ceymikey.exceptions.InjectionFailureException;
 import dev.ceymikey.json.JsonArray;
 import dev.ceymikey.json.JsonObject;
+import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.OutputStream;
@@ -66,11 +67,11 @@ public class DiscordPayload {
 			// Get response code to ensure the request is complete
 			int responseCode = connection.getResponseCode();
 			if (responseCode < 200 || responseCode >= 300) {
-				System.out.println("HTTP Error: " + responseCode);
+				Bukkit.getLogger().severe("Could not send webhook. HTTP Error: " + responseCode);
 			}
 
 		} catch (Exception e) {
-			System.out.println("INJECTION FAILURE! | " + e.getMessage());
+			Bukkit.getLogger().severe("Could not send webhook. INJECTION FAILURE! | " + e.getMessage());
 			e.printStackTrace();
 		} finally {
 			if (connection != null) {

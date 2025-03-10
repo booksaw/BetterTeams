@@ -25,6 +25,7 @@ public class PostTeamTagChangeEvent extends TeamEvent {
 								  @NotNull String oldTag,
 								  @NotNull String newTag) {
 		super(team, true);
+
 		this.oldTag = oldTag;
 		this.newTag = newTag;
 	}

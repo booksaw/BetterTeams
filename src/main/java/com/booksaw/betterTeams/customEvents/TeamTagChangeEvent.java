@@ -1,31 +1,28 @@
 package com.booksaw.betterTeams.customEvents;
 
 import com.booksaw.betterTeams.Team;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * An event which is called right before the tag of a {@link Team} is changed
  */
+@Getter
+@Setter
 public class TeamTagChangeEvent extends TeamEvent {
-	private String newTag;
+	private String newTeamTag;
 
 	public TeamTagChangeEvent(@NotNull Team team,
 							  @NotNull String newTag) {
-		super(team);
-		this.newTag = newTag;
-	}
-
-	public String getNewTeamTag() {
-		return newTag;
-	}
-
-	public void setNewTeamTag(String newTagToSet) {
-		this.newTag = newTagToSet;
+		super(team, true);
+		this.newTeamTag = newTag;
 	}
 
 	private static final HandlerList HANDLERS = new HandlerList();
 
+	@SuppressWarnings("unused")
 	public static HandlerList getHandlerList() {
 		return HANDLERS;
 	}
@@ -35,5 +32,4 @@ public class TeamTagChangeEvent extends TeamEvent {
 	public HandlerList getHandlers() {
 		return HANDLERS;
 	}
-
 }
