@@ -26,7 +26,7 @@ public class DisbandCommand extends TeamSubCommand {
 
 	@Override
 	public CommandResponse onCommand(TeamPlayer teamPlayer, String label, String[] args, Team team) {
-		final UUID playerId = teamPlayer.getID();
+		final UUID playerId = teamPlayer.getPlayerUUID();
 
 		if ((args.length >= 1 && args[0].equals("confirm")) ||
 				(System.currentTimeMillis() - confirmation.getOrDefault(playerId, 0L) < 10000)) {

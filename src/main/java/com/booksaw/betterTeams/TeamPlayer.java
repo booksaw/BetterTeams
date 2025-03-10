@@ -21,6 +21,7 @@ public class TeamPlayer {
 	/**
 	 * this is used to store the player that the object is associated with
 	 */
+	@Getter
 	private final UUID playerUUID;
 
 	/**
@@ -79,10 +80,6 @@ public class TeamPlayer {
 			title = split[2];
 		}
 		teamChat = false;
-	}
-
-	public UUID getID() {
-		return playerUUID;
 	}
 
 	/**
