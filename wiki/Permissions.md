@@ -1,20 +1,30 @@
-Here is a list of permissions, if the permission is default it means that all players are given that permission by default and if you want the user to no longer have access to that feature, you need to remove the permission node.
+Here is a list of permissions, if the permission is default it means that all players are given that permission by
+default and if you want the user to no longer have access to that feature, you need to remove the permission node.
 
 ## Permission Node Explanation
-A permission node can take 3 states: 
+
+A permission node can take 3 states:
+
 - True: The player has this permission no matter what
 - False: The player does not have this permission no matter what
 - Undefined: Which players have the permission node is defined by the individual plugin
 
-In the case that you do not define the permission node, betterteams tells spigot that all players get permissions to do all /team subcommands, this is to save every single server from having to add each individual permission node for every single subcommand to their permissions file (as most servers have all subcommands enabled). but if they want to remove one of the features from betterteams it still can be done in the method described below
+In the case that you do not define the permission node, betterteams tells spigot that all players get permissions to do
+all /team subcommands, this is to save every single server from having to add each individual permission node for every
+single subcommand to their permissions file (as most servers have all subcommands enabled). but if they want to remove
+one of the features from betterteams it still can be done in the method described below
 
 ### Revoking a permission node with LuckPerms
-As shown in the screenshot below, when giving the group / player the permission node, set the value to false. This will result in the player not having access to that permission.
+
+As shown in the screenshot below, when giving the group / player the permission node, set the value to false. This will
+result in the player not having access to that permission.
 ![LuckPerms editor](https://cdn.discordapp.com/attachments/797431152549298206/800815395611213824/unknown.png)
 
 ## List of permissions
-If you are struggling to find the exact permission node you are after, try using CTRL + F and searching for it. For example, to find /team chat search 'team chat'. For searching purposes, admin commands are demoted by 'teama' instead of 'teamadmin' 
 
+If you are struggling to find the exact permission node you are after, try using CTRL + F and searching for it. For
+example, to find /team chat search 'team chat'. For searching purposes, admin commands are demoted by 'teama' instead
+of 'teamadmin'
 
 | Command                   | Permission                        | Description                                                                                                                              | Default? |
 |---------------------------|-----------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|----------|

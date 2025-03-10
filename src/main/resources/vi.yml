@@ -295,7 +295,7 @@ admin:
   name:
     success: '&6Tên nhóm đã được thay đổi'
   description:
-    success: '&6Mô tả của nhóm đó đã được thay đổi' 
+    success: '&6Mô tả của nhóm đó đã được thay đổi'
     successopen: '&6Team đó đã mở cổng cho bất kì ai có thể vào'
     successclose: '&6Team đó đã đóng cổng chỉ được mời mới được vào'
   invite:
