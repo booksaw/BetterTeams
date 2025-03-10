@@ -1,10 +1,7 @@
 package com.booksaw.betterTeams;
 
 import com.booksaw.betterTeams.customEvents.*;
-import com.booksaw.betterTeams.customEvents.post.PostDemotePlayerEvent;
-import com.booksaw.betterTeams.customEvents.post.PostTeamNameChangeEvent;
-import com.booksaw.betterTeams.customEvents.post.PostTeamSendMessageEvent;
-import com.booksaw.betterTeams.customEvents.post.PostTeamTagChangeEvent;
+import com.booksaw.betterTeams.customEvents.post.*;
 import com.booksaw.betterTeams.exceptions.CancelledEventException;
 import com.booksaw.betterTeams.message.Message;
 import com.booksaw.betterTeams.message.MessageManager;
