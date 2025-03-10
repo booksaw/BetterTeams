@@ -63,13 +63,13 @@ public class AllyCommand extends TeamSubCommand {
 
 		// checking if an ally request has been sent
 		if (team.hasRequested(toAlly)) {
-
 			toAlly.addAlly(team, false);
 			team.addAlly(toAlly, true);
 			toAlly.removeAllyRequest(team);
 			team.removeAllyRequest(toAlly);
 			return new CommandResponse(true, "ally.success");
 		}
+
 		// sending an ally request
 		toAlly.addAllyRequest(team);
 
