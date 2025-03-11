@@ -74,7 +74,7 @@ public abstract class TeamPlayerSetComponent extends SetTeamComponent<TeamPlayer
 	 *
 	 * @param message The message to send to all online players
 	 */
-	public void broadcastMessage(Message message) {
+	public void broadcastMessage(@NotNull Message message) {
 		getOnlinePlayers().forEach(message::sendMessage);
 	}
 
@@ -83,7 +83,7 @@ public abstract class TeamPlayerSetComponent extends SetTeamComponent<TeamPlayer
 	 *
 	 * @param message The message to send to all online players
 	 */
-	public void broadcastTitle(Message message) {
+	public void broadcastTitle(@NotNull Message message) {
 		getOnlinePlayers().forEach(message::sendTitle);
 	}
 
@@ -93,12 +93,12 @@ public abstract class TeamPlayerSetComponent extends SetTeamComponent<TeamPlayer
 	}
 
 	@Override
-	public String toString(TeamPlayer component) {
+	public String toString(@NotNull TeamPlayer component) {
 		return component.toString();
 	}
 
 	@Override
-	public boolean contains(TeamPlayer component) {
+	public boolean contains(@NotNull TeamPlayer component) {
 		return contains(component.getPlayer());
 	}
 
@@ -112,21 +112,21 @@ public abstract class TeamPlayerSetComponent extends SetTeamComponent<TeamPlayer
 		return getTeamPlayer(player) != null;
 	}
 
+	private String getPlayersString(@NotNull List<? extends OfflinePlayer> players) {
+		return players.stream().map(p -> p.getName()).collect(Collectors.joining(", "));
+	}
+
 	/**
 	 * @return A comma-separated string of all online player names
 	 */
 	public String getOnlinePlayersString() {
-		return getOnlinePlayers().stream()
-				.map(Player::getName)
-				.collect(Collectors.joining(", "));
+		return getPlayersString(getOnlinePlayers());
 	}
 
 	/**
 	 * @return A comma-separated string of all offline player names
 	 */
 	public String getOfflinePlayersString() {
-		return getOfflinePlayers().stream()
-				.map(OfflinePlayer::getName)
-				.collect(Collectors.joining(", "));
+		return getPlayersString(getOfflinePlayers());
 	}
 }

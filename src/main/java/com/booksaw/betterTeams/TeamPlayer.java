@@ -21,6 +21,7 @@ public class TeamPlayer {
 	/**
 	 * this is used to store the player that the object is associated with
 	 */
+	@Getter
 	private final UUID playerUUID;
 
 	/**

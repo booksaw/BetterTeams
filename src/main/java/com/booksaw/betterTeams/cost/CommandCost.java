@@ -2,10 +2,12 @@ package com.booksaw.betterTeams.cost;
 
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
+import lombok.Getter;
 import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+@Getter
 public class CommandCost {
 
 	private final double cost;
@@ -56,14 +58,6 @@ public class CommandCost {
 
 		EconomyResponse response = Main.econ.withdrawPlayer(player, cost);
 		return response.transactionSuccess();
-	}
-
-	public String getCommand() {
-		return command;
-	}
-
-	public double getCost() {
-		return cost;
 	}
 
 	/**

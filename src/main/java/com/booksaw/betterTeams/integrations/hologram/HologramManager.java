@@ -3,6 +3,8 @@ package com.booksaw.betterTeams.integrations.hologram;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.message.MessageManager;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.scheduler.BukkitScheduler;
@@ -168,18 +170,12 @@ public abstract class HologramManager {
 		holos.remove(toRemove);
 	}
 
+	@Getter
+	@RequiredArgsConstructor
 	public enum HologramType {
 		MONEY("holo.msyntax"), SCORE("holo.syntax");
 
 		private final String syntaxReference;
-
-		HologramType(String syntaxReference) {
-			this.syntaxReference = syntaxReference;
-		}
-
-		public String getSyntaxReference() {
-			return syntaxReference;
-		}
 	}
 
 	public interface LocalHologram {

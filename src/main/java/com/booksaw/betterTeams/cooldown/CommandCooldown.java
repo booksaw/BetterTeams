@@ -1,5 +1,6 @@
 package com.booksaw.betterTeams.cooldown;
 
+import lombok.Getter;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -8,7 +9,9 @@ public class CommandCooldown {
 
 	final HashMap<Player, Long> nextTime;
 
+	@Getter
 	private final int cooldown;
+	@Getter
 	private final String command;
 
 	/**
@@ -62,13 +65,4 @@ public class CommandCooldown {
 
 		return (int) ((end - System.currentTimeMillis()) / 1000);
 	}
-
-	public int getCooldown() {
-		return cooldown;
-	}
-
-	public String getCommand() {
-		return command;
-	}
-
 }
