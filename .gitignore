@@ -88,3 +88,4 @@ nb-configuration.xml
 *.log
 
 server/
+dependency-reduced-pom.xml
