@@ -1,5 +1,7 @@
 package com.booksaw.betterTeams.database;
 
+import com.booksaw.betterTeams.Main;
+
 public enum TableName {
 	TEAM("Team"), PLAYERS("Players"), ALLYREQUESTS("AllyRequests"), WARPS("warps"), CHESTCLAIMS("ChestClaims"),
 	BANS("Bans"), ALLIES("Allies");
@@ -12,7 +14,7 @@ public enum TableName {
 
 	@Override
 	public String toString() {
-		return "BetterTeams_" + tableName;
+		return Main.plugin.getConfig().getString("database.tablePrefix") + tableName;
 	}
 
 }

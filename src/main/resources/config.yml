@@ -58,6 +58,7 @@ database:
   database: spigot
   user: root
   password: password
+  tablePrefix: BetterTeams_
 
 # This is the value to determine if the chat prefix is enabled
 # - If this is enabled (true / name) a prefix [TeamName] will be displayed at the begining of chat messages.
