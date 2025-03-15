@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 /**
  * This class is used to set the placeholder values for placeholder API
@@ -22,10 +22,9 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 	private final Plugin plugin;
 
 	private final Cache<String, String> placeholderCache = new Cache.Builder<String, String>()
-		.maximumSize(300)
-		.expireAfterWrite(5, TimeUnit.MINUTES)
-		.loader(this::getStaticPlaceholder)
-		.build();
+			.maximumSize(300)
+			.expireAfterWrite(Duration.ofMinutes(5))
+			.build(this::getStaticPlaceholder);
 
 	public TeamPlaceholders(Plugin plugin) {
 		this.plugin = plugin;

@@ -1,26 +1,34 @@
 package util;
 
 import com.booksaw.betterTeams.util.Cache;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CacheTest {
+	AtomicInteger loaderCallCount;
+
+	@BeforeEach
+	void setUp() {
+		loaderCallCount = new AtomicInteger(0);
+	}
+
+	private @Nullable String increment(@NotNull Object key) {
+		loaderCallCount.incrementAndGet();
+		return key.equals("nullKey") ? null : "value-" + key;
+	}
 
 	@Test
 	public void testBasicCacheOperations() {
-		AtomicInteger loaderCallCount = new AtomicInteger(0);
-
 		Cache<String, String> cache = new Cache.Builder<String, String>()
-			.loader(key -> {
-				loaderCallCount.incrementAndGet();
-				return "value-" + key;
-			})
-			.maximumSize(100)
-			.build();
+				.maximumSize(100)
+				.build(this::increment);
 
 		// First call should invoke loader
 		assertThat(cache.get("key1")).isEqualTo("value-key1");
@@ -37,15 +45,9 @@ public class CacheTest {
 
 	@Test
 	public void testExpireAfterWrite() throws InterruptedException {
-		AtomicInteger loaderCallCount = new AtomicInteger(0);
-
 		Cache<String, String> cache = new Cache.Builder<String, String>()
-			.loader(key -> {
-				loaderCallCount.incrementAndGet();
-				return "value-" + key;
-			})
-			.expireAfterWrite(100, TimeUnit.MILLISECONDS)
-			.build();
+				.expireAfterWrite(Duration.ofMillis(100))
+				.build(this::increment);
 
 		// First call should invoke loader
 		assertThat(cache.get("key1")).isEqualTo("value-key1");
@@ -65,15 +67,10 @@ public class CacheTest {
 
 	@Test
 	public void testExpireAfterAccess() throws InterruptedException {
-		AtomicInteger loaderCallCount = new AtomicInteger(0);
-
 		Cache<String, String> cache = new Cache.Builder<String, String>()
-			.loader(key -> {
-				loaderCallCount.incrementAndGet();
-				return "value-" + key;
-			})
-			.expireAfterAccess(100, TimeUnit.MILLISECONDS)
-			.build();
+				.expireAfterAccess(Duration.ofMillis(100))
+				.build(this::increment);
+
 
 		// First call should invoke loader
 		assertThat(cache.get("key1")).isEqualTo("value-key1");
@@ -103,15 +100,10 @@ public class CacheTest {
 
 	@Test
 	public void testMaximumSize() {
-		AtomicInteger loaderCallCount = new AtomicInteger(0);
-
 		Cache<Integer, String> cache = new Cache.Builder<Integer, String>()
-			.loader(key -> {
-				loaderCallCount.incrementAndGet();
-				return "value-" + key;
-			})
-			.maximumSize(2)
-			.build();
+				.maximumSize(2)
+				.build(this::increment);
+
 
 		// Fill the cache
 		assertThat(cache.get(1)).isEqualTo("value-1");
@@ -138,14 +130,8 @@ public class CacheTest {
 
 	@Test
 	public void testInvalidate() {
-		AtomicInteger loaderCallCount = new AtomicInteger(0);
-
 		Cache<String, String> cache = new Cache.Builder<String, String>()
-			.loader(key -> {
-				loaderCallCount.incrementAndGet();
-				return "value-" + key;
-			})
-			.build();
+				.build(this::increment);
 
 		// Add entries
 		assertThat(cache.get("key1")).isEqualTo("value-key1");
@@ -166,14 +152,9 @@ public class CacheTest {
 
 	@Test
 	public void testInvalidateAll() {
-		AtomicInteger loaderCallCount = new AtomicInteger(0);
-
 		Cache<String, String> cache = new Cache.Builder<String, String>()
-			.loader(key -> {
-				loaderCallCount.incrementAndGet();
-				return "value-" + key;
-			})
-			.build();
+				.build(this::increment);
+
 
 		// Add entries
 		assertThat(cache.get("key1")).isEqualTo("value-key1");
@@ -192,20 +173,17 @@ public class CacheTest {
 
 	@Test
 	public void testConcurrentAccess() throws InterruptedException {
-		AtomicInteger loaderCallCount = new AtomicInteger(0);
-
 		Cache<String, String> cache = new Cache.Builder<String, String>()
-			.loader(key -> {
-				// Add some delay to increase chance of concurrent issues
-				try {
-					Thread.sleep(10);
-				} catch (InterruptedException e) {
-					// Ignore
-				}
-				loaderCallCount.incrementAndGet();
-				return "value-" + key;
-			})
-			.build();
+				.build(key -> {
+					// Add some delay to increase chance of concurrent issues
+					try {
+						Thread.sleep(10);
+					} catch (InterruptedException e) {
+						// Ignore
+					}
+					loaderCallCount.incrementAndGet();
+					return "value-" + key;
+				});
 
 		// Create multiple threads that access the same key
 		int threadCount = 10;
@@ -233,16 +211,11 @@ public class CacheTest {
 
 	@Test
 	public void testBothExpirationStrategies() throws InterruptedException {
-		AtomicInteger loaderCallCount = new AtomicInteger(0);
-
 		Cache<String, String> cache = new Cache.Builder<String, String>()
-			.loader(key -> {
-				loaderCallCount.incrementAndGet();
-				return "value-" + key;
-			})
-			.expireAfterWrite(200, TimeUnit.MILLISECONDS)
-			.expireAfterAccess(100, TimeUnit.MILLISECONDS)
-			.build();
+				.expireAfterWrite(Duration.ofMillis(200))
+				.expireAfterAccess(Duration.ofMillis(100))
+				.build(this::increment);
+
 
 		// First call should invoke loader
 		assertThat(cache.get("key1")).isEqualTo("value-key1");
@@ -281,14 +254,10 @@ public class CacheTest {
 
 	@Test
 	public void testNullValues() {
-		AtomicInteger loaderCallCount = new AtomicInteger(0);
-
 		Cache<String, String> cache = new Cache.Builder<String, String>()
-			.loader(key -> {
-				loaderCallCount.incrementAndGet();
-				return key.equals("nullKey") ? null : key;
-			})
-			.build();
+
+				.build(this::increment);
+
 
 		// Test null value
 		assertThat(cache.get("nullKey")).isNull();
@@ -299,9 +268,9 @@ public class CacheTest {
 		assertThat(loaderCallCount.get()).isEqualTo(2);
 
 		// Non-null value should be cached
-		assertThat(cache.get("key1")).isEqualTo("key1");
+		assertThat(cache.get("key1")).isEqualTo("value-key1");
 		assertThat(loaderCallCount.get()).isEqualTo(3);
-		assertThat(cache.get("key1")).isEqualTo("key1");
+		assertThat(cache.get("key1")).isEqualTo("value-key1");
 		assertThat(loaderCallCount.get()).isEqualTo(3);
 	}
 }

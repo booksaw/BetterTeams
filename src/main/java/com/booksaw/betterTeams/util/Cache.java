@@ -3,10 +3,10 @@ package com.booksaw.betterTeams.util;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
+import java.time.Duration;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 /**
@@ -29,7 +29,7 @@ public class Cache<K, V> {
 		this.maximumSize = builder.maximumSize;
 
 		this.cache = Collections.synchronizedMap(new LinkedHashMap<K, CachedValue<V>>(
-			builder.initialCapacity, 0.75f, true) {
+				builder.initialCapacity, 0.75f, true) {
 			@Override
 			protected boolean removeEldestEntry(Map.Entry<K, CachedValue<V>> eldest) {
 				return size() > maximumSize;
@@ -92,26 +92,18 @@ public class Cache<K, V> {
 		private int initialCapacity = 16;
 
 		/**
-		 * Sets the function used to load values that are not in the cache.
-		 */
-		public Builder<K, V> loader(Function<K, V> loader) {
-			this.loader = loader;
-			return this;
-		}
-
-		/**
 		 * Sets the expiration time after writing an entry.
 		 */
-		public Builder<K, V> expireAfterWrite(long duration, @NotNull TimeUnit unit) {
-			this.expireAfterWriteMillis = unit.toMillis(duration);
+		public Builder<K, V> expireAfterWrite(@NotNull Duration duration) {
+			this.expireAfterWriteMillis = duration.toMillis();
 			return this;
 		}
 
 		/**
 		 * Sets the expiration time after accessing an entry.
 		 */
-		public Builder<K, V> expireAfterAccess(long duration, @NotNull TimeUnit unit) {
-			this.expireAfterAccessMillis = unit.toMillis(duration);
+		public Builder<K, V> expireAfterAccess(@NotNull Duration duration) {
+			this.expireAfterAccessMillis = duration.toMillis();
 			return this;
 		}
 
@@ -134,7 +126,8 @@ public class Cache<K, V> {
 		/**
 		 * Builds a new Cache instance.
 		 */
-		public Cache<K, V> build() {
+		public Cache<K, V> build(Function<K, V> loader) {
+			this.loader = loader;
 			if (loader == null) {
 				throw new IllegalStateException("Loader function must be set");
 			}
@@ -146,7 +139,8 @@ public class Cache<K, V> {
 	 * A value in the cache with expiration metadata.
 	 */
 	private static class CachedValue<V> {
-		@Getter private final V value;
+		@Getter
+		private final V value;
 		private final long creationTime;
 		private long accessTime;
 

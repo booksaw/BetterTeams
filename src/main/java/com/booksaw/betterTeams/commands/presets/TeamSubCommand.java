@@ -2,11 +2,9 @@ package com.booksaw.betterTeams.commands.presets;
 
 import com.booksaw.betterTeams.*;
 import com.booksaw.betterTeams.commands.SubCommand;
-import com.github.benmanes.caffeine.cache.Caffeine;
-import com.github.benmanes.caffeine.cache.LoadingCache;
+import com.booksaw.betterTeams.util.Cache;
 import lombok.Getter;
 import lombok.Setter;
-import com.booksaw.betterTeams.util.Cache;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
@@ -14,7 +12,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 /**
  * This class can be extended for any sub commands which require players to be
@@ -30,10 +28,9 @@ public abstract class TeamSubCommand extends SubCommand {
 	PlayerRank requiredRank = getDefaultRank();
 
 	private final Cache<CommandSender, Team> teamCache = new Cache.Builder<CommandSender, Team>()
-		.maximumSize(300)
-		.expireAfterAccess(5, TimeUnit.MINUTES)
-		.loader(this::getTeam)
-		.build();
+			.maximumSize(300)
+			.expireAfterAccess(Duration.ofMinutes(5))
+			.build(this::getTeam);
 
 	private Team getTeam(CommandSender sender) {
 		if (sender instanceof Player) {
