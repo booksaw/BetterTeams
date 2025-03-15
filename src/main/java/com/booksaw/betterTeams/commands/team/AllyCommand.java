@@ -6,11 +6,11 @@ import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
+import com.google.common.collect.ImmutableSet;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 public class AllyCommand extends TeamSubCommand {
@@ -111,7 +111,7 @@ public class AllyCommand extends TeamSubCommand {
 		if (args.length == 1) {
 			Team myTeam = getMyTeam(sender);
 
-			addTeamStringList(options, args[0], myTeam != null ? Set.of(myTeam.getID()) : null, null);
+			addTeamStringList(options, args[0], myTeam != null ? ImmutableSet.of(myTeam.getID()) : null, null);
 		}
 	}
 

@@ -2,8 +2,7 @@ package com.booksaw.betterTeams.commands.presets;
 
 import com.booksaw.betterTeams.*;
 import com.booksaw.betterTeams.commands.SubCommand;
-import com.github.benmanes.caffeine.cache.Caffeine;
-import com.github.benmanes.caffeine.cache.LoadingCache;
+import com.booksaw.betterTeams.util.Cache;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
@@ -28,7 +27,7 @@ public abstract class TeamSubCommand extends SubCommand {
 	@Getter
 	PlayerRank requiredRank = getDefaultRank();
 
-	private final LoadingCache<CommandSender, Team> teamCache = Caffeine.newBuilder()
+	private final Cache<CommandSender, Team> teamCache = new Cache.Builder<CommandSender, Team>()
 			.maximumSize(300)
 			.expireAfterAccess(Duration.ofMinutes(5))
 			.build(this::getTeam);
