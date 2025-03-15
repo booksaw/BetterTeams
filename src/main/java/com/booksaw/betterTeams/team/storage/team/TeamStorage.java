@@ -15,9 +15,8 @@ import java.util.UUID;
  * <b>NOTE TO SUBCLASSES: Ensure you save any changes if they are not saved
  * automatically</b>
  * </p>
- * 
- * @author booksaw
  *
+ * @author booksaw
  */
 public abstract class TeamStorage {
 
@@ -29,7 +28,7 @@ public abstract class TeamStorage {
 
 	/**
 	 * Used to store the given information at the given location
-	 * 
+	 *
 	 * @param location The location to store the information
 	 * @param value    The value to store
 	 */
@@ -45,7 +44,7 @@ public abstract class TeamStorage {
 	 * <p>
 	 * This will assume the value type is a string
 	 * </p>
-	 * 
+	 *
 	 * @param location The location to store the information
 	 * @param value    the value to store
 	 */
@@ -55,7 +54,7 @@ public abstract class TeamStorage {
 
 	/**
 	 * Used to store the given information at the given location
-	 * 
+	 *
 	 * @param location    The location to store the information
 	 * @param storageType The storage type of the information
 	 * @param value       The value to store
@@ -80,7 +79,7 @@ public abstract class TeamStorage {
 
 	/**
 	 * Used to set a value after checks have been made
-	 * 
+	 *
 	 * @param location    the location to store the value
 	 * @param storageType The type of value that is being stored
 	 * @param value       The value to store

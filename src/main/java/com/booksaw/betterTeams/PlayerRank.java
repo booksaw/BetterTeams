@@ -34,14 +34,14 @@ public enum PlayerRank {
 	public static PlayerRank getRank(String string) {
 
 		switch (string.toUpperCase()) {
-		case "DEFAULT":
-			return DEFAULT;
-		case "OWNER":
-			return OWNER;
-		case "ADMIN":
-			return ADMIN;
-		default:
-			return null;
+			case "DEFAULT":
+				return DEFAULT;
+			case "OWNER":
+				return OWNER;
+			case "ADMIN":
+				return ADMIN;
+			default:
+				return null;
 		}
 
 	}

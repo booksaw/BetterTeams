@@ -10,6 +10,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 public class AllyCommand extends TeamSubCommand {
@@ -19,7 +20,7 @@ public class AllyCommand extends TeamSubCommand {
 
 		if (args.length == 0) {
 			StringBuilder requests = new StringBuilder();
-			for (UUID uuid : team.getRequests()) {
+			for (UUID uuid : team.getAllyRequests()) {
 
 				Team uuidteam = Team.getTeam(uuid);
 				if (uuidteam == null) {
@@ -62,13 +63,13 @@ public class AllyCommand extends TeamSubCommand {
 
 		// checking if an ally request has been sent
 		if (team.hasRequested(toAlly)) {
-
-			toAlly.addAlly(team);
-			team.addAlly(toAlly);
+			toAlly.addAlly(team, false);
+			team.addAlly(toAlly, true);
 			toAlly.removeAllyRequest(team);
 			team.removeAllyRequest(toAlly);
 			return new CommandResponse(true, "ally.success");
 		}
+
 		// sending an ally request
 		toAlly.addAllyRequest(team);
 
@@ -108,7 +109,9 @@ public class AllyCommand extends TeamSubCommand {
 	@Override
 	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
 		if (args.length == 1) {
-			addTeamStringList(options, args[0]);
+			Team myTeam = getMyTeam(sender);
+
+			addTeamStringList(options, args[0], myTeam != null ? Set.of(myTeam.getID()) : null, null);
 		}
 	}
 

@@ -1,14 +1,17 @@
 package com.booksaw.betterTeams.commands.presets;
 
-import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.PlayerRank;
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.TeamPlayer;
+import com.booksaw.betterTeams.*;
 import com.booksaw.betterTeams.commands.SubCommand;
+import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.benmanes.caffeine.cache.LoadingCache;
+import lombok.Getter;
+import lombok.Setter;
 import com.booksaw.betterTeams.util.Cache;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.TimeUnit;
@@ -22,6 +25,8 @@ import java.util.concurrent.TimeUnit;
 public abstract class TeamSubCommand extends SubCommand {
 
 	protected boolean checkRank = true;
+	@Setter
+	@Getter
 	PlayerRank requiredRank = getDefaultRank();
 
 	private final Cache<CommandSender, Team> teamCache = new Cache.Builder<CommandSender, Team>()
@@ -38,6 +43,8 @@ public abstract class TeamSubCommand extends SubCommand {
 	}
 
 	protected @Nullable Team getMyTeam(CommandSender sender) {
+		if (!(sender instanceof Player)) return null;
+
 		return teamCache.get(sender);
 	}
 
@@ -51,11 +58,11 @@ public abstract class TeamSubCommand extends SubCommand {
 		}
 		TeamPlayer teamPlayer = team.getTeamPlayer(player);
 
-		if(teamPlayer == null) {
+		if (teamPlayer == null) {
 			Bukkit.getLogger().severe("[BetterTeams] For some reason your storage has desynchronised, set `rebuildLookups` to true in config.yml and restart your server");
 			Bukkit.getLogger().severe("[BetterTeams] If this keeps occuring after performing this change, please report it as a bug");
 		}
-		
+
 		if (checkRank) {
 			CommandResponse response = checkRank(teamPlayer);
 			if (response != null) {
@@ -87,19 +94,11 @@ public abstract class TeamSubCommand extends SubCommand {
 	 */
 	public abstract PlayerRank getDefaultRank();
 
-	public PlayerRank getRequiredRank() {
-		return requiredRank;
-	}
-
-	public void setRequiredRank(PlayerRank requiredRank) {
-		this.requiredRank = requiredRank;
-	}
-
 	public CommandResponse checkRank(TeamPlayer player) {
 		return checkRank(player, requiredRank);
 	}
 
-	protected CommandResponse checkRank(TeamPlayer player, PlayerRank rank) {
+	protected CommandResponse checkRank(@NotNull TeamPlayer player, PlayerRank rank) {
 
 		if (player.getRank() != PlayerRank.OWNER && rank != PlayerRank.DEFAULT) {
 			if (rank == PlayerRank.OWNER) {
@@ -114,4 +113,38 @@ public abstract class TeamSubCommand extends SubCommand {
 		return null;
 	}
 
+	@Getter
+	protected static class TeamPlayerResult {
+		private final @Nullable CommandResponse cr;
+		private final @Nullable TeamPlayer player;
+
+		TeamPlayerResult(@NotNull String cr) {
+			this.cr = new CommandResponse(cr);
+			this.player = null;
+		}
+
+		TeamPlayerResult(@Nullable TeamPlayer player) {
+			this.cr = null;
+			this.player = player;
+		}
+
+		public boolean isCR() {
+			return cr != null;
+		}
+	}
+
+	protected TeamPlayerResult getTeamPlayer(final Team team, final String name) {
+		OfflinePlayer player = Utils.getOfflinePlayer(name);
+
+		if (player == null) {
+			return new TeamPlayerResult("noPlayer");
+		}
+
+		Team otherTeam = Team.getTeam(player);
+		if (team != otherTeam) {
+			return new TeamPlayerResult("needSameTeam");
+		}
+
+		return new TeamPlayerResult(team.getTeamPlayer(player));
+	}
 }

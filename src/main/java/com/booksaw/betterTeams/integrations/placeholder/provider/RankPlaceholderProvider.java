@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.booksaw.betterTeams.integrations.placeholder.provider;
 
@@ -10,7 +10,6 @@ import com.booksaw.betterTeams.message.MessageManager;
 
 /**
  * @author booksaw
- *
  */
 public class RankPlaceholderProvider implements IndividualTeamPlayerPlaceholderProvider {
 
@@ -18,12 +17,12 @@ public class RankPlaceholderProvider implements IndividualTeamPlayerPlaceholderP
 	public String getPlaceholderForTeamPlayer(Team team, TeamPlayer player) {
 
 		switch (player.getRank()) {
-		case ADMIN:
-			return MessageManager.getMessage("placeholder.admin");
-		case OWNER:
-			return MessageManager.getMessage("placeholder.owner");
-		default:
-			return MessageManager.getMessage("placeholder.default");
+			case ADMIN:
+				return MessageManager.getMessage("placeholder.admin");
+			case OWNER:
+				return MessageManager.getMessage("placeholder.owner");
+			default:
+				return MessageManager.getMessage("placeholder.default");
 		}
 
 	}

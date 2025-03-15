@@ -2,10 +2,12 @@ package com.booksaw.betterTeams.cost;
 
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
+import lombok.Getter;
 import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+@Getter
 public class CommandCost {
 
 	private final double cost;
@@ -15,7 +17,7 @@ public class CommandCost {
 	 * Used within Cost manager to track a new commands Cost
 	 *
 	 * @param command the reference for the command
-	 * @param Cost    how long of a Cost that command has (in seconds)
+	 * @param cost    how long of a Cost that command has (in seconds)
 	 */
 	public CommandCost(String command, double cost) {
 		this.command = command;
@@ -27,7 +29,7 @@ public class CommandCost {
 	 *
 	 * @param player the player to add a Cost for
 	 * @return If the player can run the command (if the transaction is a success or
-	 *         failure)
+	 * failure)
 	 */
 	public boolean runCommand(Player player) {
 		if (player.hasPermission("betterteams.cost.bypass")) {
@@ -58,18 +60,10 @@ public class CommandCost {
 		return response.transactionSuccess();
 	}
 
-	public String getCommand() {
-		return command;
-	}
-
-	public double getCost() {
-		return cost;
-	}
-
 	/**
 	 * @param player the player to check for
 	 * @return if a player has the money to run that command (to check before
-	 *         executing the command)
+	 * executing the command)
 	 */
 	public boolean hasBalance(Player player) {
 		if (player.hasPermission("betterteams.cost.bypass")) {

@@ -16,7 +16,7 @@ public class BanSetComponent extends UuidSetComponent {
 	/**
 	 * Used to check if the uuid of the specified player is stored within the ban
 	 * list
-	 * 
+	 *
 	 * @param player The player to check
 	 * @return If that player is banned or not
 	 */
@@ -39,12 +39,12 @@ public class BanSetComponent extends UuidSetComponent {
 		super.add(team, component);
 		team.getStorage().addBan(component);
 	}
-	
+
 	@Override
 	public void remove(Team team, UUID component) {
 		super.remove(team, component);
 		team.getStorage().removeBan(component);
 	}
-	
+
 
 }

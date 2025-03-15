@@ -29,27 +29,27 @@ public enum StorageType {
 	 */
 	public TeamManager getNewTeamManager() {
 		switch (this) {
-		case FLATFILE:
-			return new FlatfileStorageManager();
-		case YAML:
-			return new SeparatedYamlStorageManager();
-		case SQL:
-			return new SQLStorageManager();
-		default:
-			return new SeparatedYamlStorageManager();
+			case FLATFILE:
+				return new FlatfileStorageManager();
+			case YAML:
+				return new SeparatedYamlStorageManager();
+			case SQL:
+				return new SQLStorageManager();
+			default:
+				return new SeparatedYamlStorageManager();
 		}
 	}
 
 	public static StorageType getStorageType(String str) {
 		switch (str.toUpperCase()) {
-		case "FLATFILE":
-			return FLATFILE;
-		case "YAML":
-			return YAML;
-		case "SQL":
-			return SQL;
-		default:
-			return YAML;
+			case "FLATFILE":
+				return FLATFILE;
+			case "YAML":
+				return YAML;
+			case "SQL":
+				return SQL;
+			default:
+				return YAML;
 		}
 	}
 

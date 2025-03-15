@@ -59,6 +59,10 @@ public class RankupCommand extends TeamSubCommand {
 			return new CommandResponse(false);
 		}
 
+		price = event.getCost();
+		newLevel = event.getNewLevel();
+		score = event.isScore();
+
 		if (score) {
 			team.setScore(team.getScore() - price);
 		} else {

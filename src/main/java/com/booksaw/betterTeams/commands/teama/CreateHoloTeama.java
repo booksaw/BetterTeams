@@ -73,5 +73,5 @@ public class CreateHoloTeama extends SubCommand {
 	public boolean runAsync(String[] args) {
 		return false;
 	}
-	
+
 }

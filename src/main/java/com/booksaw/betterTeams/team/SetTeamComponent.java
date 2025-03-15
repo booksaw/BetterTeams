@@ -1,8 +1,11 @@
 package com.booksaw.betterTeams.team;
 
-import java.util.*;
-
 import com.booksaw.betterTeams.Team;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public abstract class SetTeamComponent<T> implements TeamComponent<Set<T>> {
 
@@ -20,7 +23,7 @@ public abstract class SetTeamComponent<T> implements TeamComponent<Set<T>> {
 	/**
 	 * Used to get a clone of the stored list, this can be used to avoid concurrent
 	 * modification
-	 * 
+	 *
 	 * @return A clone of the stored list
 	 */
 	public Set<T> getClone() {
@@ -66,18 +69,18 @@ public abstract class SetTeamComponent<T> implements TeamComponent<Set<T>> {
 
 	/**
 	 * Used to add a component to this component list
-	 * 
-	 * @param team the player's team
+	 *
+	 * @param team      the player's team
 	 * @param component The component to add
 	 */
 	public void add(Team team, T component) {
 		set.add(component);
 	}
- 
+
 	/**
 	 * Used to remove a component from this component list
-	 * 
-	 * @param team The playe's team
+	 *
+	 * @param team      The playe's team
 	 * @param component The component to remove
 	 */
 	public void remove(Team team, T component) {
@@ -86,7 +89,7 @@ public abstract class SetTeamComponent<T> implements TeamComponent<Set<T>> {
 
 	/**
 	 * Used to check if the component provided is stored within this component
-	 * 
+	 *
 	 * @param component The component to check
 	 * @return If the component is within this component list
 	 */
@@ -108,7 +111,7 @@ public abstract class SetTeamComponent<T> implements TeamComponent<Set<T>> {
 
 	/**
 	 * Used to convert a string into the correct component for this type
-	 * 
+	 *
 	 * @param str The string to convert
 	 * @return The value to be added to the list
 	 */
@@ -116,7 +119,7 @@ public abstract class SetTeamComponent<T> implements TeamComponent<Set<T>> {
 
 	/**
 	 * Used to convert a component of the list to a string for saving
-	 * 
+	 *
 	 * @param component The component to convert
 	 * @return The converted component
 	 */

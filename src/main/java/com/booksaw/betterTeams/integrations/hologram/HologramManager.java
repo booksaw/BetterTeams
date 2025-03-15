@@ -3,6 +3,8 @@ package com.booksaw.betterTeams.integrations.hologram;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.message.MessageManager;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.scheduler.BukkitScheduler;
@@ -74,7 +76,7 @@ public abstract class HologramManager {
 				continue;
 			}
 			holo.appendText(MessageManager.getMessage(type.getSyntaxReference(), team.getName(),
-				getValue(type, team)));
+					getValue(type, team)));
 		}
 	}
 
@@ -123,12 +125,12 @@ public abstract class HologramManager {
 
 	public String getValue(HologramType type, Team team) {
 		switch (type) {
-		case MONEY:
-			return team.getBalance();
-		case SCORE:
-			return team.getScore() + "";
-		default:
-			return "";
+			case MONEY:
+				return team.getBalance();
+			case SCORE:
+				return team.getScore() + "";
+			default:
+				return "";
 		}
 	}
 
@@ -168,18 +170,12 @@ public abstract class HologramManager {
 		holos.remove(toRemove);
 	}
 
+	@Getter
+	@RequiredArgsConstructor
 	public enum HologramType {
 		MONEY("holo.msyntax"), SCORE("holo.syntax");
 
 		private final String syntaxReference;
-
-		HologramType(String syntaxReference) {
-			this.syntaxReference = syntaxReference;
-		}
-
-		public String getSyntaxReference() {
-			return syntaxReference;
-		}
 	}
 
 	public interface LocalHologram {

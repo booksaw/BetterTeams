@@ -5,11 +5,13 @@ import com.booksaw.betterTeams.commands.ParentCommand;
 import com.booksaw.betterTeams.commands.SubCommand;
 import com.booksaw.betterTeams.message.HelpMessage;
 import com.booksaw.betterTeams.message.MessageManager;
+import com.booksaw.betterTeams.team.SetTeamComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +30,7 @@ public class InfoCommand extends SubCommand {
 		this.parentCommand = parentCommand;
 	}
 
-	public static List<String> getInfoMessages(Team team) {
+	public static List<@Nullable String> getInfoMessages(Team team) {
 		List<String> infoMessages = new ArrayList<>();
 
 		infoMessages.add(MessageManager.getMessage("info.name", team.getDisplayName()));
@@ -42,32 +44,17 @@ public class InfoCommand extends SubCommand {
 		infoMessages.add(MessageManager.getMessage("info.level", team.getLevel()));
 		infoMessages.add(MessageManager.getMessage("info.tag", team.getTag()));
 
-		String allyMessage = getAlliesMessage(team);
-		if (allyMessage != null) {
-			infoMessages.add(allyMessage);
-		}
-
-		String ownerPlayers = getPlayerList(team, PlayerRank.OWNER);
-		if (ownerPlayers != null) {
-			infoMessages.add(ownerPlayers);
-		}
-
-		String adminPlayers = getPlayerList(team, PlayerRank.ADMIN);
-		if (adminPlayers != null) {
-			infoMessages.add(adminPlayers);
-		}
-
-		String defaultPlayers = getPlayerList(team, PlayerRank.DEFAULT);
-		if (defaultPlayers != null) {
-			infoMessages.add(defaultPlayers);
-		}
+		infoMessages.add(getAlliesMessage(team));
+		infoMessages.add(getPlayerList(team, PlayerRank.OWNER));
+		infoMessages.add(getPlayerList(team, PlayerRank.ADMIN));
+		infoMessages.add(getPlayerList(team, PlayerRank.DEFAULT));
 
 		return infoMessages;
 	}
 
-	private static String getAlliesMessage(Team team) {
-		StringBuilder allies = new StringBuilder();
-		for (UUID uuid : team.getAllies().getClone()) {
+	private static String getSetComponentMessage(SetTeamComponent<UUID> teams, final String referenceMessage) {
+		StringBuilder tmp = new StringBuilder();
+		for (UUID uuid : teams.get()) {
 			Team ally = Team.getTeam(uuid);
 
 			if (ally == null) {
@@ -75,14 +62,18 @@ public class InfoCommand extends SubCommand {
 				continue;
 			}
 
-			allies.append(ally.getDisplayName()).append(ChatColor.WHITE).append(", ");
+			tmp.append(ally.getDisplayName()).append(ChatColor.WHITE).append(", ");
 		}
-		if (allies.length() > 2) {
-			allies = new StringBuilder(allies.substring(0, allies.length() - 2));
 
-			return MessageManager.getMessage("info.ally", allies.toString());
+		if (tmp.length() > 2) {
+			return MessageManager.getMessage(referenceMessage, tmp.substring(0, tmp.length() - 2));
 		}
+
 		return null;
+	}
+
+	private static String getAlliesMessage(Team team) {
+		return getSetComponentMessage(team.getAllies(), "info.ally");
 	}
 
 	private static String getPlayerList(Team team, PlayerRank rank) {
@@ -94,20 +85,18 @@ public class InfoCommand extends SubCommand {
 			String toTest = MessageManager.getMessage("info." + rank.toString().toLowerCase());
 			if (toTest.length() > 1) {
 				for (int i = toTest.length() - 1; i >= 0; i--) {
-					if (toTest.charAt(i) == '\u00A7') {
+					if (toTest.charAt(i) == '§') {
 						returnTo = ChatColor.getByChar(toTest.charAt(i + 1));
 						break;
 					}
 				}
 			}
 			for (TeamPlayer player : users) {
-				userStr.append(
-						MessageManager.getMessage("info." + ((player.getPlayer().isOnline() && player.getOnlinePlayer().map(p -> !Utils.isVanished(p)).orElse(false)) ? "online" : "offline"))
-								+ player.getPrefix(returnTo))
+				userStr.append(MessageManager.getMessage("info." + ((player.getPlayer().isOnline() && player.getOnlinePlayer().map(p -> !Utils.isVanished(p)).orElse(false)) ? "online" : "offline"))).append(player.getPrefix(returnTo))
 						.append(player.getPlayer().getName()).append(" ");
 			}
 
-			return MessageManager.getMessage("info." + rank.toString().toLowerCase(), userStr.toString());
+			return MessageManager.getMessage("info." + rank.toString().toLowerCase(), userStr);
 		}
 
 		return null;
@@ -144,7 +133,7 @@ public class InfoCommand extends SubCommand {
 		 * can view offline users teams by name not just by team name)
 		 */
 		@SuppressWarnings("deprecation")
-		OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
+		OfflinePlayer player = Utils.getOfflinePlayer(args[0]);
 
 		team = Team.getTeam(player);
 		if (team != null) {
@@ -159,7 +148,7 @@ public class InfoCommand extends SubCommand {
 		List<String> toDisplay = getInfoMessages(team);
 
 		for (String str : toDisplay) {
-			if (str.isEmpty()) {
+			if (str == null || str.isEmpty()) {
 				continue;
 			}
 			MessageManager.sendFullMessage(sender, str);

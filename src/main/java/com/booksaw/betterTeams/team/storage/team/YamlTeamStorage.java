@@ -189,7 +189,7 @@ public abstract class YamlTeamStorage extends TeamStorage {
 	public void removeWarp(Warp component) {
 		// not needed
 	}
-	
+
 	@Override
 	public void promotePlayer(TeamPlayer promotePlayer) {
 		// not needed 
@@ -199,7 +199,7 @@ public abstract class YamlTeamStorage extends TeamStorage {
 	public void demotePlayer(TeamPlayer demotePlayer) {
 		// not needed
 	}
-	
+
 	@Override
 	public void setTitle(TeamPlayer player) {
 		// not needed

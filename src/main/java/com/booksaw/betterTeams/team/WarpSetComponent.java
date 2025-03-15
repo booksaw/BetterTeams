@@ -1,10 +1,10 @@
 package com.booksaw.betterTeams.team;
 
-import java.util.ArrayList;
-
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.Warp;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
+
+import java.util.ArrayList;
 
 public class WarpSetComponent extends SetTeamComponent<Warp> {
 
@@ -33,22 +33,23 @@ public class WarpSetComponent extends SetTeamComponent<Warp> {
 	public String toString(Warp component) {
 		return component.toString();
 	}
+
 	@Override
 	public void add(Team team, Warp component) {
 		super.add(team, component);
 		team.getStorage().addWarp(component);
 	}
-	
+
 	@Override
 	public void remove(Team team, Warp component) {
 		super.remove(team, component);
 		team.getStorage().removeWarp(component);
 	}
-	
+
 
 	public Warp get(String name) {
-		for(Warp warp : new ArrayList<>(set)) {
-			if(warp.getName().equalsIgnoreCase(name)) {
+		for (Warp warp : new ArrayList<>(set)) {
+			if (warp.getName().equalsIgnoreCase(name)) {
 				return warp;
 			}
 		}

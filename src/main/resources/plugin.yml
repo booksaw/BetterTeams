@@ -5,260 +5,267 @@ description: A plugin to create teams with other players
 main: com.booksaw.betterTeams.Main
 website: https://www.spigotmc.org/resources/better-teams.17129/
 api-version: 1.13
-softdepend: [PlaceholderAPI, HolographicDisplays, Vault, WorldGuard, UltimateClaims, DecentHolograms]
-loadbefore: [zKoth]
 
-website: https://github.com/booksaw/BetterTeams
+softdepend:
+  - PlaceholderAPI
+  - HolographicDisplays
+  - Vault
+  - WorldGuard
+  - UltimateClaims
+  - DecentHolograms
+
+loadbefore:
+  - zKoth
 
 permissions:
-   betterTeams.standard:
-      description: This permission gives the user access to the teams system (joining, leaving teams etc.)
-      default: true
-   betterTeams.admin:
-      description: This permission gives the user access to the admin system for BetterTeams
-      default: op
-   betterTeams.join:
-      default: true
-      description: Allows access to /team join
-   betterTeams.echest:
-      default: true
-      description: Allows access to /team echest
-   betterTeams.ban:
-      default: true
-      description: Allows access to /team ban
-   betterTeams.chat:
-      default: true
-      description: Allows access to /team chat
-   betterTeams.create:
-      default: true
-      description: Allows access to /team create
-   betterTeams.promote:
-      default: true
-      description: Allows access to /team promote
-   betterTeams.description:
-      default: true
-      description: Allows access to /team description
-   betterTeams.disband:
-      default: true
-      description: Allows access to /team disband
-   betterTeams.home:
-      default: true
-      description: Allows access to /team home
-   betterTeams.invite:
-      default: true
-      description: Allows access to /team invite
-   betterTeams.kick:
-      default: true
-      description: Allows access to /team kick
-   betterTeams.info:
-      default: true
-      description: Allows access to /team info
-   betterTeams.leave:
-      default: true
-      description: Allows access to /team leave
-   betterTeams.name:
-      default: true
-      description: Allows access to /team name
-   betterTeams.open:
-      default: true
-      description: Allows access to /team open
-   betterTeams.teamName:
-      default: true
-      description: Users with this permission will have their team name dispalyed above their head
-   betterTeams.balance:
-      default: true
-      description: Allows access to /team bal, /team withdraw and /team balance
-   betterTeams.title:
-      default: true
-      description: Allows access to /team title
-   betterTeams.title.color.color:
-      default: op
-      description: Allows the user to add color codes into their titles
-   betterTeams.title.color.format:
-      default: op
-      description: Allows the user to add format codes into their titles
-   betterTeams.title.self:
-      default: op
-      description: Allows the user to change their own title even if they are not the team owner
-   betterTeams.unban:
-      default: true
-      description: Allows access to /team unban
-   betterTeams.sethome:
-      default: true
-      description: Allows access to /team sethome
-   betterTeams.delhome:
-      default: true
-      description: Allows access to /team delhome
-   betterTeams.demote:
-      default: true
-      description: Allows access to /team demote
-   betterTeams.top:
-      default: true
-      description: Allows access to /team top
-   betterTeams.baltop:
-      default: true
-      description: Allows access to /team baltop
-   betterTeams.rank:
-      default: true
-      description: Allows access to /team rank
-   betterTeams.rankup:
-      default: true
-      description: Allows access to /team rankup
-   betterTeams.tag:
-      default: true
-      description: Allows access to /team tag
-   betterTeams.pvp:
-      default: true
-      description: Allows access to /team pvp
-   betterTeams.admin.version:
-      default: op
-      description: Allows access to /teama version
-   betterTeams.admin.home:
-      default: op
-      description: Allows access to /teama home
-   betterTeams.cooldown.bypass:
-      default: op
-      description: Allows access to bypass command cooldown
-   betterTeams.cost.bypass:
-      default: op
-      description: Allows access to bypass command cost
-   betterTeams.admin.chatspy:
-      default: op
-      description: Allows access to /teama chatspy
-   betterTeams.admin.title:
-      default: op
-      description: Allows access to /teama title
-   betterTeams.color:
-      default: true
-      description: Allows the player to change access to the team color
-   betterTeams.admin.name:
-      default: op
-      description: gives access to /teama name
-   betterTeams.admin.description:
-      default: op
-      description: gives access to /teama description
-   betterTeams.admin.open:
-      default: op
-      description: gives access to /teama open
-   betterTeams.admin.invite:
-      default: op
-      description: gives access to /teama invite
-   betterTeams.admin.create:
-      default: op
-      description: gives access to /teama create
-   betterTeams.admin.join:
-      default: op
-      description: gives access to /teama join
-   betterTeams.admin.demote:
-      default: op
-      description: gives access to /teama demote
-   betterTeams.admin.promote:
-      default: op
-      description: gives access to /teama promote
-   betterTeams.admin.setowner:
-      default: op
-      description: gives access to /teama setowner
-   betterTeams.admin.leave:
-      default: op
-      description: gives access to /teama leave
-   betterTeams.ally:
-      default: true
-      description: gives access to /team ally
-   betterTeams.neutral:
-      default: true
-      description: gives access to /team neutral
-   betterTeams.allychat:
-      default: true
-      description: gives access to /team allychat
-   betterTeams.warmup.bypass:
-      default: op
-      description: gives access to bypass the teleport warnmup
-   betterTeams.list:
-      default: true
-      description: gives access to the command /team list
-   betterTeams.warp:
-      default: true
-      description: gives access to the command /team warp
-   betterTeams.warps:
-      default: true
-      description: gives access to the command /team warps
-   betterTeams.setwarp:
-      default: true
-      description: gives access to the command /team setwarp
-   betterTeams.delwarp:
-      default: true
-      description: gives access to the command /team delwarp
-   betterTeams.admin.warp:
-      default: op
-      description: gives access to the command /teama warp
-   betterTeams.admin.setwarp:
-      default: op
-      description: gives access to the command /teama setwarp
-   betterTeams.admin.delwarp:
-      default: op
-      description: gives access to the command /teama delwarp
-   betterTeams.admin.setrank:
-      default: op
-      description: gives access to the command /teama setrank
-   betterTeams.admin.tag:
-      default: op
-      description: gives access to the command /teama tag
-   betterTeams.admin.purge:
-      default: op
-      description: gives access to the command /teama purge
-   betterTeams.admin.score.add:
-      default: op
-      description: gives access to the command /teama score add
-   betterTeams.admin.score.set:
-      default: op
-      description: gives access to the command /teama score set
-   betterTeams.admin.score.remove:
-      default: op
-      description: gives access to the command /teama score remove
-   betterTeams.admin.money.add:
-      default: op
-      description: gives access to the command /teama money add
-   betterTeams.admin.money.set:
-      default: op
-      description: gives access to the command /teama money set
-   betterTeams.admin.money.remove:
-      default: op
-      description: gives access to the command /teama money remove
-   betterTeams.admin.color:
-      default: op
-      description: gives access to the command /teama color
-   betterTeams.admin.disband:
-      default: op
-      description: gives access to the command /teama disband
-   betterTeams.chest.claim:
-      default: true
-      description: gives access to the command /team chest claim
-   betterTeams.chest.remove:
-      default: true
-      description: gives access to the command /team chest remove
-   betterTeams.chest.removeall:
-      default: true
-      description: gives access to the command /team chest removeall
-   betterTeams.admin.selector:
-      default: op
-      description: gives access to @a and @p
-   betterTeams.admin.chest.claim:
-      default: op
-      description: gives access to the command /teama chest claim
-   betterTeams.admin.chest.remove:
-      default: op
-      description: gives access to the command /teama chest remove
-   betterTeams.admin.chest.removeall:
-      default: op
-      description: gives access to the command /teama chest removeall
-   betterTeams.admin.chest.enable:
-      default: op
-      description: gives access to the command /teama chest enableclaims
-   betterTeams.admin.chest.disable:
-      default: op
-      description: gives access to the command /teama chest disableclaims
-   betterTeams.chest.bypass:
-      default: op
-      description: Bypass chest claims
+  betterTeams.standard:
+    description: This permission gives the user access to the teams system (joining, leaving teams etc.)
+    default: true
+  betterTeams.admin:
+    description: This permission gives the user access to the admin system for BetterTeams
+    default: op
+  betterTeams.join:
+    default: true
+    description: Allows access to /team join
+  betterTeams.echest:
+    default: true
+    description: Allows access to /team echest
+  betterTeams.ban:
+    default: true
+    description: Allows access to /team ban
+  betterTeams.chat:
+    default: true
+    description: Allows access to /team chat
+  betterTeams.create:
+    default: true
+    description: Allows access to /team create
+  betterTeams.promote:
+    default: true
+    description: Allows access to /team promote
+  betterTeams.description:
+    default: true
+    description: Allows access to /team description
+  betterTeams.disband:
+    default: true
+    description: Allows access to /team disband
+  betterTeams.home:
+    default: true
+    description: Allows access to /team home
+  betterTeams.invite:
+    default: true
+    description: Allows access to /team invite
+  betterTeams.kick:
+    default: true
+    description: Allows access to /team kick
+  betterTeams.info:
+    default: true
+    description: Allows access to /team info
+  betterTeams.leave:
+    default: true
+    description: Allows access to /team leave
+  betterTeams.name:
+    default: true
+    description: Allows access to /team name
+  betterTeams.open:
+    default: true
+    description: Allows access to /team open
+  betterTeams.teamName:
+    default: true
+    description: Users with this permission will have their team name dispalyed above their head
+  betterTeams.balance:
+    default: true
+    description: Allows access to /team bal, /team withdraw and /team balance
+  betterTeams.title:
+    default: true
+    description: Allows access to /team title
+  betterTeams.title.color.color:
+    default: op
+    description: Allows the user to add color codes into their titles
+  betterTeams.title.color.format:
+    default: op
+    description: Allows the user to add format codes into their titles
+  betterTeams.title.self:
+    default: op
+    description: Allows the user to change their own title even if they are not the team owner
+  betterTeams.unban:
+    default: true
+    description: Allows access to /team unban
+  betterTeams.sethome:
+    default: true
+    description: Allows access to /team sethome
+  betterTeams.delhome:
+    default: true
+    description: Allows access to /team delhome
+  betterTeams.demote:
+    default: true
+    description: Allows access to /team demote
+  betterTeams.top:
+    default: true
+    description: Allows access to /team top
+  betterTeams.baltop:
+    default: true
+    description: Allows access to /team baltop
+  betterTeams.rank:
+    default: true
+    description: Allows access to /team rank
+  betterTeams.rankup:
+    default: true
+    description: Allows access to /team rankup
+  betterTeams.tag:
+    default: true
+    description: Allows access to /team tag
+  betterTeams.pvp:
+    default: true
+    description: Allows access to /team pvp
+  betterTeams.admin.version:
+    default: op
+    description: Allows access to /teama version
+  betterTeams.admin.home:
+    default: op
+    description: Allows access to /teama home
+  betterTeams.cooldown.bypass:
+    default: op
+    description: Allows access to bypass command cooldown
+  betterTeams.cost.bypass:
+    default: op
+    description: Allows access to bypass command cost
+  betterTeams.admin.chatspy:
+    default: op
+    description: Allows access to /teama chatspy
+  betterTeams.admin.title:
+    default: op
+    description: Allows access to /teama title
+  betterTeams.color:
+    default: true
+    description: Allows the player to change access to the team color
+  betterTeams.admin.name:
+    default: op
+    description: gives access to /teama name
+  betterTeams.admin.description:
+    default: op
+    description: gives access to /teama description
+  betterTeams.admin.open:
+    default: op
+    description: gives access to /teama open
+  betterTeams.admin.invite:
+    default: op
+    description: gives access to /teama invite
+  betterTeams.admin.create:
+    default: op
+    description: gives access to /teama create
+  betterTeams.admin.join:
+    default: op
+    description: gives access to /teama join
+  betterTeams.admin.demote:
+    default: op
+    description: gives access to /teama demote
+  betterTeams.admin.promote:
+    default: op
+    description: gives access to /teama promote
+  betterTeams.admin.setowner:
+    default: op
+    description: gives access to /teama setowner
+  betterTeams.admin.leave:
+    default: op
+    description: gives access to /teama leave
+  betterTeams.ally:
+    default: true
+    description: gives access to /team ally
+  betterTeams.neutral:
+    default: true
+    description: gives access to /team neutral
+  betterTeams.allychat:
+    default: true
+    description: gives access to /team allychat
+  betterTeams.warmup.bypass:
+    default: op
+    description: gives access to bypass the teleport warnmup
+  betterTeams.list:
+    default: true
+    description: gives access to the command /team list
+  betterTeams.warp:
+    default: true
+    description: gives access to the command /team warp
+  betterTeams.warps:
+    default: true
+    description: gives access to the command /team warps
+  betterTeams.setwarp:
+    default: true
+    description: gives access to the command /team setwarp
+  betterTeams.delwarp:
+    default: true
+    description: gives access to the command /team delwarp
+  betterTeams.admin.warp:
+    default: op
+    description: gives access to the command /teama warp
+  betterTeams.admin.setwarp:
+    default: op
+    description: gives access to the command /teama setwarp
+  betterTeams.admin.delwarp:
+    default: op
+    description: gives access to the command /teama delwarp
+  betterTeams.admin.setrank:
+    default: op
+    description: gives access to the command /teama setrank
+  betterTeams.admin.tag:
+    default: op
+    description: gives access to the command /teama tag
+  betterTeams.admin.purge:
+    default: op
+    description: gives access to the command /teama purge
+  betterTeams.admin.score.add:
+    default: op
+    description: gives access to the command /teama score add
+  betterTeams.admin.score.set:
+    default: op
+    description: gives access to the command /teama score set
+  betterTeams.admin.score.remove:
+    default: op
+    description: gives access to the command /teama score remove
+  betterTeams.admin.money.add:
+    default: op
+    description: gives access to the command /teama money add
+  betterTeams.admin.money.set:
+    default: op
+    description: gives access to the command /teama money set
+  betterTeams.admin.money.remove:
+    default: op
+    description: gives access to the command /teama money remove
+  betterTeams.admin.color:
+    default: op
+    description: gives access to the command /teama color
+  betterTeams.admin.disband:
+    default: op
+    description: gives access to the command /teama disband
+  betterTeams.chest.claim:
+    default: true
+    description: gives access to the command /team chest claim
+  betterTeams.chest.remove:
+    default: true
+    description: gives access to the command /team chest remove
+  betterTeams.chest.removeall:
+    default: true
+    description: gives access to the command /team chest removeall
+  betterTeams.admin.selector:
+    default: op
+    description: gives access to @a and @p
+  betterTeams.admin.chest.claim:
+    default: op
+    description: gives access to the command /teama chest claim
+  betterTeams.admin.chest.remove:
+    default: op
+    description: gives access to the command /teama chest remove
+  betterTeams.admin.chest.removeall:
+    default: op
+    description: gives access to the command /teama chest removeall
+  betterTeams.admin.chest.enable:
+    default: op
+    description: gives access to the command /teama chest enableclaims
+  betterTeams.admin.chest.disable:
+    default: op
+    description: gives access to the command /teama chest disableclaims
+  betterTeams.chest.bypass:
+    default: op
+    description: Bypass chest claims
       
       

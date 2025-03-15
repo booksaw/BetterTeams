@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.booksaw.betterTeams.integrations.placeholder.provider;
 
@@ -9,7 +9,6 @@ import com.booksaw.betterTeams.message.MessageManager;
 
 /**
  * @author booksaw
- *
  */
 public class MoneyPlaceholderProvider implements IndividualTeamPlaceholderProvider {
 
@@ -17,5 +16,5 @@ public class MoneyPlaceholderProvider implements IndividualTeamPlaceholderProvid
 	public String getPlaceholderForTeam(Team team) {
 		return MessageManager.getMessage("placeholder.money", team.getBalance());
 	}
-	
+
 }

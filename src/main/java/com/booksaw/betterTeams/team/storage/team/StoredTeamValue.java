@@ -1,9 +1,13 @@
 package com.booksaw.betterTeams.team.storage.team;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
 /**
  * @author James
- *
  */
+@Getter
+@RequiredArgsConstructor
 public enum StoredTeamValue {
 
 	/**
@@ -61,30 +65,13 @@ public enum StoredTeamValue {
 	 */
 	private final String reference;
 
+	/**
+	 * The datatype of this variable
+	 */
 	private final TeamStorageType storageType;
 
 	StoredTeamValue(String reference) {
 		this(reference, TeamStorageType.STRING);
-	}
-
-	StoredTeamValue(String reference, TeamStorageType storageType) {
-		this.reference = reference;
-		this.storageType = storageType;
-
-	}
-
-	/**
-	 * @return The saving reference of this value
-	 */
-	public String getReference() {
-		return reference;
-	}
-
-	/**
-	 * @return The datatype of this variable
-	 */
-	public TeamStorageType getStorageType() {
-		return storageType;
 	}
 
 }

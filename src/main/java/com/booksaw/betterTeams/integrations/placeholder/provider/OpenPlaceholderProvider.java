@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.booksaw.betterTeams.integrations.placeholder.provider;
 
@@ -8,7 +8,6 @@ import com.booksaw.betterTeams.integrations.placeholder.IndividualTeamPlaceholde
 
 /**
  * @author booksaw
- *
  */
 public class OpenPlaceholderProvider implements IndividualTeamPlaceholderProvider {
 

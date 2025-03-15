@@ -14,7 +14,7 @@ public class DisbandTeama extends TeamSelectSubCommand {
 	@Override
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args, Team team) {
 		if (sender instanceof Player) {
-			team.disband((Player)sender);
+			team.disband((Player) sender);
 		} else {
 			team.disband();
 		}

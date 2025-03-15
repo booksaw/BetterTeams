@@ -4,6 +4,7 @@ import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.customEvents.BelowNameChangeEvent;
 import com.booksaw.betterTeams.customEvents.BelowNameChangeEvent.ChangeType;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -20,6 +21,7 @@ import java.util.UUID;
 public class MCTeamManagement implements Listener {
 
 	final Scoreboard board;
+	@Getter
 	private final BelowNameType type;
 
 	/**
@@ -71,7 +73,7 @@ public class MCTeamManagement implements Listener {
 	 */
 	public void removeAll() {
 		for (Player p : Bukkit.getOnlinePlayers()) {
-			remove(p, false);
+			remove(p);
 		}
 
 		// only loaded teams will have a team manager
@@ -86,21 +88,11 @@ public class MCTeamManagement implements Listener {
 	}
 
 	/**
-	 * Remove a player from an async thread
-	 *
-	 * @param player
-	 */
-	public void remove(Player player) {
-		remove(player, true);
-	}
-
-	/**
 	 * Used to remove the prefix / suffix from the specified player
 	 *
-	 * @param player  the player to remove the prefix/suffix from
-	 * @param isAsync if the method is being run async or not
+	 * @param player the player to remove the prefix/suffix from
 	 */
-	public void remove(Player player, boolean isAsync) {
+	public void remove(Player player) {
 
 		if (player == null) {
 			return;
@@ -123,19 +115,13 @@ public class MCTeamManagement implements Listener {
 			return;
 		}
 
-		BelowNameChangeEvent event = new BelowNameChangeEvent(player, ChangeType.REMOVE, isAsync);
+		BelowNameChangeEvent event = new BelowNameChangeEvent(player, ChangeType.REMOVE);
 		Bukkit.getPluginManager().callEvent(event);
 	}
 
 	@EventHandler
 	public void playerJoinEvent(PlayerJoinEvent e) {
-		Bukkit.getScheduler().runTaskAsynchronously(Main.plugin, () -> {
-			displayBelowName(e.getPlayer());
-		});
-	}
-
-	public BelowNameType getType() {
-		return type;
+		Bukkit.getScheduler().runTaskAsynchronously(Main.plugin, () -> displayBelowName(e.getPlayer()));
 	}
 
 	public void setupTeam(org.bukkit.scoreboard.Team team, String teamName) {

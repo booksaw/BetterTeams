@@ -1,5 +1,7 @@
 package com.booksaw.betterTeams;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -19,20 +21,31 @@ public class TeamPlayer {
 	/**
 	 * this is used to store the player that the object is associated with
 	 */
+	@Getter
 	private final UUID playerUUID;
 
 	/**
-	 * This stores the players rank within the team
+	 * The rank of the player within their team
 	 */
+	@Setter
+	@Getter
 	private PlayerRank rank;
 
 	/**
 	 * This stores if the team is messaging to the team chat or the global chat
 	 */
+	@Setter
 	private boolean teamChat;
 
+	@Setter
 	private boolean allyChat = false;
 
+	/**
+	 * Do not use this method (only should be used in the class Team, instead use
+	 * Team.setTitle() as that will save the updated value)
+	 */
+	@Setter
+	@Getter
 	private String title;
 
 	/**
@@ -70,22 +83,6 @@ public class TeamPlayer {
 	}
 
 	/**
-	 * @return The rank of the player within their team
-	 */
-	public PlayerRank getRank() {
-		return rank;
-	}
-
-	/**
-	 * Set the rank of the player (used for promotions and demotions)
-	 *
-	 * @param rank the rank of the player
-	 */
-	public void setRank(PlayerRank rank) {
-		this.rank = rank;
-	}
-
-	/**
 	 * @return The player which is associated with this object
 	 */
 	public OfflinePlayer getPlayer() {
@@ -108,16 +105,8 @@ public class TeamPlayer {
 		return teamChat;
 	}
 
-	public void setTeamChat(boolean teamChat) {
-		this.teamChat = teamChat;
-	}
-
 	public boolean isInAllyChat() {
 		return allyChat;
-	}
-
-	public void setAllyChat(boolean AllyChat) {
-		this.allyChat = AllyChat;
 	}
 
 	/**
@@ -134,19 +123,12 @@ public class TeamPlayer {
 		}
 	}
 
-	public String getTitle() {
-		return title;
-	}
-
 	/**
-	 * Do not use this method (only should be used in the class Team, instead use
-	 * Team.setTitle() as that will save the updated value)
+	 * Checks if the player associated with this TeamPlayer is currently online.
 	 *
-	 * @param title the new title for that player
-	 * @see com.booksaw.betterTeams.Team#setTitle
+	 * @return true if the player is online, false otherwise
 	 */
-	public void setTitle(String title) {
-		this.title = title;
+	public boolean isOnline() {
+		return getPlayer().isOnline();
 	}
-
 }

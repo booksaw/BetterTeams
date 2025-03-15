@@ -1,27 +1,22 @@
 package com.booksaw.betterTeams.commands.team.chest;
 
-import java.util.List;
-import java.util.Objects;
-
+import com.booksaw.betterTeams.*;
+import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
+import com.booksaw.betterTeams.team.LocationSetComponent;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 
-import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.Main;
-import com.booksaw.betterTeams.PlayerRank;
-import com.booksaw.betterTeams.Team;
-import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
-import com.booksaw.betterTeams.team.LocationSetComponent;
+import java.util.List;
+import java.util.Objects;
 
 
 public class ChestClaimCommand extends TeamSubCommand {
 
 	@Override
 	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
-		
+
 		Location loc = Objects.requireNonNull(player.getPlayer().getPlayer()).getLocation();
 
 		Block block = loc.getBlock();
@@ -87,7 +82,7 @@ public class ChestClaimCommand extends TeamSubCommand {
 	public PlayerRank getDefaultRank() {
 		return PlayerRank.ADMIN;
 	}
-	
+
 	@Override
 	public boolean runAsync(String[] args) {
 		return false;

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.booksaw.betterTeams.integrations.placeholder.provider;
 
@@ -9,7 +9,6 @@ import com.booksaw.betterTeams.team.MoneyComponent;
 
 /**
  * @author booksaw
- *
  */
 public class MaxMoneyPlaceholderProvider implements IndividualTeamPlaceholderProvider {
 
@@ -18,6 +17,5 @@ public class MaxMoneyPlaceholderProvider implements IndividualTeamPlaceholderPro
 		return MoneyComponent.getFormattedDouble(team.getMaxMoney());
 	}
 
-	
-	
+
 }

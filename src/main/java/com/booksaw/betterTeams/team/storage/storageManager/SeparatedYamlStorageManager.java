@@ -203,9 +203,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 
 	@Override
 	public TeamStorage createNewTeamStorage(Team team) {
-		SeparatedYamlTeamStorage teamStorage = new SeparatedYamlTeamStorage(team, this);
-
-		return teamStorage;
+		return new SeparatedYamlTeamStorage(team, this);
 	}
 
 	@Override
@@ -240,8 +238,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 			try {
 				YamlConfiguration yamlConfig = new YamlConfiguration();
 				yamlConfig.load(f);
-				teams.add(new CrossReference<>(yamlConfig.getString(StoredTeamValue.NAME.getReference()),
-						valueSorter.getValueToSort(yamlConfig)));
+				teams.add(new CrossReference<>(yamlConfig.getString(StoredTeamValue.NAME.getReference()), valueSorter.getValueToSort(yamlConfig)));
 			} catch (Exception e) {
 				Bukkit.getLogger().severe("UNABLE TO READ TEAM DATA FROM " + f);
 			}

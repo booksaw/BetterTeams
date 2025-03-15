@@ -1,9 +1,10 @@
 ## Better Teams
 
-
-
 # Introduction:
-Create teams to compete to be the best. This plugin is designed to encourage teamwork and foster a sense of community within a server. BetterTeams includes features such as:
+
+Create teams to compete to be the best. This plugin is designed to encourage teamwork and foster a sense of community
+within a server. BetterTeams includes features such as:
+
 - Teaming up with friends
 - Having private chats, unique to each team
 - Protecting team members from team-killing.

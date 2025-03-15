@@ -8,9 +8,8 @@ import com.booksaw.betterTeams.integrations.placeholder.IndividualTeamPlaceholde
 
 /**
  * @author booksaw
- *
  */
-public class LevelPlaceholderProvider implements IndividualTeamPlaceholderProvider{
+public class LevelPlaceholderProvider implements IndividualTeamPlaceholderProvider {
 
 	@Override
 	public String getPlaceholderForTeam(Team team) {

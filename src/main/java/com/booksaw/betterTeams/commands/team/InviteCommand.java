@@ -43,7 +43,7 @@ public class InviteCommand extends TeamSubCommand {
 		team.invite(toInvite.getUniqueId());
 
 		String joinSubcommand = MessageManager.getMessage("command.join");
-		if(joinSubcommand == null || joinSubcommand.isEmpty()) {
+		if (joinSubcommand == null || joinSubcommand.isEmpty()) {
 			joinSubcommand = "join";
 		}
 
@@ -51,7 +51,7 @@ public class InviteCommand extends TeamSubCommand {
 		component.setClickEvent(new ClickEvent(Action.RUN_COMMAND, "/team " + joinSubcommand + " " + team.getName()));
 		component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(MessageManager.getMessage("invite.hover", team.getName()))));
 		toInvite.spigot().sendMessage(component);
-		
+
 		return new CommandResponse(true, "invite.success");
 	}
 

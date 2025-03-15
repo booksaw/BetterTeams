@@ -1,15 +1,19 @@
-## What are Levels? 
-All teams have a level associated with them, this level dictates the permissions for the team. Per level permissions include: 
-* Maximum number of players in their team 
+## What are Levels?
+
+All teams have a level associated with them, this level dictates the permissions for the team. Per level permissions
+include:
+
+* Maximum number of players in their team
 * Maximum number of chests allowed to be claimed
 
 Teams can level up either with team score, or with their team balance. This can be determined in the config.
 
-## Configuration 
+## Configuration
 
 All set up for levels is available in the config
 
 _the config exert:_
+
 ```YAML
 levels:
    l1: 
@@ -78,30 +82,40 @@ levels:
 
 note at the start of each individual level number there is an l (This is caused by YAML formatting rules)
 
-### A visual representation 
+### A visual representation
+
 As the config above is hard to understand, below is a visual representation of what it is signifying
 
-| Level| Price | teamLimit | maxChests | maxWarps |
-| ----- | ---- | ---- | - | - |
-| l1 | Free | 10 | 2 | 2 |
-| l2 | 100 score | 20 | 2 | 2 | 
+| Level | Price     | teamLimit | maxChests | maxWarps |
+|-------|-----------|-----------|-----------|----------|
+| l1    | Free      | 10        | 2         | 2        |
+| l2    | 100 score | 20        | 2         | 2        | 
 
-Notice how the max chests are declared for both the first level and the second level thought it has not changed. This is currently required for the plugin to work, else the maxChests will be assumed to be 0.
+Notice how the max chests are declared for both the first level and the second level thought it has not changed. This is
+currently required for the plugin to work, else the maxChests will be assumed to be 0.
 
-### Setting the price 
-It is also important to determine the price for each subsequent level after the first level. As if the price is not correctly defined the rank will not exist. 
-The price of a rank can either be determined in score: 
+### Setting the price
+
+It is also important to determine the price for each subsequent level after the first level. As if the price is not
+correctly defined the rank will not exist.
+The price of a rank can either be determined in score:
+
 ```YAML
 price: 100s
 ```
+
 Or in money (this will be taken out of the team balance)
+
 ```YAML
 price: 100m
 ```
+
 A level cannot have both a score and a monetary cost, it can only have one or the other.
 
 ### Adding new levels
-Adding new levels is as simple as copying the template for the previous level and increasing the level number by 1. An example of level 3 is shown below: 
+
+Adding new levels is as simple as copying the template for the previous level and increasing the level number by 1. An
+example of level 3 is shown below:
 
 ```YAML
    l3: 

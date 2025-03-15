@@ -14,11 +14,11 @@ public class SetrankTeama extends TeamSelectSubCommand {
 
 
 	private final ParentCommand parentCommand;
-	
+
 	public SetrankTeama(ParentCommand parentCommand) {
 		this.parentCommand = parentCommand;
 	}
-	
+
 	@Override
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args, Team team) {
 

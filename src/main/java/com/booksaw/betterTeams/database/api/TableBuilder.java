@@ -1,24 +1,25 @@
 package com.booksaw.betterTeams.database.api;
 
+import com.booksaw.betterTeams.database.TableName;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Class used to build a table from scratch NOTE THIS CLASS IS UNFINISHED
  * <p>
- * for example you cannot set the primary key of the table
+ * for example, you cannot set the primary key of the table
  * </p>
- * 
- * @author booksaw
  *
+ * @author booksaw
  */
+@RequiredArgsConstructor
 public class TableBuilder {
 
 	private final Database database;
-	private final String tableName;
+	@Getter
+	private final TableName tableName;
 	private final StringBuilder tableInfo = new StringBuilder();
-
-	public TableBuilder(Database database, String tableName) {
-		this.database = database;
-		this.tableName = tableName;
-	}
 
 	/**
 	 * @return The table info for this builder
@@ -28,17 +29,10 @@ public class TableBuilder {
 	}
 
 	/**
-	 * @return The table name for this builder
-	 */
-	public String getTableName() {
-		return tableName;
-	}
-
-	/**
 	 * Execute the built command
 	 */
 	public void execute() {
-		if (tableInfo.length() == 0) {
+		if (tableInfo.length() == 0) { // JDK 8 doesn't have StringBuilder::isEmpty yet
 			return;
 		}
 		database.createTableIfNotExists(tableName, tableInfo.toString());
@@ -48,13 +42,13 @@ public class TableBuilder {
 		return addColumn(columnName, type, false);
 	}
 
-	public TableBuilder addColumn(String columnName, DataType type, boolean notNull) {
+	public TableBuilder addColumn(String columnName, @NotNull DataType type, boolean notNull) {
 		if (type.needArg) {
 			throw new IllegalArgumentException(
 					"The data type " + type + " needs an argument, and no argument was provided");
 		}
 
-		tableInfo.append(columnName + " " + type + ((notNull) ? " NOT NULL, " : ", "));
+		tableInfo.append(columnName).append(" ").append(type).append(notNull ? " NOT NULL, " : ", ");
 		return this;
 	}
 
@@ -62,14 +56,13 @@ public class TableBuilder {
 		return addColumn(columnName, type, argument, false);
 	}
 
-	public TableBuilder addColumn(String columnName, DataType type, String argument, boolean notNull) {
+	public TableBuilder addColumn(String columnName, @NotNull DataType type, String argument, boolean notNull) {
 		if (type.needArg) {
 			throw new IllegalArgumentException(
 					"The data type " + type + " needs an argument, and no argument was provided");
 		}
 
-		tableInfo
-				.append(columnName + " " + type + "(" + argument + ")" + ((notNull) ? " NOT NULL, " : ", "));
+		tableInfo.append(columnName).append(" ").append(type).append("(").append(argument).append(")").append(notNull ? " NOT NULL, " : ", ");
 		return this;
 	}
 

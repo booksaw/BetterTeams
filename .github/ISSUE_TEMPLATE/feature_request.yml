@@ -1,41 +1,40 @@
-
 name: Feature request
 description: Suggest an idea for this project
 title: "[FEATURE]"
-labels: "enhancement (uncategorised)"
+labels: [ "enhancement (uncategorised)" ]
 
 
 body:
-- type: markdown
-  attributes: 
-    value: |-
-      Thank you for taking the time to suggest ways to improve BetterTeams
-      
-      Please keep in your consideration this plugin is mainly developed by a single person, there are other contributors (link below) too 
-      This simply means features may take some time to be added particually if they are larger.
-      Plugin contributors: https://github.com/booksaw/BetterTeams/graphs/contributors
-      
-      Please note if your feature request is releated to another premium plugin there may be more difficulties in adding that feature, as I would need to gain access to the plugin
-      
-      ONE FEATURE PER FEATURE REQUEST. If you have multiple feature ideas, make multiple feature requests.
-- type: textarea
-  attributes:
-    label: "What is the feature request for?"
-    description: "Make sure you are as specific as you can be, else a similar feature to what you want may be added, but not the feature you actually want"
-  validations:
-    required: true
-- type: input
-  attributes:
-    label: "Relevant links"
-    description: Add links to any relevant plugins / examples of what you mean etc.
-- type: textarea
-  attributes: 
-    label: "Additional Information"
-    description: "Add any extra information that you think has not yet been covered"
-- type: checkboxes
-  attributes:
-    label: Feature requests are not going to be implemented by booksaw, instead you will have to find another developer to make a pull request to implement the feature.
-    options: 
-      - label: I understand
-        required: true
+  - type: markdown
+    attributes:
+      value: |-
+        Thank you for taking the time to suggest ways to improve BetterTeams
+        
+        Please keep in your consideration this plugin is mainly developed by a single person, there are other contributors (link below) too 
+        This simply means features may take some time to be added particually if they are larger.
+        Plugin contributors: https://github.com/booksaw/BetterTeams/graphs/contributors
+        
+        Please note if your feature request is releated to another premium plugin there may be more difficulties in adding that feature, as I would need to gain access to the plugin
+        
+        ONE FEATURE PER FEATURE REQUEST. If you have multiple feature ideas, make multiple feature requests.
+  - type: textarea
+    attributes:
+      label: "What is the feature request for?"
+      description: "Make sure you are as specific as you can be, else a similar feature to what you want may be added, but not the feature you actually want"
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: "Relevant links"
+      description: Add links to any relevant plugins / examples of what you mean etc.
+  - type: textarea
+    attributes:
+      label: "Additional Information"
+      description: "Add any extra information that you think has not yet been covered"
+  - type: checkboxes
+    attributes:
+      label: Feature requests are not going to be implemented by booksaw, instead you will have to find another developer to make a pull request to implement the feature.
+      options:
+        - label: I understand
+          required: true
 

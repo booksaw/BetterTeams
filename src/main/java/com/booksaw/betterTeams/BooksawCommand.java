@@ -3,6 +3,8 @@ package com.booksaw.betterTeams;
 import com.booksaw.betterTeams.commands.ParentCommand;
 import com.booksaw.betterTeams.commands.SubCommand;
 import com.booksaw.betterTeams.message.MessageManager;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
@@ -20,11 +22,13 @@ import java.util.List;
  *
  * @author booksaw
  */
+@Getter
+@Setter
 public class BooksawCommand extends BukkitCommand {
 	private SubCommand subCommand;
 
 	public BooksawCommand(String command, SubCommand subCommand, String permission, String description,
-			List<String> alises) {
+						  List<String> alises) {
 		super(command);
 		this.description = description;
 		usageMessage = "/<command> help";
@@ -55,9 +59,7 @@ public class BooksawCommand extends BukkitCommand {
 		boolean async = subCommand.checkAsync(args);
 
 		if (async) {
-			Bukkit.getScheduler().runTaskAsynchronously(Main.plugin, () -> {
-				runExecution(sender, label, args);
-			});
+			Bukkit.getScheduler().runTaskAsynchronously(Main.plugin, () -> runExecution(sender, label, args));
 		} else {
 			runExecution(sender, label, args);
 		}
@@ -92,14 +94,12 @@ public class BooksawCommand extends BukkitCommand {
 		return options;
 	}
 
-	public boolean checkPointers(CommandSender sender, String label, String[] args) {
+	public boolean checkPointers(@NotNull CommandSender sender, String label, String[] args) {
 		if (!sender.hasPermission("betterteams.admin.selector")) {
 			return false;
 		}
 
-		for (int i = 0; i < args.length; i++) {
-			String str = args[i];
-
+		for (String str : args) {
 			if (!str.startsWith("@")) {
 				continue;
 			}
@@ -111,7 +111,7 @@ public class BooksawCommand extends BukkitCommand {
 						found = true;
 						String[] newArgs = args.clone();
 						for (int j = 0; j < newArgs.length; j++) {
-							if (newArgs[j].equals(args[i])) {
+							if (newArgs[j].equals(str)) {
 								newArgs[j] = e.getName();
 							}
 						}
@@ -129,15 +129,5 @@ public class BooksawCommand extends BukkitCommand {
 
 		// no selector was found
 		return false;
-
 	}
-
-	public SubCommand getSubCommand() {
-		return subCommand;
-	}
-
-	public void setSubCommand(SubCommand subCommand) {
-		this.subCommand = subCommand;
-	}
-
 }

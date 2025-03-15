@@ -13,12 +13,12 @@ import java.util.List;
 
 public class VersionTeama extends SubCommand {
 
-	private final String command; 
-	
+	private final String command;
+
 	public VersionTeama(String command) {
 		this.command = command;
 	}
-	
+
 	@Override
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
 		MessageManager.sendMessage(sender, "admin.versionstorage", Team.getTeamManager().getClass().getName());
@@ -28,8 +28,8 @@ public class VersionTeama extends SubCommand {
 		MessageManager.sendMessage(sender, "admin.versionplayers", Integer.toString(Bukkit.getOnlinePlayers().size()));
 		return new CommandResponse(true,
 				new ReferencedFormatMessage("admin.version", Main.plugin.getDescription().getVersion()));
-		
-		
+
+
 	}
 
 	@Override

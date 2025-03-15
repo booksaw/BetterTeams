@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.booksaw.betterTeams.integrations.placeholder.provider;
 
@@ -8,7 +8,6 @@ import com.booksaw.betterTeams.integrations.placeholder.IndividualTeamPlaceholde
 
 /**
  * @author booksaw
- *
  */
 public class OnlinePlaceholderProvider implements IndividualTeamPlaceholderProvider {
 
@@ -16,5 +15,5 @@ public class OnlinePlaceholderProvider implements IndividualTeamPlaceholderProvi
 	public String getPlaceholderForTeam(Team team) {
 		return Integer.toString(team.getOnlineMembers().size());
 	}
-	
+
 }

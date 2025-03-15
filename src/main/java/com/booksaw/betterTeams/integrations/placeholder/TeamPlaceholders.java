@@ -133,15 +133,15 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 		}
 		String[] teams;
 		switch (type) {
-		case BALANCE:
-			teams = Team.getTeamManager().sortTeamsByBalance();
-			break;
-		case MEMBERS:
-			teams = Team.getTeamManager().sortTeamsByMembers();
-			break;
-		default:
-			teams = Team.getTeamManager().sortTeamsByScore();
-			break;
+			case BALANCE:
+				teams = Team.getTeamManager().sortTeamsByBalance();
+				break;
+			case MEMBERS:
+				teams = Team.getTeamManager().sortTeamsByMembers();
+				break;
+			default:
+				teams = Team.getTeamManager().sortTeamsByScore();
+				break;
 		}
 
 		Team team;
@@ -196,5 +196,4 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 	private enum SortType {
 		SCORE, BALANCE, MEMBERS
 	}
-
 }

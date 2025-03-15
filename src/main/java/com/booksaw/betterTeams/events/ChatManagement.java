@@ -46,7 +46,7 @@ public class ChatManagement implements Listener {
 
 		TeamPlayer teamPlayer = team.getTeamPlayer(p);
 
-		if(teamPlayer == null) {
+		if (teamPlayer == null) {
 			throw new IllegalStateException("Player " + p.getName() + " is registered to be in a team, yet has no playerdata associated with that team");
 		}
 
@@ -73,7 +73,7 @@ public class ChatManagement implements Listener {
 			}
 		} else if (
 				(!globalToTeamPrefix.isEmpty() && event.getMessage().startsWith(globalToTeamPrefix) && event.getMessage().length() > globalToTeamPrefix.length())
-				|| (!globalToAllyPrefix.isEmpty() && event.getMessage().startsWith(globalToAllyPrefix) && event.getMessage().length() > globalToAllyPrefix.length())
+						|| (!globalToAllyPrefix.isEmpty() && event.getMessage().startsWith(globalToAllyPrefix) && event.getMessage().length() > globalToAllyPrefix.length())
 		) {
 			// Player is not sending to global chat
 			event.setCancelled(true);
@@ -107,26 +107,26 @@ public class ChatManagement implements Listener {
 		public static PrefixType getType(String str) {
 			str = str.toLowerCase().trim();
 			switch (str) {
-			case "name":
-			case "true":
-				return NAME;
-			case "tag":
-				return TAG;
-			default:
-				return NONE;
+				case "name":
+				case "true":
+					return NAME;
+				case "tag":
+					return TAG;
+				default:
+					return NONE;
 			}
 		}
 
 		public String getUpdatedFormat(Player p, String format, Team team) {
 			switch (this) {
-			case NAME:
-				String syntax = MessageManager.getMessage(p, "prefixSyntax");
-				return MessageManager.format(syntax, team.getDisplayName(), format);
-			case TAG:
-				syntax = MessageManager.getMessage(p, "prefixSyntax");
-				return MessageManager.format(syntax, team.getColor() + team.getTag(), format);
-			default:
-				return format;
+				case NAME:
+					String syntax = MessageManager.getMessage(p, "prefixSyntax");
+					return MessageManager.format(syntax, team.getDisplayName(), format);
+				case TAG:
+					syntax = MessageManager.getMessage(p, "prefixSyntax");
+					return MessageManager.format(syntax, team.getColor() + team.getTag(), format);
+				default:
+					return format;
 			}
 		}
 

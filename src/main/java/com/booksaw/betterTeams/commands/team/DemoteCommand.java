@@ -1,6 +1,9 @@
 package com.booksaw.betterTeams.commands.team;
 
-import com.booksaw.betterTeams.*;
+import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.PlayerRank;
+import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 import com.booksaw.betterTeams.message.MessageManager;
 import org.bukkit.OfflinePlayer;
@@ -25,18 +28,12 @@ public class DemoteCommand extends TeamSubCommand {
 		 * to name changes This method is appropriate to use in this use case (so users
 		 * can view offline users teams by name not just by team name)
 		 */
-		OfflinePlayer player = Utils.getOfflinePlayer(args[0]);
-
-		if (player == null) {
-			return new CommandResponse("noPlayer");
+		TeamPlayerResult teamPlayerResult = getTeamPlayer(team, args[0]);
+		if (teamPlayerResult.isCR()) {
+			return teamPlayerResult.getCr();
 		}
 
-		Team otherTeam = Team.getTeam(player);
-		if (team != otherTeam) {
-			return new CommandResponse("needSameTeam");
-		}
-
-		TeamPlayer demotePlayer = team.getTeamPlayer(player);
+		TeamPlayer demotePlayer = teamPlayerResult.getPlayer();
 
 		if (Objects.requireNonNull(demotePlayer).getRank() == PlayerRank.DEFAULT) {
 			return new CommandResponse("demote.min");

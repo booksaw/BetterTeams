@@ -15,11 +15,11 @@ import java.util.List;
 public class DepositCommand extends TeamSubCommand {
 
 	private final ParentCommand parentCommand;
-	
+
 	public DepositCommand(ParentCommand parentCommand) {
 		this.parentCommand = parentCommand;
 	}
-	
+
 	@Override
 	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 		double amount;

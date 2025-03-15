@@ -28,20 +28,23 @@ import com.booksaw.betterTeams.integrations.hologram.HDHologramManager;
 import com.booksaw.betterTeams.integrations.hologram.HologramManager;
 import com.booksaw.betterTeams.integrations.placeholder.TeamPlaceholders;
 import com.booksaw.betterTeams.message.MessageManager;
-import com.booksaw.betterTeams.metrics.Metrics;
 import com.booksaw.betterTeams.score.ScoreManagement;
 import com.booksaw.betterTeams.team.storage.StorageType;
 import com.booksaw.betterTeams.team.storage.convert.Converter;
 import com.booksaw.betterTeams.team.storage.storageManager.YamlStorageManager;
 import com.booksaw.betterTeams.util.WebhookHandler;
+import lombok.Getter;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
+import org.bstats.bukkit.Metrics;
+import org.bstats.charts.SimplePie;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.Map.Entry;
@@ -63,8 +66,10 @@ public class Main extends JavaPlugin {
 	public MCTeamManagement teamManagement;
 	public ChatManagement chatManagement;
 	public WorldGuardManagerV7 wgManagement;
+	@Getter
 	private PermissionParentCommand teamCommand;
 
+	@Getter
 	private BooksawCommand teamBooksawCommand;
 
 	private Metrics metrics = null;
@@ -384,13 +389,13 @@ public class Main extends JavaPlugin {
 		if (metrics == null) {
 			int pluginId = 7855;
 			metrics = new Metrics(this, pluginId);
-			metrics.addCustomChart(new Metrics.SimplePie("language", () -> getConfig().getString("language")));
-			metrics.addCustomChart(new Metrics.SimplePie("storage_type", () -> getConfig().getString("storageType")));
+			metrics.addCustomChart(new SimplePie("language", () -> getConfig().getString("language")));
+			metrics.addCustomChart(new SimplePie("storage_type", () -> getConfig().getString("storageType")));
 		}
 	}
 
 	@Override
-	public FileConfiguration getConfig() {
+	public @NotNull FileConfiguration getConfig() {
 		return configManager.config;
 	}
 
@@ -420,13 +425,4 @@ public class Main extends JavaPlugin {
 		Team.setupTeamManager(to);
 		Team.getTeamManager().loadTeams();
 	}
-
-	public BooksawCommand getTeamBooksawCommand() {
-		return teamBooksawCommand;
-	}
-
-	public PermissionParentCommand getTeamCommand() {
-		return teamCommand;
-	}
-
 }

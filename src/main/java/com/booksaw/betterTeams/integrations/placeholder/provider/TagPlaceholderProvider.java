@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.booksaw.betterTeams.integrations.placeholder.provider;
 
@@ -9,7 +9,6 @@ import com.booksaw.betterTeams.message.MessageManager;
 
 /**
  * @author booksaw
- *
  */
 public class TagPlaceholderProvider implements IndividualTeamPlaceholderProvider {
 
