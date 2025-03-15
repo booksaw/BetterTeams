@@ -94,11 +94,6 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.ben-manes.caffeine</groupId>
-            <artifactId>caffeine</artifactId>
-            <version>3.2.0</version>
-        </dependency>
-        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.36</version>
@@ -145,10 +140,6 @@
                 <version>3.6.0</version>
                 <configuration>
                     <relocations>
-                        <relocation>
-                            <pattern>com.github.benmanes.caffeine</pattern>
-                            <shadedPattern>booksawshaded.com.github.benmanes.caffeine</shadedPattern>
-                        </relocation>
                         <relocation>
                             <pattern>org.bstats</pattern>
                             <shadedPattern>booksawshaded.com.org.bstats</shadedPattern>
@@ -199,7 +190,7 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.11.2</version>
                 <configuration>
-                    <reportOutputDirectory>docs\javadocs</reportOutputDirectory>
+                    <reportOutputDirectory>docs/javadocs</reportOutputDirectory>
                     <sourcepath>src/main/java</sourcepath>
                 </configuration>
             </plugin>

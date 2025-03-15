@@ -3,6 +3,7 @@ package util;
 import com.booksaw.betterTeams.util.Cache;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,6 +14,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CacheTest {
 	AtomicInteger loaderCallCount;
+
+	@BeforeAll
+	public static void beforeAll() {
+		// Prime AssertJ
+		assertThat(true).isTrue();
+	}
 
 	@BeforeEach
 	void setUp() {
