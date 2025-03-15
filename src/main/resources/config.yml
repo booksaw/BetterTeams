@@ -58,6 +58,13 @@ database:
   database: spigot
   user: root
   password: password
+  # Prefix for SQL tables.
+  # After changing this String and reloading the plugin/server,
+  # BetterTeams will start using it as the new Table Prefix when storing and reading team data.
+  # Only recommended changing when setting up your server,
+  # otherwise all team data stored under the last prefix will stop being used until you change it back (if previous tables remain intact).
+  # Thought for network servers that use the same database but are not supposed to share same team data.
+  # Default value is "BetterTeams_" as it has always been, to prevent sudden change if you have been using SQL.
   tablePrefix: BetterTeams_
 
 # This is the value to determine if the chat prefix is enabled
