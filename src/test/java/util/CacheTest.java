@@ -237,7 +237,7 @@ public class CacheTest {
 		assertThat(loaderCallCount.get()).isEqualTo(2);
 
 		// Wait for access expiration but not write expiration
-		Thread.sleep(100); // running total: 150ms
+		Thread.sleep(120); // running total: 170ms
 		// Should expire due to access expiration
 		assertThat(cache.get("key1")).isEqualTo("value-key1");
 		assertThat(loaderCallCount.get()).isEqualTo(3);
@@ -246,7 +246,7 @@ public class CacheTest {
 		assertThat(loaderCallCount.get()).isEqualTo(3);
 
 		// Now the 2nd key expired due to write access
-		Thread.sleep(70); // running total: 220ms
+		Thread.sleep(50); // running total: 220ms
 		assertThat(cache.get("key2")).isEqualTo("value-key2");
 		// running total reset to 0
 		assertThat(loaderCallCount.get()).isEqualTo(4);
