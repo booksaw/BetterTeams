@@ -6,7 +6,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -30,17 +29,7 @@ public class CostManager {
 
 		YamlConfiguration cooldown = YamlConfiguration.loadConfiguration(f);
 
-		if (Main.plugin.getConfig().getInt("version") <= 5) {
-			cooldown.set("costFromTeam", true);
-			try {
-				cooldown.save(f);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			costFromTeam = true;
-		} else {
-			costFromTeam = cooldown.getBoolean("costFromTeam");
-		}
+		costFromTeam = cooldown.getBoolean("costFromTeam");
 
 		prices = new HashMap<>();
 
@@ -50,8 +39,9 @@ public class CostManager {
 				String[] split = temp.split(":");
 				prices.put(split[0], new CommandCost(split[0], Double.parseDouble(split[1])));
 			} catch (Exception e) {
-				Bukkit.getLogger().info("Something went wrong while enabling a cost, there appears to be an error with "
+				Bukkit.getLogger().severe("Something went wrong while enabling a cost, there appears to be an error with "
 						+ command + ".yml. (ERROR: " + e.getMessage() + ")");
+				Bukkit.getLogger().severe(e.toString());
 
 			}
 		}

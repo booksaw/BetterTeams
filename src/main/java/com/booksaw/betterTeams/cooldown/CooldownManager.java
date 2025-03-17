@@ -36,8 +36,9 @@ public class CooldownManager {
 				cooldowns.put(split[0], new CommandCooldown(split[0], Integer.parseInt(split[1])));
 			} catch (Exception e) {
 				Bukkit.getLogger()
-						.info("Something went wrong while enabling a cooldown, there appears to be an error with "
+						.severe("Something went wrong while enabling a cooldown, there appears to be an error with "
 								+ command + ".yml. (ERROR: " + e.getMessage() + ")");
+				Bukkit.getLogger().severe(e.getMessage());
 
 			}
 		}

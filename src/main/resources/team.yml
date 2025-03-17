@@ -3,13 +3,15 @@
 # COOLDOWNS - Only let a player run a command every set number of seconds. 
 # To bypass the cooldown have the permission node betterTeams.cooldown.bypass
 # To add a cooldown to this file, an example is shown below
-cooldowns:
+# (REMOVE THE [ ])
+cooldowns: [ ]
 #- 'home:60'
 ## The line above will add a 60 second cooldown to the command /team home
 
 # COSTS - Make take a certain amount of money from the players balance when they run a command
 # To bypass the cost have the permission node betterteams.cost.bypass
-costs:
+# (REMOVE THE [ ])
+costs: [ ]
 #- 'home:9.99'
 
 # This option determines if the command cost is taken from the team balance first or the individual player

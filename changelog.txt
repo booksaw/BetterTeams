@@ -872,7 +872,20 @@ All you need is a discord webhook url in the webhooks section of the config, the
 
 Improvements:
 - Add post-occurrence events matching all existing events which are only called on success - Credit svaningelgem
-- Many instances of code refactoring and improvement - Credit svaningelgem
+-- Some events have been renamed and the existing event is now Depreciated and will be removed in a future release. This includes:
+-- PrePurgeEvent -> PurgeEvent to match other events
+-- `TeamMessageEvent` -> `PostTeamSendMessageEvent` for clarity as all over Post events include 'Post'
+-- `TeamPreMessageEvent` -> `TeamSendMessageEvent` Once again to match existing patterns
+- Added option to configure the table name prefix in SQL so multiple servers can point at the same SQL server - Credit gaboss44
+
+Bug Fixes:
+- Attempt at fixing /team kick not working offline players in some cases - Credit svaningelgem
+
+Code improvements:
+- Many instances of code refactoring and improvement and re-formatting - Credit svaningelgem
+- Refactored code to make use of Lombok to avoid boilerplate code - Credit svaningelgem
+- Automated dependency updating - Credit svaningelgem
+- Replacement of Caffeine dependency with custom implementation to reduce filesize - Credit svaningelgem
 
 Headings:
 Features:
