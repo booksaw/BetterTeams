@@ -4,8 +4,7 @@ import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.Utils;
 import com.booksaw.betterTeams.message.MessageManager;
-import com.github.benmanes.caffeine.cache.Caffeine;
-import com.github.benmanes.caffeine.cache.LoadingCache;
+import com.booksaw.betterTeams.util.Cache;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -22,7 +21,7 @@ import java.time.Duration;
 public class TeamPlaceholders extends PlaceholderExpansion {
 	private final Plugin plugin;
 
-	private final LoadingCache<String, String> placeholderCache = Caffeine.newBuilder()
+	private final Cache<String, String> placeholderCache = new Cache.Builder<String, String>()
 			.maximumSize(300)
 			.expireAfterWrite(Duration.ofMinutes(5))
 			.build(this::getStaticPlaceholder);
