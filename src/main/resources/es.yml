@@ -5,7 +5,7 @@
 
 # Any placeholders from placeholder API will work in this file
 
-# Credit for contributions to this file: LeadVic
+# Credit for contributions to this file: LeadVic, Pavo44
 
 invalidArg: '&4Argumentos inválidos.'
 inTeam: '&4Debes estar en un equipo para hacer eso.'
@@ -48,6 +48,7 @@ create:
   success: '&6Equipo creado correctamente!!!!!!!!'
   banned: '&4Nombre de equipo no permitido!'
   maxLength: '&4Nombre de equipo demasiado largo.'
+  minLength: '&4Ese nombre de equipo es demasiado corto'
 leave:
   success: '&6Has dejado tu equipo.'
   lastOwner: '&6Eres el único con un rango dentro del equipo, Promueve a alguien o
@@ -245,6 +246,9 @@ chest:
   all:
     success: '&6Todos los cofres ahora están como no reclamados.'
   claimed: '&4Cofre reclamado por &a{0}'
+  check:
+    notClaimed: '&6Ese cofre aÃºn no ha sido reclamado'
+    claimed: '&6Ese cofre ha sido reclamado por &a{0}'
 echest:
 
   echest: Enderchest
