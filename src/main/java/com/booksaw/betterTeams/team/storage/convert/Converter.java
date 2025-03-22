@@ -1,7 +1,7 @@
 package com.booksaw.betterTeams.team.storage.convert;
 
+import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.team.storage.StorageType;
-import org.bukkit.Bukkit;
 
 public abstract class Converter {
 
@@ -26,7 +26,7 @@ public abstract class Converter {
 	}
 
 	protected void log(String message) {
-		Bukkit.getLogger().info("[BetterTeams] " + message);
+		Main.plugin.getLogger().info(message);
 	}
 
 	public void convertStorage() {

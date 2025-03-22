@@ -346,7 +346,7 @@ public class Team {
 		try {
 			claims.load(storage);
 		} catch (IllegalArgumentException e) {
-			Bukkit.getLogger().severe("Invalid location stored in the file for the team with the ID " + id + ", " + e.getMessage());
+			Main.plugin.getLogger().severe("Invalid location stored in the file for the team with the ID " + id + ", " + e.getMessage());
 		}
 
 		level = storage.getInt(StoredTeamValue.LEVEL);
@@ -373,8 +373,8 @@ public class Team {
 		this.id = id;
 
 		if (name == null) {
-			Bukkit.getLogger()
-					.warning("[BetterTeams] Provided team name was null, this should never occur. Team uuid = " + id);
+			Main.plugin.getLogger()
+					.warning("Provided team name was null, this should never occur. Team uuid = " + id);
 			name = "invalidName";
 
 			try {
@@ -920,7 +920,7 @@ public class Team {
 			MessageManager.sendMessage(temp, "spy.team", getName(), sender.getPlayer().getPlayer().getName(), message);
 		}
 		if (TEAMMANAGER.isLogChat()) {
-			Bukkit.getLogger().info("[BetterTeams]" + fMessage);
+			Main.plugin.getLogger().info(fMessage);
 		}
 
 		// Notify third party plugins that a message has been dispatched
@@ -999,7 +999,7 @@ public class Team {
 		}
 
 		if (TEAMMANAGER.isLogChat()) {
-			Bukkit.getLogger().info("[BetterTeams]" + fMessage);
+			Main.plugin.getLogger().info(fMessage);
 		}
 	}
 
@@ -1086,9 +1086,9 @@ public class Team {
 		} while (team == null && attempt < 100);
 
 		if (team == null) {
-			Bukkit.getLogger().warning(
+			Main.plugin.getLogger().warning(
 					"An avaliable team cannot be found, be prepared for a lot of errors. (this should never happen, and should always be reported to booksaw)");
-			Bukkit.getLogger().warning("This catch is merely here to stop the server crashing");
+			Main.plugin.getLogger().warning("This catch is merely here to stop the server crashing");
 			return null;
 		}
 

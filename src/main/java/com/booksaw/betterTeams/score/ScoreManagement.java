@@ -30,7 +30,7 @@ public class ScoreManagement implements Listener {
 			Main.plugin.getConfig().getStringList("autoPurge").forEach(str -> {
 				String[] split = str.split(":");
 				if (split.length < 2) {
-					Bukkit.getLogger().severe("The autopurge value " + str
+					Main.plugin.getLogger().severe("The autopurge value " + str
 							+ " is not of the correct format, it should be of the format 'dateofMonth:hour', if your format looks like this, make sure you have surrounded the message in single quotes (ie - '1:6')");
 				} else {
 					Date temp = new Date(Integer.parseInt(split[0]), Integer.parseInt(split[1]));

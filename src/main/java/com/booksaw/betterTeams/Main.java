@@ -93,7 +93,7 @@ public class Main extends JavaPlugin {
 			if (ver == '7') {
 				wgManagement = new WorldGuardManagerV7();
 			} else {
-				Bukkit.getLogger().warning("[BetterTeams] Your version of worldgaurd ("
+				Main.plugin.getLogger().warning("Your version of worldgaurd ("
 						+ Bukkit.getPluginManager().getPlugin("WorldGuard").getDescription().getVersion()
 						+ ") is not yet supported (Currently supported: version 7.x.x), the betterteams flags will not be usable");
 			}
@@ -156,7 +156,7 @@ public class Main extends JavaPlugin {
 		}
 
 		if (teamManagement != null) {
-			teamManagement.removeAll();
+			teamManagement.removeAll(false);
 		}
 
 		Team.disable();
@@ -174,9 +174,9 @@ public class Main extends JavaPlugin {
 				saveResource(language + ".yml", false);
 			}
 		} catch (Exception e) {
-			Bukkit.getLogger().warning("Could not load selected language: " + language
+			Main.plugin.getLogger().warning("Could not load selected language: " + language
 					+ " go to https://github.com/booksaw/BetterTeams/wiki/Language to view a list of supported languages");
-			Bukkit.getLogger().warning("Reverting to english so the plugin can still function");
+			Main.plugin.getLogger().warning("Reverting to english so the plugin can still function");
 			MessageManager.setLanguage("messages");
 			loadCustomConfigs();
 			return;
@@ -199,7 +199,7 @@ public class Main extends JavaPlugin {
 
 		} else {
 			if (damageManagement != null) {
-				Bukkit.getLogger().log(Level.WARNING, "Restart server for damage changes to apply");
+				Main.plugin.getLogger().log(Level.WARNING, "Restart server for damage changes to apply");
 			}
 		}
 
@@ -335,9 +335,9 @@ public class Main extends JavaPlugin {
 	}
 
 	public void setupListeners() {
-		Bukkit.getLogger().info("Display team name config value: " + getConfig().getString("displayTeamName"));
+		Main.plugin.getLogger().info("Display team name config value: " + getConfig().getString("displayTeamName"));
 		BelowNameType type = BelowNameType.getType(Objects.requireNonNull(getConfig().getString("displayTeamName")));
-		Bukkit.getLogger().info("Loading below name. Type: " + type);
+		Main.plugin.getLogger().info("Loading below name. Type: " + type);
 		if (getConfig().getBoolean("useTeams")) {
 			if (teamManagement == null) {
 
@@ -345,18 +345,18 @@ public class Main extends JavaPlugin {
 
 				Bukkit.getScheduler().runTaskAsynchronously(this, () -> teamManagement.displayBelowNameForAll());
 				getServer().getPluginManager().registerEvents(teamManagement, this);
-				Bukkit.getLogger().info("teamManagement declared: " + teamManagement);
+				Main.plugin.getLogger().info("teamManagement declared: " + teamManagement);
 			}
 		} else {
-			Bukkit.getLogger().info("Not loading management");
+			Main.plugin.getLogger().info("Not loading management");
 			if (teamManagement != null) {
-				Bukkit.getLogger().log(Level.WARNING, "Restart server for minecraft team changes to apply");
+				Main.plugin.getLogger().log(Level.WARNING, "Restart server for minecraft team changes to apply");
 			}
 		}
 
 		// loading the zkoth event listener
 		if (getServer().getPluginManager().isPluginEnabled("zKoth")) {
-			Bukkit.getLogger().info("Found plugin zKoth, adding plugin integration");
+			Main.plugin.getLogger().info("Found plugin zKoth, adding plugin integration");
 			getServer().getPluginManager().registerEvents(new ZKothManager(), this);
 		}
 
@@ -414,7 +414,7 @@ public class Main extends JavaPlugin {
 			Converter converter = Converter.getConverter(from, to);
 
 			if (converter == null) {
-				Bukkit.getLogger().info("[BetterTeams] Cannot convert to the selected storage type (" + to.toString()
+				Main.plugin.getLogger().info("Cannot convert to the selected storage type (" + to.toString()
 						+ "), continuing with preexisting one (" + from.toString() + ")");
 				to = from;
 			} else {

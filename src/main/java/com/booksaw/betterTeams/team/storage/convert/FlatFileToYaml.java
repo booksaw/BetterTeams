@@ -5,7 +5,6 @@ import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.team.storage.storageManager.YamlStorageManager;
 import com.booksaw.betterTeams.team.storage.team.SeparatedYamlTeamStorage;
 import com.booksaw.betterTeams.team.storage.team.StoredTeamValue;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -122,8 +121,8 @@ public class FlatFileToYaml extends Converter {
 		try {
 			teamStorage.save(f);
 		} catch (IOException e) {
-			Bukkit.getLogger()
-					.warning("[BetterTeams] Something went wrong with convering the config, REPORT THIS TO BOOKSAW");
+			Main.plugin.getLogger()
+					.warning("Something went wrong with convering the config, REPORT THIS TO BOOKSAW");
 			e.printStackTrace();
 		}
 

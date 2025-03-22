@@ -880,6 +880,7 @@ Improvements:
 
 Bug Fixes:
 - Attempt at fixing /team kick not working offline players in some cases - Credit svaningelgem
+- Fixed issue with the team.yaml file being reset - Credit booksaw
 
 Code improvements:
 - Many instances of code refactoring and improvement and re-formatting - Credit svaningelgem

@@ -6,7 +6,6 @@ import com.booksaw.betterTeams.commands.SubCommand;
 import com.booksaw.betterTeams.message.HelpMessage;
 import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.team.SetTeamComponent;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
@@ -58,7 +57,7 @@ public class InfoCommand extends SubCommand {
 			Team ally = Team.getTeam(uuid);
 
 			if (ally == null) {
-				Bukkit.getLogger().warning("Unable to locate team with UUID: " + uuid);
+				Main.plugin.getLogger().warning("Unable to locate team with UUID: " + uuid);
 				continue;
 			}
 

@@ -1,7 +1,6 @@
 package com.booksaw.betterTeams;
 
 import lombok.Getter;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.NotNull;
@@ -78,14 +77,14 @@ public class ConfigManager {
 
 	public void save(boolean log) {
 		if (log) {
-			Bukkit.getLogger().info("Saving new values to " + filePath);
+			Main.plugin.getLogger().info("Saving new values to " + filePath);
 		}
 
 		File f = new File(filePath);
 		try {
 			config.save(f);
 		} catch (IOException ex) {
-			Bukkit.getLogger().log(Level.SEVERE, "Could not save config to " + f, ex);
+			Main.plugin.getLogger().log(Level.SEVERE, "Could not save config to " + f, ex);
 		}
 	}
 
@@ -95,7 +94,7 @@ public class ConfigManager {
 
 	public void updateFromDefaultSave(boolean log) {
 
-		Logger logger = Bukkit.getLogger();
+		Logger logger = Main.plugin.getLogger();
 
 		if (log) {
 			logger.info("[BetterTeams] Checking if the file " + resourceName + " is up to date");
@@ -165,7 +164,7 @@ public class ConfigManager {
 			return false;
 		}
 		if (log) {
-			Bukkit.getLogger().info("[BetterTeams] " + resourceName + " is using legacy variables. Migration taking place.");
+			Main.plugin.getLogger().info(resourceName + " is using legacy variables. Migration taking place.");
 		}
 		int migratedKeys = 0;
 		for (String key : config.getKeys(true)) {
@@ -192,7 +191,7 @@ public class ConfigManager {
 			}
 		}
 		if (log) {
-			Bukkit.getLogger().info("[BetterTeams] Legacy variable migration is complete. " + migratedKeys + " keys were migrated.");
+			Main.plugin.getLogger().info("Legacy variable migration is complete. " + migratedKeys + " keys were migrated.");
 		}
 		return migratedKeys != 0;
 	}

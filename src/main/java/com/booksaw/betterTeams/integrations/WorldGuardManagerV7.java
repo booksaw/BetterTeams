@@ -1,5 +1,6 @@
 package com.booksaw.betterTeams.integrations;
 
+import com.booksaw.betterTeams.Main;
 import com.sk89q.worldedit.bukkit.BukkitWorld;
 import com.sk89q.worldedit.util.Location;
 import com.sk89q.worldguard.LocalPlayer;
@@ -37,7 +38,7 @@ public class WorldGuardManagerV7 {
 			if (existing instanceof StateFlag) {
 				TEAM_PVP_FLAG = (StateFlag) existing;
 			} else {
-				Bukkit.getLogger().log(Level.SEVERE, "Conflicting flag found for TeamPvp Flag");
+				Main.plugin.getLogger().log(Level.SEVERE, "Conflicting flag found for TeamPvp Flag");
 			}
 		}
 
