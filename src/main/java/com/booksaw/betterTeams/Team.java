@@ -265,6 +265,11 @@ public class Team {
 	@Getter
 	private boolean pvp = false;
 
+	/*
+	 * Decides whether or not team home will serve as respawn location
+	 */
+	private boolean anchor = false;
+
 	/**
 	 * The color of the team
 	 */
@@ -320,6 +325,7 @@ public class Team {
 		description = storage.getString(StoredTeamValue.DESCRIPTION);
 		open = storage.getBoolean(StoredTeamValue.OPEN);
 		pvp = storage.getBoolean(StoredTeamValue.PVP);
+		anchor = storage.getBoolean(StoredTeamValue.ANCHOR);
 
 		String colorStr = storage.getString(StoredTeamValue.COLOR);
 
@@ -399,6 +405,9 @@ public class Team {
 
 		storage.set(StoredTeamValue.PVP, false);
 		pvp = false;
+		
+		storage.set(StoredTeamValue.ANCHOR, false);
+		anchor = false;
 
 		storage.set(StoredTeamValue.HOME, "");
 		rank = -1;
@@ -820,7 +829,7 @@ public class Team {
 	public void deleteTeamHome() {
 		teamHome = null;
 		getStorage().set(StoredTeamValue.HOME, "");
-
+		if(anchor) setAnchored(false);
 	}
 
 	/**
@@ -1565,6 +1574,16 @@ public class Team {
 		this.pvp = pvp;
 		getStorage().set(StoredTeamValue.PVP, pvp);
 
+	}
+
+	public void setAnchored(boolean anchor) {
+		if(anchor && teamHome == null) return;
+		this.anchor = anchor;
+		getStorage().set(StoredTeamValue.ANCHOR, anchor);
+	}
+
+	public boolean isAnchored() {
+		return anchor;
 	}
 
 	public double getMaxMoney() {

@@ -51,6 +51,15 @@ permissions:
   betterTeams.home:
     default: true
     description: Allows access to /team home
+  betterTeams.home.anchor:
+    default: true
+    description: Allows access to /team home anchor
+  betterTeams.anchor:
+    default: true
+    description: Allows access to /team anchor
+  betterTeams.anchor.use:
+    default: true
+    description: Allows the user to actually be affected by home anchor (if requirements are met) on respawn
   betterTeams.invite:
     default: true
     description: Allows access to /team invite

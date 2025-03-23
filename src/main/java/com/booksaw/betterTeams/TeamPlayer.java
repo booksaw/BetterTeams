@@ -7,6 +7,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -35,7 +36,7 @@ public class TeamPlayer {
 	 * This stores if the team is messaging to the team chat or the global chat
 	 */
 	@Setter
-	private boolean teamChat;
+	private boolean teamChat = false;
 
 	@Setter
 	private boolean allyChat = false;
@@ -48,6 +49,12 @@ public class TeamPlayer {
 	@Getter
 	private String title;
 
+	/*
+	 * Whether or not this player accepts having their respawn location changed by team home anchor
+	 */
+	@Setter
+	private boolean anchor = false;
+
 	/**
 	 * Used to create a new player
 	 *
@@ -57,14 +64,19 @@ public class TeamPlayer {
 	public TeamPlayer(@NotNull OfflinePlayer player, @NotNull PlayerRank rank) {
 		this.playerUUID = player.getUniqueId();
 		this.rank = rank;
-		teamChat = false;
 	}
 
 	public TeamPlayer(OfflinePlayer player, PlayerRank rank, String title) {
 		this.playerUUID = player.getUniqueId();
 		this.rank = rank;
 		this.title = title;
-		teamChat = false;
+	}
+
+	public TeamPlayer(OfflinePlayer player, PlayerRank rank, String title, boolean anchor) {
+		this.playerUUID = player.getUniqueId();
+		this.rank = rank;
+		this.title = title;
+		this.anchor = anchor;
 	}
 
 	/**
@@ -79,7 +91,6 @@ public class TeamPlayer {
 		if (split.length > 2) {
 			title = split[2];
 		}
-		teamChat = false;
 	}
 
 	/**
@@ -109,6 +120,10 @@ public class TeamPlayer {
 		return allyChat;
 	}
 
+	public boolean isAnchored() {
+		return anchor;
+	}
+	
 	/**
 	 * @param returnTo the chat color that should be returned to after the prefix
 	 *                 has been added (to stop the color of the prefix continuing

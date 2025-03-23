@@ -258,6 +258,15 @@ noMove: false
 # Possible values: [Any whole positive number]
 maxMove: 0
 
+# This allows players to respawn at their team home
+# - If enabled, the plugin will try to set the respawn location when respawn event fires.
+#   Note that the success of such process depends on whether or not certain conditions are met: permissions, ranks, respawn event's cancellation state, etc.
+# - If disabled, the plugin will not manage respawns in any way.
+anchor:
+  enable: true
+  checkRank: true
+  checkUsePermission: true
+
 # If this is enabled, a slightly different set of commands will be avaliable allowing a team to only have a single owner
 # - If this is false, a team can have as many owners as wanted, members are promoted to owners with the command /team promote
 # - If this is true a team can only have a single owner, which is set by doing /team setowner

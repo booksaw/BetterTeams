@@ -17,6 +17,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.UUID;
 import java.util.stream.Stream;
@@ -72,12 +73,13 @@ public class YamlToSql extends Converter {
 			String echest = Utils.serializeInventory(inv);
 			echest = echest.replace("\"", "\\\"");
 			database.insertRecordIfNotExists(TableName.TEAM,
-					"teamID, name, description, open, score, money, home, color, level, tag, pvp",
+					"teamID, name, description, open, score, money, home, color, level, tag, pvp, anchor",
 					"'" + teamName + "', '" + config.getString("name") + "', '" + config.getString("description") + "', "
 							+ config.getBoolean("open") + ", " + config.getInt("score") + ", "
 							+ config.getDouble("money") + ", '" + config.getString("home") + "', '"
 							+ config.getString("color") + "', " + config.getInt("level") + ", '"
-							+ config.getString("tag") + "', " + config.getBoolean("pvp"));
+							+ config.getString("tag") + "', " + config.getBoolean("pvp") + ", "
+							+ config.getBoolean("anchor", false));
 
 			if (echest != null && !echest.isEmpty()) {
 				database.updateRecordWhere(TableName.TEAM, "echest = \"" + echest + "\"",
@@ -98,15 +100,17 @@ public class YamlToSql extends Converter {
 				database.insertRecordIfNotExists(TableName.BANS, "teamID, playerUUID", "'" + teamName + "', '" + temp + "'");
 			}
 			// players
+			List<String> anchoredPlayers = config.getStringList("anchoredPlayers");
 			for (String temp : config.getStringList("players")) {
 				String[] split = temp.split(",");
 				PlayerRank rank = PlayerRank.getRank(split[1]);
+				boolean anchor = anchoredPlayers.contains(split[0]);
 				if (split.length == 2) {
-					database.insertRecordIfNotExists(TableName.PLAYERS, "teamID, playerUUID, playerRank",
-							"'" + teamName + "', '" + split[0] + "', " + rank.value);
+					database.insertRecordIfNotExists(TableName.PLAYERS, "teamID, playerUUID, playerRank, anchor",
+							"'" + teamName + "', '" + split[0] + "', " + rank.value + ", " + anchor);
 				} else {
-					database.insertRecordIfNotExists(TableName.PLAYERS, "teamID, playerUUID, playerRank, title",
-							"'" + teamName + "', '" + split[0] + "', " + rank.value + ", '" + split[2] + "'");
+					database.insertRecordIfNotExists(TableName.PLAYERS, "teamID, playerUUID, playerRank, title, anchor",
+							"'" + teamName + "', '" + split[0] + "', " + rank.value + ", '" + split[2] + "'" + ", " + anchor);
 				}
 
 			}
