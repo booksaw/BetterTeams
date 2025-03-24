@@ -265,6 +265,16 @@ maxMove: 0
 anchor:
   enable: true
   checkUsePermission: true
+  # Naturally, this feature works by listening to the respawn event and changing the respawn location
+  # However, said location can be changed again (mostly by other plugins), so the choice of which priority should this feature use is provided
+  # See "https://hub.spigotmc.org/javadocs/spigot/org/bukkit/event/EventPriority.html" for more information
+  # Allowed priorities:
+  # - 1 : LOWEST
+  # - 2 : LOW
+  # - 3 : NORMAL
+  # - 4 : HIGH
+  # - 5 : HIGHEST
+  priority: 4
 
 # If this is enabled, a slightly different set of commands will be avaliable allowing a team to only have a single owner
 # - If this is false, a team can have as many owners as wanted, members are promoted to owners with the command /team promote

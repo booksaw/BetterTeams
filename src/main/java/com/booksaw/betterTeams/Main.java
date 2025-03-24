@@ -384,7 +384,8 @@ public class Main extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new InventoryManagement(), this);
 		getServer().getPluginManager().registerEvents(new RankupEvents(), this);
 		if (getConfig().getBoolean("anchor.enable")){
-			getServer().getPluginManager().registerEvents(new HomeAnchorManagement(), this);
+			HomeAnchorManagement homeAnchorListener = new HomeAnchorManagement(this);
+    		homeAnchorListener.registerEvent();
 		}
 	}
 

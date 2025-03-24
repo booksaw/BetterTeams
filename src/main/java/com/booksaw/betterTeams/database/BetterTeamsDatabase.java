@@ -7,8 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.bukkit.Bukkit;
-
 public class BetterTeamsDatabase extends Database {
 
 	public void setupTables() {
