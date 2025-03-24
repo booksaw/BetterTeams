@@ -92,7 +92,7 @@ public class SQLTeamStorage extends TeamStorage {
 			}
 			do {
 				if(result.getBoolean("anchor"))
-				toReturn.add(UUID.fromString(result.getString("playerUUID")));
+					toReturn.add(UUID.fromString(result.getString("playerUUID")));
 			} while (result.next());
 		} catch (SQLException e) {
 			e.printStackTrace();

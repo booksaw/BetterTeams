@@ -4,18 +4,26 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 
 import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
 
 public class AnchoredPlayerUuidSetComponent extends UuidSetComponent {
 
     @Override
     public void add(Team team, UUID playerUUID) {
-        if (team.getTeamPlayer(Bukkit.getOfflinePlayer(playerUUID)) != null)
-            set.add(playerUUID);
+        TeamPlayer teamPlayer = team.getTeamPlayer(Bukkit.getOfflinePlayer(playerUUID));
+        if (teamPlayer == null)
+            return;
+        team.getStorage().setAnchor(teamPlayer, true);
+        set.add(playerUUID);
     }
 
     @Override
     public void remove(Team team, UUID playerUUID) {
+        TeamPlayer teamPlayer = team.getTeamPlayer(Bukkit.getOfflinePlayer(playerUUID));
+        if (teamPlayer == null)
+            return;
+        team.getStorage().setAnchor(teamPlayer, false);
         set.remove(playerUUID);
     }
 
