@@ -49,7 +49,7 @@ public class SetAnchorCommand extends TeamSubCommand {
         if (team.getTeamHome() == null) {
             MessageManager.sendMessage(player.getPlayer().getPlayer(), "info.anchor", team.isAnchored());
             return new CommandResponse("setanchor.noHome");
-        } else if (!team.isAnchored())
+        } else if (team.isAnchored())
             return new CommandResponse(new ReferencedFormatMessage("info.anchor", team.isAnchored()));
 
         team.setAnchored(true);
