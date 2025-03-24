@@ -111,20 +111,20 @@ public class MessageManager {
 
 			saveMissingMessages(backupMessages);
 
-			Logger logger = Bukkit.getLogger();
-			logger.info("[BetterTeams] ==================================================================");
+			Logger logger = Main.plugin.getLogger();
+			logger.info("==================================================================");
 			logger.info(
-					"[BetterTeams] Messages are missing from your selected language, the following messages are using english:");
+					"Messages are missing from your selected language, the following messages are using english:");
 
 			for (String str : backupMessages) {
-				logger.info("[BetterTeams] - " + str + ": " + messages.get(str));
+				logger.info("- " + str + ": " + messages.get(str));
 			}
 
 			logger.info(
-					"[BetterTeams] If you are able to help with translation please join the discord server and make yourself known (https://discord.gg/JF9DNs3)");
+					"If you are able to help with translation please join the discord server and make yourself known (https://discord.gg/JF9DNs3)");
 			logger.info(
-					"[BetterTeams] A file called `" + MISSINGMESSAGES_FILENAME + "` has been created within this plugins folder. To contribute to the community translations, translate the messages within it and submit it to the discord");
-			logger.info("[BetterTeams] ==================================================================");
+					"A file called `" + MISSINGMESSAGES_FILENAME + "` has been created within this plugins folder. To contribute to the community translations, translate the messages within it and submit it to the discord");
+			logger.info("==================================================================");
 		}
 
 	}
@@ -212,7 +212,7 @@ public class MessageManager {
 	public static String getMessage(String reference, Object... replacement) {
 		try {
 			if (!messages.containsKey(reference)) {
-				Bukkit.getLogger().warning("Could not find the message with the reference " + reference);
+				Main.plugin.getLogger().warning("Could not find the message with the reference " + reference);
 				return "";
 			}
 
@@ -226,7 +226,7 @@ public class MessageManager {
 
 			return msg;
 		} catch (NullPointerException e) {
-			Bukkit.getLogger().warning("Could not find the message with the reference " + reference);
+			Main.plugin.getLogger().warning("Could not find the message with the reference " + reference);
 			return "";
 		}
 	}
@@ -243,7 +243,7 @@ public class MessageManager {
 			}
 			return ChatColor.translateAlternateColorCodes('&', msg);
 		} catch (NullPointerException e) {
-			Bukkit.getLogger().warning("Could not find the message with the reference " + reference);
+			Main.plugin.getLogger().warning("Could not find the message with the reference " + reference);
 			return "";
 		}
 	}

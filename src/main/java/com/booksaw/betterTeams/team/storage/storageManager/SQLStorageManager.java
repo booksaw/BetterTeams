@@ -242,7 +242,7 @@ public class SQLStorageManager extends TeamManager implements Listener {
 			return toReturn.toArray(EMPTY_STRING_ARRAY);
 
 		} catch (Exception e) {
-			Bukkit.getLogger().severe("Could not sort teams for results, report the following error:");
+			Main.plugin.getLogger().severe("Could not sort teams for results, report the following error:");
 			e.printStackTrace();
 			return EMPTY_STRING_ARRAY;
 		}
@@ -289,7 +289,7 @@ public class SQLStorageManager extends TeamManager implements Listener {
 		try {
 			teamStorage.save(f);
 		} catch (IOException ex) {
-			Bukkit.getLogger().log(Level.SEVERE, "Could not save config to " + f, ex);
+			Main.plugin.getLogger().log(Level.SEVERE, "Could not save config to " + f, ex);
 		}
 	}
 

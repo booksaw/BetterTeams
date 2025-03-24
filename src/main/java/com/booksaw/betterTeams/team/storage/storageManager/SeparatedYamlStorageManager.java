@@ -55,7 +55,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 			if (split.length == 2) {
 				chestClaims.put(split[0], UUID.fromString(split[1]));
 			} else {
-				Bukkit.getLogger().warning("[BetterTeams] A chest claim is found to have the details  " + str
+				Main.plugin.getLogger().warning("A chest claim is found to have the details  " + str
 						+ " which should be impossible. This chest claim will be ignored");
 			}
 		}
@@ -171,7 +171,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 		try {
 			Files.delete(f.toPath());
 		} catch (IOException e) {
-			Bukkit.getLogger().warning("Could not delete team with the uuid " + team.getID()
+			Main.plugin.getLogger().warning("Could not delete team with the uuid " + team.getID()
 					+ " there was an error while deleting the file");
 			e.printStackTrace();
 		}
@@ -240,7 +240,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 				yamlConfig.load(f);
 				teams.add(new CrossReference<>(yamlConfig.getString(StoredTeamValue.NAME.getReference()), valueSorter.getValueToSort(yamlConfig)));
 			} catch (Exception e) {
-				Bukkit.getLogger().severe("UNABLE TO READ TEAM DATA FROM " + f);
+				Main.plugin.getLogger().severe("UNABLE TO READ TEAM DATA FROM " + f);
 			}
 		}
 
@@ -308,7 +308,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 					try {
 						yamlConfig.save(f);
 					} catch (IOException e) {
-						Bukkit.getLogger()
+						Main.plugin.getLogger()
 								.warning("Failed to purge the " + storedTeamValue + "of the team with the file " + f.getPath());
 						e.printStackTrace();
 					}
@@ -402,7 +402,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 		teamNameLookup.clear();
 		chestClaims.clear();
 
-		Bukkit.getLogger().info("Starting rebuilding lookup tables");
+		Main.plugin.getLogger().info("Starting rebuilding lookup tables");
 
 		File folder = SeparatedYamlTeamStorage.getTeamSaveFile();
 
@@ -411,7 +411,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 		int i = 0;
 		for (File f : files) {
 			i++;
-			Bukkit.getLogger()
+			Main.plugin.getLogger()
 					.info("Rebuilding lookups for team: " + f.getName() + " (" + i + "/" + files.length + ")");
 			// not the correct file type, ignore
 			if (!f.getName().endsWith(".yml")) {
@@ -442,7 +442,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 					chestClaims.put(str, teamUUID);
 				}
 			} catch (Exception e) {
-				Bukkit.getLogger()
+				Main.plugin.getLogger()
 						.warning("Could not load team `" + f.getName() + "` as file is invalid YAML, ignoring file");
 			}
 		}

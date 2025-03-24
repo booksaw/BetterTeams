@@ -326,11 +326,11 @@ public abstract class TeamManager {
 		}
 
 		if (score) {
-			Bukkit.getLogger().info("purging team score");
+			Main.plugin.getLogger().info("purging team score");
 			purgeTeamScore();
 		}
 		if (money) {
-			Bukkit.getLogger().info("purging team score");
+			Main.plugin.getLogger().info("purging team score");
 			purgeTeamMoney();
 		}
 

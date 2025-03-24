@@ -2,7 +2,6 @@ package com.booksaw.betterTeams.database.api;
 
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.database.TableName;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.sql.*;
@@ -50,7 +49,7 @@ public class Database {
 	 */
 	public void setupConnection() {
 
-		Bukkit.getLogger().info("[BetterTeams] Attempting to connect to database");
+		Main.plugin.getLogger().info("Attempting to connect to database");
 
 		try {
 			connection = DriverManager.getConnection(
@@ -61,16 +60,16 @@ public class Database {
 		} catch (Exception e) {
 			database = null;
 			for (int i = 0; i < 3; i++) {
-				Bukkit.getLogger().severe("[BetterTeams] ");
+				Main.plugin.getLogger().severe("");
 			}
-			Bukkit.getLogger()
-					.severe("[BetterTeams] Connection to the database could not be established, disabling plugin");
+			Main.plugin.getLogger()
+					.severe("Connection to the database could not be established, disabling plugin");
 
-			Bukkit.getLogger().severe(
-					"[BetterTeams] To use BetterTeams either change the storage type (config.yml/storageType) or correct the database credentials");
+			Main.plugin.getLogger().severe(
+					"To use BetterTeams either change the storage type (config.yml/storageType) or correct the database credentials");
 
 			for (int i = 0; i < 3; i++) {
-				Bukkit.getLogger().severe("[BetterTeams] ");
+				Main.plugin.getLogger().severe("");
 			}
 
 			e.printStackTrace();
@@ -79,7 +78,7 @@ public class Database {
 			return;
 		}
 
-		Bukkit.getLogger().info("[BetterTeams] Connection with the database established");
+		Main.plugin.getLogger().info("Connection with the database established");
 
 	}
 
@@ -127,7 +126,7 @@ public class Database {
 				connection.close();
 			}
 		} catch (Exception e) {
-			Bukkit.getLogger().severe("[BetterTeams] There was an error closing the database connection");
+			Main.plugin.getLogger().severe("There was an error closing the database connection");
 			e.printStackTrace();
 		}
 	}
@@ -148,9 +147,9 @@ public class Database {
 				}
 				statementChars.set(index, placeholder);
 			} catch (IndexOutOfBoundsException e) {
-				Bukkit.getLogger().severe("[BetterTeams] Invalid setup for replacing placeholders");
-				Bukkit.getLogger().severe("[BetterTeams] Statement: " + statement);
-				Bukkit.getLogger().severe("[BetterTeams] Placeholders: " + Arrays.toString(placeholders));
+				Main.plugin.getLogger().severe("Invalid setup for replacing placeholders");
+				Main.plugin.getLogger().severe("Statement: " + statement);
+				Main.plugin.getLogger().severe("Placeholders: " + Arrays.toString(placeholders));
 				e.printStackTrace();
 			}
 		}
@@ -169,8 +168,8 @@ public class Database {
 		try (PreparedStatement ps = connection.prepareStatement(statement)) {
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			Bukkit.getLogger().severe("Something went wrong while executing SQL");
-			Bukkit.getLogger().severe("SQL: " + statement);
+			Main.plugin.getLogger().severe("Something went wrong while executing SQL");
+			Main.plugin.getLogger().severe("SQL: " + statement);
 			e.printStackTrace();
 		}
 	}
@@ -194,8 +193,8 @@ public class Database {
 			return connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE,
 					ResultSet.CONCUR_UPDATABLE);
 		} catch (SQLException e) {
-			Bukkit.getLogger().severe("Something went wrong while executing SQL");
-			Bukkit.getLogger().severe("SQL: " + query);
+			Main.plugin.getLogger().severe("Something went wrong while executing SQL");
+			Main.plugin.getLogger().severe("SQL: " + query);
 			e.printStackTrace();
 		}
 		return null;

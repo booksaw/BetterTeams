@@ -1,6 +1,7 @@
 package com.booksaw.betterTeams.commands;
 
 import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.cooldown.CommandCooldown;
 import com.booksaw.betterTeams.cooldown.CooldownManager;
 import com.booksaw.betterTeams.cost.CommandCost;
@@ -8,7 +9,6 @@ import com.booksaw.betterTeams.cost.CostManager;
 import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
 import lombok.Getter;
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -246,7 +246,7 @@ public class ParentCommand extends SubCommand {
 		try {
 			MessageManager.getDefaultMessages().save(f);
 		} catch (IOException ex) {
-			Bukkit.getLogger().log(Level.SEVERE, "Could not save config to " + f, ex);
+			Main.plugin.getLogger().log(Level.SEVERE, "Could not save config to " + f, ex);
 		}
 
 		return subCommand.getCommand();

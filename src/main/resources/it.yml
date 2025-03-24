@@ -5,7 +5,7 @@
 
 # Any placeholders from placeholder API will work in this file
 
-# Credit for contributions to this file: YnsanitY
+# Credit for contributions to this file: YnsanitY, PACIOCS
 
 invalidArg: '&4Argomento non valido, help'
 inTeam: '&4Per farlo è necessario fare parte di un team'
@@ -48,6 +48,7 @@ create:
   success: '&6Hai creato il tuo team'
   banned: '&4Il nome di questo team è bannato'
   maxLength: '&4Il nome del team è troppo lungo'
+  minLength: '&4Hai scelto un nome troppo corto'
 leave:
   success: '&6Hai lasciato il team'
   lastOwner: '&6Sei l''unico con il rango owner all''interno del team, o promuovi
@@ -196,6 +197,7 @@ ally:
   onJoin: '&6Ci sono nuove richieste di alleanza, fai &b/team ally &6per visualizzarle'
   limit: '&4Il limite di alleati è stato raggiunto'
   alreadyrequest: '&4Hai già chiesto di essere alleato con questo team'
+  ally_title: '&6Questo team è ora in alleanza con &b{0}'
 allychat:
   disabled: '&6I messaggi non verranno più inviati alla chat degli alleati'
   enabled: '&6I messaggi ora vengono inviati alla chat degli alleati'
@@ -207,6 +209,7 @@ neutral:
   notAlly: '&4Non sei alleato con questo team'
   success: '&4Non sei più alleato con questo team'
   remove: '&4Non sei più alleato di &b{0}'
+  remove_title: '&4Questo team non è più in alleanza con &b{0}'
 list:
   noPage: '&6Questa pagina non è stata trovata'
   header: '&7--- &bLista team, pagina {0} &7---'
@@ -249,6 +252,10 @@ chest:
   all:
     success: '&6Tutti i bauli non claimati'
   claimed: '&4Questo baule è stato claimato da &a{0}'
+  check:
+    self: '&6Il tuo team ha claimato questa chest'
+    notClaimed: '&6Questa chest non è stata claimata'
+    claimed: '&6Questa chest è claimata da &a{0}'
 echest:
   echest: Enderchest
 pvp:
@@ -392,6 +399,9 @@ admin:
     same: '&4Non puoi inserire lo stesso team due volte'
     not: '&4Quei team non sono alleati'
     success: '&6Quei team non sono più alleati'
+  import:
+    fail: '&4Importazione dei messaggi fallita, leggi la console per i log dell''errore'
+    success: '&6I messaggi sono stati importati con successo'
 nametag:
   syntax: '&6&l{0}&r '
 holo:
@@ -453,12 +463,17 @@ help:
   rankup: Aumenta di rango il tuo team per ottenere maggiori vantaggi
   tag: Imposta il tag del proprio team
   delwarp: Cancella quel warp dal team
-  chest: ''
+  chest:
+    help: Vedi la pagina di aiuto
+    removeall: Rimuove tutte le chest claimate (Utile se perdi una chest)
+    claim: Claim the chest you are standing on
+    check: Check if the chest you are standing on is claimed
+    remove: Rimuove il claim del tuo team alla chest su cui ti trovi
   pvp: Attiva se il pvp è abilitato per il proprio team
   baltop: Visualizza i team più ricchi
   list: Ottieni un elenco di tutti i team presenti sul server
   warp: Teletrasportati in un warp stabilito dal proprio team
-  header: '&6---- &bBetterTeams aiuto &6----'
+  header: '&6---- &5&lMagicalTeams Help &6----'
   footer: '&6---- &bPagina {0}/{1} - /{2} help <pagina> &6----'
 command:
   create: create
@@ -518,6 +533,8 @@ command:
   importmessages: importmessages
   debug: debug
   holo: ologramma
+  check: check
+  help: help
 internalError: '&4Qualcosa è andato storto durante l''esecuzione di quel comando,
   per favore segnalalo agli staffer del server'
 helpArg:
@@ -544,7 +561,12 @@ helpArg:
   disband: ''
   info: '[team/giocatore]'
   delwarp: <nome> [password]
-  chest: ''
+  chest:
+    help: ''
+    removeall: ''
+    claim: ''
+    check: ''
+    remove: ''
   neutral: <team>
   pvp: ''
   baltop: ''

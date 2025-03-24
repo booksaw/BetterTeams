@@ -150,8 +150,8 @@ public class YamlToSql extends Converter {
 		try {
 			teamStorage.save(teams);
 		} catch (IOException e) {
-			Bukkit.getLogger()
-					.warning("[BetterTeams] Something went wrong with convering the config, REPORT THIS TO BOOKSAW");
+			Main.plugin.getLogger()
+					.warning("Something went wrong with convering the config, REPORT THIS TO BOOKSAW");
 			e.printStackTrace();
 		}
 	}

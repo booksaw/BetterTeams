@@ -1,6 +1,7 @@
 package com.booksaw.betterTeams.commands;
 
 import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.message.MessageManager;
 import org.bukkit.Bukkit;
@@ -42,7 +43,7 @@ public abstract class SubCommand {
 			try {
 				MessageManager.getDefaultMessages().save(f);
 			} catch (IOException ex) {
-				Bukkit.getLogger().log(Level.SEVERE, "Could not save config to " + f, ex);
+				Main.plugin.getLogger().log(Level.SEVERE, "Could not save config to " + f, ex);
 			}
 		}
 		return message;
@@ -66,7 +67,7 @@ public abstract class SubCommand {
 			try {
 				MessageManager.getDefaultMessages().save(f);
 			} catch (IOException ex) {
-				Bukkit.getLogger().log(Level.SEVERE, "Could not save config to " + f, ex);
+				Main.plugin.getLogger().log(Level.SEVERE, "Could not save config to " + f, ex);
 			}
 		}
 		return message;

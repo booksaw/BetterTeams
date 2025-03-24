@@ -3,7 +3,6 @@ package com.booksaw.betterTeams.team.storage.storageManager;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.team.TeamManager;
 import lombok.Getter;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -36,7 +35,7 @@ public abstract class YamlStorageManager extends TeamManager {
 		try {
 			teamStorage.save(f);
 		} catch (IOException ex) {
-			Bukkit.getLogger().log(Level.SEVERE, "Could not save config to " + f, ex);
+			Main.plugin.getLogger().log(Level.SEVERE, "Could not save config to " + f, ex);
 		}
 	}
 

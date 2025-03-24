@@ -4,7 +4,6 @@ import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import lombok.Getter;
 import net.milkbowl.vault.economy.EconomyResponse;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 @Getter
@@ -37,7 +36,7 @@ public class CommandCost {
 		}
 
 		if (Main.econ == null) {
-			Bukkit.getLogger().warning("Could not detect vault, command running with no cost");
+			Main.plugin.getLogger().warning("Could not detect vault, command running with no cost");
 			return true;
 		}
 		double cost = this.cost;
@@ -71,7 +70,7 @@ public class CommandCost {
 		}
 
 		if (Main.econ == null) {
-			Bukkit.getLogger().warning("Could not detect vault, command running with no cost");
+			Main.plugin.getLogger().warning("Could not detect vault, command running with no cost");
 			return true;
 		}
 

@@ -63,17 +63,21 @@ public class MCTeamManagement implements Listener {
 		try {
 			team.getScoreboardTeam(board).addEntry(player.getName());
 		} catch (IllegalStateException e) {
-			Bukkit.getLogger().severe("Could not register the team name in the tab menu due to a conflict, see https://github.com/booksaw/BetterTeams/wiki/Managing-the-TAB-Menu error:" + e.getMessage());
+			Main.plugin.getLogger().severe("Could not register the team name in the tab menu due to a conflict, see https://github.com/booksaw/BetterTeams/wiki/Managing-the-TAB-Menu error:" + e.getMessage());
 		}
 
+	}
+
+	public void removeAll() {
+		removeAll(true);
 	}
 
 	/**
 	 * Used when the plugin is disabled
 	 */
-	public void removeAll() {
+	public void removeAll(boolean callEvent) {
 		for (Player p : Bukkit.getOnlinePlayers()) {
-			remove(p);
+			remove(p, callEvent);
 		}
 
 		// only loaded teams will have a team manager
@@ -87,12 +91,17 @@ public class MCTeamManagement implements Listener {
 		}
 	}
 
+	public void remove(Player player) {
+		remove(player, true);
+	}
+
 	/**
 	 * Used to remove the prefix / suffix from the specified player
 	 *
-	 * @param player the player to remove the prefix/suffix from
+	 * @param player    the player to remove the prefix/suffix from
+	 * @param callEvent if BelowNameChangeEvent should be called
 	 */
-	public void remove(Player player) {
+	public void remove(Player player, boolean callEvent) {
 
 		if (player == null) {
 			return;
@@ -110,13 +119,15 @@ public class MCTeamManagement implements Listener {
 		try {
 			team.getScoreboardTeam(board).removeEntry(player.getName());
 		} catch (Exception e) {
-			Bukkit.getLogger().warning(
+			Main.plugin.getLogger().warning(
 					"Another plugin is conflicting with the functionality of the BetterTeams. See the wiki page: https://github.com/booksaw/BetterTeams/wiki/Managing-the-TAB-Menu for more information");
 			return;
 		}
 
-		BelowNameChangeEvent event = new BelowNameChangeEvent(player, ChangeType.REMOVE);
-		Bukkit.getPluginManager().callEvent(event);
+		if (callEvent) {
+			BelowNameChangeEvent event = new BelowNameChangeEvent(player, ChangeType.REMOVE);
+			Bukkit.getPluginManager().callEvent(event);
+		}
 	}
 
 	@EventHandler
