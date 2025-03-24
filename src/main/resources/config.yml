@@ -274,7 +274,7 @@ anchor:
   # - 3 : NORMAL
   # - 4 : HIGH
   # - 5 : HIGHEST
-  priority: 4
+  priority: HIGH
 
 # If this is enabled, a slightly different set of commands will be avaliable allowing a team to only have a single owner
 # - If this is false, a team can have as many owners as wanted, members are promoted to owners with the command /team promote
