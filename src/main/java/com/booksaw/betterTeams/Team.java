@@ -227,6 +227,11 @@ public class Team {
 	private final MemberSetComponent members = new MemberSetComponent();
 
 	/**
+	 * tracks and provides utility methods relating to anchored players of this team
+	 */
+	@Getter
+	private final AnchoredPlayerUuidSetComponent anchoredPlayers = new AnchoredPlayerUuidSetComponent();
+	/**
 	 * the list of all UUIDS of teams that are allied with this team
 	 */
 	@Getter
@@ -336,6 +341,7 @@ public class Team {
 		color = ChatColor.getByChar(colorStr.charAt(0));
 
 		members.load(storage);
+		anchoredPlayers.load(storage);
 		allies.load(storage);
 		score.load(storage);
 		money.load(storage);
@@ -420,6 +426,7 @@ public class Team {
 		}
 
 		savePlayers();
+		saveAnchoredPlayers();
 		level = 1;
 		storage.set(StoredTeamValue.LEVEL, 1);
 		tag = "";
@@ -577,6 +584,9 @@ public class Team {
 		members.save(getStorage());
 	}
 
+	private void saveAnchoredPlayers() {
+		anchoredPlayers.save(getStorage());
+	}
 	/**
 	 * Used to save the bans list to the configuration file
 	 */
@@ -611,12 +621,28 @@ public class Team {
 		}
 
 		savePlayers();
+		if(p.isAnchored()) {
+			anchoredPlayers.remove(this, p.getPlayerUUID());
+			saveAnchoredPlayers();
+		}
 
 		if (team != null && p.getPlayer().isOnline()) {
 			Main.plugin.teamManagement.remove(p.getPlayer().getPlayer());
 		}
 
 		return true;
+	}
+
+	public void anchorPlayer(TeamPlayer p) {
+		p.setAnchor(true);
+		anchoredPlayers.add(this, p.getPlayerUUID());
+		saveAnchoredPlayers();
+	}
+
+	public void unanchorPlayer(TeamPlayer p) {
+		p.setAnchor(false);
+		anchoredPlayers.remove(this, p.getPlayerUUID());
+		saveAnchoredPlayers();
 	}
 
 	/**

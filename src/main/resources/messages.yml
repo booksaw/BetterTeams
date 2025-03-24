@@ -91,6 +91,7 @@ info.owner: '&6Owners: &b{0}'
 info.admin: '&6Admins: &b{0}'
 info.default: '&6Members: &b{0}'
 info.tag: '&6Tag: &b{0}'
+info.anchor: "&6Anchor: &b{0}"
 info.fail: '&6No team or player found under that name'
 info.score: '&6Score: &b{0}'
 info.money: '&6Balance: &b{0}'
@@ -127,6 +128,16 @@ home.noHome: '&6Your team has not set a home'
 home.world: '&4Your team home could not be found'
 sethome.success: '&6Your team home has been set'
 sethome.noPerm: '&6Your are not a high enough rank to set your team home'
+anchor.enabled: '&6Now you allow your respawning at team home'
+anchor.disabled: '&6Now you do not allow your respawning at team home'
+anchor.noHome: '&6Note that your team needs to have both team home set and team anchor enabled'
+setanchor.enabled: '&6Team anchor enabled'
+setanchor.disabled: '&6Team anchor disabled'
+setanchor.notifyEnable: '&6Team anchor has been enabled by {0}'
+setanchor.notifyDisable: '&6Team anchor has been disabled by {0}'
+setanchor.noHome: '&4Must set a team home first'
+setanchor.noPerm: '&4You don''t have permission to set your team''s anchor state'
+setanchor.noBool: '&4Team anchor state can only be true or false'
 chat.enabled: '&6Your messages now go to the team chat'
 chat.disabled: '&6Your messages now go to the global chat'
 color.success: '&6Your team color has been changed'
@@ -349,6 +360,8 @@ help.delhome: Delete your team's home
 help.ally: Used to request an alliance with another team
 help.neutral: Remove allies and reject ally requests
 help.allychat: Send a message only to your allies
+help.anchor: Toggles whether or not you want to respawn at your team's home
+help.setanchor: Sets your team's anchor state
 helpArg.delhome: ''
 helpArg.echest: ''
 helpArg.color: <color code>
@@ -389,6 +402,8 @@ helpArg.invite: <player>
 helpArg.open: ''
 helpArg.warp: <name>
 helpArg.withdraw: <amount>
+helpArg.anchor: ''
+helpArg.setanchor: '<true/false>'
 
 command.create: create
 command.leave: leave
@@ -439,6 +454,8 @@ command.set: set
 command.score: score
 command.enableclaims: enableclaims
 command.disableclaims: disableclaims
+command.anchor: anchor
+command.setanchor: setanchor
 
 webhook.unknownPlayer: "an unknown player"
 webhook.create.title: "New team created - {0}"
