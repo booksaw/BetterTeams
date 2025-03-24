@@ -584,9 +584,13 @@ public class Team {
 		members.save(getStorage());
 	}
 
+	/**
+	 * Used to save anchored players in this team
+	 */
 	private void saveAnchoredPlayers() {
 		anchoredPlayers.save(getStorage());
 	}
+
 	/**
 	 * Used to save the bans list to the configuration file
 	 */
@@ -633,16 +637,45 @@ public class Team {
 		return true;
 	}
 
-	public void anchorPlayer(TeamPlayer p) {
+	/**
+	 * Used to check if the given team player is anchored within this team
+	 * @param p the team player
+	 * @return true if p is one of this team's anchored players, false otherwise
+	 */
+	public boolean isPlayerAnchored(TeamPlayer p) {
+		return anchoredPlayers.getClone().contains(p.getPlayerUUID());
+	}
+
+	public boolean setPlayerAnchor(TeamPlayer p, boolean anchor) {
+		return anchor ? anchorPlayer(p) : unanchorPlayer(p);
+	}
+
+	/**
+	 * Used for anchoring this player. Will fail if they are not in the team
+	 * @param p the team player to anchor
+	 * @return whether or not this method was successful
+	 */
+	public boolean anchorPlayer(TeamPlayer p) {
+		if(!members.getClone().contains(p))
+			return false;
 		p.setAnchor(true);
 		anchoredPlayers.add(this, p.getPlayerUUID());
 		saveAnchoredPlayers();
+		return true;
 	}
 
-	public void unanchorPlayer(TeamPlayer p) {
+	/**
+	 * Used for unanchoring this player. Will fail if they are not in the team
+	 * @param p the team player to unanchor
+	 * @return whether or not this method was successful
+	 */
+	public boolean unanchorPlayer(TeamPlayer p) {
+		if(!members.getClone().contains(p))
+			return false;
 		p.setAnchor(false);
 		anchoredPlayers.remove(this, p.getPlayerUUID());
 		saveAnchoredPlayers();
+		return true;
 	}
 
 	/**

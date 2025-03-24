@@ -7,7 +7,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -51,6 +50,9 @@ public class TeamPlayer {
 
 	/*
 	 * Whether or not this player accepts having their respawn location changed by team home anchor
+	 * It is not recommended to use this value's setter without also changing and saving the anchored players
+	 * of this player's team accordingly, otherwise the team will desync from this player around this vaule
+	 * See Team.setPlayerAnchor(anchor)
 	 */
 	@Setter
 	private boolean anchor = false;

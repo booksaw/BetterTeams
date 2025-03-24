@@ -264,7 +264,6 @@ maxMove: 0
 # - If disabled, the plugin will not manage respawns in any way.
 anchor:
   enable: true
-  checkRank: true
   checkUsePermission: true
 
 # If this is enabled, a slightly different set of commands will be avaliable allowing a team to only have a single owner
