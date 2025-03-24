@@ -1,5 +1,6 @@
 package com.booksaw.betterTeams.database;
 
+import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.database.api.Database;
 
 import java.sql.PreparedStatement;
@@ -56,7 +57,7 @@ public class BetterTeamsDatabase extends Database {
 				executeStatement(alterTableQuery);
 			}
 		} catch (SQLException e) {
-            Bukkit.getLogger().severe("[BetterTeams] Could not set 'anchor' column in table" + tableName);
+            Main.plugin.getLogger().severe("Could not set 'anchor' column in table" + tableName);
 			e.printStackTrace();
         }
     }
