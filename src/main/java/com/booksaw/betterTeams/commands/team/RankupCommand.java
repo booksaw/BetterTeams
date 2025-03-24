@@ -31,7 +31,7 @@ public class RankupCommand extends TeamSubCommand {
 		}
 
 		if (price <= 0) {
-			Bukkit.getLogger().warning("Rankup values setup wrong, price was found to be <= 0");
+			Main.plugin.getLogger().warning("Rankup values setup wrong, price was found to be <= 0");
 			return new CommandResponse("rankup.max");
 		}
 		// score is valid checking player has enough money score

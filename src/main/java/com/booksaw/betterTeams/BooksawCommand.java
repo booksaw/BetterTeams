@@ -79,7 +79,7 @@ public class BooksawCommand extends BukkitCommand {
 			if (response != null)
 				response.sendResponseMessage(sender);
 		} catch (Exception e) {
-			Bukkit.getLogger().severe(
+			Main.plugin.getLogger().severe(
 					"Something went wrong while executing the command, please report this https://github.com/booksaw/BetterTeams/issues/new/choose");
 			e.printStackTrace();
 			MessageManager.sendMessage(sender, "internalError");

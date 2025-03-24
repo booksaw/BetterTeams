@@ -5,7 +5,6 @@ import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.SubCommand;
 import com.booksaw.betterTeams.message.MessageManager;
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -37,7 +36,7 @@ public class TopCommand extends SubCommand {
 
 				for (int i = 0; i < 10 && i < teams.length; i++) {
 					if (teams[i] == null) {
-						Bukkit.getLogger().severe("Team at position [" + i + "] had a null name");
+						Main.plugin.getLogger().severe("Team at position [" + i + "] had a null name");
 						continue;
 					}
 					Team tempTeam = Team.getTeam(teams[i]);
@@ -116,9 +115,9 @@ public class TopCommand extends SubCommand {
 
 	private void sendTopSyntaxMessage(CommandSender sender, int rank, Team team, String teamIdentifier) {
 		if (team == null || team.getName() == null) {
-			Bukkit.getLogger()
-					.warning("[BetterTeams] There is an issue with the team file associated with " + teamIdentifier);
-			Bukkit.getLogger().warning("[BetterTeams] in config.yml set 'rebuildLookups' to true and restart your server, if the issue continues please report it to booksaw");
+			Main.plugin.getLogger()
+					.warning("There is an issue with the team file associated with " + teamIdentifier);
+			Main.plugin.getLogger().warning("in config.yml set 'rebuildLookups' to true and restart your server, if the issue continues please report it to booksaw");
 			return;
 		}
 

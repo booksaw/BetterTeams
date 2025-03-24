@@ -5,7 +5,6 @@ import com.booksaw.betterTeams.commands.SubCommand;
 import com.booksaw.betterTeams.util.Cache;
 import lombok.Getter;
 import lombok.Setter;
-import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -56,8 +55,8 @@ public abstract class TeamSubCommand extends SubCommand {
 		TeamPlayer teamPlayer = team.getTeamPlayer(player);
 
 		if (teamPlayer == null) {
-			Bukkit.getLogger().severe("[BetterTeams] For some reason your storage has desynchronised, set `rebuildLookups` to true in config.yml and restart your server");
-			Bukkit.getLogger().severe("[BetterTeams] If this keeps occuring after performing this change, please report it as a bug");
+			Main.plugin.getLogger().severe("For some reason your storage has desynchronised, set `rebuildLookups` to true in config.yml and restart your server");
+			Main.plugin.getLogger().severe("If this keeps occuring after performing this change, please report it as a bug");
 		}
 
 		if (checkRank) {

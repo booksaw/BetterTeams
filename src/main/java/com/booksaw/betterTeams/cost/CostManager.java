@@ -1,7 +1,6 @@
 package com.booksaw.betterTeams.cost;
 
 import com.booksaw.betterTeams.Main;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
@@ -39,9 +38,9 @@ public class CostManager {
 				String[] split = temp.split(":");
 				prices.put(split[0], new CommandCost(split[0], Double.parseDouble(split[1])));
 			} catch (Exception e) {
-				Bukkit.getLogger().severe("Something went wrong while enabling a cost, there appears to be an error with "
+				Main.plugin.getLogger().severe("Something went wrong while enabling a cost, there appears to be an error with "
 						+ command + ".yml. (ERROR: " + e.getMessage() + ")");
-				Bukkit.getLogger().severe(e.toString());
+				Main.plugin.getLogger().severe(e.toString());
 
 			}
 		}

@@ -15,11 +15,11 @@
  */
 package dev.ceymikey.injection;
 
+import com.booksaw.betterTeams.Main;
 import dev.ceymikey.exceptions.FailedEndpointException;
 import dev.ceymikey.exceptions.InjectionFailureException;
 import dev.ceymikey.json.JsonArray;
 import dev.ceymikey.json.JsonObject;
-import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.OutputStream;
@@ -67,11 +67,11 @@ public class DiscordPayload {
 			// Get response code to ensure the request is complete
 			int responseCode = connection.getResponseCode();
 			if (responseCode < 200 || responseCode >= 300) {
-				Bukkit.getLogger().severe("Could not send webhook. HTTP Error: " + responseCode);
+				Main.plugin.getLogger().severe("Could not send webhook. HTTP Error: " + responseCode);
 			}
 
 		} catch (Exception e) {
-			Bukkit.getLogger().severe("Could not send webhook. INJECTION FAILURE! | " + e.getMessage());
+			Main.plugin.getLogger().severe("Could not send webhook. INJECTION FAILURE! | " + e.getMessage());
 			e.printStackTrace();
 		} finally {
 			if (connection != null) {

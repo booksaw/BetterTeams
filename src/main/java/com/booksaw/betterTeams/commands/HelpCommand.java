@@ -9,7 +9,6 @@ import net.md_5.bungee.api.chat.ClickEvent.Action;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -115,7 +114,7 @@ public class HelpCommand extends SubCommand {
 				writer.close();
 
 			} catch (Exception e) {
-				Bukkit.getLogger().log(Level.SEVERE,
+				Main.plugin.getLogger().log(Level.SEVERE,
 
 						"Could not use fully custom help messages, inform booksaw (this should never happen)");
 				sender.sendMessage(ChatColor.RED + "Something went wrong, inform your server admins");
@@ -129,7 +128,7 @@ public class HelpCommand extends SubCommand {
 				sender.sendMessage(org.bukkit.ChatColor.translateAlternateColorCodes('&', line));
 			}
 		} catch (Exception e) {
-			Bukkit.getLogger().log(Level.SEVERE,
+			Main.plugin.getLogger().log(Level.SEVERE,
 					"Could not use fully custom help messages, inform booksaw (this should never happen)");
 			sender.sendMessage(ChatColor.RED + "Something went wrong, inform your server admins");
 			e.printStackTrace();

@@ -16,7 +16,7 @@ public class EchestCommand extends TeamSubCommand {
 
 		InventoryManagement.adminViewers.put(player.getPlayer().getPlayer(), team);
 		if (team.getEchest() == null || team.getEchest().getSize() == 0) {
-			Bukkit.getLogger().warning("[BetterTeams] EnderChest was found to be null or empty " + team.getEchest()
+			Main.plugin.getLogger().warning("EnderChest was found to be null or empty " + team.getEchest()
 					+ " this should never occur, report to booksaw");
 		}
 

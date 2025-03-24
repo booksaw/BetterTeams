@@ -1,11 +1,11 @@
 package com.booksaw.betterTeams.commands;
 
 import com.booksaw.betterTeams.ConfigManager;
+import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 import com.booksaw.betterTeams.cooldown.CooldownManager;
 import com.booksaw.betterTeams.cost.CostManager;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.util.Objects;
@@ -44,7 +44,7 @@ public class PermissionParentCommand extends ParentCommand {
 					PlayerRank rank = PlayerRank
 							.getRank(Objects.requireNonNull(config.getString(command.getCommand() + ".rank")));
 					if (rank == null) {
-						Bukkit.getLogger().warning("The command " + command.getCommand()
+						Main.plugin.getLogger().warning("The command " + command.getCommand()
 								+ " has the rank set to something invalid, using the default rank");
 					} else {
 						((TeamSubCommand) command).setRequiredRank(rank);

@@ -29,7 +29,7 @@ public class UltimateClaimsManager implements Listener {
 
 	public UltimateClaimsManager() {
 		Bukkit.getPluginManager().registerEvents(this, Main.plugin);
-		Bukkit.getLogger().info("Registered UltimateClaims integration");
+		Main.plugin.getLogger().info("Registered UltimateClaims integration");
 	}
 
 	@EventHandler(ignoreCancelled = true)
@@ -141,11 +141,11 @@ public class UltimateClaimsManager implements Listener {
 	public void transferEvent(ClaimTransferOwnershipEvent e) {
 		Team team = Team.getTeam(e.getNewOwner());
 		if (team == null || Objects.requireNonNull(team.getTeamPlayer(e.getNewOwner())).getRank() != PlayerRank.OWNER) {
-			Bukkit.getLogger().info("");
-			Bukkit.getLogger().info("");
-			Bukkit.getLogger().info("You cannot transfer ownership to a player who is not an owner of a team");
-			Bukkit.getLogger().info("");
-			Bukkit.getLogger().info("");
+			Main.plugin.getLogger().info("");
+			Main.plugin.getLogger().info("");
+			Main.plugin.getLogger().info("You cannot transfer ownership to a player who is not an owner of a team");
+			Main.plugin.getLogger().info("");
+			Main.plugin.getLogger().info("");
 			e.setCancelled(true);
 		}
 	}

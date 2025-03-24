@@ -55,7 +55,7 @@ public class UpdateChecker implements Listener {
 				if (isLatestVersion())
 					return;
 
-				Bukkit.getLogger().warning(MessageManager.getMessage("admin.update"));
+				Main.plugin.getLogger().warning(MessageManager.getMessage("admin.update"));
 
 				latest = false;
 				cancel();
