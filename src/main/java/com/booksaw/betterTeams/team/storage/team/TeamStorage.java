@@ -4,7 +4,6 @@ import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.Warp;
 
-import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.Inventory;
 
 import java.util.List;
