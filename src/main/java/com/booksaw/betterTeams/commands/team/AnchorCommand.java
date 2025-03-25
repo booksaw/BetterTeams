@@ -1,11 +1,7 @@
 package com.booksaw.betterTeams.commands.team;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
@@ -22,18 +18,11 @@ public class AnchorCommand extends TeamSubCommand {
 
     @Override
     public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
-        if(player.isAnchored()){
-            team.unanchorPlayer(player);
-            return new CommandResponse("anchor.disabled");
-        }
-        else {
-            team.anchorPlayer(player);
-            Optional<Player> optSender = player.getOnlinePlayer();
-            if(team.getTeamHome() == null && optSender.isPresent()) {
-                MessageManager.sendMessage(optSender.get(), "anchor.noHome");
-            }
-            return new CommandResponse("anchor.enabled");
-        }
+        team.setPlayerAnchor(player, !player.isAnchored());
+        if (player.isAnchored() && team.getTeamHome() == null)
+            MessageManager.sendMessage(player.getPlayer().getPlayer(), "anchor.noHome");
+        return player.isAnchored() ? new CommandResponse(true, "anchor.enabled")
+                : new CommandResponse(true, "anchor.disabled");
     }
 
     @Override

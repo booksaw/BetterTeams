@@ -8,6 +8,7 @@ import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
 import com.booksaw.betterTeams.message.StaticMessage;
 import com.booksaw.betterTeams.team.*;
+import com.booksaw.betterTeams.team.AnchoredPlayerUuidSetComponent.AnchorResult;
 import com.booksaw.betterTeams.team.storage.StorageType;
 import com.booksaw.betterTeams.team.storage.team.StoredTeamValue;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
@@ -640,42 +641,41 @@ public class Team {
 	/**
 	 * Used to check if the given team player is anchored within this team
 	 * @param p the team player
-	 * @return true if p is one of this team's anchored players, false otherwise
 	 */
 	public boolean isPlayerAnchored(TeamPlayer p) {
 		return anchoredPlayers.getClone().contains(p.getPlayerUUID());
 	}
 
-	public boolean setPlayerAnchor(TeamPlayer p, boolean anchor) {
+	public AnchorResult setPlayerAnchor(TeamPlayer p, boolean anchor) {
 		return anchor ? anchorPlayer(p) : unanchorPlayer(p);
 	}
 
 	/**
-	 * Used for anchoring this player. Will fail if they are not in the team
+	 * Used for anchoring this player.
 	 * @param p the team player to anchor
-	 * @return whether or not this method was successful
+	 * @return AnchorResult
 	 */
-	public boolean anchorPlayer(TeamPlayer p) {
-		if(!members.getClone().contains(p))
-			return false;
-		p.setAnchor(true);
-		anchoredPlayers.add(this, p.getPlayerUUID());
+	public AnchorResult anchorPlayer(TeamPlayer p) {
+		AnchorResult result = anchoredPlayers.add(this, p);
+		if(!(result == AnchorResult.SUCCESS)){
+			return result;
+		}
 		saveAnchoredPlayers();
-		return true;
+		return result;
 	}
 
 	/**
-	 * Used for unanchoring this player. Will fail if they are not in the team
+	 * Used for unanchoring this player.
 	 * @param p the team player to unanchor
-	 * @return whether or not this method was successful
+	 * @return AnchorResult
 	 */
-	public boolean unanchorPlayer(TeamPlayer p) {
-		if(!members.getClone().contains(p))
-			return false;
-		p.setAnchor(false);
-		anchoredPlayers.remove(this, p.getPlayerUUID());
+	public AnchorResult unanchorPlayer(TeamPlayer p) {
+		AnchorResult result = anchoredPlayers.remove(this, p);
+		if(!(result == AnchorResult.SUCCESS)){
+			return result;
+		}
 		saveAnchoredPlayers();
-		return true;
+		return result;
 	}
 
 	/**
