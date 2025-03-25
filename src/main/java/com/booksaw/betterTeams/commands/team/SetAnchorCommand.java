@@ -40,7 +40,7 @@ public class SetAnchorCommand extends TeamSubCommand {
             team.setAnchored(false);
             for (Player onlinePlayer : team.getOnlineMembers()) {
                 if (onlinePlayer.hasPermission("betterteams.setanchor.notify")) {
-                    MessageManager.sendMessage(onlinePlayer, "setanchor.notifyDisable", player.getPlayer());
+                    MessageManager.sendMessage(onlinePlayer, "setanchor.notifyDisable", player.getPlayer().getPlayer().getDisplayName());
                 }
             }
             return new CommandResponse(true, "setanchor.disabled");
