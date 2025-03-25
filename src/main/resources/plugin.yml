@@ -135,6 +135,12 @@ permissions:
   betterTeams.admin.home:
     default: op
     description: Allows access to /teama home
+  betterTeams.admin.anchor:
+    default: op
+    description: Allows access to /teama anchor
+  betterTeams.admin.setanchor:
+    default: op
+    description: Allows access to /teama setanchor
   betterTeams.cooldown.bypass:
     default: op
     description: Allows access to bypass command cooldown

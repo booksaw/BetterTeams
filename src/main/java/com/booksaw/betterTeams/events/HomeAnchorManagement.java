@@ -29,10 +29,12 @@ public class HomeAnchorManagement implements Listener {
             EventPriority.LOWEST);
 
     private final boolean checkUsePermission;
+    private final boolean checkAnchoredPlayer;
 
     public HomeAnchorManagement(JavaPlugin plugin) {
         this.plugin = plugin;
         this.checkUsePermission = plugin.getConfig().getBoolean("anchor.checkUsePermission");
+        this.checkAnchoredPlayer = plugin.getConfig().getBoolean("anchor.checkAnchoredPlayer");
         this.priority = getConfiguredPriority();
     }
 
@@ -59,27 +61,20 @@ public class HomeAnchorManagement implements Listener {
     }
 
     public void onRespawn(@NotNull PlayerRespawnEvent e) {
-        Team temp = Team.getTeam(e.getPlayer());
-        if (temp == null)
-            return;
-        if (!temp.isAnchored())
-            return;
-        TeamPlayer teamPlayer = temp.getTeamPlayer(e.getPlayer());
-        if (Main.plugin.getConfig().getBoolean("anchor.checkAnchoredPlayer", true) && !teamPlayer.isAnchored()) {
-            return;
-        }
-        Location teamHome = temp.getTeamHome();
-        if (teamHome == null) {
-            temp.setAnchored(false);
-            return;
-        }
-        if (checkUsePermission && !e.getPlayer().hasPermission("betterteams.anchor.use"))
-            return;
-        PlayerHomeAnchorEvent anchorEvent = new PlayerHomeAnchorEvent(temp, teamPlayer, teamHome);
+        Team team = Team.getTeam(e.getPlayer());
+        if (team == null || !team.isAnchored()) return;
+
+        TeamPlayer teamPlayer = team.getTeamPlayer(e.getPlayer());
+        if (checkAnchoredPlayer && (teamPlayer == null || !teamPlayer.isAnchored())) return;
+
+        Location teamHome = team.getTeamHome();
+        if (teamHome == null) return;
+
+        if (checkUsePermission && !e.getPlayer().hasPermission("betterteams.anchor.use")) return;
+
+        PlayerHomeAnchorEvent anchorEvent = new PlayerHomeAnchorEvent(team, teamPlayer, teamHome);
         Bukkit.getPluginManager().callEvent(anchorEvent);
-        if (anchorEvent.isCancelled()) {
-            return;
-        }
-        e.setRespawnLocation(teamHome);
+
+        if (!anchorEvent.isCancelled()) e.setRespawnLocation(teamHome);
     }
 }

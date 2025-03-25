@@ -638,6 +638,10 @@ public class Team {
 		return true;
 	}
 
+	public boolean isPlayerAnchored(OfflinePlayer p) {
+		return isPlayerAnchored(getTeamPlayer(p));
+	}
+	
 	/**
 	 * Used to check if the given team player is anchored within this team
 	 * @param p the team player
@@ -646,6 +650,10 @@ public class Team {
 		return anchoredPlayers.getClone().contains(p.getPlayerUUID());
 	}
 
+	public AnchorResult setPlayerAnchor(OfflinePlayer p, boolean anchor) {
+		return setPlayerAnchor(getTeamPlayer(p), anchor);
+	}
+	
 	public AnchorResult setPlayerAnchor(TeamPlayer p, boolean anchor) {
 		return anchor ? anchorPlayer(p) : unanchorPlayer(p);
 	}
@@ -1635,10 +1643,19 @@ public class Team {
 
 	}
 
-	public void setAnchored(boolean anchor) {
-		if(anchor && teamHome == null) return;
+	/**
+	 * Toggle anchor status for this team
+	 * @return false if trying to anchor the team and its home is not set, true otherwise
+	 */
+	public boolean toggleAnchor() {
+		return setAnchored(!anchor);
+	}
+
+	public boolean setAnchored(boolean anchor) {
+		if(anchor && teamHome == null) return false;
 		this.anchor = anchor;
 		getStorage().set(StoredTeamValue.ANCHOR, anchor);
+		return true;
 	}
 
 	public boolean isAnchored() {
