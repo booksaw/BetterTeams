@@ -65,7 +65,7 @@ public class HomeAnchorManagement implements Listener {
         if (!temp.isAnchored())
             return;
         TeamPlayer teamPlayer = temp.getTeamPlayer(e.getPlayer());
-        if (!teamPlayer.isAnchored()) {
+        if (Main.plugin.getConfig().getBoolean("anchor.checkAnchoredPlayer", true) && !teamPlayer.isAnchored()) {
             return;
         }
         Location teamHome = temp.getTeamHome();

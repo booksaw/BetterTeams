@@ -264,6 +264,9 @@ maxMove: 0
 # - If disabled, the plugin will not manage respawns in any way.
 anchor:
   enable: true
+  # Whether or not '/team anchor' is actually relevant for triggering the anchor event
+  checkAnchoredPlayer: true
+  # Whether or not the player must have 'betterteams.anchor.use' permission
   checkUsePermission: true
   # Naturally, this feature works by listening to the respawn event and changing the respawn location
   # However, said location can be changed again (mostly by other plugins), so the choice of which priority should this feature use is provided
