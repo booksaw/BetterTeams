@@ -8,7 +8,7 @@ import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
 import com.booksaw.betterTeams.message.StaticMessage;
 import com.booksaw.betterTeams.team.*;
-import com.booksaw.betterTeams.team.AnchoredPlayerUuidSetComponent.AnchorResult;
+import com.booksaw.betterTeams.team.AnchoredPlayerUUIDSetComponent.AnchorResult;
 import com.booksaw.betterTeams.team.storage.StorageType;
 import com.booksaw.betterTeams.team.storage.team.StoredTeamValue;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
@@ -231,7 +231,7 @@ public class Team {
 	 * tracks and provides utility methods relating to anchored players of this team
 	 */
 	@Getter
-	private final AnchoredPlayerUuidSetComponent anchoredPlayers = new AnchoredPlayerUuidSetComponent();
+	private final AnchoredPlayerUUIDSetComponent anchoredPlayers = new AnchoredPlayerUUIDSetComponent();
 	/**
 	 * the list of all UUIDS of teams that are allied with this team
 	 */

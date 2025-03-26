@@ -1,11 +1,12 @@
 package com.booksaw.betterTeams.team;
+
 import java.util.UUID;
 
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
 
-public class AnchoredPlayerUuidSetComponent extends UuidSetComponent {
+public class AnchoredPlayerUUIDSetComponent extends UuidSetComponent {
 
     /**
      * The result of using the add and remove methods of this enum's enclosing class
