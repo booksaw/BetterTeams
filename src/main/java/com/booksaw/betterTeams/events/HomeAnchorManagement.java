@@ -65,16 +65,17 @@ public class HomeAnchorManagement implements Listener {
         if (team == null || !team.isAnchored()) return;
 
         TeamPlayer teamPlayer = team.getTeamPlayer(e.getPlayer());
-        if (checkAnchoredPlayer && (teamPlayer == null || !teamPlayer.isAnchored())) return;
+        if (checkAnchoredPlayer && !teamPlayer.isAnchored()) return;
+
+        // This goes before the team home for ensuring it exists even after this
+        if (checkUsePermission && !e.getPlayer().hasPermission("betterteams.anchor.use")) return;
 
         Location teamHome = team.getTeamHome();
         if (teamHome == null) return;
 
-        if (checkUsePermission && !e.getPlayer().hasPermission("betterteams.anchor.use")) return;
-
         PlayerHomeAnchorEvent anchorEvent = new PlayerHomeAnchorEvent(team, teamPlayer, teamHome);
         Bukkit.getPluginManager().callEvent(anchorEvent);
 
-        if (!anchorEvent.isCancelled()) e.setRespawnLocation(teamHome);
+        if (!anchorEvent.isCancelled()) e.setRespawnLocation(anchorEvent.getLocation());
     }
 }

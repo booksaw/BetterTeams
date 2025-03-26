@@ -7,8 +7,11 @@ import org.jetbrains.annotations.NotNull;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 
+import lombok.Getter;
+
 public class PlayerHomeAnchorEvent extends TeamPlayerEvent {
 
+	@Getter
 	private @NotNull Location location;
 
     public PlayerHomeAnchorEvent(@NotNull Team team, @NotNull TeamPlayer teamPlayer, @NotNull Location location){
