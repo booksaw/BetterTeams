@@ -130,7 +130,7 @@ sethome.success: '&6Your team home has been set'
 sethome.noPerm: '&6Your are not a high enough rank to set your team home'
 anchor.enabled: '&6Now you allow your respawning at team home'
 anchor.disabled: '&6Now you do not allow your respawning at team home'
-anchor.noHome: '&6Note that your team needs to have both team home set and team anchor enabled'
+anchor.noHome: '&6Your team must to have team home set and team anchor enabled'
 setanchor.enabled: '&6Team anchor enabled'
 setanchor.disabled: '&6Team anchor disabled'
 setanchor.notifyEnable: '&6Team anchor has been enabled by {0}'
@@ -365,8 +365,8 @@ help.delhome: Delete your team's home
 help.ally: Used to request an alliance with another team
 help.neutral: Remove allies and reject ally requests
 help.allychat: Send a message only to your allies
-help.anchor: Toggles whether or not you want to respawn at your team's home
-help.setanchor: Sets your team's anchor state
+help.anchor: Toggles whether you want to respawn at your team's home
+help.setanchor: Sets your team home's ability to serve as a respawn point
 helpArg.delhome: ''
 helpArg.echest: ''
 helpArg.color: <color code>

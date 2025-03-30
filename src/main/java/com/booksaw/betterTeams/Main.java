@@ -274,8 +274,11 @@ public class Main extends JavaPlugin {
 				new ChatCommand(teamCommand), new ColorCommand(), new TitleCommand(), new TopCommand(),
 				new BaltopCommand(), new RankCommand(), new DelHome(), new AllyCommand(), new NeutralCommand(),
 				new AllyChatCommand(teamCommand), new ListCommand(), new WarpCommand(), new SetWarpCommand(),
-				new DelwarpCommand(), new WarpsCommand(), new EchestCommand(), new RankupCommand(), new TagCommand(),
-				new AnchorCommand(), new SetAnchorCommand());
+				new DelwarpCommand(), new WarpsCommand(), new EchestCommand(), new RankupCommand(), new TagCommand());
+
+		if (getConfig().getBoolean("anchor.enable")) {
+			teamCommand.addSubCommands(new AnchorCommand(), new SetAnchorCommand());
+		}
 
 		if (getConfig().getBoolean("disableCombat")) {
 			teamCommand.addSubCommand(new PvpCommand());

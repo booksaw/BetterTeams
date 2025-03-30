@@ -44,7 +44,6 @@ public class AnchoredPlayerUUIDSetComponent extends UuidSetComponent {
             return AnchorResult.ALREADY_ANCHORED;
         }
         player.setAnchor(true);
-        team.getStorage().setAnchor(player, true);
         add(team, player.getPlayerUUID());
         return AnchorResult.SUCCESS;
     }
@@ -68,7 +67,6 @@ public class AnchoredPlayerUUIDSetComponent extends UuidSetComponent {
             return AnchorResult.NOT_ANCHORED;
         }
         player.setAnchor(false);
-        team.getStorage().setAnchor(player, false);
         remove(team, player.getPlayerUUID());
         return AnchorResult.SUCCESS;
     }

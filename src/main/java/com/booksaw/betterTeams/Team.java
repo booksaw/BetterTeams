@@ -274,7 +274,7 @@ public class Team {
 	/*
 	 * Decides whether or not team home will serve as respawn location
 	 */
-	private boolean anchor = false;
+	private boolean useTeamHomeAsAnchor = false;
 
 	/**
 	 * The color of the team
@@ -331,7 +331,7 @@ public class Team {
 		description = storage.getString(StoredTeamValue.DESCRIPTION);
 		open = storage.getBoolean(StoredTeamValue.OPEN);
 		pvp = storage.getBoolean(StoredTeamValue.PVP);
-		anchor = storage.getBoolean(StoredTeamValue.ANCHOR);
+		useTeamHomeAsAnchor = storage.getBoolean(StoredTeamValue.ANCHOR);
 
 		String colorStr = storage.getString(StoredTeamValue.COLOR);
 
@@ -414,7 +414,7 @@ public class Team {
 		pvp = false;
 		
 		storage.set(StoredTeamValue.ANCHOR, false);
-		anchor = false;
+		useTeamHomeAsAnchor = false;
 
 		storage.set(StoredTeamValue.HOME, "");
 		rank = -1;
@@ -665,10 +665,10 @@ public class Team {
 	 */
 	public AnchorResult anchorPlayer(TeamPlayer p) {
 		AnchorResult result = anchoredPlayers.add(this, p);
-		if(!(result == AnchorResult.SUCCESS)){
-			return result;
+		if(result == AnchorResult.SUCCESS){
+			getStorage().setAnchor(p, true);
+			saveAnchoredPlayers();
 		}
-		saveAnchoredPlayers();
 		return result;
 	}
 
@@ -679,10 +679,10 @@ public class Team {
 	 */
 	public AnchorResult unanchorPlayer(TeamPlayer p) {
 		AnchorResult result = anchoredPlayers.remove(this, p);
-		if(!(result == AnchorResult.SUCCESS)){
-			return result;
+		if(result == AnchorResult.SUCCESS){
+			getStorage().setAnchor(p, false);
+			saveAnchoredPlayers();
 		}
-		saveAnchoredPlayers();
 		return result;
 	}
 
@@ -896,7 +896,7 @@ public class Team {
 	public void deleteTeamHome() {
 		teamHome = null;
 		getStorage().set(StoredTeamValue.HOME, "");
-		if(anchor) setAnchored(false);
+		if(useTeamHomeAsAnchor) setAnchored(false);
 	}
 
 	/**
@@ -1648,18 +1648,18 @@ public class Team {
 	 * @return false if trying to anchor the team and its home is not set, true otherwise
 	 */
 	public boolean toggleAnchor() {
-		return setAnchored(!anchor);
+		return setAnchored(!useTeamHomeAsAnchor);
 	}
 
 	public boolean setAnchored(boolean anchor) {
 		if(anchor && teamHome == null) return false;
-		this.anchor = anchor;
+		this.useTeamHomeAsAnchor = anchor;
 		getStorage().set(StoredTeamValue.ANCHOR, anchor);
 		return true;
 	}
 
 	public boolean isAnchored() {
-		return anchor;
+		return useTeamHomeAsAnchor;
 	}
 
 	public double getMaxMoney() {
