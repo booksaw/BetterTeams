@@ -39,7 +39,7 @@ public class HomeAnchorManagement implements Listener {
     }
 
     private EventPriority getConfiguredPriority() {
-        String priorityStr = Main.plugin.getConfig().getString("anchor.priority", "NORMAL");
+        String priorityStr = Main.plugin.getConfig().getString("anchor.priority", "NORMAL").toUpperCase();
         try {
             return allowedPriorities.contains(EventPriority.valueOf(priorityStr))
                     ? EventPriority.valueOf(priorityStr)
