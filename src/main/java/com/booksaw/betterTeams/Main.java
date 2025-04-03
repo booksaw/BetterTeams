@@ -109,6 +109,7 @@ public class Main extends JavaPlugin {
 		if (Objects.requireNonNull(language).equals("en") || language.isEmpty()) {
 			MessageManager.setLanguage("messages");
 		}
+		MessageManager.initAdventure();
 
 		loadCustomConfigs();
 

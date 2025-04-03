@@ -4,6 +4,9 @@ import com.booksaw.betterTeams.ConfigManager;
 import com.booksaw.betterTeams.Main;
 import lombok.Getter;
 import me.clip.placeholderapi.PlaceholderAPI;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -21,6 +24,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Used to control all communications to the user
@@ -31,11 +36,24 @@ public class MessageManager {
 
 	public static final String MISSINGMESSAGES_FILENAME = "missingmessages.txt";
 
+	private static final Pattern HEX_PATTERN = Pattern.compile("&#([A-Fa-f0-9]{6})");
+	private static final Pattern LEGACY_TAG_PATTERN = Pattern.compile("[§&]([0-9a-fk-orxA-FK-ORX])");
+	private static final Pattern LEGACY_HEX_PATTERN = Pattern.compile("§x(§[0-9a-fA-F]){6}");
+
+	private static final MiniMessage miniMessage = MiniMessage.miniMessage();
+	private static BukkitAudiences adventure;
+
 	/**
 	 * Used to store all loaded messages
 	 */
 	@Getter
 	private static HashMap<String, String> messages = new HashMap<>();
+
+	/**
+	 * Used to store all loaded messages in MiniMessage format
+	 */
+	@Getter
+	private static HashMap<String, Component> miniMessages = new HashMap<>();
 
 	@Getter
 	private static ConfigManager defaultMessagesConfigManager;
@@ -57,6 +75,17 @@ public class MessageManager {
 	private MessageManager() {
 	}
 
+	public static void initAdventure() {
+		if (adventure != null) {
+			return;
+		}
+		adventure = BukkitAudiences.create(Main.plugin);
+	}
+
+	public static boolean isAdventure() {
+		return adventure != null;
+	}
+
 	public static String getLanguage() {
 		return lang;
 	}
@@ -66,14 +95,95 @@ public class MessageManager {
 	}
 
 	/**
+	 * Translates RGB color codes (&#RRGGBB) into Minecraft color codes.
+	 *
+	 * @param message The message to translate.
+	 * @return The translated message with RGB colors applied.
+	 */
+	public static String translateRGBColors(String message) {
+		if (message == null || message.isEmpty()) {
+			return message;
+		}
+
+		Matcher matcher = HEX_PATTERN.matcher(message);
+
+		StringBuffer translatedMessage = new StringBuffer();
+
+		while (matcher.find()) {
+			String hexColor = matcher.group(1); // Extract the RRGGBB part
+			String minecraftColor = ChatColor.of("#" + hexColor).toString(); // Convert to Minecraft color
+			matcher.appendReplacement(translatedMessage, minecraftColor);
+		}
+
+		matcher.appendTail(translatedMessage);
+		return translatedMessage.toString();
+	}
+	
+	/**
+	 * Transforms legacy formatting codes (§ or &) and Minecraft's hex color format (§x§R§R§G§G§B§B)
+	 * into MiniMessage-compatible tags.
+	 *
+	 * @param message The message to transform.
+	 * @return The transformed message with MiniMessage-compatible tags.
+	 */
+	public static String transformLegacyToMiniMessage(String message) {
+		if (message == null || message.isEmpty()) {
+			return message;
+		}
+
+		// Convert Minecraft's hex color format (§x§R§R§G§G§B§B) to MiniMessage format (<color:#RRGGBB>)
+		Matcher hexMatcher = LEGACY_HEX_PATTERN.matcher(message);
+		StringBuffer convertedMessage = new StringBuffer();
+
+		while (hexMatcher.find()) {
+			// Extract the hex color from the matched format
+			String hexColor = hexMatcher.group().replace("§x", "").replace("§", "");
+			hexMatcher.appendReplacement(convertedMessage, "<color:#" + hexColor + ">");
+		}
+		hexMatcher.appendTail(convertedMessage);
+
+		// Update the message with the converted hex colors
+		message = convertedMessage.toString();
+
+		Matcher legacyMatcher = LEGACY_TAG_PATTERN.matcher(message);
+		convertedMessage = new StringBuffer();
+
+		while (legacyMatcher.find()) {
+			char code = legacyMatcher.group(1).toLowerCase().charAt(0); // Get the character after § or &
+			ChatColor chatColor = ChatColor.getByChar(code); // Get the ChatColor associated with the code
+
+			if (chatColor != null) {
+				String miniMessageTag = "<" + chatColor.getName() + ">"; // Get the MiniMessage tag
+				legacyMatcher.appendReplacement(convertedMessage, miniMessageTag);
+			}
+		}
+		legacyMatcher.appendTail(convertedMessage);
+
+		return convertedMessage.toString();
+	}
+
+	/**
+	 * Formats a message using MiniMessage.
+	 *
+	 * @param message The message to format.
+	 * @return The formatted Component.
+	 */
+	public static Component formatWithMiniMessage(String message) {
+		if (message == null || message.isEmpty()) {
+			return Component.empty();
+		}
+		return miniMessage.deserialize(message);
+	}
+
+	/**
 	 * This method is used to provide the configuration file in which all the
 	 * message references are stored, this method also loads the default prefix
 	 *
 	 * @param configManager the configuration manager
 	 */
 	public static void addMessages(@NotNull ConfigManager configManager) {
-		prefix = ChatColor.translateAlternateColorCodes('&',
-				Objects.requireNonNull(Main.plugin.getConfig().getString("prefixFormat")));
+		prefix = ChatColor.translateAlternateColorCodes('&',translateRGBColors(
+				Objects.requireNonNull(Main.plugin.getConfig().getString("prefixFormat"))));
 		defaultMessagesConfigManager = configManager;
 
 		addMessages(configManager.config, false);
@@ -123,7 +233,8 @@ public class MessageManager {
 			logger.info(
 					"If you are able to help with translation please join the discord server and make yourself known (https://discord.gg/JF9DNs3)");
 			logger.info(
-					"A file called `" + MISSINGMESSAGES_FILENAME + "` has been created within this plugins folder. To contribute to the community translations, translate the messages within it and submit it to the discord");
+					"A file called `" + MISSINGMESSAGES_FILENAME
+							+ "` has been created within this plugins folder. To contribute to the community translations, translate the messages within it and submit it to the discord");
 			logger.info("==================================================================");
 		}
 
@@ -167,7 +278,8 @@ public class MessageManager {
 				writer.println(
 						"# Please translate these messages and then submit them to the Booksaw Development (https://discord.gg/JF9DNs3) in the #messages-submissions channel for a special rank");
 				writer.println("# Your translations will be included in the next update");
-				writer.println("# When you are done translating, run '/teama importmessages' to include the translated messages in your main file");
+				writer.println(
+						"# When you are done translating, run '/teama importmessages' to include the translated messages in your main file");
 			}
 			for (String str : missingMessages) {
 				if (!existingKeys.contains(str)) {
@@ -199,7 +311,7 @@ public class MessageManager {
 			return;
 		}
 
-		sender.sendMessage(prefix + message);
+		sendFullMessage(sender, message, true);
 	}
 
 	/**
@@ -221,7 +333,6 @@ public class MessageManager {
 				return "";
 			}
 
-			msg = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(msg));
 			msg = format(msg, replacement);
 
 			return msg;
@@ -241,7 +352,7 @@ public class MessageManager {
 			if (sender instanceof Player && Main.placeholderAPI) {
 				msg = PlaceholderAPI.setPlaceholders((Player) sender, msg);
 			}
-			return ChatColor.translateAlternateColorCodes('&', msg);
+			return ChatColor.translateAlternateColorCodes('&', translateRGBColors(msg));
 		} catch (NullPointerException e) {
 			Main.plugin.getLogger().warning("Could not find the message with the reference " + reference);
 			return "";
@@ -249,8 +360,10 @@ public class MessageManager {
 	}
 
 	public static String format(String content, Object... replacement) {
-		if (content == null || content.isEmpty()) return "";
-		if (replacement == null || replacement.length == 0) return content;
+		if (content == null || content.isEmpty())
+			return "";
+		if (replacement == null || replacement.length == 0)
+			return content;
 
 		String formatted = content;
 		for (int i = 0; i < replacement.length; i++) {
@@ -284,8 +397,20 @@ public class MessageManager {
 		}
 
 		if (prefixMessage) {
-			sender.sendMessage(prefix + message);
+			message = prefix + message;
+		}
+
+		// Determine the formatting method based on the sender type
+		if (sender instanceof Player) {
+			// For players, use MiniMessage for advanced formatting
+			if (adventure != null) {
+				adventure.sender(sender).sendMessage(
+						formatWithMiniMessage(transformLegacyToMiniMessage(message)));
+			} else {
+				sender.sendMessage(message);
+			}
 		} else {
+			// For console or other senders
 			sender.sendMessage(message);
 		}
 	}
