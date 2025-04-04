@@ -163,6 +163,7 @@ public class Main extends JavaPlugin {
 		Team.disable();
 
 		MessageManager.dumpMessages();
+		MessageManager.closeAdventure();
 
 	}
 

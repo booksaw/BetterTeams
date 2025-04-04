@@ -6,10 +6,9 @@ import lombok.Getter;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.minimessage.MiniMessage;
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -17,15 +16,16 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.ApiStatus.Internal;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Used to control all communications to the user
@@ -36,24 +36,22 @@ public class MessageManager {
 
 	public static final String MISSINGMESSAGES_FILENAME = "missingmessages.txt";
 
-	private static final Pattern HEX_PATTERN = Pattern.compile("&#([A-Fa-f0-9]{6})");
-	private static final Pattern LEGACY_TAG_PATTERN = Pattern.compile("[§&]([0-9a-fk-orxA-FK-ORX])");
-	private static final Pattern LEGACY_HEX_PATTERN = Pattern.compile("§x(§[0-9a-fA-F]){6}");
-
-	private static final MiniMessage miniMessage = MiniMessage.miniMessage();
-	private static BukkitAudiences adventure;
+	/**
+	 * Once initialized on enable, this cannot be closed until the server is shut
+	 * down.
+	 * <p>
+	 * Serves for sending {@code Component} messages to players and console.
+	 * <p>
+	 * If it's not initialized after enabling the plugin, messages will be sent as
+	 * legacy strings.
+	 */
+	private static BukkitAudiences audiences = null;
 
 	/**
 	 * Used to store all loaded messages
 	 */
 	@Getter
 	private static HashMap<String, String> messages = new HashMap<>();
-
-	/**
-	 * Used to store all loaded messages in MiniMessage format
-	 */
-	@Getter
-	private static HashMap<String, Component> miniMessages = new HashMap<>();
 
 	@Getter
 	private static ConfigManager defaultMessagesConfigManager;
@@ -75,15 +73,51 @@ public class MessageManager {
 	private MessageManager() {
 	}
 
-	public static void initAdventure() {
-		if (adventure != null) {
+	private static String properlyTranslate(String message) {
+		if (audiences != null) {
+			return Formatter.absoluteTranslate(message);
+		} else {
+			return Formatter.legacyTranslate(message);
+		}
+	}
+
+	private static String completeMessage(String message, boolean prefixMessage, boolean doChatFormat) {
+		if (doChatFormat) {
+			message = properlyTranslate(message);
+		}
+
+		if (prefixMessage) {
+			message = prefix + message;
+		}
+
+		return message;
+	}
+
+	public static @Internal void initAdventure() {
+		if (audiences != null) {
 			return;
 		}
-		adventure = BukkitAudiences.create(Main.plugin);
+		try {
+			audiences = BukkitAudiences.create(Main.plugin);
+		} catch (Exception e) {
+			Main.plugin.getLogger().log(Level.WARNING,
+					"Failed to initialize Adventure. MiniMessage support will not be provided", e);
+		}
+	}
+
+	public static @Internal void closeAdventure() {
+		if (audiences != null) {
+			audiences.close();
+			audiences = null;
+		}
 	}
 
 	public static boolean isAdventure() {
-		return adventure != null;
+		return audiences != null;
+	}
+
+	public static BukkitAudiences getBukkitAudiences() {
+		return audiences;
 	}
 
 	public static String getLanguage() {
@@ -95,95 +129,18 @@ public class MessageManager {
 	}
 
 	/**
-	 * Translates RGB color codes (&#RRGGBB) into Minecraft color codes.
-	 *
-	 * @param message The message to translate.
-	 * @return The translated message with RGB colors applied.
-	 */
-	public static String translateRGBColors(String message) {
-		if (message == null || message.isEmpty()) {
-			return message;
-		}
-
-		Matcher matcher = HEX_PATTERN.matcher(message);
-
-		StringBuffer translatedMessage = new StringBuffer();
-
-		while (matcher.find()) {
-			String hexColor = matcher.group(1); // Extract the RRGGBB part
-			String minecraftColor = ChatColor.of("#" + hexColor).toString(); // Convert to Minecraft color
-			matcher.appendReplacement(translatedMessage, minecraftColor);
-		}
-
-		matcher.appendTail(translatedMessage);
-		return translatedMessage.toString();
-	}
-	
-	/**
-	 * Transforms legacy formatting codes (§ or &) and Minecraft's hex color format (§x§R§R§G§G§B§B)
-	 * into MiniMessage-compatible tags.
-	 *
-	 * @param message The message to transform.
-	 * @return The transformed message with MiniMessage-compatible tags.
-	 */
-	public static String transformLegacyToMiniMessage(String message) {
-		if (message == null || message.isEmpty()) {
-			return message;
-		}
-
-		// Convert Minecraft's hex color format (§x§R§R§G§G§B§B) to MiniMessage format (<color:#RRGGBB>)
-		Matcher hexMatcher = LEGACY_HEX_PATTERN.matcher(message);
-		StringBuffer convertedMessage = new StringBuffer();
-
-		while (hexMatcher.find()) {
-			// Extract the hex color from the matched format
-			String hexColor = hexMatcher.group().replace("§x", "").replace("§", "");
-			hexMatcher.appendReplacement(convertedMessage, "<color:#" + hexColor + ">");
-		}
-		hexMatcher.appendTail(convertedMessage);
-
-		// Update the message with the converted hex colors
-		message = convertedMessage.toString();
-
-		Matcher legacyMatcher = LEGACY_TAG_PATTERN.matcher(message);
-		convertedMessage = new StringBuffer();
-
-		while (legacyMatcher.find()) {
-			char code = legacyMatcher.group(1).toLowerCase().charAt(0); // Get the character after § or &
-			ChatColor chatColor = ChatColor.getByChar(code); // Get the ChatColor associated with the code
-
-			if (chatColor != null) {
-				String miniMessageTag = "<" + chatColor.getName() + ">"; // Get the MiniMessage tag
-				legacyMatcher.appendReplacement(convertedMessage, miniMessageTag);
-			}
-		}
-		legacyMatcher.appendTail(convertedMessage);
-
-		return convertedMessage.toString();
-	}
-
-	/**
-	 * Formats a message using MiniMessage.
-	 *
-	 * @param message The message to format.
-	 * @return The formatted Component.
-	 */
-	public static Component formatWithMiniMessage(String message) {
-		if (message == null || message.isEmpty()) {
-			return Component.empty();
-		}
-		return miniMessage.deserialize(message);
-	}
-
-	/**
 	 * This method is used to provide the configuration file in which all the
 	 * message references are stored, this method also loads the default prefix
 	 *
 	 * @param configManager the configuration manager
 	 */
 	public static void addMessages(@NotNull ConfigManager configManager) {
-		prefix = ChatColor.translateAlternateColorCodes('&',translateRGBColors(
-				Objects.requireNonNull(Main.plugin.getConfig().getString("prefixFormat"))));
+		prefix = Objects.requireNonNull(Main.plugin.getConfig().getString("prefixFormat"));
+		if (audiences != null) {
+			prefix = Formatter.absoluteTranslate(prefix);
+		} else {
+			prefix = Formatter.legacyTranslate(prefix);
+		}
 		defaultMessagesConfigManager = configManager;
 
 		addMessages(configManager.config, false);
@@ -306,12 +263,16 @@ public class MessageManager {
 			return;
 		}
 
-		String message = getMessage(sender, reference, replacement);
+		String message = getMessage(sender, true, reference, replacement);
 		if (message.isEmpty()) {
 			return;
 		}
 
-		sendFullMessage(sender, message, true);
+		sendFullMessage(sender, message, true, false);
+	}
+
+	public static String getMessage(String reference, Object... replacement) {
+		return getMessage(false, reference, replacement);
 	}
 
 	/**
@@ -321,7 +282,7 @@ public class MessageManager {
 	 * @param reference the reference for the message
 	 * @return the message (without prefix)
 	 */
-	public static String getMessage(String reference, Object... replacement) {
+	public static String getMessage(boolean doChatFormat, String reference, Object... replacement) {
 		try {
 			if (!messages.containsKey(reference)) {
 				Main.plugin.getLogger().warning("Could not find the message with the reference " + reference);
@@ -335,7 +296,11 @@ public class MessageManager {
 
 			msg = format(msg, replacement);
 
-			return msg;
+			if (!doChatFormat) {
+				return msg;
+			} else {
+				return properlyTranslate(msg);
+			}
 		} catch (NullPointerException e) {
 			Main.plugin.getLogger().warning("Could not find the message with the reference " + reference);
 			return "";
@@ -343,6 +308,14 @@ public class MessageManager {
 	}
 
 	public static String getMessage(@Nullable CommandSender sender, String reference, Object... replacement) {
+		return getMessage(sender, false, reference, replacement);
+	}
+
+	public static String getMessage(
+			@Nullable CommandSender sender,
+			boolean doChatFormat,
+			String reference,
+			Object... replacement) {
 		try {
 			String msg = getMessage(reference, replacement);
 			if (msg.isEmpty()) {
@@ -352,7 +325,12 @@ public class MessageManager {
 			if (sender instanceof Player && Main.placeholderAPI) {
 				msg = PlaceholderAPI.setPlaceholders((Player) sender, msg);
 			}
-			return ChatColor.translateAlternateColorCodes('&', translateRGBColors(msg));
+
+			if (!doChatFormat) {
+				return msg;
+			} else {
+				return properlyTranslate(msg);
+			}
 		} catch (NullPointerException e) {
 			Main.plugin.getLogger().warning("Could not find the message with the reference " + reference);
 			return "";
@@ -392,26 +370,115 @@ public class MessageManager {
 	 * @param prefixMessage The prefix for that message
 	 */
 	public static void sendFullMessage(@Nullable CommandSender sender, String message, boolean prefixMessage) {
+		sendFullMessage(sender, message, prefixMessage, true);
+	}
+
+	private static void sendFullMessage(
+			@Nullable CommandSender sender,
+			String message,
+			boolean prefixMessage,
+			boolean doChatFormat) {
 		if (sender == null) {
 			return;
 		}
 
-		if (prefixMessage) {
-			message = prefix + message;
+		message = completeMessage(message, prefixMessage, doChatFormat);
+
+		if (audiences != null) {
+			sendFullMessage(sender, Formatter.deserializeWithMiniMessage(message));
+		} else {
+			sender.sendMessage(message);
+		}
+	}
+
+	/**
+	 * Sends a component message to the specified command sender.
+	 * <p>
+	 * This method asumes that adventure has been initialized, so it should be (otherwise, it'll fail and errors may appear).
+	 *
+	 * @param sender  the player who sent the command
+	 * @param message the message to send to that user
+	 */
+	public static void sendFullMessage(@Nullable CommandSender sender, Component message) {
+		if (sender == null) {
+			return;
+		}
+		if (sender instanceof Player) {
+			audiences.player((Player) sender).sendMessage(message);
+		} else if (sender instanceof ConsoleCommandSender) {
+			audiences.console().sendMessage(message);
+		} else {
+			audiences.sender(sender).sendMessage(message);
+		}
+	}
+
+	/**
+	 * Used when sending a referenced message (formatted around a single player)
+	 * to a group of command senders.
+	 * 
+	 * @param senders
+	 * @param sender
+	 * @param message
+	 * @param prefixFormat
+	 * @param doChatFormat
+	 */
+	public static void sendMessage(
+			@Nullable Collection<? extends CommandSender> senders,
+			@Nullable Player player,
+			boolean prefixFormat,
+			boolean doChatFormat,
+			String reference,
+			Object... replacement) {
+		if (senders == null || senders.isEmpty()) {
+			return;
 		}
 
-		// Determine the formatting method based on the sender type
-		if (sender instanceof Player) {
-			// For players, use MiniMessage for advanced formatting
-			if (adventure != null) {
-				adventure.sender(sender).sendMessage(
-						formatWithMiniMessage(transformLegacyToMiniMessage(message)));
-			} else {
-				sender.sendMessage(message);
+		if (player == null) {
+			return;
+		}
+
+		String message = getMessage(player, reference, replacement);
+
+		message = completeMessage(message, prefixFormat, doChatFormat);
+
+		if (audiences != null) {
+			for (CommandSender sender : senders) {
+				sendFullMessage(sender, Formatter.deserializeWithMiniMessage(message));
 			}
 		} else {
-			// For console or other senders
-			sender.sendMessage(message);
+			for (CommandSender sender : senders) {
+				sender.sendMessage(message);
+			}
+		}
+	}
+
+	/**
+	 * Used when sending a raw message
+	 * to a group of command senders.
+	 * 
+	 * @param senders
+	 * @param message
+	 * @param prefixFormat
+	 * @param doChatFormat
+	 */
+	public static void sendFullMessage(@Nullable Collection<? extends CommandSender> senders, String message,
+			boolean prefixFormat,
+			boolean doChatFormat) {
+		if (senders == null || senders.isEmpty()) {
+			return;
+		}
+		sendBulkMessage(senders, completeMessage(message, prefixFormat, doChatFormat));
+	}
+
+	private static void sendBulkMessage(@NotNull Collection<? extends CommandSender> senders, String message) {
+		if (audiences != null) {
+			for (CommandSender sender : senders) {
+				sendFullMessage(sender, Formatter.deserializeWithMiniMessage(message));
+			}
+		} else {
+			for (CommandSender sender : senders) {
+				sender.sendMessage(message);
+			}
 		}
 	}
 
