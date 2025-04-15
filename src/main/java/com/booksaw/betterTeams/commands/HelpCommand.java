@@ -87,6 +87,7 @@ public class HelpCommand extends SubCommand {
 				MessageManager.sendFullMessage(sender, createClickableHelpMiniMessage(label,
 						subCommand.getCommand() + " " + subCommand.getArgMessage(command),
 						subCommand.getHelpMessage(command)));
+						
 			} else if (sender instanceof Player) {
 				((Player) sender).spigot()
 						.sendMessage(createClickableHelpMessage(label,
@@ -185,13 +186,10 @@ public class HelpCommand extends SubCommand {
 				MessageManager.getPrefix() + prefix + "/" + label + " " + commandPath
 						+ " <white>-</white> " + HelpCommand.description + description);
 
-		Component hoverComponent = Formatter.deserializeWithMiniMessage(
-				Formatter.legacyTagToMinimessage(prefix) + "/" + label + " " + commandPath);
-
-		return Component.text().append(parsedComponent)
+		return parsedComponent
 				.clickEvent(net.kyori.adventure.text.event.ClickEvent.suggestCommand("/" + label + " " + commandPath))
-				.hoverEvent(net.kyori.adventure.text.event.HoverEvent.showText(hoverComponent))
-				.build();
+				.hoverEvent(net.kyori.adventure.text.event.HoverEvent
+						.showText(Formatter.absoluteMinimessage(prefix + "/" + label + " " + commandPath)));
 	}
 
 	@Override

@@ -5,8 +5,6 @@ import java.util.regex.Pattern;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
-import net.kyori.adventure.text.minimessage.tag.standard.StandardTags;
 import net.md_5.bungee.api.ChatColor;
 
 public class Formatter {
@@ -15,13 +13,7 @@ public class Formatter {
     private static final Pattern LEGACY_TAG_PATTERN = Pattern.compile("[§&]([0-9a-fk-orxA-FK-ORX])");
     private static final Pattern LEGACY_HEX_PATTERN = Pattern.compile("§x(§[0-9a-fA-F]){6}");
 
-    private static final MiniMessage CUSTOM_MM = MiniMessage.builder()
-            .tags(TagResolver.resolver(
-                    StandardTags.color(),
-                    StandardTags.decorations(),
-                    StandardTags.font(),
-                    StandardTags.gradient()))
-            .build();
+    private static final MiniMessage MM = MiniMessage.miniMessage();
 
     /**
      * Translates RGB color codes (&#RRGGBB) into Minecraft color codes.
@@ -139,13 +131,13 @@ public class Formatter {
         if (message == null || message.isEmpty()) {
             return Component.empty();
         }
-        return CUSTOM_MM.deserialize(message);
+        return MM.deserialize(message);
     }
 
     public static Component absoluteMinimessage(String message) {
         if (message == null || message.isEmpty()) {
             return Component.empty();
         }
-        return CUSTOM_MM.deserialize(absoluteTranslate(message));
+        return MM.deserialize(absoluteTranslate(message));
     }
 }

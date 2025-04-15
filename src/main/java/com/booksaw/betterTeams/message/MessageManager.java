@@ -2,6 +2,8 @@ package com.booksaw.betterTeams.message;
 
 import com.booksaw.betterTeams.ConfigManager;
 import com.booksaw.betterTeams.Main;
+import net.kyori.adventure.title.Title;
+import net.kyori.adventure.util.Ticks;
 import lombok.Getter;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
@@ -45,7 +47,7 @@ public class MessageManager {
 	 * If it's not initialized after enabling the plugin, messages will be sent as
 	 * legacy strings.
 	 */
-	private static BukkitAudiences audiences = null;
+	private static BukkitAudiences audiences;
 
 	/**
 	 * Used to store all loaded messages
@@ -394,7 +396,8 @@ public class MessageManager {
 	/**
 	 * Sends a component message to the specified command sender.
 	 * <p>
-	 * This method asumes that adventure has been initialized, so it should be (otherwise, it'll fail and errors may appear).
+	 * This method asumes that adventure has been initialized, so it should be
+	 * (otherwise, it'll fail and errors may appear).
 	 *
 	 * @param sender  the player who sent the command
 	 * @param message the message to send to that user
@@ -410,6 +413,23 @@ public class MessageManager {
 		} else {
 			audiences.sender(sender).sendMessage(message);
 		}
+	}
+
+	public static void sendMessage(
+			@Nullable Collection<? extends CommandSender> senders,
+			@Nullable Player player,
+			String reference,
+			Object... replacement) {
+		sendMessage(senders, player, true, reference, replacement);
+	}
+
+	public static void sendMessage(
+			@Nullable Collection<? extends CommandSender> senders,
+			@Nullable Player player,
+			boolean prefixFormat,
+			String reference,
+			Object... replacement) {
+		sendMessage(senders, player, prefixFormat, true, reference, replacement);
 	}
 
 	/**
@@ -439,17 +459,11 @@ public class MessageManager {
 
 		String message = getMessage(player, reference, replacement);
 
-		message = completeMessage(message, prefixFormat, doChatFormat);
-
-		if (audiences != null) {
-			for (CommandSender sender : senders) {
-				sendFullMessage(sender, Formatter.deserializeWithMiniMessage(message));
-			}
-		} else {
-			for (CommandSender sender : senders) {
-				sender.sendMessage(message);
-			}
+		if (message == null || message.isEmpty()) {
+			return;
 		}
+
+		sendBulkMessage(senders, completeMessage(message, prefixFormat, doChatFormat));
 	}
 
 	/**
@@ -461,7 +475,9 @@ public class MessageManager {
 	 * @param prefixFormat
 	 * @param doChatFormat
 	 */
-	public static void sendFullMessage(@Nullable Collection<? extends CommandSender> senders, String message,
+	public static void sendFullMessage(
+			@Nullable Collection<? extends CommandSender> senders,
+			String message,
 			boolean prefixFormat,
 			boolean doChatFormat) {
 		if (senders == null || senders.isEmpty()) {
@@ -470,10 +486,11 @@ public class MessageManager {
 		sendBulkMessage(senders, completeMessage(message, prefixFormat, doChatFormat));
 	}
 
-	private static void sendBulkMessage(@NotNull Collection<? extends CommandSender> senders, String message) {
+	public static void sendBulkMessage(@NotNull Collection<? extends CommandSender> senders, String message) {
 		if (audiences != null) {
+			Component messageComponent = Formatter.deserializeWithMiniMessage(message);
 			for (CommandSender sender : senders) {
-				sendFullMessage(sender, Formatter.deserializeWithMiniMessage(message));
+				sendFullMessage(sender, messageComponent);
 			}
 		} else {
 			for (CommandSender sender : senders) {
@@ -499,6 +516,21 @@ public class MessageManager {
 		defaultMessagesConfigManager = null;
 	}
 
+	public static void sendTitle(
+			@Nullable Player player,
+			String reference,
+			Object... replacement) {
+		sendTitle(player, false, reference, replacement);
+	}
+
+	public static void sendTitle(
+			@Nullable Player player,
+			boolean prefixFormat,
+			String reference,
+			Object... replacement) {
+		sendTitle(player, prefixFormat, true, reference, replacement);
+	}
+
 	/**
 	 * Used to send a (formatted) title to the specified user
 	 *
@@ -506,31 +538,50 @@ public class MessageManager {
 	 * @param reference   the reference for the message
 	 * @param replacement the value that the placeholder should be replaced with
 	 */
-	public static void sendTitle(@Nullable Player player, String reference, Object... replacement) {
+	public static void sendTitle(
+			@Nullable Player player,
+			boolean prefixFormat,
+			boolean doChatFormat,
+			String reference,
+			Object... replacement) {
 		String message = getMessage(player, reference, replacement);
-		sendFullTitle(player, message, false);
+		sendFullTitle(player, message, prefixFormat, doChatFormat);
 	}
 
 	public static void sendFullTitle(@Nullable Player player, String message) {
 		sendFullTitle(player, message, true);
 	}
 
-	public static void sendFullTitle(@Nullable Player player, String message, boolean prefixMessage) {
+	public static void sendFullTitle(
+			@Nullable Player player,
+			String message,
+			boolean prefixMessage) {
+		sendFullTitle(player, message, prefixMessage, true);
+	}
+
+	public static void sendFullTitle(
+			@Nullable Player player,
+			String message,
+			boolean prefixMessage,
+			boolean doChatFormat) {
 		if (player == null) {
 			return;
-		}
-
-		if (prefixMessage) {
-			message = prefix + message;
 		}
 
 		if (message.isEmpty()) {
 			return;
 		}
 
+		message = completeMessage(message, prefixMessage, doChatFormat);
+
 		// fadeIn - time in ticks for titles to fade in. Defaults to 10.
 		// stay - time in ticks for titles to stay. Defaults to 70.
 		// fadeOut - time in ticks for titles to fade out. Defaults to 20.
-		player.sendTitle(message, "", 10, 100, 20);
+		if (audiences != null) {
+			audiences.player(player).showTitle(Title.title(Formatter.deserializeWithMiniMessage(message),
+					Component.empty(), Title.Times.times(Ticks.duration(10), Ticks.duration(100), Ticks.duration(20))));
+		} else {
+			player.sendTitle(message, "", 10, 100, 20);
+		}
 	}
 }
