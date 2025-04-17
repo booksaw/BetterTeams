@@ -44,7 +44,7 @@ public class ColorTeama extends TeamSelectSubCommand {
 
 	@Override
 	public int getMinimumArguments() {
-		return 1;
+		return 2;
 	}
 
 	@Override
@@ -64,7 +64,7 @@ public class ColorTeama extends TeamSelectSubCommand {
 
 	@Override
 	public int getMaximumArguments() {
-		return 1;
+		return 2;
 	}
 
 	@Override
