@@ -3,7 +3,6 @@ package com.booksaw.betterTeams.message;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -151,7 +150,7 @@ public class Formatter {
     }
 
     public static @NotNull String legacySerialize(@Nullable Component component) {
-        if (component == null || Component.IS_NOT_EMPTY.test(component)) {
+        if (component == null || component.equals(Component.empty())) {
             return "";
         }
         return LegacyComponentSerializer.legacySection().serialize(component);
@@ -180,7 +179,7 @@ public class Formatter {
         if (player == null || !Main.placeholderAPI) {
             return text;
         }
-        return PlaceholderAPI.setPlaceholders((OfflinePlayer) player, text);
+        return PlaceholderAPI.setPlaceholders(player, text);
     }
 
     public static @Nullable String setPlaceholders(@Nullable String text, Object... replacement) {

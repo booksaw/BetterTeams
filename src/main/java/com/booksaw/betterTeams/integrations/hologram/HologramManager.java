@@ -3,6 +3,7 @@ package com.booksaw.betterTeams.integrations.hologram;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.message.MessageManager;
+import com.booksaw.betterTeams.message.Formatter;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
@@ -68,15 +69,18 @@ public abstract class HologramManager {
 
 		int maxHologramLines = Main.plugin.getConfig().getInt("maxHologramLines");
 
-		holo.appendText(MessageManager.getMessage(true, "holo.leaderboard"));
+		holo.appendText(Formatter.legacySerialize(
+				MessageManager.getMessage("holo.leaderboard")));
 		for (int i = 0; i < maxHologramLines && i < teams.length; i++) {
 			Team team = Team.getTeam(teams[i]);
 			if (team == null) {
 				Main.plugin.getLogger().severe("A team was null for an unexplained reason, team name: " + teams[i]);
 				continue;
 			}
-			holo.appendText(MessageManager.getMessage(true, type.getSyntaxReference(), team.getName(),
-					getValue(type, team)));
+			holo.appendText(
+					Formatter.legacySerialize(
+							MessageManager.getMessage(type.getSyntaxReference(), team.getName(),
+									getValue(type, team))));
 		}
 	}
 
@@ -145,12 +149,12 @@ public abstract class HologramManager {
 
 	public boolean needsUpdating(HologramType type) {
 		// TODO reinstate this method
-//		switch (type) {
-//		case MONEY:
-//			return Team.moneyChanges;
-//		case SCORE:
-//			return Team.scoreChanges;
-//		}
+		// switch (type) {
+		// case MONEY:
+		// return Team.moneyChanges;
+		// case SCORE:
+		// return Team.scoreChanges;
+		// }
 
 		return true;
 	}

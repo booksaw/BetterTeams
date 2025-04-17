@@ -1080,8 +1080,8 @@ public class Team {
 			return team;
 		}
 
-		String name = color + com.booksaw.betterTeams.message.Formatter
-				.legacySerialize(MessageManager.getMessage("nametag.syntax", getTag()));
+		String name = com.booksaw.betterTeams.message.Formatter
+				.legacySerialize(color + MessageManager.getMessage("nametag.syntax", getTag()));
 
 		int attempt = 0;
 		do {

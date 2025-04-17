@@ -48,7 +48,8 @@ public class ChatManagement implements Listener {
 		TeamPlayer teamPlayer = team.getTeamPlayer(p);
 
 		if (teamPlayer == null) {
-			throw new IllegalStateException("Player " + p.getName() + " is registered to be in a team, yet has no playerdata associated with that team");
+			throw new IllegalStateException("Player " + p.getName()
+					+ " is registered to be in a team, yet has no playerdata associated with that team");
 		}
 
 		String anyChatToGlobalPrefix = Main.plugin.getConfig().getString("chatPrefixes.teamOrAllyToGlobal", "!");
@@ -56,7 +57,8 @@ public class ChatManagement implements Listener {
 		String globalToAllyPrefix = Main.plugin.getConfig().getString("chatPrefixes.globalToAlly", "?");
 
 		if (teamPlayer.isInTeamChat() || teamPlayer.isInAllyChat()) {
-			if (!anyChatToGlobalPrefix.isEmpty() && event.getMessage().startsWith(anyChatToGlobalPrefix) && event.getMessage().length() > anyChatToGlobalPrefix.length()) {
+			if (!anyChatToGlobalPrefix.isEmpty() && event.getMessage().startsWith(anyChatToGlobalPrefix)
+					&& event.getMessage().length() > anyChatToGlobalPrefix.length()) {
 				event.setMessage(event.getMessage().substring(anyChatToGlobalPrefix.length()));
 			} else {
 				// Player is not sending to global chat
@@ -72,10 +74,10 @@ public class ChatManagement implements Listener {
 				event.setFormat("");
 				return;
 			}
-		} else if (
-				(!globalToTeamPrefix.isEmpty() && event.getMessage().startsWith(globalToTeamPrefix) && event.getMessage().length() > globalToTeamPrefix.length())
-						|| (!globalToAllyPrefix.isEmpty() && event.getMessage().startsWith(globalToAllyPrefix) && event.getMessage().length() > globalToAllyPrefix.length())
-		) {
+		} else if ((!globalToTeamPrefix.isEmpty() && event.getMessage().startsWith(globalToTeamPrefix)
+				&& event.getMessage().length() > globalToTeamPrefix.length())
+				|| (!globalToAllyPrefix.isEmpty() && event.getMessage().startsWith(globalToAllyPrefix)
+						&& event.getMessage().length() > globalToAllyPrefix.length())) {
 			// Player is not sending to global chat
 			event.setCancelled(true);
 
@@ -92,7 +94,8 @@ public class ChatManagement implements Listener {
 
 		if (doPrefix != PrefixType.NONE) {
 			event.setFormat(Formatter.legacySerialize(doPrefix.getUpdatedFormat(p, event.getFormat(), team)));
-//				event.setFormat(ChatColor.AQUA + "[" + team.getName() + "] " + ChatColor.WHITE + event.getFormat());
+			// event.setFormat(ChatColor.AQUA + "[" + team.getName() + "] " +
+			// ChatColor.WHITE + event.getFormat());
 		}
 
 	}
@@ -121,11 +124,11 @@ public class ChatManagement implements Listener {
 		public String getUpdatedFormat(Player p, String format, Team team) {
 			switch (this) {
 				case NAME:
-					String syntax = MessageManager.getMessage(p, "prefixSyntax");
-					return Formatter.setPlaceholders(syntax, team.getDisplayName(), format);
+					return MessageManager.getMessage(
+							p, "prefixSyntax", team.getDisplayName(), format);
 				case TAG:
-					syntax = MessageManager.getMessage(p, "prefixSyntax");
-					return Formatter.setPlaceholders(syntax, team.getColor() + team.getTag(), format);
+					return MessageManager.getMessage(
+							p, "prefixSyntax", team.getColor() + team.getTag(), format);
 				default:
 					return format;
 			}
