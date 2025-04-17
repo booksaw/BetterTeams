@@ -12,6 +12,7 @@ import com.booksaw.betterTeams.team.storage.StorageType;
 import com.booksaw.betterTeams.team.storage.team.StoredTeamValue;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
 import lombok.Getter;
+
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
@@ -890,6 +891,8 @@ public class Team {
 		// Notify third party plugins that a team message is going to be sent
 		TeamSendMessageEvent teamSendMessageEvent = new TeamSendMessageEvent(this, sender, message, format, prefix,
 				recipients);
+		@SuppressWarnings("deprecation")
+		// Deprecated event for backwards compatibility with older plugins
 		TeamPreMessageEvent deprecatedPreTeamMessageEvent = new TeamPreMessageEvent(this, sender, message, format,
 				prefix, recipients);
 		Bukkit.getPluginManager().callEvent(teamSendMessageEvent);
@@ -909,7 +912,7 @@ public class Team {
 		recipients = getFromEvents(members.getClone(), teamSendMessageEvent.getRecipients(),
 				deprecatedPreTeamMessageEvent.getRecipients(), "Team message recipients cannot be null");
 
-		String fMessage = MessageManager.format(format,
+		String fMessage = com.booksaw.betterTeams.message.Formatter.setPlaceholders(format,
 				prefix + Objects.requireNonNull(sender.getPlayer().getPlayer()).getDisplayName(),
 				message);
 
@@ -921,17 +924,6 @@ public class Team {
 				.filter(player -> player instanceof Player && ((Player) player).isOnline())
 				.map(player -> (Player) player)
 				.collect(Collectors.toList()), fMessage, false, true);
-
-		/**
-		 * for (CommandSender temp : Main.plugin.chatManagement.spy) {
-		 * if (temp instanceof Player && getTeamPlayer((Player) temp) != null) {
-		 * continue;
-		 * }
-		 * 
-		 * MessageManager.sendMessage(temp, "spy.team", getName(),
-		 * sender.getPlayer().getPlayer().getName(), message);
-		 * }
-		 */
 
 		MessageManager.sendMessage(
 				Main.plugin.chatManagement.spy.stream()
@@ -949,7 +941,10 @@ public class Team {
 
 		// Notify third party plugins that a message has been dispatched
 		Bukkit.getPluginManager().callEvent(new PostTeamSendMessageEvent(this, sender, fMessage, recipients));
-		Bukkit.getPluginManager().callEvent(new TeamMessageEvent(this, sender, fMessage, recipients));
+
+		@SuppressWarnings("deprecation")
+		TeamMessageEvent deprecatedTeamMessageEvent = new TeamMessageEvent(this, sender, fMessage, recipients);
+		Bukkit.getPluginManager().callEvent(deprecatedTeamMessageEvent);
 	}
 
 	private static @NotNull ChatColor getPreviousChatColor(String toTest) {
@@ -1085,7 +1080,9 @@ public class Team {
 			return team;
 		}
 
-		String name = color + MessageManager.getMessage("nametag.syntax", getTag());
+		String name = color + com.booksaw.betterTeams.message.Formatter
+				.legacySerialize(MessageManager.getMessage("nametag.syntax", getTag()));
+
 		int attempt = 0;
 		do {
 			try {

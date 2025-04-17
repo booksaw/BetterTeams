@@ -3,8 +3,17 @@ package com.booksaw.betterTeams.message;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import com.booksaw.betterTeams.Main;
+
+import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.md_5.bungee.api.ChatColor;
 
 public class Formatter {
@@ -21,7 +30,7 @@ public class Formatter {
      * @param message The message to translate.
      * @return The translated message with RGB colors applied.
      */
-    public static String translateRGBColors(String message) {
+    public static @NotNull String translateRGBColors(@Nullable String message) {
         if (message == null || message.isEmpty()) {
             return "";
         }
@@ -40,14 +49,14 @@ public class Formatter {
         return translatedMessage.toString();
     }
 
-    public static String legacyTagToMinimessage(ChatColor color) {
+    public static @NotNull String legacyTagToMinimessage(@Nullable ChatColor color) {
         if (color == null) {
             return "";
         }
         return "<" + color.getName() + ">";
     }
 
-    public static String legacyTagToMinimessage(String message) {
+    public static @NotNull String legacyTagToMinimessage(@Nullable String message) {
         if (message == null || message.isEmpty()) {
             return "";
         }
@@ -68,7 +77,7 @@ public class Formatter {
         return convertedMessage.toString();
     }
 
-    public static String legacyHexToMinimessage(String message) {
+    public static @NotNull String legacyHexToMinimessage(@Nullable String message) {
         if (message == null || message.isEmpty()) {
             return "";
         }
@@ -96,7 +105,7 @@ public class Formatter {
      * @param message The message to transform.
      * @return The transformed message with MiniMessage-compatible tags.
      */
-    public static String legacyToMinimessage(String message) {
+    public static @NotNull String legacyToMinimessage(@Nullable String message) {
         if (message == null || message.isEmpty()) {
             return "";
         }
@@ -107,14 +116,14 @@ public class Formatter {
         return message;
     }
 
-    public static String legacyTranslate(String message) {
+    public static @NotNull String legacyTranslate(@Nullable String message) {
         if (message == null || message.isEmpty()) {
             return "";
         }
         return translateRGBColors(ChatColor.translateAlternateColorCodes('&', message));
     }
 
-    public static String absoluteTranslate(String message) {
+    public static @NotNull String absoluteTranslate(@Nullable String message) {
         if (message == null || message.isEmpty()) {
             return "";
         }
@@ -127,17 +136,63 @@ public class Formatter {
      * @param message The message to format.
      * @return The formatted Component.
      */
-    public static Component deserializeWithMiniMessage(String message) {
+    public static @NotNull Component deserializeWithMiniMessage(@Nullable String message) {
         if (message == null || message.isEmpty()) {
             return Component.empty();
         }
         return MM.deserialize(message);
     }
 
-    public static Component absoluteMinimessage(String message) {
+    public static @NotNull Component absoluteMinimessage(@Nullable String message) {
         if (message == null || message.isEmpty()) {
             return Component.empty();
         }
         return MM.deserialize(absoluteTranslate(message));
+    }
+
+    public static @NotNull String legacySerialize(@Nullable Component component) {
+        if (component == null || Component.IS_NOT_EMPTY.test(component)) {
+            return "";
+        }
+        return LegacyComponentSerializer.legacySection().serialize(component);
+    }
+
+    public static @NotNull String legacySerialize(@Nullable String string) {
+        return legacySerialize(string, true);
+    }
+
+    public static @NotNull String legacySerialize(@Nullable String string, boolean translate) {
+        if (string == null || string.isEmpty()) {
+            return "";
+        }
+
+        if (translate) {
+            string = absoluteTranslate(string);
+        }
+
+        return legacySerialize(deserializeWithMiniMessage(string));
+    }
+
+    public static @NotNull String setPlaceholders(@Nullable String text, @Nullable Player player) {
+        if (text == null || text.isEmpty()) {
+            return "";
+        }
+        if (player == null || !Main.placeholderAPI) {
+            return text;
+        }
+        return PlaceholderAPI.setPlaceholders((OfflinePlayer) player, text);
+    }
+
+    public static @Nullable String setPlaceholders(@Nullable String text, Object... replacement) {
+        if (text == null || text.isEmpty())
+            return "";
+        if (replacement == null || replacement.length == 0)
+            return text;
+
+        String formatted = text;
+        for (int i = 0; i < replacement.length; i++) {
+            formatted = formatted.replace("{" + i + "}", replacement[i].toString());
+        }
+        return formatted;
     }
 }

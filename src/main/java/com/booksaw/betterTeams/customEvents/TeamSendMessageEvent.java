@@ -2,7 +2,7 @@ package com.booksaw.betterTeams.customEvents;
 
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.message.MessageManager;
+import com.booksaw.betterTeams.message.Formatter;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.entity.Player;
@@ -68,7 +68,7 @@ public class TeamSendMessageEvent extends TeamPlayerEvent {
 	 * @return The formatted message using the current format and raw message.
 	 */
 	public String getFormattedMessage() {
-		return MessageManager.format(getFormat(), getFormattedSenderName(), getRawMessage());
+		return Formatter.setPlaceholders(getFormat(), getFormattedSenderName(), getRawMessage());
 	}
 
 	/**

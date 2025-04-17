@@ -1,5 +1,9 @@
 package com.booksaw.betterTeams.message;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -10,23 +14,43 @@ import org.bukkit.entity.Player;
  */
 public class CompositeMessage implements Message {
 
-	final Message message1;
-	final Message message2;
+	final List<Message> messages;
 
-	public CompositeMessage(Message message1, Message message2) {
-		this.message1 = message1;
-		this.message2 = message2;
+	public CompositeMessage(Message... messages) {
+		this.messages = Arrays.asList(messages);
+	}
+
+	public CompositeMessage(List<Message> messages) {
+		this.messages = messages;
 	}
 
 	@Override
 	public void sendMessage(CommandSender sender) {
-		message1.sendMessage(sender);
-		message2.sendMessage(sender);
+		messages.forEach(message -> message.sendMessage(sender));
 	}
 
 	@Override
 	public void sendTitle(Player player) {
-		message1.sendTitle(player);
-		message2.sendTitle(player);
+		messages.forEach(message -> message.sendTitle(player));
+	}
+
+	@Override
+	public void sendMessage(Collection<? extends CommandSender> senders) {
+		messages.forEach(message -> message.sendMessage(senders));
+	}
+
+	@Override
+	public void sendMessage(Collection<? extends CommandSender> senders, Player player) {
+		messages.forEach(message -> message.sendMessage(senders, player));
+	}
+
+	@Override
+	public void sendTitle(Collection<? extends Player> players) {
+		messages.forEach(message -> message.sendTitle(players));
+	}
+
+	@Override
+	public void sendTitle(Collection<? extends Player> players, Player player) {
+		messages.forEach(message -> message.sendTitle(players, player));
 	}
 }

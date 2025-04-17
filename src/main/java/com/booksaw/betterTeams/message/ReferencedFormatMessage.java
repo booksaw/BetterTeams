@@ -1,5 +1,7 @@
 package com.booksaw.betterTeams.message;
 
+import java.util.Collection;
+
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -31,5 +33,25 @@ public class ReferencedFormatMessage implements Message {
 	@Override
 	public void sendTitle(Player player) {
 		MessageManager.sendTitle(player, reference, replacement);
+	}
+
+	@Override
+	public void sendMessage(Collection<? extends CommandSender> senders) {
+		MessageManager.sendMessage(senders, reference, replacement);
+	}
+
+	@Override
+	public void sendMessage(Collection<? extends CommandSender> senders, Player player) {
+		MessageManager.sendMessage(senders, player, reference, replacement);
+	}
+
+	@Override
+	public void sendTitle(Collection<? extends Player> players) {
+		MessageManager.sendTitle(players, reference, replacement);
+	}
+
+	@Override
+	public void sendTitle(Collection<? extends Player> players, Player player) {
+		MessageManager.sendTitle(players, player, reference, replacement);
 	}
 }

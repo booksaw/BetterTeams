@@ -131,7 +131,6 @@ public class InfoCommand extends SubCommand {
 		 * to name changes This method is appropriate to use in this use case (so users
 		 * can view offline users teams by name not just by team name)
 		 */
-		@SuppressWarnings("deprecation")
 		OfflinePlayer player = Utils.getOfflinePlayer(args[0]);
 
 		team = Team.getTeam(player);

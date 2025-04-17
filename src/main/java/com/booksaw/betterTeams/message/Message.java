@@ -1,5 +1,7 @@
 package com.booksaw.betterTeams.message;
 
+import java.util.Collection;
+
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -20,6 +22,22 @@ public interface Message {
 	void sendMessage(CommandSender sender);
 
 	/**
+	 * Used to send the message to a collection of players
+	 *
+	 * @param senders the players to send the message to
+	 */
+	void sendMessage(Collection<? extends CommandSender> senders);
+
+	/**
+	 * Used to send the message, formatted around a single player, 
+	 * to a collection of players
+	 *
+	 * @param senders the players to send the message to
+	 * @param player  the player to format the message around
+	 */
+	void sendMessage(Collection<? extends CommandSender> senders, Player player);
+
+	/**
 	 * Used to send a title to a player.
 	 * A 'title' is a big text, centered on the player screen.
 	 * It fades in and out and is only shortly visible.
@@ -30,4 +48,21 @@ public interface Message {
 	 */
 	void sendTitle(Player player);
 
+	/**
+	 * Used to send a title to a collection of players.
+	 * A 'title' is a big text, centered on the player screen.
+	 * It fades in and out and is only shortly visible.
+	 * @param players the players to send the title to
+	 */
+	void sendTitle(Collection<? extends Player> players);
+
+	/**
+	 * Used to send a title to a collection of players.
+	 * A 'title' is a big text, centered on the player screen.
+	 * It fades in and out and is only shortly visible.
+	 * @param players the players to send the title to
+	 * @param player  the player to format the message around
+	 */
+	void sendTitle(Collection<? extends Player> players, Player player);
+	
 }

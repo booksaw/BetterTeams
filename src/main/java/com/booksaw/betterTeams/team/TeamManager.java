@@ -318,6 +318,8 @@ public abstract class TeamManager {
 	public boolean purgeTeams(boolean money, boolean score) {
 		// calling custom bukkit event
 		PurgeEvent event = new PurgeEvent();
+		
+		@SuppressWarnings("deprecation")
 		PrePurgeEvent deprecatedEvent = new PrePurgeEvent();
 		Bukkit.getPluginManager().callEvent(event);
 		Bukkit.getPluginManager().callEvent(deprecatedEvent);

@@ -4,6 +4,9 @@ import com.booksaw.betterTeams.commands.HelpCommand;
 import com.booksaw.betterTeams.commands.ParentCommand;
 import com.booksaw.betterTeams.commands.SubCommand;
 import net.md_5.bungee.api.ChatColor;
+
+import java.util.Collection;
+
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -30,6 +33,28 @@ public class HelpMessage implements Message {
 	public void sendTitle(Player player) {
 		MessageManager.sendFullTitle(player, createHelpMessage(label,
 				command.getCommand() + " " + command.getArgMessage(parent), command.getHelpMessage(parent)));
+	}
+
+	@Override
+	public void sendMessage(Collection<? extends CommandSender> senders) {
+		MessageManager.sendFullMessage(senders, createHelpMessage(label,
+				command.getCommand() + " " + command.getArgMessage(parent), command.getHelpMessage(parent)));
+	}
+
+	@Override
+	public void sendMessage(Collection<? extends CommandSender> senders, Player player) {
+		sendMessage(senders);
+	}
+
+	@Override
+	public void sendTitle(Collection<? extends Player> players) {
+		MessageManager.sendFullTitle(players, createHelpMessage(label,
+				command.getCommand() + " " + command.getArgMessage(parent), command.getHelpMessage(parent)));
+	}
+
+	@Override
+	public void sendTitle(Collection<? extends Player> players, Player player) {
+		sendTitle(players);
 	}
 
 	/**

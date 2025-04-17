@@ -1,5 +1,7 @@
 package com.booksaw.betterTeams.message;
 
+import java.util.Collection;
+
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -37,7 +39,27 @@ public class StaticMessage implements Message {
 	}
 
 	@Override
+	public void sendMessage(Collection<? extends CommandSender> senders) {
+		MessageManager.sendFullMessage(senders, message, prefix);
+	}
+
+	@Override
 	public void sendTitle(Player player) {
 		MessageManager.sendFullTitle(player, message, prefix);
+	}
+
+	@Override
+	public void sendTitle(Collection<? extends Player> players) {
+		MessageManager.sendFullTitle(players, message, prefix);
+	}
+
+	@Override
+	public void sendMessage(Collection<? extends CommandSender> senders, Player player) {
+		MessageManager.sendFullMessage(senders, Formatter.setPlaceholders(message, player), prefix);
+	}
+
+	@Override
+	public void sendTitle(Collection<? extends Player> players, Player player) {
+		MessageManager.sendFullTitle(players, Formatter.setPlaceholders(message, player), prefix);
 	}
 }

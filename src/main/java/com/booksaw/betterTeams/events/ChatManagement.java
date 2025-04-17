@@ -3,6 +3,7 @@ package com.booksaw.betterTeams.events;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
+import com.booksaw.betterTeams.message.Formatter;
 import com.booksaw.betterTeams.message.MessageManager;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -90,7 +91,7 @@ public class ChatManagement implements Listener {
 		}
 
 		if (doPrefix != PrefixType.NONE) {
-			event.setFormat(doPrefix.getUpdatedFormat(p, event.getFormat(), team));
+			event.setFormat(Formatter.legacySerialize(doPrefix.getUpdatedFormat(p, event.getFormat(), team)));
 //				event.setFormat(ChatColor.AQUA + "[" + team.getName() + "] " + ChatColor.WHITE + event.getFormat());
 		}
 
@@ -121,10 +122,10 @@ public class ChatManagement implements Listener {
 			switch (this) {
 				case NAME:
 					String syntax = MessageManager.getMessage(p, "prefixSyntax");
-					return MessageManager.format(syntax, team.getDisplayName(), format);
+					return Formatter.setPlaceholders(syntax, team.getDisplayName(), format);
 				case TAG:
 					syntax = MessageManager.getMessage(p, "prefixSyntax");
-					return MessageManager.format(syntax, team.getColor() + team.getTag(), format);
+					return Formatter.setPlaceholders(syntax, team.getColor() + team.getTag(), format);
 				default:
 					return format;
 			}

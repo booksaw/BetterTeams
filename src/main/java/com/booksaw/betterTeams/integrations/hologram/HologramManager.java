@@ -68,14 +68,14 @@ public abstract class HologramManager {
 
 		int maxHologramLines = Main.plugin.getConfig().getInt("maxHologramLines");
 
-		holo.appendText(MessageManager.getMessage("holo.leaderboard"));
+		holo.appendText(MessageManager.getMessage(true, "holo.leaderboard"));
 		for (int i = 0; i < maxHologramLines && i < teams.length; i++) {
 			Team team = Team.getTeam(teams[i]);
 			if (team == null) {
 				Main.plugin.getLogger().severe("A team was null for an unexplained reason, team name: " + teams[i]);
 				continue;
 			}
-			holo.appendText(MessageManager.getMessage(type.getSyntaxReference(), team.getName(),
+			holo.appendText(MessageManager.getMessage(true, type.getSyntaxReference(), team.getName(),
 					getValue(type, team)));
 		}
 	}
