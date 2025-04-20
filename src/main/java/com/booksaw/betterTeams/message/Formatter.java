@@ -52,7 +52,54 @@ public class Formatter {
         if (color == null) {
             return "";
         }
-        return "<" + color.getName() + ">";
+        switch (color.getName().toLowerCase()) {
+            case "black":
+                return "<black>";
+            case "dark_blue":
+                return "<dark_blue>";
+            case "dark_green":
+                return "<dark_green>";
+            case "dark_aqua":
+                return "<dark_aqua>";
+            case "dark_red":
+                return "<dark_red>";
+            case "dark_purple":
+                return "<dark_purple>";
+            case "gold":
+                return "<gold>";
+            case "gray":
+                return "<gray>";
+            case "dark_gray":
+                return "<dark_gray>";
+            case "blue":
+                return "<blue>";
+            case "green":
+                return "<green>";
+            case "aqua":
+                return "<aqua>";
+            case "red":
+                return "<red>";
+            case "light_purple":
+                return "<light_purple>";
+            case "yellow":
+                return "<yellow>";
+            case "white":
+                return "<white>";
+            case "magic":
+                return "<obfuscated>";
+            case "bold":
+                return "<bold>";
+            case "strikethrough":
+                return "<strikethrough>";
+            case "underline":
+                return "<underlined>";
+            case "italic":
+                return "<italic>";
+            case "reset":
+                return "<reset>";
+            default:
+                return "";
+        }
     }
 
     public static @NotNull String legacyTagToMinimessage(@Nullable String message) {
