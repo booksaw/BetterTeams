@@ -85,7 +85,7 @@ public class Formatter {
                 return "<yellow>";
             case "white":
                 return "<white>";
-            case "magic":
+            case "obfuscated":
                 return "<obfuscated>";
             case "bold":
                 return "<bold>";
