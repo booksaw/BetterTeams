@@ -59,6 +59,9 @@ public class YamlToSql extends Converter {
 		HashMap<String, String> allies = new HashMap<>();
 		HashMap<String, String> allyRequests = new HashMap<>();
 
+		boolean teamAnchorExists = database.hasColumn(TableName.TEAM, "anchor");
+		boolean playerAnchorExists = database.hasColumn(TableName.PLAYERS, "anchor");
+
 		for (File f : folder.listFiles()) {
 
 			if (!f.getName().endsWith(".yml")) {
@@ -73,13 +76,15 @@ public class YamlToSql extends Converter {
 			String echest = Utils.serializeInventory(inv);
 			echest = echest.replace("\"", "\\\"");
 			database.insertRecordIfNotExists(TableName.TEAM,
-					"teamID, name, description, open, score, money, home, color, level, tag, pvp, anchor",
-					"'" + teamName + "', '" + config.getString("name") + "', '" + config.getString("description") + "', "
+					"teamID, name, description, open, score, money, home, color, level, tag, pvp"
+							+ (teamAnchorExists ? ", anchor" : ""),
+					"'" + teamName + "', '" + config.getString("name") + "', '" + config.getString("description")
+							+ "', "
 							+ config.getBoolean("open") + ", " + config.getInt("score") + ", "
 							+ config.getDouble("money") + ", '" + config.getString("home") + "', '"
 							+ config.getString("color") + "', " + config.getInt("level") + ", '"
-							+ config.getString("tag") + "', " + config.getBoolean("pvp") + ", "
-							+ config.getBoolean("anchor", false));
+							+ config.getString("tag") + "', " + config.getBoolean("pvp")
+							+ (teamAnchorExists ? ", " + config.getBoolean("anchor") : ""));
 
 			if (echest != null && !echest.isEmpty()) {
 				database.updateRecordWhere(TableName.TEAM, "echest = \"" + echest + "\"",
@@ -97,7 +102,8 @@ public class YamlToSql extends Converter {
 			}
 			// bans
 			for (String temp : config.getStringList("bans")) {
-				database.insertRecordIfNotExists(TableName.BANS, "teamID, playerUUID", "'" + teamName + "', '" + temp + "'");
+				database.insertRecordIfNotExists(TableName.BANS, "teamID, playerUUID",
+						"'" + teamName + "', '" + temp + "'");
 			}
 			// players
 			List<String> anchoredPlayers = config.getStringList("anchoredPlayers");
@@ -106,17 +112,22 @@ public class YamlToSql extends Converter {
 				PlayerRank rank = PlayerRank.getRank(split[1]);
 				boolean anchor = anchoredPlayers.contains(split[0]);
 				if (split.length == 2) {
-					database.insertRecordIfNotExists(TableName.PLAYERS, "teamID, playerUUID, playerRank, anchor",
-							"'" + teamName + "', '" + split[0] + "', " + rank.value + ", " + anchor);
+					database.insertRecordIfNotExists(TableName.PLAYERS,
+							"teamID, playerUUID, playerRank, anchor" + (playerAnchorExists ? ", anchor" : ""),
+							"'" + teamName + "', '" + split[0] + "', " + rank.value
+									+ (playerAnchorExists ? ", " + anchor : ""));
 				} else {
-					database.insertRecordIfNotExists(TableName.PLAYERS, "teamID, playerUUID, playerRank, title, anchor",
-							"'" + teamName + "', '" + split[0] + "', " + rank.value + ", '" + split[2] + "'" + ", " + anchor);
+					database.insertRecordIfNotExists(TableName.PLAYERS,
+							"teamID, playerUUID, playerRank, title" + (playerAnchorExists ? ", anchor" : ""),
+							"'" + teamName + "', '" + split[0] + "', " + rank.value + ", '" + split[2] + "'"
+									+ (playerAnchorExists ? ", " + anchor : ""));
 				}
 
 			}
 			// warps
 			for (String temp : config.getStringList("warps")) {
-				database.insertRecordIfNotExists(TableName.WARPS, "teamID, warpInfo", "'" + teamName + "', '" + temp + "'");
+				database.insertRecordIfNotExists(TableName.WARPS, "teamID, warpInfo",
+						"'" + teamName + "', '" + temp + "'");
 			}
 
 			current++;

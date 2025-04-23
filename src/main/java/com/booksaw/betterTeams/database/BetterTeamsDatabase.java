@@ -1,6 +1,5 @@
 package com.booksaw.betterTeams.database;
 
-import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.database.api.Database;
 
 import java.sql.PreparedStatement;
@@ -40,25 +39,15 @@ public class BetterTeamsDatabase extends Database {
 						+ TableName.TEAM + "(teamID) ON DELETE CASCADE, FOREIGN KEY (team2ID) REFERENCES "
 						+ TableName.TEAM + "(teamID) ON DELETE CASCADE");
 
-		// Add new anchor columns
-        addAnchorColumnIfNeeded(TableName.TEAM);
-        addAnchorColumnIfNeeded(TableName.PLAYERS);
+		// Add anchor columns if they don't exist
+		if (!hasColumn(TableName.TEAM, "anchor")) {
+			addColumn(TableName.TEAM, "anchor", "BOOLEAN DEFAULT 0", "pvp", true);
+		}
+
+		if (!hasColumn(TableName.PLAYERS, "anchor")) {
+			addColumn(TableName.PLAYERS, "anchor", "BOOLEAN DEFAULT 0", "title", true);
+		}
 	}
-
-	private void addAnchorColumnIfNeeded(TableName tableName) {
-        String checkColumnQuery = "SHOW COLUMNS FROM " + tableName + " LIKE 'anchor';";
-        String alterTableQuery = "ALTER TABLE " + tableName + " ADD COLUMN anchor BOOLEAN DEFAULT 0;";
-
-        PreparedStatement ps = executeQuery(checkColumnQuery);
-		try {
-			if (!ps.executeQuery().next()) { // No result means non existent table
-				executeStatement(alterTableQuery);
-			}
-		} catch (SQLException e) {
-            Main.plugin.getLogger().severe("Could not set 'anchor' column in table" + tableName);
-			e.printStackTrace();
-        }
-    }
 
 	public PreparedStatement select(String select, TableName from) {
 		return executeQuery("SELECT ? FROM ?", select, from.toString());
