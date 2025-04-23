@@ -3,6 +3,7 @@ package com.booksaw.betterTeams.team.storage.team;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.Warp;
+
 import org.bukkit.inventory.Inventory;
 
 import java.util.List;
@@ -123,6 +124,12 @@ public abstract class TeamStorage {
 	public abstract List<TeamPlayer> getPlayerList();
 
 	public abstract void setPlayerList(List<String> players);
+
+	public abstract List<UUID> getAnchoredPlayerList();
+
+	public abstract void setAnchoredPlayerList(List<String> players);
+
+	public abstract void setAnchor(TeamPlayer player, boolean anchor);
 
 	public abstract List<String> getBanList();
 

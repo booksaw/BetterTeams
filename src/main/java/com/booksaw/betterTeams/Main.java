@@ -278,6 +278,10 @@ public class Main extends JavaPlugin {
 				new AllyChatCommand(teamCommand), new ListCommand(), new WarpCommand(), new SetWarpCommand(),
 				new DelwarpCommand(), new WarpsCommand(), new EchestCommand(), new RankupCommand(), new TagCommand());
 
+		if (getConfig().getBoolean("anchor.enable")) {
+			teamCommand.addSubCommands(new AnchorCommand(), new SetAnchorCommand());
+		}
+
 		if (getConfig().getBoolean("disableCombat")) {
 			teamCommand.addSubCommand(new PvpCommand());
 		}
@@ -302,6 +306,10 @@ public class Main extends JavaPlugin {
 				new DelwarpTeama(), new PurgeTeama(), new DisbandTeama(), new ColorTeama(), new EchestTeama(),
 				new SetrankTeama(teamaCommand), new TagTeama(), new TeleportTeama(teamaCommand), new AllyTeama(),
 				new NeutralTeama(), new ImportmessagesTeama());
+
+		if (getConfig().getBoolean("anchor.enable")) {
+			teamaCommand.addSubCommands(new AnchorTeama(), new SetAnchorTeama());
+		}
 
 		if (getConfig().getBoolean("singleOwner")) {
 			teamaCommand.addSubCommand(new SetOwnerTeama());
@@ -384,7 +392,10 @@ public class Main extends JavaPlugin {
 
 		getServer().getPluginManager().registerEvents(new InventoryManagement(), this);
 		getServer().getPluginManager().registerEvents(new RankupEvents(), this);
-
+		if (getConfig().getBoolean("anchor.enable")){
+			HomeAnchorManagement homeAnchorListener = new HomeAnchorManagement(this);
+    		homeAnchorListener.registerEvent();
+		}
 	}
 
 	public void setupMetrics() {

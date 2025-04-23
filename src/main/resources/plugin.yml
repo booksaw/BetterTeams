@@ -51,6 +51,18 @@ permissions:
   betterTeams.home:
     default: true
     description: Allows access to /team home
+  betterTeams.anchor:
+    default: true
+    description: Allows access to /team anchor
+  betterTeams.anchor.use:
+    default: true
+    description: Allows the user to actually be affected by home anchor (if requirements are met) on respawn
+  betterTeams.setanchor:
+    default: true
+    description: Allows access to /team setanchor
+  betterTeams.setanchor.notify:
+    default: true
+    description: Allows the user to be notified about team anchor state change
   betterTeams.invite:
     default: true
     description: Allows access to /team invite
@@ -123,6 +135,12 @@ permissions:
   betterTeams.admin.home:
     default: op
     description: Allows access to /teama home
+  betterTeams.admin.anchor:
+    default: op
+    description: Allows access to /teama anchor
+  betterTeams.admin.setanchor:
+    default: op
+    description: Allows access to /teama setanchor
   betterTeams.cooldown.bypass:
     default: op
     description: Allows access to bypass command cooldown

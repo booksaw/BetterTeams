@@ -8,6 +8,7 @@ import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
 import com.booksaw.betterTeams.message.StaticMessage;
 import com.booksaw.betterTeams.team.*;
+import com.booksaw.betterTeams.team.AnchoredPlayerUUIDSetComponent.AnchorResult;
 import com.booksaw.betterTeams.team.storage.StorageType;
 import com.booksaw.betterTeams.team.storage.team.StoredTeamValue;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
@@ -229,6 +230,11 @@ public class Team {
 	private final MemberSetComponent members = new MemberSetComponent();
 
 	/**
+	 * tracks and provides utility methods relating to anchored players of this team
+	 */
+	@Getter
+	private final AnchoredPlayerUUIDSetComponent anchoredPlayers = new AnchoredPlayerUUIDSetComponent();
+	/**
 	 * the list of all UUIDS of teams that are allied with this team
 	 */
 	@Getter
@@ -266,6 +272,11 @@ public class Team {
 	 */
 	@Getter
 	private boolean pvp = false;
+
+	/*
+	 * Decides whether or not team home will serve as respawn location
+	 */
+	private boolean useTeamHomeAsAnchor = false;
 
 	/**
 	 * The color of the team
@@ -322,6 +333,7 @@ public class Team {
 		description = storage.getString(StoredTeamValue.DESCRIPTION);
 		open = storage.getBoolean(StoredTeamValue.OPEN);
 		pvp = storage.getBoolean(StoredTeamValue.PVP);
+		useTeamHomeAsAnchor = storage.getBoolean(StoredTeamValue.ANCHOR);
 
 		String colorStr = storage.getString(StoredTeamValue.COLOR);
 
@@ -332,6 +344,7 @@ public class Team {
 		color = ChatColor.getByChar(colorStr.charAt(0));
 
 		members.load(storage);
+		anchoredPlayers.load(storage);
 		allies.load(storage);
 		score.load(storage);
 		money.load(storage);
@@ -402,6 +415,9 @@ public class Team {
 
 		storage.set(StoredTeamValue.PVP, false);
 		pvp = false;
+		
+		storage.set(StoredTeamValue.ANCHOR, false);
+		useTeamHomeAsAnchor = false;
 
 		storage.set(StoredTeamValue.HOME, "");
 		rank = -1;
@@ -414,6 +430,7 @@ public class Team {
 		}
 
 		savePlayers();
+		saveAnchoredPlayers();
 		level = 1;
 		storage.set(StoredTeamValue.LEVEL, 1);
 		tag = "";
@@ -572,6 +589,13 @@ public class Team {
 	}
 
 	/**
+	 * Used to save anchored players in this team
+	 */
+	private void saveAnchoredPlayers() {
+		anchoredPlayers.save(getStorage());
+	}
+
+	/**
 	 * Used to save the bans list to the configuration file
 	 */
 	private void saveBans() {
@@ -605,12 +629,64 @@ public class Team {
 		}
 
 		savePlayers();
+		if(p.isAnchored()) {
+			anchoredPlayers.remove(this, p.getPlayerUUID());
+			saveAnchoredPlayers();
+		}
 
 		if (team != null && p.getPlayer().isOnline()) {
 			Main.plugin.teamManagement.remove(p.getPlayer().getPlayer());
 		}
 
 		return true;
+	}
+
+	public boolean isPlayerAnchored(OfflinePlayer p) {
+		return isPlayerAnchored(getTeamPlayer(p));
+	}
+	
+	/**
+	 * Used to check if the given team player is anchored within this team
+	 * @param p the team player
+	 */
+	public boolean isPlayerAnchored(TeamPlayer p) {
+		return anchoredPlayers.getClone().contains(p.getPlayerUUID());
+	}
+
+	public AnchorResult setPlayerAnchor(OfflinePlayer p, boolean anchor) {
+		return setPlayerAnchor(getTeamPlayer(p), anchor);
+	}
+	
+	public AnchorResult setPlayerAnchor(TeamPlayer p, boolean anchor) {
+		return anchor ? anchorPlayer(p) : unanchorPlayer(p);
+	}
+
+	/**
+	 * Used for anchoring this player.
+	 * @param p the team player to anchor
+	 * @return AnchorResult
+	 */
+	public AnchorResult anchorPlayer(TeamPlayer p) {
+		AnchorResult result = anchoredPlayers.add(this, p);
+		if(result == AnchorResult.SUCCESS){
+			getStorage().setAnchor(p, true);
+			saveAnchoredPlayers();
+		}
+		return result;
+	}
+
+	/**
+	 * Used for unanchoring this player.
+	 * @param p the team player to unanchor
+	 * @return AnchorResult
+	 */
+	public AnchorResult unanchorPlayer(TeamPlayer p) {
+		AnchorResult result = anchoredPlayers.remove(this, p);
+		if(result == AnchorResult.SUCCESS){
+			getStorage().setAnchor(p, false);
+			saveAnchoredPlayers();
+		}
+		return result;
 	}
 
 	/**
@@ -824,7 +900,7 @@ public class Team {
 	public void deleteTeamHome() {
 		teamHome = null;
 		getStorage().set(StoredTeamValue.HOME, "");
-
+		if(useTeamHomeAsAnchor) setAnchored(false);
 	}
 
 	/**
@@ -1605,6 +1681,25 @@ public class Team {
 		this.pvp = pvp;
 		getStorage().set(StoredTeamValue.PVP, pvp);
 
+	}
+
+	/**
+	 * Toggle anchor status for this team
+	 * @return false if trying to anchor the team and its home is not set, true otherwise
+	 */
+	public boolean toggleAnchor() {
+		return setAnchored(!useTeamHomeAsAnchor);
+	}
+
+	public boolean setAnchored(boolean anchor) {
+		if(anchor && teamHome == null) return false;
+		this.useTeamHomeAsAnchor = anchor;
+		getStorage().set(StoredTeamValue.ANCHOR, anchor);
+		return true;
+	}
+
+	public boolean isAnchored() {
+		return useTeamHomeAsAnchor;
 	}
 
 	public double getMaxMoney() {

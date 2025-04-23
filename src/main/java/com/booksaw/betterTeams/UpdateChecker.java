@@ -43,8 +43,10 @@ public class UpdateChecker implements Listener {
 					URI uri = new URI("https://api.spigotmc.org/legacy/update.php?resource=" + ID);
 					HttpsURLConnection connection = (HttpsURLConnection) uri.toURL().openConnection();
 					connection.setRequestMethod("GET");
-					UpdateChecker.this.spigotPluginVersion = (new BufferedReader(
-							new InputStreamReader(connection.getInputStream()))).readLine();
+					try (BufferedReader reader = new BufferedReader(
+							new InputStreamReader(connection.getInputStream()))) {
+						UpdateChecker.this.spigotPluginVersion = reader.readLine();
+					}
 				} catch (IOException | URISyntaxException e) {
 					Bukkit.getServer().getConsoleSender().sendMessage(
 							ChatColor.translateAlternateColorCodes('&', "&cUpdate checker failed! Disabling."));
