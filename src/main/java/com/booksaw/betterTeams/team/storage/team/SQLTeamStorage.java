@@ -70,8 +70,29 @@ public class SQLTeamStorage extends TeamStorage {
 			do {
 
 				toReturn.add(new TeamPlayer(Bukkit.getOfflinePlayer(UUID.fromString(result.getString("playerUUID"))),
-						PlayerRank.getRank((result.getInt("playerRank"))), result.getString("title")));
+						PlayerRank.getRank((result.getInt("playerRank"))), result.getString("title"),
+						result.getBoolean("anchor")));
 
+			} while (result.next());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return toReturn;
+	}
+
+	@Override
+	public List<UUID> getAnchoredPlayerList() {
+		List<UUID> toReturn = new ArrayList<>();
+
+		try (PreparedStatement ps = storageManager.getDatabase().selectWhere("*", TableName.PLAYERS, getCondition())) {
+			ResultSet result = ps.executeQuery();
+			if (!result.first()) {
+				return toReturn;
+			}
+			do {
+				if(result.getBoolean("anchor"))
+					toReturn.add(UUID.fromString(result.getString("playerUUID")));
 			} while (result.next());
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -293,7 +314,18 @@ public class SQLTeamStorage extends TeamStorage {
 	}
 
 	@Override
+	public void setAnchor(TeamPlayer player, boolean anchor) {
+		storageManager.getDatabase().updateRecordWhere(TableName.PLAYERS, "anchor = " + anchor,
+				"playerUUID = '" + player.getPlayer().getUniqueId() + "'");
+	}
+
+	@Override
 	public void setPlayerList(List<String> players) {
+		// not needed
+	}
+
+	@Override
+	public void setAnchoredPlayerList(List<String> players) {
 		// not needed
 	}
 
@@ -321,5 +353,4 @@ public class SQLTeamStorage extends TeamStorage {
 	public void setClaimedChests(List<String> chests) {
 		// not needed
 	}
-
 }
