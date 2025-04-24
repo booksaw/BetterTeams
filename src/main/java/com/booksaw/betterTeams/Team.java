@@ -999,7 +999,7 @@ public class Team {
 				.filter(Objects::nonNull)
 				.filter(player -> player instanceof Player && ((Player) player).isOnline())
 				.map(player -> (Player) player)
-				.collect(Collectors.toList()), fMessage, false, true);
+				.collect(Collectors.toList()), fMessage, false);
 
 		MessageManager.sendMessage(
 				Main.plugin.chatManagement.spy.stream()

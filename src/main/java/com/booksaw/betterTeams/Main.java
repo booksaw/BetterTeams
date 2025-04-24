@@ -109,7 +109,7 @@ public class Main extends JavaPlugin {
 		if (Objects.requireNonNull(language).equals("en") || language.isEmpty()) {
 			MessageManager.setLanguage("messages");
 		}
-		MessageManager.initAdventure();
+		MessageManager.setupMessageSender();
 
 		loadCustomConfigs();
 
@@ -163,7 +163,7 @@ public class Main extends JavaPlugin {
 		Team.disable();
 
 		MessageManager.dumpMessages();
-		MessageManager.closeAdventure();
+		MessageManager.dumpMessageSender();
 
 	}
 

@@ -2,13 +2,12 @@ package com.booksaw.betterTeams.message;
 
 import com.booksaw.betterTeams.ConfigManager;
 import com.booksaw.betterTeams.Main;
-import net.kyori.adventure.title.Title;
-import net.kyori.adventure.util.Ticks;
 import lombok.Getter;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.Component;
+
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -23,8 +22,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -36,16 +33,7 @@ public class MessageManager {
 
 	public static final String MISSINGMESSAGES_FILENAME = "missingmessages.txt";
 
-	/**
-	 * Once initialized on enable, this cannot be closed until the server is shut
-	 * down.
-	 * <p>
-	 * Serves for sending {@code Component} messages to players and console.
-	 * <p>
-	 * If it's not initialized after enabling the plugin, messages will be sent as
-	 * legacy strings.
-	 */
-	private static BukkitAudiences audiences;
+	private static MessageSender messageSender;
 
 	/**
 	 * Used to store all loaded messages
@@ -73,51 +61,42 @@ public class MessageManager {
 	private MessageManager() {
 	}
 
-	private static String properlyTranslate(String message) {
-		if (audiences != null) {
-			return Formatter.absoluteTranslate(message);
-		} else {
-			return Formatter.legacyTranslate(message);
-		}
-	}
-
-	private static String completeMessage(String message, boolean prefixMessage, boolean doChatFormat) {
-		if (doChatFormat) {
-			message = properlyTranslate(message);
-		}
-
-		if (prefixMessage) {
-			message = prefix + message;
-		}
-
-		return message;
-	}
-
-	public static @Internal void initAdventure() {
-		if (audiences != null) {
+	public static @Internal void setupMessageSender() {
+		if (messageSender != null)
 			return;
-		}
+
 		try {
-			audiences = BukkitAudiences.create(Main.plugin);
+			BukkitAudiences audiences = BukkitAudiences.create(Main.plugin);
+			messageSender = new AdventureMessageSender(audiences);
 		} catch (Exception e) {
-			Main.plugin.getLogger().log(Level.WARNING,
-					"Failed to initialize Adventure. MiniMessage support will not be provided", e);
+			Main.plugin.getLogger().warning(
+					"Failed to initialize AdventureMessageSender. Using LegacyMessageSender instead.");
+			messageSender = new LegacyMessageSender();
 		}
 	}
 
-	public static @Internal void closeAdventure() {
-		if (audiences != null) {
-			audiences.close();
-			audiences = null;
+	public static @Internal void dumpMessageSender() {
+		if (messageSender == null)
+			return;
+
+		AdventureMessageSender adventure;
+		if ((adventure = advntMessageSender()) != null) {
+			adventure.closeAdventure();
 		}
+
+		messageSender = null;
+	}
+
+	public static boolean isMessageSenderInit() {
+		return messageSender != null;
 	}
 
 	public static boolean isAdventure() {
-		return audiences != null;
+		return messageSender instanceof AdventureMessageSender;
 	}
 
-	public static BukkitAudiences getBukkitAudiences() {
-		return audiences;
+	private static @Nullable AdventureMessageSender advntMessageSender() {
+		return isAdventure() ? (AdventureMessageSender) messageSender : null;
 	}
 
 	public static String getLanguage() {
@@ -135,12 +114,12 @@ public class MessageManager {
 	 * @param configManager the configuration manager
 	 */
 	public static void addMessages(@NotNull ConfigManager configManager) {
-		prefix = Objects.requireNonNull(Main.plugin.getConfig().getString("prefixFormat"));
-		if (audiences != null) {
-			prefix = Formatter.absoluteTranslate(prefix);
-		} else {
-			prefix = Formatter.legacyTranslate(prefix);
-		}
+		// prefix =
+		// Objects.requireNonNull(Main.plugin.getConfig().getString("prefixFormat"));
+
+		// Should prefix default to empty string ?
+		prefix = Main.plugin.getConfig().getString("prefixFormat", "");
+
 		defaultMessagesConfigManager = configManager;
 
 		addMessages(configManager.config, false);
@@ -250,273 +229,6 @@ public class MessageManager {
 
 	}
 
-	/**
-	 * Used to send a (formatted) message to the specified user
-	 *
-	 * @param sender      the commandSender which the message should be sent to
-	 * @param reference   the reference for the message
-	 * @param replacement the value that the placeholder should be replaced with
-	 */
-
-	public static void sendMessage(@Nullable CommandSender sender, String reference, Object... replacement) {
-		if (sender == null) {
-			return;
-		}
-
-		String message = getMessage(sender, true, reference, replacement);
-		if (message.isEmpty()) {
-			return;
-		}
-
-		sendFullMessage(sender, message, true, false);
-	}
-
-	public static String getMessage(String reference, Object... replacement) {
-		return getMessage(false, reference, replacement);
-	}
-
-	/**
-	 * This is used to get the message from the provided location in the
-	 * Configuration file, this does not add a prefix to the message
-	 *
-	 * @param reference the reference for the message
-	 * @return the message (without prefix)
-	 */
-	public static String getMessage(boolean doChatFormat, String reference, Object... replacement) {
-		try {
-			if (!messages.containsKey(reference)) {
-				Main.plugin.getLogger().warning("Could not find the message with the reference " + reference);
-				return "";
-			}
-
-			String msg = messages.get(reference);
-			if (msg.isEmpty()) {
-				return "";
-			}
-
-			msg = Formatter.setPlaceholders(msg, replacement);
-
-			if (!doChatFormat) {
-				return msg;
-			} else {
-				return properlyTranslate(msg);
-			}
-		} catch (NullPointerException e) {
-			Main.plugin.getLogger().warning("Could not find the message with the reference " + reference);
-			return "";
-		}
-	}
-
-	public static String getMessage(@Nullable CommandSender sender, String reference, Object... replacement) {
-		return getMessage(sender, false, reference, replacement);
-	}
-
-	public static String getMessage(
-			@Nullable CommandSender sender,
-			boolean doChatFormat,
-			String reference,
-			Object... replacement) {
-		try {
-			String msg = getMessage(reference, replacement);
-			if (msg.isEmpty()) {
-				return "";
-			}
-
-			if (sender instanceof Player) {
-				msg = Formatter.setPlaceholders(msg, (Player) sender);
-			}
-
-			if (!doChatFormat) {
-				return msg;
-			} else {
-				return properlyTranslate(msg);
-			}
-		} catch (NullPointerException e) {
-			Main.plugin.getLogger().warning("Could not find the message with the reference " + reference);
-			return "";
-		}
-	}
-
-	@Deprecated
-	public static String format(String content, Object... replacement) {
-		return Formatter.setPlaceholders(content, replacement);
-	}
-
-	/**
-	 * Used when you are sending a user a message instead of a message loaded from a
-	 * file
-	 *
-	 * @param sender  the player who sent the command
-	 * @param message the message to send to that user
-	 */
-	public static void sendFullMessage(@Nullable CommandSender sender, String message) {
-		sendFullMessage(sender, message, true);
-	}
-
-	/**
-	 * Used when you are sending a user a message instead of a message loaded from a
-	 * file
-	 *
-	 * @param sender        the player who sent the command
-	 * @param message       The message to send to that user
-	 * @param prefixMessage The prefix for that message
-	 */
-	public static void sendFullMessage(@Nullable CommandSender sender, String message, boolean prefixMessage) {
-		sendFullMessage(sender, message, prefixMessage, true);
-	}
-
-	private static void sendFullMessage(
-			@Nullable CommandSender sender,
-			String message,
-			boolean prefixMessage,
-			boolean doChatFormat) {
-		if (sender == null) {
-			return;
-		}
-
-		message = completeMessage(message, prefixMessage, doChatFormat);
-
-		if (audiences != null) {
-			sendFullMessage(sender, Formatter.deserializeWithMiniMessage(message));
-		} else {
-			sender.sendMessage(message);
-		}
-	}
-
-	/**
-	 * Sends a component message to the specified command sender.
-	 * <p>
-	 * This method asumes that adventure has been initialized, so it should be
-	 * (otherwise, it'll fail and errors may appear).
-	 *
-	 * @param sender  the player who sent the command
-	 * @param message the message to send to that user
-	 */
-	public static void sendFullMessage(@Nullable CommandSender sender, Component message) {
-		if (sender == null) {
-			return;
-		}
-		if (sender instanceof Player) {
-			audiences.player((Player) sender).sendMessage(message);
-		} else if (sender instanceof ConsoleCommandSender) {
-			audiences.console().sendMessage(message);
-		} else {
-			audiences.sender(sender).sendMessage(message);
-		}
-	}
-
-	public static void sendMessage(
-			@Nullable Collection<? extends CommandSender> senders,
-			String reference,
-			Object... replacement) {
-		sendMessage(senders, null, reference, replacement);
-	}
-
-	public static void sendMessage(
-			@Nullable Collection<? extends CommandSender> senders,
-			boolean prefixFormat,
-			String reference,
-			Object... replacement) {
-		sendMessage(senders, null, prefixFormat, reference, replacement);
-	}
-
-	public static void sendMessage(
-			@Nullable Collection<? extends CommandSender> senders,
-			boolean prefixFormat,
-			boolean doChatFormat,
-			String reference,
-			Object... replacement) {
-		sendMessage(senders, null, prefixFormat, doChatFormat, reference, replacement);
-	}
-
-	public static void sendMessage(
-			@Nullable Collection<? extends CommandSender> senders,
-			@Nullable Player player,
-			String reference,
-			Object... replacement) {
-		sendMessage(senders, player, true, reference, replacement);
-	}
-
-	/**
-	 * Used when sending a referenced message (formatted around a single player)
-	 * to a group of command senders.
-	 * 
-	 * @param senders
-	 * @param sender
-	 * @param message
-	 * @param prefixFormat
-	 * @param doChatFormat
-	 */
-	public static void sendMessage(
-			@Nullable Collection<? extends CommandSender> senders,
-			@Nullable Player player,
-			boolean prefixFormat,
-			String reference,
-			Object... replacement) {
-		if (senders == null || senders.isEmpty()) {
-			return;
-		}
-
-		String message = getMessage(player, true, reference, replacement);
-
-		if (message == null || message.isEmpty()) {
-			return;
-		}
-
-		sendBulkMessage(senders, completeMessage(message, prefixFormat, false));
-	}
-
-	public static void sendFullMessage(
-			@Nullable Collection<? extends CommandSender> senders,
-			String message) {
-		sendFullMessage(senders, message, true);
-	}
-
-	public static void sendFullMessage(
-			@Nullable Collection<? extends CommandSender> senders,
-			String message,
-			boolean prefixFormat) {
-		sendFullMessage(senders, message, prefixFormat, true);
-	}
-
-	/**
-	 * Used when sending a raw message
-	 * to a group of command senders.
-	 * 
-	 * @param senders
-	 * @param message
-	 * @param prefixFormat
-	 * @param doChatFormat
-	 */
-	public static void sendFullMessage(
-			@Nullable Collection<? extends CommandSender> senders,
-			String message,
-			boolean prefixFormat,
-			boolean doChatFormat) {
-		if (senders == null || senders.isEmpty()) {
-			return;
-		}
-
-		if (message == null || message.isEmpty()) {
-			return;
-		}
-
-		sendBulkMessage(senders, completeMessage(message, prefixFormat, doChatFormat));
-	}
-
-	public static void sendBulkMessage(@NotNull Collection<? extends CommandSender> senders, String message) {
-		if (audiences != null) {
-			Component messageComponent = Formatter.deserializeWithMiniMessage(message);
-			for (CommandSender sender : senders) {
-				sendFullMessage(sender, messageComponent);
-			}
-		} else {
-			for (CommandSender sender : senders) {
-				sender.sendMessage(message);
-			}
-		}
-	}
-
 	@Contract(value = " -> new", pure = true)
 	public static @NotNull File getFile() {
 		return new File("plugins/BetterTeams/" + lang + ".yml");
@@ -534,134 +246,221 @@ public class MessageManager {
 		defaultMessagesConfigManager = null;
 	}
 
-	public static void sendTitle(
-			@Nullable Player player,
-			String reference,
-			Object... replacement) {
-		sendTitle(player, false, reference, replacement);
+	/**
+	 * This is used to get the message from the provided location in the
+	 * Configuration file, this does not add a prefix to the message
+	 *
+	 * @param reference the reference for the message
+	 * @return the message (without prefix)
+	 */
+	public static @NotNull String getMessage(String reference, Object... replacements) {
+		try {
+			if (!messages.containsKey(reference)) {
+				Main.plugin.getLogger().warning("Could not find the message with the reference " + reference);
+				return "";
+			}
+
+			String msg = messages.get(reference);
+			if (msg.isEmpty()) {
+				return "";
+			}
+
+			return Formatter.setPlaceholders(msg, replacements);
+
+		} catch (NullPointerException e) {
+			Main.plugin.getLogger().warning("Could not find the message with the reference " + reference);
+			return "";
+		}
 	}
 
-	public static void sendTitle(
-			@Nullable Player player,
-			boolean prefixFormat,
-			String reference,
-			Object... replacement) {
-		sendTitle(player, prefixFormat, true, reference, replacement);
+	public static @NotNull String getMessage(OfflinePlayer player, String reference, Object... replacements) {
+		try {
+			String msg = getMessage(reference, replacements);
+			if (msg.isEmpty()) {
+				return "";
+			}
+
+			return Formatter.setPlaceholders(msg, player);
+
+		} catch (NullPointerException e) {
+			Main.plugin.getLogger().warning("Could not find the message with the reference " + reference);
+			return "";
+		}
 	}
 
 	/**
-	 * Used to send a (formatted) title to the specified user
+	 * This method replaces placeholders in the given {@code content}
+	 * string
+	 * with the provided {@code replacement} values. Each placeholder
+	 * must be
+	 * written as {n} where {@code n} is the index of the replacement.
+	 * <p>
+	 * 
+	 * @deprecated Use {@link Formatter#setPlaceholders(String, Object...)} instead.
+	 *             This method is deprecated in favor of a more explicitly named
+	 *             alternative
+	 *             that clarifies its behavior of replacing indexed placeholders
+	 *             like {0}, {1}, etc.
 	 *
-	 * @param recipient   the commandSender which the message should be sent to
-	 * @param prefixFormat if the message should include the prefix or not
-	 * @param doChatFormat if the message should be formatted for chat or not
-	 * @param reference   the reference for the message
-	 * @param replacement the value that the placeholder should be replaced with
+	 * @param content     the string containing indexed placeholders
+	 * @param replacement the values to substitute into the placeholders
+	 * @return the formatted string with placeholders replaced
 	 */
-	public static void sendTitle(
-			@Nullable Player recipient,
-			boolean prefixFormat,
-			boolean doChatFormat,
-			String reference,
-			Object... replacement) {
-		String message = getMessage(recipient, reference, replacement);
-		sendFullTitle(recipient, message, prefixFormat, doChatFormat);
+	@Deprecated
+	public static @NotNull String format(String content, Object... replacements) {
+		return Formatter.setPlaceholders(content, replacements);
 	}
 
-	public static void sendTitle(
-			@Nullable Collection<? extends Player> recipients,
-			String reference,
-			Object... replacement) {
-		sendTitle(recipients, null, false, reference, replacement);
+	public static void sendMessage(@Nullable CommandSender recipient, String reference, Object... replacements) {
+		sendMessage(recipient, true, reference, replacements);
 	}
 
-	public static void sendTitle(
-			@Nullable Collection<? extends Player> recipients,
-			boolean prefixFormat,
-			String reference,
-			Object... replacement) {
-		sendTitle(recipients, null, prefixFormat, reference, replacement);
-	} 
+	/**
+	 * Used to send a (formatted) message to the specified user
+	 *
+	 * @param sender       the commandSender which the message should be sent to
+	 * @param doPrefix     if the message should have prefix
+	 * @param reference    the reference for the message
+	 * @param replacements the value that the placeholder should be replaced with
+	 */
 
-	public static void sendTitle(
-			@Nullable Collection<? extends Player> recipients,
-			@Nullable Player player,
-			String reference,
-			Object... replacement) {
-		sendTitle(recipients, player, false, reference, replacement);
-	}
-
-	public static void sendTitle(
-			@Nullable Collection<? extends Player> recipients,
-			@Nullable Player player,
-			boolean prefixFormat,
-			String reference,
-			Object... replacement) {
-		if (recipients == null || recipients.isEmpty()) {
-			return;
-		}
-		String message = getMessage(player, true, reference, replacement);
-		if (message == null || message.isEmpty()) {
-			return;
-		}
-		sendFullTitle(recipients, message, prefixFormat, false);
-	}
-
-	public static void sendFullTitle(@Nullable Player recipient, String message) {
-		sendFullTitle(recipient, message, true);
-	}
-
-	public static void sendFullTitle(
-			@Nullable Player recipient,
-			String message,
-			boolean prefixMessage) {
-		sendFullTitle(recipient, message, prefixMessage, true);
-	}
-
-	public static void sendFullTitle(
-			@Nullable Player recipient,
-			String message,
-			boolean prefixMessage,
-			boolean doChatFormat) {
+	public static void sendMessage(
+			@Nullable CommandSender recipient,
+			boolean doPrefix,
+			String reference, Object... replacements) {
 		if (recipient == null) {
 			return;
+		}
+
+		String message;
+		if (recipient instanceof Player) {
+			message = getMessage((Player) recipient, reference, replacements);
+		} else {
+			message = getMessage(reference, replacements);
 		}
 
 		if (message.isEmpty()) {
 			return;
 		}
 
-		message = completeMessage(message, prefixMessage, doChatFormat);
+		sendFullMessage(recipient, message, doPrefix);
+	}
 
-		// fadeIn - time in ticks for titles to fade in. Defaults to 10.
-		// stay - time in ticks for titles to stay. Defaults to 70.
-		// fadeOut - time in ticks for titles to fade out. Defaults to 20.
-		if (audiences != null) {
-			audiences.player(recipient).showTitle(Title.title(Formatter.deserializeWithMiniMessage(message),
-					Component.empty(), Title.Times.times(Ticks.duration(10), Ticks.duration(70), Ticks.duration(20))));
-		} else {
-			recipient.sendTitle(message, "", 10, 70, 20);
+	public static void sendMessage(
+			@Nullable CommandSender recipient, @Nullable OfflinePlayer player,
+			String reference, Object... replacements) {
+		sendMessage(recipient, player, true, reference, replacements);
+	}
+
+	public static void sendMessage(
+			@Nullable CommandSender recipient, @Nullable OfflinePlayer player,
+			boolean doPrefix,
+			String reference, Object... replacements) {
+		if (recipient == null) {
+			return;
 		}
+
+		String message;
+		if (player != null) {
+			message = getMessage(player, reference, replacements);
+		} else {
+			message = getMessage(reference, replacements);
+		}
+
+		if (message.isEmpty()) {
+			return;
+		}
+
+		sendFullMessage(recipient, message, doPrefix);
 	}
 
-	public static void sendFullTitle(
-			@Nullable Collection<? extends Player> recipients,
-			String message) {
-		sendFullTitle(recipients, message, true);
+	public static void sendMessage(
+			@Nullable Collection<? extends CommandSender> senders,
+			String reference, Object... replacements) {
+		sendMessage(senders, null, reference, replacements);
 	}
 
-	public static void sendFullTitle(
-			@Nullable Collection<? extends Player> recipients,
-			String message,
-			boolean prefixFormat) {
-		sendFullTitle(recipients, message, prefixFormat, true);
+	public static void sendMessage(
+			@Nullable Collection<? extends CommandSender> senders,
+			boolean doPrefix,
+			String reference, Object... replacements) {
+		sendMessage(senders, null, doPrefix, reference, replacements);
 	}
 
-	public static void sendFullTitle(
-			@Nullable Collection<? extends Player> recipients,
-			String message,
-			boolean prefixFormat,
-			boolean doChatFormat) {
+	public static void sendMessage(
+			@Nullable Collection<? extends CommandSender> senders, @Nullable OfflinePlayer player,
+			String reference, Object... replacements) {
+		sendMessage(senders, player, true, reference, replacements);
+	}
+
+	public static void sendMessage(
+			@Nullable Collection<? extends CommandSender> senders, @Nullable OfflinePlayer player,
+			boolean doPrefix,
+			String reference, Object... replacements) {
+		if (senders == null || senders.isEmpty()) {
+			return;
+		}
+
+		String message;
+		if (player != null) {
+			message = getMessage(player, reference, replacements);
+		} else {
+			message = getMessage(reference, replacements);
+		}
+
+		if (message.isEmpty()) {
+			return;
+		}
+
+		sendFullMessage(senders, message, doPrefix);
+	}
+
+	/**
+	 * Used when you are sending a user a message instead of a message loaded from a
+	 * file
+	 *
+	 * @param sender  the player who sent the command
+	 * @param message the message to send to that user
+	 */
+	public static void sendFullMessage(@Nullable CommandSender sender, String message) {
+		sendFullMessage(sender, message, false);
+	}
+
+	/**
+	 * Used when you are sending a user a message instead of a message loaded from a
+	 * file
+	 *
+	 * @param sender        the player who sent the command
+	 * @param message       The message to send to that user
+	 * @param prefixMessage The prefix for that message
+	 */
+	public static void sendFullMessage(@Nullable CommandSender recipient, String message, boolean doPrefix) {
+		if (recipient == null) {
+			return;
+		}
+
+		if (message == null || message.isEmpty()) {
+			return;
+		}
+
+		messageSender.sendFullMessage(recipient, (doPrefix ? prefix : "") + message);
+	}
+
+	public static void sendFullMessage(@Nullable Collection<? extends CommandSender> senders, String message) {
+		sendFullMessage(senders, message, false);
+	}
+
+	/**
+	 * Used when sending a raw message
+	 * to a group of command senders.
+	 * 
+	 * @param senders
+	 * @param message
+	 * @param prefixFormat
+	 */
+	public static void sendFullMessage(
+			@Nullable Collection<? extends CommandSender> recipients,
+			String message, boolean doPrefix) {
 		if (recipients == null || recipients.isEmpty()) {
 			return;
 		}
@@ -670,20 +469,219 @@ public class MessageManager {
 			return;
 		}
 
-		sendBulkTitle(recipients, completeMessage(message, prefixFormat, doChatFormat));
+		messageSender.sendFullMessage(recipients, (doPrefix ? prefix : "") + message);
 	}
 
-	public static void sendBulkTitle(@NotNull Collection<? extends Player> recipients, String message) {
-		if (audiences != null) {
-			Component messageComponent = Formatter.deserializeWithMiniMessage(message);
-			for (Player recipient : recipients) {
-				audiences.player(recipient).showTitle(Title.title(messageComponent, Component.empty(),
-						Title.Times.times(Ticks.duration(10), Ticks.duration(70), Ticks.duration(20))));
+	/**
+	 * Attempts to send a full {@link Component} message to the given
+	 * {@link CommandSender}
+	 * using Adventure, if it is available.
+	 *
+	 * @param recipient the target to send the message to; may be {@code null}
+	 * @param component the Adventure {@link Component} to send; may be {@code null}
+	 *                  or empty
+	 * @return {@code true} if adventure is available, regardless of whether
+	 *         component was actually sent
+	 *         (if component is {@code null}, or equals to
+	 *         {@link Component#empty()}, or recipient is {@code null})
+	 *         <p>
+	 *         {@code false} if Adventure is unavailable
+	 */
+	public static boolean sendFullMessage(@Nullable CommandSender recipient, Component component) {
+		AdventureMessageSender adventure;
+		if ((adventure = advntMessageSender()) != null) {
+			if (recipient == null || component == null || component.equals(Component.empty())) {
+				return true;
 			}
-		} else {
-			for (Player recipient : recipients) {
-				recipient.sendTitle(message, "", 10, 70, 20);
-			}
+			adventure.sendFullMessage(recipient, component);
+			return true;
 		}
+		return false;
 	}
+
+	public static boolean sendFullMessage(
+			@Nullable Collection<? extends CommandSender> recipients, Component component) {
+		AdventureMessageSender adventure;
+		if ((adventure = advntMessageSender()) != null) {
+			if (recipients == null || recipients.isEmpty() || component == null
+					|| component.equals(Component.empty())) {
+				return true;
+			}
+			adventure.sendFullMessage(recipients, component);
+			return true;
+		}
+		return false;
+	}
+
+	public static void sendTitle(
+			@Nullable Player recipient,
+			String reference, Object... replacements) {
+		sendTitle(recipient, false, reference, replacements);
+	}
+
+	/**
+	 * Used to send a (formatted) title to the specified user
+	 *
+	 * @param recipient    the commandSender which the message should be sent to
+	 * @param prefixFormat if the message should include the prefix or not
+	 * @param reference    the reference for the message
+	 * @param replacement  the value that the placeholder should be replaced with
+	 */
+	public static void sendTitle(
+			@Nullable Player recipient,
+			boolean doPrefix,
+			String reference, Object... replacements) {
+		if (recipient == null) {
+			return;
+		}
+
+		String message = getMessage(recipient, reference, replacements);
+		if (message.isEmpty()) {
+			return;
+		}
+
+		sendFullTitle(recipient, message, doPrefix);
+	}
+
+	public static void sendTitle(
+			@Nullable Player recipient, @Nullable OfflinePlayer player,
+			String reference, Object... replacement) {
+		sendTitle(recipient, player, false, reference, replacement);
+	}
+
+	/**
+	 * Used to send a (formatted) title to the specified user
+	 *
+	 * @param recipient   the player which the message should be sent to
+	 * @param player      the player to format this message around
+	 * @param doPrefix    if the message should include the prefix or not
+	 * @param reference   the reference for the message
+	 * @param replacement the value that the placeholder should be replaced with
+	 */
+	public static void sendTitle(
+			@Nullable Player recipient, @Nullable OfflinePlayer player,
+			boolean doPrefix,
+			String reference, Object... replacements) {
+		if (recipient == null) {
+			return;
+		}
+
+		String message;
+		if (player != null) {
+			message = getMessage(player, reference, replacements);
+		} else {
+			message = getMessage(reference, replacements);
+		}
+
+		if (message.isEmpty()) {
+			return;
+		}
+
+		sendFullTitle(recipient, message, doPrefix);
+	}
+
+	public static void sendTitle(
+			@Nullable Collection<? extends Player> recipients,
+			String reference,
+			Object... replacements) {
+		sendTitle(recipients, null, reference, replacements);
+	}
+
+	public static void sendTitle(
+			@Nullable Collection<? extends Player> recipients,
+			boolean doPrefix,
+			String reference,
+			Object... replacements) {
+		sendTitle(recipients, null, doPrefix, reference, replacements);
+	}
+
+	public static void sendTitle(
+			@Nullable Collection<? extends Player> recipients,
+			@Nullable Player player,
+			String reference,
+			Object... replacements) {
+		sendTitle(recipients, player, false, reference, replacements);
+	}
+
+	public static void sendTitle(
+			@Nullable Collection<? extends Player> recipients, @Nullable Player player,
+			boolean doPrefix,
+			String reference, Object... replacements) {
+		if (recipients == null || recipients.isEmpty()) {
+			return;
+		}
+
+		String message;
+		if (player != null) {
+			message = getMessage(player, reference, replacements);
+		} else {
+			message = getMessage(reference, replacements);
+		}
+
+		if (message == null || message.isEmpty()) {
+			return;
+		}
+
+		sendFullTitle(recipients, message, doPrefix);
+	}
+
+	public static void sendFullTitle(@Nullable Player recipient, String message) {
+		sendFullTitle(recipient, message, true);
+	}
+
+	public static void sendFullTitle(@Nullable Player recipient, String message, boolean doPrefix) {
+		if (recipient == null) {
+			return;
+		}
+
+		if (message == null || message.isEmpty()) {
+			return;
+		}
+
+		messageSender.sendFullTitle(recipient, (doPrefix ? prefix : "") + message);
+	}
+
+	public static void sendFullTitle(@Nullable Collection<? extends Player> recipients, String message) {
+		sendFullTitle(recipients, message, true);
+	}
+
+	public static void sendFullTitle(
+			@Nullable Collection<? extends Player> recipients, @Nullable String message, boolean prefixFormat) {
+		if (recipients == null || recipients.isEmpty()) {
+			return;
+		}
+
+		if (message == null || message.isEmpty()) {
+			return;
+		}
+
+		messageSender.sendFullTitle(recipients, (prefixFormat ? getPrefix() : "") + message);
+	}
+
+	public static boolean sendFullTitle(@Nullable Player recipient, Component component) {
+		AdventureMessageSender adventure;
+		if ((adventure = advntMessageSender()) != null) {
+			if (recipient == null || component == null || component.equals(Component.empty())) {
+				return true;
+			}
+			adventure.sendFullTitle(recipient, component);
+			return true;
+		}
+		return false;
+	}
+
+	public static boolean sendFullTitle(
+			@Nullable Collection<? extends Player> recipients, Component component) {
+		AdventureMessageSender adventure;
+		if ((adventure = advntMessageSender()) != null) {
+			if (recipients == null || recipients.isEmpty() || component == null
+					|| component.equals(Component.empty())) {
+				return true;
+			}
+			adventure.sendFullTitle(recipients, component);
+			return true;
+		}
+		return false;
+	}
+
 }

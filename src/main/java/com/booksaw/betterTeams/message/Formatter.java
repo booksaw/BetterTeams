@@ -3,6 +3,7 @@ package com.booksaw.betterTeams.message;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -220,7 +221,18 @@ public class Formatter {
     }
 
     public static @NotNull String setPlaceholders(@Nullable String text, @Nullable Player player) {
-        if (text == null || text.isEmpty()) {
+        if (text.isEmpty()) {
+            return "";
+        }
+        if (player == null || !Main.placeholderAPI) {
+            return text;
+        }
+
+        return PlaceholderAPI.setPlaceholders((OfflinePlayer) player, text);
+    }
+
+    public static @NotNull String setPlaceholders(@Nullable String text, @Nullable OfflinePlayer player) {
+        if (text.isEmpty()) {
             return "";
         }
         if (player == null || !Main.placeholderAPI) {
@@ -229,16 +241,40 @@ public class Formatter {
         return PlaceholderAPI.setPlaceholders(player, text);
     }
 
-    public static @Nullable String setPlaceholders(@Nullable String text, Object... replacement) {
-        if (text == null || text.isEmpty())
+    /**
+     * Replaces indexed placeholders in the provided text with the corresponding replacement values.
+     * <p>
+     * Each placeholder in the text should follow the format {n}, where {@code n} is the zero-based index
+     * of the replacement value to insert. For example, "Hello, {0}!" with {@code "world"} as the first
+     * replacement will result in {@code "Hello, world!"}.
+     * <p>
+     * If the {@code text} is {@code null} or empty, an empty string is returned. If no replacements are provided,
+     * the original text is returned unmodified.
+     * <p>
+     * {@code null} values in the replacement array are treated as empty strings.
+     *
+     * @param text the text containing indexed placeholders like {0}, {1}, etc.
+     * @param replacements the values to insert into the placeholders
+     * @return a new string with all placeholders replaced by their corresponding values
+     */
+    public static @NotNull String setPlaceholders(@Nullable String text, @Nullable Object... replacements) {
+        if (text == null || text.isEmpty()) {
             return "";
-        if (replacement == null || replacement.length == 0)
-            return text;
-
-        String formatted = text;
-        for (int i = 0; i < replacement.length; i++) {
-            formatted = formatted.replace("{" + i + "}", replacement[i].toString());
         }
-        return formatted;
+        if (replacements == null || replacements.length == 0) {
+            return text;
+        }
+
+        StringBuilder formatted = new StringBuilder(text);
+        for (int i = 0; i < replacements.length; i++) {
+            String placeholder = "{" + i + "}";
+            String replacement = replacements[i] != null ? replacements[i].toString() : "";
+
+            int index;
+            while ((index = formatted.indexOf(placeholder)) != -1) {
+                formatted.replace(index, index + placeholder.length(), replacement);
+            }
+        }
+        return formatted.toString();
     }
 }
