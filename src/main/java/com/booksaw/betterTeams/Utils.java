@@ -11,9 +11,12 @@ import org.bukkit.metadata.MetadataValue;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Utils {
 
@@ -124,5 +127,12 @@ public class Utils {
 				return true;
 
 		return false;
+	}
+
+	public static <T> List<T> filterNonNull(Collection<T> collection) {
+		if (collection == null || collection.isEmpty()) return Collections.emptyList();
+		return collection.stream()
+				.filter(java.util.Objects::nonNull)
+				.collect(Collectors.toList());
 	}
 }

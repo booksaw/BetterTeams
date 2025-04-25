@@ -23,7 +23,6 @@ abstract class PreparedMessageSender<T> implements MessageSender {
     public final void sendFullMessage(@NotNull Collection<? extends CommandSender> recipients, @NotNull String message) {
         T preparedMsg = prepareMessage(message);
         recipients.stream()
-              .filter(recipient -> recipient != null)
               .forEach(recipient -> sendPreparedMessage(recipient, preparedMsg));
     }
 
@@ -36,7 +35,6 @@ abstract class PreparedMessageSender<T> implements MessageSender {
     public final void sendFullTitle(@NotNull Collection<? extends Player> recipients, @NotNull String message) {
         T preparedMsg = prepareMessage(message);
         recipients.stream()
-              .filter(recipient -> recipient != null)
               .forEach(recipient -> sendPreparedTitle(recipient, preparedMsg));
     }
 

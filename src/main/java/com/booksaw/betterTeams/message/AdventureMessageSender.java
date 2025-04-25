@@ -35,7 +35,6 @@ final class AdventureMessageSender extends PreparedMessageSender<Component> {
 
     void sendFullMessage(@NotNull Collection<? extends CommandSender> recipients, @NotNull Component message) {
         recipients.stream()
-              .filter(recipient -> recipient != null)
               .forEach(recipient -> sendPreparedMessage(recipient, message));
     }
 
@@ -45,7 +44,6 @@ final class AdventureMessageSender extends PreparedMessageSender<Component> {
 
     void sendFullTitle(@NotNull Collection<? extends Player> recipients, @NotNull Component message) {
         recipients.stream()
-              .filter(recipient -> recipient != null)
               .forEach(recipient -> sendPreparedTitle(recipient, message));
     }
 
