@@ -130,6 +130,44 @@ public class Database {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Checks if a column exists in the specified table.
+	 *
+	 * @param tableName  The table to check.
+	 * @param columnName The column to check for.
+	 * @return True if the column exists, false otherwise.
+	 */
+	public boolean hasColumn(TableName table, String column) {
+		String query = "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = ? AND COLUMN_NAME = ?";
+		try (PreparedStatement ps = connection.prepareStatement(query)) {
+			ps.setString(1, table.toString());
+			ps.setString(2, column);
+			try (ResultSet rs = ps.executeQuery()) {
+				return rs.next();
+			}
+		} catch (SQLException e) {
+			Main.plugin.getLogger().severe("Error checking if column exists: " + table + "." + column);
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	protected void addColumn(TableName table, String newColumnName, String columnDefinition, String referenceColumn,
+			boolean after) {
+		String positionClause = (referenceColumn != null)
+				? (after ? " AFTER " + referenceColumn : " BEFORE " + referenceColumn)
+				: "";
+
+		String update = "ALTER TABLE " + table.toString() + " ADD " + newColumnName + " " + columnDefinition
+				+ positionClause;
+
+		executeStatement(update);
+	}
+
+	protected void addColumn(TableName table, String newColumnName, String columnDefinition) {
+		addColumn(table, newColumnName, columnDefinition, null, false);
+	}
 
 	/**
 	 * Used to execute an SQL statement

@@ -39,6 +39,14 @@ public class BetterTeamsDatabase extends Database {
 						+ TableName.TEAM + "(teamID) ON DELETE CASCADE, FOREIGN KEY (team2ID) REFERENCES "
 						+ TableName.TEAM + "(teamID) ON DELETE CASCADE");
 
+		// Add anchor columns if they don't exist
+		if (!hasColumn(TableName.TEAM, "anchor")) {
+			addColumn(TableName.TEAM, "anchor", "BOOLEAN DEFAULT 0", "pvp", true);
+		}
+
+		if (!hasColumn(TableName.PLAYERS, "anchor")) {
+			addColumn(TableName.PLAYERS, "anchor", "BOOLEAN DEFAULT 0", "title", true);
+		}
 	}
 
 	public PreparedStatement select(String select, TableName from) {

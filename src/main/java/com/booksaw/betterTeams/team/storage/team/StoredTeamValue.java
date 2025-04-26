@@ -40,6 +40,11 @@ public enum StoredTeamValue {
 	 */
 	HOME("home"),
 
+	/*
+	 * The anchor state of the team home
+	 */
+	ANCHOR("anchor", TeamStorageType.BOOLEAN),
+
 	/**
 	 * The score of the team
 	 */

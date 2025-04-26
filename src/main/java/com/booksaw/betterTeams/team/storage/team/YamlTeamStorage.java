@@ -53,7 +53,10 @@ public abstract class YamlTeamStorage extends TeamStorage {
 		List<TeamPlayer> toReturn = new ArrayList<>();
 
 		for (String temp : lst) {
-			toReturn.add(new TeamPlayer(temp));
+			TeamPlayer player = new TeamPlayer(temp);
+			if(getAnchoredPlayerList().contains(player.getPlayerUUID()))
+				player.setAnchor(true);
+			toReturn.add(player);
 		}
 
 		return toReturn;
@@ -62,6 +65,28 @@ public abstract class YamlTeamStorage extends TeamStorage {
 	@Override
 	public void setPlayerList(List<String> players) {
 		setValue("players", TeamStorageType.STRING, players);
+	}
+
+	@Override
+	public List<UUID> getAnchoredPlayerList() {
+		List<String> lst = getConfig().getStringList("anchoredPlayers");
+		List<UUID> toReturn = new ArrayList<>();
+
+		for (String temp : lst) {
+			toReturn.add(UUID.fromString(temp));
+		}
+
+		return toReturn;
+	}
+
+	@Override
+	public void setAnchoredPlayerList(List<String> players) {
+		setValue("anchoredPlayers", TeamStorageType.STRING, players);
+	}
+
+	@Override
+	public void setAnchor(TeamPlayer player, boolean anchor) {
+		// covered by setAnchoredPlayerList
 	}
 
 	@Override
