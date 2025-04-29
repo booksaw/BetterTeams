@@ -19,6 +19,7 @@ import java.util.Set;
 public class PostTeamSendMessageEvent extends TeamPlayerEvent {
 
 	/// The contents of the message which has been sent (with formatting).
+	@NotNull
 	private final String formattedMessage;
 	/// An immutable set of players which have received a copy of the message.
 	@Unmodifiable
