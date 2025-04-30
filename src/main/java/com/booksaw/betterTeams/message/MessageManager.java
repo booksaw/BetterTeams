@@ -19,6 +19,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.ApiStatus.Internal;
 
+import static com.booksaw.betterTeams.message.Formatter.absoluteDeserialize;
+import static com.booksaw.betterTeams.message.Formatter.prefixComponents;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -35,7 +38,7 @@ public class MessageManager {
 
 	public static final String MISSINGMESSAGES_FILENAME = "missingmessages.txt";
 
-	private static MessageSender messageSender;
+	private static MessageSender msgSender;
 
 	/**
 	 * Used to store all loaded messages
@@ -52,6 +55,9 @@ public class MessageManager {
 	@Getter
 	private static String prefix;
 
+	@Getter
+	private static Component prefixComponent;
+
 	/**
 	 * This is the language reference for the selected language
 	 */
@@ -63,42 +69,27 @@ public class MessageManager {
 	private MessageManager() {
 	}
 
-	public static @Internal void setupMessageSender() {
-		if (messageSender != null)
-			return;
+	/**
+	 * Used to instantiate a new MessageSender.
+	 * <p>
+	 * Warning: This is not API, so it should never be used outside BetterTeams' package
+	 */
+	@Internal
+	public static void setupMessageSender(BukkitAudiences audiences) {
+		if (audiences != null) msgSender = new AdventureMessageSender(audiences);
+		else msgSender = new LegacyMessageSender();
 
-		try {
-			BukkitAudiences audiences = BukkitAudiences.create(Main.plugin);
-			messageSender = new AdventureMessageSender(audiences);
-		} catch (Exception e) {
-			Main.plugin.getLogger().warning(
-					"Failed to initialize AdventureMessageSender. Using LegacyMessageSender instead.");
-			messageSender = new LegacyMessageSender();
-		}
+		Main.plugin.getLogger().info("MessageSender declared: " + msgSender);
 	}
 
-	public static @Internal void dumpMessageSender() {
-		if (messageSender == null)
-			return;
-
-		AdventureMessageSender adventure;
-		if ((adventure = advntMessageSender()) != null) {
-			adventure.closeAdventure();
-		}
-
-		messageSender = null;
-	}
-
-	public static boolean isMessageSenderInit() {
-		return messageSender != null;
-	}
-
-	public static boolean isAdventure() {
-		return messageSender instanceof AdventureMessageSender;
-	}
-
-	private static @Nullable AdventureMessageSender advntMessageSender() {
-		return isAdventure() ? (AdventureMessageSender) messageSender : null;
+	/**
+	 * Used to clear the current MessageSender.
+	 * <p>
+	 * Warning: This is not API, so it should never be used outside BetterTeams' package
+	 */
+	@Internal
+	public static void dumpMessageSender() {
+		msgSender = null;
 	}
 
 	public static String getLanguage() {
@@ -116,11 +107,8 @@ public class MessageManager {
 	 * @param configManager the configuration manager
 	 */
 	public static void addMessages(@NotNull ConfigManager configManager) {
-		// prefix =
-		// Objects.requireNonNull(Main.plugin.getConfig().getString("prefixFormat"));
-
-		// Should prefix default to empty string ?
 		prefix = Main.plugin.getConfig().getString("prefixFormat", "");
+		prefixComponent = prefix.isEmpty() ? Component.empty() : absoluteDeserialize(prefix);
 
 		defaultMessagesConfigManager = configManager;
 
@@ -271,8 +259,7 @@ public class MessageManager {
 	 * Configuration file, this does not add a prefix to the message
 	 *
 	 * @param reference    the reference for the message
-	 * @param replacements the replacements for the {n} placeholders ( {0}, {1},
-	 *                     {2}, ... )
+	 * @param replacements the replacements for the {n} placeholders ( {0}, {1}, {2}, ... )
 	 * @return the message (without prefix)
 	 */
 	public static @NotNull String getMessage(String reference, Object... replacements) {
@@ -280,32 +267,18 @@ public class MessageManager {
 	}
 
 	public static @NotNull String getMessage(OfflinePlayer player, String reference, Object... replacements) {
-		try {
-			String msg = getMessage(reference);
-			if (msg.isEmpty()) return "";
-
-			// PAPI first, then format
-			return Formatter.setPlaceholders(Formatter.setPlaceholders(msg, player), replacements);
-
-		} catch (NullPointerException e) {
-			Main.plugin.getLogger().warning("Could not find the message with the reference " + reference);
-			return "";
-		}
+		return Formatter.setPlaceholders(getMessage(reference, replacements), player);
 	}
 
 	/**
-	 * This method replaces placeholders in the given {@code content}
-	 * string
-	 * with the provided {@code replacement} values. Each placeholder
-	 * must be
+	 * This method replaces placeholders in the given {@code content} string
+	 * with the provided {@code replacement} values. Each placeholder must be
 	 * written as {n} where {@code n} is the index of the replacement.
 	 * <p>
 	 * 
 	 * @deprecated Use {@link Formatter#setPlaceholders(String, Object...)} instead.
-	 *             This method is deprecated in favor of a more explicitly named
-	 *             alternative
-	 *             that clarifies its behavior of replacing indexed placeholders
-	 *             like {0}, {1}, etc.
+	 *             This method is deprecated in favor of a more explicitly named alternative
+	 *             that clarifies its behavior of replacing indexed placeholders like {0}, {1}, etc.
 	 *
 	 * @param content     the string containing indexed placeholders
 	 * @param replacement the values to substitute into the placeholders
@@ -316,7 +289,7 @@ public class MessageManager {
 		return Formatter.setPlaceholders(content, replacements);
 	}
 
-	public static void sendMessage(@Nullable CommandSender recipient, String reference, Object... replacements) {
+	public static void sendMessage(CommandSender recipient, String reference, Object... replacements) {
 		sendMessage(recipient, true, reference, replacements);
 	}
 
@@ -329,7 +302,7 @@ public class MessageManager {
 	 * @param replacements the value that the placeholder should be replaced with
 	 */
 
-	public static void sendMessage(@Nullable CommandSender recipient, boolean doPrefix, String reference, Object... replacements) {
+	public static void sendMessage(CommandSender recipient, boolean doPrefix, String reference, Object... replacements) {
 		if (recipient == null) return;
 
 		String message;
@@ -341,54 +314,56 @@ public class MessageManager {
 
 		if (message.isEmpty()) return;
 
-		messageSender.sendFullMessage(recipient, (doPrefix ? (prefix != null ? prefix : "") : "") + message);
+		msgSender.sendMessage(recipient, absoluteDeserialize((doPrefix ? prefix : "") + message));
 	}
 
-	public static void sendMessage(
-			@Nullable CommandSender recipient, @Nullable OfflinePlayer player,
-			String reference, Object... replacements) {
+	public static void sendMessage(CommandSender recipient, @Nullable OfflinePlayer player, String reference, Object... replacements) {
 		sendMessage(recipient, player, true, reference, replacements);
 	}
 
-	public static void sendMessage(
-			@Nullable CommandSender recipient, @Nullable OfflinePlayer player,
-			boolean doPrefix, String reference, Object... replacements) {
+	public static void sendMessage(CommandSender recipient, @Nullable OfflinePlayer player, boolean doPrefix, String reference, Object... replacements) {
 		if (recipient == null) return;
 
 		String message = getMessage(player, reference, replacements);
 		if (message.isEmpty()) return;
 
-		messageSender.sendFullMessage(recipient, (doPrefix ? (prefix != null ? prefix : "") : "") + message);
+		msgSender.sendMessage(recipient, absoluteDeserialize((doPrefix ? prefix : "") + message));
 	}
 
-	public static void sendMessage(
-			@Nullable Collection<? extends CommandSender> senders,
-			String reference, Object... replacements) {
-		sendMessage(senders, null, reference, replacements);
+	public static void sendMessage(Collection<? extends CommandSender> recipients, String reference, Object... replacements) {
+		sendMessage(recipients, true, reference, replacements);
 	}
 
-	public static void sendMessage(
-			@Nullable Collection<? extends CommandSender> senders,
-			boolean doPrefix, String reference, Object... replacements) {
-		sendMessage(senders, null, doPrefix, reference, replacements);
+	public static void sendMessage(Collection<? extends CommandSender> recipients, boolean doPrefix, String reference, Object... replacements) {
+		Collection<? extends CommandSender> filteredRecipients = Utils.filterNonNull(recipients);
+		if (filteredRecipients.isEmpty()) return;
+
+		filteredRecipients.forEach(recipient -> {
+			String message;
+			if (recipient instanceof Player) {
+				message = getMessage((Player) recipient, reference, replacements);
+			} else {
+				message = getMessage(reference, replacements);
+			}
+
+			if (message.isEmpty()) return;
+
+			msgSender.sendMessage(recipient, absoluteDeserialize((doPrefix ? prefix : "") + message));
+		});
 	}
 
-	public static void sendMessage(
-			@Nullable Collection<? extends CommandSender> senders, @Nullable OfflinePlayer player,
-			String reference, Object... replacements) {
-		sendMessage(senders, player, true, reference, replacements);
+	public static void sendMessage(Collection<? extends CommandSender> recipients, @Nullable OfflinePlayer player, String reference, Object... replacements) {
+		sendMessage(recipients, player, true, reference, replacements);
 	}
 
-	public static void sendMessage(
-			@Nullable Collection<? extends CommandSender> recipients, @Nullable OfflinePlayer player,
-			boolean doPrefix, String reference, Object... replacements) {
+	public static void sendMessage(Collection<? extends CommandSender> recipients, @Nullable OfflinePlayer player, boolean doPrefix, String reference, Object... replacements) {
 		Collection<? extends CommandSender> filteredRecipients = Utils.filterNonNull(recipients);
 		if (filteredRecipients.isEmpty()) return;
 
 		String message = getMessage(player, reference, replacements);
 		if (message.isEmpty()) return;
 
-		messageSender.sendFullMessage(filteredRecipients, (doPrefix ? (prefix != null ? prefix : "") : "") + message);
+		msgSender.sendMessage(filteredRecipients, absoluteDeserialize((doPrefix ? prefix : "") + message));
 	}
 
 	/**
@@ -398,7 +373,7 @@ public class MessageManager {
 	 * @param sender  the player who sent the command
 	 * @param message the message to send to that user
 	 */
-	public static void sendFullMessage(@Nullable CommandSender sender, String message) {
+	public static void sendFullMessage(CommandSender sender, String message) {
 		sendFullMessage(sender, message, false);
 	}
 
@@ -410,15 +385,15 @@ public class MessageManager {
 	 * @param message       The message to send to that user
 	 * @param prefixMessage The prefix for that message
 	 */
-	public static void sendFullMessage(@Nullable CommandSender recipient, String message, boolean doPrefix) {
+	public static void sendFullMessage(CommandSender recipient, String message, boolean doPrefix) {
 		if (recipient == null) return;
 
 		if (message == null || message.isEmpty()) return;
 
-		messageSender.sendFullMessage(recipient, (doPrefix ? (prefix != null ? prefix : "") : "") + message);
+		msgSender.sendMessage(recipient, absoluteDeserialize((doPrefix ? prefix : "") + message));
 	}
 
-	public static void sendFullMessage(@Nullable Collection<? extends CommandSender> senders, String message) {
+	public static void sendFullMessage(Collection<? extends CommandSender> senders, String message) {
 		sendFullMessage(senders, message, false);
 	}
 
@@ -430,62 +405,47 @@ public class MessageManager {
 	 * @param message
 	 * @param doPrefix
 	 */
-	public static void sendFullMessage(
-			@Nullable Collection<? extends CommandSender> recipients,
-			String message, boolean doPrefix) {
+	public static void sendFullMessage(Collection<? extends CommandSender> recipients, String message, boolean doPrefix) {
 		Collection<? extends CommandSender> filteredRecipients = Utils.filterNonNull(recipients);
 		if (filteredRecipients.isEmpty()) return;
 
 		if (message == null || message.isEmpty()) return;
 
-		messageSender.sendFullMessage(filteredRecipients, (doPrefix ? (prefix != null ? prefix : "") : "") + message);
+		msgSender.sendMessage(filteredRecipients, absoluteDeserialize((doPrefix ? prefix : "") + message));
+	}
+
+	public static void sendFullMessage(CommandSender recipient, Component message) {
+		sendFullMessage(recipient, message, false);
 	}
 
 	/**
-	 * Attempts to send a full {@link Component} message to the given
-	 * {@link CommandSender}
-	 * using Adventure, if it is available.
+	 * Sends a full {@link Component} message to the given {@link CommandSender}
 	 *
-	 * @param recipient the target to send the message to; may be {@code null}
-	 * @param component the Adventure {@link Component} to send; may be {@code null}
-	 *                  or empty
-	 * @return {@code true} if adventure is available, regardless of whether
-	 *         component was actually sent
-	 *         (if component is {@code null}, or equals to
-	 *         {@link Component#empty()}, or recipient is {@code null})
-	 *         <p>
-	 *         {@code false} if Adventure is unavailable
+	 * @param recipient the target to send the message to
+	 * @param message the Adventure {@link Component} to send
 	 */
-	public static boolean sendFullMessage(@Nullable CommandSender recipient, Component component) {
-		AdventureMessageSender adventure;
-		if ((adventure = advntMessageSender()) != null) {
-			if (recipient == null) return true;
+	public static void sendFullMessage(CommandSender recipient, Component message, boolean doPrefix) {
+		if (recipient == null) return;
 
-			if (component == null || component.equals(Component.empty())) return true;
+		if (message == null || message.equals(Component.empty())) return;
 
-			adventure.sendFullMessage(recipient, component);
-			return true;
-		}
-		return false;
+		msgSender.sendMessage(recipient, (doPrefix ? prefixComponents(prefixComponent, message) : message));
 	}
 
-	public static boolean sendFullMessage(@Nullable Collection<? extends CommandSender> recipients, Component component) {
-		AdventureMessageSender adventure;
-		if ((adventure = advntMessageSender()) != null) {
-			Collection<? extends CommandSender> filteredRecipients = Utils.filterNonNull(recipients);
-			if (filteredRecipients.isEmpty()) return true;
-
-			if (component == null || component.equals(Component.empty())) return true;
-
-			adventure.sendFullMessage(filteredRecipients, component);
-			return true;
-		}
-		return false;
+	public static void sendFullMessage(Collection<? extends CommandSender> recipients, Component message) {
+		sendFullMessage(recipients, message, false);
 	}
 
-	public static void sendTitle(
-			@Nullable Player recipient,
-			String reference, Object... replacements) {
+	public static void sendFullMessage(Collection<? extends CommandSender> recipients, Component message, boolean doPrefix) {
+		Collection<? extends CommandSender> filteredRecipients = Utils.filterNonNull(recipients);
+		if (filteredRecipients.isEmpty()) return;
+
+		if (message == null || message.equals(Component.empty())) return;
+
+		msgSender.sendMessage(filteredRecipients, (doPrefix ? prefixComponents(prefixComponent, message) : message));
+	}
+
+	public static void sendTitle(Player recipient, String reference, Object... replacements) {
 		sendTitle(recipient, false, reference, replacements);
 	}
 
@@ -495,23 +455,18 @@ public class MessageManager {
 	 * @param recipient    the player which the message should be sent to
 	 * @param doPrefix     if the message should include the prefix or not
 	 * @param reference    the reference for the message
-	 * @param replacement  the value that the placeholder should be replaced with
+	 * @param replacements  the value that the placeholder should be replaced with
 	 */
-	public static void sendTitle(
-			@Nullable Player recipient,
-			boolean doPrefix,
-			String reference, Object... replacements) {
+	public static void sendTitle(Player recipient, boolean doPrefix, String reference, Object... replacements) {
 		if (recipient == null) return;
 
 		String message = getMessage(recipient, reference, replacements);
 		if (message.isEmpty()) return;
 
-		messageSender.sendFullTitle(recipient, (doPrefix ? (prefix != null ? prefix : "") : "") + message);
+		msgSender.sendTitle(recipient, absoluteDeserialize((doPrefix ? prefix : "") + message));
 	}
 
-	public static void sendTitle(
-			@Nullable Player recipient, @Nullable OfflinePlayer player,
-			String reference, Object... replacement) {
+	public static void sendTitle(Player recipient, @Nullable OfflinePlayer player, String reference, Object... replacement) {
 		sendTitle(recipient, player, false, reference, replacement);
 	}
 
@@ -522,106 +477,95 @@ public class MessageManager {
 	 * @param player      the player to format this message around
 	 * @param doPrefix    if the message should include the prefix or not
 	 * @param reference   the reference for the message
-	 * @param replacement the value that the placeholder should be replaced with
+	 * @param replacements the value that the placeholder should be replaced with
 	 */
-	public static void sendTitle(
-			@Nullable Player recipient, @Nullable OfflinePlayer player,
-			boolean doPrefix,
-			String reference, Object... replacements) {
+	public static void sendTitle(Player recipient, @Nullable OfflinePlayer player, boolean doPrefix, String reference, Object... replacements) {
 		if (recipient == null) return;
 
 		String message = getMessage(player, reference, replacements);
 		if (message.isEmpty()) return;
 
-		messageSender.sendFullTitle(recipient, (doPrefix ? (prefix != null ? prefix : "") : "") + message);
+		msgSender.sendTitle(recipient, absoluteDeserialize((doPrefix ? prefix : "") + message));
 	}
 
-	public static void sendTitle(
-			@Nullable Collection<? extends Player> recipients,
-			String reference,
-			Object... replacements) {
-		sendTitle(recipients, null, reference, replacements);
+	public static void sendTitle(Collection<Player> recipients, String reference, Object... replacements) {
+		sendTitle(recipients, false, reference, replacements);
 	}
 
-	public static void sendTitle(
-			@Nullable Collection<? extends Player> recipients,
-			boolean doPrefix,
-			String reference,
-			Object... replacements) {
-		sendTitle(recipients, null, doPrefix, reference, replacements);
+	public static void sendTitle(Collection<Player> recipients, boolean doPrefix, String reference, Object... replacements) {
+		Collection<Player> filteredRecipients = Utils.filterNonNull(recipients);
+		if (filteredRecipients.isEmpty()) return;
+
+		filteredRecipients.forEach(recipient -> {
+			String message = getMessage(recipient, reference, replacements);
+			if (message.isEmpty()) return;
+
+			msgSender.sendTitle(recipient, absoluteDeserialize((doPrefix ? prefix : "") + message));
+		});
 	}
 
-	public static void sendTitle(
-			@Nullable Collection<? extends Player> recipients,
-			@Nullable Player player,
-			String reference,
-			Object... replacements) {
+	public static void sendTitle(Collection<Player> recipients, @Nullable OfflinePlayer player, String reference, Object... replacements) {
 		sendTitle(recipients, player, false, reference, replacements);
 	}
 
-	public static void sendTitle(
-			@Nullable Collection<? extends Player> recipients, @Nullable Player player,
-			boolean doPrefix,
-			String reference, Object... replacements) {
-		Collection<? extends Player> filteredRecipients = Utils.filterNonNull(recipients);
+	public static void sendTitle(Collection<Player> recipients, @Nullable OfflinePlayer player, boolean doPrefix, String reference, Object... replacements) {
+		Collection<Player> filteredRecipients = Utils.filterNonNull(recipients);
 		if (filteredRecipients.isEmpty()) return;
 
 		String message = getMessage(player, reference, replacements);
 		if (message.isEmpty()) return;
 
-		messageSender.sendFullTitle(filteredRecipients, (doPrefix ? (prefix != null ? prefix : "") : "") + message);
+		msgSender.sendTitle(filteredRecipients, absoluteDeserialize((doPrefix ? prefix : "") + message));
 	}
 
-	public static void sendFullTitle(@Nullable Player recipient, String message) {
-		sendFullTitle(recipient, message, true);
+	public static void sendFullTitle(Player recipient, String message) {
+		sendFullTitle(recipient, message, false);
 	}
 
-	public static void sendFullTitle(@Nullable Player recipient, String message, boolean doPrefix) {
+	public static void sendFullTitle(Player recipient, String message, boolean doPrefix) {
 		if (recipient == null) return;
 
 		if (message == null || message.isEmpty()) return;
 
-		messageSender.sendFullTitle(recipient, (doPrefix ? (prefix != null ? prefix : "") : "") + message);
+		msgSender.sendTitle(recipient, absoluteDeserialize((doPrefix ? prefix : "") + message));
 	}
 
-	public static void sendFullTitle(@Nullable Collection<? extends Player> recipients, String message) {
-		sendFullTitle(recipients, message, true);
+	public static void sendFullTitle(Collection<Player> recipients, String message) {
+		sendFullTitle(recipients, message, false);
 	}
 
-	public static void sendFullTitle(@Nullable Collection<? extends Player> recipients, @Nullable String message, boolean doPrefix) {
-		Collection<? extends Player> filteredRecipients = Utils.filterNonNull(recipients);
+	public static void sendFullTitle(Collection<Player> recipients, String message, boolean doPrefix) {
+		Collection<Player> filteredRecipients = Utils.filterNonNull(recipients);
 		if (filteredRecipients.isEmpty()) return;
 
 		if (message == null || message.isEmpty()) return;
 
-		messageSender.sendFullTitle(filteredRecipients, (doPrefix ? (prefix != null ? prefix : "") : "") + message);
+		msgSender.sendTitle(filteredRecipients, absoluteDeserialize((doPrefix ? prefix : "") + message));
 	}
 
-	public static boolean sendFullTitle(@Nullable Player recipient, Component component) {
-		AdventureMessageSender adventure;
-		if ((adventure = advntMessageSender()) != null) {
-			if (recipient == null) return true;
-
-			if (component == null || component.equals(Component.empty())) return true;
-
-			adventure.sendFullTitle(recipient, component);
-			return true;
-		}
-		return false;
+	public static void sendFullTitle(Player recipient, Component message) {
+		sendFullTitle(recipient, message, false);
 	}
 
-	public static boolean sendFullTitle(@Nullable Collection<? extends Player> recipients, Component component) {
-		AdventureMessageSender adventure;
-		if ((adventure = advntMessageSender()) != null) {
-			Collection<? extends Player> filteredRecipients = Utils.filterNonNull(recipients);
-			if (filteredRecipients.isEmpty()) return true;
+	public static void sendFullTitle(Player recipient, Component message, boolean doPrefix) {
+		if (recipient == null) return;
 
-			if (component == null || component.equals(Component.empty())) return true;
+		if (message == null || message.equals(Component.empty())) return;
 
-			adventure.sendFullTitle(filteredRecipients, component);
-			return true;
-		}
-		return false;
+		msgSender.sendTitle(recipient, (doPrefix ? prefixComponents(prefixComponent, message) : message));
+		
 	}
 
+	public static void sendFullTitle(Collection<Player> recipients, Component message) {
+		sendFullTitle(recipients, message, false);
+	}
+
+	public static void sendFullTitle(Collection<Player> recipients, Component message, boolean doPrefix) {
+		Collection<Player> filteredRecipients = Utils.filterNonNull(recipients);
+		if (filteredRecipients.isEmpty()) return;
+
+		if (message == null || message.equals(Component.empty())) return;
+
+		msgSender.sendTitle(filteredRecipients, (doPrefix ? prefixComponents(prefixComponent, message) : message));
+	}
 }

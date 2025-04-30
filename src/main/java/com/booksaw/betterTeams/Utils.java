@@ -129,7 +129,7 @@ public class Utils {
 		return false;
 	}
 
-	public static <T> List<T> filterNonNull(Collection<T> collection) {
+	public static @NotNull <T> List<T> filterNonNull(Collection<T> collection) {
 		if (collection == null || collection.isEmpty()) return Collections.emptyList();
 		return collection.stream()
 				.filter(java.util.Objects::nonNull)

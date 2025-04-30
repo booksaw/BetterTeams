@@ -42,19 +42,9 @@ public class HelpMessage implements Message {
 	}
 
 	@Override
-	public void sendMessage(Collection<? extends CommandSender> senders, Player player) {
-		sendMessage(senders);
-	}
-
-	@Override
-	public void sendTitle(Collection<? extends Player> players) {
+	public void sendTitle(Collection<Player> players) {
 		MessageManager.sendFullTitle(players, createHelpMessage(label,
 				command.getCommand() + " " + command.getArgMessage(parent), command.getHelpMessage(parent)));
-	}
-
-	@Override
-	public void sendTitle(Collection<? extends Player> players, Player player) {
-		sendTitle(players);
 	}
 
 	/**

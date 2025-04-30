@@ -12,25 +12,37 @@ import com.booksaw.betterTeams.Main;
 
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.JoinConfiguration;
+import net.kyori.adventure.text.TextReplacementConfig;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
+import net.kyori.adventure.text.minimessage.tag.standard.StandardTags;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.md_5.bungee.api.ChatColor;
 
 public class Formatter {
 
-    private static final Pattern HEX_PATTERN = Pattern.compile("&#([A-Fa-f0-9]{6})");
+    private static final Pattern HEX_PATTERN = Pattern.compile("&#([A-Fa-f0-9]{1,8})");
     private static final Pattern LEGACY_TAG_PATTERN = Pattern.compile("[§&]([0-9a-fk-orxA-FK-ORX])");
     private static final Pattern LEGACY_HEX_PATTERN = Pattern.compile("§x(§[0-9a-fA-F]){6}");
 
     private static final MiniMessage MM = MiniMessage.miniMessage();
+	private static final MiniMessage PLAYER_MM = MiniMessage.builder()
+			.tags(TagResolver.resolver(
+					StandardTags.color(),
+					StandardTags.decorations(),
+					StandardTags.gradient(),
+					StandardTags.rainbow()))
+			.build();
 
     /**
-     * Translates RGB color codes (&#RRGGBB) into Minecraft color codes.
+     * Translates RGB color codes (&#C -> &#CCCCCCCC) into MiniMessage color tags
      *
      * @param message The message to translate.
      * @return The translated message with RGB colors applied.
      */
-    public static @NotNull String translateRGBColors(@Nullable String message) {
+	@NotNull
+    public static String translateRgbToMiniMessage(@Nullable String message) {
         if (message == null || message.isEmpty()) {
             return "";
         }
@@ -40,73 +52,34 @@ public class Formatter {
         StringBuffer translatedMessage = new StringBuffer();
 
         while (matcher.find()) {
-            String hexColor = matcher.group(1); // Extract the RRGGBB part
-            String minecraftColor = ChatColor.of("#" + hexColor).toString(); // Convert to Minecraft color
-            matcher.appendReplacement(translatedMessage, minecraftColor);
+            String hexColor = matcher.group(1);
+            matcher.appendReplacement(translatedMessage, "<color:#" + hexColor + ">");
         }
 
         matcher.appendTail(translatedMessage);
         return translatedMessage.toString();
     }
 
-    public static @NotNull String legacyTagToMinimessage(@Nullable ChatColor color) {
+	@NotNull
+    public static String legacyTagToMiniMessage(@Nullable ChatColor color) {
         if (color == null) {
             return "";
         }
-        switch (color.getName().toLowerCase()) {
-            case "black":
-                return "<black>";
-            case "dark_blue":
-                return "<dark_blue>";
-            case "dark_green":
-                return "<dark_green>";
-            case "dark_aqua":
-                return "<dark_aqua>";
-            case "dark_red":
-                return "<dark_red>";
-            case "dark_purple":
-                return "<dark_purple>";
-            case "gold":
-                return "<gold>";
-            case "gray":
-                return "<gray>";
-            case "dark_gray":
-                return "<dark_gray>";
-            case "blue":
-                return "<blue>";
-            case "green":
-                return "<green>";
-            case "aqua":
-                return "<aqua>";
-            case "red":
-                return "<red>";
-            case "light_purple":
-                return "<light_purple>";
-            case "yellow":
-                return "<yellow>";
-            case "white":
-                return "<white>";
-            case "obfuscated":
-                return "<obfuscated>";
-            case "bold":
-                return "<bold>";
-            case "strikethrough":
-                return "<strikethrough>";
-            case "underline":
-                return "<underlined>";
-            case "italic":
-                return "<italic>";
-            case "reset":
-                return "<reset>";
-            default:
-                return "";
-        }
+
+		String colorName = color.getName().toLowerCase();
+		if (colorName == "underline") {
+			colorName = "underlined";
+		}
+
+		return "<" + colorName + ">";
     }
 
-    public static @NotNull String legacyTagToMinimessage(@Nullable String message) {
+	@NotNull
+    public static String legacyTagToMiniMessage(@Nullable String message) {
         if (message == null || message.isEmpty()) {
             return "";
         }
+
         Matcher legacyMatcher = LEGACY_TAG_PATTERN.matcher(message);
         StringBuffer convertedMessage = new StringBuffer();
 
@@ -115,21 +88,23 @@ public class Formatter {
             ChatColor chatColor = ChatColor.getByChar(code); // Get the ChatColor associated with the code
 
             if (chatColor != null) {
-                String miniMessageTag = legacyTagToMinimessage(chatColor); // Get the MiniMessage tag
+                String miniMessageTag = legacyTagToMiniMessage(chatColor); // Get the MiniMessage tag
                 legacyMatcher.appendReplacement(convertedMessage, miniMessageTag);
             }
         }
+		
         legacyMatcher.appendTail(convertedMessage);
 
         return convertedMessage.toString();
     }
 
-    public static @NotNull String legacyHexToMinimessage(@Nullable String message) {
+	@NotNull
+    public static String legacyHexToMiniMessage(@Nullable String message) {
         if (message == null || message.isEmpty()) {
             return "";
         }
-        // Convert Minecraft's hex color format (§x§R§R§G§G§B§B) to MiniMessage format
-        // (<color:#RRGGBB>)
+
+        // Convert Minecraft's hex color format (§x§R§R§G§G§B§B) to MiniMessage format (<color:#RRGGBB>)
         Matcher hexMatcher = LEGACY_HEX_PATTERN.matcher(message);
         StringBuffer convertedMessage = new StringBuffer();
 
@@ -152,29 +127,34 @@ public class Formatter {
      * @param message The message to transform.
      * @return The transformed message with MiniMessage-compatible tags.
      */
-    public static @NotNull String legacyToMinimessage(@Nullable String message) {
+	@NotNull
+    public static String legacyToMiniMessage(@Nullable String message) {
         if (message == null || message.isEmpty()) {
             return "";
         }
 
-        message = legacyHexToMinimessage(message);
-        message = legacyTagToMinimessage(message);
+        message = legacyHexToMiniMessage(message);
+        message = legacyTagToMiniMessage(message);
 
         return message;
     }
 
-    public static @NotNull String legacyTranslate(@Nullable String message) {
+	@NotNull
+    public static String legacyTranslate(@Nullable String message) {
         if (message == null || message.isEmpty()) {
             return "";
         }
-        return translateRGBColors(ChatColor.translateAlternateColorCodes('&', message));
+
+        return translateRgbToMiniMessage(ChatColor.translateAlternateColorCodes('&', message));
     }
 
-    public static @NotNull String absoluteTranslate(@Nullable String message) {
+	@NotNull
+    public static String absoluteTranslate(@Nullable String message) {
         if (message == null || message.isEmpty()) {
             return "";
         }
-        return legacyToMinimessage(legacyTranslate(message));
+
+        return legacyToMiniMessage(legacyTranslate(message));
     }
 
     /**
@@ -183,32 +163,83 @@ public class Formatter {
      * @param message The message to format.
      * @return The formatted Component.
      */
-    public static @NotNull Component deserializeWithMiniMessage(@Nullable String message) {
+	@NotNull
+    public static Component deserializeWithMiniMessage(@Nullable String message) {
         if (message == null || message.isEmpty()) {
             return Component.empty();
         }
+
         return MM.deserialize(message);
     }
-
-    public static @NotNull Component absoluteMinimessage(@Nullable String message) {
+	
+    /**
+     * Converts a message to a Component using this class' player-exclusive MiniMessage.
+     *
+     * @param message The message to format.
+     * @return The formatted Component.
+     */
+	@NotNull
+    public static Component deserializeWithPlayerMiniMessage(@Nullable String message) {
         if (message == null || message.isEmpty()) {
             return Component.empty();
         }
+
+        return PLAYER_MM.deserialize(message);
+    }
+
+	@NotNull
+    public static Component absoluteDeserialize(String message) {
+        if (message == null || message.isEmpty()) {
+            return Component.empty();
+        }
+
         return MM.deserialize(absoluteTranslate(message));
     }
 
-    public static @NotNull String legacySerialize(@Nullable Component component) {
+	@NotNull
+	public static Component absolutePlayerDeserialize(String message) {
+        if (message == null || message.isEmpty()) {
+            return Component.empty();
+        }
+
+		return PLAYER_MM.deserialize(absoluteTranslate(message));
+	}
+
+	@NotNull
+	public static Component combineComponents(Component@NotNull... components) {
+		if (components == null || components.length == 0) {
+			return Component.empty();
+		} else if (components.length == 1) {
+			return components[0] != null ? components[0] : Component.empty();
+		}
+		// From here on, Adventure Text handles possibly null Components
+		return Component.join(JoinConfiguration.noSeparators(), components);
+	}
+
+	@NotNull
+	public static Component prefixComponents(Component prefix, @NotNull Component@NotNull... components) {
+		if (prefix == null || prefix.equals(Component.empty())) {
+			return combineComponents(components);
+		}
+		return Component.join(JoinConfiguration.builder().prefix(prefix).build(), components);
+	}
+
+	@NotNull
+    public static String legacySerialize(@Nullable Component component) {
         if (component == null || component.equals(Component.empty())) {
             return "";
         }
+
         return LegacyComponentSerializer.legacySection().serialize(component);
     }
 
-    public static @NotNull String legacySerialize(@Nullable String string) {
+	@NotNull
+    public static String legacySerialize(@Nullable String string) {
         return legacySerialize(string, true);
     }
 
-    public static @NotNull String legacySerialize(@Nullable String string, boolean translate) {
+    @NotNull
+    public static String legacySerialize(@Nullable String string, boolean translate) {
         if (string == null || string.isEmpty()) {
             return "";
         }
@@ -220,10 +251,12 @@ public class Formatter {
         return legacySerialize(deserializeWithMiniMessage(string));
     }
 
-    public static @NotNull String setPlaceholders(@Nullable String text, @Nullable Player player) {
-        if (text.isEmpty()) {
+    @NotNull
+    public static String setPlaceholders(@Nullable String text, @Nullable Player player) {
+        if (text == null || text.isEmpty()) {
             return "";
         }
+
         if (player == null || !Main.placeholderAPI) {
             return text;
         }
@@ -231,13 +264,16 @@ public class Formatter {
         return PlaceholderAPI.setPlaceholders((OfflinePlayer) player, text);
     }
 
-    public static @NotNull String setPlaceholders(@Nullable String text, @Nullable OfflinePlayer player) {
-        if (text.isEmpty()) {
+    @NotNull
+    public static String setPlaceholders(@Nullable String text, @Nullable OfflinePlayer player) {
+        if (text == null || text.isEmpty()) {
             return "";
         }
+
         if (player == null || !Main.placeholderAPI) {
             return text;
         }
+
         return PlaceholderAPI.setPlaceholders(player, text);
     }
 
@@ -257,10 +293,12 @@ public class Formatter {
      * @param replacements the values to insert into the placeholders
      * @return a new string with all placeholders replaced by their corresponding values
      */
-    public static @NotNull String setPlaceholders(@Nullable String text, @Nullable Object... replacements) {
+    @NotNull
+    public static String setPlaceholders(@Nullable String text, @Nullable Object... replacements) {
         if (text == null || text.isEmpty()) {
             return "";
         }
+
         if (replacements == null || replacements.length == 0) {
             return text;
         }
@@ -277,4 +315,25 @@ public class Formatter {
         }
         return formatted.toString();
     }
+
+	@NotNull
+	public static Component setPlaceholders(Component base, Component replacement, String... placeholders) {
+		if (base == null || base.equals(Component.empty())) return Component.empty();
+
+		if (placeholders == null || placeholders.length == 0 || replacement == null || replacement.equals(Component.empty())) return base;
+
+		TextReplacementConfig.Builder builder = TextReplacementConfig.builder();
+		boolean hasReplacements = false;
+
+		for (String placeholder : placeholders) {
+			if (placeholder == null || placeholder.isEmpty()) continue;
+
+			builder.matchLiteral(placeholder).replacement(replacement);
+			hasReplacements = true;
+		}
+
+		if (!hasReplacements) return base;
+
+		return base.replaceText(builder.build());
+	}
 }

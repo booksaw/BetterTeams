@@ -11,9 +11,8 @@ import org.bukkit.entity.Player;
  *
  * @author booksaw
  */
-public class StaticMessage implements Message {
+public class StaticMessage extends StaticComponentHolderMessage {
 
-	final String message;
 	private final boolean prefix;
 
 	/**
@@ -21,7 +20,7 @@ public class StaticMessage implements Message {
 	 * @param prefix  if the message should include the prefix or not
 	 */
 	public StaticMessage(String message, boolean prefix) {
-		this.message = message;
+		super(message);
 		this.prefix = prefix;
 	}
 
@@ -29,37 +28,28 @@ public class StaticMessage implements Message {
 	 * @param message The message to send to users
 	 */
 	public StaticMessage(String message) {
-		this.message = message;
-		prefix = false;
+		super(message);
+		this.prefix = false;
 	}
 
 	@Override
-	public void sendMessage(CommandSender sender) {
-		MessageManager.sendFullMessage(sender, message, prefix);
+	public void sendMessage(CommandSender recipient) {
+		MessageManager.sendFullMessage(recipient, message, prefix);
 	}
 
 	@Override
-	public void sendMessage(Collection<? extends CommandSender> senders) {
-		MessageManager.sendFullMessage(senders, message, prefix);
+	public void sendMessage(Collection<? extends CommandSender> recipients) {
+		MessageManager.sendFullMessage(recipients, message, prefix);
 	}
 
 	@Override
-	public void sendTitle(Player player) {
-		MessageManager.sendFullTitle(player, message, prefix);
+	public void sendTitle(Player recipient) {
+		MessageManager.sendFullTitle(recipient, message, prefix);
 	}
 
 	@Override
-	public void sendTitle(Collection<? extends Player> players) {
-		MessageManager.sendFullTitle(players, message, prefix);
+	public void sendTitle(Collection<Player> recipients) {
+		MessageManager.sendFullTitle(recipients, message, prefix);
 	}
 
-	@Override
-	public void sendMessage(Collection<? extends CommandSender> senders, Player player) {
-		MessageManager.sendFullMessage(senders, Formatter.setPlaceholders(message, player), prefix);
-	}
-
-	@Override
-	public void sendTitle(Collection<? extends Player> players, Player player) {
-		MessageManager.sendFullTitle(players, Formatter.setPlaceholders(message, player), prefix);
-	}
 }

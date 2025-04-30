@@ -28,27 +28,17 @@ public class ReferenceMessage implements Message {
 	}
 
 	@Override
-	public void sendTitle(Player player) {
-		MessageManager.sendTitle(player, reference);
-	}
-
-	@Override
 	public void sendMessage(Collection<? extends CommandSender> recipients) {
 		MessageManager.sendMessage(recipients, reference);
 	}
 
 	@Override
-	public void sendTitle(Collection<? extends Player> players) {
-		MessageManager.sendTitle(players, reference);
+	public void sendTitle(Player recipient) {
+		MessageManager.sendTitle(recipient, reference);
 	}
 
 	@Override
-	public void sendMessage(Collection<? extends CommandSender> senders, Player player) {
-		MessageManager.sendMessage(senders, player, reference);
-	}
-
-	@Override
-	public void sendTitle(Collection<? extends Player> players, Player player) {
-		MessageManager.sendTitle(players, player, reference);
+	public void sendTitle(Collection<Player> recipients) {
+		MessageManager.sendTitle(recipients, reference);
 	}
 }

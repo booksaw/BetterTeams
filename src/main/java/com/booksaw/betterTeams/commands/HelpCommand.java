@@ -5,6 +5,8 @@ import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.message.Formatter;
 import com.booksaw.betterTeams.message.MessageManager;
 
+import static com.booksaw.betterTeams.message.Formatter.absoluteDeserialize;
+
 import net.kyori.adventure.text.Component;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -13,7 +15,6 @@ import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -83,21 +84,9 @@ public class HelpCommand extends SubCommand {
 		for (int i = COMMANDS_PER_PAGE * page; i < permissiveCommands.size()
 				&& i < COMMANDS_PER_PAGE * (page + 1); i++) {
 			SubCommand subCommand = permissiveCommands.get(i);
-			if (MessageManager.isAdventure()) {
-				MessageManager.sendFullMessage(sender, createClickableHelpMiniMessage(label,
-						subCommand.getCommand() + " " + subCommand.getArgMessage(command),
-						subCommand.getHelpMessage(command)));
-						
-			} else if (sender instanceof Player) {
-				((Player) sender).spigot()
-						.sendMessage(createClickableHelpMessage(label,
-								command.getReference(subCommand) + " " + subCommand.getArgMessage(command),
-								subCommand.getHelpMessage(command)));
-			} else {
-				MessageManager.sendFullMessage(sender, createHelpMessage(label,
-						subCommand.getCommand() + " " + subCommand.getArgMessage(command),
-						subCommand.getHelpMessage(command)));
-			}
+			MessageManager.sendFullMessage(sender, createClickableHelpMiniMessage(label,
+					subCommand.getCommand() + " " + subCommand.getArgMessage(command),
+					subCommand.getHelpMessage(command)));
 		}
 
 		MessageManager.sendMessage(sender, "help.footer", page + 1, maxPage, command.getCommand());
@@ -140,9 +129,7 @@ public class HelpCommand extends SubCommand {
 		try (BufferedReader reader = new BufferedReader(new FileReader(f))) {
 			String line;
 			while ((line = reader.readLine()) != null) {
-				MessageManager.sendFullMessage(sender, line, false);
-				// sender.sendMessage(org.bukkit.ChatColor.translateAlternateColorCodes('&',
-				// line));
+				MessageManager.sendFullMessage(sender, line);
 			}
 		} catch (Exception e) {
 			Main.plugin.getLogger().log(Level.SEVERE,
@@ -182,14 +169,14 @@ public class HelpCommand extends SubCommand {
 	}
 
 	public Component createClickableHelpMiniMessage(String label, String commandPath, String description) {
-		Component parsedComponent = Formatter.absoluteMinimessage(
+		Component parsedComponent = absoluteDeserialize(
 				MessageManager.getPrefix() + prefix + "/" + label + " " + commandPath
 						+ " <white>-</white> " + HelpCommand.description + description);
 
 		return parsedComponent
 				.clickEvent(net.kyori.adventure.text.event.ClickEvent.suggestCommand("/" + label + " " + commandPath))
 				.hoverEvent(net.kyori.adventure.text.event.HoverEvent
-						.showText(Formatter.absoluteMinimessage(prefix + "/" + label + " " + commandPath)));
+						.showText(absoluteDeserialize(prefix + "/" + label + " " + commandPath)));
 	}
 
 	@Override

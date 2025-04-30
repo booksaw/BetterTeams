@@ -2,6 +2,7 @@ package com.booksaw.betterTeams.message;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.bukkit.command.CommandSender;
@@ -14,10 +15,14 @@ import org.bukkit.entity.Player;
  */
 public class CompositeMessage implements Message {
 
-	final List<Message> messages;
+	private final List<Message> messages;
+
+	public List<Message> getMessages() {
+		return Collections.unmodifiableList(messages);
+	}
 
 	public CompositeMessage(Message... messages) {
-		this.messages = Arrays.asList(messages);
+		this(Arrays.asList(messages));
 	}
 
 	public CompositeMessage(List<Message> messages) {
@@ -25,32 +30,22 @@ public class CompositeMessage implements Message {
 	}
 
 	@Override
-	public void sendMessage(CommandSender sender) {
-		messages.forEach(message -> message.sendMessage(sender));
+	public void sendMessage(CommandSender recipient) {
+		messages.forEach(message -> message.sendMessage(recipient));
 	}
 
 	@Override
-	public void sendTitle(Player player) {
-		messages.forEach(message -> message.sendTitle(player));
+	public void sendMessage(Collection<? extends CommandSender> recipients) {
+		messages.forEach(message -> message.sendMessage(recipients));
 	}
 
 	@Override
-	public void sendMessage(Collection<? extends CommandSender> senders) {
-		messages.forEach(message -> message.sendMessage(senders));
+	public void sendTitle(Player recipient) {
+		messages.forEach(message -> message.sendTitle(recipient));
 	}
 
 	@Override
-	public void sendMessage(Collection<? extends CommandSender> senders, Player player) {
-		messages.forEach(message -> message.sendMessage(senders, player));
-	}
-
-	@Override
-	public void sendTitle(Collection<? extends Player> players) {
-		messages.forEach(message -> message.sendTitle(players));
-	}
-
-	@Override
-	public void sendTitle(Collection<? extends Player> players, Player player) {
-		messages.forEach(message -> message.sendTitle(players, player));
+	public void sendTitle(Collection<Player> recipients) {
+		messages.forEach(message -> message.sendTitle(recipients));
 	}
 }

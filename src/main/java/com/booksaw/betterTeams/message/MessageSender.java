@@ -6,14 +6,16 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import net.kyori.adventure.text.Component;
+
 interface MessageSender {
 
-    void sendFullMessage(@NotNull CommandSender recipient, @NotNull String message);
+    void sendMessage(@NotNull CommandSender recipient, @NotNull Component message);
 
-    void sendFullMessage(@NotNull Collection<? extends CommandSender> recipients, @NotNull String message);
+    void sendMessage(@NotNull Collection<? extends CommandSender> recipients, @NotNull Component message);
 
-    void sendFullTitle(@NotNull Player recipient, @NotNull String message);
+    void sendTitle(@NotNull Player recipient, @NotNull Component message);
 
-    void sendFullTitle(@NotNull Collection<? extends Player> recipients, @NotNull String message);
+    void sendTitle(@NotNull Collection<Player> recipients, @NotNull Component message);
     
 }
