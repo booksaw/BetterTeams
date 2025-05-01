@@ -11,6 +11,8 @@ import org.bukkit.metadata.MetadataValue;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import net.kyori.adventure.text.Component;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -135,4 +137,17 @@ public class Utils {
 				.filter(java.util.Objects::nonNull)
 				.collect(Collectors.toList());
 	}
+
+	public static boolean isComponentEmpty(Component component) {
+        if (component == null || component.equals(Component.empty())) {
+            return true;
+        }
+
+        String plainText = component.toString();
+        if (plainText == null || plainText.isEmpty()) {
+            return true;
+        }
+
+        return component.children().isEmpty();
+    }
 }

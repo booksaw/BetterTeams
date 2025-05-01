@@ -158,7 +158,7 @@ public class HelpCommand extends SubCommand {
 	public TextComponent createClickableHelpMessage(String label, String commandPath, String description) {
 
 		TextComponent message = new TextComponent(
-				MessageManager.getPrefix() + Formatter.legacyTranslate(prefix + "/" + label + " " + commandPath
+				Formatter.legacySerialize(MessageManager.getPrefix() + prefix + "/" + label + " " + commandPath
 						+ ChatColor.WHITE + " - " + HelpCommand.description
 						+ description));
 		message.setClickEvent(new ClickEvent(Action.SUGGEST_COMMAND, "/" + label + " " + commandPath));

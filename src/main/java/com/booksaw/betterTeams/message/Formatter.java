@@ -22,9 +22,10 @@ import net.md_5.bungee.api.ChatColor;
 
 public class Formatter {
 
-    private static final Pattern HEX_PATTERN = Pattern.compile("&#([A-Fa-f0-9]{1,8})");
-    private static final Pattern LEGACY_TAG_PATTERN = Pattern.compile("[§&]([0-9a-fk-orxA-FK-ORX])");
-    private static final Pattern LEGACY_HEX_PATTERN = Pattern.compile("§x(§[0-9a-fA-F]){6}");
+    private static final Pattern HEX_PATTERN = Pattern.compile("&#([A-Fa-f0-9]{6})");
+	private static final Pattern PURE_HEX_PATTERN = Pattern.compile("[A-Fa-f0-9]{6}");
+	private static final Pattern LEGACY_TAG_PATTERN = Pattern.compile("[§&]([0-9a-fk-orxA-FK-ORX])");
+	private static final Pattern LEGACY_HEX_PATTERN = Pattern.compile("§x(§[0-9a-fA-F]){6}");
 
     private static final MiniMessage MM = MiniMessage.miniMessage();
 	private static final MiniMessage PLAYER_MM = MiniMessage.builder()
@@ -36,13 +37,13 @@ public class Formatter {
 			.build();
 
     /**
-     * Translates RGB color codes (&#C -> &#CCCCCCCC) into MiniMessage color tags
+     * Translates RGB color codes (&#RRGGBB) into MiniMessage color tags
      *
      * @param message The message to translate.
      * @return The translated message with RGB colors applied.
      */
 	@NotNull
-    public static String translateRgbToMiniMessage(@Nullable String message) {
+    public static String rgbToAdvnt(@Nullable String message) {
         if (message == null || message.isEmpty()) {
             return "";
         }
@@ -53,7 +54,7 @@ public class Formatter {
 
         while (matcher.find()) {
             String hexColor = matcher.group(1);
-            matcher.appendReplacement(translatedMessage, "<color:#" + hexColor + ">");
+            matcher.appendReplacement(translatedMessage, "<c:#" + hexColor + ">");
         }
 
         matcher.appendTail(translatedMessage);
@@ -61,24 +62,87 @@ public class Formatter {
     }
 
 	@NotNull
-    public static String legacyTagToMiniMessage(@Nullable ChatColor color) {
+    public static String legacyTagToAdvnt(@Nullable ChatColor color) {
+		return legacyTagToAdvnt(color, false);
+	}
+
+	@NotNull
+    public static String legacyTagToAdvnt(@Nullable ChatColor color, boolean closeTag) {
         if (color == null) {
             return "";
         }
 
-		String colorName = color.getName().toLowerCase();
+		String colorName = color.getName();
 		if (colorName == "underline") {
 			colorName = "underlined";
 		}
 
-		return "<" + colorName + ">";
+		return "<" + (closeTag && colorName != "reset" ? "/" : "") + colorName + ">";
     }
 
 	@NotNull
-    public static String legacyTagToMiniMessage(@Nullable String message) {
-        if (message == null || message.isEmpty()) {
+	public static String legacyTagToAdvntNoReset(@Nullable ChatColor color) {
+		return legacyTagToAdvntNoReset(color, false);
+	}
+
+	@NotNull
+	public static String legacyTagToAdvntNoReset(@Nullable ChatColor color, boolean closeTag) {
+        if (color == null) {
             return "";
         }
+
+		String colorName = color.getName();
+		if (colorName == "underline") {
+			colorName = "underlined";
+		}
+
+		if (colorName == "reset") {
+			return "";
+		} else {
+			return "<" + (closeTag ? "/" : "") + colorName + ">";
+		}
+	}
+
+	@NotNull
+	public static String legacyTagToAdvnt(@Nullable String colorCode) {
+		return legacyTagToAdvnt(colorCode, false);
+	}
+
+	@NotNull
+	public static String legacyTagToAdvnt(@Nullable String colorCode, boolean closeTag) {
+		if (colorCode == null || colorCode.isEmpty()) {
+			return "";
+		}
+
+		// Check if the colorCode represents a hex color
+        if (colorCode.length() == 6 && PURE_HEX_PATTERN.matcher(colorCode).matches()) {
+			if (closeTag) return "</c>";
+			else return "<c:#" + colorCode + ">";
+		}
+
+		// Otherwise, treat it as a ChatColor code
+		ChatColor chatColor = ChatColor.getByChar(colorCode.charAt(0));
+		if (chatColor != null) {
+			String colorName = chatColor.getName();
+			if ("underline".equals(colorName)) {
+				colorName = "underlined";
+			}
+			return "<" + (closeTag && colorName != "reset" ? "/" : "") + colorName + ">";
+		}
+
+		return "";
+	}
+	
+	@NotNull
+	public static String legacyTagsToAdvnt(@Nullable String message) {
+		return legacyTagsToAdvnt(message, true);
+	}
+
+	@NotNull
+	public static String legacyTagsToAdvnt(@Nullable String message, boolean deleteLegacyReset) {
+		if (message == null || message.isEmpty()) {
+			return "";
+		}
 
         Matcher legacyMatcher = LEGACY_TAG_PATTERN.matcher(message);
         StringBuffer convertedMessage = new StringBuffer();
@@ -88,18 +152,23 @@ public class Formatter {
             ChatColor chatColor = ChatColor.getByChar(code); // Get the ChatColor associated with the code
 
             if (chatColor != null) {
-                String miniMessageTag = legacyTagToMiniMessage(chatColor); // Get the MiniMessage tag
+				String miniMessageTag;
+				if (deleteLegacyReset) {
+					miniMessageTag = legacyTagToAdvntNoReset(chatColor);
+				} else {
+					miniMessageTag = legacyTagToAdvnt(chatColor);
+				}
                 legacyMatcher.appendReplacement(convertedMessage, miniMessageTag);
             }
         }
 		
         legacyMatcher.appendTail(convertedMessage);
 
-        return convertedMessage.toString();
-    }
+		return convertedMessage.toString();
+	}
 
 	@NotNull
-    public static String legacyHexToMiniMessage(@Nullable String message) {
+    public static String legacyHexToAdvnt(@Nullable String message) {
         if (message == null || message.isEmpty()) {
             return "";
         }
@@ -111,7 +180,7 @@ public class Formatter {
         while (hexMatcher.find()) {
             // Extract the hex color from the matched format
             String hexColor = hexMatcher.group().replace("§x", "").replace("§", "");
-            hexMatcher.appendReplacement(convertedMessage, "<color:#" + hexColor + ">");
+            hexMatcher.appendReplacement(convertedMessage, "<c:#" + hexColor + ">");
         }
         hexMatcher.appendTail(convertedMessage);
 
@@ -128,33 +197,28 @@ public class Formatter {
      * @return The transformed message with MiniMessage-compatible tags.
      */
 	@NotNull
-    public static String legacyToMiniMessage(@Nullable String message) {
+    public static String legacyToAdvnt(@Nullable String message) {
         if (message == null || message.isEmpty()) {
             return "";
         }
 
-        message = legacyHexToMiniMessage(message);
-        message = legacyTagToMiniMessage(message);
+        message = legacyHexToAdvnt(message);
+        message = legacyTagsToAdvnt(message);
 
         return message;
     }
 
 	@NotNull
-    public static String legacyTranslate(@Nullable String message) {
+    public static String absoluteAdventure(@Nullable String message) {
         if (message == null || message.isEmpty()) {
             return "";
         }
 
-        return translateRgbToMiniMessage(ChatColor.translateAlternateColorCodes('&', message));
-    }
+		message = ChatColor.translateAlternateColorCodes('&', message);
+		message = rgbToAdvnt(message);
+		message = legacyToAdvnt(message);
 
-	@NotNull
-    public static String absoluteTranslate(@Nullable String message) {
-        if (message == null || message.isEmpty()) {
-            return "";
-        }
-
-        return legacyToMiniMessage(legacyTranslate(message));
+        return message.replace("§", "");
     }
 
     /**
@@ -164,7 +228,7 @@ public class Formatter {
      * @return The formatted Component.
      */
 	@NotNull
-    public static Component deserializeWithMiniMessage(@Nullable String message) {
+    public static Component standardDeserialize(@Nullable String message) {
         if (message == null || message.isEmpty()) {
             return Component.empty();
         }
@@ -179,7 +243,7 @@ public class Formatter {
      * @return The formatted Component.
      */
 	@NotNull
-    public static Component deserializeWithPlayerMiniMessage(@Nullable String message) {
+    public static Component playerDeserialize(@Nullable String message) {
         if (message == null || message.isEmpty()) {
             return Component.empty();
         }
@@ -193,7 +257,7 @@ public class Formatter {
             return Component.empty();
         }
 
-        return MM.deserialize(absoluteTranslate(message));
+        return MM.deserialize(absoluteAdventure(message));
     }
 
 	@NotNull
@@ -202,7 +266,7 @@ public class Formatter {
             return Component.empty();
         }
 
-		return PLAYER_MM.deserialize(absoluteTranslate(message));
+		return PLAYER_MM.deserialize(absoluteAdventure(message));
 	}
 
 	@NotNull
@@ -217,7 +281,7 @@ public class Formatter {
 	}
 
 	@NotNull
-	public static Component prefixComponents(Component prefix, @NotNull Component@NotNull... components) {
+	public static Component prefixComponents(Component prefix, Component@NotNull... components) {
 		if (prefix == null || prefix.equals(Component.empty())) {
 			return combineComponents(components);
 		}
@@ -245,10 +309,10 @@ public class Formatter {
         }
 
         if (translate) {
-            string = absoluteTranslate(string);
+            string = absoluteAdventure(string);
         }
 
-        return legacySerialize(deserializeWithMiniMessage(string));
+        return legacySerialize(standardDeserialize(string));
     }
 
     @NotNull

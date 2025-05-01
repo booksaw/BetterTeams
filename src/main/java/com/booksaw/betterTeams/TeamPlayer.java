@@ -136,7 +136,7 @@ public class TeamPlayer {
 		if (title == null || title.isEmpty()) {
 			return rank.getPrefix();
 		} else {
-			return rank.getPrefix() + title + returnTo + " ";
+			return rank.getPrefix() + title + " " + (returnTo != null ? returnTo : "");
 		}
 	}
 

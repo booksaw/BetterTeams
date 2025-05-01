@@ -4,7 +4,6 @@ import com.booksaw.betterTeams.customEvents.*;
 import com.booksaw.betterTeams.customEvents.post.*;
 import com.booksaw.betterTeams.exceptions.CancelledEventException;
 import com.booksaw.betterTeams.message.ChatMessage;
-import com.booksaw.betterTeams.message.Formatter;
 import com.booksaw.betterTeams.message.Message;
 import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
@@ -28,14 +27,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import static com.booksaw.betterTeams.message.Formatter.legacySerialize;
+import static com.booksaw.betterTeams.message.Formatter.legacyTagToAdvnt;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -344,13 +338,13 @@ public class Team {
 		pvp = storage.getBoolean(StoredTeamValue.PVP);
 		useTeamHomeAsAnchor = storage.getBoolean(StoredTeamValue.ANCHOR);
 
-		String colorStr = storage.getString(StoredTeamValue.COLOR);
+		String colorStr = Optional.ofNullable(storage.getString(StoredTeamValue.COLOR)).orElse("6");
 
-		if (colorStr == null || colorStr.isEmpty()) {
+		if (colorStr.isEmpty()) {
 			colorStr = "6";
 		}
 
-		color = ChatColor.getByChar(colorStr.charAt(0));
+		color = Optional.ofNullable(ChatColor.getByChar(colorStr.charAt(0))).orElse(ChatColor.GOLD);
 
 		members.load(storage);
 		anchoredPlayers.load(storage);
@@ -378,7 +372,7 @@ public class Team {
 			level = 1;
 		}
 
-		tag = storage.getString(StoredTeamValue.TAG);
+		tag = Optional.ofNullable(storage.getString(StoredTeamValue.TAG)).orElse("");
 	}
 
 	/**
@@ -429,7 +423,10 @@ public class Team {
 
 		storage.set(StoredTeamValue.HOME, "");
 		rank = -1;
-		color = ChatColor.getByChar(Main.plugin.getConfig().getString("defaultColor").charAt(0));
+
+		String colorStr = Main.plugin.getConfig().getString("defaultColor", "6");
+		if (colorStr.isEmpty()) colorStr = "6";
+		color = Optional.ofNullable(ChatColor.getByChar(colorStr.charAt(0))).orElse(ChatColor.GOLD);
 		storage.set(StoredTeamValue.COLOR, color.getChar());
 
 		claims.save(storage);
@@ -496,39 +493,98 @@ public class Team {
 		}
 	}
 
+	public @NotNull String getOpenColor() {
+		return legacyTagToAdvnt(color.asBungee());
+	}
+
+	public @NotNull String getCloseColor() {
+		return legacyTagToAdvnt(color.asBungee(), true);
+	}
+
+	public @NotNull String getMiniMessageDisplayName() {
+		return getMiniMessageDisplayName(false);
+	}
+
+	public @NotNull String getMiniMessageDisplayName(boolean checkConfig) {
+		boolean doColor = !checkConfig || Main.plugin.getConfig().getBoolean("colorTeamName", true);
+		return ""
+				+ (doColor ? getOpenColor() : "")
+				+ getName()
+				+ (doColor ? getCloseColor() : "");
+	}
+
+	public @NotNull String getDisplayName(ChatColor resetTo) {
+		return getDisplayName(resetTo, true);
+	}
+
 	/**
 	 * Used to get the current name of the team
 	 *
 	 * @param resetTo the color to return to at the end of the string
 	 * @return the name of the team
 	 */
-	public String getDisplayName(ChatColor resetTo) {
+	public @NotNull String getDisplayName(ChatColor resetTo, boolean asMiniMessage) {
 		if (resetTo == null) {
-			return getName();
+			return name;
+		} else if (asMiniMessage) {
+			return getMiniMessageDisplayName(true) + legacyTagToAdvnt(resetTo.asBungee());
+		} else {
+			return getDisplayName(false) + resetTo;
 		}
-		if (Main.plugin.getConfig().getBoolean("colorTeamName") && color != null) {
-			return color + name + resetTo;
-		}
-		return name;
 	}
 
-	public String getDisplayName() {
-		if (Main.plugin.getConfig().getBoolean("colorTeamName") && color != null) {
-			return color + name;
+	public @NotNull String getDisplayName() {
+		return getDisplayName(true);
+	}
+
+	public @NotNull String getDisplayName(boolean asMiniMessage) {
+		if (asMiniMessage) {
+			return getMiniMessageDisplayName(true);
+		} else {
+			return ""
+					+ (color != null && Main.plugin.getConfig().getBoolean("colorTeamName", true) ? color : "")
+					+ name;
 		}
-		return name;
+	}
+
+	public String getMiniMessageTag() {
+		return getMiniMessageTag(false);
+	}
+
+	public String getMiniMessageTag(boolean checkConfig) {
+		if (tag == null || tag.isEmpty()) return "";
+		boolean doColor = !checkConfig || Main.plugin.getConfig().getBoolean("colorTeamName", true);
+		return ""
+				+ (doColor ? getOpenColor() : "")
+				+ tag
+				+ (doColor ? getCloseColor() : "");
 	}
 
 	public String getTag() {
-		if (tag == null || tag.isEmpty()) {
-			return getDisplayName();
-		}
+		return getTag(true);
+	}
 
-		if (Main.plugin.getConfig().getBoolean("colorTeamName") && color != null) {
-			return color + tag;
-		}
+	public String getTag(boolean asMiniMessage) {
+		if (asMiniMessage) return getMiniMessageTag(true);
+		else return tag == null || tag.isEmpty() ? "" : ""
+					+ (color != null && Main.plugin.getConfig().getBoolean("colorTeamName", true) ? color : "")
+					+ tag;
+	}
 
-		return tag;
+	public String getTag(ChatColor returnTo) {
+		return getTag(returnTo, true);
+	}
+
+	public String getTag(ChatColor returnTo, boolean asMiniMessage) {
+		if (returnTo == null) {
+			return getOriginalTag();
+		} else if (tag == null || tag.isEmpty()) {
+			return getDisplayName(asMiniMessage);
+		} else return getTag(asMiniMessage) + (asMiniMessage ? legacyTagToAdvnt(returnTo.asBungee()) : returnTo);
+	}
+
+	public String getOriginalTag() {
+		return tag != null ? tag : "";
 	}
 
 	public void setTag(String tag) {
@@ -540,14 +596,14 @@ public class Team {
 		if (event.isCancelled()) {
 			throw new IllegalArgumentException("Changing tag was cancelled by another plugin");
 		}
-		tag = event.getNewTeamTag();
+		tag = Optional.ofNullable(event.getNewTeamTag()).orElse("");
 
 		this.tag = tag;
 		getStorage().set(StoredTeamValue.TAG, tag);
 
 		registerTeamName();
 
-		Bukkit.getPluginManager().callEvent(new PostTeamTagChangeEvent(this, oldTag, getTag()));
+		Bukkit.getPluginManager().callEvent(new PostTeamTagChangeEvent(this, oldTag, getTag(false)));
 	}
 
 	public void setOpen(boolean open) {
@@ -994,7 +1050,7 @@ public class Team {
 				.filter(temp -> !(temp instanceof Player && getTeamPlayer((Player) temp) != null))
 				.collect(Collectors.toList());
 
-		ChatMessage chatMsg = ChatMessage.customFormatTeamChat(this, sender, message, format, prefix);
+		ChatMessage chatMsg = ChatMessage.customSyntaxTeamChat(this, sender, prefix, message, format);
 		chatMsg.sendMessage(playerRecipients);
 		chatMsg.sendSpyMessage(spies);
 
@@ -1146,7 +1202,7 @@ public class Team {
 			return team;
 		}
 
-		String name = Formatter.legacySerialize(color + MessageManager.getMessage("nametag.syntax", getTag()));
+		String name = color +  MessageManager.getMessage("nametag.syntax", getTag(ChatColor.RESET, false));
 
 		int attempt = 0;
 		do {

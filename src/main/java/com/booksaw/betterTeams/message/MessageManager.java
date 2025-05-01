@@ -21,6 +21,7 @@ import org.jetbrains.annotations.ApiStatus.Internal;
 
 import static com.booksaw.betterTeams.message.Formatter.absoluteDeserialize;
 import static com.booksaw.betterTeams.message.Formatter.prefixComponents;
+import static com.booksaw.betterTeams.message.Formatter.setPlaceholders;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -314,7 +315,8 @@ public class MessageManager {
 
 		if (message.isEmpty()) return;
 
-		msgSender.sendMessage(recipient, absoluteDeserialize((doPrefix ? prefix : "") + message));
+		Component c = absoluteDeserialize(message);
+		msgSender.sendMessage(recipient, (doPrefix ? prefixComponents(prefixComponent, c) : c));
 	}
 
 	public static void sendMessage(CommandSender recipient, @Nullable OfflinePlayer player, String reference, Object... replacements) {
@@ -327,7 +329,8 @@ public class MessageManager {
 		String message = getMessage(player, reference, replacements);
 		if (message.isEmpty()) return;
 
-		msgSender.sendMessage(recipient, absoluteDeserialize((doPrefix ? prefix : "") + message));
+		Component c = absoluteDeserialize(message);
+		msgSender.sendMessage(recipient, (doPrefix ? prefixComponents(prefixComponent, c) : c));
 	}
 
 	public static void sendMessage(Collection<? extends CommandSender> recipients, String reference, Object... replacements) {
@@ -338,17 +341,20 @@ public class MessageManager {
 		Collection<? extends CommandSender> filteredRecipients = Utils.filterNonNull(recipients);
 		if (filteredRecipients.isEmpty()) return;
 
+		String message = getMessage(reference, replacements);
+		if (message.isEmpty()) return;
+
 		filteredRecipients.forEach(recipient -> {
-			String message;
+			String pMessage;
 			if (recipient instanceof Player) {
-				message = getMessage((Player) recipient, reference, replacements);
+				pMessage = setPlaceholders(message, (Player) recipient);
+				if (pMessage.isEmpty()) return;
 			} else {
-				message = getMessage(reference, replacements);
+				pMessage = message;
 			}
 
-			if (message.isEmpty()) return;
-
-			msgSender.sendMessage(recipient, absoluteDeserialize((doPrefix ? prefix : "") + message));
+			Component c = absoluteDeserialize(pMessage);
+			msgSender.sendMessage(recipient, (doPrefix ? prefixComponents(prefixComponent, c) : c));
 		});
 	}
 
@@ -363,7 +369,8 @@ public class MessageManager {
 		String message = getMessage(player, reference, replacements);
 		if (message.isEmpty()) return;
 
-		msgSender.sendMessage(filteredRecipients, absoluteDeserialize((doPrefix ? prefix : "") + message));
+		Component c = absoluteDeserialize(message);
+		msgSender.sendMessage(filteredRecipients, (doPrefix ? prefixComponents(prefixComponent, c) : c));
 	}
 
 	/**
@@ -390,7 +397,8 @@ public class MessageManager {
 
 		if (message == null || message.isEmpty()) return;
 
-		msgSender.sendMessage(recipient, absoluteDeserialize((doPrefix ? prefix : "") + message));
+		Component c = absoluteDeserialize(message);
+		msgSender.sendMessage(recipient, (doPrefix ? prefixComponents(prefixComponent, c) : c));
 	}
 
 	public static void sendFullMessage(Collection<? extends CommandSender> senders, String message) {
@@ -411,7 +419,8 @@ public class MessageManager {
 
 		if (message == null || message.isEmpty()) return;
 
-		msgSender.sendMessage(filteredRecipients, absoluteDeserialize((doPrefix ? prefix : "") + message));
+		Component c = absoluteDeserialize(message);
+		msgSender.sendMessage(filteredRecipients, (doPrefix ? prefixComponents(prefixComponent, c) : c));
 	}
 
 	public static void sendFullMessage(CommandSender recipient, Component message) {
@@ -463,7 +472,8 @@ public class MessageManager {
 		String message = getMessage(recipient, reference, replacements);
 		if (message.isEmpty()) return;
 
-		msgSender.sendTitle(recipient, absoluteDeserialize((doPrefix ? prefix : "") + message));
+		Component c = absoluteDeserialize(message);
+		msgSender.sendTitle(recipient, (doPrefix ? prefixComponents(prefixComponent, c) : c));
 	}
 
 	public static void sendTitle(Player recipient, @Nullable OfflinePlayer player, String reference, Object... replacement) {
@@ -485,7 +495,8 @@ public class MessageManager {
 		String message = getMessage(player, reference, replacements);
 		if (message.isEmpty()) return;
 
-		msgSender.sendTitle(recipient, absoluteDeserialize((doPrefix ? prefix : "") + message));
+		Component c = absoluteDeserialize(message);
+		msgSender.sendTitle(recipient, (doPrefix ? prefixComponents(prefixComponent, c) : c));
 	}
 
 	public static void sendTitle(Collection<Player> recipients, String reference, Object... replacements) {
@@ -496,11 +507,15 @@ public class MessageManager {
 		Collection<Player> filteredRecipients = Utils.filterNonNull(recipients);
 		if (filteredRecipients.isEmpty()) return;
 
-		filteredRecipients.forEach(recipient -> {
-			String message = getMessage(recipient, reference, replacements);
-			if (message.isEmpty()) return;
+		String message = getMessage(reference, replacements);
+		if (message.isEmpty()) return;
 
-			msgSender.sendTitle(recipient, absoluteDeserialize((doPrefix ? prefix : "") + message));
+		filteredRecipients.forEach(recipient -> {
+			String pMessage = setPlaceholders(message, recipient);
+			if (pMessage.isEmpty()) return;
+
+			Component c = absoluteDeserialize(pMessage);
+			msgSender.sendTitle(recipient, (doPrefix ? prefixComponents(prefixComponent, c) : c));
 		});
 	}
 
@@ -515,7 +530,8 @@ public class MessageManager {
 		String message = getMessage(player, reference, replacements);
 		if (message.isEmpty()) return;
 
-		msgSender.sendTitle(filteredRecipients, absoluteDeserialize((doPrefix ? prefix : "") + message));
+		Component c = absoluteDeserialize(message);
+		msgSender.sendTitle(filteredRecipients, (doPrefix ? prefixComponents(prefixComponent, c) : c));
 	}
 
 	public static void sendFullTitle(Player recipient, String message) {
@@ -527,7 +543,8 @@ public class MessageManager {
 
 		if (message == null || message.isEmpty()) return;
 
-		msgSender.sendTitle(recipient, absoluteDeserialize((doPrefix ? prefix : "") + message));
+		Component c = absoluteDeserialize(message);
+		msgSender.sendTitle(recipient, (doPrefix ? prefixComponents(prefixComponent, c) : c));
 	}
 
 	public static void sendFullTitle(Collection<Player> recipients, String message) {
@@ -540,7 +557,8 @@ public class MessageManager {
 
 		if (message == null || message.isEmpty()) return;
 
-		msgSender.sendTitle(filteredRecipients, absoluteDeserialize((doPrefix ? prefix : "") + message));
+		Component c = absoluteDeserialize(message);
+		msgSender.sendTitle(filteredRecipients, (doPrefix ? prefixComponents(prefixComponent, c) : c));
 	}
 
 	public static void sendFullTitle(Player recipient, Component message) {
@@ -553,7 +571,6 @@ public class MessageManager {
 		if (message == null || message.equals(Component.empty())) return;
 
 		msgSender.sendTitle(recipient, (doPrefix ? prefixComponents(prefixComponent, message) : message));
-		
 	}
 
 	public static void sendFullTitle(Collection<Player> recipients, Component message) {
