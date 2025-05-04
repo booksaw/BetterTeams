@@ -1343,8 +1343,7 @@ public class Team {
 	 */
 	@Deprecated
 	public void removeAlly(@Nullable Team ally) {
-		if (ally == null)
-			return;
+		if (ally == null) return;
 		becomeNeutral(ally, true);
 	}
 
@@ -1421,8 +1420,7 @@ public class Team {
 	}
 
 	public boolean isNeutral(@Nullable Team team) {
-		if (team == null)
-			return true;
+		if (team == null) return true;
 
 		return isNeutral(team.getID());
 	}

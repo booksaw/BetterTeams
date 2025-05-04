@@ -77,7 +77,7 @@ public abstract class HologramManager {
 				Main.plugin.getLogger().severe("A team was null for an unexplained reason, team name: " + teams[i]);
 				continue;
 			}
-			holo.appendText(Legacy.parseAllAdventure(MessageManager.getMessage(type.getSyntaxReference(), team.getName(),getValue(type, team))));
+			holo.appendText(Legacy.parseAllAdventure(MessageManager.getMessage(type.getSyntaxReference(), team.getName(), getValue(type, team))));
 		}
 	}
 
