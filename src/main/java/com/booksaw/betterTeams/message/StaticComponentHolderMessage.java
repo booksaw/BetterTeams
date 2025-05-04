@@ -1,6 +1,6 @@
 package com.booksaw.betterTeams.message;
 
-import static com.booksaw.betterTeams.message.Formatter.absoluteDeserialize;
+import com.booksaw.betterTeams.text.Formatter;
 
 import net.kyori.adventure.text.Component;
 
@@ -9,7 +9,7 @@ public abstract class StaticComponentHolderMessage implements ComponentHolderMes
 	protected final Component message;
 
 	protected StaticComponentHolderMessage(String message) {
-		this.message = absoluteDeserialize(message);
+		this.message = Formatter.absolute().process(message);
 	}
 
 	protected StaticComponentHolderMessage(Component message) {

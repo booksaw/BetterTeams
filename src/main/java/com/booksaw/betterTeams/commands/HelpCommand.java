@@ -2,10 +2,9 @@ package com.booksaw.betterTeams.commands;
 
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Main;
-import com.booksaw.betterTeams.message.Formatter;
 import com.booksaw.betterTeams.message.MessageManager;
-
-import static com.booksaw.betterTeams.message.Formatter.absoluteDeserialize;
+import com.booksaw.betterTeams.text.Formatter;
+import com.booksaw.betterTeams.text.Legacy;
 
 import net.kyori.adventure.text.Component;
 import net.md_5.bungee.api.ChatColor;
@@ -158,7 +157,7 @@ public class HelpCommand extends SubCommand {
 	public TextComponent createClickableHelpMessage(String label, String commandPath, String description) {
 
 		TextComponent message = new TextComponent(
-				Formatter.legacySerialize(MessageManager.getPrefix() + prefix + "/" + label + " " + commandPath
+				Legacy.parseAdventure(MessageManager.getPrefix() + prefix + "/" + label + " " + commandPath
 						+ ChatColor.WHITE + " - " + HelpCommand.description
 						+ description));
 		message.setClickEvent(new ClickEvent(Action.SUGGEST_COMMAND, "/" + label + " " + commandPath));
@@ -169,14 +168,14 @@ public class HelpCommand extends SubCommand {
 	}
 
 	public Component createClickableHelpMiniMessage(String label, String commandPath, String description) {
-		Component parsedComponent = absoluteDeserialize(
+		Component parsedComponent = Formatter.absolute().process(
 				MessageManager.getPrefix() + prefix + "/" + label + " " + commandPath
 						+ " <white>-</white> " + HelpCommand.description + description);
 
 		return parsedComponent
 				.clickEvent(net.kyori.adventure.text.event.ClickEvent.suggestCommand("/" + label + " " + commandPath))
 				.hoverEvent(net.kyori.adventure.text.event.HoverEvent
-						.showText(absoluteDeserialize(prefix + "/" + label + " " + commandPath)));
+						.showText(Formatter.absolute().process(prefix + "/" + label + " " + commandPath)));
 	}
 
 	@Override

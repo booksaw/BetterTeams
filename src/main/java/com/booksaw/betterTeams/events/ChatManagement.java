@@ -3,8 +3,9 @@ package com.booksaw.betterTeams.events;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.message.Formatter;
 import com.booksaw.betterTeams.message.MessageManager;
+import com.booksaw.betterTeams.text.Legacy;
+
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -93,7 +94,7 @@ public class ChatManagement implements Listener {
 		}
 
 		if (doPrefix != PrefixType.NONE) {
-			event.setFormat(Formatter.legacySerialize(doPrefix.getUpdatedFormat(p, event.getFormat(), team)));
+			event.setFormat(Legacy.parseAllAdventure(doPrefix.getUpdatedFormat(p, event.getFormat(), team)));
 			// event.setFormat(ChatColor.AQUA + "[" + team.getName() + "] " +
 			// ChatColor.WHITE + event.getFormat());
 		}

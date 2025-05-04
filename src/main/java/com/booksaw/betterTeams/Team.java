@@ -12,6 +12,8 @@ import com.booksaw.betterTeams.team.AnchoredPlayerUUIDSetComponent.AnchorResult;
 import com.booksaw.betterTeams.team.storage.StorageType;
 import com.booksaw.betterTeams.team.storage.team.StoredTeamValue;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
+import com.booksaw.betterTeams.text.Legacy;
+
 import lombok.Getter;
 
 import org.bukkit.*;
@@ -25,9 +27,6 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import static com.booksaw.betterTeams.message.Formatter.legacySerialize;
-import static com.booksaw.betterTeams.message.Formatter.legacyTagToAdvnt;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -494,11 +493,11 @@ public class Team {
 	}
 
 	public @NotNull String getOpenColor() {
-		return legacyTagToAdvnt(color.asBungee());
+		return Legacy.colorToAdventure(color.asBungee());
 	}
 
 	public @NotNull String getCloseColor() {
-		return legacyTagToAdvnt(color.asBungee(), true);
+		return Legacy.colorToAdventure(color.asBungee(), true);
 	}
 
 	public @NotNull String getMiniMessageDisplayName() {
@@ -527,7 +526,7 @@ public class Team {
 		if (resetTo == null) {
 			return name;
 		} else if (asMiniMessage) {
-			return getMiniMessageDisplayName(true) + legacyTagToAdvnt(resetTo.asBungee());
+			return getMiniMessageDisplayName(true) + Legacy.colorToAdventure(resetTo.asBungee());
 		} else {
 			return getDisplayName(false) + resetTo;
 		}
@@ -580,7 +579,7 @@ public class Team {
 			return getOriginalTag();
 		} else if (tag == null || tag.isEmpty()) {
 			return getDisplayName(asMiniMessage);
-		} else return getTag(asMiniMessage) + (asMiniMessage ? legacyTagToAdvnt(returnTo.asBungee()) : returnTo);
+		} else return getTag(asMiniMessage) + (asMiniMessage ? Legacy.colorToAdventure(returnTo.asBungee()) : returnTo);
 	}
 
 	public String getOriginalTag() {
@@ -1058,7 +1057,7 @@ public class Team {
 			MessageManager.sendFullMessage(Bukkit.getConsoleSender(), chatMsg.getMessage());
 		}
 
-		String fMessage = legacySerialize(chatMsg.getMessage());
+		String fMessage = Legacy.fromAdventure(chatMsg.getMessage());
 		// Notify third party plugins that a message has been dispatched
 		Bukkit.getPluginManager().callEvent(new PostTeamSendMessageEvent(this, sender, fMessage, recipients));
 

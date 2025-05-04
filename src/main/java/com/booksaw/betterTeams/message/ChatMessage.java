@@ -7,13 +7,13 @@ import org.jetbrains.annotations.Nullable;
 
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
+import com.booksaw.betterTeams.text.Formatter;
+import com.booksaw.betterTeams.util.ComponentUtil;
+import com.booksaw.betterTeams.util.StringUtil;
 
 import lombok.Getter;
 import net.kyori.adventure.text.Component;
 
-import static com.booksaw.betterTeams.message.Formatter.absoluteDeserialize;
-import static com.booksaw.betterTeams.message.Formatter.absolutePlayerDeserialize;
-import static com.booksaw.betterTeams.message.Formatter.setPlaceholders;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
@@ -59,10 +59,10 @@ public class ChatMessage extends StaticComponentHolderMessage {
 		requireNonNull(message, "Team chat message cannot be null.");
 		String syntax = requireNonNull(team.getTeamChatSyntax(teamPlayer), "Team chat syntax could not be found.");
 		
-		Component teamPreMessage = absoluteDeserialize(setPlaceholders(syntax, (prefix == null ? "" : prefix) + player.getDisplayName()));
-		Component playerMessage = absolutePlayerDeserialize(message);
-		Component spyPreMessage = absoluteDeserialize(MessageManager.getMessage(player, "spy.team", team.getName(), player.getName()));
-		return new ChatMessage(team, teamPlayer, setPlaceholders(teamPreMessage, playerMessage, "{1}"), setPlaceholders(spyPreMessage, playerMessage, "{2}"));
+		Component teamPreMessage = Formatter.absolute().process(StringUtil.setPlaceholders(syntax, (prefix == null ? "" : prefix) + player.getDisplayName()));
+		Component playerMessage = Formatter.player(player).process(message);
+		Component spyPreMessage = Formatter.absolute().process(MessageManager.getMessage(player, "spy.team", team.getName(), player.getName()));
+		return new ChatMessage(team, teamPlayer, ComponentUtil.setPlaceholders(teamPreMessage, playerMessage, "{1}"), ComponentUtil.setPlaceholders(spyPreMessage, playerMessage, "{2}"));
 	}
 
 	public static ChatMessage allyChat(@NotNull Team team, @NotNull TeamPlayer teamPlayer, @Nullable String prefix, @NotNull String message) {
@@ -76,10 +76,10 @@ public class ChatMessage extends StaticComponentHolderMessage {
 		requireNonNull(message, "Team chat message cannot be null.");
 		String syntax = requireNonNull(team.getAllyChatSyntax(teamPlayer), "Team chat syntax could not be found.");
 
-		Component allyPreMessage = absoluteDeserialize(setPlaceholders(syntax, team.getDisplayName(), (prefix == null ? "" : prefix) + player.getDisplayName()));
-		Component playerMessage = absolutePlayerDeserialize(message);
-		Component spyPreMessage = absoluteDeserialize(MessageManager.getMessage(player, "spy.ally", team.getName(), player.getName()));
-		return new ChatMessage(team, teamPlayer, setPlaceholders(allyPreMessage, playerMessage, "{2}"), setPlaceholders(spyPreMessage, playerMessage, "{2}"));
+		Component allyPreMessage = Formatter.absolute().process(StringUtil.setPlaceholders(syntax, team.getDisplayName(), (prefix == null ? "" : prefix) + player.getDisplayName()));
+		Component playerMessage = Formatter.player(player).process(message);
+		Component spyPreMessage = Formatter.absolute().process(MessageManager.getMessage(player, "spy.ally", team.getName(), player.getName()));
+		return new ChatMessage(team, teamPlayer, ComponentUtil.setPlaceholders(allyPreMessage, playerMessage, "{2}"), ComponentUtil.setPlaceholders(spyPreMessage, playerMessage, "{2}"));
 	}
 
 	public static ChatMessage customSyntaxTeamChat(@NotNull Team team, @NotNull TeamPlayer teamPlayer, @Nullable String prefix, @NotNull String message, @NotNull String syntax) {
@@ -93,10 +93,10 @@ public class ChatMessage extends StaticComponentHolderMessage {
 		requireNonNull(message, "Team chat message cannot be null.");
 		requireNonNull(syntax, "Team chat syntax cannot be null.");
 
-		Component teamPreMessage = absoluteDeserialize(setPlaceholders(syntax, (prefix == null ? "" : prefix) + player.getDisplayName()));
-		Component playerMessage = absolutePlayerDeserialize(message);
-		Component spyPreMessage = absoluteDeserialize(MessageManager.getMessage(player, "spy.team", team.getName(), player.getName()));
-		return new ChatMessage(team, teamPlayer, setPlaceholders(teamPreMessage, playerMessage, "{1}"), setPlaceholders(spyPreMessage, playerMessage, "{2}"));
+		Component teamPreMessage = Formatter.absolute().process(StringUtil.setPlaceholders(syntax, (prefix == null ? "" : prefix) + player.getDisplayName()));
+		Component playerMessage = Formatter.player(player).process(message);
+		Component spyPreMessage = Formatter.absolute().process(MessageManager.getMessage(player, "spy.team", team.getName(), player.getName()));
+		return new ChatMessage(team, teamPlayer, ComponentUtil.setPlaceholders(teamPreMessage, playerMessage, "{1}"), ComponentUtil.setPlaceholders(spyPreMessage, playerMessage, "{2}"));
 	}
 
 	@Override

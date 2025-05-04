@@ -139,6 +139,13 @@
             <artifactId>adventure-platform-bukkit</artifactId>
             <version>4.3.4</version>
         </dependency>
+        
+        <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>33.4.8-jre</version>
+        </dependency>
 
         <!-- JUnit 5 -->
         <dependency>

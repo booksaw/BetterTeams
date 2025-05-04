@@ -3,6 +3,9 @@ package com.booksaw.betterTeams.message;
 import com.booksaw.betterTeams.ConfigManager;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Utils;
+import com.booksaw.betterTeams.text.Formatter;
+import com.booksaw.betterTeams.util.ComponentUtil;
+import com.booksaw.betterTeams.util.StringUtil;
 
 import lombok.Getter;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
@@ -18,10 +21,6 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.ApiStatus.Internal;
-
-import static com.booksaw.betterTeams.message.Formatter.absoluteDeserialize;
-import static com.booksaw.betterTeams.message.Formatter.prefixComponents;
-import static com.booksaw.betterTeams.message.Formatter.setPlaceholders;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -109,7 +108,7 @@ public class MessageManager {
 	 */
 	public static void addMessages(@NotNull ConfigManager configManager) {
 		prefix = Main.plugin.getConfig().getString("prefixFormat", "");
-		prefixComponent = prefix.isEmpty() ? Component.empty() : absoluteDeserialize(prefix);
+		prefixComponent = prefix.isEmpty() ? Component.empty() : Formatter.absolute().process(prefix);
 
 		defaultMessagesConfigManager = configManager;
 
@@ -264,11 +263,11 @@ public class MessageManager {
 	 * @return the message (without prefix)
 	 */
 	public static @NotNull String getMessage(String reference, Object... replacements) {
-		return Formatter.setPlaceholders(getMessage(reference), replacements);
+		return StringUtil.setPlaceholders(getMessage(reference), replacements);
 	}
 
 	public static @NotNull String getMessage(OfflinePlayer player, String reference, Object... replacements) {
-		return Formatter.setPlaceholders(getMessage(reference, replacements), player);
+		return StringUtil.setPlaceholders(player, getMessage(reference, replacements));
 	}
 
 	/**
@@ -287,7 +286,7 @@ public class MessageManager {
 	 */
 	@Deprecated
 	public static @NotNull String format(String content, Object... replacements) {
-		return Formatter.setPlaceholders(content, replacements);
+		return StringUtil.setPlaceholders(content, replacements);
 	}
 
 	public static void sendMessage(CommandSender recipient, String reference, Object... replacements) {
@@ -315,8 +314,8 @@ public class MessageManager {
 
 		if (message.isEmpty()) return;
 
-		Component c = absoluteDeserialize(message);
-		msgSender.sendMessage(recipient, (doPrefix ? prefixComponents(prefixComponent, c) : c));
+		Component c = Formatter.absolute().process(message);
+		msgSender.sendMessage(recipient, (doPrefix ? ComponentUtil.combineComponents(prefixComponent, c) : c));
 	}
 
 	public static void sendMessage(CommandSender recipient, @Nullable OfflinePlayer player, String reference, Object... replacements) {
@@ -329,8 +328,8 @@ public class MessageManager {
 		String message = getMessage(player, reference, replacements);
 		if (message.isEmpty()) return;
 
-		Component c = absoluteDeserialize(message);
-		msgSender.sendMessage(recipient, (doPrefix ? prefixComponents(prefixComponent, c) : c));
+		Component c = Formatter.absolute().process(message);
+		msgSender.sendMessage(recipient, (doPrefix ? ComponentUtil.combineComponents(prefixComponent, c) : c));
 	}
 
 	public static void sendMessage(Collection<? extends CommandSender> recipients, String reference, Object... replacements) {
@@ -347,14 +346,14 @@ public class MessageManager {
 		filteredRecipients.forEach(recipient -> {
 			String pMessage;
 			if (recipient instanceof Player) {
-				pMessage = setPlaceholders(message, (Player) recipient);
+				pMessage = StringUtil.setPlaceholders((Player) recipient, message);
 				if (pMessage.isEmpty()) return;
 			} else {
 				pMessage = message;
 			}
 
-			Component c = absoluteDeserialize(pMessage);
-			msgSender.sendMessage(recipient, (doPrefix ? prefixComponents(prefixComponent, c) : c));
+			Component c = Formatter.absolute().process(pMessage);
+			msgSender.sendMessage(recipient, (doPrefix ? ComponentUtil.combineComponents(prefixComponent, c) : c));
 		});
 	}
 
@@ -369,8 +368,8 @@ public class MessageManager {
 		String message = getMessage(player, reference, replacements);
 		if (message.isEmpty()) return;
 
-		Component c = absoluteDeserialize(message);
-		msgSender.sendMessage(filteredRecipients, (doPrefix ? prefixComponents(prefixComponent, c) : c));
+		Component c = Formatter.absolute().process(message);
+		msgSender.sendMessage(filteredRecipients, (doPrefix ? ComponentUtil.combineComponents(prefixComponent, c) : c));
 	}
 
 	/**
@@ -397,8 +396,8 @@ public class MessageManager {
 
 		if (message == null || message.isEmpty()) return;
 
-		Component c = absoluteDeserialize(message);
-		msgSender.sendMessage(recipient, (doPrefix ? prefixComponents(prefixComponent, c) : c));
+		Component c = Formatter.absolute().process(message);
+		msgSender.sendMessage(recipient, (doPrefix ? ComponentUtil.combineComponents(prefixComponent, c) : c));
 	}
 
 	public static void sendFullMessage(Collection<? extends CommandSender> senders, String message) {
@@ -419,8 +418,8 @@ public class MessageManager {
 
 		if (message == null || message.isEmpty()) return;
 
-		Component c = absoluteDeserialize(message);
-		msgSender.sendMessage(filteredRecipients, (doPrefix ? prefixComponents(prefixComponent, c) : c));
+		Component c = Formatter.absolute().process(message);
+		msgSender.sendMessage(filteredRecipients, (doPrefix ? ComponentUtil.combineComponents(prefixComponent, c) : c));
 	}
 
 	public static void sendFullMessage(CommandSender recipient, Component message) {
@@ -438,7 +437,7 @@ public class MessageManager {
 
 		if (message == null || message.equals(Component.empty())) return;
 
-		msgSender.sendMessage(recipient, (doPrefix ? prefixComponents(prefixComponent, message) : message));
+		msgSender.sendMessage(recipient, (doPrefix ? ComponentUtil.combineComponents(prefixComponent, message) : message));
 	}
 
 	public static void sendFullMessage(Collection<? extends CommandSender> recipients, Component message) {
@@ -451,7 +450,7 @@ public class MessageManager {
 
 		if (message == null || message.equals(Component.empty())) return;
 
-		msgSender.sendMessage(filteredRecipients, (doPrefix ? prefixComponents(prefixComponent, message) : message));
+		msgSender.sendMessage(filteredRecipients, (doPrefix ? ComponentUtil.combineComponents(prefixComponent, message) : message));
 	}
 
 	public static void sendTitle(Player recipient, String reference, Object... replacements) {
@@ -472,8 +471,8 @@ public class MessageManager {
 		String message = getMessage(recipient, reference, replacements);
 		if (message.isEmpty()) return;
 
-		Component c = absoluteDeserialize(message);
-		msgSender.sendTitle(recipient, (doPrefix ? prefixComponents(prefixComponent, c) : c));
+		Component c = Formatter.absolute().process(message);
+		msgSender.sendTitle(recipient, (doPrefix ? ComponentUtil.combineComponents(prefixComponent, c) : c));
 	}
 
 	public static void sendTitle(Player recipient, @Nullable OfflinePlayer player, String reference, Object... replacement) {
@@ -495,8 +494,8 @@ public class MessageManager {
 		String message = getMessage(player, reference, replacements);
 		if (message.isEmpty()) return;
 
-		Component c = absoluteDeserialize(message);
-		msgSender.sendTitle(recipient, (doPrefix ? prefixComponents(prefixComponent, c) : c));
+		Component c = Formatter.absolute().process(message);
+		msgSender.sendTitle(recipient, (doPrefix ? ComponentUtil.combineComponents(prefixComponent, c) : c));
 	}
 
 	public static void sendTitle(Collection<Player> recipients, String reference, Object... replacements) {
@@ -511,11 +510,11 @@ public class MessageManager {
 		if (message.isEmpty()) return;
 
 		filteredRecipients.forEach(recipient -> {
-			String pMessage = setPlaceholders(message, recipient);
+			String pMessage = StringUtil.setPlaceholders(message, recipient);
 			if (pMessage.isEmpty()) return;
 
-			Component c = absoluteDeserialize(pMessage);
-			msgSender.sendTitle(recipient, (doPrefix ? prefixComponents(prefixComponent, c) : c));
+			Component c = Formatter.absolute().process(pMessage);
+			msgSender.sendTitle(recipient, (doPrefix ? ComponentUtil.combineComponents(prefixComponent, c) : c));
 		});
 	}
 
@@ -530,8 +529,8 @@ public class MessageManager {
 		String message = getMessage(player, reference, replacements);
 		if (message.isEmpty()) return;
 
-		Component c = absoluteDeserialize(message);
-		msgSender.sendTitle(filteredRecipients, (doPrefix ? prefixComponents(prefixComponent, c) : c));
+		Component c = Formatter.absolute().process(message);
+		msgSender.sendTitle(filteredRecipients, (doPrefix ? ComponentUtil.combineComponents(prefixComponent, c) : c));
 	}
 
 	public static void sendFullTitle(Player recipient, String message) {
@@ -543,8 +542,8 @@ public class MessageManager {
 
 		if (message == null || message.isEmpty()) return;
 
-		Component c = absoluteDeserialize(message);
-		msgSender.sendTitle(recipient, (doPrefix ? prefixComponents(prefixComponent, c) : c));
+		Component c = Formatter.absolute().process(message);
+		msgSender.sendTitle(recipient, (doPrefix ? ComponentUtil.combineComponents(prefixComponent, c) : c));
 	}
 
 	public static void sendFullTitle(Collection<Player> recipients, String message) {
@@ -557,8 +556,8 @@ public class MessageManager {
 
 		if (message == null || message.isEmpty()) return;
 
-		Component c = absoluteDeserialize(message);
-		msgSender.sendTitle(filteredRecipients, (doPrefix ? prefixComponents(prefixComponent, c) : c));
+		Component c = Formatter.absolute().process(message);
+		msgSender.sendTitle(filteredRecipients, (doPrefix ? ComponentUtil.combineComponents(prefixComponent, c) : c));
 	}
 
 	public static void sendFullTitle(Player recipient, Component message) {
@@ -570,7 +569,7 @@ public class MessageManager {
 
 		if (message == null || message.equals(Component.empty())) return;
 
-		msgSender.sendTitle(recipient, (doPrefix ? prefixComponents(prefixComponent, message) : message));
+		msgSender.sendTitle(recipient, (doPrefix ? ComponentUtil.combineComponents(prefixComponent, message) : message));
 	}
 
 	public static void sendFullTitle(Collection<Player> recipients, Component message) {
@@ -583,6 +582,6 @@ public class MessageManager {
 
 		if (message == null || message.equals(Component.empty())) return;
 
-		msgSender.sendTitle(filteredRecipients, (doPrefix ? prefixComponents(prefixComponent, message) : message));
+		msgSender.sendTitle(filteredRecipients, (doPrefix ? ComponentUtil.combineComponents(prefixComponent, message) : message));
 	}
 }

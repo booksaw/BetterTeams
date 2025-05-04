@@ -6,9 +6,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import net.kyori.adventure.text.Component;
+import com.booksaw.betterTeams.text.Legacy;
 
-import static com.booksaw.betterTeams.message.Formatter.legacySerialize;
+import net.kyori.adventure.text.Component;
 
 final class LegacyMessageSender implements MessageSender {
 
@@ -24,22 +24,22 @@ final class LegacyMessageSender implements MessageSender {
 
     @Override
     public void sendMessage(@NotNull CommandSender recipient, @NotNull Component message) {
-        recipient.sendMessage(legacySerialize(message));
+        recipient.sendMessage(Legacy.fromAdventure(message));
     }
 
 	@Override
 	public void sendMessage(@NotNull Collection<? extends CommandSender> recipients, @NotNull Component message) {
-		String s = legacySerialize(message);
+		String s = Legacy.fromAdventure(message);
 		recipients.forEach(recipient -> recipient.sendMessage(s));
 	}
 
     @Override
     public void sendTitle(@NotNull Player recipient, @NotNull Component message) {
-        recipient.sendTitle(legacySerialize(message), "", fadeIn, stay, fadeOut);
+        recipient.sendTitle(Legacy.fromAdventure(message), "", fadeIn, stay, fadeOut);
     }
 	@Override
 	public void sendTitle(@NotNull Collection<Player> recipients, @NotNull Component message) {
-		String s = legacySerialize(message);
+		String s = Legacy.fromAdventure(message);
 		recipients.forEach(recipient -> recipient.sendTitle(s, "", 10, 70, 20));
 	}
 
