@@ -42,47 +42,48 @@ public abstract class Formatter {
 
 	private static final class PermissiveFormatter extends Formatter {
 
-		private static final String ALL_PERMISSION = "betterteams.chat.*";
-		private static final String MOJANG_COLOR_PERMISSION = "betterteams.chat.legacy.color";
-		private static final String BUNGEE_HEX_PERMISSION = "betterteams.chat.legacy.bungeehex";
-		private static final String STANDARD_HEX_PERMISSION = "betterteams.chat.legacy.hex";
+		private static final String ALL_PERMISSION = "betterteams.chat.format.*";
+		private static final String MOJANG_COLOR_PERMISSION = "betterteams.chat.format.legacycolor";
+		private static final String BUNGEE_HEX_PERMISSION = "betterteams.chat.format.bungeehex";
+		private static final String STANDARD_HEX_PERMISSION = "betterteams.chat.format.standardhex";
 
 		private static final Map<String, TagResolver> PERMISSIVE_TAG_RESOLVERS = new ImmutableMap.Builder<String, TagResolver>()
-				.put("betterteams.chat.color.*", StandardTags.color())
-				.put("betterteams.chat.color.black", TextColorTagResolver.of(NamedTextColor.BLACK))
-				.put("betterteams.chat.color.dark_blue", TextColorTagResolver.of(NamedTextColor.DARK_BLUE))
-				.put("betterteams.chat.color.dark_green", TextColorTagResolver.of(NamedTextColor.DARK_GREEN))
-				.put("betterteams.chat.color.dark_aqua", TextColorTagResolver.of(NamedTextColor.DARK_AQUA))
-				.put("betterteams.chat.color.dark_red", TextColorTagResolver.of(NamedTextColor.DARK_RED))
-				.put("betterteams.chat.color.dark_purple", TextColorTagResolver.of(NamedTextColor.DARK_PURPLE))
-				.put("betterteams.chat.color.gold", TextColorTagResolver.of(NamedTextColor.GOLD))
-				.put("betterteams.chat.color.gray", TextColorTagResolver.of(NamedTextColor.GRAY))
-				.put("betterteams.chat.color.dark_gray", TextColorTagResolver.of(NamedTextColor.DARK_GRAY))
-				.put("betterteams.chat.color.blue", TextColorTagResolver.of(NamedTextColor.BLUE))
-				.put("betterteams.chat.color.green", TextColorTagResolver.of(NamedTextColor.GREEN))
-				.put("betterteams.chat.color.aqua", TextColorTagResolver.of(NamedTextColor.AQUA))
-				.put("betterteams.chat.color.red", TextColorTagResolver.of(NamedTextColor.RED))
-				.put("betterteams.chat.color.light_purple", TextColorTagResolver.of(NamedTextColor.LIGHT_PURPLE))
-				.put("betterteams.chat.color.yellow", TextColorTagResolver.of(NamedTextColor.YELLOW))
-				.put("betterteams.chat.color.white", TextColorTagResolver.of(NamedTextColor.WHITE))
-				.put("betterteams.chat.style.*", StandardTags.decorations())
-				.put("betterteams.chat.style.bold", StandardTags.decorations(TextDecoration.BOLD))
-				.put("betterteams.chat.style.italic", StandardTags.decorations(TextDecoration.ITALIC))
-				.put("betterteams.chat.style.underlined", StandardTags.decorations(TextDecoration.UNDERLINED))
-				.put("betterteams.chat.style.strikethrough", StandardTags.decorations(TextDecoration.STRIKETHROUGH))
-				.put("betterteams.chat.style.obfuscated", StandardTags.decorations(TextDecoration.OBFUSCATED))
-				.put("betterteams.chat.reset", StandardTags.reset())
-				.put("betterteams.chat.gradient", StandardTags.gradient())
-				.put("betterteams.chat.hover", StandardTags.hoverEvent())
-				.put("betterteams.chat.click", StandardTags.clickEvent())
-				.put("betterteams.chat.insertion", StandardTags.insertion())
-				.put("betterteams.chat.font", StandardTags.font())
-				.put("betterteams.chat.transition", StandardTags.transition())
-				.put("betterteams.chat.translatable", StandardTags.translatable())
-				.put("betterteams.chat.selector", StandardTags.selector())
-				.put("betterteams.chat.keybind", StandardTags.keybind())
-				.put("betterteams.chat.newline", StandardTags.newline())
-				.put("betterteams.chat.rainbow", StandardTags.rainbow())
+				.put("betterteams.chat.format.color.*", StandardTags.color())
+				.put("betterteams.chat.format.color.black", TextColorTagResolver.of(NamedTextColor.BLACK))
+				.put("betterteams.chat.format.color.dark_blue", TextColorTagResolver.of(NamedTextColor.DARK_BLUE))
+				.put("betterteams.chat.format.color.dark_green", TextColorTagResolver.of(NamedTextColor.DARK_GREEN))
+				.put("betterteams.chat.format.color.dark_aqua", TextColorTagResolver.of(NamedTextColor.DARK_AQUA))
+				.put("betterteams.chat.format.color.dark_red", TextColorTagResolver.of(NamedTextColor.DARK_RED))
+				.put("betterteams.chat.format.color.dark_purple", TextColorTagResolver.of(NamedTextColor.DARK_PURPLE))
+				.put("betterteams.chat.format.color.gold", TextColorTagResolver.of(NamedTextColor.GOLD))
+				.put("betterteams.chat.format.color.gray", TextColorTagResolver.of(NamedTextColor.GRAY))
+				.put("betterteams.chat.format.color.dark_gray", TextColorTagResolver.of(NamedTextColor.DARK_GRAY))
+				.put("betterteams.chat.format.color.blue", TextColorTagResolver.of(NamedTextColor.BLUE))
+				.put("betterteams.chat.format.color.green", TextColorTagResolver.of(NamedTextColor.GREEN))
+				.put("betterteams.chat.format.color.aqua", TextColorTagResolver.of(NamedTextColor.AQUA))
+				.put("betterteams.chat.format.color.red", TextColorTagResolver.of(NamedTextColor.RED))
+				.put("betterteams.chat.format.color.light_purple", TextColorTagResolver.of(NamedTextColor.LIGHT_PURPLE))
+				.put("betterteams.chat.format.color.yellow", TextColorTagResolver.of(NamedTextColor.YELLOW))
+				.put("betterteams.chat.format.color.white", TextColorTagResolver.of(NamedTextColor.WHITE))
+				.put("betterteams.chat.format.style.*", StandardTags.decorations())
+				.put("betterteams.chat.format.style.bold", StandardTags.decorations(TextDecoration.BOLD))
+				.put("betterteams.chat.format.style.italic", StandardTags.decorations(TextDecoration.ITALIC))
+				.put("betterteams.chat.format.style.underlined", StandardTags.decorations(TextDecoration.UNDERLINED))
+				.put("betterteams.chat.format.style.strikethrough", StandardTags.decorations(TextDecoration.STRIKETHROUGH))
+				.put("betterteams.chat.format.style.obfuscated", StandardTags.decorations(TextDecoration.OBFUSCATED))
+				.put("betterteams.chat.format.reset", StandardTags.reset())
+				.put("betterteams.chat.format.legacyreset", LegacyResetTagResolver.INSTANCE)
+				.put("betterteams.chat.format.gradient", StandardTags.gradient())
+				.put("betterteams.chat.format.hover", StandardTags.hoverEvent())
+				.put("betterteams.chat.format.click", StandardTags.clickEvent())
+				.put("betterteams.chat.format.insertion", StandardTags.insertion())
+				.put("betterteams.chat.format.font", StandardTags.font())
+				.put("betterteams.chat.format.transition", StandardTags.transition())
+				.put("betterteams.chat.format.translatable", StandardTags.translatable())
+				.put("betterteams.chat.format.selector", StandardTags.selector())
+				.put("betterteams.chat.format.keybind", StandardTags.keybind())
+				.put("betterteams.chat.format.newline", StandardTags.newline())
+				.put("betterteams.chat.format.rainbow", StandardTags.rainbow())
 				.build();
 
 		private static final MiniMessage EMPTY_MINIMESSAGE = MiniMessage.builder()
@@ -120,10 +121,7 @@ public abstract class Formatter {
 		@Override
 		public Component process(String input) {
 			if (input == null || input.isEmpty()) return Component.empty();
-			String output = Legacy.sectionToAmpersand(input);
-			if (convertBungeeHex) output = Legacy.bungeeHexToAdventure(output); // Must go first
-			if (convertStandardHex) output = Legacy.standardHexToAdventure(output);
-			if (convertMojangColor) output = Legacy.colorToAdventure(output);
+			String output = Legacy.toAdventure(input, true, convertBungeeHex, convertStandardHex, convertMojangColor);
 			return EMPTY_MINIMESSAGE.deserialize(output, tagResolver);
 		}
 	}
@@ -131,7 +129,7 @@ public abstract class Formatter {
 	private static final class AbsoluteFormatter extends Formatter {
 
 		private static final MiniMessage ABSOLUTE_MINIMESSAGE = MiniMessage.builder()
-				.tags(TagResolver.standard())
+				.tags(TagResolver.resolver(TagResolver.standard(), LegacyResetTagResolver.INSTANCE))
 				.preProcessor(new LegacyTextPreProcessor())
 				.postProcessor(new LegacyTextPostProcessor())
 				.build();
@@ -152,7 +150,8 @@ public abstract class Formatter {
 						StandardTags.decorations(),
 						StandardTags.gradient(),
 						StandardTags.rainbow(),
-						StandardTags.reset()))
+						StandardTags.reset(),
+						LegacyResetTagResolver.INSTANCE))
 				.preProcessor(new LegacyTextPreProcessor())
 				.postProcessor(new LegacyTextPostProcessor())
 				.build();

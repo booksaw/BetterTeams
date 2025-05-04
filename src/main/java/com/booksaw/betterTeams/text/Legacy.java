@@ -11,7 +11,7 @@ public final class Legacy {
 
 	private Legacy() {}
 
-    private static final Pattern COLOR_PATTERN = Pattern.compile("(?i)&([0-9A-FK-OR])");
+    private static final Pattern MOJANG_COLOR_PATTERN = Pattern.compile("(?i)&([0-9A-FK-OR])");
     private static final Pattern STANDARD_HEX_PATTERN = Pattern.compile("(?i)&#([0-9A-F]{6})");
     private static final Pattern BUNGEE_HEX_PATTERN = Pattern.compile("(?i)&x(&[0-9A-F]){6}");
 	
@@ -71,11 +71,15 @@ public final class Legacy {
 			colorName = "underlined";
 		}
 
-		return "<" + (close && colorName != "reset" ? "/" : "") + colorName + ">";
+		if (colorName == "reset") {
+			return "<lr>";
+		} else {
+			return "<" + (close ? "/" : "") + colorName + ">";
+		}
     }
 
     public static String colorToAdventure(String input) {
-		Matcher matcher = COLOR_PATTERN.matcher(input);
+		Matcher matcher = MOJANG_COLOR_PATTERN.matcher(input);
         StringBuffer buffer = new StringBuffer();
 
         while (matcher.find()) {
@@ -89,9 +93,10 @@ public final class Legacy {
 		return buffer.toString();
     }
 
-	public static String toAdventure(String input, boolean bungeeHex, boolean standardHex, boolean chatColor) {
+	public static String toAdventure(String input, boolean clearSection, boolean bungeeHex, boolean standardHex, boolean chatColor) {
 		if (input == null || input.isEmpty()) return "";
 		String output = input;
+		if (clearSection) output = sectionToAmpersand(output);
 		if (bungeeHex) output = bungeeHexToAdventure(output);
 		if (standardHex) output = standardHexToAdventure(output);
 		if (chatColor) output = colorToAdventure(output);

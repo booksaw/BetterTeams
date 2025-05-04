@@ -7,7 +7,7 @@ final class LegacyTextPreProcessor implements UnaryOperator<String> {
 	LegacyTextPreProcessor() {}
 
 	@Override
-	public String apply(String s) {
-		return Legacy.bungeeHexToStandardHex(Legacy.sectionToAmpersand(s));
+	public String apply(String input) {
+		return Legacy.toAdventure(input, true, true, true, true);
 	}
 }
