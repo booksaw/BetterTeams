@@ -4,7 +4,7 @@ import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.text.Formatter;
-import com.booksaw.betterTeams.text.Legacy;
+import com.booksaw.betterTeams.text.LegacyTextUtils;
 
 import net.kyori.adventure.text.Component;
 import net.md_5.bungee.api.ChatColor;
@@ -157,7 +157,7 @@ public class HelpCommand extends SubCommand {
 	public TextComponent createClickableHelpMessage(String label, String commandPath, String description) {
 
 		TextComponent message = new TextComponent(
-				Legacy.parseAdventure(MessageManager.getPrefix() + prefix + "/" + label + " " + commandPath
+				LegacyTextUtils.parseAdventure(MessageManager.getPrefix() + prefix + "/" + label + " " + commandPath
 						+ ChatColor.WHITE + " - " + HelpCommand.description
 						+ description));
 		message.setClickEvent(new ClickEvent(Action.SUGGEST_COMMAND, "/" + label + " " + commandPath));

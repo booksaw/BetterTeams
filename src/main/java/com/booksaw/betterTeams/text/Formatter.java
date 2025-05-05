@@ -26,7 +26,7 @@ public abstract class Formatter {
 
 	private static final TagResolver ALL_TAG_RESOLVERS = TagResolver.resolver(
 			TagResolver.standard(),
-			LegacyTags.RESET);
+			LegacyTextTags.RESET);
 
 	private static final Formatter ABSOLUTE = new Formatter() {
 
@@ -55,7 +55,7 @@ public abstract class Formatter {
 						StandardTags.gradient(),
 						StandardTags.rainbow(),
 						StandardTags.reset(),
-						LegacyTags.RESET))
+						LegacyTextTags.RESET))
 				.preProcessor(new LegacyTextPreProcessor())
 				.postProcessor(new LegacyTextPostProcessor())
 				.build();
@@ -108,7 +108,7 @@ public abstract class Formatter {
 				.put("betterteams.chat.format.style.strikethrough", StandardTags.decorations(TextDecoration.STRIKETHROUGH))
 				.put("betterteams.chat.format.style.obfuscated", StandardTags.decorations(TextDecoration.OBFUSCATED))
 				.put("betterteams.chat.format.reset", StandardTags.reset())
-				.put("betterteams.chat.format.legacyreset", LegacyTags.RESET)
+				.put("betterteams.chat.format.legacyreset", LegacyTextTags.RESET)
 				.put("betterteams.chat.format.gradient", StandardTags.gradient())
 				.put("betterteams.chat.format.hover", StandardTags.hoverEvent())
 				.put("betterteams.chat.format.click", StandardTags.clickEvent())
@@ -161,7 +161,7 @@ public abstract class Formatter {
 		@Override
 		public Component process(String input) {
 			if (input == null || input.isEmpty()) return Component.empty();
-			String output = Legacy.toAdventure(input, true, convertBungeeHex, convertStandardHex, convertMojangColor);
+			String output = LegacyTextUtils.toAdventure(input, true, convertBungeeHex, convertStandardHex, convertMojangColor);
 			return EMPTY_MINIMESSAGE.deserialize(output, tagResolver);
 		}
 	}

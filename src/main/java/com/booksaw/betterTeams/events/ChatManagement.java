@@ -4,7 +4,7 @@ import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.message.MessageManager;
-import com.booksaw.betterTeams.text.Legacy;
+import com.booksaw.betterTeams.text.LegacyTextUtils;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -92,7 +92,7 @@ public class ChatManagement implements Listener {
 		}
 
 		if (doPrefix != PrefixType.NONE) {
-			event.setFormat(Legacy.parseAllAdventure(doPrefix.getUpdatedFormat(p, event.getFormat(), team)));
+			event.setFormat(LegacyTextUtils.parseAllAdventure(doPrefix.getUpdatedFormat(p, event.getFormat(), team)));
 			// event.setFormat(ChatColor.AQUA + "[" + team.getName() + "] " + ChatColor.WHITE + event.getFormat());
 		}
 

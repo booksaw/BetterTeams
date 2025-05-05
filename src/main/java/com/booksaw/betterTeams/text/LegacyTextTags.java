@@ -11,7 +11,7 @@ import net.kyori.adventure.text.minimessage.tag.Tag;
 import net.kyori.adventure.text.minimessage.tag.resolver.ArgumentQueue;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 
-final class LegacyTags {
+final class LegacyTextTags {
 
 	static final TagResolver RESET = new TagResolver() {
 

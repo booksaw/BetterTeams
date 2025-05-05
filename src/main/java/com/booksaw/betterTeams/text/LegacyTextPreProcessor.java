@@ -8,6 +8,6 @@ final class LegacyTextPreProcessor implements UnaryOperator<String> {
 
 	@Override
 	public String apply(String input) {
-		return Legacy.toAdventure(input);
+		return LegacyTextUtils.toAdventure(input);
 	}
 }

@@ -12,7 +12,7 @@ import com.booksaw.betterTeams.team.AnchoredPlayerUUIDSetComponent.AnchorResult;
 import com.booksaw.betterTeams.team.storage.StorageType;
 import com.booksaw.betterTeams.team.storage.team.StoredTeamValue;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
-import com.booksaw.betterTeams.text.Legacy;
+import com.booksaw.betterTeams.text.LegacyTextUtils;
 
 import lombok.Getter;
 
@@ -493,11 +493,11 @@ public class Team {
 	}
 
 	public @NotNull String getOpenColor() {
-		return Legacy.colorToAdventure(color.asBungee());
+		return LegacyTextUtils.colorToAdventure(color.asBungee());
 	}
 
 	public @NotNull String getCloseColor() {
-		return Legacy.colorToAdventure(color.asBungee(), true);
+		return LegacyTextUtils.colorToAdventure(color.asBungee(), true);
 	}
 
 	public @NotNull String getMiniMessageDisplayName() {
@@ -526,7 +526,7 @@ public class Team {
 		if (resetTo == null) {
 			return name;
 		} else if (asAdventure) {
-			return getMiniMessageDisplayName(true) + Legacy.colorToAdventure(resetTo.asBungee());
+			return getMiniMessageDisplayName(true) + LegacyTextUtils.colorToAdventure(resetTo.asBungee());
 		} else {
 			return getDisplayName(false) + resetTo;
 		}
@@ -579,7 +579,7 @@ public class Team {
 			return getOriginalTag();
 		} else if (tag == null || tag.isEmpty()) {
 			return getDisplayName(asAdventure);
-		} else return getTag(asAdventure) + (asAdventure ? Legacy.colorToAdventure(returnTo.asBungee()) : returnTo);
+		} else return getTag(asAdventure) + (asAdventure ? LegacyTextUtils.colorToAdventure(returnTo.asBungee()) : returnTo);
 	}
 
 	public String getOriginalTag() {
@@ -1057,7 +1057,7 @@ public class Team {
 			MessageManager.sendFullMessage(Bukkit.getConsoleSender(), chatMsg.getMessage());
 		}
 
-		String fMessage = Legacy.fromAdventure(chatMsg.getMessage());
+		String fMessage = LegacyTextUtils.fromAdventure(chatMsg.getMessage());
 		// Notify third party plugins that a message has been dispatched
 		Bukkit.getPluginManager().callEvent(new PostTeamSendMessageEvent(this, sender, fMessage, recipients));
 
@@ -1201,7 +1201,7 @@ public class Team {
 			return team;
 		}
 
-		String name = color +  Legacy.parseAllAdventure(MessageManager.getMessage("nametag.syntax", getTag(ChatColor.RESET, false)));
+		String name = color +  LegacyTextUtils.parseAllAdventure(MessageManager.getMessage("nametag.syntax", getTag(ChatColor.RESET, false)));
 
 		int attempt = 0;
 		do {
