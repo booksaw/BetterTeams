@@ -3,7 +3,7 @@ package com.booksaw.betterTeams.util;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
-import com.booksaw.betterTeams.customEvents.*;
+import com.booksaw.betterTeams.customEvents.post.*;
 import com.booksaw.betterTeams.message.MessageManager;
 import dev.ceymikey.injection.DiscordPayload;
 import dev.ceymikey.injection.EmbedBuilder;
@@ -26,7 +26,7 @@ public class WebhookHandler implements Listener {
 	private final Boolean teamChatEvent = Main.plugin.getConfig().getBoolean("team-chat");
 
 	@EventHandler
-	public void onTeamCreate(CreateTeamEvent e) {
+	public void onTeamCreate(PostCreateTeamEvent e) {
 		if (createHook) {
 			Team team = e.getTeam();
 			String playerOrUnknown = e.getPlayer() != null ? e.getPlayer().getName() : MessageManager.getMessage("webhook.unknownPlayer");
@@ -37,7 +37,7 @@ public class WebhookHandler implements Listener {
 	}
 
 	@EventHandler
-	public void onTeamDisband(DisbandTeamEvent e) {
+	public void onTeamDisband(PostDisbandTeamEvent e) {
 		if (disbandHook) {
 			Team team = e.getTeam();
 			String playerOrUnknown = e.getPlayer() != null ? e.getPlayer().getName() : MessageManager.getMessage("webhook.unknownPlayer");
@@ -48,7 +48,7 @@ public class WebhookHandler implements Listener {
 	}
 
 	@EventHandler
-	public void onTeamPlayerLeft(PlayerLeaveTeamEvent e) {
+	public void onTeamPlayerLeft(PostPlayerLeaveTeamEvent e) {
 		if (pLeaveHook) {
 			Team team = e.getTeam();
 			TeamPlayer teamPlayer = e.getTeamPlayer();
@@ -59,7 +59,7 @@ public class WebhookHandler implements Listener {
 	}
 
 	@EventHandler
-	public void onTeamRename(TeamNameChangeEvent e) {
+	public void onTeamRename(PostTeamNameChangeEvent e) {
 		if (teamNameHook) {
 			Team team = e.getTeam();
 			String newTeamName = e.getNewTeamName();
@@ -71,10 +71,10 @@ public class WebhookHandler implements Listener {
 	}
 
 	@EventHandler
-	public void onTeamChat(TeamSendMessageEvent e) {
+	public void onTeamChat(PostTeamSendMessageEvent e) {
 		if (teamChatEvent) {
 			String eSender = e.getPlayer().getName();
-			String message = e.getRawMessage();
+			String message = e.getFormattedMessage();
 			String teamName = e.getTeam().getName();
 			sendWebhookMessage(
 					MessageManager.getMessage("webhook.chat.title", eSender, teamName),
