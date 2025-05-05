@@ -138,10 +138,12 @@ public class InfoCommand extends SubCommand {
 		@SuppressWarnings("deprecation")
 		OfflinePlayer player = Utils.getOfflinePlayer(args[0]);
 
-		team = Team.getTeam(player);
-		if (team != null) {
-			displayTeamInfo(sender, team);
-			return null;
+		if (player != null) {
+			team = Team.getTeam(player);
+			if (team != null) {
+				displayTeamInfo(sender, team);
+				return null;
+			}
 		}
 		return new CommandResponse("info.needTeam");
 
