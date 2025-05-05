@@ -10,6 +10,6 @@ final class LegacyTextPostProcessor implements UnaryOperator<Component> {
 
 	@Override
 	public Component apply(Component c) {
-		return c;
+		return c.compact();
 	}
 }

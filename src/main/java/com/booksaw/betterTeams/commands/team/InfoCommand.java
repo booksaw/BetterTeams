@@ -6,6 +6,7 @@ import com.booksaw.betterTeams.commands.SubCommand;
 import com.booksaw.betterTeams.message.HelpMessage;
 import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.team.SetTeamComponent;
+
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
@@ -83,23 +84,17 @@ public class InfoCommand extends SubCommand {
 		List<TeamPlayer> users = team.getRank(rank);
 
 		if (!users.isEmpty()) {
-			StringBuilder userStr = new StringBuilder();
-			ChatColor returnTo = ChatColor.RESET;
-			String toTest = MessageManager.getMessage("info." + rank.toString().toLowerCase());
-			if (toTest.length() > 1) {
-				for (int i = toTest.length() - 1; i >= 0; i--) {
-					if (toTest.charAt(i) == '§') {
-						returnTo = ChatColor.getByChar(toTest.charAt(i + 1));
-						break;
-					}
-				}
-			}
+			String space = MessageManager.getMessage("info.playerListSpace");
+			List<String> playerList = new ArrayList<>();
 			for (TeamPlayer player : users) {
-				userStr.append(MessageManager.getMessage("info." + ((player.getPlayer().isOnline() && player.getOnlinePlayer().map(p -> !Utils.isVanished(p)).orElse(false)) ? "online" : "offline"))).append(player.getPrefix(returnTo))
-						.append(player.getPlayer().getName()).append(" ");
+				OfflinePlayer offplayer = player.getPlayer();
+				playerList.add(MessageManager.getMessage(offplayer, "info." + ((offplayer.isOnline()
+						&& player.getOnlinePlayer().map(
+								p -> !Utils.isVanished(p)).orElse(false)) ? "onlinePlayer" : "offlinePlayer"),
+						player.getPrefix(null) + offplayer.getName()));
 			}
 
-			return MessageManager.getMessage("info." + rank.toString().toLowerCase(), userStr);
+			return MessageManager.getMessage("info." + rank.toString().toLowerCase(), String.join(space, playerList));
 		}
 
 		return null;
@@ -153,7 +148,7 @@ public class InfoCommand extends SubCommand {
 			if (str == null || str.isEmpty()) {
 				continue;
 			}
-			MessageManager.sendFullMessage(sender, str);
+			MessageManager.sendFullMessage(sender, str, true);
 		}
 	}
 

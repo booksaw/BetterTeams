@@ -93,10 +93,14 @@ public final class Legacy {
 		return buffer.toString();
     }
 
-	public static String toAdventure(String input, boolean clearSection, boolean bungeeHex, boolean standardHex, boolean chatColor) {
+	public static String toAdventure(String input) {
+		return toAdventure(input, true, true, true, true);
+	}
+
+	public static String toAdventure(String input, boolean sectionToAmpersand, boolean bungeeHex, boolean standardHex, boolean chatColor) {
 		if (input == null || input.isEmpty()) return "";
 		String output = input;
-		if (clearSection) output = sectionToAmpersand(output);
+		if (sectionToAmpersand) output = sectionToAmpersand(output);
 		if (bungeeHex) output = bungeeHexToAdventure(output);
 		if (standardHex) output = standardHexToAdventure(output);
 		if (chatColor) output = colorToAdventure(output);

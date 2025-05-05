@@ -281,7 +281,7 @@ public class MessageManager {
 	 *             that clarifies its behavior of replacing indexed placeholders like {0}, {1}, etc.
 	 *
 	 * @param content     the string containing indexed placeholders
-	 * @param replacement the values to substitute into the placeholders
+	 * @param replacements the values to substitute into the placeholders
 	 * @return the formatted string with placeholders replaced
 	 */
 	@Deprecated
@@ -387,9 +387,9 @@ public class MessageManager {
 	 * Used when you are sending a user a message instead of a message loaded from a
 	 * file
 	 *
-	 * @param sender        the player who sent the command
-	 * @param message       The message to send to that user
-	 * @param prefixMessage The prefix for that message
+	 * @param recipient The player who sent the command
+	 * @param message   The message to send to that user
+	 * @param doPrefix  If a prefix should be applied
 	 */
 	public static void sendFullMessage(CommandSender recipient, String message, boolean doPrefix) {
 		if (recipient == null) return;
@@ -510,7 +510,7 @@ public class MessageManager {
 		if (message.isEmpty()) return;
 
 		filteredRecipients.forEach(recipient -> {
-			String pMessage = StringUtil.setPlaceholders(message, recipient);
+			String pMessage = StringUtil.setPlaceholders(recipient, message);
 			if (pMessage.isEmpty()) return;
 
 			Component c = Formatter.absolute().process(pMessage);
