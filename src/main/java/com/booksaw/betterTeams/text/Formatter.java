@@ -22,6 +22,10 @@ import net.kyori.adventure.text.minimessage.tag.standard.StandardTags;
 
 public abstract class Formatter {
 
+	private static final TagResolver ALL_TAG_RESOLVERS = TagResolver.resolver(
+			TagResolver.standard(),
+			LegacyResetTagResolver.INSTANCE);
+
 	private static final Formatter ABSOLUTE = new AbsoluteFormatter();
 
 	public static Formatter absolute() {
@@ -95,7 +99,7 @@ public abstract class Formatter {
 		private static TagResolver provideTagResolver(Permissible permissible) {
 			List<TagResolver> resolvers = new ArrayList<>();
 			if (permissible.hasPermission(ALL_PERMISSION)) {
-				return TagResolver.standard();
+				return ALL_TAG_RESOLVERS;
 			} else
 				for (Map.Entry<String, TagResolver> entry : PERMISSIVE_TAG_RESOLVERS.entrySet()) {
 					if (permissible.hasPermission(entry.getKey())) {
@@ -129,7 +133,7 @@ public abstract class Formatter {
 	private static final class AbsoluteFormatter extends Formatter {
 
 		private static final MiniMessage ABSOLUTE_MINIMESSAGE = MiniMessage.builder()
-				.tags(TagResolver.resolver(TagResolver.standard(), LegacyResetTagResolver.INSTANCE))
+				.tags(TagResolver.resolver(ALL_TAG_RESOLVERS))
 				.preProcessor(new LegacyTextPreProcessor())
 				.postProcessor(new LegacyTextPostProcessor())
 				.build();

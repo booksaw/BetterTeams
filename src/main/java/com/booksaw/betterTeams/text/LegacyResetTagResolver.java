@@ -19,8 +19,7 @@ public enum LegacyResetTagResolver implements TagResolver {
         return ALIASES.contains(name.toLowerCase());
     }
 
-	private static final Set<String> ALIASES = new ImmutableSet.Builder<String>()
-			.add("r", "lr", "lreset", "legacyreset").build();
+    private static final Set<String> ALIASES = ImmutableSet.of("r", "lr", "lreset", "legacyreset");
 
     @Override
     public Tag resolve(final String name, final ArgumentQueue args, final Context ctx) {

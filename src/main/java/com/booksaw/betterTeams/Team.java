@@ -522,10 +522,10 @@ public class Team {
 	 * @param resetTo the color to return to at the end of the string
 	 * @return the name of the team
 	 */
-	public @NotNull String getDisplayName(ChatColor resetTo, boolean asMiniMessage) {
+	public @NotNull String getDisplayName(ChatColor resetTo, boolean asAdventure) {
 		if (resetTo == null) {
 			return name;
-		} else if (asMiniMessage) {
+		} else if (asAdventure) {
 			return getMiniMessageDisplayName(true) + Legacy.colorToAdventure(resetTo.asBungee());
 		} else {
 			return getDisplayName(false) + resetTo;
@@ -536,8 +536,8 @@ public class Team {
 		return getDisplayName(true);
 	}
 
-	public @NotNull String getDisplayName(boolean asMiniMessage) {
-		if (asMiniMessage) {
+	public @NotNull String getDisplayName(boolean asAdventure) {
+		if (asAdventure) {
 			return getMiniMessageDisplayName(true);
 		} else {
 			return ""
@@ -563,8 +563,8 @@ public class Team {
 		return getTag(true);
 	}
 
-	public String getTag(boolean asMiniMessage) {
-		if (asMiniMessage) return getMiniMessageTag(true);
+	public String getTag(boolean asAdventure) {
+		if (asAdventure) return getMiniMessageTag(true);
 		else return tag == null || tag.isEmpty() ? "" : ""
 					+ (color != null && Main.plugin.getConfig().getBoolean("colorTeamName", true) ? color : "")
 					+ tag;
@@ -574,12 +574,12 @@ public class Team {
 		return getTag(returnTo, true);
 	}
 
-	public String getTag(ChatColor returnTo, boolean asMiniMessage) {
+	public String getTag(ChatColor returnTo, boolean asAdventure) {
 		if (returnTo == null) {
 			return getOriginalTag();
 		} else if (tag == null || tag.isEmpty()) {
-			return getDisplayName(asMiniMessage);
-		} else return getTag(asMiniMessage) + (asMiniMessage ? Legacy.colorToAdventure(returnTo.asBungee()) : returnTo);
+			return getDisplayName(asAdventure);
+		} else return getTag(asAdventure) + (asAdventure ? Legacy.colorToAdventure(returnTo.asBungee()) : returnTo);
 	}
 
 	public String getOriginalTag() {
@@ -1201,7 +1201,7 @@ public class Team {
 			return team;
 		}
 
-		String name = color +  MessageManager.getMessage("nametag.syntax", getTag(ChatColor.RESET, false));
+		String name = color +  Legacy.parseAllAdventure(MessageManager.getMessage("nametag.syntax", getTag(ChatColor.RESET, false)));
 
 		int attempt = 0;
 		do {

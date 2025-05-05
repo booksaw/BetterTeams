@@ -11,6 +11,8 @@ import java.util.Set;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import com.google.common.collect.ImmutableSet;
+
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.format.TextColor;
@@ -24,12 +26,7 @@ import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 
 public class TextColorTagResolver implements TagResolver, SerializableResolver.Single {
 
-	private static final Set<String> COLOR_TAG_NAMES = new HashSet<>();
-
-	static {
-		COLOR_TAG_NAMES.add("color");
-		COLOR_TAG_NAMES.add("c");
-	}
+	private static final Set<String> COLOR_TAG_NAMES = ImmutableSet.of("color", "c");
 
     private static final StyleClaim<TextColor> STYLE = StyleClaim.claim("color", Style::color, (color, emitter) -> {
         if (color instanceof NamedTextColor) {

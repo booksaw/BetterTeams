@@ -122,9 +122,9 @@ public class ChatManagement implements Listener {
 		public String getUpdatedFormat(Player p, String format, Team team) {
 			switch (this) {
 				case NAME:
-					return Legacy.parseAllAdventure(MessageManager.getMessage(p, "prefixSyntax", team.getDisplayName(), format));
+					return MessageManager.getMessage(p, "prefixSyntax", team.getDisplayName(), format);
 				case TAG:
-					return Legacy.parseAllAdventure(MessageManager.getMessage(p, "prefixSyntax", team.getColor() + team.getTag(), format));
+					return MessageManager.getMessage(p, "prefixSyntax", team.getColor() + team.getTag(), format);
 				default:
 					return format;
 			}

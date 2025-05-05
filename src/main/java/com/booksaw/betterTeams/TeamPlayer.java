@@ -134,7 +134,7 @@ public class TeamPlayer {
 	 */
 	public String getPrefix(ChatColor returnTo) {
 		if (title == null || title.isEmpty()) {
-			return rank.getPrefix();
+			return rank.getPrefix() + (returnTo != null ? returnTo : "");
 		} else {
 			return rank.getPrefix() + title + " " + (returnTo != null ? returnTo : "");
 		}
