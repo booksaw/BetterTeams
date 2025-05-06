@@ -48,9 +48,9 @@ public class InviteCommand extends TeamSubCommand {
 			joinSubcommand = "join";
 		}
 
-		Component component = Formatter.absolute().process(MessageManager.getMessage("invite.invite", team.getName()));
+		Component component = Formatter.absolute().process(MessageManager.getMessage(toInvite, "invite.invite", team.getName()));
 		component = component.clickEvent(ClickEvent.runCommand("/team " + joinSubcommand + " " + team.getName()));
-		component = component.hoverEvent(HoverEvent.showText(Formatter.absolute().process(MessageManager.getMessage("invite.hover", team.getName()))));
+		component = component.hoverEvent(HoverEvent.showText(Formatter.absolute().process(MessageManager.getMessage(toInvite, "invite.hover", team.getName()))));
 		MessageManager.sendFullMessage(toInvite, component, true);
 
 		return new CommandResponse(true, "invite.success");
