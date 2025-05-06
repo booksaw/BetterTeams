@@ -584,4 +584,264 @@ public class MessageManager {
 
 		msgSender.sendTitle(filteredRecipients, (doPrefix ? ComponentUtil.combineComponents(prefixComponent, message) : message));
 	}
+
+	public static void sendSubTitle(Player recipient, String reference, Object... replacements) {
+		sendSubTitle(recipient, false, reference, replacements);
+	}
+
+	/**
+	 * Used to send a (formatted) subtitle to the specified user
+	 *
+	 * @param recipient    the player which the message should be sent to
+	 * @param doPrefix     if the message should include the prefix or not
+	 * @param reference    the reference for the message
+	 * @param replacements  the value that the placeholder should be replaced with
+	 */
+	public static void sendSubTitle(Player recipient, boolean doPrefix, String reference, Object... replacements) {
+		if (recipient == null) return;
+
+		String message = getMessage(recipient, reference, replacements);
+		if (message.isEmpty()) return;
+
+		Component c = Formatter.absolute().process(message);
+		msgSender.sendSubTitle(recipient, (doPrefix ? ComponentUtil.combineComponents(prefixComponent, c) : c));
+	}
+
+	public static void sendSubTitle(Player recipient, @Nullable OfflinePlayer player, String reference, Object... replacements) {
+		sendSubTitle(recipient, player, false, reference, replacements);
+	}
+
+	/**
+	 * Used to send a (formatted) subtitle to the specified user
+	 *
+	 * @param recipient   the player which the message should be sent to
+	 * @param player      the player to format this message around
+	 * @param doPrefix    if the message should include the prefix or not
+	 * @param reference   the reference for the message
+	 * @param replacements the value that the placeholder should be replaced with
+	 */
+	public static void sendSubTitle(Player recipient, @Nullable OfflinePlayer player, boolean doPrefix, String reference, Object... replacements) {
+		if (recipient == null) return;
+
+		String message = getMessage(player, reference, replacements);
+		if (message.isEmpty()) return;
+
+		Component c = Formatter.absolute().process(message);
+		msgSender.sendSubTitle(recipient, (doPrefix ? ComponentUtil.combineComponents(prefixComponent, c) : c));
+	}
+
+	public static void sendSubTitle(Collection<Player> recipients, String reference, Object... replacements) {
+		sendSubTitle(recipients, false, reference, replacements);
+	}
+
+	public static void sendSubTitle(Collection<Player> recipients, boolean doPrefix, String reference, Object... replacements) {
+		Collection<Player> filteredRecipients = Utils.filterNonNull(recipients);
+		if (filteredRecipients.isEmpty()) return;
+
+		String message = getMessage(reference, replacements);
+		if (message.isEmpty()) return;
+
+		filteredRecipients.forEach(recipient -> {
+			String pMessage = StringUtil.setPlaceholders(recipient, message);
+			if (pMessage.isEmpty()) return;
+
+			Component c = Formatter.absolute().process(pMessage);
+			msgSender.sendSubTitle(recipient, (doPrefix ? ComponentUtil.combineComponents(prefixComponent, c) : c));
+		});
+	}
+
+	public static void sendSubTitle(Collection<Player> recipients, @Nullable OfflinePlayer player, String reference, Object... replacements) {
+		sendSubTitle(recipients, player, false, reference, replacements);
+	}
+
+	public static void sendSubTitle(Collection<Player> recipients, @Nullable OfflinePlayer player, boolean doPrefix, String reference, Object... replacements) {
+		Collection<Player> filteredRecipients = Utils.filterNonNull(recipients);
+		if (filteredRecipients.isEmpty()) return;
+
+		String message = getMessage(player, reference, replacements);
+		if (message.isEmpty()) return;
+
+		Component c = Formatter.absolute().process(message);
+		msgSender.sendSubTitle(filteredRecipients, (doPrefix ? ComponentUtil.combineComponents(prefixComponent, c) : c));
+	}
+
+	public static void sendFullSubTitle(Player recipient, String message) {
+		sendFullSubTitle(recipient, message, false);
+	}
+
+	public static void sendFullSubTitle(Player recipient, String message, boolean doPrefix) {
+		if (recipient == null) return;
+
+		if (message == null || message.isEmpty()) return;
+
+		Component c = Formatter.absolute().process(message);
+		msgSender.sendSubTitle(recipient, (doPrefix ? ComponentUtil.combineComponents(prefixComponent, c) : c));
+	}
+
+	public static void sendFullSubTitle(Collection<Player> recipients, String message) {
+		sendFullSubTitle(recipients, message, false);
+	}
+
+	public static void sendFullSubTitle(Collection<Player> recipients, String message, boolean doPrefix) {
+		Collection<Player> filteredRecipients = Utils.filterNonNull(recipients);
+		if (filteredRecipients.isEmpty()) return;
+
+		if (message == null || message.isEmpty()) return;
+
+		Component c = Formatter.absolute().process(message);
+		msgSender.sendSubTitle(filteredRecipients, (doPrefix ? ComponentUtil.combineComponents(prefixComponent, c) : c));
+	}
+
+	public static void sendFullSubTitle(Player recipient, Component message) {
+		sendFullSubTitle(recipient, message, false);
+	}
+
+	public static void sendFullSubTitle(Player recipient, Component message, boolean doPrefix) {
+		if (recipient == null) return;
+
+		if (message == null || message.equals(Component.empty())) return;
+
+		msgSender.sendSubTitle(recipient, (doPrefix ? ComponentUtil.combineComponents(prefixComponent, message) : message));
+	}
+
+	public static void sendFullSubTitle(Collection<Player> recipients, Component message) {
+		sendFullSubTitle(recipients, message, false);
+	}
+
+	public static void sendFullSubTitle(Collection<Player> recipients, Component message, boolean doPrefix) {
+		Collection<Player> filteredRecipients = Utils.filterNonNull(recipients);
+		if (filteredRecipients.isEmpty()) return;
+
+		if (message == null || message.equals(Component.empty())) return;
+
+		msgSender.sendSubTitle(filteredRecipients, (doPrefix ? ComponentUtil.combineComponents(prefixComponent, message) : message));
+	}
+
+	public static void sendFullTitleAndSub(Player recipient, String title, String subTitle) {
+		sendFullTitleAndSub(recipient, title, subTitle, false, false);
+	}
+
+	public static void sendFullTitleAndSub(Player recipient, String title, String subTitle, boolean doPrefix, boolean doPrefixOnSub) {
+		if (recipient == null) return;
+
+		boolean titlePresent =  title != null && !title.isEmpty();
+		boolean subTitlePresent =  subTitle != null && !subTitle.isEmpty();
+
+		if (titlePresent && subTitlePresent) {
+			Component titleComponent = Formatter.absolute().process(title);
+			Component subTitleComponent = Formatter.absolute().process(subTitle);
+
+			msgSender.sendTitleAndSub(
+				recipient,
+				doPrefix ? ComponentUtil.combineComponents(prefixComponent, titleComponent) : titleComponent,
+				doPrefixOnSub ? ComponentUtil.combineComponents(prefixComponent, subTitleComponent) : subTitleComponent
+			);
+		} else if (titlePresent) {
+			Component titleComponent = Formatter.absolute().process(subTitle);
+			msgSender.sendSubTitle(
+				recipient,
+				doPrefixOnSub ? ComponentUtil.combineComponents(prefixComponent, titleComponent) : titleComponent
+			);
+		} else if (subTitlePresent) {
+			Component subTitleComponent = Formatter.absolute().process(title);
+			msgSender.sendTitle(
+				recipient,
+				doPrefix ? ComponentUtil.combineComponents(prefixComponent, subTitleComponent) : subTitleComponent
+			);
+		}
+	}
+
+	public static void sendFullTitleAndSub(Collection<Player> recipients, String title, String subTitle) {
+		sendFullTitleAndSub(recipients, title, subTitle, false, false);
+	}
+
+	public static void sendFullTitleAndSub(Collection<Player> recipients, String title, String subTitle, boolean doPrefix, boolean doPrefixOnSub) {
+		Collection<Player> filteredRecipients = Utils.filterNonNull(recipients);
+		if (filteredRecipients.isEmpty()) return;
+
+		boolean titlePresent =  title != null && !title.isEmpty();
+		boolean subTitlePresent =  subTitle != null && !subTitle.isEmpty();
+
+		if (titlePresent && subTitlePresent) {
+			Component titleComponent = Formatter.absolute().process(title);
+			Component subTitleComponent = Formatter.absolute().process(subTitle);
+
+			msgSender.sendTitleAndSub(
+				filteredRecipients,
+				doPrefix ? ComponentUtil.combineComponents(prefixComponent, titleComponent) : titleComponent,
+				doPrefixOnSub ? ComponentUtil.combineComponents(prefixComponent, subTitleComponent) : subTitleComponent
+			);
+		} else if (titlePresent) {
+			Component titleComponent = Formatter.absolute().process(subTitle);
+			msgSender.sendSubTitle(
+				filteredRecipients,
+				doPrefixOnSub ? ComponentUtil.combineComponents(prefixComponent, titleComponent) : titleComponent
+			);
+		} else if (subTitlePresent) {
+			Component subTitleComponent = Formatter.absolute().process(title);
+			msgSender.sendTitle(
+				filteredRecipients,
+				doPrefix ? ComponentUtil.combineComponents(prefixComponent, subTitleComponent) : subTitleComponent
+			);
+		}
+	}
+
+	public static void sendFullTitleAndSub(Player recipient, Component title, Component subTitle) {
+		sendFullTitleAndSub(recipient, title, subTitle, false, false);
+	}
+
+	public static void sendFullTitleAndSub(Player recipient, Component title, Component subTitle, boolean doPrefix, boolean doPrefixOnSub) {
+		if (recipient == null) return;
+
+		boolean titlePresent =  title != null && !title.equals(Component.empty());
+		boolean subTitlePresent =  subTitle != null && !subTitle.equals(Component.empty());
+
+		if (titlePresent && subTitlePresent) {
+			msgSender.sendTitleAndSub(
+				recipient,
+				doPrefix ? ComponentUtil.combineComponents(prefixComponent, title) : title,
+				doPrefixOnSub ? ComponentUtil.combineComponents(prefixComponent, subTitle) : subTitle
+			);
+		} else if (titlePresent) {
+			msgSender.sendTitle(
+				recipient,
+				doPrefix ? ComponentUtil.combineComponents(prefixComponent, title) : title
+			);
+		} else if (subTitlePresent) {
+			msgSender.sendSubTitle(
+				recipient,
+				doPrefixOnSub ? ComponentUtil.combineComponents(prefixComponent, subTitle) : subTitle
+			);
+		}
+	}
+
+	public static void sendFullTitleAndSub(Collection<Player> recipients, Component title, Component subTitle) {
+		sendFullTitleAndSub(recipients, title, subTitle, false, false);
+	}
+
+	public static void sendFullTitleAndSub(Collection<Player> recipients, Component title, Component subTitle, boolean doPrefix, boolean doPrefixOnSub) {
+		Collection<Player> filteredRecipients = Utils.filterNonNull(recipients);
+		if (filteredRecipients.isEmpty()) return;
+
+		boolean titlePresent =  title != null && !title.equals(Component.empty());
+		boolean subTitlePresent =  subTitle != null && !subTitle.equals(Component.empty());
+
+		if (titlePresent && subTitlePresent) {
+			msgSender.sendTitleAndSub(
+				filteredRecipients,
+				doPrefix ? ComponentUtil.combineComponents(prefixComponent, title) : title,
+				doPrefixOnSub ? ComponentUtil.combineComponents(prefixComponent, subTitle) : subTitle
+			);
+		} else if (titlePresent) {
+			msgSender.sendTitle(
+				filteredRecipients,
+				doPrefix ? ComponentUtil.combineComponents(prefixComponent, title) : title
+			);
+		} else if (subTitlePresent) {
+			msgSender.sendSubTitle(
+				filteredRecipients,
+				doPrefixOnSub ? ComponentUtil.combineComponents(prefixComponent, subTitle) : subTitle
+			);
+		}
+	}
 }

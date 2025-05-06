@@ -29,12 +29,32 @@ final class AdventureMessageSender implements MessageSender {
 	}
 
     @Override
-    public void sendTitle(@NotNull Player recipient, @NotNull Component message) {
-        audiences.player(recipient).showTitle(Title.title(message, Component.empty()));
+    public void sendTitle(@NotNull Player recipient, @NotNull Component title) {
+        audiences.player(recipient).showTitle(Title.title(title, Component.empty()));
     }
 
 	@Override
-	public void sendTitle(@NotNull Collection<Player> recipients, @NotNull Component message) {
-		audiences.filter(recipients::contains).showTitle(Title.title(message, Component.empty()));
+	public void sendTitle(@NotNull Collection<Player> recipients, @NotNull Component title) {
+		audiences.filter(recipients::contains).showTitle(Title.title(title, Component.empty()));
+	}
+
+	@Override
+	public void sendSubTitle(@NotNull Player recipient, @NotNull Component subtitle) {
+        audiences.player(recipient).showTitle(Title.title(Component.empty(), subtitle));
+	}
+
+	@Override
+	public void sendSubTitle(@NotNull Collection<Player> recipients, @NotNull Component subtitle) {
+		audiences.filter(recipients::contains).showTitle(Title.title(Component.empty(), subtitle));
+	}
+
+	@Override
+	public void sendTitleAndSub(@NotNull Player recipient, @NotNull Component title, @NotNull Component subtitle) {
+        audiences.player(recipient).showTitle(Title.title(title, subtitle));
+	}
+
+	@Override
+	public void sendTitleAndSub(@NotNull Collection<Player> recipients, @NotNull Component title, @NotNull Component subtitle) {
+		audiences.filter(recipients::contains).showTitle(Title.title(title, subtitle));
 	}
 }
