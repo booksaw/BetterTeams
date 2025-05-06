@@ -3,11 +3,12 @@ package com.booksaw.betterTeams.commands.team;
 import com.booksaw.betterTeams.*;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 import com.booksaw.betterTeams.message.MessageManager;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.ClickEvent.Action;
-import net.md_5.bungee.api.chat.HoverEvent;
-import net.md_5.bungee.api.chat.TextComponent;
-import net.md_5.bungee.api.chat.hover.content.Text;
+import com.booksaw.betterTeams.text.Formatter;
+
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.ClickEvent;
+import net.kyori.adventure.text.event.HoverEvent;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -47,10 +48,10 @@ public class InviteCommand extends TeamSubCommand {
 			joinSubcommand = "join";
 		}
 
-		TextComponent component = new TextComponent(MessageManager.getMessage("invite.invite", team.getName()));
-		component.setClickEvent(new ClickEvent(Action.RUN_COMMAND, "/team " + joinSubcommand + " " + team.getName()));
-		component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(MessageManager.getMessage("invite.hover", team.getName()))));
-		toInvite.spigot().sendMessage(component);
+		Component component = Formatter.absolute().process(MessageManager.getMessage("invite.invite", team.getName()));
+		component = component.clickEvent(ClickEvent.runCommand("/team " + joinSubcommand + " " + team.getName()));
+		component = component.hoverEvent(HoverEvent.showText(Formatter.absolute().process(MessageManager.getMessage("invite.hover", team.getName()))));
+		MessageManager.sendFullMessage(toInvite, component, true);
 
 		return new CommandResponse(true, "invite.success");
 	}
