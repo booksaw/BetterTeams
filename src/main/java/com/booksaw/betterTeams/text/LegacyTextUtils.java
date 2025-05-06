@@ -14,12 +14,6 @@ public final class LegacyTextUtils {
     private static final Pattern MOJANG_COLOR_PATTERN = Pattern.compile("(?i)&([0-9A-FK-OR])");
     private static final Pattern STANDARD_HEX_PATTERN = Pattern.compile("(?i)&#([0-9A-F]{6})");
     private static final Pattern BUNGEE_HEX_PATTERN = Pattern.compile("(?i)&x(&[0-9A-F]){6}");
-	
-    static final LegacyComponentSerializer AMPERSAND_SERIALIZER = LegacyComponentSerializer.builder()
-        .hexColors()
-        .character('&')
-        .hexCharacter('#')
-        .build();
 
 	public static String sectionToAmpersand(String s) {
 		return s.replace("§", "&");

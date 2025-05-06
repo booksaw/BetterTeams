@@ -31,7 +31,7 @@ public abstract class Formatter {
 	private static final Formatter ABSOLUTE = new Formatter() {
 
 		private final MiniMessage ABSOLUTE_MINIMESSAGE = MiniMessage.builder()
-				.tags(TagResolver.resolver(ALL_TAG_RESOLVERS))
+				.tags(ALL_TAG_RESOLVERS)
 				.preProcessor(new LegacyTextPreProcessor())
 				.postProcessor(new LegacyTextPostProcessor())
 				.build();
