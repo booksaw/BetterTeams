@@ -34,6 +34,7 @@ import com.booksaw.betterTeams.team.storage.convert.Converter;
 import com.booksaw.betterTeams.team.storage.storageManager.YamlStorageManager;
 import com.booksaw.betterTeams.util.WebhookHandler;
 import lombok.Getter;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 import org.bstats.bukkit.Metrics;
@@ -82,6 +83,14 @@ public class Main extends JavaPlugin {
 
 	private ConfigManager configManager;
 
+	private BukkitAudiences adventure;
+
+	public boolean isAdventure() {
+		return adventure != null;
+	}
+
+	private boolean closeAdventure = true;
+
 	@Override
 	public void onLoad() {
 		plugin = this;
@@ -109,6 +118,10 @@ public class Main extends JavaPlugin {
 		if (Objects.requireNonNull(language).equals("en") || language.isEmpty()) {
 			MessageManager.setLanguage("messages");
 		}
+
+		if (adventure == null) try { adventure = BukkitAudiences.create(this); } catch (Exception e) { }
+
+		MessageManager.setupMessageSender(adventure);
 
 		loadCustomConfigs();
 
@@ -162,7 +175,14 @@ public class Main extends JavaPlugin {
 		Team.disable();
 
 		MessageManager.dumpMessages();
+		MessageManager.dumpMessageSender();
 
+		if (closeAdventure && adventure != null) {
+			adventure.close();
+			adventure = null;
+		}
+
+		closeAdventure = true;
 	}
 
 	public void loadCustomConfigs() {
@@ -253,6 +273,7 @@ public class Main extends JavaPlugin {
 
 	public void reload() {
 
+		closeAdventure = false;
 		onDisable();
 		teamManagement = null;
 		reloadConfig();

@@ -39,7 +39,7 @@ public class KickCommand extends TeamSubCommand {
 			MessageManager.sendMessage(player, "kick.notify", team.getName());
 
 			if (Main.plugin.getConfig().getBoolean("titleRemoval")) {
-				player.sendTitle(" ", MessageManager.getMessage("kick.title"), 10, 100, 20);
+				MessageManager.sendSubTitle(player, "kick.title");
 			}
 
 		}
