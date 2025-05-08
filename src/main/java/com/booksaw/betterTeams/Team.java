@@ -500,11 +500,11 @@ public class Team {
 		return LegacyTextUtils.colorToAdventure(color.asBungee(), true);
 	}
 
-	public @NotNull String getMiniMessageDisplayName() {
-		return getMiniMessageDisplayName(false);
+	public @NotNull String getAdventureDisplayName() {
+		return getAdventureDisplayName(false);
 	}
 
-	public @NotNull String getMiniMessageDisplayName(boolean checkConfig) {
+	public @NotNull String getAdventureDisplayName(boolean checkConfig) {
 		boolean doColor = !checkConfig || Main.plugin.getConfig().getBoolean("colorTeamName", true);
 		return ""
 				+ (doColor ? getOpenColor() : "")
@@ -526,7 +526,7 @@ public class Team {
 		if (resetTo == null) {
 			return name;
 		} else if (asAdventure) {
-			return getMiniMessageDisplayName(true) + LegacyTextUtils.colorToAdventure(resetTo.asBungee());
+			return getAdventureDisplayName(true) + LegacyTextUtils.colorToAdventure(resetTo.asBungee());
 		} else {
 			return getDisplayName(false) + resetTo;
 		}
@@ -538,7 +538,7 @@ public class Team {
 
 	public @NotNull String getDisplayName(boolean asAdventure) {
 		if (asAdventure) {
-			return getMiniMessageDisplayName(true);
+			return getAdventureDisplayName(true);
 		} else {
 			return ""
 					+ (color != null && Main.plugin.getConfig().getBoolean("colorTeamName", true) ? color : "")
@@ -546,11 +546,11 @@ public class Team {
 		}
 	}
 
-	public String getMiniMessageTag() {
-		return getMiniMessageTag(false);
+	public String getAdventureTag() {
+		return getAdventureTag(false);
 	}
 
-	public String getMiniMessageTag(boolean checkConfig) {
+	public String getAdventureTag(boolean checkConfig) {
 		if (tag == null || tag.isEmpty()) return "";
 		boolean doColor = !checkConfig || Main.plugin.getConfig().getBoolean("colorTeamName", true);
 		return ""
@@ -564,7 +564,7 @@ public class Team {
 	}
 
 	public String getTag(boolean asAdventure) {
-		if (asAdventure) return getMiniMessageTag(true);
+		if (asAdventure) return getAdventureTag(true);
 		else return tag == null || tag.isEmpty() ? "" : ""
 					+ (color != null && Main.plugin.getConfig().getBoolean("colorTeamName", true) ? color : "")
 					+ tag;
@@ -1057,7 +1057,7 @@ public class Team {
 			MessageManager.sendFullMessage(Bukkit.getConsoleSender(), chatMsg.getMessage());
 		}
 
-		String fMessage = LegacyTextUtils.fromAdventure(chatMsg.getMessage());
+		String fMessage = LegacyTextUtils.serialize(chatMsg.getMessage());
 		// Notify third party plugins that a message has been dispatched
 		Bukkit.getPluginManager().callEvent(new PostTeamSendMessageEvent(this, sender, fMessage, recipients));
 

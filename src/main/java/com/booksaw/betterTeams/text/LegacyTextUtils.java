@@ -109,7 +109,7 @@ public final class LegacyTextUtils {
 		return LegacyComponentSerializer.legacySection().serializeOr(Formatter.legacy().process(input), "");
 	}
 
-	public static String fromAdventure(Component input) {
+	public static String serialize(Component input) {
 		return LegacyComponentSerializer.legacySection().serializeOr(input, "");
 	}
 }
