@@ -10,11 +10,13 @@ import com.booksaw.betterTeams.customEvents.post.PostCreateTeamEvent;
 import com.booksaw.betterTeams.customEvents.post.PostPurgeEvent;
 import com.booksaw.betterTeams.events.ChestManagement;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
+import com.booksaw.betterTeams.util.Adapter;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
 import org.bukkit.block.Chest;
 import org.bukkit.block.DoubleChest;
 import org.bukkit.entity.Player;
@@ -234,13 +236,14 @@ public abstract class TeamManager {
 	 */
 	public Team getClaimingTeam(Block block) {
 		// player is opening a chest
-		if (block.getState() instanceof Chest) {
-			Chest chest = (Chest) block.getState();
-			InventoryHolder holder = chest.getInventory().getHolder();
+		BlockState state = Adapter.getState(block, false);
+		if (state instanceof Chest) {
+			Chest chest = (Chest) state;
+			InventoryHolder holder = Adapter.getInventoryHolder(chest.getInventory(), false);
 			return getClaimingTeam(holder);
-		} else if (block.getState() instanceof DoubleChest) {
-			DoubleChest chest = (DoubleChest) block.getState();
-			InventoryHolder holder = chest.getInventory().getHolder();
+		} else if (state instanceof DoubleChest) {
+			DoubleChest chest = (DoubleChest) state;
+			InventoryHolder holder = Adapter.getInventoryHolder(chest.getInventory(), false);
 			return getClaimingTeam(holder);
 		}
 
@@ -260,12 +263,12 @@ public abstract class TeamManager {
 
 		if (holder instanceof DoubleChest) {
 			DoubleChest doubleChest = (DoubleChest) holder;
-			Team claimedBy = getClaimingTeam(ChestManagement.getLocation((Chest) doubleChest.getLeftSide()));
+			Team claimedBy = getClaimingTeam(ChestManagement.getLocation((Chest) Adapter.getLeftSide(doubleChest, false)));
 			if (claimedBy != null) {
 				return claimedBy;
 			}
 
-			return getClaimingTeam(ChestManagement.getLocation((Chest) doubleChest.getRightSide()));
+			return getClaimingTeam(ChestManagement.getLocation((Chest) Adapter.getRightSide(doubleChest, false)));
 		} else if (holder instanceof Chest) {
 			// single chest
 			return getClaimingTeam(ChestManagement.getLocation((Chest) holder));
@@ -283,19 +286,19 @@ public abstract class TeamManager {
 	 */
 	public Location getClaimingLocation(Block block) {
 		// player is opening a chest
-		Chest chest = (Chest) block.getState();
-		InventoryHolder holder = chest.getInventory().getHolder();
+		Chest chest = (Chest) Adapter.getState(block, false);
+		InventoryHolder holder = Adapter.getInventoryHolder(chest.getInventory(), false);
 
 		if (holder instanceof DoubleChest) {
 			DoubleChest doubleChest = (DoubleChest) holder;
-			Location loc = ChestManagement.getLocation((Chest) doubleChest.getLeftSide());
+			Location loc = ChestManagement.getLocation((Chest) Adapter.getLeftSide(doubleChest, false));
 			Team claimedBy = getClaimingTeam(loc);
 			if (claimedBy != null) {
 				return loc;
 			}
 
-			loc = ChestManagement.getLocation((Chest) doubleChest.getRightSide());
-			claimedBy = getClaimingTeam(ChestManagement.getLocation((Chest) doubleChest.getRightSide()));
+			loc = ChestManagement.getLocation((Chest) Adapter.getRightSide(doubleChest, false));
+			claimedBy = getClaimingTeam(loc);
 			if (claimedBy != null) {
 				return loc;
 			}

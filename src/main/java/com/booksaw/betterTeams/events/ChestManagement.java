@@ -2,10 +2,12 @@ package com.booksaw.betterTeams.events;
 
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.message.MessageManager;
+import com.booksaw.betterTeams.util.Adapter;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
+import org.bukkit.block.DoubleChest;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -13,6 +15,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.inventory.InventoryMoveItemEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
@@ -58,7 +61,9 @@ public class ChestManagement implements Listener {
 
 	@EventHandler
 	public void onHopper(InventoryMoveItemEvent e) {
-		Team claimedBy = Team.getClaimingTeam(e.getSource().getHolder());
+		if (e.getSource().getType() != InventoryType.CHEST) return;
+
+		Team claimedBy = Team.getClaimingTeam(Adapter.getInventoryHolder(e.getSource(), false));
 
 		if (claimedBy != null) {
 			e.setCancelled(true);
