@@ -18,7 +18,6 @@ import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
 import org.jetbrains.annotations.Contract;
@@ -85,10 +84,6 @@ public class Team {
 
 	public static Team getClaimingTeam(Block block) {
 		return TEAMMANAGER.getClaimingTeam(block);
-	}
-
-	public static Team getClaimingTeam(InventoryHolder holder) {
-		return TEAMMANAGER.getClaimingTeam(holder);
 	}
 
 	public static Team getClaimingTeam(Location location) {
