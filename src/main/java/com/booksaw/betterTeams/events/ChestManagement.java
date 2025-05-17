@@ -112,7 +112,10 @@ public class ChestManagement implements Listener {
 	public void onHopper(InventoryMoveItemEvent e) {
 		if (e.getSource().getType() != InventoryType.CHEST) return;
 
-		Team claimedBy = Team.getClaimingTeam(e.getSource().getLocation().getBlock());
+		Location location = e.getSource().getLocation();
+		if (location == null) return;
+
+		Team claimedBy = Team.getClaimingTeam(location.getBlock());
 
 		if (claimedBy != null) {
 			e.setCancelled(true);

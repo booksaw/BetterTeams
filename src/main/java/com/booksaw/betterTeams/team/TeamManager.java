@@ -267,15 +267,14 @@ public abstract class TeamManager {
 		if (ChestManagement.isSingleChest(location1, location2)) {
 			Team claimedBy = getClaimingTeam(location1);
 			if (claimedBy != null) return location1;
-			return null;
 		} else {
 			Team claimedBy = getClaimingTeam(location1);
 			if (claimedBy != null) return location1;
 
 			claimedBy = getClaimingTeam(location2);
 			if (claimedBy != null) return location2;
-			return null;
 		}
+		return null;
 	}
 
 	/**
