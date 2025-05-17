@@ -5,6 +5,7 @@ import com.booksaw.betterTeams.message.MessageManager;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.block.Chest;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,6 +14,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.inventory.InventoryMoveItemEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
@@ -24,6 +26,56 @@ public class ChestManagement implements Listener {
 
 	public static Location getLocation(Chest chest) {
 		return new Location(chest.getWorld(), chest.getX(), chest.getY(), chest.getZ());
+	}
+
+	/**
+	 * Used to get the other side of a DoubleChest
+	 *
+	 * @param block A Chest (either DoubleChest or Single)
+	 * @return The other side Location
+	 */
+	public static Location getOtherSide(Block block) {
+		if (block.getType() != Material.CHEST) return null; // Just in case, should be a light check
+
+		org.bukkit.block.data.type.Chest chest = (org.bukkit.block.data.type.Chest) block.getBlockData();
+
+		if (chest.getType() == org.bukkit.block.data.type.Chest.Type.SINGLE) return block.getLocation();
+
+		if (chest.getType() == org.bukkit.block.data.type.Chest.Type.LEFT) {
+			switch (chest.getFacing()) {
+				case NORTH:
+					return block.getRelative(BlockFace.EAST).getLocation();
+				case EAST:
+					return block.getRelative(BlockFace.SOUTH).getLocation();
+				case SOUTH:
+					return block.getRelative(BlockFace.WEST).getLocation();
+				case WEST:
+					return block.getRelative(BlockFace.NORTH).getLocation();
+			}
+		} else {
+			switch (chest.getFacing()) {
+				case NORTH:
+					return block.getRelative(BlockFace.WEST).getLocation();
+				case EAST:
+					return block.getRelative(BlockFace.NORTH).getLocation();
+				case SOUTH:
+					return block.getRelative(BlockFace.EAST).getLocation();
+				case WEST:
+					return block.getRelative(BlockFace.SOUTH).getLocation();
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Used to check the two locations after they were passed to getOtherSide
+	 *
+	 * @param l1 One of the two sides
+	 * @param l2 One of the two sides
+	 * @return
+	 */
+	public static boolean isSingleChest(Location l1, Location l2) {
+		return l1.equals(l2);
 	}
 
 	@EventHandler
@@ -58,7 +110,12 @@ public class ChestManagement implements Listener {
 
 	@EventHandler
 	public void onHopper(InventoryMoveItemEvent e) {
-		Team claimedBy = Team.getClaimingTeam(e.getSource().getHolder());
+		if (e.getSource().getType() != InventoryType.CHEST) return;
+
+		Location location = e.getSource().getLocation();
+		if (location == null) return;
+
+		Team claimedBy = Team.getClaimingTeam(location.getBlock());
 
 		if (claimedBy != null) {
 			e.setCancelled(true);
