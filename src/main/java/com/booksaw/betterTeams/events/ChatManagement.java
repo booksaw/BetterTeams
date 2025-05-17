@@ -4,6 +4,8 @@ import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.message.MessageManager;
+import com.booksaw.betterTeams.text.LegacyTextUtils;
+
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -72,8 +74,8 @@ public class ChatManagement implements Listener {
 				return;
 			}
 		} else if (
-				(!globalToTeamPrefix.isEmpty() && event.getMessage().startsWith(globalToTeamPrefix) && event.getMessage().length() > globalToTeamPrefix.length())
-						|| (!globalToAllyPrefix.isEmpty() && event.getMessage().startsWith(globalToAllyPrefix) && event.getMessage().length() > globalToAllyPrefix.length())
+			(!globalToTeamPrefix.isEmpty() && event.getMessage().startsWith(globalToTeamPrefix) && event.getMessage().length() > globalToTeamPrefix.length())
+					|| (!globalToAllyPrefix.isEmpty() && event.getMessage().startsWith(globalToAllyPrefix) && event.getMessage().length() > globalToAllyPrefix.length())
 		) {
 			// Player is not sending to global chat
 			event.setCancelled(true);
@@ -90,8 +92,8 @@ public class ChatManagement implements Listener {
 		}
 
 		if (doPrefix != PrefixType.NONE) {
-			event.setFormat(doPrefix.getUpdatedFormat(p, event.getFormat(), team));
-//				event.setFormat(ChatColor.AQUA + "[" + team.getName() + "] " + ChatColor.WHITE + event.getFormat());
+			event.setFormat(LegacyTextUtils.parseAllAdventure(doPrefix.getUpdatedFormat(p, event.getFormat(), team)));
+			// event.setFormat(ChatColor.AQUA + "[" + team.getName() + "] " + ChatColor.WHITE + event.getFormat());
 		}
 
 	}
@@ -120,11 +122,9 @@ public class ChatManagement implements Listener {
 		public String getUpdatedFormat(Player p, String format, Team team) {
 			switch (this) {
 				case NAME:
-					String syntax = MessageManager.getMessage(p, "prefixSyntax");
-					return MessageManager.format(syntax, team.getDisplayName(), format);
+					return MessageManager.getMessage(p, "prefixSyntax", team.getDisplayName(), format);
 				case TAG:
-					syntax = MessageManager.getMessage(p, "prefixSyntax");
-					return MessageManager.format(syntax, team.getColor() + team.getTag(), format);
+					return MessageManager.getMessage(p, "prefixSyntax", team.getColor() + team.getTag(), format);
 				default:
 					return format;
 			}

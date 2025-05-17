@@ -3,16 +3,19 @@ package com.booksaw.betterTeams;
 import com.booksaw.betterTeams.customEvents.*;
 import com.booksaw.betterTeams.customEvents.post.*;
 import com.booksaw.betterTeams.exceptions.CancelledEventException;
+import com.booksaw.betterTeams.message.ChatMessage;
 import com.booksaw.betterTeams.message.Message;
 import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
-import com.booksaw.betterTeams.message.StaticMessage;
 import com.booksaw.betterTeams.team.*;
 import com.booksaw.betterTeams.team.AnchoredPlayerUUIDSetComponent.AnchorResult;
 import com.booksaw.betterTeams.team.storage.StorageType;
 import com.booksaw.betterTeams.team.storage.team.StoredTeamValue;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
+import com.booksaw.betterTeams.text.LegacyTextUtils;
+
 import lombok.Getter;
+
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
@@ -27,6 +30,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * This class is used to manage a team and all of it's participants
@@ -328,13 +332,13 @@ public class Team {
 		pvp = storage.getBoolean(StoredTeamValue.PVP);
 		useTeamHomeAsAnchor = storage.getBoolean(StoredTeamValue.ANCHOR);
 
-		String colorStr = storage.getString(StoredTeamValue.COLOR);
+		String colorStr = Optional.ofNullable(storage.getString(StoredTeamValue.COLOR)).orElse("6");
 
-		if (colorStr == null || colorStr.isEmpty()) {
+		if (colorStr.isEmpty()) {
 			colorStr = "6";
 		}
 
-		color = ChatColor.getByChar(colorStr.charAt(0));
+		color = Optional.ofNullable(ChatColor.getByChar(colorStr.charAt(0))).orElse(ChatColor.GOLD);
 
 		members.load(storage);
 		anchoredPlayers.load(storage);
@@ -362,7 +366,7 @@ public class Team {
 			level = 1;
 		}
 
-		tag = storage.getString(StoredTeamValue.TAG);
+		tag = Optional.ofNullable(storage.getString(StoredTeamValue.TAG)).orElse("");
 	}
 
 	/**
@@ -413,7 +417,10 @@ public class Team {
 
 		storage.set(StoredTeamValue.HOME, "");
 		rank = -1;
-		color = ChatColor.getByChar(Main.plugin.getConfig().getString("defaultColor").charAt(0));
+
+		String colorStr = Main.plugin.getConfig().getString("defaultColor", "6");
+		if (colorStr.isEmpty()) colorStr = "6";
+		color = Optional.ofNullable(ChatColor.getByChar(colorStr.charAt(0))).orElse(ChatColor.GOLD);
 		storage.set(StoredTeamValue.COLOR, color.getChar());
 
 		claims.save(storage);
@@ -480,39 +487,98 @@ public class Team {
 		}
 	}
 
+	public @NotNull String getOpenColor() {
+		return LegacyTextUtils.colorToAdventure(color.asBungee());
+	}
+
+	public @NotNull String getCloseColor() {
+		return LegacyTextUtils.colorToAdventure(color.asBungee(), true);
+	}
+
+	public @NotNull String getAdventureDisplayName() {
+		return getAdventureDisplayName(false);
+	}
+
+	public @NotNull String getAdventureDisplayName(boolean checkConfig) {
+		boolean doColor = !checkConfig || Main.plugin.getConfig().getBoolean("colorTeamName", true);
+		return ""
+				+ (doColor ? getOpenColor() : "")
+				+ getName()
+				+ (doColor ? getCloseColor() : "");
+	}
+
+	public @NotNull String getDisplayName(ChatColor resetTo) {
+		return getDisplayName(resetTo, true);
+	}
+
 	/**
 	 * Used to get the current name of the team
 	 *
 	 * @param resetTo the color to return to at the end of the string
 	 * @return the name of the team
 	 */
-	public String getDisplayName(ChatColor resetTo) {
+	public @NotNull String getDisplayName(ChatColor resetTo, boolean asAdventure) {
 		if (resetTo == null) {
-			return getName();
+			return name;
+		} else if (asAdventure) {
+			return getAdventureDisplayName(true) + LegacyTextUtils.colorToAdventure(resetTo.asBungee());
+		} else {
+			return getDisplayName(false) + resetTo;
 		}
-		if (Main.plugin.getConfig().getBoolean("colorTeamName") && color != null) {
-			return color + name + resetTo;
-		}
-		return name;
 	}
 
-	public String getDisplayName() {
-		if (Main.plugin.getConfig().getBoolean("colorTeamName") && color != null) {
-			return color + name;
+	public @NotNull String getDisplayName() {
+		return getDisplayName(true);
+	}
+
+	public @NotNull String getDisplayName(boolean asAdventure) {
+		if (asAdventure) {
+			return getAdventureDisplayName(true);
+		} else {
+			return ""
+					+ (color != null && Main.plugin.getConfig().getBoolean("colorTeamName", true) ? color : "")
+					+ name;
 		}
-		return name;
+	}
+
+	public String getAdventureTag() {
+		return getAdventureTag(false);
+	}
+
+	public String getAdventureTag(boolean checkConfig) {
+		if (tag == null || tag.isEmpty()) return "";
+		boolean doColor = !checkConfig || Main.plugin.getConfig().getBoolean("colorTeamName", true);
+		return ""
+				+ (doColor ? getOpenColor() : "")
+				+ tag
+				+ (doColor ? getCloseColor() : "");
 	}
 
 	public String getTag() {
-		if (tag == null || tag.isEmpty()) {
-			return getDisplayName();
-		}
+		return getTag(true);
+	}
 
-		if (Main.plugin.getConfig().getBoolean("colorTeamName") && color != null) {
-			return color + tag;
-		}
+	public String getTag(boolean asAdventure) {
+		if (asAdventure) return getAdventureTag(true);
+		else return tag == null || tag.isEmpty() ? "" : ""
+					+ (color != null && Main.plugin.getConfig().getBoolean("colorTeamName", true) ? color : "")
+					+ tag;
+	}
 
-		return tag;
+	public String getTag(ChatColor returnTo) {
+		return getTag(returnTo, true);
+	}
+
+	public String getTag(ChatColor returnTo, boolean asAdventure) {
+		if (returnTo == null) {
+			return getOriginalTag();
+		} else if (tag == null || tag.isEmpty()) {
+			return getDisplayName(asAdventure);
+		} else return getTag(asAdventure) + (asAdventure ? LegacyTextUtils.colorToAdventure(returnTo.asBungee()) : returnTo);
+	}
+
+	public String getOriginalTag() {
+		return tag != null ? tag : "";
 	}
 
 	public void setTag(String tag) {
@@ -524,14 +590,14 @@ public class Team {
 		if (event.isCancelled()) {
 			throw new IllegalArgumentException("Changing tag was cancelled by another plugin");
 		}
-		tag = event.getNewTeamTag();
+		tag = Optional.ofNullable(event.getNewTeamTag()).orElse("");
 
 		this.tag = tag;
 		getStorage().set(StoredTeamValue.TAG, tag);
 
 		registerTeamName();
 
-		Bukkit.getPluginManager().callEvent(new PostTeamTagChangeEvent(this, oldTag, getTag()));
+		Bukkit.getPluginManager().callEvent(new PostTeamTagChangeEvent(this, oldTag, getTag(false)));
 	}
 
 	public void setOpen(boolean open) {
@@ -836,7 +902,6 @@ public class Team {
 			newRank = PlayerRank.OWNER;
 		}
 
-
 		final PromotePlayerEvent event = new PromotePlayerEvent(this, promotePlayer, oldRank, newRank);
 
 		Bukkit.getPluginManager().callEvent(event);
@@ -945,17 +1010,18 @@ public class Team {
 	 * @param message the message to send to the team chat
 	 */
 	public void sendMessage(TeamPlayer sender, String message) {
-		String toTest = getChatSyntax(sender);
-		ChatColor returnTo = getPreviousChatColor(toTest);
+		String format = getTeamChatSyntax(sender);
+		ChatColor returnTo = getPreviousChatColor(format);
 
 		// These are variables which may be modified by TeamSendMessageEvent
 		Set<TeamPlayer> recipients = members.getClone();
 		recipients.removeIf(teamPlayer -> !teamPlayer.getPlayer().isOnline()); // Offline players won't be recipients
-		String format = getChatSyntax(sender);
 		String prefix = sender.getPrefix(returnTo);
 
 		// Notify third party plugins that a team message is going to be sent
 		TeamSendMessageEvent teamSendMessageEvent = new TeamSendMessageEvent(this, sender, message, format, prefix, recipients);
+		@SuppressWarnings("deprecation")
+		// Deprecated event for backwards compatibility with older plugins
 		TeamPreMessageEvent deprecatedPreTeamMessageEvent = new TeamPreMessageEvent(this, sender, message, format, prefix, recipients);
 		Bukkit.getPluginManager().callEvent(teamSendMessageEvent);
 		Bukkit.getPluginManager().callEvent(deprecatedPreTeamMessageEvent);
@@ -966,37 +1032,33 @@ public class Team {
 		}
 
 		message = getFromEvents(message, teamSendMessageEvent.getRawMessage(), deprecatedPreTeamMessageEvent.getRawMessage(), "Team message cannot be null");
-		format = getFromEvents(format, teamSendMessageEvent.getFormat(), deprecatedPreTeamMessageEvent.getFormat(), "Team message format cannot be null");
+		format = getFromEvents(format, teamSendMessageEvent.getFormat(), deprecatedPreTeamMessageEvent.getFormat(), "Team message format cannot be null").replace("$name$", "{0}").replace("$message$", "{1}");
 		prefix = getFromEvents(prefix, teamSendMessageEvent.getSenderNamePrefix(), deprecatedPreTeamMessageEvent.getSenderNamePrefix(), "The prefix cannot be null");
 		recipients = getFromEvents(members.getClone(), teamSendMessageEvent.getRecipients(), deprecatedPreTeamMessageEvent.getRecipients(), "Team message recipients cannot be null");
 
-		String fMessage = MessageManager.format(format,
-				prefix + Objects.requireNonNull(sender.getPlayer().getPlayer()).getDisplayName(),
-				message);
+		Collection<Player> playerRecipients = recipients.stream().map(r -> r.getPlayer().getPlayer())
+				.filter(Objects::nonNull)
+				.collect(Collectors.toList());
+		Collection<CommandSender> spies = Main.plugin.chatManagement.spy.stream()
+				.filter(Objects::nonNull)
+				.filter(temp -> !(temp instanceof Player && getTeamPlayer((Player) temp) != null))
+				.collect(Collectors.toList());
 
-		fMessage = fMessage.replace("$name$", prefix + sender.getPlayer().getPlayer().getName());
-		fMessage = fMessage.replace("$message$", message);
+		ChatMessage chatMsg = ChatMessage.customSyntaxTeamChat(this, sender, prefix, message, format);
+		chatMsg.sendMessage(playerRecipients);
+		chatMsg.sendSpyMessage(spies);
 
-		for (TeamPlayer player : recipients) {
-			if (player.getPlayer().isOnline()) {
-				Objects.requireNonNull(player.getPlayer().getPlayer()).sendMessage(fMessage);
-			}
-		}
-
-		for (CommandSender temp : Main.plugin.chatManagement.spy) {
-			if (temp instanceof Player && getTeamPlayer((Player) temp) != null) {
-				continue;
-			}
-
-			MessageManager.sendMessage(temp, "spy.team", getName(), sender.getPlayer().getPlayer().getName(), message);
-		}
 		if (TEAMMANAGER.isLogChat()) {
-			Main.plugin.getLogger().info(fMessage);
+			MessageManager.sendFullMessage(Bukkit.getConsoleSender(), chatMsg.getMessage());
 		}
 
+		String fMessage = LegacyTextUtils.serialize(chatMsg.getMessage());
 		// Notify third party plugins that a message has been dispatched
 		Bukkit.getPluginManager().callEvent(new PostTeamSendMessageEvent(this, sender, fMessage, recipients));
-		Bukkit.getPluginManager().callEvent(new TeamMessageEvent(this, sender, fMessage, recipients));
+
+		@SuppressWarnings("deprecation")
+		TeamMessageEvent deprecatedTeamMessageEvent = new TeamMessageEvent(this, sender, fMessage, recipients);
+		Bukkit.getPluginManager().callEvent(deprecatedTeamMessageEvent);
 	}
 
 	private static @NotNull ChatColor getPreviousChatColor(String toTest) {
@@ -1023,13 +1085,22 @@ public class Team {
 	 *
 	 * @param sender - The team player who sent the command
 	 */
-	private String getChatSyntax(TeamPlayer sender) {
+	public String getTeamChatSyntax(TeamPlayer sender) {
 
 		if (sender != null && sender.getPlayer() != null && sender.getPlayer().isOnline() && (sender.getPlayer().getPlayer() instanceof CommandSender)) {
-			return MessageManager.getMessage(sender.getPlayer().getPlayer(), "chat.syntax");
+			return MessageManager.getMessage(sender.getPlayer().getPlayer(), "chat.syntax").replace("$name$", "{0}").replace("$message$", "{1}");
 		}
 
-		return MessageManager.getMessage("chat.syntax");
+		return MessageManager.getMessage("chat.syntax").replace("$name$", "{0}").replace("$message$", "{1}");
+	}
+
+	public String getAllyChatSyntax(TeamPlayer sender) {
+
+		if (sender != null && sender.getPlayer() != null && sender.getPlayer().isOnline() && (sender.getPlayer().getPlayer() instanceof CommandSender)) {
+			return MessageManager.getMessage(sender.getPlayer().getPlayer(), "allychat.syntax").replace("$name$", "{1}").replace("$message$", "{2}");
+		}
+
+		return MessageManager.getMessage("allychat.syntax").replace("$name$", "{1}").replace("$message$", "{2}");
 	}
 
 	/**
@@ -1042,35 +1113,29 @@ public class Team {
 		String toTest = MessageManager.getMessage(sender.getPlayer().getPlayer(), "chat.syntax");
 		ChatColor returnTo = getPreviousChatColor(toTest);
 
-		String fMessage = MessageManager.getMessage("allychat.syntax", getName(),
-				sender.getPrefix(returnTo) + Objects.requireNonNull(sender.getPlayer().getPlayer()).getDisplayName(),
-				message);
+		String prefix = sender.getPrefix(returnTo);
 
-		fMessage = fMessage.replace("$name$", sender.getPrefix(returnTo) + sender.getPlayer().getPlayer().getName());
-		fMessage = fMessage.replace("$message$", message);
+		ChatMessage chatMsg = ChatMessage.allyChat(this, sender, prefix, message);
 
-		Message messageI = new StaticMessage(fMessage, false);
-		members.broadcastMessage(messageI);
+		members.broadcastMessage(chatMsg);
 
 		for (UUID ally : allies.getClone()) {
 			Team temp = Team.getTeam(ally);
-			temp.getMembers().broadcastMessage(messageI);
+			temp.getMembers().broadcastMessage(chatMsg);
 
 		}
 
-		for (CommandSender temp : Main.plugin.chatManagement.spy) {
-			if (temp instanceof Player) {
-				Team spyTeam = Team.getTeam((Player) temp);
-				// if they are receiving the message without chat spy
-				if (spyTeam == this || (spyTeam != null && isAlly(spyTeam))) {
-					continue;
-				}
-			}
-			MessageManager.sendMessage(temp, "spy.ally", getName(), sender.getPlayer().getName(), message);
-		}
+		Collection<CommandSender> spies = Main.plugin.chatManagement.spy.stream()
+			.filter(temp -> !(temp instanceof Player && 
+				(Team.getTeam((Player) temp) == this || 
+				(Team.getTeam((Player) temp) != null && isAlly(Team.getTeam((Player) temp)))))
+			)
+			.collect(Collectors.toList());
+
+		chatMsg.sendSpyMessage(spies);
 
 		if (TEAMMANAGER.isLogChat()) {
-			Main.plugin.getLogger().info(fMessage);
+			MessageManager.sendFullMessage(Bukkit.getConsoleSender(), chatMsg.getMessage());
 		}
 	}
 
@@ -1131,7 +1196,8 @@ public class Team {
 			return team;
 		}
 
-		String name = color + MessageManager.getMessage("nametag.syntax", getTag());
+		String name = color +  LegacyTextUtils.parseAllAdventure(MessageManager.getMessage("nametag.syntax", getTag(ChatColor.RESET, false)));
+
 		int attempt = 0;
 		do {
 			try {
@@ -1213,9 +1279,7 @@ public class Team {
 
 		RelationType prevRelation = RelationType.NEUTRAL;
 		final Team other = Team.getTeam(otherTeam);
-		if (callUserEvent(other, prevRelation, RelationType.ALLY)) {
-			return;
-		}
+		if (callUserEvent(other, prevRelation, RelationType.ALLY)) return;
 
 		allies.add(this, otherTeam);
 		saveAllies();
@@ -1491,8 +1555,7 @@ public class Team {
 				final TeamDisallowedPvPEvent event = new TeamDisallowedPvPEvent(team, source, this, true);
 
 				Bukkit.getPluginManager().callEvent(event);
-				if (event.isCancelled())
-					return true;
+				if (event.isCancelled()) return true;
 			}
 
 			return !disallow;

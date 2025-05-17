@@ -75,7 +75,7 @@ public abstract class TeamPlayerSetComponent extends SetTeamComponent<TeamPlayer
 	 * @param message The message to send to all online players
 	 */
 	public void broadcastMessage(@NotNull Message message) {
-		getOnlinePlayers().forEach(message::sendMessage);
+		message.sendMessage(getOnlinePlayers());
 	}
 
 	/**
@@ -84,7 +84,7 @@ public abstract class TeamPlayerSetComponent extends SetTeamComponent<TeamPlayer
 	 * @param message The message to send to all online players
 	 */
 	public void broadcastTitle(@NotNull Message message) {
-		getOnlinePlayers().forEach(message::sendTitle);
+		message.sendTitle(getOnlinePlayers());
 	}
 
 	@Override
