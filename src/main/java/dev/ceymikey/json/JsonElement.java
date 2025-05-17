@@ -1,5 +1,7 @@
 /*
- * Copyright 2025 svaningelgem. All Rights Reserved.
+ * This file is part of InjectionLib, https://github.com/Ceymikey/InjectionLib
+ *
+ * Copyright (c) 2024-2025 Ceymikey. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +22,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author svaningelgem
- */
 public class JsonElement {
 
 	protected @NotNull String serializeObject(@NotNull Map<String, Object> map) {
