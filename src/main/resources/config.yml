@@ -58,6 +58,8 @@ database:
   database: spigot
   user: root
   password: password
+  additionalOptions:
+    - 'useSSL=false'
   # Prefix for SQL tables.
   # After changing this String and reloading the plugin/server,
   # BetterTeams will start using it as the new Table Prefix when storing and reading team data.

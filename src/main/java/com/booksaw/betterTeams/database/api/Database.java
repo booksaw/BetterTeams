@@ -24,6 +24,8 @@ public class Database {
 	private String user;
 	private String password;
 
+	private List<String> storageProperties;
+
 	Connection connection;
 
 	/**
@@ -39,6 +41,7 @@ public class Database {
 		database = section.getString("database", "spigot");
 		user = section.getString("user", "root");
 		password = section.getString("password", "password");
+		storageProperties = section.getStringList("storageProperties");
 
 		setupConnection();
 
@@ -92,13 +95,18 @@ public class Database {
 			throw new IllegalStateException("No SQL connection has been established");
 		}
 
+		StringBuilder additionalOptions = new StringBuilder();
+		for (String property : storageProperties) {
+			additionalOptions.append("&").append(property);
+		}
+
 		try {
 			connection.close();
 			// Also, just a suggestion, but it's not recommended to use autoReconnect=true
 			// as per the MySQL Connector/J developer docs.
 			// https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-connp-props-high-availability-and-clustering.html
 			connection = DriverManager.getConnection(
-					"jdbc:mysql://" + host + ":" + port + "/" + database + "?autoReconnect=true&useSSL=false", user,
+					"jdbc:mysql://" + host + ":" + port + "/" + database + "?autoReconnect=true" + additionalOptions, user,
 					password);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -130,12 +138,12 @@ public class Database {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Checks if a column exists in the specified table.
 	 *
-	 * @param tableName  The table to check.
-	 * @param columnName The column to check for.
+	 * @param table  The table to check.
+	 * @param column The column to check for.
 	 * @return True if the column exists, false otherwise.
 	 */
 	public boolean hasColumn(TableName table, String column) {
@@ -154,7 +162,7 @@ public class Database {
 	}
 
 	protected void addColumn(TableName table, String newColumnName, String columnDefinition, String referenceColumn,
-			boolean after) {
+							 boolean after) {
 		String positionClause = (referenceColumn != null)
 				? (after ? " AFTER " + referenceColumn : " BEFORE " + referenceColumn)
 				: "";
