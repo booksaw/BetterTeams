@@ -17,21 +17,21 @@ public class ImportmessagesTeama extends SubCommand {
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
 		try {
 			File f = new File(Main.plugin.getDataFolder() + File.separator + MessageManager.MISSINGMESSAGES_FILENAME);
-			BufferedReader reader = new BufferedReader(new FileReader(f));
-
-			String line;
-			while ((line = reader.readLine()) != null) {
-				if (line.isEmpty() || line.startsWith("#")) {
-					continue;
+			try (BufferedReader reader = new BufferedReader(new FileReader(f))) {
+				String line;
+				while ((line = reader.readLine()) != null) {
+					if (line.isEmpty() || line.startsWith("#")) {
+						continue;
+					}
+					String[] split = line.split(": ", 2);
+					if (split.length != 2) {
+						continue;
+					}
+					MessageManager.getDefaultMessages().set(split[0], split[1]);
 				}
-				String[] split = line.split(": ", 2);
-				if (split.length != 2) {
-					continue;
-				}
-				MessageManager.getDefaultMessages().set(split[0], split[1]);
+				MessageManager.getDefaultMessagesConfigManager().save(true);
+				f.delete();
 			}
-			MessageManager.getDefaultMessagesConfigManager().save(true);
-			f.delete();
 		} catch (IOException e) {
 			e.printStackTrace();
 			return new CommandResponse(false, "admin.import.fail");

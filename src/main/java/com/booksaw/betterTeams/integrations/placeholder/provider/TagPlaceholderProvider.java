@@ -14,6 +14,6 @@ public class TagPlaceholderProvider implements IndividualTeamPlaceholderProvider
 
 	@Override
 	public String getPlaceholderForTeam(Team team) {
-		return MessageManager.getMessage("placeholder.tag", team.getTag());
+		return MessageManager.getMessage("placeholder.tag", team.getTag(false));
 	}
 }
