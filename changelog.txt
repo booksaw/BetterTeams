@@ -893,6 +893,18 @@ Code improvements:
 - Automated dependency updating - Credit svaningelgem
 - Replacement of Caffeine dependency with custom implementation to reduce filesize - Credit svaningelgem
 
+4.13.0
+
+Features:
+- Added [minimessage](https://docs.advntr.dev/minimessage/index.html) support (#748) - Credit gaboss44
+- Added /team anchor, a feature that allows players to respawn at their team's home location if they desire (#738) - Credit gaboss44
+
+Bug Fixes:
+- Major optimisation of the chest management module of BetterTeams, this should provide a significant performance improvement (#768, #689) - Credit RVSkeLe
+- Fixed a bug causing discord webhook messages to be sent twice (#757) - Credit svaningelgem
+- Fixed a NullPointerException in that could be triggered in the /team info command (#751, #749)- Credit Ceymikey
+- Updated support for UltimateClaims to support 3.0.0+ only (#766)
+
 Headings:
 Features:
 
