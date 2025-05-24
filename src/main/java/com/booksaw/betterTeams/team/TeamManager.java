@@ -16,10 +16,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.block.Block;
-import org.bukkit.block.Chest;
-import org.bukkit.block.DoubleChest;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.InventoryHolder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -240,6 +237,10 @@ public abstract class TeamManager {
 		Location location1 = block.getLocation();
 		Location location2 = ChestManagement.getOtherSide(block);
 
+		if (location2 == null) {
+			return null;
+		}
+
 		if (ChestManagement.isSingleChest(location1, location2)) {
 			return getClaimingTeam(location1);
 		}
@@ -264,6 +265,10 @@ public abstract class TeamManager {
 		Location location1 = block.getLocation();
 		Location location2 = ChestManagement.getOtherSide(block);
 
+		if (location2 == null) {
+			return null;
+		}
+
 		if (ChestManagement.isSingleChest(location1, location2)) {
 			Team claimedBy = getClaimingTeam(location1);
 			if (claimedBy != null) return location1;
@@ -285,7 +290,7 @@ public abstract class TeamManager {
 	public boolean purgeTeams(boolean money, boolean score) {
 		// calling custom bukkit event
 		PurgeEvent event = new PurgeEvent();
-		
+
 		@SuppressWarnings("deprecation")
 		PrePurgeEvent deprecatedEvent = new PrePurgeEvent();
 		Bukkit.getPluginManager().callEvent(event);
