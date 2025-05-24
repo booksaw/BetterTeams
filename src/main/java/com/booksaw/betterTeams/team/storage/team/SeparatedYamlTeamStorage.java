@@ -37,6 +37,7 @@ public class SeparatedYamlTeamStorage extends YamlTeamStorage {
 
 	@Override
 	protected void saveFile() {
+		Main.plugin.getTeamPlaceholders().invalidateCache();
 		configManager.save(false);
 	}
 

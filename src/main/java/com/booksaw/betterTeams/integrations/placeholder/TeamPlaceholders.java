@@ -21,13 +21,18 @@ import java.time.Duration;
 public class TeamPlaceholders extends PlaceholderExpansion {
 	private final Plugin plugin;
 
-	private final Cache<String, String> placeholderCache = new Cache.Builder<String, String>()
-			.maximumSize(300)
-			.expireAfterWrite(Duration.ofMinutes(5))
-			.build(this::getStaticPlaceholder);
+	private final Cache<String, String> placeholderCache;
 
 	public TeamPlaceholders(Plugin plugin) {
 		this.plugin = plugin;
+		placeholderCache = new Cache.Builder<String, String>()
+				.maximumSize(300)
+				.expireAfterWrite(Duration.ofSeconds(plugin.getConfig().getInt("invalidateCacheSeconds")))
+				.build(this::getStaticPlaceholder);
+	}
+
+	public void invalidateCache() {
+		placeholderCache.invalidateAll();
 	}
 
 	@Override

@@ -73,6 +73,9 @@ public class Main extends JavaPlugin {
 	@Getter
 	private BooksawCommand teamBooksawCommand;
 
+	@Getter
+	private TeamPlaceholders teamPlaceholders;
+
 	private Metrics metrics = null;
 
 	/**
@@ -119,7 +122,10 @@ public class Main extends JavaPlugin {
 			MessageManager.setLanguage("messages");
 		}
 
-		if (adventure == null) try { adventure = BukkitAudiences.create(this); } catch (Exception e) { }
+		if (adventure == null) try {
+			adventure = BukkitAudiences.create(this);
+		} catch (Exception e) {
+		}
 
 		MessageManager.setupMessageSender(adventure);
 
@@ -132,7 +138,8 @@ public class Main extends JavaPlugin {
 		if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null
 				&& Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("PlaceholderAPI")).isEnabled()) {
 			placeholderAPI = true;
-			new TeamPlaceholders(this).register();
+			teamPlaceholders = new TeamPlaceholders(this);
+			teamPlaceholders.register();
 		}
 
 		if (Bukkit.getPluginManager().getPlugin("UltimateClaims") != null
@@ -411,9 +418,9 @@ public class Main extends JavaPlugin {
 
 		getServer().getPluginManager().registerEvents(new InventoryManagement(), this);
 		getServer().getPluginManager().registerEvents(new RankupEvents(), this);
-		if (getConfig().getBoolean("anchor.enable")){
+		if (getConfig().getBoolean("anchor.enable")) {
 			HomeAnchorManagement homeAnchorListener = new HomeAnchorManagement(this);
-    		homeAnchorListener.registerEvent();
+			homeAnchorListener.registerEvent();
 		}
 	}
 

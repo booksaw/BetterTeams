@@ -22,6 +22,10 @@ public class SQLTeamStorage extends TeamStorage {
 		this.storageManager = storageManager;
 	}
 
+	public void invalidateCache() {
+		Main.plugin.getTeamPlaceholders().invalidateCache();
+	}
+
 	private String getCondition() {
 		return "teamID LIKE '" + team.getID() + "'";
 	}
@@ -91,7 +95,7 @@ public class SQLTeamStorage extends TeamStorage {
 				return toReturn;
 			}
 			do {
-				if(result.getBoolean("anchor"))
+				if (result.getBoolean("anchor"))
 					toReturn.add(UUID.fromString(result.getString("playerUUID")));
 			} while (result.next());
 		} catch (SQLException e) {
@@ -193,6 +197,7 @@ public class SQLTeamStorage extends TeamStorage {
 		serial = serial.replace("\\", "\\\\");
 		serial = serial.replace("\"", "\\\"");
 		serial = "\"" + serial + "\"";
+		invalidateCache();
 		storageManager.getDatabase().executeStatement("UPDATE ? SET echest = ? WHERE ?",
 				TableName.TEAM.toString(), serial, getCondition());
 
@@ -245,23 +250,27 @@ public class SQLTeamStorage extends TeamStorage {
 
 	@Override
 	public void addBan(UUID component) {
+		invalidateCache();
 		storageManager.getDatabase().insertRecord(TableName.BANS, "playerUUID, teamID",
 				"'" + component + "', '" + team.getID() + "'");
 	}
 
 	@Override
 	public void removeBan(UUID component) {
+		invalidateCache();
 		storageManager.getDatabase().deleteRecord(TableName.BANS, "playerUUID LIKE '" + component.toString() + "'");
 	}
 
 	@Override
 	public void addAlly(UUID ally) {
+		invalidateCache();
 		storageManager.getDatabase().insertRecord(TableName.ALLIES, "team1ID, team2ID",
 				"'" + team.getID() + "', '" + ally + "'");
 	}
 
 	@Override
 	public void removeAlly(UUID ally) {
+		invalidateCache();
 		storageManager.getDatabase().deleteRecord(TableName.ALLIES,
 				"(team1ID LIKE '" + team.getID() + "' AND team2ID LIKE '" + ally + "') OR (team1ID LIKE '" + ally
 						+ "' AND team2ID LIKE '" + team.getID() + "')");
@@ -269,24 +278,28 @@ public class SQLTeamStorage extends TeamStorage {
 
 	@Override
 	public void addAllyRequest(UUID requesting) {
+		invalidateCache();
 		storageManager.getDatabase().insertRecord(TableName.ALLYREQUESTS, "receivingTeamID, requestingTeamID",
 				"'" + team.getID() + "', '" + requesting + "'");
 	}
 
 	@Override
 	public void removeAllyRequest(UUID requesting) {
+		invalidateCache();
 		storageManager.getDatabase().deleteRecord(TableName.ALLYREQUESTS,
 				"receivingTeamID LIKE '" + team.getID() + "' AND requestingTeamID LIKE '" + requesting + "'");
 	}
 
 	@Override
 	public void addWarp(Warp component) {
+		invalidateCache();
 		storageManager.getDatabase().insertRecord(TableName.WARPS, "teamID, warpInfo",
 				"'" + team.getID() + "', '" + component.toString() + "'");
 	}
 
 	@Override
 	public void removeWarp(Warp component) {
+		invalidateCache();
 		storageManager.getDatabase().deleteRecord(TableName.WARPS,
 				getCondition() + " AND warpInfo LIKE '" + component.toString() + "'");
 	}
@@ -302,6 +315,7 @@ public class SQLTeamStorage extends TeamStorage {
 	}
 
 	private void changeRank(TeamPlayer player) {
+		invalidateCache();
 		storageManager.getDatabase().updateRecordWhere(TableName.PLAYERS, "playerRank = " + player.getRank().value,
 				"playerUUID = '" + player.getPlayer().getUniqueId() + "'");
 
@@ -309,12 +323,14 @@ public class SQLTeamStorage extends TeamStorage {
 
 	@Override
 	public void setTitle(TeamPlayer player) {
+		invalidateCache();
 		storageManager.getDatabase().updateRecordWhere(TableName.PLAYERS, "title = '" + player.getTitle() + "'",
 				"playerUUID = '" + player.getPlayer().getUniqueId() + "'");
 	}
 
 	@Override
 	public void setAnchor(TeamPlayer player, boolean anchor) {
+		invalidateCache();
 		storageManager.getDatabase().updateRecordWhere(TableName.PLAYERS, "anchor = " + anchor,
 				"playerUUID = '" + player.getPlayer().getUniqueId() + "'");
 	}
