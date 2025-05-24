@@ -899,6 +899,11 @@ Features:
 - Added [minimessage](https://docs.advntr.dev/minimessage/index.html) support (#748) - Credit gaboss44
 - Added /team anchor, a feature that allows players to respawn at their team's home location if they desire (#738) - Credit gaboss44
 
+Improvements:
+- Added configuration so team name can be shown in the team create message (#750)
+- Added ability to configure a cache invalidation timer (#742)
+- Added configuration option for SQL parameters (#763)
+
 Bug Fixes:
 - Major optimisation of the chest management module of BetterTeams, this should provide a significant performance improvement (#768, #689) - Credit RVSkeLe
 - Fixed a bug causing discord webhook messages to be sent twice (#757) - Credit svaningelgem
