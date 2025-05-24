@@ -6,7 +6,6 @@ import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByBlockEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PotionSplashEvent;
 import org.bukkit.potion.PotionEffect;
@@ -139,14 +138,6 @@ public class DamageManagement implements Listener {
 					// thrown if the players team is null
 				}
 			}
-
 		}
-
 	}
-
-	@EventHandler(ignoreCancelled = true)
-	public void onBlockDamage(EntityDamageByBlockEvent e) {
-		e.getCause()
-	}
-
 }
