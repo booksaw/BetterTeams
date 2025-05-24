@@ -904,6 +904,7 @@ Bug Fixes:
 - Fixed a bug causing discord webhook messages to be sent twice (#757) - Credit svaningelgem
 - Fixed a NullPointerException in that could be triggered in the /team info command (#751, #749)- Credit Ceymikey
 - Updated support for UltimateClaims to support 3.0.0+ only (#766)
+- Hopefully fixed bug where a world that is not loaded throws errors (#760)
 
 Headings:
 Features:

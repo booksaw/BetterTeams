@@ -61,7 +61,10 @@ public abstract class SetTeamComponent<T> implements TeamComponent<Set<T>> {
 		List<String> componentStrings = new ArrayList<>();
 
 		for (T component : set) {
-			componentStrings.add(toString(component));
+			String componentString = toString(component);
+			if (componentString != null) {
+				componentStrings.add(componentString);
+			}
 		}
 
 		return componentStrings;

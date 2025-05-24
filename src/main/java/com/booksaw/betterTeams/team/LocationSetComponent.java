@@ -1,5 +1,6 @@
 package com.booksaw.betterTeams.team;
 
+import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -32,6 +33,11 @@ public abstract class LocationSetComponent extends SetTeamComponent<Location> {
 	 * @return the string which references that location
 	 */
 	public static String getString(Location loc) {
+		if (!loc.isWorldLoaded()) {
+			Main.plugin.getLogger().warning("Location " + loc + " is not in a loaded world so it will not be stored");
+			return null;
+		}
+
 		return loc.getWorld().getName() + ":" + loc.getX() + ":" + loc.getY() + ":" + loc.getZ() + ":" + loc.getYaw()
 				+ ":" + loc.getPitch();
 	}

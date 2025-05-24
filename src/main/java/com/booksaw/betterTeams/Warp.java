@@ -63,10 +63,15 @@ public class Warp {
 
 	@Override
 	public String toString() {
+		String warpString = LocationSetComponent.getString(location);
+		if (warpString == null) {
+			return null;
+		}
+
 		if (encrypPassword == null || encrypPassword.isEmpty()) {
-			return name + ";" + LocationSetComponent.getString(location);
+			return name + ";" + warpString;
 		} else {
-			return name + ";" + LocationSetComponent.getString(location) + ";" + encrypPassword + ";E";
+			return name + ";" + warpString + ";" + encrypPassword + ";E";
 		}
 	}
 
