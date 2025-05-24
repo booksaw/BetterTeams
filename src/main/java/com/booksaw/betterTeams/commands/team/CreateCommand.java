@@ -6,6 +6,7 @@ import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.ParentCommand;
 import com.booksaw.betterTeams.commands.presets.NoTeamSubCommand;
 import com.booksaw.betterTeams.message.HelpMessage;
+import com.booksaw.betterTeams.message.ReferencedFormatMessage;
 import com.booksaw.betterTeams.util.TeamUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -54,7 +55,7 @@ public class CreateCommand extends NoTeamSubCommand {
 			team.setTag(args[1]);
 		}
 
-		return new CommandResponse(true, "create.success");
+		return new CommandResponse(true, new ReferencedFormatMessage("create.success", team.getName()));
 
 	}
 
