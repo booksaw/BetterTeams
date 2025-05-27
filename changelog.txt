@@ -911,6 +911,11 @@ Bug Fixes:
 - Updated support for UltimateClaims to support 3.0.0+ only (#766)
 - Hopefully fixed bug where a world that is not loaded throws errors (#760)
 
+4.13.1
+
+Bug Fixes:
+- Fixed bug with /team create if placeholderAPI was not installed on the server
+
 Headings:
 Features:
 

@@ -76,6 +76,12 @@ public class Main extends JavaPlugin {
 	@Getter
 	private TeamPlaceholders teamPlaceholders;
 
+	/**
+	 * If the ultimateClaims expansion has been enabled
+	 */
+	@Getter
+	private boolean ultimateClaimsEnabled = false;
+
 	private Metrics metrics = null;
 
 	/**
@@ -145,6 +151,7 @@ public class Main extends JavaPlugin {
 		if (Bukkit.getPluginManager().getPlugin("UltimateClaims") != null
 				&& Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("UltimateClaims")).isEnabled()) {
 			if (getConfig().getBoolean("ultimateClaims.enabled")) {
+				ultimateClaimsEnabled = true;
 				new UltimateClaimsManager();
 			}
 		}

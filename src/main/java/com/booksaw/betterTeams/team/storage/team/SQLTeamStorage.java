@@ -23,7 +23,9 @@ public class SQLTeamStorage extends TeamStorage {
 	}
 
 	public void invalidateCache() {
-		Main.plugin.getTeamPlaceholders().invalidateCache();
+		if (Main.placeholderAPI) {
+			Main.plugin.getTeamPlaceholders().invalidateCache();
+		}
 	}
 
 	private String getCondition() {

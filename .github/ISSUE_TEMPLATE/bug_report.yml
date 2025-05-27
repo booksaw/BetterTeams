@@ -45,8 +45,8 @@ body:
 
   - type: textarea
     attributes:
-      label: "Output of /teama version"
-      description: "Paste the output of /teama veresion here"
+      label: "Output of /teama debug - **FULL OUTPUT REQUIRED, THE BUG REPORT WILL NOT BE REVIEWED WITHOUT THIS**"
+      description: "Paste the output of /teama debug here"
     validations:
       required: true
   - type: textarea
