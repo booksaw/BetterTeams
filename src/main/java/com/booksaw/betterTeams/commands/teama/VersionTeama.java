@@ -71,9 +71,9 @@ public class VersionTeama extends SubCommand {
 
 	private String getPluginIntegrations() {
 
-		String placeholderAPI = (Main.placeholderAPI ? ChatColor.GREEN : ChatColor.RED) + "PlaceholderAPI";
-		String ultimateClaims = (Main.plugin.isUltimateClaimsEnabled() ? ChatColor.GREEN : ChatColor.RED) + "UltimateClaims";
-		String vault = (Main.econ != null ? ChatColor.GREEN : ChatColor.RED) + "Vault";
+		String placeholderAPI = (Main.placeholderAPI ? ChatColor.GREEN + "ENA-" : ChatColor.RED + "DIS-") + "PlaceholderAPI";
+		String ultimateClaims = (Main.plugin.isUltimateClaimsEnabled() ? ChatColor.GREEN + "ENA-" : ChatColor.RED + "DIS-") + "UltimateClaims";
+		String vault = (Main.econ != null ? ChatColor.GREEN + "ENA-" : ChatColor.RED + "DIS-") + "Vault";
 		String holograms = ChatColor.RED + "noHologram";
 		if (Bukkit.getPluginManager().isPluginEnabled("HolographicDisplays")) {
 			holograms = ChatColor.GREEN + "HolographicDisplays";
@@ -92,7 +92,7 @@ public class VersionTeama extends SubCommand {
 		}
 
 		if (plugins.isEmpty()) {
-			plugins = "No conflicts";
+			plugins = "none detected";
 		}
 
 		return plugins;
