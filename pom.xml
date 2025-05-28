@@ -134,7 +134,7 @@
         <dependency>
             <groupId>net.kyori</groupId>
             <artifactId>adventure-text-serializer-bungeecord</artifactId>
-            <version>4.3.4</version>
+            <version>4.4.0</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/net.kyori/adventure-platform-bukkit -->
