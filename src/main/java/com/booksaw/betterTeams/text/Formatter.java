@@ -110,7 +110,6 @@ public abstract class Formatter {
 				.put("betterteams.chat.format.reset", StandardTags.reset())
 				.put("betterteams.chat.format.legacyreset", LegacyTextTags.RESET)
 				.put("betterteams.chat.format.gradient", StandardTags.gradient())
-				.put("betterteams.chat.format.shadowcolor", StandardTags.shadowColor())
 				.put("betterteams.chat.format.hover", StandardTags.hoverEvent())
 				.put("betterteams.chat.format.click", StandardTags.clickEvent())
 				.put("betterteams.chat.format.insertion", StandardTags.insertion())
