@@ -916,6 +916,12 @@ Bug Fixes:
 Bug Fixes:
 - Fixed bug with /team create if placeholderAPI was not installed on the server
 
+4.13.2:
+
+Bug Fixes:
+- Fixed a NoClassDefFound error if using paper below 1.21.4 (#783) - Credit gaboss44
+- Fixed a bug with /team setowner where a team could have no owner
+
 Headings:
 Features:
 

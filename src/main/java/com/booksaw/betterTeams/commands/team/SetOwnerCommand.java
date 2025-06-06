@@ -9,7 +9,6 @@ import com.booksaw.betterTeams.message.MessageManager;
 import org.bukkit.command.CommandSender;
 
 import java.util.List;
-import java.util.Objects;
 
 public class SetOwnerCommand extends TeamSubCommand {
 
@@ -28,11 +27,16 @@ public class SetOwnerCommand extends TeamSubCommand {
 
 		TeamPlayer promotePlayer = teamPlayerResult.getPlayer();
 
-		if (Objects.requireNonNull(promotePlayer).getRank() == PlayerRank.OWNER) {
+		if (promotePlayer == null) {
+			return new CommandResponse("noPlayer");
+		}
+
+		if (promotePlayer.getRank() == PlayerRank.OWNER) {
 			return new CommandResponse("setowner.max");
 		}
 
-		team.promotePlayer(promotePlayer);
+
+		team.promotePlayerToOwner(promotePlayer);
 		team.demotePlayer(teamPlayer);
 		if (promotePlayer.getPlayer().isOnline()) {
 			MessageManager.sendMessage((CommandSender) promotePlayer.getPlayer(), "setowner.notify");
