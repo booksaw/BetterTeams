@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.booksaw.betterTeams.integrations.placeholder;
 
 import com.booksaw.betterTeams.Team;
@@ -21,7 +18,8 @@ public enum TeamPlaceholderOptionsEnum {
 	POSITIONSCORE(new PositionScorePlaceholderProvider()), POSITIONBAL(new PositionBalPlaceholderProvider()),
 	POSITIONMEMBERS(new PositionMembersPlaceholderProvider()), LEVEL(new LevelPlaceholderProvider()),
 	MAXMONEY(new MaxMoneyPlaceholderProvider()), MAXMEMBERS(new MaxMembersPlaceholderProvider()), MAXWARPS(new MaxWarpsPlaceholderProvider()),
-	PVP(new PvpPlaceholderProvider());
+	PVP(new PvpPlaceholderProvider()),
+	HASHOME(new HasHomePlaceholderProvider());
 
 	private final IndividualTeamPlaceholderProvider teamProvider;
 	private final IndividualTeamPlayerPlaceholderProvider teamPlayerProvider;

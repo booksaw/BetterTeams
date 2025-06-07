@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.booksaw.betterTeams.integrations.placeholder;
 
 import com.booksaw.betterTeams.Team;

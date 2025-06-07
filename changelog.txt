@@ -922,6 +922,11 @@ Bug Fixes:
 - Fixed a NoClassDefFound error if using paper below 1.21.4 (#783) - Credit gaboss44
 - Fixed a bug with /team setowner where a team could have no owner
 
+4.14.0:
+
+Improvements:
+- Added %betterteams_hashome%` placeholder (#693)
+
 Headings:
 Features:
 
