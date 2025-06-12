@@ -13,8 +13,6 @@ softdepend:
   - WorldGuard
   - UltimateClaims
   - DecentHolograms
-
-loadbefore:
   - zKoth
 
 permissions:
