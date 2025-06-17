@@ -64,7 +64,7 @@
         <dependency>
             <groupId>com.github.booksaw</groupId>
             <artifactId>betterteams-deadends</artifactId>
-            <version>f78733beff</version>
+            <version>4b3d734531</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
