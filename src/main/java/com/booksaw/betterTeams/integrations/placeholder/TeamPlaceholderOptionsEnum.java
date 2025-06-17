@@ -19,7 +19,8 @@ public enum TeamPlaceholderOptionsEnum {
 	POSITIONMEMBERS(new PositionMembersPlaceholderProvider()), LEVEL(new LevelPlaceholderProvider()),
 	MAXMONEY(new MaxMoneyPlaceholderProvider()), MAXMEMBERS(new MaxMembersPlaceholderProvider()), MAXWARPS(new MaxWarpsPlaceholderProvider()),
 	PVP(new PvpPlaceholderProvider()),
-	HASHOME(new HasHomePlaceholderProvider());
+	HASHOME(new HasHomePlaceholderProvider()),
+	TEAMCHAT(new TeamChatPlaceholderProvider());
 
 	private final IndividualTeamPlaceholderProvider teamProvider;
 	private final IndividualTeamPlayerPlaceholderProvider teamPlayerProvider;
