@@ -927,6 +927,9 @@ Bug Fixes:
 Improvements:
 - Added %betterteams_hashome%` placeholder (#693)
 
+Bug Fixes:
+- Restored behaviour when if a tag is not set, the display name is used
+
 Headings:
 Features:
 
