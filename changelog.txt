@@ -916,6 +916,21 @@ Bug Fixes:
 Bug Fixes:
 - Fixed bug with /team create if placeholderAPI was not installed on the server
 
+4.13.2:
+
+Bug Fixes:
+- Fixed a NoClassDefFound error if using paper below 1.21.4 (#783) - Credit gaboss44
+- Fixed a bug with /team setowner where a team could have no owner
+
+4.14.0:
+
+Improvements:
+- Added %betterteams_hashome%` placeholder (#693)
+- Added %betterteams_teamchat%` placeholder (#795)
+
+Bug Fixes:
+- Restored behaviour when if a tag is not set, the display name is used
+
 Headings:
 Features:
 

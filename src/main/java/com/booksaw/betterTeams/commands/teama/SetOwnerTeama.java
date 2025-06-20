@@ -33,7 +33,7 @@ public class SetOwnerTeama extends SubCommand {
 			return new CommandResponse("admin.setowner.already");
 		}
 
-		team.promotePlayer(tp);
+		team.promotePlayerToOwner(tp);
 		MessageManager.sendMessage(p, "admin.setowner.notify");
 
 		for (TeamPlayer player : team.getMembers().getClone()) {

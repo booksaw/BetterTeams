@@ -13,9 +13,7 @@ import com.booksaw.betterTeams.team.storage.StorageType;
 import com.booksaw.betterTeams.team.storage.team.StoredTeamValue;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
 import com.booksaw.betterTeams.text.LegacyTextUtils;
-
 import lombok.Getter;
-
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
@@ -411,7 +409,7 @@ public class Team {
 
 		storage.set(StoredTeamValue.PVP, false);
 		pvp = false;
-		
+
 		storage.set(StoredTeamValue.ANCHOR, false);
 		useTeamHomeAsAnchor = false;
 
@@ -546,10 +544,9 @@ public class Team {
 	}
 
 	public String getAdventureTag(boolean checkConfig) {
-		if (tag == null || tag.isEmpty()) return "";
+		if (tag == null || tag.isEmpty()) return getAdventureDisplayName(checkConfig);
 		boolean doColor = !checkConfig || Main.plugin.getConfig().getBoolean("colorTeamName", true);
-		return ""
-				+ (doColor ? getOpenColor() : "")
+		return (doColor ? getOpenColor() : "")
 				+ tag
 				+ (doColor ? getCloseColor() : "");
 	}
@@ -560,9 +557,9 @@ public class Team {
 
 	public String getTag(boolean asAdventure) {
 		if (asAdventure) return getAdventureTag(true);
-		else return tag == null || tag.isEmpty() ? "" : ""
-					+ (color != null && Main.plugin.getConfig().getBoolean("colorTeamName", true) ? color : "")
-					+ tag;
+		else return tag == null || tag.isEmpty() ? getDisplayName() :
+				(color != null && Main.plugin.getConfig().getBoolean("colorTeamName", true) ? color : "")
+						+ tag;
 	}
 
 	public String getTag(ChatColor returnTo) {
@@ -574,7 +571,8 @@ public class Team {
 			return getOriginalTag();
 		} else if (tag == null || tag.isEmpty()) {
 			return getDisplayName(asAdventure);
-		} else return getTag(asAdventure) + (asAdventure ? LegacyTextUtils.colorToAdventure(returnTo.asBungee()) : returnTo);
+		} else
+			return getTag(asAdventure) + (asAdventure ? LegacyTextUtils.colorToAdventure(returnTo.asBungee()) : returnTo);
 	}
 
 	public String getOriginalTag() {
@@ -687,7 +685,7 @@ public class Team {
 		}
 
 		savePlayers();
-		if(p.isAnchored()) {
+		if (p.isAnchored()) {
 			anchoredPlayers.remove(this, p.getPlayerUUID());
 			saveAnchoredPlayers();
 		}
@@ -702,9 +700,10 @@ public class Team {
 	public boolean isPlayerAnchored(OfflinePlayer p) {
 		return isPlayerAnchored(getTeamPlayer(p));
 	}
-	
+
 	/**
 	 * Used to check if the given team player is anchored within this team
+	 *
 	 * @param p the team player
 	 */
 	public boolean isPlayerAnchored(TeamPlayer p) {
@@ -714,19 +713,20 @@ public class Team {
 	public AnchorResult setPlayerAnchor(OfflinePlayer p, boolean anchor) {
 		return setPlayerAnchor(getTeamPlayer(p), anchor);
 	}
-	
+
 	public AnchorResult setPlayerAnchor(TeamPlayer p, boolean anchor) {
 		return anchor ? anchorPlayer(p) : unanchorPlayer(p);
 	}
 
 	/**
 	 * Used for anchoring this player.
+	 *
 	 * @param p the team player to anchor
 	 * @return AnchorResult
 	 */
 	public AnchorResult anchorPlayer(TeamPlayer p) {
 		AnchorResult result = anchoredPlayers.add(this, p);
-		if(result == AnchorResult.SUCCESS){
+		if (result == AnchorResult.SUCCESS) {
 			getStorage().setAnchor(p, true);
 			saveAnchoredPlayers();
 		}
@@ -735,12 +735,13 @@ public class Team {
 
 	/**
 	 * Used for unanchoring this player.
+	 *
 	 * @param p the team player to unanchor
 	 * @return AnchorResult
 	 */
 	public AnchorResult unanchorPlayer(TeamPlayer p) {
 		AnchorResult result = anchoredPlayers.remove(this, p);
-		if(result == AnchorResult.SUCCESS){
+		if (result == AnchorResult.SUCCESS) {
 			getStorage().setAnchor(p, false);
 			saveAnchoredPlayers();
 		}
@@ -894,13 +895,21 @@ public class Team {
 	 * @param promotePlayer the player to be promoted
 	 */
 	public void promotePlayer(TeamPlayer promotePlayer) {
-		PlayerRank oldRank = promotePlayer.getRank();
 		PlayerRank newRank;
 		if (promotePlayer.getRank() == PlayerRank.DEFAULT) {
 			newRank = PlayerRank.ADMIN;
 		} else {
 			newRank = PlayerRank.OWNER;
 		}
+		promotePlayer(promotePlayer, newRank);
+	}
+
+	public void promotePlayerToOwner(TeamPlayer promotePlayer) {
+		promotePlayer(promotePlayer, PlayerRank.OWNER);
+	}
+
+	private void promotePlayer(TeamPlayer promotePlayer, PlayerRank newRank) {
+		PlayerRank oldRank = promotePlayer.getRank();
 
 		final PromotePlayerEvent event = new PromotePlayerEvent(this, promotePlayer, oldRank, newRank);
 
@@ -956,7 +965,7 @@ public class Team {
 	public void deleteTeamHome() {
 		teamHome = null;
 		getStorage().set(StoredTeamValue.HOME, "");
-		if(useTeamHomeAsAnchor) setAnchored(false);
+		if (useTeamHomeAsAnchor) setAnchored(false);
 	}
 
 	/**
@@ -1126,11 +1135,11 @@ public class Team {
 		}
 
 		Collection<CommandSender> spies = Main.plugin.chatManagement.spy.stream()
-			.filter(temp -> !(temp instanceof Player && 
-				(Team.getTeam((Player) temp) == this || 
-				(Team.getTeam((Player) temp) != null && isAlly(Team.getTeam((Player) temp)))))
-			)
-			.collect(Collectors.toList());
+				.filter(temp -> !(temp instanceof Player &&
+						(Team.getTeam((Player) temp) == this ||
+								(Team.getTeam((Player) temp) != null && isAlly(Team.getTeam((Player) temp)))))
+				)
+				.collect(Collectors.toList());
 
 		chatMsg.sendSpyMessage(spies);
 
@@ -1196,7 +1205,7 @@ public class Team {
 			return team;
 		}
 
-		String name = color +  LegacyTextUtils.parseAllAdventure(MessageManager.getMessage("nametag.syntax", getTag(ChatColor.RESET, false)));
+		String name = color + LegacyTextUtils.parseAllAdventure(MessageManager.getMessage("nametag.syntax", getTag(ChatColor.RESET, false)));
 
 		int attempt = 0;
 		do {
@@ -1703,6 +1712,7 @@ public class Team {
 
 	/**
 	 * Toggle anchor status for this team
+	 *
 	 * @return false if trying to anchor the team and its home is not set, true otherwise
 	 */
 	public boolean toggleAnchor() {
@@ -1710,7 +1720,7 @@ public class Team {
 	}
 
 	public boolean setAnchored(boolean anchor) {
-		if(anchor && teamHome == null) return false;
+		if (anchor && teamHome == null) return false;
 		this.useTeamHomeAsAnchor = anchor;
 		getStorage().set(StoredTeamValue.ANCHOR, anchor);
 		return true;
