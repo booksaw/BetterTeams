@@ -7,7 +7,6 @@ import org.bukkit.Location;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerRespawnEvent;
-import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -20,7 +19,7 @@ public class HomeAnchorManagement implements Listener {
 
     private final JavaPlugin plugin;
     private final EventPriority defaultPriority = EventPriority.NORMAL;
-    private EventPriority priority;
+    private final EventPriority priority;
     private final EnumSet<EventPriority> allowedPriorities = EnumSet.of(
             EventPriority.HIGH,
             EventPriority.HIGHEST,
@@ -31,7 +30,7 @@ public class HomeAnchorManagement implements Listener {
     private final boolean checkUsePermission;
     private final boolean checkAnchoredPlayer;
 
-    public HomeAnchorManagement(JavaPlugin plugin) {
+    public HomeAnchorManagement(Main plugin) {
         this.plugin = plugin;
         this.checkUsePermission = plugin.getConfig().getBoolean("anchor.checkUsePermission");
         this.checkAnchoredPlayer = plugin.getConfig().getBoolean("anchor.checkAnchoredPlayer");
@@ -39,7 +38,7 @@ public class HomeAnchorManagement implements Listener {
     }
 
     private EventPriority getConfiguredPriority() {
-        String priorityStr = Main.plugin.getConfig().getString("anchor.priority", "NORMAL").toUpperCase();
+        String priorityStr = plugin.getConfig().getString("anchor.priority", "NORMAL").toUpperCase();
         try {
             return allowedPriorities.contains(EventPriority.valueOf(priorityStr))
                     ? EventPriority.valueOf(priorityStr)
@@ -50,8 +49,7 @@ public class HomeAnchorManagement implements Listener {
     }
 
     public void registerEvent() {
-        PluginManager pm = Bukkit.getPluginManager();
-        pm.registerEvent(PlayerRespawnEvent.class, this, priority,
+		Bukkit.getPluginManager().registerEvent(PlayerRespawnEvent.class, this, priority,
                 (listener, event) -> {
                     if (event instanceof PlayerRespawnEvent) {
                         onRespawn((PlayerRespawnEvent) event);
@@ -61,10 +59,16 @@ public class HomeAnchorManagement implements Listener {
     }
 
     public void onRespawn(@NotNull PlayerRespawnEvent e) {
+		if (e.isAnchorSpawn() && plugin.getConfig().getBoolean("ignoreObsidianAnchorRespawn", false))
+			return;
+		if (e.isBedSpawn() && plugin.getConfig().getBoolean("ignoreBedRespawn", false))
+			return;
+
         Team team = Team.getTeam(e.getPlayer());
         if (team == null || !team.isAnchored()) return;
 
         TeamPlayer teamPlayer = team.getTeamPlayer(e.getPlayer());
+		if (teamPlayer == null) return;
         if (checkAnchoredPlayer && !teamPlayer.isAnchored()) return;
 
         // This goes before the team home for ensuring it exists even after this
@@ -73,7 +77,7 @@ public class HomeAnchorManagement implements Listener {
         Location teamHome = team.getTeamHome();
         if (teamHome == null) return;
 
-        PlayerHomeAnchorEvent anchorEvent = new PlayerHomeAnchorEvent(team, teamPlayer, teamHome);
+        PlayerHomeAnchorEvent anchorEvent = new PlayerHomeAnchorEvent(team, teamPlayer, teamHome, e);
         Bukkit.getPluginManager().callEvent(anchorEvent);
 
         if (!anchorEvent.isCancelled()) e.setRespawnLocation(anchorEvent.getLocation());
