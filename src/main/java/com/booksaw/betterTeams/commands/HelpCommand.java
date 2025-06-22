@@ -5,7 +5,6 @@ import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.text.Formatter;
 import com.booksaw.betterTeams.text.LegacyTextUtils;
-
 import net.kyori.adventure.text.Component;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -120,8 +119,8 @@ public class HelpCommand extends SubCommand {
 				Main.plugin.getLogger().log(Level.SEVERE,
 
 						"Could not use fully custom help messages, inform booksaw (this should never happen)");
-				sender.sendMessage(ChatColor.RED + "Something went wrong, inform your server admins");
-				e.printStackTrace();
+				MessageManager.sendMessage(sender, "help.wrong");
+				Main.plugin.getLogger().severe(e.toString());
 				fullyCustom = false;
 			}
 		}
@@ -133,8 +132,8 @@ public class HelpCommand extends SubCommand {
 		} catch (Exception e) {
 			Main.plugin.getLogger().log(Level.SEVERE,
 					"Could not use fully custom help messages, inform booksaw (this should never happen)");
-			sender.sendMessage(ChatColor.RED + "Something went wrong, inform your server admins");
-			e.printStackTrace();
+			MessageManager.sendMessage(sender, "help.wrong");
+			Main.plugin.getLogger().severe(e.toString());
 			fullyCustom = false;
 		}
 	}

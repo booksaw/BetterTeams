@@ -238,7 +238,11 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 			try {
 				YamlConfiguration yamlConfig = new YamlConfiguration();
 				yamlConfig.load(f);
-				teams.add(new CrossReference<>(yamlConfig.getString(StoredTeamValue.NAME.getReference()), valueSorter.getValueToSort(yamlConfig)));
+				String name = yamlConfig.getString(StoredTeamValue.NAME.getReference());
+				if (name == null) {
+					throw new IllegalStateException("Team name in " + f.getName() + " is empty, it will be skipped");
+				}
+				teams.add(new CrossReference<>(name, valueSorter.getValueToSort(yamlConfig)));
 			} catch (Exception e) {
 				Main.plugin.getLogger().severe("UNABLE TO READ TEAM DATA FROM " + f);
 			}
