@@ -930,6 +930,7 @@ Improvements:
 
 Bug Fixes:
 - Restored behaviour when if a tag is not set, the display name is used
+- Fixed bug allowing placeholder injection using /team description (#799)
 
 Headings:
 Features:
