@@ -30,11 +30,9 @@ public class StringUtil {
 			return "";
 		}
 
-		if (player == null || !Main.placeholderAPI) {
-			return text;
+		if (player != null && Main.placeholderAPI) {
+			text = PlaceholderAPI.setPlaceholders(player, text);
 		}
-
-		text = PlaceholderAPI.setPlaceholders(player, text);
 
 		if (replacements.length != 0) {
 			text = setPlaceholders(text, replacements);

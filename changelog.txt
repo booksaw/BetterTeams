@@ -937,6 +937,11 @@ Bug Fixes:
 - Replaced a hardcoded message with a translatable option
 - Fixed illegal argument exception on null team name (#796)
 
+4.13.4
+
+Bug Fixes:
+- Fixed bug when PlaceholderAPI is not installed on the server (#802)
+
 Headings:
 Features:
 
