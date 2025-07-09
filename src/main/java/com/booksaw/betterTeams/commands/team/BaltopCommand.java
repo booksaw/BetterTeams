@@ -40,6 +40,7 @@ public class BaltopCommand extends SubCommand {
 						Main.plugin.getLogger().severe("Files are out of sync. Please set `rebuildLookups` to true and restart your server");
 						continue;
 					}
+
 					MessageManager.sendMessage(sender, "baltop.syntax", i + 1, tempTeam.getName(), tempTeam.getBalance());
 					if (team == tempTeam) {
 						contained = true;

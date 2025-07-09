@@ -17,6 +17,7 @@ import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -62,7 +63,11 @@ public abstract class TeamManager {
 	 * @return the team with that ID [null - the team does not exist]
 	 */
 	@Nullable
-	public Team getTeam(@NotNull UUID uuid) {
+	@Contract(pure = true, value = "null -> null")
+	public Team getTeam(@Nullable UUID uuid) {
+		if (uuid == null) {
+			return null;
+		}
 
 		if (loadedTeams.containsKey(uuid)) {
 			return loadedTeams.get(uuid);
@@ -86,7 +91,11 @@ public abstract class TeamManager {
 	 * @return the team which matches the data[null - no team could be found]
 	 */
 	@Nullable
-	public Team getTeam(@NotNull String name) {
+	@Contract(pure = true, value = "null -> null")
+	public Team getTeam(@Nullable String name) {
+		if (name == null)
+			return null;
+
 		Team team = getTeamByName(name);
 		if (team != null) {
 			return team;
@@ -110,7 +119,11 @@ public abstract class TeamManager {
 	 * @return the team they are in [null - they are not in a team]
 	 */
 	@Nullable
-	public Team getTeam(@NotNull OfflinePlayer player) {
+	@Contract(pure = true, value = "null -> null")
+	public Team getTeam(@Nullable OfflinePlayer player) {
+		if (player == null) {
+			return null;
+		}
 
 		// checking if the player is in a loaded team (save hitting secondary storage every time)
 		Optional<Team> possibleTeam = loadedTeams.values().stream().filter(team -> team.getMembers().contains(player)).findFirst();
@@ -128,7 +141,6 @@ public abstract class TeamManager {
 		}
 
 		return getTeam(uuid);
-
 	}
 
 	/**
@@ -151,7 +163,6 @@ public abstract class TeamManager {
 		}
 
 		return getTeam(uuid);
-
 	}
 
 	/**
@@ -319,7 +330,8 @@ public abstract class TeamManager {
 	 * @return If a team exists with that uuid
 	 */
 	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
-	public abstract boolean isTeam(UUID uuid);
+	@Contract(pure = true, value = "null -> false")
+	public abstract boolean isTeam(@Nullable UUID uuid);
 
 	/**
 	 * Used to check if a team exists with that name
@@ -327,7 +339,8 @@ public abstract class TeamManager {
 	 * @param name the name to check
 	 * @return If a team exists with that name
 	 */
-	public abstract boolean isTeam(String name);
+	@Contract(pure = true, value = "null -> false")
+	public abstract boolean isTeam(@Nullable String name);
 
 	/**
 	 * Used to check if the specified player is in a team
