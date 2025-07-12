@@ -71,7 +71,7 @@ public class PlayerTeleport {
 
 	public void runTp() {
 		if (location == null || location.getWorld() == null) {
-			System.out.println("[BetterTeams] Attempted to teleport to a null location or world.");
+			Main.plugin.getLogger().warning("[BetterTeams] Attempted to teleport to a null location or world.");
 			return;
 		}
 
