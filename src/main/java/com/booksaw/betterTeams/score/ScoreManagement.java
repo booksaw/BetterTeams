@@ -4,6 +4,8 @@ import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.customEvents.post.PostPurgeEvent;
 import com.booksaw.betterTeams.score.ScoreChange.ChangeType;
+import com.tcoded.folialib.FoliaLib;
+import com.tcoded.folialib.impl.FoliaImplementation;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -59,8 +61,8 @@ public class ScoreManagement implements Listener {
 	 * This class is used to schedule events
 	 */
 	private void sched() {
-		BukkitScheduler scheduler = Main.plugin.getServer().getScheduler();
-		scheduler.scheduleSyncRepeatingTask(Main.plugin, () -> {
+		FoliaLib scheduler = new FoliaLib(Main.plugin);
+		scheduler.getScheduler().runTimer(() -> {
 
 			if (purges.get(nextPurge).isNow()) {
 				if (run) {
@@ -79,13 +81,13 @@ public class ScoreManagement implements Listener {
 			// clean pass so it can reset the tracker
 			run = false;
 
-		}, 0L, 20 * 60L);
+		}, 1, 20 * 60L);
 
 	}
 
 	@EventHandler
 	public void onPurge(PostPurgeEvent e) {
-		Bukkit.getScheduler().runTask(Main.plugin, () -> Main.plugin.getConfig().getStringList("purgeCommands").forEach(cmd -> {
+		Main.plugin.getFoliaLib().getScheduler().runAsync(purge -> Main.plugin.getConfig().getStringList("purgeCommands").forEach(cmd -> {
 			if (Main.plugin.getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
 				cmd = PlaceholderAPI.setPlaceholders(null, cmd);
 			}

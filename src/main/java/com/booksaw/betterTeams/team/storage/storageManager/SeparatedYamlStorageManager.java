@@ -16,7 +16,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.File;
 import java.io.IOException;
@@ -296,29 +295,26 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 		}
 
 		// purging all teams that are not loaded async to minimise server impact
-		new BukkitRunnable() {
-			@Override
-			public void run() {
-				for (File f : teamStorageDir.listFiles()) {
-					String teamID = f.getName();
-					teamID = teamID.replace(".yml", "");
-					// team has already been resetS
-					if (loadedTeamsClone.containsKey(UUID.fromString(teamID))) {
-						continue;
-					}
+		Main.plugin.getFoliaLib().getScheduler().runAsync(task -> {
+			for (File f : teamStorageDir.listFiles()) {
+				String teamID = f.getName();
+				teamID = teamID.replace(".yml", "");
+				// team has already been resetS
+				if (loadedTeamsClone.containsKey(UUID.fromString(teamID))) {
+					continue;
+				}
 
-					YamlConfiguration yamlConfig = YamlConfiguration.loadConfiguration(f);
-					yamlConfig.set(storedTeamValue.getReference(), value);
-					try {
-						yamlConfig.save(f);
-					} catch (IOException e) {
-						Main.plugin.getLogger()
-								.warning("Failed to purge the " + storedTeamValue + "of the team with the file " + f.getPath());
-						e.printStackTrace();
-					}
+				YamlConfiguration yamlConfig = YamlConfiguration.loadConfiguration(f);
+				yamlConfig.set(storedTeamValue.getReference(), value);
+				try {
+					yamlConfig.save(f);
+				} catch (IOException e) {
+					Main.plugin.getLogger()
+							.warning("Failed to purge the " + storedTeamValue + "of the team with the file " + f.getPath());
+					e.printStackTrace();
 				}
 			}
-		}.runTaskAsynchronously(Main.plugin);
+		});
 	}
 
 	private interface ResetLoadedTeamValue {

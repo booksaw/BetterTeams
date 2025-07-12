@@ -20,7 +20,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
 import java.util.Objects;
@@ -74,14 +73,11 @@ public class UltimateClaimsManager implements Listener {
 				continue;
 			}
 
-			new BukkitRunnable() {
+			Main.plugin.getFoliaLib().getScheduler().runLater(task -> {
+				ClaimMember member = c.addMember(e.getPlayer(), ClaimRole.MEMBER);
+				JavaPlugin.getPlugin(UltimateClaims.class).getDataHelper().createMember(member);
 
-				@Override
-				public void run() {
-					ClaimMember member = c.addMember(e.getPlayer(), ClaimRole.MEMBER);
-					JavaPlugin.getPlugin(UltimateClaims.class).getDataHelper().createMember(member);
-				}
-			}.runTaskLater(Main.plugin, 1);
+			}, 1);
 		}
 	}
 
@@ -162,13 +158,10 @@ public class UltimateClaimsManager implements Listener {
 				continue;
 			}
 
-			new BukkitRunnable() {
+			Main.plugin.getFoliaLib().getScheduler().runAsync(task -> {
 
-				@Override
-				public void run() {
-					c.destroy(ClaimDeleteReason.PLAYER);
-				}
-			}.runTask(Main.plugin);
+				c.destroy(ClaimDeleteReason.PLAYER);
+			});
 
 
 			if (player.getPlayer().isOnline()) {

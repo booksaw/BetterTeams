@@ -33,6 +33,7 @@ import com.booksaw.betterTeams.team.storage.StorageType;
 import com.booksaw.betterTeams.team.storage.convert.Converter;
 import com.booksaw.betterTeams.team.storage.storageManager.YamlStorageManager;
 import com.booksaw.betterTeams.util.WebhookHandler;
+import com.tcoded.folialib.FoliaLib;
 import lombok.Getter;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.milkbowl.vault.economy.Economy;
@@ -75,6 +76,12 @@ public class Main extends JavaPlugin {
 
 	@Getter
 	private TeamPlaceholders teamPlaceholders;
+
+	/**
+	 * FoliaLib instance for Folia/Paper/Spigot support
+	 */
+	@Getter
+	public FoliaLib foliaLib;
 
 	/**
 	 * If the ultimateClaims expansion has been enabled
@@ -120,6 +127,7 @@ public class Main extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
+		foliaLib = new FoliaLib(this);
 		setupMetrics();
 
 		String language = getConfig().getString("language");
@@ -172,6 +180,8 @@ public class Main extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
+
+		foliaLib.getScheduler().cancelAllTasks();
 
 		for (Entry<Player, Team> temp : InventoryManagement.adminViewers.entrySet()) {
 			temp.getKey().closeInventory();
@@ -382,18 +392,19 @@ public class Main extends JavaPlugin {
 		BelowNameType type = BelowNameType.getType(Objects.requireNonNull(getConfig().getString("displayTeamName")));
 		Main.plugin.getLogger().info("Loading below name. Type: " + type);
 		if (getConfig().getBoolean("useTeams")) {
-			if (teamManagement == null) {
-
+			if (foliaLib.isFolia()) {
+				Bukkit.getLogger().warning("Folia detected: Skipping MCTeamManagement initialization to avoid threading issues.");
+			} else if(teamManagement == null) {
 				teamManagement = new MCTeamManagement(type);
 
-				Bukkit.getScheduler().runTaskAsynchronously(this, () -> teamManagement.displayBelowNameForAll());
+				Main.plugin.getFoliaLib().getScheduler().runAsync(task -> teamManagement.displayBelowNameForAll());
 				getServer().getPluginManager().registerEvents(teamManagement, this);
 				Main.plugin.getLogger().info("teamManagement declared: " + teamManagement);
-			}
-		} else {
-			Main.plugin.getLogger().info("Not loading management");
-			if (teamManagement != null) {
-				Main.plugin.getLogger().log(Level.WARNING, "Restart server for minecraft team changes to apply");
+			} else {
+				Main.plugin.getLogger().info("Not loading management");
+				if (teamManagement != null) {
+					Main.plugin.getLogger().log(Level.WARNING, "Restart server for minecraft team changes to apply");
+				}
 			}
 		}
 

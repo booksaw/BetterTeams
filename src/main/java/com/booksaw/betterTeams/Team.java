@@ -19,13 +19,13 @@ import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -854,20 +854,14 @@ public class Team {
 			return;
 		}
 
-		new BukkitRunnable() {
-
-			@Override
-			public void run() {
-				Player p = Bukkit.getPlayer(uniqueId);
-				if (p == null || getTeamPlayer(p) != null) {
-					return;
-				}
-				invitedPlayers.remove(uniqueId);
-
-				MessageManager.sendMessage(p, "invite.expired", getName());
+		Main.plugin.getFoliaLib().getScheduler().runLaterAsync(task -> {
+			Player p = Bukkit.getPlayer(uniqueId);
+			if (p == null || getTeamPlayer(p) != null) {
+				return;
 			}
-		}.runTaskLaterAsynchronously(Main.plugin, invite * 20L);
-
+			invitedPlayers.remove(uniqueId);
+			MessageManager.sendMessage(p, "invite.expired", getName());
+		}, invite * 20L);
 	}
 
 	/**
