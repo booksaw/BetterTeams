@@ -54,7 +54,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./wiki/build
+          path: ./wiki/out
 
   # Deployment job
   deploy:
