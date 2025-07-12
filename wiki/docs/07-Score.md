@@ -1,11 +1,18 @@
+---
+sidebar_position: 7
+---
+
+
+# Score
+
 Players are awarded score for kills (1 score for 1 kill), they lose score for dying and can be given score through
 plugin integrations, both direct and indirect.
 
 ## Direct integrations
 
-* [Zkoth](https://github.com/booksaw/BetterTeams/wiki/Dependencies#zkoth)
+* [Zkoth](https://www.spigotmc.org/resources/zkoth-king-of-the-hill.76749/)
 
-Check the [dependencies section](https://github.com/booksaw/BetterTeams/wiki/Dependencies) of the wiki for more details.
+Check the [dependencies section](./dependencies/Dependencies#zkoth) of the wiki for more details.
 
 ## Indirect Integrations
 
@@ -22,17 +29,17 @@ reduction does not suit your server you can always disable it by setting `spamTh
 
 This is an exert of config.yml.
 
-```
+```yaml
 # All settings depending on the score aspect of this plugin
 # For integrations of other plugins with score see the bottom section of the config
- 
+
 
 # This is a list of commands which are run by the console before a purge occurs
 # A purge is where all teams scores are reset to 0
 # If this is left blank, no commands will be run before a purge occurs
 # You can use placeholders from placeholder API, though the player is set to be null (so things like %betterteams_team% will not work) 
 #    the main reason for the placeholders is so you can use %betterteams_score_{rank}% to refrence a player on the leaderboard
-# 
+#
 # Possible values: [Any command valid on your server]
 purgeCommands:
 - 'give @a minecraft:dirt 1'
@@ -40,9 +47,9 @@ purgeCommands:
 # This is used to track when the next purge should occur. This is a list of dates where a purge will be run 
 # If this list is left blank, no purges will occur
 # these dates must be in order of ealiest to latest
-# 
+#
 # Possible values: [{dateOfMonth}:{Hour of day}]
-autoPurge: 
+autoPurge:
 #- '1:6'
 # This will purge the users score at 6am on the first of every month
 
@@ -58,7 +65,7 @@ spamThreshold: 60
 # If something happens on your server you want to influence score is not listed below, make a request for it here: https://github.com/booksaw/BetterTeams/issues/new/choose
 
 # Score changes for when a player dies
-events: 
+events:
    death:
       score: 0
       spam: -1
@@ -69,7 +76,7 @@ events:
       spam: 0
 
 # The minimum score a team can have
-# 
+#
 # Possible values: [Any whole number]
 minScore: 0
 ```
