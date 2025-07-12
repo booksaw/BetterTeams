@@ -45,7 +45,7 @@ const config: Config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/booksaw/betterteams/tree/main/wiki/',
+            'https://github.com/booksaw/betterteams/tree/master/wiki/',
         },
         theme: {
           customCss: './src/css/custom.css',
