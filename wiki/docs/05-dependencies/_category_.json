@@ -1,0 +1,8 @@
+{
+  "label": "Plugin integrations",
+  "position": 5,
+  "link": {
+    "type": "generated-index",
+    "description": "Plugins which support or work alongside BetterTeams"
+  }
+}

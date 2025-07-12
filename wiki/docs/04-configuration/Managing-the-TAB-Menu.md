@@ -1,8 +1,12 @@
+# Managing the TAB menu
+
 Betterteams supports displaying the team name in the TAB menu, and next to the players name in-game.
+
+## Methods of displaying the team name in the TAB menu
 
 There are 2 main ways this can be done.
 
-## Method 1 - Using the inbuilt TAB management system
+### Method 1 - Using the inbuilt TAB management system
 
 To use this system a few configuration options must be set. These options are all found in the BetterTeams config.yml
 file.
@@ -11,12 +15,12 @@ file.
 * Set `displayTeamName` to either `prefix` or `suffix` depending on where you want the team name displayed
 
 With these values configured, the team name should be displayed both in the TAB menu and alongside the player's name
-in-game. If it is not, see the [conflict section of this wiki page](#conflict)
+in-game. If it is not, see the [conflict section of this wiki page](#plugin conflicts)
 
-## Method 2 - Using placeholders
+### Method 2 - Using placeholders
 
 This method takes more configuration, but works with more plugin configurations. As mentioned on
-the [PlaceholderAPI wiki page](https://github.com/booksaw/BetterTeams/wiki/PlaceholderAPI), to display the team name
+the [PlaceholderAPI wiki page](../dependencies/PlaceholderAPI), to display the team name
 using placeholders, the placeholder `BetterTeams_name` should be used.
 
 This then must be used within another plugin for
@@ -24,11 +28,10 @@ example [TabList](https://www.spigotmc.org/resources/animated-tab-tablist.46229)
 cannot be tested, and there are alternative options, but this is the style of plugin you should use). For more
 information you will have to view the plugin page of the plugin that supports PlaceholderAPI.
 
-# Conflict
+## Plugin Conflicts
 
 Plugin conflicts in this area are caused by minecraft limitations. To display team names in the TAB menu along with
-other functionality, the player must be assigned to a [
-`/minecraft:team` team](https://minecraft.fandom.com/wiki/Commands/team). These teams by nature are more limited than
+other functionality, the player must be assigned to a [`/minecraft:team` team](https://minecraft.fandom.com/wiki/Commands/team). These teams by nature are more limited than
 the teams created within the BetterTeams plugin along with being more temperamental to work with.
 The issues arise as a player can only be assigned to a single team, but as many plugins make use of this feature,
 sometimes two plugins cannot function on the same server as both plugins require the player to be added to a plugin
