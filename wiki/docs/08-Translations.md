@@ -1,3 +1,9 @@
+---
+sidebar_position: 6
+---
+
+# Translations
+
 BetterTeams supports many languages, for a full list look below.
 
 If you select a language that is not English remember they are translations done by the community, this means they may
@@ -8,20 +14,20 @@ lag behind the English version or have slight inaccuracies, but it will still be
 | Language code | Language            |
 |---------------|---------------------|
 | ar            | Arabic              |
-| hy            | Armenian            | 
+| hy            | Armenian            |
 | ca            | Catlan              |
 | cz            | Czech               |
 | nl            | Dutch               |
 | en            | English             |
 | fr            | French              |
 | ka            | Georgian            |
-| de            | German              | 
+| de            | German              |
 | hi            | Hindi               |
 | hu            | Hungarian           |
 | id            | Indonesian          |
-| it            | Italian             | 
+| it            | Italian             |
 | ja            | Japanese            |
-| ko            | Korean              | 
+| ko            | Korean              |
 | li            | Lithuanian          |
 | es_mx         | Mexican Spanish     |
 | pl            | Polish              |
@@ -30,10 +36,10 @@ lag behind the English version or have slight inaccuracies, but it will still be
 | ru            | Russian             |
 | sr            | Serbian             |
 | es            | Spanish             |
-| zh_tw         | Traditional Chinese | 
-| tr            | Turkish             | 
+| zh_tw         | Traditional Chinese |
+| tr            | Turkish             |
 | uk            | Ukrainian           |
-| vi            | Vietnamese          | 
+| vi            | Vietnamese          |
 
 ***
 
