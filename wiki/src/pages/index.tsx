@@ -30,7 +30,10 @@ function HomepageHeader() {
 export default function Home(): ReactNode {
     const { siteConfig } = useDocusaurusContext();
     return (
-        <Layout title={`Hello from ${siteConfig.title}`} description="Description will go into a meta tag in <head />">
+        <Layout
+            title={`Hello from ${siteConfig.title}`}
+            description="Spigot plugin allowing you to create teams to fight to be the best"
+        >
             <HomepageHeader />
             <main>
                 <HomepageFeatures />
@@ -38,4 +41,3 @@ export default function Home(): ReactNode {
         </Layout>
     );
 }
-

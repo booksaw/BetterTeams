@@ -20,7 +20,7 @@ one of the features from betterteams it still can be done in the method describe
 
 As shown in the screenshot below, when giving the group / player the permission node, set the value to false. This will
 result in the player not having access to that permission.
-![LuckPerms editor](https://cdn.discordapp.com/attachments/797431152549298206/800815395611213824/unknown.png)
+![LuckPerms editor](./img/luckperms.png)
 
 ## List of permissions
 
