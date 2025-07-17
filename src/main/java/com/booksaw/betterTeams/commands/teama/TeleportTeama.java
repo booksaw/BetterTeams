@@ -11,7 +11,6 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -207,23 +206,18 @@ public class TeleportTeama extends SubCommand {
 			throw new IllegalArgumentException("Invalid location array - Either one location for all or separate locations for each");
 		}
 
-		new BukkitRunnable() {
-
-			@Override
-			public void run() {
-				if (locations.length != 1) {
-					for (int i = 0; i < targetList.size(); i++) {
-						if (locations[i] == null) continue; // Some teams may not have their home set
-						targetList.get(i).teleport(locations[i]);
-					}
-					return;
+		Main.plugin.getFoliaLib().getScheduler().runAsync(task -> {
+			if (locations.length != 1) {
+				for (int i = 0; i < targetList.size(); i++) {
+					if (locations[i] == null) continue; // Some teams may not have their home set
+					targetList.get(i).teleport(locations[i]);
 				}
-				for (Player player : targetList) {
-					player.teleport(locations[0]);
-				}
+				return;
 			}
-
-		}.runTask(Main.plugin);
+			for (Player player : targetList) {
+				player.teleport(locations[0]);
+			}
+		});
 
 	}
 

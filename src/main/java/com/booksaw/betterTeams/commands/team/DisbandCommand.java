@@ -29,7 +29,7 @@ public class DisbandCommand extends TeamSubCommand {
 		final UUID playerId = teamPlayer.getPlayerUUID();
 
 		if ((args.length >= 1 && args[0].equals("confirm")) ||
-				(System.currentTimeMillis() - confirmation.getOrDefault(playerId, 0L) < 10000)) {
+				(System.currentTimeMillis() - confirmation.getOrDefault(playerId, 1L) < 10000)) {
 
 			team.disband(teamPlayer.getPlayer().getPlayer());
 			confirmation.remove(playerId);

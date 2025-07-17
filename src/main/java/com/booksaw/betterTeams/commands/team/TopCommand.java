@@ -7,7 +7,6 @@ import com.booksaw.betterTeams.commands.SubCommand;
 import com.booksaw.betterTeams.message.MessageManager;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
 
@@ -26,55 +25,52 @@ public class TopCommand extends SubCommand {
 
 		MessageManager.sendMessage(sender, "loading");
 
-		new BukkitRunnable() {
+		Main.plugin.getFoliaLib().getScheduler().runAsync(task -> {
 
-			@Override
-			public void run() {
-				boolean contained = false;
-				String[] teams = Team.getTeamManager().sortTeamsByScore();
-				MessageManager.sendMessage(sender, "top.leaderboard");
+			boolean contained = false;
+			String[] teams = Team.getTeamManager().sortTeamsByScore();
+			MessageManager.sendMessage(sender, "top.leaderboard");
 
-				for (int i = 0; i < 10 && i < teams.length; i++) {
-					if (teams[i] == null) {
-						Main.plugin.getLogger().severe("Team at position [" + i + "] had a null name");
-						continue;
-					}
-					Team tempTeam = Team.getTeam(teams[i]);
-					sendTopSyntaxMessage(sender, i + 1, tempTeam, teams[i]);
-					if (team == tempTeam) {
-						contained = true;
-					}
+			for (int i = 0; i < 10 && i < teams.length; i++) {
+				if (teams[i] == null) {
+					Main.plugin.getLogger().severe("Team at position [" + i + "] had a null name");
+					continue;
 				}
-
-				if (!contained && team != null) {
-					try {
-						int rank = 0;
-						for (int i = 10; i < teams.length; i++) {
-							if (teams[i].equals(team.getName())) {
-								rank = i + 1;
-								break;
-							}
-						}
-						if (rank != 0) {
-							MessageManager.sendMessage(sender, "top.divide");
-							if (rank - 2 > 9) {
-								Team tm2 = Team.getTeam(teams[rank - 2]);
-								sendTopSyntaxMessage(sender, rank - 1, tm2, teams[rank - 2]);
-							}
-
-							sendTopSyntaxMessage(sender, rank, team, "CommandSenders Team");
-
-							if (teams.length > rank) {
-								Team tm = Team.getTeam(teams[rank]);
-								sendTopSyntaxMessage(sender, (rank + 1), tm, teams[rank]);
-							}
-						}
-					} catch (ArrayIndexOutOfBoundsException e) {
-						// to save an additional check on arrays length
-					}
+				Team tempTeam = Team.getTeam(teams[i]);
+				sendTopSyntaxMessage(sender, i + 1, tempTeam, teams[i]);
+				if (team == tempTeam) {
+					contained = true;
 				}
 			}
-		}.runTaskAsynchronously(Main.plugin);
+
+			if (!contained && team != null) {
+				try {
+					int rank = 0;
+					for (int i = 10; i < teams.length; i++) {
+						if (teams[i].equals(team.getName())) {
+							rank = i + 1;
+							break;
+						}
+					}
+					if (rank != 0) {
+						MessageManager.sendMessage(sender, "top.divide");
+						if (rank - 2 > 9) {
+							Team tm2 = Team.getTeam(teams[rank - 2]);
+							sendTopSyntaxMessage(sender, rank - 1, tm2, teams[rank - 2]);
+						}
+
+						sendTopSyntaxMessage(sender, rank, team, "CommandSenders Team");
+
+						if (teams.length > rank) {
+							Team tm = Team.getTeam(teams[rank]);
+							sendTopSyntaxMessage(sender, (rank + 1), tm, teams[rank]);
+						}
+					}
+				} catch (ArrayIndexOutOfBoundsException e) {
+						// to save an additional check on arrays length
+				}
+			}
+		});
 
 		return new CommandResponse(true);
 	}

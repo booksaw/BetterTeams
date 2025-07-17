@@ -7,7 +7,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
@@ -35,34 +34,31 @@ public class UpdateChecker implements Listener {
 	}
 
 	public void checkForUpdate() {
-		(new BukkitRunnable() {
-			@Override
-			public void run() {
-				try {
-					// Create URL using the URI class which handles IDNs properly
-					URI uri = new URI("https://api.spigotmc.org/legacy/update.php?resource=" + ID);
-					HttpsURLConnection connection = (HttpsURLConnection) uri.toURL().openConnection();
-					connection.setRequestMethod("GET");
-					try (BufferedReader reader = new BufferedReader(
-							new InputStreamReader(connection.getInputStream()))) {
-						UpdateChecker.this.spigotPluginVersion = reader.readLine();
+		Main.plugin.getFoliaLib().getScheduler().runTimerAsync(task -> {
+					try {
+						URI uri = new URI("https://api.spigotmc.org/legacy/update.php?resource=" + ID);
+						HttpsURLConnection connection = (HttpsURLConnection) uri.toURL().openConnection();
+						connection.setRequestMethod("GET");
+						try (BufferedReader reader = new BufferedReader(
+								new InputStreamReader(connection.getInputStream()))) {
+							UpdateChecker.this.spigotPluginVersion = reader.readLine();
+						}
+					} catch (IOException | URISyntaxException e) {
+						Bukkit.getServer().getConsoleSender().sendMessage(
+								ChatColor.translateAlternateColorCodes('&',
+										"&cUpdate checker failed! Disabling."));
+						task.cancel();
+						return;
 					}
-				} catch (IOException | URISyntaxException e) {
-					Bukkit.getServer().getConsoleSender().sendMessage(
-							ChatColor.translateAlternateColorCodes('&', "&cUpdate checker failed! Disabling."));
-					cancel();
-					return;
-				}
 
-				if (isLatestVersion())
-					return;
+					if (isLatestVersion())
+						return;
 
-				Main.plugin.getLogger().warning(MessageManager.getMessage("admin.update"));
-
-				latest = false;
-				cancel();
-			}
-		}).runTaskTimerAsynchronously(this.javaPlugin, 0L, 10 * 60 * 20);
+					Main.plugin.getLogger().warning(MessageManager.getMessage("admin.update"));
+					latest = false;
+					task.cancel();
+				}, 1, 10 * 60 * 20L
+		);
 	}
 
 	private boolean isLatestVersion() {

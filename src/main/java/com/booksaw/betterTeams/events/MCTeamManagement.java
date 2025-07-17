@@ -132,7 +132,7 @@ public class MCTeamManagement implements Listener {
 
 	@EventHandler
 	public void playerJoinEvent(PlayerJoinEvent e) {
-		Bukkit.getScheduler().runTaskAsynchronously(Main.plugin, () -> displayBelowName(e.getPlayer()));
+		Main.plugin.getFoliaLib().getScheduler().runAsync(task -> displayBelowName(e.getPlayer()));
 	}
 
 	public void setupTeam(org.bukkit.scoreboard.Team team, String teamName) {
