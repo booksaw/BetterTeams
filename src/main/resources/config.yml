@@ -30,18 +30,7 @@
 # Able to help with translations? Either improving a already existing language, or adding a whole new one. Join the discord server: https://discord.gg/JF9DNs3 
 # or message me on spigot: https://www.spigotmc.org/members/booksaw123.120955/
 #
-# For a full list of supported languages, use this link: https://github.com/booksaw/BetterTeams/wiki/Language
-# ca    - Catlan
-# en    - English 
-# de    - German
-# it    - Italian
-# es_mx - Mexian Spanish
-# pl    - Polish
-# sr    - Serbian 
-# es    - Spanish
-# zh_tw - Traditional Chinese
-# tr    - Turkish
-# vi    - Vietnamese
+# For a full list of supported languages, use this link: https://betterteams.booksaw.dev/docs/Translations
 language: en
 
 # Determines how team data is stored
@@ -262,15 +251,19 @@ maxMove: 0
 
 # This allows players to respawn at their team home
 # - If enabled, the plugin will try to set the respawn location when respawn event fires.
-#   Note that the success of such process depends on whether or not certain conditions are met: permissions, ranks, respawn event's cancellation state, etc.
+#   Note that the success of such a process depends on whether certain conditions are met: permissions, ranks, respawn event's cancellation state, etc.
 # - If disabled, the plugin will not manage respawns in any way.
 anchor:
   enable: true
   # when this is disabled, the player will spawn at their team home when set,
   # regardless of whether they have manually anchored themselves
   checkAnchoredPlayer: true
-  # Whether or not the player must have 'betterteams.anchor.use' permission
+  # Whether the player must have 'betterteams.anchor.use' permission
   checkUsePermission: true
+  # If team anchor should ignore players respawning because of the actual respawn anchor (that glowing obsidian block)
+  ignoreObsidianAnchorRespawn: false
+  # If team anchor should ignore players respawning in their bed
+  ignoreBedRespawn: false
   # Naturally, this feature works by listening to the respawn event and changing the respawn location
   # However, said location can be changed again (mostly by other plugins), so the choice of which priority should this feature use is provided
   # See "https://hub.spigotmc.org/javadocs/spigot/org/bukkit/event/EventPriority.html" for more information
@@ -328,7 +321,7 @@ command:
     - teama
 
 levels:
-  # View the wiki page on this section for more information: https://github.com/booksaw/BetterTeams/wiki/Team-Levels
+  # View the wiki page on this section for more information: https://betterteams.booksaw.dev/docs/configuration/Team-Levels
   l1:
     # This is used set a maximum size for a team.
     # - If this feature is unwanted, set the teamLimit to -1 and there will be unlimited places in each team

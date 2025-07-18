@@ -413,7 +413,7 @@ Bug Fixes:
 4.1.1: 
 
 Features: 
-- Added 8 new placeholders (https://github.com/booksaw/BetterTeams/wiki/PlaceholderAPI) (#227)
+- Added 8 new placeholders (https://betterteams.booksaw.dev/docs/dependencies/PlaceholderAPI) (#227)
 - Added an option to make teamLimit permisison based
 
 Improvements: 
@@ -670,7 +670,7 @@ Features:
 - Reworked placeholder system
   - Credit booksaw, SavageAvocado, Aeliios
   - Closes the issues: (#463 #451 #473 #442 #438 #389 #343 #399 #474 #470 #477)
-  - Check the Wiki page for more information (https://github.com/booksaw/BetterTeams/wiki/PlaceholderAPI)
+  - Check the Wiki page for more information (https://betterteams.booksaw.dev/docs/dependencies/PlaceholderAPI)
 
 Bug Fixes: 
 - Fixed IllegalStateException blocking players from leaving teams (#475 476)
@@ -922,10 +922,25 @@ Bug Fixes:
 - Fixed a NoClassDefFound error if using paper below 1.21.4 (#783) - Credit gaboss44
 - Fixed a bug with /team setowner where a team could have no owner
 
-4.14.0:
+4.13.3:
 
 Improvements:
 - Added %betterteams_hashome%` placeholder (#693)
+- Added %betterteams_teamchat%` placeholder (#795)
+- Allowed hex color codes to be used in helpCommandColor (#791)
+- Added further configuration options for respawn types to /team anchor (#798) - Credit @Pavo44
+
+Bug Fixes:
+- Fixed zkoth integration (#794) - Credit stephanofer
+- Restored behaviour when if a tag is not set, the display name is used
+- Fixed bug allowing placeholder injection using /team description (#799)
+- Replaced a hardcoded message with a translatable option
+- Fixed illegal argument exception on null team name (#796)
+
+4.13.4
+
+Bug Fixes:
+- Fixed bug when PlaceholderAPI is not installed on the server (#802)
 
 Headings:
 Features:

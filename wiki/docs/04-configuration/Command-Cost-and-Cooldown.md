@@ -1,3 +1,5 @@
+# Command cost and cooldown
+
 All `/team` commands can have a cost or cooldown associated with them, below is described how each works and how to
 configure it.
 
@@ -5,7 +7,7 @@ Whenever this page talks about the config file, it is referencing
 the [team.yml file](https://github.com/booksaw/BetterTeams/blob/master/team.yml) which will be generated in the folder
 `/plugins/BetterTeams/` when betterteams is first loaded.
 
-### Command Cooldowns
+## Command Cooldowns
 
 Command cooldowns require a wait between specific commands. For example, you can limit how regularly a player can
 teleport to their team home.
@@ -18,10 +20,10 @@ The permission node to bypass all cooldowns set is `betterTeams.cooldown.bypass`
 Config section about command cooldowns:
 
 ```YAML
-# COOLDOWNS - Only let a player run a command every set number of seconds. 
+# COOLDOWNS - Only let a player run a command every set number of seconds.
 # To bypass the cooldown have the permission node betterTeams.cooldown.bypass
 # To add a cooldown to this file, an example is shown below
-cooldowns: 
+cooldowns:
 - 'home:60'
 ## The line above will add a 60-second cooldown to the command /team home
 ```
@@ -29,7 +31,7 @@ cooldowns:
 It is important when adding cooldowns to surround the entire line in `''` else there can be problems loading the
 details. Any `/team` cooldown command
 
-### Command Cost
+## Command Cost
 
 Command cost means that when a player runs a /team command they are charged for it, this can be used to discourage using
 `/team sethome` to tp players together and try and encourage a permanent home for the team.

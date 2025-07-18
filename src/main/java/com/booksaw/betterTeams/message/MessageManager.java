@@ -6,21 +6,19 @@ import com.booksaw.betterTeams.Utils;
 import com.booksaw.betterTeams.text.Formatter;
 import com.booksaw.betterTeams.util.ComponentUtil;
 import com.booksaw.betterTeams.util.StringUtil;
-
 import lombok.Getter;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.Component;
-
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.ApiStatus.Internal;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.jetbrains.annotations.ApiStatus.Internal;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -267,7 +265,7 @@ public class MessageManager {
 	}
 
 	public static @NotNull String getMessage(OfflinePlayer player, String reference, Object... replacements) {
-		return StringUtil.setPlaceholders(player, getMessage(reference, replacements));
+		return StringUtil.setPlaceholders(player, getMessage(reference), replacements);
 	}
 
 	/**
@@ -275,14 +273,13 @@ public class MessageManager {
 	 * with the provided {@code replacement} values. Each placeholder must be
 	 * written as {n} where {@code n} is the index of the replacement.
 	 * <p>
-	 * 
-	 * @deprecated Use {@link Formatter#setPlaceholders(String, Object...)} instead.
-	 *             This method is deprecated in favor of a more explicitly named alternative
-	 *             that clarifies its behavior of replacing indexed placeholders like {0}, {1}, etc.
 	 *
-	 * @param content     the string containing indexed placeholders
+	 * @param content      the string containing indexed placeholders
 	 * @param replacements the values to substitute into the placeholders
 	 * @return the formatted string with placeholders replaced
+	 * @deprecated Use {@link StringUtil#setPlaceholders(String, Object...)} instead.
+	 * This method is deprecated in favor of a more explicitly named alternative
+	 * that clarifies its behavior of replacing indexed placeholders like {0}, {1}, etc.
 	 */
 	@Deprecated
 	public static @NotNull String format(String content, Object... replacements) {
@@ -407,7 +404,7 @@ public class MessageManager {
 	/**
 	 * Used when sending a raw message
 	 * to a group of command senders.
-	 * 
+	 *
 	 * @param recipients
 	 * @param message
 	 * @param doPrefix
@@ -430,7 +427,7 @@ public class MessageManager {
 	 * Sends a full {@link Component} message to the given {@link CommandSender}
 	 *
 	 * @param recipient the target to send the message to
-	 * @param message the Adventure {@link Component} to send
+	 * @param message   the Adventure {@link Component} to send
 	 */
 	public static void sendFullMessage(CommandSender recipient, Component message, boolean doPrefix) {
 		if (recipient == null) return;
@@ -463,7 +460,7 @@ public class MessageManager {
 	 * @param recipient    the player which the message should be sent to
 	 * @param doPrefix     if the message should include the prefix or not
 	 * @param reference    the reference for the message
-	 * @param replacements  the value that the placeholder should be replaced with
+	 * @param replacements the value that the placeholder should be replaced with
 	 */
 	public static void sendTitle(Player recipient, boolean doPrefix, String reference, Object... replacements) {
 		if (recipient == null) return;
@@ -482,10 +479,10 @@ public class MessageManager {
 	/**
 	 * Used to send a (formatted) title to the specified user
 	 *
-	 * @param recipient   the player which the message should be sent to
-	 * @param player      the player to format this message around
-	 * @param doPrefix    if the message should include the prefix or not
-	 * @param reference   the reference for the message
+	 * @param recipient    the player which the message should be sent to
+	 * @param player       the player to format this message around
+	 * @param doPrefix     if the message should include the prefix or not
+	 * @param reference    the reference for the message
 	 * @param replacements the value that the placeholder should be replaced with
 	 */
 	public static void sendTitle(Player recipient, @Nullable OfflinePlayer player, boolean doPrefix, String reference, Object... replacements) {
@@ -595,7 +592,7 @@ public class MessageManager {
 	 * @param recipient    the player which the message should be sent to
 	 * @param doPrefix     if the message should include the prefix or not
 	 * @param reference    the reference for the message
-	 * @param replacements  the value that the placeholder should be replaced with
+	 * @param replacements the value that the placeholder should be replaced with
 	 */
 	public static void sendSubTitle(Player recipient, boolean doPrefix, String reference, Object... replacements) {
 		if (recipient == null) return;
@@ -614,10 +611,10 @@ public class MessageManager {
 	/**
 	 * Used to send a (formatted) subtitle to the specified user
 	 *
-	 * @param recipient   the player which the message should be sent to
-	 * @param player      the player to format this message around
-	 * @param doPrefix    if the message should include the prefix or not
-	 * @param reference   the reference for the message
+	 * @param recipient    the player which the message should be sent to
+	 * @param player       the player to format this message around
+	 * @param doPrefix     if the message should include the prefix or not
+	 * @param reference    the reference for the message
 	 * @param replacements the value that the placeholder should be replaced with
 	 */
 	public static void sendSubTitle(Player recipient, @Nullable OfflinePlayer player, boolean doPrefix, String reference, Object... replacements) {
@@ -724,29 +721,29 @@ public class MessageManager {
 	public static void sendFullTitleAndSub(Player recipient, String title, String subTitle, boolean doPrefix, boolean doPrefixOnSub) {
 		if (recipient == null) return;
 
-		boolean titlePresent =  title != null && !title.isEmpty();
-		boolean subTitlePresent =  subTitle != null && !subTitle.isEmpty();
+		boolean titlePresent = title != null && !title.isEmpty();
+		boolean subTitlePresent = subTitle != null && !subTitle.isEmpty();
 
 		if (titlePresent && subTitlePresent) {
 			Component titleComponent = Formatter.absolute().process(title);
 			Component subTitleComponent = Formatter.absolute().process(subTitle);
 
 			msgSender.sendTitleAndSub(
-				recipient,
-				doPrefix ? ComponentUtil.combineComponents(prefixComponent, titleComponent) : titleComponent,
-				doPrefixOnSub ? ComponentUtil.combineComponents(prefixComponent, subTitleComponent) : subTitleComponent
+					recipient,
+					doPrefix ? ComponentUtil.combineComponents(prefixComponent, titleComponent) : titleComponent,
+					doPrefixOnSub ? ComponentUtil.combineComponents(prefixComponent, subTitleComponent) : subTitleComponent
 			);
 		} else if (titlePresent) {
 			Component titleComponent = Formatter.absolute().process(subTitle);
 			msgSender.sendSubTitle(
-				recipient,
-				doPrefixOnSub ? ComponentUtil.combineComponents(prefixComponent, titleComponent) : titleComponent
+					recipient,
+					doPrefixOnSub ? ComponentUtil.combineComponents(prefixComponent, titleComponent) : titleComponent
 			);
 		} else if (subTitlePresent) {
 			Component subTitleComponent = Formatter.absolute().process(title);
 			msgSender.sendTitle(
-				recipient,
-				doPrefix ? ComponentUtil.combineComponents(prefixComponent, subTitleComponent) : subTitleComponent
+					recipient,
+					doPrefix ? ComponentUtil.combineComponents(prefixComponent, subTitleComponent) : subTitleComponent
 			);
 		}
 	}
@@ -759,29 +756,29 @@ public class MessageManager {
 		Collection<Player> filteredRecipients = Utils.filterNonNull(recipients);
 		if (filteredRecipients.isEmpty()) return;
 
-		boolean titlePresent =  title != null && !title.isEmpty();
-		boolean subTitlePresent =  subTitle != null && !subTitle.isEmpty();
+		boolean titlePresent = title != null && !title.isEmpty();
+		boolean subTitlePresent = subTitle != null && !subTitle.isEmpty();
 
 		if (titlePresent && subTitlePresent) {
 			Component titleComponent = Formatter.absolute().process(title);
 			Component subTitleComponent = Formatter.absolute().process(subTitle);
 
 			msgSender.sendTitleAndSub(
-				filteredRecipients,
-				doPrefix ? ComponentUtil.combineComponents(prefixComponent, titleComponent) : titleComponent,
-				doPrefixOnSub ? ComponentUtil.combineComponents(prefixComponent, subTitleComponent) : subTitleComponent
+					filteredRecipients,
+					doPrefix ? ComponentUtil.combineComponents(prefixComponent, titleComponent) : titleComponent,
+					doPrefixOnSub ? ComponentUtil.combineComponents(prefixComponent, subTitleComponent) : subTitleComponent
 			);
 		} else if (titlePresent) {
 			Component titleComponent = Formatter.absolute().process(subTitle);
 			msgSender.sendSubTitle(
-				filteredRecipients,
-				doPrefixOnSub ? ComponentUtil.combineComponents(prefixComponent, titleComponent) : titleComponent
+					filteredRecipients,
+					doPrefixOnSub ? ComponentUtil.combineComponents(prefixComponent, titleComponent) : titleComponent
 			);
 		} else if (subTitlePresent) {
 			Component subTitleComponent = Formatter.absolute().process(title);
 			msgSender.sendTitle(
-				filteredRecipients,
-				doPrefix ? ComponentUtil.combineComponents(prefixComponent, subTitleComponent) : subTitleComponent
+					filteredRecipients,
+					doPrefix ? ComponentUtil.combineComponents(prefixComponent, subTitleComponent) : subTitleComponent
 			);
 		}
 	}
@@ -793,24 +790,24 @@ public class MessageManager {
 	public static void sendFullTitleAndSub(Player recipient, Component title, Component subTitle, boolean doPrefix, boolean doPrefixOnSub) {
 		if (recipient == null) return;
 
-		boolean titlePresent =  title != null && !title.equals(Component.empty());
-		boolean subTitlePresent =  subTitle != null && !subTitle.equals(Component.empty());
+		boolean titlePresent = title != null && !title.equals(Component.empty());
+		boolean subTitlePresent = subTitle != null && !subTitle.equals(Component.empty());
 
 		if (titlePresent && subTitlePresent) {
 			msgSender.sendTitleAndSub(
-				recipient,
-				doPrefix ? ComponentUtil.combineComponents(prefixComponent, title) : title,
-				doPrefixOnSub ? ComponentUtil.combineComponents(prefixComponent, subTitle) : subTitle
+					recipient,
+					doPrefix ? ComponentUtil.combineComponents(prefixComponent, title) : title,
+					doPrefixOnSub ? ComponentUtil.combineComponents(prefixComponent, subTitle) : subTitle
 			);
 		} else if (titlePresent) {
 			msgSender.sendTitle(
-				recipient,
-				doPrefix ? ComponentUtil.combineComponents(prefixComponent, title) : title
+					recipient,
+					doPrefix ? ComponentUtil.combineComponents(prefixComponent, title) : title
 			);
 		} else if (subTitlePresent) {
 			msgSender.sendSubTitle(
-				recipient,
-				doPrefixOnSub ? ComponentUtil.combineComponents(prefixComponent, subTitle) : subTitle
+					recipient,
+					doPrefixOnSub ? ComponentUtil.combineComponents(prefixComponent, subTitle) : subTitle
 			);
 		}
 	}
@@ -823,24 +820,24 @@ public class MessageManager {
 		Collection<Player> filteredRecipients = Utils.filterNonNull(recipients);
 		if (filteredRecipients.isEmpty()) return;
 
-		boolean titlePresent =  title != null && !title.equals(Component.empty());
-		boolean subTitlePresent =  subTitle != null && !subTitle.equals(Component.empty());
+		boolean titlePresent = title != null && !title.equals(Component.empty());
+		boolean subTitlePresent = subTitle != null && !subTitle.equals(Component.empty());
 
 		if (titlePresent && subTitlePresent) {
 			msgSender.sendTitleAndSub(
-				filteredRecipients,
-				doPrefix ? ComponentUtil.combineComponents(prefixComponent, title) : title,
-				doPrefixOnSub ? ComponentUtil.combineComponents(prefixComponent, subTitle) : subTitle
+					filteredRecipients,
+					doPrefix ? ComponentUtil.combineComponents(prefixComponent, title) : title,
+					doPrefixOnSub ? ComponentUtil.combineComponents(prefixComponent, subTitle) : subTitle
 			);
 		} else if (titlePresent) {
 			msgSender.sendTitle(
-				filteredRecipients,
-				doPrefix ? ComponentUtil.combineComponents(prefixComponent, title) : title
+					filteredRecipients,
+					doPrefix ? ComponentUtil.combineComponents(prefixComponent, title) : title
 			);
 		} else if (subTitlePresent) {
 			msgSender.sendSubTitle(
-				filteredRecipients,
-				doPrefixOnSub ? ComponentUtil.combineComponents(prefixComponent, subTitle) : subTitle
+					filteredRecipients,
+					doPrefixOnSub ? ComponentUtil.combineComponents(prefixComponent, subTitle) : subTitle
 			);
 		}
 	}

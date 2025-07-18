@@ -49,6 +49,12 @@ public abstract class SubCommand {
 		return message;
 	}
 
+	public String getCommandAndArgMessage(ParentCommand parent) {
+		String argMsg = getArgMessage(parent);
+
+		return getCommand() + ((!argMsg.isEmpty()) ? " " + argMsg : "");
+	}
+
 	/**
 	 * This method is used to load the help message from the file, or if there is
 	 * not one, it will get the default message

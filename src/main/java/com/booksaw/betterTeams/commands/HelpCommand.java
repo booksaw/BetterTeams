@@ -5,7 +5,6 @@ import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.text.Formatter;
 import com.booksaw.betterTeams.text.LegacyTextUtils;
-
 import net.kyori.adventure.text.Component;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -22,23 +21,28 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
-import java.util.Objects;
+import java.util.Optional;
 import java.util.logging.Level;
 
 public class HelpCommand extends SubCommand {
 
 	private final static int COMMANDS_PER_PAGE = 7;
 
-	public static ChatColor prefix, description;
+	public static String prefix, description;
 	private static boolean fullyCustom = false;
 	final ParentCommand command;
 
 	public HelpCommand(ParentCommand command) {
 		this.command = command;
-		prefix = ChatColor
-				.getByChar(Objects.requireNonNull(Main.plugin.getConfig().getString("helpCommandColor")).charAt(0));
-		description = ChatColor
-				.getByChar(Objects.requireNonNull(Main.plugin.getConfig().getString("helpDescriptionColor")).charAt(0));
+		prefix = "&" + Optional.ofNullable(Main.plugin.getConfig().getString("helpCommandColor")).orElse("b");
+		description = "&" + Optional.ofNullable(Main.plugin.getConfig().getString("helpDescriptionColor")).orElse("b");
+
+		if (prefix.length() == 1) {
+			prefix = "&" + prefix;
+		}
+		if (description.length() == 1) {
+			description = "&" + description;
+		}
 
 	}
 
@@ -56,10 +60,10 @@ public class HelpCommand extends SubCommand {
 
 		// Send specific help message if command found
 		if (args.length != 0 && command.getSubCommands().containsKey(args[0])) {
-			sender.sendMessage(
-					createHelpMessage(label,
-							args[0] + " " + command.getSubCommands().get(args[0]).getArgMessage(command),
-							command.getSubCommands().get(args[0]).getHelpMessage(command)));
+			SubCommand subcommand = command.getSubCommands().get(args[0]);
+			MessageManager.sendFullMessage(sender, createHelpMessage(label,
+					subcommand.getCommandAndArgMessage(command),
+					subcommand.getHelpMessage(command)));
 			return null;
 		}
 
@@ -84,7 +88,7 @@ public class HelpCommand extends SubCommand {
 				&& i < COMMANDS_PER_PAGE * (page + 1); i++) {
 			SubCommand subCommand = permissiveCommands.get(i);
 			MessageManager.sendFullMessage(sender, createClickableHelpMiniMessage(label,
-					subCommand.getCommand() + " " + subCommand.getArgMessage(command),
+					subCommand.getCommandAndArgMessage(command),
 					subCommand.getHelpMessage(command)));
 		}
 
@@ -120,8 +124,8 @@ public class HelpCommand extends SubCommand {
 				Main.plugin.getLogger().log(Level.SEVERE,
 
 						"Could not use fully custom help messages, inform booksaw (this should never happen)");
-				sender.sendMessage(ChatColor.RED + "Something went wrong, inform your server admins");
-				e.printStackTrace();
+				MessageManager.sendMessage(sender, "help.wrong");
+				Main.plugin.getLogger().severe(e.toString());
 				fullyCustom = false;
 			}
 		}
@@ -133,8 +137,8 @@ public class HelpCommand extends SubCommand {
 		} catch (Exception e) {
 			Main.plugin.getLogger().log(Level.SEVERE,
 					"Could not use fully custom help messages, inform booksaw (this should never happen)");
-			sender.sendMessage(ChatColor.RED + "Something went wrong, inform your server admins");
-			e.printStackTrace();
+			MessageManager.sendMessage(sender, "help.wrong");
+			Main.plugin.getLogger().severe(e.toString());
 			fullyCustom = false;
 		}
 	}

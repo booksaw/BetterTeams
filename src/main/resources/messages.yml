@@ -31,6 +31,9 @@ placeholder.notinteam: 'false'
 placeholder.noTitle: ''
 placeholder.hasHome: 'true'
 placeholder.noHome: 'false'
+placeholder.teamChat: 'Team Chat'
+placeholder.globalChat: 'Global Chat'
+placeholder.allyChat: 'Ally Chat'
 prefix.owner: ' **'
 prefix.admin: ' *'
 prefix.default: ' '
@@ -342,6 +345,7 @@ uclaim.dissolve: '&4Your team has been disbanded so your claim has been dissolve
 
 help.header: '&6---- &bBetterTeams Help &6----'
 help.footer: '&6---- &bPage {0}/{1} - /{2} help <page> &6----'
+help.wrong: '&4Something went wrong, inform your server admins'
 
 help.description: View and change your team's description
 help.ban: Bans the specified player from your team

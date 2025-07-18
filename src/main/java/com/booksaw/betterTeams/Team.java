@@ -544,10 +544,9 @@ public class Team {
 	}
 
 	public String getAdventureTag(boolean checkConfig) {
-		if (tag == null || tag.isEmpty()) return "";
+		if (tag == null || tag.isEmpty()) return getAdventureDisplayName(checkConfig);
 		boolean doColor = !checkConfig || Main.plugin.getConfig().getBoolean("colorTeamName", true);
-		return ""
-				+ (doColor ? getOpenColor() : "")
+		return (doColor ? getOpenColor() : "")
 				+ tag
 				+ (doColor ? getCloseColor() : "");
 	}
@@ -558,9 +557,9 @@ public class Team {
 
 	public String getTag(boolean asAdventure) {
 		if (asAdventure) return getAdventureTag(true);
-		else return tag == null || tag.isEmpty() ? "" : ""
-				+ (color != null && Main.plugin.getConfig().getBoolean("colorTeamName", true) ? color : "")
-				+ tag;
+		else return tag == null || tag.isEmpty() ? getDisplayName() :
+				(color != null && Main.plugin.getConfig().getBoolean("colorTeamName", true) ? color : "")
+						+ tag;
 	}
 
 	public String getTag(ChatColor returnTo) {

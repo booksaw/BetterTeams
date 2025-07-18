@@ -82,7 +82,8 @@ Missing dependencies:
 * UltimateClaims
 * zKoth
 
-See the [dependencies page](https://github.com/booksaw/BetterTeams/wiki/Dependencies) of the wiki for more information
+See the [dependencies page](https://betterteams.booksaw.dev/docs/dependencies/Dependencies) of the wiki for more
+information
 on the dependencies.
 
 ## Getting Help
