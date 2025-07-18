@@ -30,18 +30,7 @@
 # Able to help with translations? Either improving a already existing language, or adding a whole new one. Join the discord server: https://discord.gg/JF9DNs3 
 # or message me on spigot: https://www.spigotmc.org/members/booksaw123.120955/
 #
-# For a full list of supported languages, use this link: https://github.com/booksaw/BetterTeams/wiki/Language
-# ca    - Catlan
-# en    - English 
-# de    - German
-# it    - Italian
-# es_mx - Mexian Spanish
-# pl    - Polish
-# sr    - Serbian 
-# es    - Spanish
-# zh_tw - Traditional Chinese
-# tr    - Turkish
-# vi    - Vietnamese
+# For a full list of supported languages, use this link: https://betterteams.booksaw.dev/docs/Translations
 language: en
 
 # Determines how team data is stored
@@ -332,7 +321,7 @@ command:
     - teama
 
 levels:
-  # View the wiki page on this section for more information: https://github.com/booksaw/BetterTeams/wiki/Team-Levels
+  # View the wiki page on this section for more information: https://betterteams.booksaw.dev/docs/configuration/Team-Levels
   l1:
     # This is used set a maximum size for a team.
     # - If this feature is unwanted, set the teamLimit to -1 and there will be unlimited places in each team
