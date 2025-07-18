@@ -1,15 +1,16 @@
 package com.booksaw.betterTeams.text;
 
-import java.util.Set;
-
 import com.google.common.collect.ImmutableSet;
-
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.Context;
 import net.kyori.adventure.text.minimessage.tag.Tag;
 import net.kyori.adventure.text.minimessage.tag.resolver.ArgumentQueue;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Set;
 
 final class LegacyTextTags {
 
@@ -18,12 +19,12 @@ final class LegacyTextTags {
 		private final Set<String> ALIASES = ImmutableSet.of("r", "lr", "lreset", "legacyreset");
 
 		@Override
-		public boolean has(final String name) {
+		public boolean has(final @NotNull String name) {
 			return ALIASES.contains(name.toLowerCase());
 		}
 
 		@Override
-		public Tag resolve(final String name, final ArgumentQueue args, final Context ctx) {
+		public @Nullable Tag resolve(final @NotNull String name, final @NotNull ArgumentQueue args, final @NotNull Context ctx) {
 			if (!has(name)) return null;
 
 			final NamedTextColor[] color = { NamedTextColor.WHITE }; // default reset color
