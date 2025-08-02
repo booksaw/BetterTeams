@@ -20,6 +20,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
@@ -92,13 +94,15 @@ public class SQLStorageManager extends TeamManager implements Listener {
 	}
 
 	@Override
-	public boolean isTeam(UUID uuid) {
-		return database.hasResult(TableName.TEAM, "teamID LIKE '" + uuid.toString() + "'");
+	@Contract(pure = true, value = "null -> false")
+	public boolean isTeam(@Nullable UUID uuid) {
+		return uuid != null && database.hasResult(TableName.TEAM, "teamID LIKE '" + uuid.toString() + "'");
 	}
 
 	@Override
-	public boolean isTeam(String name) {
-		return database.hasResult(TableName.TEAM, "UPPER(name) LIKE '" + name.toUpperCase() + "'");
+	@Contract(pure = true, value = "null -> false")
+	public boolean isTeam(@Nullable String name) {
+		return name != null && database.hasResult(TableName.TEAM, "UPPER(name) LIKE '" + name.toUpperCase() + "'");
 	}
 
 	@Override

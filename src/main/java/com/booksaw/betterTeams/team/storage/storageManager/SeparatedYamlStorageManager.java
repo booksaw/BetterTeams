@@ -16,6 +16,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.Nullable;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -63,14 +67,19 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 	}
 
 	@Override
-	public boolean isTeam(UUID uuid) {
+	@Contract(pure = true, value = "null -> false")
+	public boolean isTeam(@Nullable UUID uuid) {
+		if (uuid == null)
+			return false;
+
 		// if the file exists for that uuid, it must be a team
 		File file = new File(SeparatedYamlTeamStorage.getTeamSaveFile(), uuid.toString() + ".yml");
 		return file.exists();
 	}
 
 	@Override
-	public boolean isTeam(String name) {
+	@Contract(pure = true, value = "null -> false")
+	public boolean isTeam(@Nullable String name) {
 		if (name == null) {
 			return false;
 		}

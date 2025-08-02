@@ -219,7 +219,7 @@ public class Main extends JavaPlugin {
 			}
 		} catch (Exception e) {
 			Main.plugin.getLogger().warning("Could not load selected language: " + language
-					+ " go to https://github.com/booksaw/BetterTeams/wiki/Language to view a list of supported languages");
+					+ " go to https://betterteams.booksaw.dev/docs/Translations to view a list of supported languages");
 			Main.plugin.getLogger().warning("Reverting to english so the plugin can still function");
 			MessageManager.setLanguage("messages");
 			loadCustomConfigs();

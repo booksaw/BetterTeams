@@ -8,6 +8,8 @@ import com.booksaw.betterTeams.team.storage.team.TeamStorage;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,13 +24,15 @@ public class FlatfileStorageManager extends YamlStorageManager {
 	}
 
 	@Override
-	public boolean isTeam(UUID uuid) {
-		return loadedTeams.containsKey(uuid);
+	@Contract(pure = true, value = "null -> false")
+	public boolean isTeam(@Nullable UUID uuid) {
+		return uuid != null && loadedTeams.containsKey(uuid);
 	}
 
 	@Override
-	public boolean isTeam(String name) {
-		return getTeamUUID(name) != null;
+	@Contract(pure = true, value = "null -> false")
+	public boolean isTeam(@Nullable String name) {
+		return name != null && getTeamUUID(name) != null;
 	}
 
 	@Override
@@ -50,7 +54,7 @@ public class FlatfileStorageManager extends YamlStorageManager {
 	}
 
 	@Override
-	public UUID getTeamUUID(String name) {
+	public UUID getTeamUUID(@Nullable String name) {
 		for (Entry<UUID, Team> team : loadedTeams.entrySet()) {
 			if (team.getValue().getName().equals(name)) {
 				return team.getKey();

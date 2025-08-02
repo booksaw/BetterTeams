@@ -68,15 +68,18 @@ public class Team {
 		return TEAMMANAGER;
 	}
 
-	public static Team getTeam(UUID uuid) {
+	@Contract(pure = true, value = "null -> null")
+	public static @Nullable Team getTeam(@Nullable UUID uuid) {
 		return TEAMMANAGER.getTeam(uuid);
 	}
 
-	public static Team getTeam(String name) {
+	@Contract(pure = true, value = "null -> null")
+	public static @Nullable Team getTeam(@Nullable String name) {
 		return TEAMMANAGER.getTeam(name);
 	}
 
-	public static @Nullable Team getTeam(OfflinePlayer player) {
+	@Contract(pure = true, value = "null -> null")
+	public static @Nullable Team getTeam(@Nullable OfflinePlayer player) {
 		return TEAMMANAGER.getTeam(player);
 	}
 

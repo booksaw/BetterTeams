@@ -413,7 +413,7 @@ Bug Fixes:
 4.1.1: 
 
 Features: 
-- Added 8 new placeholders (https://github.com/booksaw/BetterTeams/wiki/PlaceholderAPI) (#227)
+- Added 8 new placeholders (https://betterteams.booksaw.dev/docs/dependencies/PlaceholderAPI) (#227)
 - Added an option to make teamLimit permisison based
 
 Improvements: 
@@ -670,7 +670,7 @@ Features:
 - Reworked placeholder system
   - Credit booksaw, SavageAvocado, Aeliios
   - Closes the issues: (#463 #451 #473 #442 #438 #389 #343 #399 #474 #470 #477)
-  - Check the Wiki page for more information (https://github.com/booksaw/BetterTeams/wiki/PlaceholderAPI)
+  - Check the Wiki page for more information (https://betterteams.booksaw.dev/docs/dependencies/PlaceholderAPI)
 
 Bug Fixes: 
 - Fixed IllegalStateException blocking players from leaving teams (#475 476)

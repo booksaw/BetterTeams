@@ -20,7 +20,7 @@ one of the features from betterteams it still can be done in the method describe
 
 As shown in the screenshot below, when giving the group / player the permission node, set the value to false. This will
 result in the player not having access to that permission.
-![LuckPerms editor](https://cdn.discordapp.com/attachments/797431152549298206/800815395611213824/unknown.png)
+![LuckPerms editor](./img/luckperms.png)
 
 ## List of permissions
 
@@ -115,8 +115,8 @@ of 'teamadmin'
 | teama teleport            | betterteams.admin.teleport        | Teleport the team                                                                                                                        | No       |
 | teama anchor              | betterteams.admin.anchor          | Force a team player to allow or disallow their respawning at their team's home                                                           | No       |
 | teama setanchor           | betterteams.admin.setanchor       | Set a team's anchor status                                                                                                               | No       |
-| teama holo create         | betterteams.admin.holo            | Creates a hologram at your location (Requires [HolographicDisplays](https://dev.bukkit.org/projects/holographic-displays))               | No       |
-| teama holo delete         | betterteams.admin.holo            | Deletes the closest better teams hologram to you  (Requires [HolographicDisplays](https://dev.bukkit.org/projects/holographic-displays)) | No       |
+| teama holo create         | betterteams.admin.holo            | Creates a hologram at your location (Requires [HolographicDisplays](https://dev.bukkit.org/projects/holographic-displays) or [DecentHolograms](https://www.spigotmc.org/resources/96927/))               | No       |
+| teama holo delete         | betterteams.admin.holo            | Deletes the closest better teams hologram to you  (Requires [HolographicDisplays](https://dev.bukkit.org/projects/holographic-displays) or [DecentHolograms](https://www.spigotmc.org/resources/96927/))) | No       |
 | Command cooldown          | betterteams.cooldown.bypass       | Bypass the command cooldown which can be configured in team.yml                                                                          | No       |
 | Price bypass              | betterteams.cost.bypass           | Bypass the command cost which can be configured in team.yml                                                                              | No       |
 | Warmup bypass             | betterteams.warmup.bypass         | Bypass the warmup for teleport commands                                                                                                  | No       |
