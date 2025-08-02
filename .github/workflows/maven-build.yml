@@ -3,8 +3,18 @@ name: Maven Build
 on:
   pull_request:
     branches: [ master ]
+    paths:
+      - '**.java'
+      - 'pom.xml'
+      - '**/pom.xml'
   push:
     branches: [ master ]
+    paths:
+      - '**.java'
+      - 'pom.xml'
+      - '**/pom.xml'
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
 jobs:
   build:
