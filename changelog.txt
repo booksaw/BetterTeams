@@ -942,6 +942,14 @@ Bug Fixes:
 Bug Fixes:
 - Fixed bug when PlaceholderAPI is not installed on the server (#802)
 
+3.14.0:
+
+Features:
+- Added support for Folia (#817) - Credit maiminhdung
+
+Improvements:
+- Added message to explain why a player does not have to wait for the teleport delay
+
 Headings:
 Features:
 

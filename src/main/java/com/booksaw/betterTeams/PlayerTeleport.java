@@ -1,12 +1,9 @@
 package com.booksaw.betterTeams;
 
 import com.booksaw.betterTeams.message.MessageManager;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * A class to handle a teleport with a delay
@@ -42,6 +39,7 @@ public class PlayerTeleport {
 
 
 		if (player.hasPermission("betterteams.warmup.bypass")) {
+			MessageManager.sendMessage(player, "teleport.bypass");
 			Main.plugin.getFoliaLib().getScheduler().runAsync(task -> runTp());
 			return;
 		}
@@ -65,7 +63,7 @@ public class PlayerTeleport {
 			} else {
 				cancel();
 			}
-		},20L * wait);
+		}, 20L * wait);
 
 	}
 
