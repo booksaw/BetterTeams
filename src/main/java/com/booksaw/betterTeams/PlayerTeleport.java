@@ -6,6 +6,8 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * A class to handle a teleport with a delay
  *
@@ -40,20 +42,20 @@ public class PlayerTeleport {
 
 
 		if (player.hasPermission("betterteams.warmup.bypass")) {
-			Bukkit.getScheduler().runTask(Main.plugin, this::runTp);
+			Main.plugin.getFoliaLib().getScheduler().runAsync(task -> runTp());
 			return;
 		}
 
 		int wait = Main.plugin.getConfig().getInt("tpDelay");
 		if (wait <= 0) {
-			Bukkit.getScheduler().runTask(Main.plugin, this::runTp);
+			Main.plugin.getFoliaLib().getScheduler().runAsync(task -> runTp());
 			return;
 		}
 
 		// sending the wait message
 		MessageManager.sendMessage(player, "teleport.wait", wait);
 
-		Bukkit.getScheduler().runTaskLater(Main.plugin, () -> {
+		Main.plugin.getFoliaLib().getScheduler().runLater(task -> {
 			if (canTp()) {
 				try {
 					runTp();
@@ -63,23 +65,23 @@ public class PlayerTeleport {
 			} else {
 				cancel();
 			}
-		}, 20L * wait);
+		},20L * wait);
 
 	}
 
 	public void runTp() {
 		if (location == null || location.getWorld() == null) {
-			throw new NullPointerException("Location = " + location + " world is = " + ((location == null) ? location.getWorld() : "BLANK"));
-		}
-
-		PlayerTeleportEvent event = new PlayerTeleportEvent(player, player.getLocation(), location);
-		Bukkit.getPluginManager().callEvent(event);
-		if (event.isCancelled()) {
+			Main.plugin.getLogger().warning("[BetterTeams] Attempted to teleport to a null location or world.");
 			return;
 		}
 
-		player.teleport(location);
-		MessageManager.sendMessage(player, reference);
+		Main.plugin.getFoliaLib().getScheduler()
+				.teleportAsync(player, location, PlayerTeleportEvent.TeleportCause.PLUGIN)
+				.thenAccept(success -> {
+					if (success) {
+						MessageManager.sendMessage(player, reference);
+					}
+				});
 	}
 
 	public boolean canTp() {

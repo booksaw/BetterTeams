@@ -96,7 +96,7 @@ public abstract class HologramManager {
 					}
 				}
 			}
-		}, 0L, 20 * 60L);
+		}, 1, 20 * 60L);
 	}
 
 	private boolean isHolographicDisplaysEnabled() {
