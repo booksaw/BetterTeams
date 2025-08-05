@@ -12,6 +12,6 @@ updates:
       interval: weekly
 
   - package-ecosystem: "npm"
-    directory: "/"
+    directory: "/wiki"
     schedule:
       interval: weekly
