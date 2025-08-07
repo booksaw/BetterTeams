@@ -1010,62 +1010,65 @@ public class Team {
 	}
 
 	/**
-	 * Used when a player sends a message to the team chat
-	 *
-	 * @param sender  the player which sent the message to the team chat
-	 * @param message the message to send to the team chat
-	 */
-	public void sendMessage(TeamPlayer sender, String message) {
-		String format = getTeamChatSyntax(sender);
-		ChatColor returnTo = getPreviousChatColor(format);
-
-		// These are variables which may be modified by TeamSendMessageEvent
-		Set<TeamPlayer> recipients = members.getClone();
-		recipients.removeIf(teamPlayer -> !teamPlayer.getPlayer().isOnline()); // Offline players won't be recipients
-		String prefix = sender.getPrefix(returnTo);
-
-		// Notify third party plugins that a team message is going to be sent
-		TeamSendMessageEvent teamSendMessageEvent = new TeamSendMessageEvent(this, sender, message, format, prefix, recipients);
-		@SuppressWarnings("deprecation")
-		// Deprecated event for backwards compatibility with older plugins
-		TeamPreMessageEvent deprecatedPreTeamMessageEvent = new TeamPreMessageEvent(this, sender, message, format, prefix, recipients);
-		Bukkit.getPluginManager().callEvent(teamSendMessageEvent);
-		Bukkit.getPluginManager().callEvent(deprecatedPreTeamMessageEvent);
-
-		// Process any updates after the event has been dispatched
-		if (teamSendMessageEvent.isCancelled() || deprecatedPreTeamMessageEvent.isCancelled()) {
-			return;
-		}
-
-		message = getFromEvents(message, teamSendMessageEvent.getRawMessage(), deprecatedPreTeamMessageEvent.getRawMessage(), "Team message cannot be null");
-		format = getFromEvents(format, teamSendMessageEvent.getFormat(), deprecatedPreTeamMessageEvent.getFormat(), "Team message format cannot be null").replace("$name$", "{0}").replace("$message$", "{1}");
-		prefix = getFromEvents(prefix, teamSendMessageEvent.getSenderNamePrefix(), deprecatedPreTeamMessageEvent.getSenderNamePrefix(), "The prefix cannot be null");
-		recipients = getFromEvents(members.getClone(), teamSendMessageEvent.getRecipients(), deprecatedPreTeamMessageEvent.getRecipients(), "Team message recipients cannot be null");
-
-		Collection<Player> playerRecipients = recipients.stream().map(r -> r.getPlayer().getPlayer())
-				.filter(Objects::nonNull)
-				.collect(Collectors.toList());
-		Collection<CommandSender> spies = Main.plugin.chatManagement.spy.stream()
-				.filter(Objects::nonNull)
-				.filter(temp -> !(temp instanceof Player && getTeamPlayer((Player) temp) != null))
-				.collect(Collectors.toList());
-
-		ChatMessage chatMsg = ChatMessage.customSyntaxTeamChat(this, sender, prefix, message, format);
-		chatMsg.sendMessage(playerRecipients);
-		chatMsg.sendSpyMessage(spies);
-
-		if (TEAMMANAGER.isLogChat()) {
-			MessageManager.sendFullMessage(Bukkit.getConsoleSender(), chatMsg.getMessage());
-		}
-
-		String fMessage = LegacyTextUtils.serialize(chatMsg.getMessage());
-		// Notify third party plugins that a message has been dispatched
-		Bukkit.getPluginManager().callEvent(new PostTeamSendMessageEvent(this, sender, fMessage, recipients));
-
-		@SuppressWarnings("deprecation")
-		TeamMessageEvent deprecatedTeamMessageEvent = new TeamMessageEvent(this, sender, fMessage, recipients);
-		Bukkit.getPluginManager().callEvent(deprecatedTeamMessageEvent);
-	}
+ * Used when a player sends a message to the team chat
+ *
+ * @param sender  the player which sent the message to the team chat
+ * @param message the message to send to the team chat
+ */
+public void sendMessage(TeamPlayer sender, String message) {
+    String format = getTeamChatSyntax(sender);
+    ChatColor returnTo = getPreviousChatColor(format);
+    
+    // These are variables which may be modified by TeamSendMessageEvent
+    Set<TeamPlayer> recipients = members.getClone();
+    recipients.removeIf(teamPlayer -> !teamPlayer.getPlayer().isOnline()); // Offline players won't be recipients
+    String prefix = sender.getPrefix(returnTo);
+    
+    // Notify third party plugins that a team message is going to be sent
+    TeamSendMessageEvent teamSendMessageEvent = new TeamSendMessageEvent(this, sender, message, format, prefix, recipients);
+    @SuppressWarnings("deprecation")
+    // Deprecated event for backwards compatibility with older plugins
+    TeamPreMessageEvent deprecatedPreTeamMessageEvent = new TeamPreMessageEvent(this, sender, message, format, prefix, recipients);
+    
+    Bukkit.getScheduler().runTaskAsynchronously(Main.plugin, () -> {
+        Bukkit.getPluginManager().callEvent(teamSendMessageEvent);
+        Bukkit.getPluginManager().callEvent(deprecatedPreTeamMessageEvent);
+        
+        // Process any updates after the event has been dispatched
+        if (teamSendMessageEvent.isCancelled() || deprecatedPreTeamMessageEvent.isCancelled()) {
+            return;
+        }
+        
+        String finalMessage = getFromEvents(message, teamSendMessageEvent.getRawMessage(), deprecatedPreTeamMessageEvent.getRawMessage(), "Team message cannot be null");
+        String finalFormat = getFromEvents(format, teamSendMessageEvent.getFormat(), deprecatedPreTeamMessageEvent.getFormat(), "Team message format cannot be null").replace("$name$", "{0}").replace("$message$", "{1}");
+        String finalPrefix = getFromEvents(prefix, teamSendMessageEvent.getSenderNamePrefix(), deprecatedPreTeamMessageEvent.getSenderNamePrefix(), "The prefix cannot be null");
+        Set<TeamPlayer> finalRecipients = getFromEvents(members.getClone(), teamSendMessageEvent.getRecipients(), deprecatedPreTeamMessageEvent.getRecipients(), "Team message recipients cannot be null");
+        
+        Collection<Player> playerRecipients = finalRecipients.stream().map(r -> r.getPlayer().getPlayer())
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+        Collection<CommandSender> spies = Main.plugin.chatManagement.spy.stream()
+                .filter(Objects::nonNull)
+                .filter(temp -> !(temp instanceof Player && getTeamPlayer((Player) temp) != null))
+                .collect(Collectors.toList());
+        
+        ChatMessage chatMsg = ChatMessage.customSyntaxTeamChat(this, sender, finalPrefix, finalMessage, finalFormat);
+        chatMsg.sendMessage(playerRecipients);
+        chatMsg.sendSpyMessage(spies);
+        
+        if (TEAMMANAGER.isLogChat()) {
+            MessageManager.sendFullMessage(Bukkit.getConsoleSender(), chatMsg.getMessage());
+        }
+        
+        String fMessage = LegacyTextUtils.serialize(chatMsg.getMessage());
+        // Notify third party plugins that a message has been dispatched
+        Bukkit.getPluginManager().callEvent(new PostTeamSendMessageEvent(this, sender, fMessage, finalRecipients));
+        
+        @SuppressWarnings("deprecation")
+        TeamMessageEvent deprecatedTeamMessageEvent = new TeamMessageEvent(this, sender, fMessage, finalRecipients);
+        Bukkit.getPluginManager().callEvent(deprecatedTeamMessageEvent);
+    });
+}
 
 	private static @NotNull ChatColor getPreviousChatColor(String toTest) {
 		Matcher matcher = Pattern.compile("\\{\\d+}").matcher(toTest);
