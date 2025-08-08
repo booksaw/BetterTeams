@@ -58,6 +58,29 @@ database:
   # Default value is "BetterTeams_" as it has always been, to prevent sudden change if you have been using SQL.
   tablePrefix: BetterTeams_
 
+# Cross-server synchronization via Redis (Pub/Sub)
+# Enable to share team money, score and basic metadata across multiple servers.
+redis:
+  enabled: false
+  # Redis connection string. If username/password is required, use: redis://user:password@host:port/db
+  # You can also use rediss:// for TLS-enabled endpoints.
+  url: "redis://localhost:6379/0"
+  # Optional plain host/port if you prefer separate fields; if set, takes precedence over url
+  host: ""
+  port: 6379
+  username: ""
+  password: ""
+  database: 0
+  # Channel namespace to avoid clashes when multiple networks share the same Redis instance
+  channelNamespace: "betterteams:v1"
+  # Which aspects to synchronize
+  sync:
+    money: true
+    score: true
+    teamMeta: true # name, tag, color (basic metadata)
+  # Debounce in milliseconds to coalesce rapid updates (e.g., mass score changes)
+  publishDebounceMs: 100
+
 # This is the value to determine if the chat prefix is enabled
 # - If this is enabled (true / name) a prefix [TeamName] will be displayed at the begining of chat messages.
 # - If the player is not in a team, nothing will be displayed

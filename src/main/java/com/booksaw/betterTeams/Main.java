@@ -23,6 +23,7 @@ import com.booksaw.betterTeams.events.MCTeamManagement.BelowNameType;
 import com.booksaw.betterTeams.integrations.UltimateClaimsManager;
 import com.booksaw.betterTeams.integrations.WorldGuardManagerV7;
 import com.booksaw.betterTeams.integrations.ZKothManager;
+import com.booksaw.betterTeams.integrations.RedisSyncService;
 import com.booksaw.betterTeams.integrations.hologram.DHHologramManager;
 import com.booksaw.betterTeams.integrations.hologram.HDHologramManager;
 import com.booksaw.betterTeams.integrations.hologram.HologramManager;
@@ -82,6 +83,9 @@ public class Main extends JavaPlugin {
 	 */
 	@Getter
 	public FoliaLib foliaLib;
+
+	@Getter
+	private RedisSyncService redisSync;
 
 	/**
 	 * If the ultimateClaims expansion has been enabled
@@ -176,10 +180,16 @@ public class Main extends JavaPlugin {
 
 		setupCommands();
 		setupListeners();
+
+		// Initialize Redis sync after storage/listeners are ready
+		redisSync = new RedisSyncService(this);
 	}
 
 	@Override
 	public void onDisable() {
+		if (redisSync != null) {
+			try { redisSync.close(); } catch (Exception ignored) {}
+		}
 
 		foliaLib.getScheduler().cancelAllTasks();
 

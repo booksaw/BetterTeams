@@ -462,6 +462,12 @@ public class Team {
 		this.name = name;
 		getStorage().set(StoredTeamValue.NAME, name);
 
+        // publish basic metadata cross-server (name, tag, color)
+        if (Main.plugin.getRedisSync() != null && Main.plugin.getRedisSync().isEnabled()
+                && !Main.plugin.getRedisSync().isPublishingSuppressed()) {
+			Main.plugin.getRedisSync().publishTeamMeta(getID(), this.name, this.tag, this.color != null ? this.color.getChar() : '6');
+		}
+
 		registerTeamName();
 
 		Bukkit.getPluginManager().callEvent(new PostTeamNameChangeEvent(this, previousName, name, playerSource));
@@ -596,6 +602,11 @@ public class Team {
 		this.tag = tag;
 		getStorage().set(StoredTeamValue.TAG, tag);
 
+        if (Main.plugin.getRedisSync() != null && Main.plugin.getRedisSync().isEnabled()
+                && !Main.plugin.getRedisSync().isPublishingSuppressed()) {
+			Main.plugin.getRedisSync().publishTeamMeta(getID(), this.name, this.tag, this.color != null ? this.color.getChar() : '6');
+		}
+
 		registerTeamName();
 
 		Bukkit.getPluginManager().callEvent(new PostTeamTagChangeEvent(this, oldTag, getTag(false)));
@@ -634,6 +645,11 @@ public class Team {
 		final ChatColor oldColor = getColor();
 		this.color = color;
 		getStorage().set(StoredTeamValue.COLOR, color.getChar());
+
+        if (Main.plugin.getRedisSync() != null && Main.plugin.getRedisSync().isEnabled()
+                && !Main.plugin.getRedisSync().isPublishingSuppressed()) {
+			Main.plugin.getRedisSync().publishTeamMeta(getID(), this.name, this.tag, color.getChar());
+		}
 
 		registerTeamName();
 
@@ -1156,6 +1172,10 @@ public class Team {
 	public void setScore(int score) {
 		this.score.set(score);
 		this.score.save(getStorage());
+		// publish cross-server
+		if (Main.plugin.getRedisSync() != null && Main.plugin.getRedisSync().isEnabled()) {
+			Main.plugin.getRedisSync().publishScore(getID(), score);
+		}
 	}
 
 	public double getMoney() {
@@ -1169,6 +1189,10 @@ public class Team {
 	public void setMoney(double money) {
 		this.money.set(money);
 		this.money.save(getStorage());
+		// publish cross-server
+		if (Main.plugin.getRedisSync() != null && Main.plugin.getRedisSync().isEnabled()) {
+			Main.plugin.getRedisSync().publishMoney(getID(), money);
+		}
 	}
 
 	/**
