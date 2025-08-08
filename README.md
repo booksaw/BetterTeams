@@ -63,19 +63,19 @@ redis:
 - Set the same `channelNamespace` on all servers in the same network
 - TLS endpoints are supported with `rediss://`
 
-### 4) Recommended topology
+### 3) Recommended topology
 
 - Put the SQL database and Redis on reliable infrastructure
 - Each game server runs BetterTeams with identical `config.yml` for SQL/Redis
 - Use a proxy (Velocity/Bungee) if you need network-wide chat/commands (not required for team data)
 
-### 5) Verifying
+### 4) Verifying
 
 - Create a team on Server A and check visibility on Server B (`/team info`)
 - Deposit/withdraw money and confirm balance changes appear on the other server
 - Change team name/tag/color and verify updates propagate
 
-### 6) Troubleshooting
+### 5) Troubleshooting
 
 - If teams don’t appear on other servers:
   - Confirm `storageType: SQL` on all servers
