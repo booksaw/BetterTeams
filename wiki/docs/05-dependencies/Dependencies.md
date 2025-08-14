@@ -52,6 +52,10 @@ Turrets do not attack allies
 
 This plugin supports many placeholders which can be used through placeholder API. For more information view the [placeholderAPI page of the wiki](./PlaceholderAPI)
 
+### [PrimaxTeamGlow](https://www.spigotmc.org/resources/primaxteamglow.127974/)
+
+Highlight your fellow teammates with the glowing effect!
+
 ### [UltimateClaims](https://songoda.com/marketplace/product/ultimateclaims-the-ultimate-claiming-plugin.65)
 
 This plugin supports altering how the claiming system of UltimateClaims works. For more information view the [UltimateClaims page of the wiki](./UltimateClaims)
