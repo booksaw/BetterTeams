@@ -3,14 +3,13 @@ package com.booksaw.betterTeams.team.storage.team;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.Warp;
+import com.booksaw.betterTeams.team.meta.TeamMeta;
 import com.booksaw.betterTeams.team.storage.storageManager.YamlStorageManager;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public abstract class YamlTeamStorage extends TeamStorage {
 
@@ -228,5 +227,25 @@ public abstract class YamlTeamStorage extends TeamStorage {
 	@Override
 	public void setTitle(TeamPlayer player) {
 		// not needed
+	}
+
+	@Override
+	public Map<String, String> getRawMeta() {
+		ConfigurationSection metaSection = getConfig().getConfigurationSection("meta");
+		Map<String, String> rawMeta = new HashMap<>();
+		if (metaSection != null) {
+			for (String key : metaSection.getKeys(false)) {
+				rawMeta.put(key, metaSection.getString(key));
+			}
+		}
+		return rawMeta;
+	}
+
+	@Override
+	public void saveMeta(TeamMeta meta) {
+		for (Map.Entry<String, String> entry : meta.getSerialized().entrySet()) {
+			getConfig().set("meta." + entry.getKey(), entry.getValue());
+		}
+		saveFile();
 	}
 }

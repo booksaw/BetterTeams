@@ -10,6 +10,7 @@ import com.booksaw.betterTeams.commands.team.chest.ChestRemoveCommand;
 import com.booksaw.betterTeams.commands.team.chest.ChestRemoveallCommand;
 import com.booksaw.betterTeams.commands.teama.*;
 import com.booksaw.betterTeams.commands.teama.chest.*;
+import com.booksaw.betterTeams.commands.teama.meta.MetaTeama;
 import com.booksaw.betterTeams.commands.teama.money.AddMoney;
 import com.booksaw.betterTeams.commands.teama.money.RemoveMoney;
 import com.booksaw.betterTeams.commands.teama.money.SetMoney;
@@ -348,7 +349,7 @@ public class Main extends JavaPlugin {
 				new LeaveTeama(), new PromoteTeama(), new DemoteTeama(), new WarpTeama(), new SetwarpTeama(),
 				new DelwarpTeama(), new PurgeTeama(), new DisbandTeama(), new ColorTeama(), new EchestTeama(),
 				new SetrankTeama(teamaCommand), new TagTeama(), new TeleportTeama(teamaCommand), new AllyTeama(),
-				new NeutralTeama(), new ImportmessagesTeama());
+				new NeutralTeama(), new ImportmessagesTeama(), new MetaTeama());
 
 		if (getConfig().getBoolean("anchor.enable")) {
 			teamaCommand.addSubCommands(new AnchorTeama(), new SetAnchorTeama());
