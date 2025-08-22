@@ -4,9 +4,11 @@ import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.Warp;
 
+import com.booksaw.betterTeams.team.meta.TeamMeta;
 import org.bukkit.inventory.Inventory;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -176,4 +178,8 @@ public abstract class TeamStorage {
 	public abstract void demotePlayer(TeamPlayer demotePlayer);
 
 	public abstract void setTitle(TeamPlayer player);
+
+	public abstract Map<String, String> getRawMeta();
+
+	public abstract void saveMeta(TeamMeta meta);
 }
