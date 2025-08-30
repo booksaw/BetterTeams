@@ -53,7 +53,7 @@ jobs:
         run: npm run build
         working-directory: ./wiki
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: ./wiki/build
 
