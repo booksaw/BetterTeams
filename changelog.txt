@@ -950,11 +950,9 @@ Features:
 Improvements:
 - Added message to explain why a player does not have to wait for the teleport delay
 
-3.14.1:
-
 Bug Fixes:
 - Fixed issue allowing team balance to be used to duplicate money
--
+- Added missing keys to messages.yml (#850)
 
 Headings:
 Features:
