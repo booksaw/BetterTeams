@@ -952,6 +952,7 @@ Improvements:
 
 Bug Fixes:
 - Fixed issue allowing team balance to be used to duplicate money
+- Players in vanish will not be tab completed (#849)
 - Added missing keys to messages.yml (#850)
 
 Headings:
