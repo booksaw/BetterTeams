@@ -10,6 +10,7 @@ import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class WithdrawCommand extends TeamSubCommand {
@@ -25,7 +26,7 @@ public class WithdrawCommand extends TeamSubCommand {
 
 		double amount;
 		try {
-			amount = Double.parseDouble(args[0]);
+			amount = new BigDecimal(args[0]).doubleValue();
 		} catch (Exception e) {
 			return new CommandResponse(new HelpMessage(this, label, parentCommand));
 		}

@@ -473,6 +473,11 @@ command.enableclaims: enableclaims
 command.disableclaims: disableclaims
 command.anchor: anchor
 command.setanchor: setanchor
+command.check: check
+command.debug: debug
+command.teleport: teleport
+command.importmessages: importmessages
+command.money: money
 
 webhook.unknownPlayer: "an unknown player"
 webhook.create.title: "New team created - {0}"
