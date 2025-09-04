@@ -3,6 +3,7 @@ package com.booksaw.betterTeams.commands;
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.Utils;
 import com.booksaw.betterTeams.message.MessageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -162,7 +163,7 @@ public abstract class SubCommand {
 	 */
 	public void addPlayerStringList(List<String> options, String argument) {
 		for (Player p : Bukkit.getOnlinePlayers()) {
-			if (p.getName().toLowerCase().startsWith(argument.toLowerCase())) {
+			if (p.getName().toLowerCase().startsWith(argument.toLowerCase()) && !Utils.isVanished(p)) {
 				options.add(p.getName());
 			}
 		}

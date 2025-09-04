@@ -10,6 +10,7 @@ import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class DepositCommand extends TeamSubCommand {
@@ -24,7 +25,7 @@ public class DepositCommand extends TeamSubCommand {
 	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 		double amount;
 		try {
-			amount = Double.parseDouble(args[0]);
+			amount = new BigDecimal(args[0]).doubleValue();
 		} catch (Exception e) {
 			return new CommandResponse(new HelpMessage(this, label, parentCommand));
 		}

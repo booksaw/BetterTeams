@@ -5,6 +5,8 @@ import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.SubCommand;
 import org.bukkit.command.CommandSender;
 
+import java.math.BigDecimal;
+
 public abstract class MoneySubCommand extends SubCommand {
 
 	@Override
@@ -25,7 +27,7 @@ public abstract class MoneySubCommand extends SubCommand {
 
 		double score;
 		try {
-			score = Double.parseDouble(args[1]);
+			score = new BigDecimal(args[1]).doubleValue();
 		} catch (NumberFormatException e) {
 			return new CommandResponse("help");
 		}

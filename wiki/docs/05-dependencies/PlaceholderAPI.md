@@ -22,7 +22,8 @@ by [creating a feature request](https://github.com/booksaw/BetterTeams/issues/ne
 As there are so many placeholders, every iteration cannot be displayed. Instead, a method for building placeholders is
 shown.
 There are several different types of placeholders. Firstly you need to pick the context of the placeholder that is
-relevant to you. Secondly the `{type}` variable in the placeholder can be replaced with the specific placeholder you want,
+relevant to you. Secondly the `{type}` variable in the placeholder can be replaced with the specific placeholder you
+want,
 see below the first list for options.
 
 * `%betterteams_{type}%` - A placeholder in the context of the current player, used for example to display team
@@ -31,7 +32,8 @@ see below the first list for options.
   `/team score` leaderboard
 * `%betterteams_balanceposition_{type}_{rank}%` - Displays information about the team at the defined `{rank}` on the
   `/team baltop` leaderboard
-* `%betterteams_membersposition_{type}_{rank}%` - Displays information about the team at the defined `{rank}` based on the
+* `%betterteams_membersposition_{type}_{rank}%` - Displays information about the team at the defined `{rank}` based on
+  the
   number of members in the team
 * `%betterteams_static_{type}_{team}%` - Displays information about the `{team}` referenced by name in the placeholder
 * `%betterteams_staticplayer_{type}_{player}%` - Displays information about the `{player}` referenced by name in the
@@ -61,6 +63,17 @@ you want to use in place of the `{rank}` variable. The options are as follows:
   `%betterteams_{type}% and %betterteams_staticplayer_{type}_{player}` placeholders)
 * `title` - The current title of the player within the team (only works on
   `%betterteams_{type}% and %betterteams_staticplayer_{type}_{player}` placeholders)
+* `owners` - The list of owners within the team
+* `admins` - The list of admins within the team
+* `defaultmembers` - The list of players in a team who have not been promoted into a specific role
+* `positionscore` - Current position of the team ranked by score
+* `positionbal` - Current position of the team ranked by balance
+* `positionmembers` - Current position of the team ranked by amount of members
+* `inTeam` - Returns the value of `placeholder.inTeam` if the player is in a team, if not returns the value
+  of `placeholder.notInTeam`. Only works in the context of `%betterteams_inTeam%`
+* `hasHome` - Returns the value of `placeholder.hasHome` if the targeted team has a home, otherwise the value
+  of `placeholder.noHome`
+* `teamChat` - Returns the configurable message matching if the player is in team chat, ally chat or global chat
 
 ## Example Placeholders
 

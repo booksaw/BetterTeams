@@ -13,6 +13,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -108,9 +109,9 @@ public class TeleportTeama extends SubCommand {
 				float yaw = 0, pitch = 0;
 				World world = null;
 				try {
-					x = Double.parseDouble(actionArgs[1]);
-					y = Double.parseDouble(actionArgs[2]);
-					z = Double.parseDouble(actionArgs[3]);
+					x = new BigDecimal(actionArgs[1]).doubleValue();
+					y = new BigDecimal(actionArgs[2]).doubleValue();
+					z = new BigDecimal(actionArgs[3]).doubleValue();
 				} catch (NumberFormatException e) {
 					return new CommandResponse(new HelpMessage(this, label, parentCommand));
 				}
