@@ -38,6 +38,9 @@ public class BetterTeamsDatabase extends Database {
 				"team1ID VARCHAR(50) NOT NULL, team2ID VARCHAR(50) NOT NULL, PRIMARY KEY(team1ID, team2ID), FOREIGN KEY (team1ID) REFERENCES "
 						+ TableName.TEAM + "(teamID) ON DELETE CASCADE, FOREIGN KEY (team2ID) REFERENCES "
 						+ TableName.TEAM + "(teamID) ON DELETE CASCADE");
+		createTableIfNotExists(TableName.TEAM_META,
+				"teamID VARCHAR(50) NOT NULL, metaKey VARCHAR(255) NOT NULL, metaValue TEXT, PRIMARY KEY(teamID, metaKey), FOREIGN KEY (teamID) REFERENCES "
+						+ TableName.TEAM + "(teamID) ON DELETE CASCADE");
 
 		// Add anchor columns if they don't exist
 		if (!hasColumn(TableName.TEAM, "anchor")) {

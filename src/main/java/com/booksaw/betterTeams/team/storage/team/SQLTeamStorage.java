@@ -2,6 +2,7 @@ package com.booksaw.betterTeams.team.storage.team;
 
 import com.booksaw.betterTeams.*;
 import com.booksaw.betterTeams.database.TableName;
+import com.booksaw.betterTeams.team.meta.TeamMeta;
 import com.booksaw.betterTeams.team.storage.storageManager.SQLStorageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;
@@ -9,9 +10,7 @@ import org.bukkit.inventory.Inventory;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class SQLTeamStorage extends TeamStorage {
 
@@ -370,5 +369,37 @@ public class SQLTeamStorage extends TeamStorage {
 	@Override
 	public void setClaimedChests(List<String> chests) {
 		// not needed
+	}
+
+	@Override
+	public Map<String, String> getRawMeta() {
+		Map<String, String> rawMeta = new HashMap<>();
+		String condition = "teamID = '" + team.getID().toString() + "'";
+		try (PreparedStatement ps = storageManager.getDatabase().selectWhere("*", TableName.TEAM_META, condition)) {
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				rawMeta.put(rs.getString("metaKey"), rs.getString("metaValue"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return rawMeta;
+	}
+
+	@Override
+	public void saveMeta(TeamMeta meta) {
+		String teamId = team.getID().toString();
+
+		storageManager.getDatabase().deleteRecord(TableName.TEAM_META, "teamID = '" + teamId + "'");
+		Map<String, String> serializedMeta = meta.getSerialized();
+		if (serializedMeta.isEmpty()) {
+			return;
+		}
+
+		for (Map.Entry<String, String> entry : serializedMeta.entrySet()) {
+			String columns = "teamID, metaKey, metaValue";
+			String values = "'" + teamId + "', '" + entry.getKey() + "', '" + entry.getValue().replace("'", "''") + "'";
+			storageManager.getDatabase().insertRecord(TableName.TEAM_META, columns, values);
+		}
 	}
 }
