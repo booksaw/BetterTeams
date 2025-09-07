@@ -327,7 +327,6 @@ admin.meta.get.specificMetaData: '&aMetadata key "&e{0}&a" has value: "&e{1}&a"'
 admin.meta.get.noexist: '&cThe specified metadata key does not exist for this team.'
 admin.meta.set.needsValue: '&cYou must provide a value to set for the metadata key.'
 admin.meta.set.success: '&aSuccessfully set metadata key'
-admin.meta.set.invalidvalue: '&cThe provided value is invalid for this metadata key.)'
 admin.meta.remove.success: '&aSuccessfully removed metadata key "&e{0}&a" from the team'
 
 nametag.syntax: '&6&l{0}&r '
@@ -485,6 +484,8 @@ command.debug: debug
 command.teleport: teleport
 command.importmessages: importmessages
 command.money: money
+command.meta: meta
+command.get: get
 
 webhook.unknownPlayer: "an unknown player"
 webhook.create.title: "New team created - {0}"

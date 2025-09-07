@@ -18,14 +18,10 @@ public class MetaSetTeama extends TeamSelectSubCommand {
 		if (valueStr.isEmpty()) {
 			return new CommandResponse(false, "admin.meta.set.needsValue");
 		}
-		boolean success = team.getMeta().get().set(key, valueStr);
 
-		if (success) {
-			team.getStorage().saveMeta(team.getMeta().get());
-			return new CommandResponse(true, "admin.meta.set.success");
-		} else {
-			return new CommandResponse(false, "admin.meta.set.invalidvalue"); // not useble for now
-		}
+		team.setAndSaveMeta(key, valueStr);
+		return new CommandResponse(true, "admin.meta.set.success");
+
 	}
 
 	@Override
@@ -65,7 +61,7 @@ public class MetaSetTeama extends TeamSelectSubCommand {
 		} else if (args.length == 2) {
 			options.add("<key>");
 		} else if (args.length == 3) {
-			options.add("<value");
+			options.add("<value>");
 		}
 	}
 }

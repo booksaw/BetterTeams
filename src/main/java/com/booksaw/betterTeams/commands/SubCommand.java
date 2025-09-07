@@ -188,5 +188,14 @@ public abstract class SubCommand {
 			}
 		}
 	}
+	public void addMetaStringList(List<String> options, Team team,String argument) {
+		if (team != null) {
+			team.getMeta().get().getAll().keySet().stream()
+					.filter(key -> key.toLowerCase().startsWith(argument.toLowerCase()))
+					.forEach(options::add);
+		} else {
+			options.add("<key>");
+		}
+	}
 
 }

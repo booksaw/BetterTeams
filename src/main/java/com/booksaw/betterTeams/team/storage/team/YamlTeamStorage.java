@@ -243,9 +243,7 @@ public abstract class YamlTeamStorage extends TeamStorage {
 
 	@Override
 	public void saveMeta(TeamMeta meta) {
-		for (Map.Entry<String, String> entry : meta.getSerialized().entrySet()) {
-			getConfig().set("meta." + entry.getKey(), entry.getValue());
-		}
+		getConfig().set("meta", meta.getSerialized());
 		saveFile();
 	}
 }

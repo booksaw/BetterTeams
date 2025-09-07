@@ -115,6 +115,9 @@ Admin commands can have the prefix [teamadmin] or [teama] both work exactly the 
 * `/teama chest enableclaims` - Enables chest claims
 * `/teama echest <team>` - view the specified team's ender chest
 * `/teama teleport <team> [x] [y] [z] [pitch] [yaw]` - Teleport the team to the specified location
+* `/teama meta set <team|player> <key> <value>` - Sets a metadata value for a team.
+* `/teama meta get <team|player> [<key>]` - Gets a metadata value (or lists all keys if no key is specified).
+* `/teama meta remove <team|player> <key>` - Removes a metadata key from a team.
 * `/teama holo create` - Creates a hologram at your location (
   requires [DecentHolograms](https://www.spigotmc.org/resources/96927/)
   or [HolographicDisplays](https://dev.bukkit.org/projects/holographic-displays))

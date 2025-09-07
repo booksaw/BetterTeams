@@ -1786,4 +1786,12 @@ public class Team {
 		return max <= getRank(PlayerRank.OWNER).size();
 
 	}
+	public void setAndSaveMeta(String key, String value) {
+		getMeta().get().set(key, value);
+		getStorage().saveMeta(getMeta().get());
+	}
+	public void removeAndSaveMeta(String key) {
+		getMeta().get().remove(key);
+		getStorage().saveMeta(getMeta().get());
+	}
 }

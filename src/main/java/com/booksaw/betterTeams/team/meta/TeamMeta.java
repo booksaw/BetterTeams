@@ -23,9 +23,8 @@ public class TeamMeta {
 	 * @param key   The identifier for the metaData.
 	 * @param value The string value of the metaData.
 	 */
-	public boolean set(String key, String value) {
+	public void set(String key, String value) {
 		this.metaData.put(key, value);
-		return true; // for now
 	}
 
 	/**
@@ -64,7 +63,7 @@ public class TeamMeta {
 
 	/**
 	 * Prepares the metadata for storage/serialization.
-	 * @return A new Map<String, String> containing all metadata in a raw, serializable format. [TODO: add types]
+	 * @return A new Map<String, String> containing all metadata in a raw, serializable format.
 	 */
 	public Map<String, String> getSerialized() {
 		return new HashMap<>(this.metaData);

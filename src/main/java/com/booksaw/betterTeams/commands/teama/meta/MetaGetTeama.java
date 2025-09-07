@@ -74,15 +74,9 @@ public class MetaGetTeama extends TeamSelectSubCommand {
 	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
 		if (args.length == 1) {
 			addTeamStringList(options, args[0]);
+			addPlayerStringList(options, args[0]);
 		} else if (args.length == 2) {
-			Team team = Team.getTeam(args[0]);
-			if (team != null) {
-				team.getMeta().get().getAll().keySet().stream()
-						.filter(key -> key.toLowerCase().startsWith(args[1].toLowerCase()))
-						.forEach(options::add);
-			} else {
-				options.add("<key>");
-			}
+			addMetaStringList(options, Team.getTeam(args[0]), args[1]);
 		}
 	}
 }
