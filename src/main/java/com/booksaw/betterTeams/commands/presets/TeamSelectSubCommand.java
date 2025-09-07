@@ -3,7 +3,11 @@ package com.booksaw.betterTeams.commands.presets;
 import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.SubCommand;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+import javax.annotation.Nullable;
 
 /**
  * This class is used for admin commands which reference a specific team
@@ -20,7 +24,7 @@ public abstract class TeamSelectSubCommand extends SubCommand {
 			return new CommandResponse("help");
 		}
 
-		Team team = Team.getTeam(args[0]);
+		Team team = resolveTeam(args[0]);
 
 		if (team == null) {
 			return new CommandResponse("admin.noTeam");
@@ -38,4 +42,27 @@ public abstract class TeamSelectSubCommand extends SubCommand {
 	 * @return the message reference to send to the user
 	 */
 	public abstract CommandResponse onCommand(CommandSender sender, String label, String[] args, Team team);
+
+
+	/**
+	 * resolve a team from either a team name or a player name
+	 * @param identifier The string which could be a team name or a player name
+	 * @return The resolved Team, or null if not found
+	 */
+	@Nullable
+	protected Team resolveTeam(String identifier) {
+		if (identifier == null || identifier.isEmpty()) {
+			return null;
+		}
+
+		Team team = Team.getTeam(identifier);
+
+		if (team == null) {
+			Player player = Bukkit.getPlayer(identifier);
+			if (player != null) {
+				team = Team.getTeam(player);
+			}
+		}
+		return team;
+	}
 }
