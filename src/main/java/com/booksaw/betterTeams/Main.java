@@ -169,6 +169,7 @@ public class Main extends JavaPlugin {
 				luckPermsManager.register();
 			} catch (Exception e) {
 				getLogger().warning("Could not properly hook into LuckPerms, context integration will not be available.");
+				luckPermsManager = null;
 				e.printStackTrace();
 			}
 		}

@@ -1,9 +1,9 @@
 package com.booksaw.betterTeams.integrations;
 
-import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.integrations.placeholder.TeamPlaceholderOptionsEnum;
+import com.booksaw.betterTeams.message.MessageManager;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.context.ContextCalculator;
 import net.luckperms.api.context.ContextConsumer;
@@ -31,7 +31,7 @@ public class LuckPermsManager implements ContextCalculator<Player> {
 		TeamPlayer teamPlayer = team.getTeamPlayer(player);
 
 		// Player specific
-		addContext(consumer, "bt_rank", TeamPlaceholderOptionsEnum.RANK.applyPlaceholderProvider(team, teamPlayer), true);
+		addContext(consumer, "bt_rank", TeamPlaceholderOptionsEnum.RANK.applyPlaceholderProvider(team, teamPlayer));
 		addContext(consumer, "bt_teamchat", TeamPlaceholderOptionsEnum.TEAMCHAT.applyPlaceholderProvider(team, teamPlayer));
 
 		// Team info
@@ -50,44 +50,43 @@ public class LuckPermsManager implements ContextCalculator<Player> {
 	 * Helper method to avoid passing null values to the context consumer.
 	 */
 	private void addContext(ContextConsumer consumer, String key, String value) {
-		addContext(consumer, key, value, false);
+		if (value != null) {
+			consumer.accept(key, value);
+		}
 	}
 
-	/**
-	 * Helper method with optional lowercasing.
-	 */
-	private void addContext(ContextConsumer consumer, String key, String value, boolean toLowerCase) {
-		if (value != null) {
-			consumer.accept(key, toLowerCase ? value.toLowerCase() : value);
-		}
+	private void addTrueFalse(ImmutableContextSet.Builder builder, String key) {
+		builder.add(key, "true");
+		builder.add(key, "false");
 	}
 
 	@Override
 	public @NotNull ContextSet estimatePotentialContexts() {
 		ImmutableContextSet.Builder builder = ImmutableContextSet.builder();
-		builder.add("bt_inteam", "true");
-		builder.add("bt_inteam", "false");
-		builder.add("bt_pvp", "true");
-		builder.add("bt_pvp", "false");
-		builder.add("bt_open", "true");
-		builder.add("bt_open", "false");
+		addTrueFalse(builder, "bt_inteam");
+		addTrueFalse(builder, "bt_pvp");
+		addTrueFalse(builder, "bt_open");
+		addTrueFalse(builder, "bt_hashome");
+		
+		builder.add("bt_teamchat", MessageManager.getMessage("placeholder.teamChat"));
+		builder.add("bt_teamchat", MessageManager.getMessage("placeholder.allyChat"));
+		builder.add("bt_teamchat", MessageManager.getMessage("placeholder.globalChat"));
+
+		builder.add("bt_rank", MessageManager.getMessage("placeholder.owner"));
+		builder.add("bt_rank", MessageManager.getMessage("placeholder.admin"));
+		builder.add("bt_rank", MessageManager.getMessage("placeholder.default"));
+
 		builder.add("bt_level", "1");
 		builder.add("bt_level", "2");
-
 		for (int i = 1; i <= 3; i++) {
 			builder.add("bt_positionscore", String.valueOf(i));
 			builder.add("bt_positionbal", String.valueOf(i));
 			builder.add("bt_positionmembers", String.valueOf(i));
 		}
 
-		for (PlayerRank rank : PlayerRank.values()) {
-			builder.add("bt_rank", rank.name().toLowerCase());
-		}
 		return builder.build();
 	}
-
-
-
+	
 	public void register() {
 		this.luckPerms.getContextManager().registerCalculator(this);
 	}

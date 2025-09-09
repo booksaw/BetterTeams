@@ -52,6 +52,10 @@ Turrets do not attack allies
 
 This plugin supports many placeholders which can be used through placeholder API. For more information view the [placeholderAPI page of the wiki](./PlaceholderAPI)
 
+### [LuckPerms](https://luckperms.net/)
+
+BetterTeams can hook into the LuckPerms permission plugin to provide dynamic contexts. For more information view the [LuckPerms page of the wiki](./LuckPerms).
+
 ### [PrimaxTeamGlow](https://www.spigotmc.org/resources/primaxteamglow.127974/)
 
 Highlight your fellow teammates with the glowing effect!

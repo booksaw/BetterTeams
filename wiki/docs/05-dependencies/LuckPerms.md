@@ -16,18 +16,18 @@ For example, you could create a permission that only applies if a player is the 
 
 BetterTeams provides the following contexts (all keys start with `bt_`):
 
-| Context Key                   | Description                                                                 | Example Value(s)                         |
-|-------------------------------|-----------------------------------------------------------------------------|------------------------------------------|
-| `bt_inteam`                   | Checks if a player is in any team.                                          | `true`, `false`                          |
-| `bt_rank`                     | The player's rank within their team.                                        | `owner`, `admin`, `default`              |
-| `bt_teamchat`                 | Current chat mode the player is using.                                      | `Team Chat`, `Ally Chat`, `Global Chat`  |
-| `bt_level`                    | The current level of the player's team.                                     | `5`                                      |
-| `bt_pvp`                      | Checks if the team has friendly-fire enabled.                               | `true`, `false`                          |
-| `bt_open`                     | Checks if the team is open for anyone to join.                              | `true`, `false`                          |
-| `bt_hashome`                  | Checks if the team has set a home.                                          | `true`, `false`                          |
-| `bt_positionscore`            | The team's rank on the score leaderboard.                                   | `1`, `2`, `3`, …                         |
-| `bt_positionbal`              | The team's rank on the balance leaderboard.                                 | `1`, `2`, `3`, …                         |
-| `bt_positionmembers`          | The team's rank on the member-count leaderboard.                            | `1`, `2`, `3`, …                         |
+| Context Key                   | Description                                                                 | Example Value(s)                       |
+|-------------------------------|-----------------------------------------------------------------------------|----------------------------------------|
+| `bt_inteam`                   | Checks if a player is in any team.                                          | `true`, `false`                        |
+| `bt_rank`                     | The player's rank within their team.                                        | From Language file (e.g., `owner`)     |
+| `bt_teamchat`                 | Current chat mode the player is using.                                      | From Language file (e.g., `Team Chat`) |
+| `bt_level`                    | The current level of the player's team.                                     | `1`, `2`, `3`, ...                     |
+| `bt_pvp`                      | Checks if the team has friendly-fire enabled.                               | `true`, `false`                        |
+| `bt_open`                     | Checks if the team is open for anyone to join.                              | `true`, `false`                        |
+| `bt_hashome`                  | Checks if the team has set a home.                                          | `true`, `false`                        |
+| `bt_positionscore`            | The team's rank on the score leaderboard.                                   | `1`, `2`, `3`, …                       |
+| `bt_positionbal`              | The team's rank on the balance leaderboard.                                 | `1`, `2`, `3`, …                       |
+| `bt_positionmembers`          | The team's rank on the member-count leaderboard.                            | `1`, `2`, `3`, …                       |
 
 ---
 
@@ -41,10 +41,9 @@ To give the `kits.member` permission only if the player is in any team:
 /lp group default permission set kits.member true bt_inteam=true
 ```
 :::note
-The values for the `bt_teamchat` context are determined by the return values of chat placeholders in your `messages.yml` file. By default, these are:
-- `placeholder.teamChat`: 'Team Chat'
-- `placeholder.globalChat`: 'Global Chat'
-- `placeholder.allyChat`: 'Ally Chat'
+Some context values are configurable in your language files. The values are sourced from the following placeholder keys:
+- **`bt_rank`**: `placeholder.owner`, `placeholder.admin`, `placeholder.default`
+- **`bt_teamchat`**: `placeholder.teamChat`, `placeholder.allyChat`, `placeholder.globalChat`
 
-If you customize these placeholder values, the `bt_teamchat` context will use your new values.
+If you customize these placeholder values, the contexts will use your new values.
 :::
