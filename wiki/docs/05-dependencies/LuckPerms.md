@@ -19,12 +19,12 @@ BetterTeams provides the following contexts (all keys start with `bt_`):
 | Context Key                   | Description                                                                 | Example Value(s)                       |
 |-------------------------------|-----------------------------------------------------------------------------|----------------------------------------|
 | `bt_inteam`                   | Checks if a player is in any team.                                          | `true`, `false`                        |
-| `bt_rank`                     | The player's rank within their team.                                        | From Language file (e.g., `owner`)     |
-| `bt_teamchat`                 | Current chat mode the player is using.                                      | From Language file (e.g., `Team Chat`) |
-| `bt_level`                    | The current level of the player's team.                                     | `1`, `2`, `3`, ...                     |
 | `bt_pvp`                      | Checks if the team has friendly-fire enabled.                               | `true`, `false`                        |
 | `bt_open`                     | Checks if the team is open for anyone to join.                              | `true`, `false`                        |
 | `bt_hashome`                  | Checks if the team has set a home.                                          | `true`, `false`                        |
+| `bt_rank`                     | The player's rank within their team.                                        | From Language file (e.g., `owner`)     |
+| `bt_teamchat`                 | Current chat mode the player is using.                                      | From Language file (e.g., `Team Chat`) |
+| `bt_level`                    | The current level of the player's team.                                     | `1`, `2`, `3`, ...                     |
 | `bt_positionscore`            | The team's rank on the score leaderboard.                                   | `1`, `2`, `3`, …                       |
 | `bt_positionbal`              | The team's rank on the balance leaderboard.                                 | `1`, `2`, `3`, …                       |
 | `bt_positionmembers`          | The team's rank on the member-count leaderboard.                            | `1`, `2`, `3`, …                       |
