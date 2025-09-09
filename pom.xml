@@ -206,6 +206,14 @@
             <version>3.27.3</version>
             <scope>test</scope>
         </dependency>
+
+<!--    https://repo.maven.apache.org/maven2/net/luckperms/api/-->
+        <dependency>
+            <groupId>net.luckperms</groupId>
+            <artifactId>api</artifactId>
+            <version>5.4</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
