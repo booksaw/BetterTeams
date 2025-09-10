@@ -956,6 +956,13 @@ Bug Fixes:
 - Players in vanish will not be tab completed (#849)
 - Added missing keys to messages.yml (#850)
 
+
+3.15.0:
+
+Features:
+- Added luckperm context support, See [the dedicated wiki page](https://betterteams.booksaw.dev/docs/dependencies/LuckPerms) (#867) - Credit satanhoot0
+- Added a metadata system, so admins can add metadata to a team using `/teama meta` (#855) - Credit satanhoot0
+
 Headings:
 Features:
 
