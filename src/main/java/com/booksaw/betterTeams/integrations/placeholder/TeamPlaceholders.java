@@ -12,6 +12,7 @@ import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.Duration;
+import java.util.Arrays;
 
 /**
  * This class is used to set the placeholder values for placeholder API
@@ -62,7 +63,7 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 
 	@Override
 	public String onPlaceholderRequest(Player player, @NotNull String identifier) {
-
+		String originalIdentifier = identifier;
 		identifier = identifier.toLowerCase();
 		String[] split = identifier.split("_");
 		Team team;
@@ -93,6 +94,17 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 				return MessageManager.getMessage("placeholder.noTeam");
 			}
 			return TeamPlaceholderService.getPlaceholder(identifier, team, tp);
+		}
+		if ("meta".equalsIgnoreCase(split[0])) {
+			if (player == null) {
+				return null;
+			}
+			team = Team.getTeam(player);
+			if (team == null) {
+				return MessageManager.getMessage("placeholder.noTeam");
+			}
+			String key = originalIdentifier.split("_")[1];
+			return getMetaValue(team, key);
 		}
 
 		return placeholderCache.get(identifier);
@@ -199,5 +211,9 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 
 	private enum SortType {
 		SCORE, BALANCE, MEMBERS
+	}
+
+	private String getMetaValue(Team team, String key) {
+		return team.getMeta().get().get(key).orElse(MessageManager.getMessage("placeholder.noTeam"));
 	}
 }

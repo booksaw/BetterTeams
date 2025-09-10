@@ -282,6 +282,15 @@ permissions:
   betterTeams.admin.chest.disable:
     default: op
     description: gives access to the command /teama chest disableclaims
+  betterTeams.admin.meta.set:
+    default: op
+    description: gives access to the command /teama meta set
+  betterTeams.admin.meta.remove:
+    default: op
+    description: gives access to the command /teama meta remove
+  betterTeams.admin.meta.get:
+    default: op
+    description: gives access to the command /teama meta get
   betterTeams.chest.bypass:
     default: op
     description: Bypass chest claims

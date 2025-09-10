@@ -308,6 +308,9 @@ public class Team {
 
 	private org.bukkit.scoreboard.Team team;
 
+	@Getter
+	private final MetaComponent meta = new MetaComponent();
+
 	/**
 	 * this is used to load a team from the configuration file
 	 *
@@ -348,6 +351,7 @@ public class Team {
 		money.load(storage);
 		echest.load(storage);
 		bannedPlayers.load(storage);
+		meta.load(storage);
 
 		String teamHomeStr = storage.getString(StoredTeamValue.HOME);
 		if (teamHomeStr != null && !teamHomeStr.isEmpty()) {
@@ -1781,5 +1785,13 @@ public class Team {
 		}
 		return max <= getRank(PlayerRank.OWNER).size();
 
+	}
+	public void setAndSaveMeta(String key, String value) {
+		getMeta().get().set(key, value);
+		getStorage().saveMeta(getMeta().get());
+	}
+	public void removeAndSaveMeta(String key) {
+		getMeta().get().remove(key);
+		getStorage().saveMeta(getMeta().get());
 	}
 }
