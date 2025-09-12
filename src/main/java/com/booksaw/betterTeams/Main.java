@@ -50,6 +50,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -113,7 +114,6 @@ public class Main extends JavaPlugin {
 		return adventure != null;
 	}
 
-	private boolean closeAdventure = true;
 
 	@Override
 	public void onLoad() {
@@ -138,6 +138,9 @@ public class Main extends JavaPlugin {
 		foliaLib = new FoliaLib(this);
 		setupMetrics();
 
+		if (configManager == null) {
+			configManager = new ConfigManager("config", true);
+		}
 		String language = getConfig().getString("language");
 		MessageManager.setLanguage(language);
 		if (Objects.requireNonNull(language).equals("en") || language.isEmpty()) {
@@ -147,6 +150,8 @@ public class Main extends JavaPlugin {
 		if (adventure == null) try {
 			adventure = BukkitAudiences.create(this);
 		} catch (Exception e) {
+			getLogger().severe("Failed to create BukkitAudiences: " + e.getMessage());
+			adventure = null;
 		}
 
 		MessageManager.setupMessageSender(adventure);
@@ -219,19 +224,24 @@ public class Main extends JavaPlugin {
 
 		if (teamManagement != null) {
 			teamManagement.removeAll(false);
+			teamManagement = null;
 		}
+		HandlerList.unregisterAll(this); // unregister all Listeners
+
+		damageManagement = null;
+		chatManagement = null;
 
 		Team.disable();
 
 		MessageManager.dumpMessages();
 		MessageManager.dumpMessageSender();
 
-		if (closeAdventure && adventure != null) {
+		if (adventure != null) {
 			adventure.close();
 			adventure = null;
 		}
 
-		closeAdventure = true;
+		configManager = null;
 	}
 
 	public void loadCustomConfigs() {
@@ -321,17 +331,16 @@ public class Main extends JavaPlugin {
 	}
 
 	public void reload() {
+		getLogger().info("Starting BetterTeams reload...");
 
-		closeAdventure = false;
 		onDisable();
-		teamManagement = null;
+
 		reloadConfig();
 		configManager = new ConfigManager("config", true);
 
-		ChatManagement.enable();
-		damageManagement = null;
 		onEnable();
 
+		getLogger().info("BetterTeams reload complete.");
 	}
 
 	public void setupCommands() {
