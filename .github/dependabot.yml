@@ -5,13 +5,28 @@ updates:
     directory: "/"
     schedule:
       interval: weekly
+    groups:
+      all-non-major:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
 
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: weekly
+    groups:
+      all:
+        patterns:
+          - "*"
 
   - package-ecosystem: "npm"
     directory: "/wiki"
     schedule:
       interval: weekly
+    groups:
+      all:
+        patterns:
+          - "*"
