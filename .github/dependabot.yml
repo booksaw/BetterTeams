@@ -6,7 +6,7 @@ updates:
     schedule:
       interval: weekly
     groups:
-      all-non-major:
+      maven-non-major:
         patterns:
           - "*"
         update-types:
@@ -18,7 +18,7 @@ updates:
     schedule:
       interval: weekly
     groups:
-      all:
+      github-actions:
         patterns:
           - "*"
 
@@ -27,6 +27,6 @@ updates:
     schedule:
       interval: weekly
     groups:
-      all:
+      npm-packages:
         patterns:
           - "*"
