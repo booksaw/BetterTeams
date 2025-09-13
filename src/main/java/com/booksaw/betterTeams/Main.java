@@ -138,9 +138,6 @@ public class Main extends JavaPlugin {
 		foliaLib = new FoliaLib(this);
 		setupMetrics();
 
-		if (configManager == null) {
-			configManager = new ConfigManager("config", true);
-		}
 		String language = getConfig().getString("language");
 		MessageManager.setLanguage(language);
 		if (Objects.requireNonNull(language).equals("en") || language.isEmpty()) {
