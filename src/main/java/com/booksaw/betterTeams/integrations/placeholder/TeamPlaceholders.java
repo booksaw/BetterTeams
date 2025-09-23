@@ -12,7 +12,6 @@ import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.Duration;
-import java.util.Arrays;
 
 /**
  * This class is used to set the placeholder values for placeholder API
@@ -66,49 +65,49 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 		String originalIdentifier = identifier;
 		identifier = identifier.toLowerCase();
 		String[] split = identifier.split("_");
-		Team team;
 
-		if (split.length < 2) {
-			// base placeholder, simplest case
-			// ie %betterteams_name%
+		// Case 1: simple placeholders like %betterteams_name%
+		if (split.length == 1) {
 			if (player == null) {
 				return null;
 			}
 
 			if ("inteam".equalsIgnoreCase(split[0])) {
-				if (Team.getTeamManager().isInTeam(player)) {
-					return MessageManager.getMessage("placeholder.inteam");
-				} else {
-					return MessageManager.getMessage("placeholder.notinteam");
-				}
+				return Team.getTeamManager().isInTeam(player)
+						? MessageManager.getMessage("placeholder.inteam")
+						: MessageManager.getMessage("placeholder.notinteam");
 			}
 
-			team = Team.getTeam(player);
+			Team team = Team.getTeam(player);
 			if (team == null) {
 				return MessageManager.getMessage("placeholder.noTeam");
 			}
 
 			TeamPlayer tp = team.getTeamPlayer(player);
-
 			if (tp == null) {
 				return MessageManager.getMessage("placeholder.noTeam");
 			}
 			return TeamPlaceholderService.getPlaceholder(identifier, team, tp);
 		}
-		if ("meta".equalsIgnoreCase(split[0])) {
+
+		// Case 2: dynamic placeholders that require data (like %betterteams_meta_key%)
+		TeamPlaceholderOptionsEnum option = TeamPlaceholderOptionsEnum.getEnumValue(split[0]);
+		if (option != null && option.requiresData()) {
 			if (player == null) {
 				return null;
 			}
-			team = Team.getTeam(player);
+			Team team = Team.getTeam(player);
 			if (team == null) {
 				return MessageManager.getMessage("placeholder.noTeam");
 			}
-			String key = originalIdentifier.split("_")[1];
-			return getMetaValue(team, key);
+			TeamPlayer tp = team.getTeamPlayer(player);
+			String data = originalIdentifier.substring(originalIdentifier.indexOf('_') + 1);
+
+			return option.applyPlaceholderProvider(team, tp, data);
 		}
 
+		// Case 3: static or leaderboard placeholders (cacheable)
 		return placeholderCache.get(identifier);
-
 	}
 
 	private String getStaticPlaceholder(String identifier) {

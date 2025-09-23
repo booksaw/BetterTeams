@@ -20,10 +20,12 @@ public enum TeamPlaceholderOptionsEnum {
 	MAXMONEY(new MaxMoneyPlaceholderProvider()), MAXMEMBERS(new MaxMembersPlaceholderProvider()), MAXWARPS(new MaxWarpsPlaceholderProvider()),
 	PVP(new PvpPlaceholderProvider()),
 	HASHOME(new HasHomePlaceholderProvider()),
-	TEAMCHAT(new TeamChatPlaceholderProvider());
+	TEAMCHAT(new TeamChatPlaceholderProvider()),
+	META(new MetaPlaceholderProvider());
 
 	private final IndividualTeamPlaceholderProvider teamProvider;
 	private final IndividualTeamPlayerPlaceholderProvider teamPlayerProvider;
+	private final IndividualTeamWithDataPlaceholderProvider teamWithDataProvider;
 
 	/**
 	 * Constructor to take in an interface per enum value
@@ -31,6 +33,7 @@ public enum TeamPlaceholderOptionsEnum {
 	TeamPlaceholderOptionsEnum(IndividualTeamPlaceholderProvider teamProvider) {
 		this.teamProvider = teamProvider;
 		this.teamPlayerProvider = null;
+		this.teamWithDataProvider = null;
 	}
 
 	/**
@@ -39,6 +42,13 @@ public enum TeamPlaceholderOptionsEnum {
 	TeamPlaceholderOptionsEnum(IndividualTeamPlayerPlaceholderProvider teamPlayerProvider) {
 		this.teamPlayerProvider = teamPlayerProvider;
 		this.teamProvider = null;
+		this.teamWithDataProvider = null;
+	}
+
+	TeamPlaceholderOptionsEnum(IndividualTeamWithDataPlaceholderProvider teamWithDataProvider) {
+		this.teamWithDataProvider = teamWithDataProvider;
+		this.teamProvider = null;
+		this.teamPlayerProvider = null;
 	}
 
 	public String applyPlaceholderProvider(Team team, TeamPlayer player) {
@@ -52,11 +62,23 @@ public enum TeamPlaceholderOptionsEnum {
 		return null;
 	}
 
+	public String applyPlaceholderProvider(Team team, TeamPlayer player, String data) {
+		if (teamWithDataProvider != null) {
+			return teamWithDataProvider.getPlaceholderForTeam(team, data);
+		}
+		// fallback
+		return applyPlaceholderProvider(team, player);
+	}
+
 	public static TeamPlaceholderOptionsEnum getEnumValue(String str) {
 		try {
 			return TeamPlaceholderOptionsEnum.valueOf(str.toUpperCase());
 		} catch (IllegalArgumentException e) {
 			return null;
 		}
+	}
+
+	public boolean requiresData() {
+		return teamWithDataProvider != null;
 	}
 }
