@@ -91,8 +91,7 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 		}
 
 		// Case 2: dynamic placeholders that require data (like %betterteams_meta_key%)
-		TeamPlaceholderOptionsEnum option = TeamPlaceholderOptionsEnum.getEnumValue(split[0]);
-		if (option != null && option.requiresData()) {
+		if (TeamPlaceholderService.requiresData(split[0])) {
 			if (player == null) {
 				return null;
 			}
@@ -102,8 +101,7 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 			}
 			TeamPlayer tp = team.getTeamPlayer(player);
 			String data = originalIdentifier.substring(originalIdentifier.indexOf('_') + 1);
-
-			return option.applyPlaceholderProvider(team, tp, data);
+			return TeamPlaceholderService.getPlaceholder(split[0], team, tp, data);
 		}
 
 		// Case 3: static or leaderboard placeholders (cacheable)
@@ -210,9 +208,5 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 
 	private enum SortType {
 		SCORE, BALANCE, MEMBERS
-	}
-
-	private String getMetaValue(Team team, String key) {
-		return team.getMeta().get().get(key).orElse(MessageManager.getMessage("placeholder.noTeam"));
 	}
 }
