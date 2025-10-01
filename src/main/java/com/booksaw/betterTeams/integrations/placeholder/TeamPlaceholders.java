@@ -66,46 +66,29 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 		identifier = identifier.toLowerCase();
 		String[] split = identifier.split("_");
 
-		// Case 1: simple placeholders like %betterteams_name%
-		if (split.length == 1) {
-			if (player == null) {
-				return null;
-			}
+		String cachedValue = placeholderCache.get(identifier);
+		if (cachedValue != null) return cachedValue;
 
-			if ("inteam".equalsIgnoreCase(split[0])) {
-				return Team.getTeamManager().isInTeam(player)
-						? MessageManager.getMessage("placeholder.inteam")
-						: MessageManager.getMessage("placeholder.notinteam");
-			}
+		if (player == null) return null;
 
-			Team team = Team.getTeam(player);
-			if (team == null) {
-				return MessageManager.getMessage("placeholder.noTeam");
-			}
-
-			TeamPlayer tp = team.getTeamPlayer(player);
-			if (tp == null) {
-				return MessageManager.getMessage("placeholder.noTeam");
-			}
-			return TeamPlaceholderService.getPlaceholder(identifier, team, tp);
+		if ("inteam".equalsIgnoreCase(split[0])) {
+			return Team.getTeamManager().isInTeam(player)
+					? MessageManager.getMessage("placeholder.inteam")
+					: MessageManager.getMessage("placeholder.notinteam");
 		}
 
-		// Case 2: dynamic placeholders that require data (like %betterteams_meta_key%)
-		if (TeamPlaceholderService.requiresData(split[0])) {
-			if (player == null) {
-				return null;
-			}
-			Team team = Team.getTeam(player);
-			if (team == null) {
-				return MessageManager.getMessage("placeholder.noTeam");
-			}
-			TeamPlayer tp = team.getTeamPlayer(player);
+		Team team = Team.getTeam(player);
+		if (team == null) return MessageManager.getMessage("placeholder.noTeam");
+
+		TeamPlayer tp = team.getTeamPlayer(player);
+		if (tp == null) return MessageManager.getMessage("placeholder.noTeam");
+
+		String placeholderType = split[0];
+		if (TeamPlaceholderService.requiresData(placeholderType)) {
 			String data = originalIdentifier.substring(originalIdentifier.indexOf('_') + 1);
-			return TeamPlaceholderService.getPlaceholder(split[0], team, tp, data);
+			return TeamPlaceholderService.getPlaceholder(placeholderType, team, tp, data);
 		}
-
-		// Case 3: static or leaderboard placeholders (cacheable)
-		return placeholderCache.get(identifier);
+		return TeamPlaceholderService.getPlaceholder(identifier, team, tp);
 	}
 
 	private String getStaticPlaceholder(String identifier) {
