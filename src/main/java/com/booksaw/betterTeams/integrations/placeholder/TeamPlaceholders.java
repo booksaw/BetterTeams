@@ -27,7 +27,7 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 		this.plugin = plugin;
 		placeholderCache = new Cache.Builder<String, String>()
 				.maximumSize(300)
-				.expireAfterWrite(Duration.ofSeconds(plugin.getConfig().getInt("invalidateCacheSeconds")))
+				.expireAfterWrite(Duration.ofSeconds(plugin.getConfig().getInt("invalidateCacheSeconds", 60)))
 				.build(this::getStaticPlaceholder);
 	}
 
@@ -104,7 +104,7 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 				return processRankedTeamDataPlaceholder(identifier, SortType.MEMBERS);
 			case "static":
 				return processStaticTeamPlaceholder(split);
-			case "staticplayer_":
+			case "staticplayer":
 				return processStaticTeamPlayerPlaceholder(split);
 			default:
 				return null;
