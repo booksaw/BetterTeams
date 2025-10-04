@@ -74,6 +74,7 @@ you want to use in place of the `{rank}` variable. The options are as follows:
 * `hasHome` - Returns the value of `placeholder.hasHome` if the targeted team has a home, otherwise the value
   of `placeholder.noHome`
 * `teamChat` - Returns the configurable message matching if the player is in team chat, ally chat or global chat
+* `meta_<key>` - returns the meta of team or value of `placeholder.noMeta` (Only works in the context of `%betterteams_meta_<key>%`)
 
 ## Example Placeholders
 

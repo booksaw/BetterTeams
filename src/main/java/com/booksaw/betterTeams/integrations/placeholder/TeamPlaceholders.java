@@ -12,7 +12,6 @@ import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.Duration;
-import java.util.Arrays;
 
 /**
  * This class is used to set the placeholder values for placeholder API
@@ -28,7 +27,7 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 		this.plugin = plugin;
 		placeholderCache = new Cache.Builder<String, String>()
 				.maximumSize(300)
-				.expireAfterWrite(Duration.ofSeconds(plugin.getConfig().getInt("invalidateCacheSeconds")))
+				.expireAfterWrite(Duration.ofSeconds(plugin.getConfig().getInt("invalidateCacheSeconds", 60)))
 				.build(this::getStaticPlaceholder);
 	}
 
@@ -66,49 +65,30 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 		String originalIdentifier = identifier;
 		identifier = identifier.toLowerCase();
 		String[] split = identifier.split("_");
-		Team team;
 
-		if (split.length < 2) {
-			// base placeholder, simplest case
-			// ie %betterteams_name%
-			if (player == null) {
-				return null;
-			}
+		String cachedValue = placeholderCache.get(identifier);
+		if (cachedValue != null) return cachedValue;
 
-			if ("inteam".equalsIgnoreCase(split[0])) {
-				if (Team.getTeamManager().isInTeam(player)) {
-					return MessageManager.getMessage("placeholder.inteam");
-				} else {
-					return MessageManager.getMessage("placeholder.notinteam");
-				}
-			}
+		if (player == null) return null;
 
-			team = Team.getTeam(player);
-			if (team == null) {
-				return MessageManager.getMessage("placeholder.noTeam");
-			}
-
-			TeamPlayer tp = team.getTeamPlayer(player);
-
-			if (tp == null) {
-				return MessageManager.getMessage("placeholder.noTeam");
-			}
-			return TeamPlaceholderService.getPlaceholder(identifier, team, tp);
-		}
-		if ("meta".equalsIgnoreCase(split[0])) {
-			if (player == null) {
-				return null;
-			}
-			team = Team.getTeam(player);
-			if (team == null) {
-				return MessageManager.getMessage("placeholder.noTeam");
-			}
-			String key = originalIdentifier.split("_")[1];
-			return getMetaValue(team, key);
+		if ("inteam".equalsIgnoreCase(split[0])) {
+			return Team.getTeamManager().isInTeam(player)
+					? MessageManager.getMessage("placeholder.inteam")
+					: MessageManager.getMessage("placeholder.notinteam");
 		}
 
-		return placeholderCache.get(identifier);
+		Team team = Team.getTeam(player);
+		if (team == null) return MessageManager.getMessage("placeholder.noTeam");
 
+		TeamPlayer tp = team.getTeamPlayer(player);
+		if (tp == null) return MessageManager.getMessage("placeholder.noTeam");
+
+		String placeholderType = split[0];
+		if (TeamPlaceholderService.requiresData(placeholderType)) {
+			String data = originalIdentifier.substring(originalIdentifier.indexOf('_') + 1);
+			return TeamPlaceholderService.getPlaceholder(placeholderType, team, tp, data);
+		}
+		return TeamPlaceholderService.getPlaceholder(identifier, team, tp);
 	}
 
 	private String getStaticPlaceholder(String identifier) {
@@ -124,7 +104,7 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 				return processRankedTeamDataPlaceholder(identifier, SortType.MEMBERS);
 			case "static":
 				return processStaticTeamPlaceholder(split);
-			case "staticplayer_":
+			case "staticplayer":
 				return processStaticTeamPlayerPlaceholder(split);
 			default:
 				return null;
@@ -211,9 +191,5 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 
 	private enum SortType {
 		SCORE, BALANCE, MEMBERS
-	}
-
-	private String getMetaValue(Team team, String key) {
-		return team.getMeta().get().get(key).orElse(MessageManager.getMessage("placeholder.noTeam"));
 	}
 }
