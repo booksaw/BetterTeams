@@ -105,6 +105,8 @@ public class Main extends JavaPlugin {
 	FileConfiguration teams;
 	private DamageManagement damageManagement;
 
+	private HomeAnchorManagement homeAnchorManagement;
+
 	private ConfigManager configManager;
 
 	private BukkitAudiences adventure;
@@ -221,6 +223,10 @@ public class Main extends JavaPlugin {
 			teamManagement.removeAll(false);
 		}
 
+		if (homeAnchorManagement != null) {
+			homeAnchorManagement.unregisterEvent();
+		}
+
 		Team.disable();
 
 		MessageManager.dumpMessages();
@@ -325,6 +331,7 @@ public class Main extends JavaPlugin {
 		closeAdventure = false;
 		onDisable();
 		teamManagement = null;
+		homeAnchorManagement = null;
 		reloadConfig();
 		configManager = new ConfigManager("config", true);
 
@@ -467,8 +474,8 @@ public class Main extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new InventoryManagement(), this);
 		getServer().getPluginManager().registerEvents(new RankupEvents(), this);
 		if (getConfig().getBoolean("anchor.enable")) {
-			HomeAnchorManagement homeAnchorListener = new HomeAnchorManagement(this);
-			homeAnchorListener.registerEvent();
+			homeAnchorManagement = new HomeAnchorManagement(this);
+			homeAnchorManagement.registerEvent();
 		}
 	}
 
