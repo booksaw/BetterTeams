@@ -18,6 +18,7 @@ cooldown.wait: '&4You need to wait another {0} seconds before running that!'
 cost.tooPoor: '&4You are too poor to run that command'
 cost.run: '&4&l-{0}'
 placeholder.noTeam: ''
+placeholder.noMeta: ''
 placeholder.noDescription: ''
 placeholder.money: '{0}'
 placeholder.owner: Owner
