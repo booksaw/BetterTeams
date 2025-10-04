@@ -12,6 +12,7 @@ import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 
 public class MemberSetComponent extends TeamPlayerSetComponent {
 
@@ -25,25 +26,31 @@ public class MemberSetComponent extends TeamPlayerSetComponent {
 			throw new CancelledEventException(event);
 		}
 
-		OfflinePlayer p = teamPlayer.getPlayer();
+		OfflinePlayer offlinePlayer = teamPlayer.getPlayer();
 
-		team.getInvitedPlayers().remove(p.getUniqueId());
+		team.getInvitedPlayers().remove(offlinePlayer.getUniqueId());
+
+		Player onlinePlayer = offlinePlayer.getPlayer();
 
 		// if the player is offline there will be no player object for them
-		if (p.isOnline()) {
+		if (offlinePlayer.isOnline() && onlinePlayer != null) {
 			for (TeamPlayer player : set) {
 				if (player.getPlayer().isOnline()) {
-					MessageManager.sendMessage(player.getPlayer().getPlayer(), "join.notify", p.getPlayer().getDisplayName());
+					MessageManager.sendMessage(player.getPlayer().getPlayer(), "join.notify", onlinePlayer.getDisplayName());
 				}
 			}
 
 			if (Main.plugin.teamManagement != null) {
-				Main.plugin.teamManagement.displayBelowName(p.getPlayer());
+				Main.plugin.teamManagement.displayBelowName(onlinePlayer);
 			}
 		}
 
 		Team.getTeamManager().playerJoinTeam(team, teamPlayer);
 		set.add(teamPlayer);
+
+		if (offlinePlayer.isOnline() && onlinePlayer != null
+				&& onlinePlayer.hasPermission("betterteams.anchor.allowonjoin"))
+			team.setPlayerAnchor(teamPlayer, true);
 
 		Bukkit.getPluginManager().callEvent(new PostPlayerJoinTeamEvent(team, teamPlayer));
 	}

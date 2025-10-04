@@ -7,7 +7,9 @@ import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -63,21 +65,19 @@ public class TeamPlayer {
 	 * @param player the player that is associated with this object
 	 * @param rank   the rank that the player has
 	 */
-	public TeamPlayer(@NotNull OfflinePlayer player, @NotNull PlayerRank rank) {
+	public TeamPlayer(@NotNull OfflinePlayer player, @Nullable PlayerRank rank) {
+		Objects.requireNonNull(player, "player cannot be null");
 		this.playerUUID = player.getUniqueId();
-		this.rank = rank;
+		this.rank = rank != null ? rank : PlayerRank.DEFAULT;
 	}
 
-	public TeamPlayer(OfflinePlayer player, PlayerRank rank, String title) {
-		this.playerUUID = player.getUniqueId();
-		this.rank = rank;
-		this.title = title;
+	public TeamPlayer(@NotNull OfflinePlayer player, @Nullable PlayerRank rank, @Nullable String title) {
+		this(player, rank);
+		this.title = title != null ? title : "";
 	}
 
-	public TeamPlayer(OfflinePlayer player, PlayerRank rank, String title, boolean anchor) {
-		this.playerUUID = player.getUniqueId();
-		this.rank = rank;
-		this.title = title;
+	public TeamPlayer(@NotNull OfflinePlayer player, @Nullable PlayerRank rank, @Nullable String title, boolean anchor) {
+		this(player, rank, title);
 		this.anchor = anchor;
 	}
 

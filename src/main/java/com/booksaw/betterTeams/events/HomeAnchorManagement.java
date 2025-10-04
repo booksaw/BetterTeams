@@ -17,23 +17,20 @@ import com.booksaw.betterTeams.customEvents.PlayerHomeAnchorEvent;
 
 public class HomeAnchorManagement implements Listener {
 
-    private final JavaPlugin plugin;
-    private final EventPriority defaultPriority = EventPriority.NORMAL;
-    private final EventPriority priority;
-    private final EnumSet<EventPriority> allowedPriorities = EnumSet.of(
-            EventPriority.HIGH,
-            EventPriority.HIGHEST,
-            EventPriority.NORMAL,
-            EventPriority.LOW,
-            EventPriority.LOWEST);
+	private static final EventPriority defaultPriority = EventPriority.NORMAL;
 
-    private final boolean checkUsePermission;
-    private final boolean checkAnchoredPlayer;
+	private static final EnumSet<EventPriority> allowedPriorities = EnumSet.of(
+			EventPriority.HIGH,
+			EventPriority.HIGHEST,
+			EventPriority.NORMAL,
+			EventPriority.LOW,
+			EventPriority.LOWEST);
+
+    private final JavaPlugin plugin;
+    private final EventPriority priority;
 
     public HomeAnchorManagement(Main plugin) {
         this.plugin = plugin;
-        this.checkUsePermission = plugin.getConfig().getBoolean("anchor.checkUsePermission");
-        this.checkAnchoredPlayer = plugin.getConfig().getBoolean("anchor.checkAnchoredPlayer");
         this.priority = getConfiguredPriority();
     }
 
@@ -58,10 +55,16 @@ public class HomeAnchorManagement implements Listener {
                 plugin);
     }
 
+	public void unregisterEvent() {
+		PlayerRespawnEvent.getHandlerList().unregister(this);
+	}
+
     public void onRespawn(@NotNull PlayerRespawnEvent e) {
-		if (e.isAnchorSpawn() && plugin.getConfig().getBoolean("ignoreObsidianAnchorRespawn", false))
+
+		if (e.isAnchorSpawn() && plugin.getConfig().getBoolean("anchor.ignoreObsidianAnchorRespawn", false))
 			return;
-		if (e.isBedSpawn() && plugin.getConfig().getBoolean("ignoreBedRespawn", false))
+
+		if (e.isBedSpawn() && plugin.getConfig().getBoolean("anchor.ignoreBedRespawn", false))
 			return;
 
         Team team = Team.getTeam(e.getPlayer());
@@ -69,10 +72,13 @@ public class HomeAnchorManagement implements Listener {
 
         TeamPlayer teamPlayer = team.getTeamPlayer(e.getPlayer());
 		if (teamPlayer == null) return;
-        if (checkAnchoredPlayer && !teamPlayer.isAnchored()) return;
+
+        if (plugin.getConfig().getBoolean("anchor.checkAnchoredPlayer")
+				&& !teamPlayer.isAnchored()) return;
 
         // This goes before the team home for ensuring it exists even after this
-        if (checkUsePermission && !e.getPlayer().hasPermission("betterteams.anchor.use")) return;
+        if (plugin.getConfig().getBoolean("anchor.checkUsePermission")
+				&& !e.getPlayer().hasPermission("betterteams.anchor.use")) return;
 
         Location teamHome = team.getTeamHome();
         if (teamHome == null) return;
