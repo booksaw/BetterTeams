@@ -33,7 +33,7 @@ public class MemberSetComponent extends TeamPlayerSetComponent {
 		Player onlinePlayer = offlinePlayer.getPlayer();
 
 		// if the player is offline there will be no player object for them
-		if (onlinePlayer != null) {
+		if (offlinePlayer.isOnline() && onlinePlayer != null) {
 			for (TeamPlayer player : set) {
 				if (player.getPlayer().isOnline()) {
 					MessageManager.sendMessage(player.getPlayer().getPlayer(), "join.notify", onlinePlayer.getDisplayName());
@@ -48,7 +48,9 @@ public class MemberSetComponent extends TeamPlayerSetComponent {
 		Team.getTeamManager().playerJoinTeam(team, teamPlayer);
 		set.add(teamPlayer);
 
-		if (onlinePlayer != null && onlinePlayer.hasPermission("betterteams.anchor.allowonjoin")) team.setPlayerAnchor(teamPlayer, true);
+		if (offlinePlayer.isOnline() && onlinePlayer != null
+				&& onlinePlayer.hasPermission("betterteams.anchor.allowonjoin"))
+			team.setPlayerAnchor(teamPlayer, true);
 
 		Bukkit.getPluginManager().callEvent(new PostPlayerJoinTeamEvent(team, teamPlayer));
 	}
