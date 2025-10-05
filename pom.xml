@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.booksaw.betterTeams</groupId>
     <artifactId>BetterTeams</artifactId>
-    <version>4.14.0</version>
+    <version>4.15.0</version>
     <name>BetterTeams</name>
     <packaging>jar</packaging>
     <description>Create teams to fight to be the best</description>
@@ -222,7 +222,7 @@
             <scope>test</scope>
         </dependency>
 
-<!--    https://repo.maven.apache.org/maven2/net/luckperms/api/-->
+        <!--    https://repo.maven.apache.org/maven2/net/luckperms/api/-->
         <dependency>
             <groupId>net.luckperms</groupId>
             <artifactId>api</artifactId>
