@@ -2,7 +2,9 @@ package com.booksaw.betterTeams;
 
 import com.booksaw.betterTeams.message.Message;
 import com.booksaw.betterTeams.message.ReferenceMessage;
+import org.bukkit.command.BlockCommandSender;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.minecart.CommandMinecart;
 
 /**
  * This class is used to the the response for a command, this tracks if the
@@ -80,9 +82,8 @@ public class CommandResponse {
 	 */
 	public void sendResponseMessage(CommandSender sender) {
 
-		if (message == null) {
-			return;
-		}
+		if (message == null) return;
+		if (sender instanceof BlockCommandSender || sender instanceof CommandMinecart) return;
 
 		message.sendMessage(sender);
 	}
