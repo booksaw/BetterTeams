@@ -2,9 +2,9 @@ package com.booksaw.betterTeams.integrations.placeholder;
 
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.team.TeamManager;
-import org.apache.commons.lang.ArrayUtils;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
 import java.util.function.Function;
 
 /**
@@ -18,11 +18,17 @@ public interface IndividualTeamPlaceholderProvider {
 	default String getPlaceholderForTeam(@NotNull Team team, @NotNull Function<TeamManager, String[]> sortingFunction) {
 		// Get the sorted teams using the provided sorting function
 		String[] sortedTeams = sortingFunction.apply(Team.getTeamManager());
+		int position = 0;
 
-		// Find the position of the team in the sorted array
-		int position = ArrayUtils.indexOf(sortedTeams, team.getName()) + 1;
+		if (sortedTeams != null) {
+			for (int i = 0; i < sortedTeams.length; i++) {
+				if (Objects.equals(sortedTeams[i], team.getName())) {
+					position = i + 1;
+					break;
+				}
+			}
+		}
 
-		// Return the position as a string
-		return position + "";
+		return String.valueOf(position);
 	}
 }
