@@ -12,6 +12,9 @@ updates:
         update-types:
           - "minor"
           - "patch"
+    ignore:
+      - dependency-name: "com.sk89q.worldguard:worldguard-bukkit"
+      - dependency-name: "com.sk89q.worldedit:worldedit-bukkit"
 
   - package-ecosystem: "github-actions"
     directory: "/"
