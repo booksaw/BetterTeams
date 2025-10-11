@@ -971,6 +971,11 @@ Bug Fixes:
 - Fixed messages not sending after a reload (#868) - Credit IpMind
 - Fixed bug with /team anchor where ignoreBedRespawn was not working (#884) - Credeit gaboss44
 
+3.15.1:
+
+Bug Fixes:
+- Fixed bug with messages being sent on older plugin versions (#888) - RVSkeLe
+
 Headings:
 Features:
 
