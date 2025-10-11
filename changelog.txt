@@ -975,6 +975,7 @@ Bug Fixes:
 
 Bug Fixes:
 - Fixed bug with messages being sent on older plugin versions (#888) - RVSkeLe
+- updated java version to 17 to fix Jitpack build (#886)
 
 Headings:
 Features:
