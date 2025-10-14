@@ -7,6 +7,7 @@ import com.booksaw.betterTeams.team.LocationSetComponent;
 import com.booksaw.betterTeams.team.storage.team.SeparatedYamlTeamStorage;
 import com.booksaw.betterTeams.team.storage.team.StoredTeamValue;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
+import com.booksaw.betterTeams.util.Cache;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -16,14 +17,13 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
-
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.time.Duration;
 import java.util.*;
 import java.util.Map.Entry;
 
@@ -32,6 +32,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 	private final Map<String, UUID> teamNameLookup = new HashMap<>();
 	private final Map<UUID, UUID> playerLookup = new HashMap<>();
 	private final Map<String, UUID> chestClaims = new HashMap<>();
+	private final Cache<String, String[]> leaderboardCache;
 
 	private final File teamStorageDir;
 
@@ -42,6 +43,10 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 		if (!teamStorageDir.isDirectory()) {
 			teamStorageDir.mkdir();
 		}
+
+		leaderboardCache = new Cache.Builder<String, String[]>()
+				.expireAfterWrite(Duration.ofSeconds(Main.plugin.getConfig().getInt("invalidateCacheSeconds", 60)))
+				.build(this::leaderboardLoader);
 
 		for (String str : teamStorage.getStringList("playerLookup")) {
 			String[] split = str.split(":");
@@ -149,7 +154,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 		if (player != null) {
 			addToPlayerLookup(player.getUniqueId(), team.getID());
 		}
-
+		leaderboardCache.invalidateAll();
 	}
 
 	public void addToTeamLookup(String name, UUID uuid) {
@@ -183,6 +188,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 					+ " there was an error while deleting the file");
 			e.printStackTrace();
 		}
+		leaderboardCache.invalidateAll();
 
 	}
 
@@ -196,12 +202,14 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 	@Override
 	public void playerJoinTeam(Team team, TeamPlayer player) {
 		addToPlayerLookup(player.getPlayer().getUniqueId(), team.getID());
+		leaderboardCache.invalidate("members");
 	}
 
 	@Override
 	public void playerLeaveTeam(Team team, TeamPlayer player) {
 		playerLookup.remove(player.getPlayer().getUniqueId());
 		savePlayerLookup();
+		leaderboardCache.invalidate("members");
 	}
 
 	@Override
@@ -216,26 +224,17 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 
 	@Override
 	public String[] sortTeamsByScore() {
-		return sortTeamByX(configuration -> configuration.getInt(StoredTeamValue.SCORE.getReference()), (t1, t2) -> t2.value - t1.value);
+		return leaderboardCache.get("score");
 	}
 
 	@Override
 	public String[] sortTeamsByBalance() {
-		return sortTeamByX(
-				configuration -> configuration.getDouble(StoredTeamValue.MONEY.getReference()),
-				(t1, t2) -> {
-					if (t1.value == t2.value) {
-						return 0;
-					} else if (t1.value < t2.value) {
-						return 1;
-					}
-					return -1;
-				});
+		return leaderboardCache.get("balance");
 	}
 
 	@Override
 	public String[] sortTeamsByMembers() {
-		return sortTeamByX(configuration -> configuration.getStringList("players").size(), (t1, t2) -> t2.value - t1.value);
+		return leaderboardCache.get("members");
 	}
 
 	private <T> String[] sortTeamByX(ValueSorter<T> valueSorter, Comparator<? super CrossReference<T>> comparator) {
@@ -271,6 +270,25 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 		return rankedTeamsStr;
 	}
 
+	private String[] leaderboardLoader(String type) {
+		return switch (type) {
+			case "balance" -> sortTeamByX(configuration -> configuration.getDouble(StoredTeamValue.MONEY.getReference()),
+					(t1, t2) -> Double.compare(t2.value, t1.value)
+			);
+			case "members" ->
+					sortTeamByX(configuration -> configuration.getStringList("players").size(),
+							(t1, t2) -> Integer.compare(t2.value, t1.value)
+					);
+			case "score" ->
+					sortTeamByX(configuration -> configuration.getInt(StoredTeamValue.SCORE.getReference()),
+							(t1, t2) -> Integer.compare(t2.value, t1.value)
+					);
+			default ->
+					// Return an empty array for any unknown type to avoid errors.
+					new String[0];
+		};
+	}
+
 	private static class CrossReference<T> {
 		final String name;
 
@@ -289,11 +307,13 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 	@Override
 	public void purgeTeamScore() {
 		setAllTeamsValue(StoredTeamValue.SCORE, 0, team -> team.setScore(0));
+		leaderboardCache.invalidate("score");
 	}
 
 	@Override
 	public void purgeTeamMoney() {
 		setAllTeamsValue(StoredTeamValue.MONEY, 0, team -> team.setMoney(0));
+		leaderboardCache.invalidate("balance");
 	}
 
 	private void setAllTeamsValue(StoredTeamValue storedTeamValue, Object value, ResetLoadedTeamValue function) {
