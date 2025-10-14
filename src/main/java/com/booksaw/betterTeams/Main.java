@@ -167,7 +167,7 @@ public class Main extends JavaPlugin {
 			teamPlaceholders.register();
 		}
 
-		if (Bukkit.getPluginManager().isPluginEnabled("LuckPerms")) {
+		if (Bukkit.getPluginManager().isPluginEnabled("LuckPerms") && getConfig().getBoolean("luckperms.enabled")) {
 			try {
 				LuckPerms luckPerms = LuckPermsProvider.get();
 				getLogger().info("LuckPerms detected! Registering custom context provider.");
@@ -437,7 +437,7 @@ public class Main extends JavaPlugin {
 		if (getConfig().getBoolean("useTeams")) {
 			if (foliaLib.isFolia()) {
 				Bukkit.getLogger().warning("Folia detected: Skipping MCTeamManagement initialization to avoid threading issues.");
-			} else if(teamManagement == null) {
+			} else if (teamManagement == null) {
 				teamManagement = new MCTeamManagement(type);
 
 				Main.plugin.getFoliaLib().getScheduler().runAsync(task -> teamManagement.displayBelowNameForAll());

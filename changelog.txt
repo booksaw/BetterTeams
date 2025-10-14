@@ -960,7 +960,7 @@ Bug Fixes:
 3.15.0:
 
 Features:
-- Added luckperm context support, See [the dedicated wiki page](https://betterteams.booksaw.dev/docs/dependencies/LuckPerms) (#867) - Credit IpMind
+- Added luckperms context support, See [the dedicated wiki page](https://betterteams.booksaw.dev/docs/dependencies/LuckPerms) (#867) - Credit IpMind
 - Added a metadata system, so admins can add metadata to a team using `/teama meta` (#855) - Credit IpMind
 - Added placeholders for the metadata system using the placeholder ``%betterteams_meta_<key>%` (#833) - Credit IpMind
 
@@ -977,6 +977,11 @@ Bug Fixes:
 - Fixed bug with messages being sent on older plugin versions (#888) - RVSkeLe
 - Fixed an error when executing commands in a command block (#890) - RVSkeLe
 - updated java version to 17 to fix Jitpack build (#886)
+
+3.15.2:
+
+Bug fixes:
+- Fixed luckperms based performance hit by putting it behind a feature flag
 
 Headings:
 Features:
