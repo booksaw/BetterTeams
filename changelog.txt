@@ -318,7 +318,6 @@ Improvements:
 Bug Fixes: 
 - Fixed problem with rank permissions
 
-
 4.0: 
 Features: 
 - Updated to 1.17
@@ -942,7 +941,7 @@ Bug Fixes:
 Bug Fixes:
 - Fixed bug when PlaceholderAPI is not installed on the server (#802)
 
-3.14.0:
+4.14.0:
 
 Features:
 - Added support for Folia (#817) - Credit maiminhdung
@@ -957,7 +956,7 @@ Bug Fixes:
 - Added missing keys to messages.yml (#850)
 
 
-3.15.0:
+4.15.0:
 
 Features:
 - Added luckperms context support, See [the dedicated wiki page](https://betterteams.booksaw.dev/docs/dependencies/LuckPerms) (#867) - Credit IpMind
@@ -971,17 +970,21 @@ Bug Fixes:
 - Fixed messages not sending after a reload (#868) - Credit IpMind
 - Fixed bug with /team anchor where ignoreBedRespawn was not working (#884) - Credeit gaboss44
 
-3.15.1:
+4.15.1:
 
 Bug Fixes:
 - Fixed bug with messages being sent on older plugin versions (#888) - RVSkeLe
 - Fixed an error when executing commands in a command block (#890) - RVSkeLe
 - updated java version to 17 to fix Jitpack build (#886)
 
-3.15.2:
+4.15.2:
+
+Improvements:
+- Added additional bstats metrics to better guide plugin design
 
 Bug fixes:
 - Fixed luckperms based performance hit by putting it behind a feature flag
+
 
 Headings:
 Features:

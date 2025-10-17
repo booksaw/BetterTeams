@@ -16,10 +16,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
-
 
 import java.io.File;
 import java.io.IOException;
@@ -459,6 +457,10 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 		savePlayerLookup();
 		saveTeamNameLookup();
 		saveChestClaims();
+	}
+
+	public int getTeamNameLookupSize() {
+		return teamNameLookup.size();
 	}
 
 }

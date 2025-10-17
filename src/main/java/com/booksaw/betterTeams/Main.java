@@ -35,6 +35,7 @@ import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.score.ScoreManagement;
 import com.booksaw.betterTeams.team.storage.StorageType;
 import com.booksaw.betterTeams.team.storage.convert.Converter;
+import com.booksaw.betterTeams.team.storage.storageManager.SeparatedYamlStorageManager;
 import com.booksaw.betterTeams.team.storage.storageManager.YamlStorageManager;
 import com.booksaw.betterTeams.util.WebhookHandler;
 import com.tcoded.folialib.FoliaLib;
@@ -491,6 +492,14 @@ public class Main extends JavaPlugin {
 			metrics = new Metrics(this, pluginId);
 			metrics.addCustomChart(new SimplePie("language", () -> getConfig().getString("language")));
 			metrics.addCustomChart(new SimplePie("storage_type", () -> getConfig().getString("storageType")));
+			metrics.addCustomChart(new SimplePie("team_count", () -> {
+				if (Team.getTeamManager() instanceof SeparatedYamlStorageManager) {
+					return ((((SeparatedYamlStorageManager) Team.getTeamManager()).getTeamNameLookupSize() / 200) * 200) + "+";
+
+				}
+				return null;
+			}));
+			metrics.addCustomChart(new SimplePie("player_count", () -> ((Bukkit.getOnlinePlayers().size() / 20) * 20) + "+"));
 		}
 	}
 
