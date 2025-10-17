@@ -30,4 +30,4 @@ jobs:
           distribution: temurin
           java-version: '17'
       - name: Generate Javadocs
-        run: mvn clean javadoc:javadoc
+        run: mvn clean javadoc:javadoc -Pjavadocs

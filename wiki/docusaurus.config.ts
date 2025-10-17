@@ -71,7 +71,7 @@ const config: Config = {
           label: 'Tutorial',
         },
         {
-          href: '/javadocs/apidocs/index.html',
+          href: '/apidocs/index.html',
           label: 'JavaDocs',
           position: 'left',
         },
