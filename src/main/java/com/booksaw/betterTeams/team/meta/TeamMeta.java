@@ -20,6 +20,7 @@ public class TeamMeta {
 
 	/**
 	 * Adds or updates a metaData entry.
+	 *
 	 * @param key   The identifier for the metaData.
 	 * @param value The string value of the metaData.
 	 */
@@ -29,6 +30,7 @@ public class TeamMeta {
 
 	/**
 	 * Retrieves a metaData value by its key.
+	 *
 	 * @param key The key of the metaData to retrieve.
 	 * @return An Optional containing the value, or empty if not found.
 	 */
@@ -38,6 +40,7 @@ public class TeamMeta {
 
 	/**
 	 * Checks if a metaData entry with the specified key exists.
+	 *
 	 * @param key The key to check.
 	 * @return True if the metaData exists, false otherwise.
 	 */
@@ -47,6 +50,7 @@ public class TeamMeta {
 
 	/**
 	 * Removes a metaData entry by its key.
+	 *
 	 * @param key The key of the metaData to remove.
 	 */
 	public void remove(String key) {
@@ -55,6 +59,7 @@ public class TeamMeta {
 
 	/**
 	 * Returns an unmodifiable view of all metaData entries.
+	 *
 	 * @return An unmodifiable Map of all metaData.
 	 */
 	public Map<String, String> getAll() {
@@ -63,7 +68,8 @@ public class TeamMeta {
 
 	/**
 	 * Prepares the metadata for storage/serialization.
-	 * @return A new Map<String, String> containing all metadata in a raw, serializable format.
+	 *
+	 * @return A new {@code Map<String, String>} containing all metadata in a raw, serializable format.
 	 */
 	public Map<String, String> getSerialized() {
 		return new HashMap<>(this.metaData);
@@ -71,6 +77,7 @@ public class TeamMeta {
 
 	/**
 	 * Loads metaData from a raw map.
+	 *
 	 * @param rawMeta The map of raw metaData to load.
 	 */
 	public void load(Map<String, String> rawMeta) {

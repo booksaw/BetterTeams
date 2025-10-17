@@ -89,3 +89,4 @@ nb-configuration.xml
 
 server/
 dependency-reduced-pom.xml
+/wiki/static/javadocs/

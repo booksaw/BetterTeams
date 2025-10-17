@@ -1,9 +1,9 @@
 package com.booksaw.betterTeams.message;
 
-import java.util.Collection;
-
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.Collection;
 
 /**
  * Used when sending a message to the user which has a fixed format and is
@@ -17,8 +17,8 @@ public class ReferencedFormatMessage implements Message {
 	final Object[] replacements;
 
 	/**
-	 * @param reference   the messages.yml reference for the command
-	 * @param replacement all replacements that need to be made to the message
+	 * @param reference    the messages.yml reference for the command
+	 * @param replacements all replacements that need to be made to the message
 	 */
 	public ReferencedFormatMessage(String reference, Object... replacements) {
 		this.reference = reference;

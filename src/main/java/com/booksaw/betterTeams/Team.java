@@ -25,7 +25,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -208,9 +207,9 @@ public class Team {
 
 	/**
 	 * If the team is open or invite only
+	 * <p>change this to an enum - which is more expressive</p>
 	 *
 	 * @return [true - anyone can join the team] [false - the team is invite only]
-	 * @todo: change this to an enum - which is more expressive
 	 */
 	@Getter
 	private boolean open;
@@ -1336,6 +1335,7 @@ public class Team {
 	 * @param ally the ally to remove
 	 * @deprecated Use becomeNeutral
 	 */
+	@Deprecated
 	public void removeAlly(UUID ally) {
 		becomeNeutral(ally, true);
 	}
@@ -1786,10 +1786,12 @@ public class Team {
 		return max <= getRank(PlayerRank.OWNER).size();
 
 	}
+
 	public void setAndSaveMeta(String key, String value) {
 		getMeta().get().set(key, value);
 		getStorage().saveMeta(getMeta().get());
 	}
+
 	public void removeAndSaveMeta(String key) {
 		getMeta().get().remove(key);
 		getStorage().saveMeta(getMeta().get());

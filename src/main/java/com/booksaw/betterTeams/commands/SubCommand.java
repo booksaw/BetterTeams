@@ -30,6 +30,7 @@ public abstract class SubCommand {
 	 * This method is used to load the help message from the file, or if there is
 	 * not one, it will get the default message
 	 *
+	 * @param parent the Parent command controlling the sub command
 	 * @return the help message for the subcommand
 	 */
 	public String getHelpMessage(ParentCommand parent) {
@@ -188,7 +189,8 @@ public abstract class SubCommand {
 			}
 		}
 	}
-	public void addMetaStringList(List<String> options, Team team,String argument) {
+
+	public void addMetaStringList(List<String> options, Team team, String argument) {
 		if (team != null) {
 			team.getMeta().get().getAll().keySet().stream()
 					.filter(key -> key.toLowerCase().startsWith(argument.toLowerCase()))
