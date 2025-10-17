@@ -71,6 +71,11 @@ const config: Config = {
           label: 'Tutorial',
         },
         {
+          href: '/javadocs/apidocs/index.html',
+          label: 'JavaDocs',
+          position: 'left',
+        },
+        {
           href: 'https://github.com/booksaw/betterteams',
           label: 'GitHub',
           position: 'right',
