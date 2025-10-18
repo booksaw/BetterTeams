@@ -90,6 +90,11 @@ public class Team {
 		return TEAMMANAGER.getClaimingTeam(block);
 	}
 
+	/**
+	 * @param location the location of the chest - must already be normalised
+	 * @return The team which has claimed that chest
+	 * the provided chest, will return null if that location is not claimed
+	 */
 	public static Team getClaimingTeam(Location location) {
 		return TEAMMANAGER.getClaimingTeam(location);
 	}
@@ -99,29 +104,6 @@ public class Team {
 			return null;
 		}
 		return TEAMMANAGER.getClaimingLocation(block);
-	}
-
-	/**
-	 * @param location the location of the chest - must already be normalised
-	 * @return The team which has claimed that chest
-	 * @see Team#getClaimingTeam(Location) Used to get the team which has claimed
-	 * the provided chest, will return null if that location is not claimed
-	 */
-	@Deprecated
-	public static Team getClamingTeam(Location location) {
-		return getClaimingTeam(location);
-	}
-
-	/**
-	 * This no longer produces the expected result when the team manager is using
-	 * anything but the flatfile storage method. Other methods should be used This
-	 * is as not all teams are loaded at any point in time.
-	 *
-	 * @return A list of loaded teams
-	 */
-	@Deprecated
-	public static Map<UUID, Team> getTeamList() {
-		return TEAMMANAGER.getLoadedTeamListClone();
 	}
 
 	/**
@@ -1000,18 +982,6 @@ public class Team {
 		return bannedPlayers.contains(player);
 	}
 
-	@Deprecated
-	@Nullable <T> T getFromEvents(final T original, final T new_, final T deprecated, String warning) {
-		T retVal = original;
-		if (new_ != null && !retVal.equals(new_)) {
-			retVal = new_;
-		} else if (deprecated != null && !retVal.equals(deprecated)) {
-			retVal = deprecated;
-		}
-
-		return Objects.requireNonNull(retVal, warning);
-	}
-
 	/**
 	 * Used when a player sends a message to the team chat
 	 *
@@ -1029,21 +999,17 @@ public class Team {
 
 		// Notify third party plugins that a team message is going to be sent
 		TeamSendMessageEvent teamSendMessageEvent = new TeamSendMessageEvent(this, sender, message, format, prefix, recipients);
-		@SuppressWarnings("deprecation")
-		// Deprecated event for backwards compatibility with older plugins
-		TeamPreMessageEvent deprecatedPreTeamMessageEvent = new TeamPreMessageEvent(this, sender, message, format, prefix, recipients);
 		Bukkit.getPluginManager().callEvent(teamSendMessageEvent);
-		Bukkit.getPluginManager().callEvent(deprecatedPreTeamMessageEvent);
 
 		// Process any updates after the event has been dispatched
-		if (teamSendMessageEvent.isCancelled() || deprecatedPreTeamMessageEvent.isCancelled()) {
+		if (teamSendMessageEvent.isCancelled()) {
 			return;
 		}
 
-		message = getFromEvents(message, teamSendMessageEvent.getRawMessage(), deprecatedPreTeamMessageEvent.getRawMessage(), "Team message cannot be null");
-		format = getFromEvents(format, teamSendMessageEvent.getFormat(), deprecatedPreTeamMessageEvent.getFormat(), "Team message format cannot be null").replace("$name$", "{0}").replace("$message$", "{1}");
-		prefix = getFromEvents(prefix, teamSendMessageEvent.getSenderNamePrefix(), deprecatedPreTeamMessageEvent.getSenderNamePrefix(), "The prefix cannot be null");
-		recipients = getFromEvents(members.getClone(), teamSendMessageEvent.getRecipients(), deprecatedPreTeamMessageEvent.getRecipients(), "Team message recipients cannot be null");
+		message = teamSendMessageEvent.getRawMessage();
+		format = teamSendMessageEvent.getFormat().replace("$name$", "{0}").replace("$message$", "{1}");
+		prefix = teamSendMessageEvent.getSenderNamePrefix();
+		recipients = teamSendMessageEvent.getRecipients();
 
 		Collection<Player> playerRecipients = recipients.stream().map(r -> r.getPlayer().getPlayer())
 				.filter(Objects::nonNull)
@@ -1064,10 +1030,6 @@ public class Team {
 		String fMessage = LegacyTextUtils.serialize(chatMsg.getMessage());
 		// Notify third party plugins that a message has been dispatched
 		Bukkit.getPluginManager().callEvent(new PostTeamSendMessageEvent(this, sender, fMessage, recipients));
-
-		@SuppressWarnings("deprecation")
-		TeamMessageEvent deprecatedTeamMessageEvent = new TeamMessageEvent(this, sender, fMessage, recipients);
-		Bukkit.getPluginManager().callEvent(deprecatedTeamMessageEvent);
 	}
 
 	private static @NotNull ChatColor getPreviousChatColor(String toTest) {
@@ -1330,29 +1292,6 @@ public class Team {
 	}
 
 	/**
-	 * Used to remove an ally from this team
-	 *
-	 * @param ally the ally to remove
-	 * @deprecated Use becomeNeutral
-	 */
-	@Deprecated
-	public void removeAlly(UUID ally) {
-		becomeNeutral(ally, true);
-	}
-
-	/**
-	 * Used to remove an ally from this team
-	 *
-	 * @param ally the ally to remove
-	 * @deprecated Use becomeNeutral
-	 */
-	@Deprecated
-	public void removeAlly(@Nullable Team ally) {
-		if (ally == null) return;
-		becomeNeutral(ally, true);
-	}
-
-	/**
 	 * Used to become neutral to a team
 	 *
 	 * @param otherTeam     the team to become neutral to
@@ -1387,6 +1326,13 @@ public class Team {
 			Bukkit.getPluginManager().callEvent(new PostRelationChangeTeamEvent(this, other, prevRelation, RelationType.NEUTRAL));
 	}
 
+	/**
+	 * Used to become neutral to a team
+	 *
+	 * @param otherTeam     the team to become neutral to
+	 * @param sendPostEvent If you want the post event to be sent. This is useful if you are switching from one relation
+	 *                      to another.
+	 */
 	public void becomeNeutral(Team otherTeam, boolean sendPostEvent) {
 		if (otherTeam == null) return;
 		becomeNeutral(otherTeam.getID(), sendPostEvent);
@@ -1492,15 +1438,6 @@ public class Team {
 		if (team == null) return false;
 
 		return hasRequested(team.getID());
-	}
-
-	/**
-	 * @return the set of all UUIDS of teams that have sent ally requests
-	 * @deprecated in favor of the more expressive getAllyRequests
-	 */
-	@Deprecated
-	public Set<UUID> getRequests() {
-		return getAllyRequests();
 	}
 
 	/**

@@ -268,24 +268,6 @@ public class MessageManager {
 		return StringUtil.setPlaceholders(player, getMessage(reference), replacements);
 	}
 
-	/**
-	 * This method replaces placeholders in the given {@code content} string
-	 * with the provided {@code replacement} values. Each placeholder must be
-	 * written as {n} where {@code n} is the index of the replacement.
-	 * <p>
-	 *
-	 * @param content      the string containing indexed placeholders
-	 * @param replacements the values to substitute into the placeholders
-	 * @return the formatted string with placeholders replaced
-	 * @deprecated Use {@link StringUtil#setPlaceholders(String, Object...)} instead.
-	 * This method is deprecated in favor of a more explicitly named alternative
-	 * that clarifies its behavior of replacing indexed placeholders like {0}, {1}, etc.
-	 */
-	@Deprecated
-	public static @NotNull String format(String content, Object... replacements) {
-		return StringUtil.setPlaceholders(content, replacements);
-	}
-
 	public static void sendMessage(CommandSender recipient, String reference, Object... replacements) {
 		sendMessage(recipient, true, reference, replacements);
 	}

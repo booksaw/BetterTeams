@@ -4,7 +4,6 @@ import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.customEvents.CreateTeamEvent;
-import com.booksaw.betterTeams.customEvents.PrePurgeEvent;
 import com.booksaw.betterTeams.customEvents.PurgeEvent;
 import com.booksaw.betterTeams.customEvents.post.PostCreateTeamEvent;
 import com.booksaw.betterTeams.customEvents.post.PostPurgeEvent;
@@ -302,11 +301,8 @@ public abstract class TeamManager {
 		// calling custom bukkit event
 		PurgeEvent event = new PurgeEvent();
 
-		@SuppressWarnings("deprecation")
-		PrePurgeEvent deprecatedEvent = new PrePurgeEvent();
 		Bukkit.getPluginManager().callEvent(event);
-		Bukkit.getPluginManager().callEvent(deprecatedEvent);
-		if (event.isCancelled() || deprecatedEvent.isCancelled()) {
+		if (event.isCancelled()) {
 			return false;
 		}
 
