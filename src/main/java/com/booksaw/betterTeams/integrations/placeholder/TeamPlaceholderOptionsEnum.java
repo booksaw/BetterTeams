@@ -10,7 +10,7 @@ import com.booksaw.betterTeams.integrations.placeholder.provider.*;
 public enum TeamPlaceholderOptionsEnum {
 	NAME(new NamePlaceholderProvider()), TAG(new TagPlaceholderProvider()),
 	DISPLAYNAME(new DisplayNamePlaceholderProvider()), DESCRIPTION(new DescriptionPlaceholderProvider()),
-	OPEN(new OpenPlaceholderProvider()), SCORE(new ScorePlaceholderProvider()), MONEY(new MoneyPlaceholderProvider()),
+	OPEN(new OpenPlaceholderProvider()), SCORE(new ScorePlaceholderProvider()), MONEY(new MoneyPlaceholderProvider()), MONEYSHORT(new MoneyShortPlaceholderProvider()),
 	RANK(new RankPlaceholderProvider()), COLOR(new ColorPlaceholderProvider()), TITLE(new TitlePlaceholderProvider()),
 	ONLINELIST(new OnlineListPlaceholderProvider()), OFFLINELIST(new OfflineListPlaceholderProvider()),
 	ONLINE(new OnlinePlaceholderProvider()), MEMBERS(new MembersPlaceholderProvider()), DEFAULTMEMBERS(new DefaultMembersPlaceholderProvider()),

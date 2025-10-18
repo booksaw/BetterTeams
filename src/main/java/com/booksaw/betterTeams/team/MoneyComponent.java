@@ -1,17 +1,9 @@
 package com.booksaw.betterTeams.team;
 
 import com.booksaw.betterTeams.team.storage.team.StoredTeamValue;
-
-import java.text.DecimalFormat;
+import com.booksaw.betterTeams.util.MoneyUtils;
 
 public class MoneyComponent extends DoubleTeamComponent {
-
-	public static String getFormattedDouble(double amount) {
-		DecimalFormat df = new DecimalFormat("0.00");
-		df.setGroupingUsed(true);
-		df.setGroupingSize(3);
-		return df.format(amount);
-	}
 
 	@Override
 	public StoredTeamValue getSectionHeading() {
@@ -19,7 +11,11 @@ public class MoneyComponent extends DoubleTeamComponent {
 	}
 
 	public String getStringFormatting() {
-		return getFormattedDouble(get());
+		return MoneyUtils.getFormattedDouble(get());
+	}
+
+	public String getMoneyShortFormatted() {
+		return MoneyUtils.getFormattedShortDouble(get());
 	}
 
 }

@@ -48,7 +48,8 @@ you want to use in place of the `{rank}` variable. The options are as follows:
 * `description` - The description of the team
 * `open` - If the team is invite only or open to everyone
 * `score` - The score of the team
-* `money` - The current balance of the team
+* `money` - The current full balance of the team, i.e. 10,000.45
+* `moneyshort`-  The current balance of the team, in the formatting 10.0k
 * `color` - The color set by the team
 * `onlinelist` - A list of all online players in the team
 * `offlinelist` - A list of all the offline players in the team

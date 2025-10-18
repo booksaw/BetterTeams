@@ -166,6 +166,20 @@ bannedChars: ',.!"�$%^&*()[]{};:#~\|`�'
 # Possible values: [Any characters]
 allowedChars: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 
+# This configures the number of decimal places used when formatting the team balance throughout the plugin
+# - I.e. if this is set to two, money will be formatted 10.00
+# - Set to 0 for no decimal places
+#
+# Possible values: [0, 1, 2]
+moneyDecimalPlaces: 2
+
+# Configure if shorthand money should be used throughout the plugin
+# - If this is enabled money will always be displayed in the format 10.0M for 10,000,000.
+# - This will always round to 1DP
+#
+# Possible values: [true, false]
+useShortMoney: false
+
 # This is a list of all banned chat colors for team names using /team color <color>
 # - List every character, for example to ban gold and red you would do bannedColors: '64' 
 #   As 6 is the character for gold, and 4 is the character for red
