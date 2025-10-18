@@ -23,6 +23,8 @@ This is a major release which includes several breaking changes for the API
 
 ### Bug Fixes
 
+* Removed a potential duplication glitch with team echests
+
 ### API Changes
 
 * Removed Deprecated methods and classes from the API
