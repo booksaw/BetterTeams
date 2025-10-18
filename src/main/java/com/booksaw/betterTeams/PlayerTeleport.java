@@ -38,6 +38,11 @@ public class PlayerTeleport {
 		this.playerLoc = player.getLocation();
 
 
+		if (Main.plugin.getConfig().getBoolean("noTeleport")) {
+			MessageManager.sendMessage(player, "teleport.noTeleport", location.getWorld().getName(), location.getBlockX(), location.getBlockY(), location.getBlockZ());
+			return;
+		}
+
 		if (player.hasPermission("betterteams.warmup.bypass")) {
 			MessageManager.sendMessage(player, "teleport.bypass");
 			Main.plugin.getFoliaLib().getScheduler().runAsync(task -> runTp());

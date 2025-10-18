@@ -10,6 +10,9 @@ This is a major release which includes several breaking changes for the API
 
 ### Features
 
+* Added a `noTeleport` config option, which when enabled will display coordinates in chat rather than teleporting the
+  player [#662](https://github.com/booksaw/BetterTeams/issues/662)
+
 ### Improvements
 
 * Added %betterteams_moneyshort% placeholder for money formatted

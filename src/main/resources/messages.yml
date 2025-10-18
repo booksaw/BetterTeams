@@ -205,6 +205,7 @@ chat.syntax: '&b[Team]&f{0}&f: {1}'
 teleport.fail: '&4The teleportation failed'
 teleport.wait: '&6Stand still for &b{0} &6seconds to teleport'
 teleport.bypass: '&6Due to your permissions, you have bypassed the teleport delay!'
+teleport.noTeleport: "&6The location is in the world &b{0} &6at &b{1}, {2}, {3}"
 chest.claim.noChest: '&4You are not standing on a chest'
 chest.claim.limit: '&4Your team has claimed the maximum number of chests'
 chest.claim.claimed: '&4That chest has already been claimed'

@@ -243,6 +243,12 @@ colorTeamName: true
 # Possible values: [0-9, a-f]
 defaultColor: 6
 
+# This provides servers to have an option to save locations such as a /team home, but rather than teleporting, the plugin
+# will send the coordinates to the player
+#
+# Possible values: [true, false]
+noTeleport: false
+
 # This is used to determine how long of a delay should happen before the user is teleported when using /team home
 # - If this is set to 0 there will be no delay when teleporting
 # - This value is in seconds
