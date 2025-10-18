@@ -362,7 +362,7 @@
                         <artifactId>maven-javadoc-plugin</artifactId>
                         <version>3.12.0</version>
                         <configuration>
-                            <outputDirectory>wiki/static</outputDirectory>
+                            <outputDirectory>target/site/</outputDirectory>
                             <sourcepath>${project.build.directory}/generated-sources/delombok</sourcepath>
                             <release>${java.version}</release>
                             <source>${java.version}</source>
