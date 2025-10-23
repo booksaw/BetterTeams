@@ -20,6 +20,8 @@ This is a major release which includes several breaking changes for the API
 * Balance formatting changes: ([#395](https://github.com/booksaw/BetterTeams/issues/395))
     * Added a config option `usShortMoney`, which when enabled will always use shorthand balances, i.e. 50.0k
     * Added a config option `moneyDecimalPlaces` to configure how many decimal places are displayed for money
+* Added some additional information to some BetterTeams messages (will not automatically update config)
+* Added further warnings when disbanding a team (#901)
 
 ### Bug Fixes
 

@@ -8,6 +8,7 @@ import com.booksaw.betterTeams.cost.CommandCost;
 import com.booksaw.betterTeams.cost.CostManager;
 import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
+import com.booksaw.betterTeams.util.MoneyUtils;
 import lombok.Getter;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -134,7 +135,7 @@ public class ParentCommand extends SubCommand {
 		if (prices != null && sender instanceof Player) {
 			CommandCost price = prices.getCommandCost(command.getCommand());
 			if (!price.hasBalance((Player) sender)) {
-				return new CommandResponse("cost.tooPoor");
+				return new CommandResponse(false, new ReferencedFormatMessage("cost.tooPoor", MoneyUtils.getFormattedDouble(price.getCost())));
 			}
 		}
 
@@ -147,7 +148,7 @@ public class ParentCommand extends SubCommand {
 		if (prices != null && sender instanceof Player && result.wasSuccessful()) {
 			CommandCost price = prices.getCommandCost(command.getCommand());
 			if (!price.runCommand((Player) sender)) {
-				return new CommandResponse("cost.tooPoor");
+				return new CommandResponse(false, new ReferencedFormatMessage("cost.tooPoor", MoneyUtils.getFormattedDouble(price.getCost())));
 			}
 			if (price.getCost() > 0) {
 				NumberFormat formatter = NumberFormat.getCurrencyInstance();

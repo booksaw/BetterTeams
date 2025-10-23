@@ -5,6 +5,8 @@ import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
+import com.booksaw.betterTeams.message.CompositeMessage;
+import com.booksaw.betterTeams.message.ReferenceMessage;
 import org.bukkit.command.CommandSender;
 
 import java.util.HashMap;
@@ -37,7 +39,8 @@ public class DisbandCommand extends TeamSubCommand {
 		}
 
 		confirmation.put(playerId, System.currentTimeMillis());
-		return new CommandResponse("disband.confirm");
+
+		return new CommandResponse(new CompositeMessage(new ReferenceMessage("disband.warning"), new ReferenceMessage("disband.confirm")));
 	}
 
 	@Override
