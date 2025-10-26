@@ -5,13 +5,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarOutputStream;
 
 public class ExtensionTestUtil {
 
-	public static File createFakeJar(String jarName, String ymlContent, Class<?> mainClass, File extensionsDir) throws IOException {
-		File jarFile = extensionsDir.toPath().resolve(jarName).toFile();
+	public static File createFakeJar(String jarName, String ymlContent, Class<?> mainClass, File Dir) throws IOException {
+		File jarFile = Dir.toPath().resolve(jarName).toFile();
 		try (FileOutputStream fos = new FileOutputStream(jarFile);
 			 JarOutputStream jos = new JarOutputStream(fos)) {
 
@@ -38,5 +39,24 @@ public class ExtensionTestUtil {
 			}
 		}
 		return jarFile;
+	}
+
+	static String createYml(String name) {
+		return "name: " + name + "\nmain: " + TestExtensionImpl.class.getName();
+	}
+
+	 static ExtensionInfo createSortStub(String name, List<String> deps, List<String> softDeps) {
+		return new ExtensionInfo(
+				name,
+				"com.example.Main",
+				"1.0",
+				"Test",
+				"",
+				"",
+				deps != null ? deps : List.of(),
+				softDeps != null ? softDeps : List.of(),
+				List.of(),
+				List.of()
+		);
 	}
 }

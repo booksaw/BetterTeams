@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
+import static com.booksaw.betterTeams.extension.ExtensionTestUtil.createFakeJar;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("ExtensionInfo Tests")
@@ -39,7 +40,7 @@ class ExtensionInfoTest {
                     plugin-softdepend: [Essentials, LuckPerms]
                     """;
 
-			File fakeJar = ExtensionTestUtil.createFakeJar(
+			File fakeJar = createFakeJar(
 					"test-extension.jar",
 					ymlContent,
 					TestExtensionImpl.class,
@@ -73,7 +74,7 @@ class ExtensionInfoTest {
                     main: com.booksaw.betterTeams.extension.TestExtensionImpl
                     """;
 
-			File fakeJar = ExtensionTestUtil.createFakeJar(
+			File fakeJar = createFakeJar(
 					"minimal.jar",
 					ymlContent,
 					TestExtensionImpl.class,
@@ -100,7 +101,7 @@ class ExtensionInfoTest {
 		@DisplayName("Should throw IOException if extension.yml is missing")
 		void testMissingYml() throws IOException {
 			// Create a JAR with no yml content
-			File fakeJar = ExtensionTestUtil.createFakeJar(
+			File fakeJar = createFakeJar(
 					"invalid.jar",
 					null, // No YML
 					TestExtensionImpl.class,
@@ -122,7 +123,7 @@ class ExtensionInfoTest {
                     version: 1.0
                     """; // No 'main' key
 
-			File fakeJar = ExtensionTestUtil.createFakeJar(
+			File fakeJar = createFakeJar(
 					"invalid-main.jar",
 					ymlContent,
 					TestExtensionImpl.class,
@@ -146,7 +147,7 @@ class ExtensionInfoTest {
                     """;
 
 			// Create a JAR without the class file
-			File fakeJar = ExtensionTestUtil.createFakeJar(
+			File fakeJar = createFakeJar(
 					"missing-class.jar",
 					ymlContent,
 					null, // No class added to JAR
