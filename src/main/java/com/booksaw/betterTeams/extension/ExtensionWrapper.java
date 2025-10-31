@@ -2,7 +2,6 @@ package com.booksaw.betterTeams.extension;
 
 import lombok.Data;
 
-import java.io.File;
 import java.net.URLClassLoader;
 
 /**
@@ -27,14 +26,9 @@ public class ExtensionWrapper {
 	private final URLClassLoader classLoader;
 
 	/**
-	 * The dedicated data folder for this extension.
-	 */
-	private final File dataFolder;
-
-	/**
 	 * The current lifecycle state of the extension.
 	 */
-	private ExtensionState state;
+	private Boolean Enabled = false;
 }
 
 

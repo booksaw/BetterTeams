@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ExtUtil {
 
-	public static boolean missingExtDep(ExtensionInfo info) {
+	public static boolean missingExtensionDep(ExtensionInfo info) {
 		// TODO
 		return false;
 	}
