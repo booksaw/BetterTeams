@@ -26,8 +26,6 @@ class ExtUtilTest {
 	@TempDir
 	Path tempDir;
 
-
-
 	@Nested
 	@DisplayName("scanExtensions() Tests")
 	class ScanExtensionsTests {

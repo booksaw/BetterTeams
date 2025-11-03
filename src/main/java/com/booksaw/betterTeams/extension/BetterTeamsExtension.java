@@ -46,7 +46,7 @@ public abstract class BetterTeamsExtension {
 	 * just let me disable from this server
 	 */
 	public final void selfDisable() {
-		// TODO
+		plugin.getExtensionManager().unloadExtension(this);
 	}
 
 	/**

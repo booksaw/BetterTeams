@@ -23,6 +23,8 @@ import com.booksaw.betterTeams.cooldown.CooldownManager;
 import com.booksaw.betterTeams.cost.CostManager;
 import com.booksaw.betterTeams.events.*;
 import com.booksaw.betterTeams.events.MCTeamManagement.BelowNameType;
+import com.booksaw.betterTeams.exceptions.LoadingException;
+import com.booksaw.betterTeams.extension.ExtensionManager;
 import com.booksaw.betterTeams.integrations.LuckPermsManager;
 import com.booksaw.betterTeams.integrations.UltimateClaimsManager;
 import com.booksaw.betterTeams.integrations.WorldGuardManagerV7;
@@ -86,6 +88,9 @@ public class Main extends JavaPlugin {
 	private TeamPlaceholders teamPlaceholders;
 
 	private LuckPermsManager luckPermsManager;
+
+	@Getter
+	ExtensionManager extensionManager;
 
 	/**
 	 * FoliaLib instance for Folia/Paper/Spigot support
@@ -161,6 +166,8 @@ public class Main extends JavaPlugin {
 
 		ChatManagement.enable();
 
+		setupExtension();
+
 		if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null
 				&& Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("PlaceholderAPI")).isEnabled()) {
 			placeholderAPI = true;
@@ -205,6 +212,10 @@ public class Main extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
+
+		if (extensionManager != null) {
+			extensionManager.unloadExtensions();
+		}
 
 		foliaLib.getScheduler().cancelAllTasks();
 
@@ -533,5 +544,20 @@ public class Main extends JavaPlugin {
 
 		Team.setupTeamManager(to);
 		Team.getTeamManager().loadTeams();
+	}
+
+	public void setupExtension() {
+		extensionManager = new ExtensionManager(this, new File(getDataFolder(), "extensions"));
+		extensionManager.initializeExtensions();
+
+		int enableTick = getConfig().getInt("extension.enableTick", 1);
+		if (enableTick <= 0) {
+			extensionManager.enableExtensions();
+		} else {
+			// Run later
+			foliaLib.getScheduler().runLater(() -> {
+				extensionManager.enableExtensions();
+			}, enableTick);
+		}
 	}
 }

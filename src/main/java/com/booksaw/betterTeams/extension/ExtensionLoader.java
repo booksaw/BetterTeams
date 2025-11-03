@@ -68,8 +68,11 @@ public class ExtensionLoader {
 		if (wrapper.getEnabled()) {
 			return wrapper;
 		}
-		if (ExtUtil.missingPluginDep(info) || ExtUtil.missingExtensionDep(info)) {
-			throw new LoadingException("Cannot enable '" + info.getName() + "': Missing dependencies");
+		if (ExtUtil.missingPluginDep(info)) {
+			throw new LoadingException("Cannot enable '" + info.getName() + "': Missing Bukkit plugin dependencies");
+		}
+		if (ExtUtil.missingExtensionDep(info)) {
+			throw new LoadingException("Cannot enable '" + info.getName() + "': Missing BetterTeams extension dependencies");
 		}
 
 		try {
@@ -87,9 +90,12 @@ public class ExtensionLoader {
 			String name = wrapper.getInfo().getName();
 			try {
 				wrapper.getInstance().onDisable();
+			} catch (Exception e) {
+				plugin.getLogger().log(Level.WARNING, "Error while disabling extension '" + name + "'", e);
+			} finally {
 				wrapper.setEnabled(false);
 				plugin.getLogger().info("Disabled extension: " + name);
-			} catch (Exception ignored) {}
+			}
 		}
 	}
 

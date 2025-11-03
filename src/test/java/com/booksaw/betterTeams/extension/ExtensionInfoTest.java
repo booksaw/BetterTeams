@@ -19,7 +19,6 @@ class ExtensionInfoTest {
 	@TempDir
 	Path tempDir;
 
-
 	@Nested
 	@DisplayName("fromYaml() Loading Tests")
 	class FromYamlTests {

@@ -3,6 +3,8 @@ package com.booksaw.betterTeams.extension;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.exceptions.LoadingException;
 import com.booksaw.betterTeams.util.ExtUtil;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.io.File;
@@ -10,6 +12,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
 public class ExtensionManager {
 	private final Main plugin;
 	private final File extensionsDir;
@@ -19,12 +22,8 @@ public class ExtensionManager {
 	private final ExtensionStore store;
 
 	public ExtensionManager(Main plugin, File extensionsDir) {
-		this.plugin = plugin;
-		this.extensionsDir = extensionsDir;
-		this.store = new ExtensionStore();
-		this.loader = new ExtensionLoader(plugin);
+		this(plugin, extensionsDir, new ExtensionLoader(plugin), new ExtensionStore());
 	}
-
 
 	public void initializeExtensions() {
 		plugin.getLogger().info("Initializing extensions...");
@@ -94,17 +93,20 @@ public class ExtensionManager {
 			if (wrapper != null) {
 				loader.unload(wrapper);
 			}
-			this.store.clear();
+		}
+		this.store.clear();
+	}
+
+	public void unloadExtension(BetterTeamsExtension instance) {
+		ExtensionWrapper wrapper = store.get(instance);
+		if (wrapper != null) {
+			loader.unload(wrapper);
+			store.remove(wrapper.getInfo().getName());
 		}
 	}
 
-	public void disableExtension(BetterTeamsExtension instance) {
-		ExtensionWrapper wrapper = store.get(instance);
-		if (wrapper != null) {
-			if (wrapper.getEnabled()) {
-				loader.disable(wrapper);
-			}
-		}
+	public boolean isEnabled(String name) {
+		return store.get(name) != null && store.get(name).getEnabled();
 	}
 
 

@@ -2,6 +2,7 @@ package com.booksaw.betterTeams.util;
 
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.extension.ExtensionInfo;
+import com.booksaw.betterTeams.extension.ExtensionManager;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.bukkit.plugin.Plugin;
@@ -14,8 +15,9 @@ import java.util.stream.Collectors;
 public class ExtUtil {
 
 	public static boolean missingExtensionDep(ExtensionInfo info) {
-		// TODO
-		return false;
+		ExtensionManager manager = Main.plugin.getExtensionManager();
+		List<String> allExtDeps = new ArrayList<>(info.getExtensionDepend());
+		return allExtDeps.stream().anyMatch(dep -> !manager.isEnabled(dep));
 	}
 
 	public static boolean missingPluginDep(ExtensionInfo info) {
