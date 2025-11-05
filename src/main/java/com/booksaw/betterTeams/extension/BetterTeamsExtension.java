@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -144,7 +146,7 @@ public abstract class BetterTeamsExtension {
 	 * @param replace      overwrite existing file
 	 * @throws IllegalArgumentException if resource not found
 	 */
-	public final void saveResource(@NotNull String resourcePath, boolean replace) {
+	public void saveResource(@NotNull String resourcePath, boolean replace) {
 		if (resourcePath.isEmpty()) {
 			throw new IllegalArgumentException("ResourcePath cannot be empty");
 		}
@@ -174,8 +176,33 @@ public abstract class BetterTeamsExtension {
 	 * @return stream or null if not found
 	 */
 	@Nullable
-	public final InputStream getResource(@NotNull String filename) {
-		return getClass().getClassLoader().getResourceAsStream(filename);
+	public InputStream getResource(@NotNull String filename) {
+		if (filename.isEmpty()) {
+			throw new IllegalArgumentException("ResourcePath cannot be empty");
+		}
+
+		ClassLoader cl = getClass().getClassLoader();
+		if (!(cl instanceof URLClassLoader ucl)) {
+			return cl.getResourceAsStream(filename);
+		}
+
+		URL[] urLs = ucl.getURLs();
+		if (urLs.length == 0) {
+			return null;
+		}
+		URL jarUrl = urLs[0];
+
+		try {
+			String resourcePath = filename.replace('\\', '/');
+			if (resourcePath.startsWith("/")) {
+				resourcePath = resourcePath.substring(1);
+			}
+
+			URL resourceUrl = new URL("jar:" + jarUrl.toExternalForm() + "!/" + resourcePath);
+			return resourceUrl.openStream();
+		} catch (IOException e) {
+			return null;
+		}
 	}
 
 	protected final void init(ExtensionInfo info, File dataFolder, Main plugin) {
