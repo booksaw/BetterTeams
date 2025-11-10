@@ -630,10 +630,6 @@ worldGuard:
   # Currently worldgaurd versions below 7.0 are not supported, set this to false if your server is running anything less than 1.13
   enabled: true
 
-luckperms:
-  # Toggle if luckperms contexts are enabled, see: https://betterteams.booksaw.dev/docs/dependencies/LuckPerms
-  # NOTE: Currently if enabled there will be a noticable performance impact on your server
-  enabled: false
 
 # Debug options: 
 
