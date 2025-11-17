@@ -30,49 +30,4 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    <profiles>
-        <profile>
-            <id>javadocs</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.projectlombok</groupId>
-                        <artifactId>lombok-maven-plugin</artifactId>
-                        <version>1.18.20.0</version>
-                        <executions>
-                            <execution>
-                                <id>delombok-for-javadoc</id>
-                                <goals>
-                                    <goal>delombok</goal>
-                                </goals>
-                                <configuration>
-                                    <sourceDirectory>${project.basedir}/src/main/java</sourceDirectory>
-                                    <outputDirectory>${project.build.directory}/generated-sources/delombok
-                                    </outputDirectory>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>3.12.0</version>
-                        <configuration>
-                            <outputDirectory>target/site/</outputDirectory>
-                            <sourcepath>${project.build.directory}/generated-sources/delombok</sourcepath>
-                            <release>${java.version}</release>
-                            <source>${java.version}</source>
-                            <tags>
-                                <tag>
-                                    <name>apiNote</name>
-                                    <placement>a</placement>
-                                    <head>API Note:</head>
-                                </tag>
-                            </tags>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>
