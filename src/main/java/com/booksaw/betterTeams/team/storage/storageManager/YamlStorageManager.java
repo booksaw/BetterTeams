@@ -8,6 +8,8 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -31,11 +33,29 @@ public abstract class YamlStorageManager extends TeamManager {
 	}
 
 	public void saveTeamsFile() {
+		File backF = new File("plugins/BetterTeams/" + TEAMLISTSTORAGELOC + ".yml.bak");
+		File preF = new File("plugins/BetterTeams/" + TEAMLISTSTORAGELOC + ".yml.pre");
 		File f = new File("plugins/BetterTeams/" + TEAMLISTSTORAGELOC + ".yml");
+
 		try {
-			teamStorage.save(f);
+			Files.copy(f.toPath(), backF.toPath(), StandardCopyOption.REPLACE_EXISTING);
+		} catch (IOException ex) {
+			Main.plugin.getLogger().log(Level.SEVERE, "Could not save backup to " + backF, ex);
+			return;
+		}
+
+		try {
+			teamStorage.save(preF);
 		} catch (IOException ex) {
 			Main.plugin.getLogger().log(Level.SEVERE, "Could not save config to " + f, ex);
+			return;
+		}
+
+		try {
+			Files.move(preF.toPath(), f.toPath(), StandardCopyOption.REPLACE_EXISTING);
+		} catch (IOException ex) {
+			Main.plugin.getLogger().log(Level.SEVERE, "Could not move " + preF + " to " + f, ex);
+			return;
 		}
 	}
 
