@@ -410,41 +410,41 @@ command.holo: holo
 
 helpArg.delhome: ''
 helpArg.echest: ''
-helpArg.color: <código de color>
-helpArg.allychat: [ mensaje ]
-helpArg.description: [ descripción ]
-helpArg.setwarp: <nombre> [contraseña]
-helpArg.title: [ jugador/yo ] [ título ]
+helpArg.color: '<código de color>'
+helpArg.allychat: '[ mensaje ]'
+helpArg.description: '[ descripción ]'
+helpArg.setwarp: '<nombre> [contraseña]'
+helpArg.title: '[ jugador/yo ] [ título ]'
 helpArg.bal: ''
-helpArg.ban: <jugador>
-helpArg.promote: <jugador>
+helpArg.ban: '<jugador>'
+helpArg.promote: '<jugador>'
 helpArg.warps: ''
 helpArg.top: ''
-helpArg.ally: <equipo>
+helpArg.ally: '<equipo>'
 helpArg.rankup: ''
 helpArg.leave: ''
 helpArg.sethome: ''
-helpArg.create: <nombre> [etiqueta]
-helpArg.rank: [ equipo ]
-helpArg.join: <equipo>
-helpArg.tag: [ etiqueta ]
+helpArg.create: '<nombre> [etiqueta]'
+helpArg.rank: '[ equipo ]'
+helpArg.join: <equipo>'
+helpArg.tag: '[ etiqueta ]'
 helpArg.disband: ''
-helpArg.info: [ equipo/jugador ]
-helpArg.delwarp: <nombre> [contraseña]
+helpArg.info: '[ equipo/jugador ]'
+helpArg.delwarp: '<nombre> [contraseña]'
 helpArg.chest: ''
-helpArg.neutral: <equipo>
+helpArg.neutral: '<equipo>'
 helpArg.pvp: ''
 helpArg.baltop: ''
-helpArg.list: [ página ]
+helpArg.list: '[ página ]'
 helpArg.home: ''
 helpArg.help: ''
-helpArg.unban: <jugador>
-helpArg.demote: <jugador>
-helpArg.kick: <jugador>
-helpArg.chat: [ mensaje ]
-helpArg.name: <nombre>
-helpArg.deposit: <cantidad>
-helpArg.invite: <jugador>
+helpArg.unban: '<jugador>'
+helpArg.demote: '<jugador>'
+helpArg.kick: '<jugador>'
+helpArg.chat: '[ mensaje ]'
+helpArg.name: '<nombre>'
+helpArg.deposit: '<cantidad>'
+helpArg.invite: '<jugador>'
 helpArg.open: ''
-helpArg.warp: <nombre>
-helpArg.withdraw: <cantidad>
+helpArg.warp: '<nombre>'
+helpArg.withdraw: '<cantidad>'

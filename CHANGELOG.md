@@ -26,6 +26,7 @@ This is a major release which includes several breaking changes for the API
 ### Bug Fixes
 
 * Removed a potential duplication glitch with team echests
+* Fixed a problem which caused the es_mx translation file to fail to load (#913)
 
 ### API Changes
 
