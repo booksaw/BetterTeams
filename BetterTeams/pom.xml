@@ -8,9 +8,9 @@
         <groupId>com.booksaw.betterTeams</groupId>
         <artifactId>betterteams-parent</artifactId>
         <version>4.15.2</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>com.booksaw.betterTeams</groupId>
     <artifactId>BetterTeams</artifactId>
     <packaging>jar</packaging>
 
@@ -68,8 +68,6 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.20-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>me.clip</groupId>

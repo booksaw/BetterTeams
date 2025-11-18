@@ -1,0 +1,22 @@
+# -------------------------------------------------- #
+#      BetterTeams LuckPerms Extension Config        #
+# -------------------------------------------------- #
+
+# Control which contexts are registered with LuckPerms.
+# If you don't use a specific context, you can set it to 'false'
+# to slightly improve performance
+#
+# By default, all contexts are enabled (true)
+contexts:
+  bt_inteam: true
+  bt_rank: true
+  bt_teamchat: true
+
+  bt_level: true
+  bt_open: true
+  bt_pvp: true
+  bt_hashome: true
+
+  bt_positionscore: true
+  bt_positionbal: true
+  bt_positionmembers: true
