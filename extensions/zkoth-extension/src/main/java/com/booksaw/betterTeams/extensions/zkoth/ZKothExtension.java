@@ -10,16 +10,10 @@ public class ZKothExtension extends BetterTeamsExtension {
 
 	@Override
 	public void onEnable() {
-		// This loads the config.yml from this JAR's resources
-		saveDefaultConfig();
+		int points = getConfig().config.getInt("pointsPerCapture");
 
-		// Get the value from this extension's config
-		int points = getConfig().getInt("pointsPerCapture");
-
-		// Create and register the listener, passing the config value
 		this.kothManager = new ZKothManager(points);
 
-		// Register events using the main BetterTeams plugin instance
 		getPlugin().getServer().getPluginManager().registerEvents(kothManager, getPlugin());
 
 		getLogger().info("ZKoth extension enabled.");

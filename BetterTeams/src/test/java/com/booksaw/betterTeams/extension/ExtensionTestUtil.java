@@ -12,7 +12,11 @@ import java.util.jar.JarOutputStream;
 public class ExtensionTestUtil {
 
 	public static File createFakeJar(String jarName, String ymlContent, Class<?> mainClass, File Dir) throws IOException {
-		File jarFile = Dir.toPath().resolve(jarName).toFile();
+		return createFakeJar(jarName, ymlContent, Dir, mainClass);
+	}
+
+	public static File createFakeJar(String jarName, String ymlContent, File destDir, Class<?>... classes) throws IOException {
+		File jarFile = destDir.toPath().resolve(jarName).toFile();
 		try (FileOutputStream fos = new FileOutputStream(jarFile);
 			 JarOutputStream jos = new JarOutputStream(fos)) {
 
@@ -24,9 +28,11 @@ public class ExtensionTestUtil {
 				jos.closeEntry();
 			}
 
-			if (mainClass != null) {
-				String classPath = mainClass.getName().replace('.', '/') + ".class";
-				try (InputStream classStream = mainClass.getClassLoader().getResourceAsStream(classPath)) {
+			// Add all requested classes
+			for (Class<?> clazz : classes) {
+				if (clazz == null) continue;
+				String classPath = clazz.getName().replace('.', '/') + ".class";
+				try (InputStream classStream = clazz.getClassLoader().getResourceAsStream(classPath)) {
 					if (classStream == null) {
 						throw new IOException("Could not find class resource: " + classPath);
 					}
@@ -45,7 +51,7 @@ public class ExtensionTestUtil {
 		return "name: " + name + "\nmain: " + TestExtensionImpl.class.getName();
 	}
 
-	 static ExtensionInfo createSortStub(String name, List<String> deps, List<String> softDeps) {
+	static ExtensionInfo createSortStub(String name, List<String> deps, List<String> softDeps) {
 		return new ExtensionInfo(
 				name,
 				"com.example.Main",

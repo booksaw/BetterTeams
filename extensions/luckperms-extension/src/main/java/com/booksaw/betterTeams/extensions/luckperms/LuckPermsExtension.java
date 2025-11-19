@@ -13,9 +13,7 @@ public class LuckPermsExtension extends BetterTeamsExtension {
     public void onEnable() {
         if (getPlugin().getServer().getPluginManager().isPluginEnabled("LuckPerms")) {
             try {
-                saveDefaultConfig();
-                reloadConfig();
-                FileConfiguration config = getConfig();
+                FileConfiguration config = getConfig().config;
 
                 LuckPerms luckPerms = LuckPermsProvider.get();
                 luckPermsManager = new LuckPermsManager(luckPerms, config);

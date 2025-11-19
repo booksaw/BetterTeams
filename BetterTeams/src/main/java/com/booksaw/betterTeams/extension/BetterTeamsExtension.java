@@ -1,18 +1,14 @@
 package com.booksaw.betterTeams.extension;
 
+import com.booksaw.betterTeams.ConfigManager;
 import com.booksaw.betterTeams.Main;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.URL;
-import java.net.URLClassLoader;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.logging.Level;
@@ -25,9 +21,7 @@ public abstract class BetterTeamsExtension {
 	private Main plugin;
 	private ExtensionLogger extensionLogger;
 
-	private FileConfiguration config = null;
-	private File configFile = null;
-
+	private ConfigManager configManager;
 	/**
 	 * Called when the extension is enabled.
 	 */
@@ -95,48 +89,36 @@ public abstract class BetterTeamsExtension {
 	 * @return The YamlConfiguration for this extension.
 	 */
 	@NotNull
-	public FileConfiguration getConfig() {
-		if (config == null) {
+	public ConfigManager getConfig() {
+		if (configManager == null) {
 			reloadConfig();
 		}
-		return config;
+		return configManager;
 	}
 
 	/**
 	 * Reloads the config.yml from disk.
 	 */
 	public void reloadConfig() {
-		configFile = getConfigFile();
-		config = YamlConfiguration.loadConfiguration(configFile);
-
-		try (InputStream def = getResource("config.yml")) {
-			if (def == null) return;
-			try (InputStreamReader reader = new InputStreamReader(def, StandardCharsets.UTF_8)) {
-				config.setDefaults(YamlConfiguration.loadConfiguration(reader));
-			}
-		} catch (IOException | IllegalArgumentException ignore) {}
+		configManager = new ConfigManager(this, "config", true);
 	}
 
-	private File getConfigFile() {
-		if (configFile == null) configFile = new File(getDataFolder(), "config.yml");
-		return configFile;
-	}
 
 	/**
 	 * Saves the raw "config.yml" resource from the extension's JAR to its data folder if it doesn't exist.
 	 */
 	public void saveDefaultConfig() {
-		saveResource("config.yml", false);
+		if (configManager == null) {
+			reloadConfig();
+		}
 	}
 
 	/**
 	 * Saves the current configuration to the config.yml file.
 	 */
 	public void saveConfig() {
-		try {
-			getConfig().save(getConfigFile());
-		} catch (IOException e) {
-			getLogger().log(Level.SEVERE, "Could not save config", e);
+		if (configManager != null) {
+			configManager.save();
 		}
 	}
 
@@ -181,24 +163,12 @@ public abstract class BetterTeamsExtension {
 			throw new IllegalArgumentException("ResourcePath cannot be empty");
 		}
 
-		ClassLoader cl = getClass().getClassLoader();
-		if (!(cl instanceof URLClassLoader ucl)) {
-			return cl.getResourceAsStream(filename);
-		}
-
-		URL[] urLs = ucl.getURLs();
-		if (urLs.length == 0) {
-			return null;
-		}
-		URL jarUrl = urLs[0];
-
 		try {
-			String resourcePath = filename.replace('\\', '/');
-			if (resourcePath.startsWith("/")) {
-				resourcePath = resourcePath.substring(1);
-			}
+			String path = filename.startsWith("/") ? filename.substring(1) : filename;
 
-			URL resourceUrl = new URL("jar:" + jarUrl.toExternalForm() + "!/" + resourcePath);
+			URL jarLocation = getClass().getProtectionDomain().getCodeSource().getLocation();
+			URL resourceUrl = new URL("jar:" + jarLocation.toExternalForm() + "!/" + path);
+
 			return resourceUrl.openStream();
 		} catch (IOException e) {
 			return null;

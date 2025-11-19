@@ -8,7 +8,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.logging.Level;
 
@@ -27,7 +26,13 @@ public class ExtensionLoader {
 
 		URLClassLoader loader = null;
 		try {
-			loader = new URLClassLoader(new URL[]{jarFile.toURI().toURL()}, plugin.getClass().getClassLoader());
+			loader = new ExtensionClassLoader(
+					jarFile,
+					plugin.getClass().getClassLoader(),
+					info,
+					plugin.getExtensionManager()
+			);
+
 			Class<?> clazz = Class.forName(info.getMainClass(), true, loader);
 
 			if (!BetterTeamsExtension.class.isAssignableFrom(clazz)) {

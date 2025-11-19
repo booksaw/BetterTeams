@@ -1,5 +1,6 @@
 package com.booksaw.betterTeams;
 
+import com.booksaw.betterTeams.extension.BetterTeamsExtension;
 import lombok.Getter;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -22,18 +23,33 @@ public class ConfigManager {
 	private final String resourceName;
 	private final String filePath;
 
+	private final BetterTeamsExtension extension;
+
 	public ConfigManager(String resourceName, boolean updateChecks) {
+		this(resourceName, updateChecks, null);
+	}
+
+	public ConfigManager(BetterTeamsExtension extension, String resourceName, boolean updateChecks) {
+		this(resourceName, updateChecks, extension);
+	}
+
+
+	private ConfigManager(String resourceName, boolean updateChecks, BetterTeamsExtension extension) {
+		this.extension = extension;
+
 		if (!resourceName.endsWith(".yml")) {
 			resourceName = resourceName + ".yml";
 		}
 
 		this.resourceName = resourceName;
 
-		File f = new File(Main.plugin.getDataFolder() + File.separator + resourceName);
+		File folder = (extension != null) ? extension.getDataFolder() : Main.plugin.getDataFolder();
+
+		File f = new File(folder, resourceName);
 		this.filePath = f.getPath();
 
 		if (!f.exists()) {
-			Main.plugin.saveResource(resourceName, false);
+			saveResource(resourceName, this.filePath, false);
 		}
 
 		config = YamlConfiguration.loadConfiguration(f);
@@ -41,7 +57,6 @@ public class ConfigManager {
 		if (updateChecks) {
 			updateFromDefaultSave();
 		}
-
 	}
 
 	/**
@@ -52,6 +67,7 @@ public class ConfigManager {
 	 * @param filePath     The path to save the resource to
 	 */
 	public ConfigManager(String resourceName, String filePath) {
+		this.extension = null;
 		if (!resourceName.endsWith(".yml")) {
 			resourceName = resourceName + ".yml";
 		}
@@ -77,14 +93,14 @@ public class ConfigManager {
 
 	public void save(boolean log) {
 		if (log) {
-			Main.plugin.getLogger().info("Saving new values to " + filePath);
+			log(Level.INFO, "Saving new values to " + filePath);
 		}
 
 		File f = new File(filePath);
 		try {
 			config.save(f);
 		} catch (IOException ex) {
-			Main.plugin.getLogger().log(Level.SEVERE, "Could not save config to " + f, ex);
+			log(Level.SEVERE, "Could not save config to " + f, ex);
 		}
 	}
 
@@ -94,30 +110,31 @@ public class ConfigManager {
 
 	public void updateFromDefaultSave(boolean log) {
 
-		Logger logger = Main.plugin.getLogger();
-
 		if (log) {
-			logger.info("[BetterTeams] Checking if the file " + resourceName + " is up to date");
+			log(Level.INFO, "Checking if the file " + resourceName + " is up to date");
 		}
 
-		List<String> changes = updateFileConfig(Main.plugin.getResource(resourceName));
+		InputStream resourceStream = (extension != null)
+				? extension.getResource(resourceName)
+				: Main.plugin.getResource(resourceName);
+
+		List<String> changes = updateFileConfig(resourceStream);
 		boolean migratedVariables = migrateVariables(log);
 
 		if (log) {
 			if (changes.isEmpty() && !migratedVariables) {
-				logger.info("[BetterTeams] File is up to date");
+				log(Level.INFO, "File is up to date");
 			}
 			if (!changes.isEmpty()) {
-				logger.info("[BetterTeams] ==================================================================");
-				logger.info("[BetterTeams] File is not updated, adding values under the following references:");
+				log(Level.INFO, "==================================================================");
+				log(Level.INFO, "File is not updated, adding values under the following references:");
 
 				for (String str : changes) {
-					logger.info("[BetterTeams] - " + str);
+					log(Level.INFO, "- " + str);
 				}
 
-				logger.info("[BetterTeams] " + resourceName
-						+ " is now updated to the latest version, thank you for using BetterTeams");
-				logger.info("[BetterTeams] ==================================================================");
+				log(Level.INFO, resourceName + " is now updated to the latest version, thank you for using BetterTeams");
+				log(Level.INFO, "==================================================================");
 
 			}
 		}
@@ -164,7 +181,7 @@ public class ConfigManager {
 			return false;
 		}
 		if (log) {
-			Main.plugin.getLogger().info(resourceName + " is using legacy variables. Migration taking place.");
+			log(Level.INFO, resourceName + " is using legacy variables. Migration taking place.");
 		}
 		int migratedKeys = 0;
 		for (String key : config.getKeys(true)) {
@@ -191,7 +208,7 @@ public class ConfigManager {
 			}
 		}
 		if (log) {
-			Main.plugin.getLogger().info("Legacy variable migration is complete. " + migratedKeys + " keys were migrated.");
+			log(Level.INFO, "Legacy variable migration is complete. " + migratedKeys + " keys were migrated.");
 		}
 		return migratedKeys != 0;
 	}
@@ -203,16 +220,18 @@ public class ConfigManager {
 			throw new IllegalArgumentException("ResultPath cannot be null or empty");
 
 		resourcePath = resourcePath.replace('\\', '/');
-		InputStream in = Main.plugin.getResource(resourcePath);
+		InputStream in = (extension != null)
+				? extension.getResource(resourcePath)
+				: Main.plugin.getResource(resourcePath);
+
+		File dataFolder = (extension != null) ? extension.getDataFolder() : Main.plugin.getDataFolder();
 
 		if (in == null)
 			throw new IllegalArgumentException(
-					"The embedded resource '" + resourcePath + "' cannot be found in " + Main.plugin.getDataFolder());
+					"The embedded resource '" + resourcePath + "' cannot be found in " + dataFolder);
 		File outFile = new File(resultPath);
-		int lastIndex = resourcePath.lastIndexOf('/');
-		File outDir = new File(resultPath.substring(0, Math.max(lastIndex, 0)));
-
-		if (!outDir.exists())
+		File outDir = outFile.getParentFile();
+		if (outDir != null && !outDir.exists())
 			outDir.mkdirs();
 
 		try {
@@ -229,11 +248,27 @@ public class ConfigManager {
 				out.close();
 				in.close();
 			} else {
-				Main.plugin.getLogger().log(Level.WARNING, "Could not save " + resourcePath + " to " + outFile
+				log(Level.WARNING, "Could not save " + resourcePath + " to " + outFile
 						+ " because " + outFile.getName() + " already exists.");
 			}
 		} catch (IOException ex) {
-			Main.plugin.getLogger().log(Level.SEVERE, "Could not save " + resourcePath + " to " + resultPath, ex);
+			log(Level.SEVERE, "Could not save " + resourcePath + " to " + resultPath, ex);
 		}
 	}
+
+	private void log(Level level, String message) {
+		if (extension != null) {
+			extension.getLogger().log(level, message);
+		} else {
+			Main.plugin.getLogger().log(level, "[BetterTeams] " + message);
+		}
+	}
+	private void log(Level level, String message, Throwable ex) {
+		if (extension != null) {
+			extension.getLogger().log(level, message, ex);
+		} else {
+			Main.plugin.getLogger().log(level, "[BetterTeams] " + message, ex);
+		}
+	}
+
 }

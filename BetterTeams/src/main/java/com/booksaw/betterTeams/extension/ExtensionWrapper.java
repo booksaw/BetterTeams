@@ -28,7 +28,7 @@ public class ExtensionWrapper {
 	/**
 	 * The current lifecycle state of the extension.
 	 */
-	private Boolean Enabled = false;
+	private Boolean enabled = false;
 }
 
 

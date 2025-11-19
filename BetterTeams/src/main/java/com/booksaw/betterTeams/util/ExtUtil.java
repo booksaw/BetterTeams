@@ -49,6 +49,7 @@ public class ExtUtil {
 				seenNames.add(info.getName());
 
 			} catch (Exception ignored) {}
+
 		}
 		return result;
 	}

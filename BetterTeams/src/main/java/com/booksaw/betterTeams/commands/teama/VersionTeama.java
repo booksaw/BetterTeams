@@ -4,6 +4,7 @@ import com.booksaw.betterTeams.CommandResponse;
 import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.SubCommand;
+import com.booksaw.betterTeams.extension.ExtensionWrapper;
 import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
 import org.bukkit.Bukkit;
@@ -29,6 +30,7 @@ public class VersionTeama extends SubCommand {
 		MessageManager.sendMessage(sender, "admin.versionplayers", Integer.toString(Bukkit.getOnlinePlayers().size()));
 		MessageManager.sendMessage(sender, "admin.versionplugins", getPluginIntegrations());
 		MessageManager.sendMessage(sender, "admin.versionconflicts", getConflictingPlugins());
+		MessageManager.sendMessage(sender, "admin.versionextensions", getEnabledExtensions());
 		return new CommandResponse(true,
 				new ReferencedFormatMessage("admin.version", Main.plugin.getDescription().getVersion()));
 
@@ -96,6 +98,29 @@ public class VersionTeama extends SubCommand {
 		}
 
 		return plugins;
+	}
+
+	private String getEnabledExtensions() {
+		if (Main.plugin.getExtensionManager() == null) {
+			return ChatColor.RED + "Manager not loaded";
+		}
+
+		List<ExtensionWrapper> enabled = Main.plugin.getExtensionManager().getStore().getWrappersByState(true);
+
+		if (enabled.isEmpty()) {
+			return ChatColor.YELLOW + "None";
+		}
+
+		StringBuilder sb = new StringBuilder();
+		for (ExtensionWrapper wrapper : enabled) {
+			if (!sb.isEmpty()) {
+				sb.append(ChatColor.WHITE).append(", ");
+			}
+			sb.append(ChatColor.GREEN).append(wrapper.getInfo().getName());
+			sb.append(ChatColor.GRAY).append(" v").append(wrapper.getInfo().getVersion());
+		}
+
+		return sb.toString();
 	}
 
 
