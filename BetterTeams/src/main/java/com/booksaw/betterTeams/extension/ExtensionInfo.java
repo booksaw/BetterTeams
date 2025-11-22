@@ -1,7 +1,5 @@
 package com.booksaw.betterTeams.extension;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
@@ -17,7 +15,9 @@ import java.util.jar.JarFile;
  * Holds all the metadata for a BetterTeams extension, loaded from its
  * {@code extension.yml} file.
  */
-@Data
+@Getter
+@ToString
+@EqualsAndHashCode
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 public class ExtensionInfo {
 	/**
@@ -77,15 +77,14 @@ public class ExtensionInfo {
 	/**
 	 * The file handle for the extension's JAR file.
 	 */
-	private File JarFile;
+	private final File jarFile;
 
 	/**
 	 * Provides a user-friendly string representation of the extension.
 	 * @return A formatted string
  	*/
-	@Override
-	public String toString() {
-		String trimmedAuthor = author.trim();
+	public String getDisplayName() {
+		String trimmedAuthor = (author != null) ? author.trim() : "";
 		return name.trim() + " v" + version.trim() +
 				(trimmedAuthor.isEmpty() ? "" : " (author: " + trimmedAuthor + ")");
 	}
@@ -133,9 +132,7 @@ public class ExtensionInfo {
 				if (jarFile.getJarEntry(main.replace('.', '/') + ".class") == null) {
 					throw new IllegalArgumentException("Main class not found in JAR: " + main);
 				}
-				ExtensionInfo info = new ExtensionInfo(name, main, ver, author, desc, site, eHard, eSoft, pHard, pSoft);
-				info.setJarFile(file);
-				return info;
+				return new ExtensionInfo(name, main, ver, author, desc, site, eHard, eSoft, pHard, pSoft, file);
 			}
 		}
 	}

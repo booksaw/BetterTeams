@@ -85,7 +85,7 @@ class ExtensionLoaderTest {
 			assertNotNull(wrapper.getInstance());
 			assertNotNull(wrapper.getClassLoader());
 			assertEquals(info, wrapper.getInfo());
-			assertFalse(wrapper.getEnabled());
+			assertFalse(wrapper.isEnabled());
 
 			assertInstanceOf(TestExtensionImpl.class, wrapper.getInstance());
 			TestExtensionImpl impl = (TestExtensionImpl) wrapper.getInstance();
@@ -119,7 +119,7 @@ class ExtensionLoaderTest {
 				loader.load(info);
 			});
 
-			assertTrue(e.getMessage().startsWith("Failed to load WrongClass"));
+			assertTrue(e.getMessage().startsWith("Failed to initialize extension 'WrongClass'"));
 			assertInstanceOf(ClassCastException.class, e.getCause());
 		}
 	}
@@ -145,7 +145,7 @@ class ExtensionLoaderTest {
 			loader.enable(validWrapper);
 
 			// Then: It should be enabled
-			assertTrue(validWrapper.getEnabled());
+			assertTrue(validWrapper.isEnabled());
 			assertTrue(validImpl.onEnableCalled);
 
 			// And: It should log success
@@ -185,7 +185,7 @@ class ExtensionLoaderTest {
 			// Then: It should fail
 			assertEquals("Cannot enable 'DepExt': Missing Bukkit plugin dependencies", e.getMessage());
 			assertNotNull(depWrapper);
-			assertFalse(depWrapper.getEnabled());
+			assertFalse(depWrapper.isEnabled());
 		}
 
 		// TODO
@@ -209,7 +209,7 @@ class ExtensionLoaderTest {
 			// Then: It should fail
 			assertEquals("Cannot enable 'DepExt': Missing dependencies", e.getMessage());
 			assertNotNull(depWrapper);
-			assertFalse(depWrapper.getEnabled());
+			assertFalse(depWrapper.isEnabled());
 		}
 	}
 
@@ -234,13 +234,13 @@ class ExtensionLoaderTest {
 		@DisplayName("Should successfully disable an enabled extension")
 		void testDisableSuccess() {
 			// Given: An enabled extension
-			assertTrue(validWrapper.getEnabled());
+			assertTrue(validWrapper.isEnabled());
 
 			// When: We disable it
 			loader.disable(validWrapper);
 
 			// Then: It should be disabled
-			assertFalse(validWrapper.getEnabled());
+			assertFalse(validWrapper.isEnabled());
 			assertTrue(validImpl.onDisableCalled);
 
 			// And: It should log success
@@ -275,13 +275,13 @@ class ExtensionLoaderTest {
 			ExtensionWrapper wrapper = loader.load(info);
 			TestExtensionImpl impl = (TestExtensionImpl) wrapper.getInstance();
 			loader.enable(wrapper);
-			assertTrue(wrapper.getEnabled());
+			assertTrue(wrapper.isEnabled());
 
 			// When: We unload it
 			loader.unload(wrapper);
 
 			// Then: It should be disabled
-			assertFalse(wrapper.getEnabled());
+			assertFalse(wrapper.isEnabled());
 			assertTrue(impl.onDisableCalled);
 
 			// And: It should log all 4 lifecycle steps

@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
 import java.net.URLClassLoader;
 import java.util.logging.Level;
 
@@ -20,11 +21,11 @@ public class ExtensionLoader {
 		String name = info.getName();
 		File jarFile = info.getJarFile();
 
-		if (jarFile == null) {
+		if (jarFile == null || !jarFile.exists()) {
 			throw new LoadingException("No JAR file associated with extension '" + name + "'");
 		}
 
-		URLClassLoader loader = null;
+		ExtensionClassLoader loader = null;
 		try {
 			loader = new ExtensionClassLoader(
 					jarFile,
@@ -39,8 +40,12 @@ public class ExtensionLoader {
 				throw new ClassCastException(info.getMainClass() + " does not extend BetterTeamsExtension");
 			}
 
-			BetterTeamsExtension instance = (BetterTeamsExtension) clazz.getDeclaredConstructor().newInstance();
-			File dataFolder = new File(plugin.getDataFolder(), "extensions/" + info.getName());
+			Constructor<?> constructor = clazz.getDeclaredConstructor();
+			constructor.setAccessible(true);
+			BetterTeamsExtension instance = (BetterTeamsExtension) constructor.newInstance();
+
+			File extensionsDir = new File(plugin.getDataFolder(), "extensions");
+			File dataFolder = new File(extensionsDir, info.getName());
 
 			instance.init(info, dataFolder, plugin);
 
@@ -54,7 +59,7 @@ public class ExtensionLoader {
 					loader.close();
 				} catch (IOException ignored) {}
 			}
-			throw new LoadingException("Failed to load " + info.getName(), e);
+			throw new LoadingException("Failed to initialize extension '" + info.getName() + "'", e);
 		}
 	}
 
@@ -63,14 +68,14 @@ public class ExtensionLoader {
 		try {
 			wrapper.getInstance().onLoad();
 			plugin.getLogger().info("Loaded extension: " + name);
-		} catch (Exception e) {
+		} catch (Throwable e) {
 			throw new LoadingException("Failed to load extension '" + name + "'", e);
 		}
 	}
 
 	public ExtensionWrapper enable(@NotNull ExtensionWrapper wrapper) throws LoadingException {
 		ExtensionInfo info = wrapper.getInfo();
-		if (wrapper.getEnabled()) {
+		if (wrapper.isEnabled()) {
 			return wrapper;
 		}
 		if (ExtUtil.missingPluginDep(info)) {
@@ -85,17 +90,17 @@ public class ExtensionLoader {
 			wrapper.setEnabled(true);
 			plugin.getLogger().info("Enabled extension: " + info.getName());
 			return wrapper;
-		} catch (Exception e) {
+		} catch (Throwable e) {
 			throw new LoadingException("Failed to enable extension '" + info.getName() + "'", e);
 		}
 	}
 
 	public void disable(@NotNull ExtensionWrapper wrapper) {
-		if (wrapper.getEnabled()) {
+		if (wrapper.isEnabled()) {
 			String name = wrapper.getInfo().getName();
 			try {
 				wrapper.getInstance().onDisable();
-			} catch (Exception e) {
+			} catch (Throwable e) {
 				plugin.getLogger().log(Level.WARNING, "Error while disabling extension '" + name + "'", e);
 			} finally {
 				wrapper.setEnabled(false);

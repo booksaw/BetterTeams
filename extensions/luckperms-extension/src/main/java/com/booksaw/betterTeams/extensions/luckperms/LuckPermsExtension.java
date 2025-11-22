@@ -22,11 +22,11 @@ public class LuckPermsExtension extends BetterTeamsExtension {
                 getLogger().warning("Could not properly hook into LuckPerms, extension Disabled" + e.getMessage());
                 e.printStackTrace();
                 luckPermsManager = null;
-                selfDisable();
+                throw new RuntimeException();
             }
         } else {
             getLogger().warning("LuckPerms plugin not found. Disabling extension.");
-            selfDisable();
+            throw new RuntimeException();
         }
     }
 
@@ -36,4 +36,5 @@ public class LuckPermsExtension extends BetterTeamsExtension {
             luckPermsManager.unregister();
         }
     }
+
 }

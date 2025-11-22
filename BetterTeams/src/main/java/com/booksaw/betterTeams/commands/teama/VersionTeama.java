@@ -94,7 +94,7 @@ public class VersionTeama extends SubCommand {
 		}
 
 		if (plugins.isEmpty()) {
-			plugins = "none detected";
+			return MessageManager.getMessage("admin.versionnoconflicts");
 		}
 
 		return plugins;
@@ -102,13 +102,13 @@ public class VersionTeama extends SubCommand {
 
 	private String getEnabledExtensions() {
 		if (Main.plugin.getExtensionManager() == null) {
-			return ChatColor.RED + "Manager not loaded";
+			return MessageManager.getMessage("admin.versionnomanager");
 		}
 
 		List<ExtensionWrapper> enabled = Main.plugin.getExtensionManager().getStore().getWrappersByState(true);
 
 		if (enabled.isEmpty()) {
-			return ChatColor.YELLOW + "None";
+			return MessageManager.getMessage("admin.versionnoextensions");
 		}
 
 		StringBuilder sb = new StringBuilder();

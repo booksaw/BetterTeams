@@ -38,12 +38,12 @@ public class ExtensionStore {
 		return extensions.get(name);
 	}
 
-	public BetterTeamsExtension get(String name, Boolean enabaled) {
+	public BetterTeamsExtension get(String name, boolean enabled) {
 		ExtensionWrapper loaded = extensions.get(name);
 		if (loaded == null) {
 			return null;
 		}
-		return (loaded.getEnabled() == enabaled) ? loaded.getInstance() : null;
+		return (loaded.isEnabled() == enabled) ? loaded.getInstance() : null;
 	}
 
 	ExtensionWrapper get(BetterTeamsExtension extension) {
@@ -55,7 +55,7 @@ public class ExtensionStore {
 
 	List<BetterTeamsExtension> getEnabledExtensions() {
 		return extensions.values().stream()
-				.filter(ExtensionWrapper::getEnabled)
+				.filter(ExtensionWrapper::isEnabled)
 				.map(ExtensionWrapper::getInstance)
 				.collect(Collectors.toList());
 	}
@@ -75,8 +75,10 @@ public class ExtensionStore {
 	}
 
 	void clear() {
-		extensions.clear();
-		loadOrder.clear();
+		synchronized (this) {
+			extensions.clear();
+			loadOrder.clear();
+		}
 	}
 
 	public int size() {
@@ -93,14 +95,10 @@ public class ExtensionStore {
 	 * @return A read-only list of matching extension instances.
 	 */
 	public List<BetterTeamsExtension> getByState(boolean enabled) {
-		List<BetterTeamsExtension> matching = extensions.values().stream()
-				.filter(loaded -> {
-					boolean isEnabled = Boolean.TRUE.equals(loaded.getEnabled());
-					return isEnabled == enabled;
-				})
+		return extensions.values().stream()
+				.filter(loaded -> loaded.isEnabled() == enabled)
 				.map(ExtensionWrapper::getInstance)
 				.toList();
-		return List.copyOf(matching);
 	}
 
 	/**
@@ -109,12 +107,8 @@ public class ExtensionStore {
 	 * @return A read-only list of matching extension wrappers.
 	 */
 	public List<ExtensionWrapper> getWrappersByState(boolean enabled) {
-		List<ExtensionWrapper> matching = extensions.values().stream()
-				.filter(loaded -> {
-					boolean isEnabled = Boolean.TRUE.equals(loaded.getEnabled());
-					return isEnabled == enabled;
-				})
+		return extensions.values().stream()
+				.filter(loaded -> loaded.isEnabled() == enabled)
 				.toList();
-		return List.copyOf(matching);
 	}
 }

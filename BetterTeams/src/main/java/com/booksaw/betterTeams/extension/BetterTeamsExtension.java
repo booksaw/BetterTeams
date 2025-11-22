@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.logging.Level;
@@ -100,17 +101,7 @@ public abstract class BetterTeamsExtension {
 	 * Reloads the config.yml from disk.
 	 */
 	public void reloadConfig() {
-		configManager = new ConfigManager(this, "config", true);
-	}
-
-
-	/**
-	 * Saves the raw "config.yml" resource from the extension's JAR to its data folder if it doesn't exist.
-	 */
-	public void saveDefaultConfig() {
-		if (configManager == null) {
-			reloadConfig();
-		}
+		configManager = new ConfigManager("config", true, this);
 	}
 
 	/**
@@ -118,7 +109,7 @@ public abstract class BetterTeamsExtension {
 	 */
 	public void saveConfig() {
 		if (configManager != null) {
-			configManager.save();
+			configManager.save(false);
 		}
 	}
 
@@ -131,15 +122,17 @@ public abstract class BetterTeamsExtension {
 	public void saveResource(@NotNull String resourcePath, boolean replace) {
 		if (resourcePath.isEmpty()) {
 			throw new IllegalArgumentException("ResourcePath cannot be empty");
+
 		}
 		resourcePath = resourcePath.replace('\\', '/');
+		String cleanPath = resourcePath.startsWith("/") ? resourcePath.substring(1) : resourcePath;
 
-		try (InputStream in = getResource(resourcePath)) {
+		try (InputStream in = getResource(cleanPath)) {
 			if (in == null) {
-				throw new IllegalArgumentException("Resource '" + resourcePath + "' not found in " + getInfo().getName());
+				throw new IllegalArgumentException("Resource '" + cleanPath + "' not found in " + getInfo().getName());
 			}
 
-			File outFile = new File(dataFolder, resourcePath);
+			File outFile = new File(dataFolder, cleanPath);
 			File outDir = outFile.getParentFile();
 			if (outDir != null && !outDir.exists()) {
 				outDir.mkdirs();
@@ -148,7 +141,7 @@ public abstract class BetterTeamsExtension {
 				Files.copy(in, outFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 			}
 		} catch (IOException ex) {
-			getLogger().log(Level.SEVERE, "Could not save resource " + resourcePath, ex);
+			getLogger().log(Level.SEVERE, "Could not save resource " + cleanPath, ex);
 		}
 	}
 
@@ -162,15 +155,20 @@ public abstract class BetterTeamsExtension {
 		if (filename.isEmpty()) {
 			throw new IllegalArgumentException("ResourcePath cannot be empty");
 		}
+		String path = filename.startsWith("/") ? filename.substring(1) : filename;
+		URL url = null;
+
+		if (getClass().getClassLoader() instanceof ExtensionClassLoader extLoader) {
+			url = extLoader.getLocalResource(path);
+		}
+		if (url == null) return null;
 
 		try {
-			String path = filename.startsWith("/") ? filename.substring(1) : filename;
-
-			URL jarLocation = getClass().getProtectionDomain().getCodeSource().getLocation();
-			URL resourceUrl = new URL("jar:" + jarLocation.toExternalForm() + "!/" + path);
-
-			return resourceUrl.openStream();
+			URLConnection connection = url.openConnection();
+			connection.setUseCaches(false);
+			return connection.getInputStream();
 		} catch (IOException e) {
+			getLogger().log(Level.WARNING, "Could not load resource: " + path, e);
 			return null;
 		}
 	}

@@ -62,7 +62,8 @@ public class ExtensionTestUtil {
 				deps != null ? deps : List.of(),
 				softDeps != null ? softDeps : List.of(),
 				List.of(),
-				List.of()
+				List.of(),
+				null
 		);
 	}
 }

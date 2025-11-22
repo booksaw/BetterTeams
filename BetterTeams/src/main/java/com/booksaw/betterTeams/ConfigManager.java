@@ -8,11 +8,12 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,12 +30,7 @@ public class ConfigManager {
 		this(resourceName, updateChecks, null);
 	}
 
-	public ConfigManager(BetterTeamsExtension extension, String resourceName, boolean updateChecks) {
-		this(resourceName, updateChecks, extension);
-	}
-
-
-	private ConfigManager(String resourceName, boolean updateChecks, BetterTeamsExtension extension) {
+	public ConfigManager(String resourceName, boolean updateChecks, BetterTeamsExtension extension) {
 		this.extension = extension;
 
 		if (!resourceName.endsWith(".yml")) {
@@ -44,7 +40,6 @@ public class ConfigManager {
 		this.resourceName = resourceName;
 
 		File folder = (extension != null) ? extension.getDataFolder() : Main.plugin.getDataFolder();
-
 		File f = new File(folder, resourceName);
 		this.filePath = f.getPath();
 
@@ -66,8 +61,9 @@ public class ConfigManager {
 	 * @param resourceName The name of the resource within the jar file
 	 * @param filePath     The path to save the resource to
 	 */
-	public ConfigManager(String resourceName, String filePath) {
-		this.extension = null;
+	public ConfigManager(String resourceName, String filePath, BetterTeamsExtension extension) {
+		this.extension = extension;
+
 		if (!resourceName.endsWith(".yml")) {
 			resourceName = resourceName + ".yml";
 		}
@@ -77,14 +73,21 @@ public class ConfigManager {
 		if (!filePath.endsWith(".yml")) {
 			filePath = filePath + ".yml";
 		}
-		this.filePath = Main.plugin.getDataFolder().getPath() + File.separator + filePath;
-		File f = new File(Main.plugin.getDataFolder(), filePath);
+
+		File folder = (extension != null) ? extension.getDataFolder() : Main.plugin.getDataFolder();
+		File f = new File(folder, filePath);
+
+		this.filePath = f.getPath();
 
 		if (!f.exists()) {
 			saveResource(resourceName, this.filePath, false);
 		}
 		config = YamlConfiguration.loadConfiguration(f);
 
+	}
+
+	public ConfigManager(String resourceName, String filePath) {
+		this(resourceName, filePath, null);
 	}
 
 	public void save() {
@@ -150,8 +153,12 @@ public class ConfigManager {
 			return new ArrayList<>();
 		}
 
-		BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-		return updateFileConfig(reader);
+		try (BufferedReader reader = new BufferedReader(new InputStreamReader(input, StandardCharsets.UTF_8))) {
+			return updateFileConfig(reader);
+		} catch (IOException e) {
+			log(Level.WARNING, "Error reading default configuration from jar", e);
+			return new ArrayList<>();
+		}
 	}
 
 	private @NotNull List<String> updateFileConfig(@NotNull BufferedReader reader) {
@@ -184,19 +191,17 @@ public class ConfigManager {
 			log(Level.INFO, resourceName + " is using legacy variables. Migration taking place.");
 		}
 		int migratedKeys = 0;
+		Pattern pattern = Pattern.compile("%s");
 		for (String key : config.getKeys(true)) {
 			Object keyVal = config.get(key);
-			if (keyVal instanceof String) {
-				String stringVal = (String) keyVal;
+			if (keyVal instanceof String stringVal) {
 
 				if (!stringVal.contains("%s")) {
 					continue;
 				}
-
-				Pattern pattern = Pattern.compile("%s");
 				Matcher matcher = pattern.matcher(stringVal);
 
-				StringBuffer sb = new StringBuffer();
+				StringBuilder sb = new StringBuilder();
 				int count = 0;
 				while (matcher.find()) {
 					matcher.appendReplacement(sb, "{" + count++ + "}");
@@ -220,37 +225,29 @@ public class ConfigManager {
 			throw new IllegalArgumentException("ResultPath cannot be null or empty");
 
 		resourcePath = resourcePath.replace('\\', '/');
-		InputStream in = (extension != null)
-				? extension.getResource(resourcePath)
-				: Main.plugin.getResource(resourcePath);
-
-		File dataFolder = (extension != null) ? extension.getDataFolder() : Main.plugin.getDataFolder();
-
-		if (in == null)
-			throw new IllegalArgumentException(
-					"The embedded resource '" + resourcePath + "' cannot be found in " + dataFolder);
 		File outFile = new File(resultPath);
+		if (outFile.exists() && !replace) {
+			log(Level.WARNING, "Could not save " + resourcePath + " to " + outFile
+					+ " because " + outFile.getName() + " already exists.");
+			return;
+		}
+
 		File outDir = outFile.getParentFile();
 		if (outDir != null && !outDir.exists())
 			outDir.mkdirs();
 
-		try {
-			if (!outFile.exists() || replace) {
-				if (!outFile.exists()) {
-					outFile.createNewFile();
-				}
+		InputStream in = (extension != null)
+				? extension.getResource(resourcePath)
+				: Main.plugin.getResource(resourcePath);
 
-				OutputStream out = Files.newOutputStream(outFile.toPath());
-				byte[] buf = new byte[1024];
-				int len;
-				while ((len = in.read(buf)) > 0)
-					out.write(buf, 0, len);
-				out.close();
-				in.close();
-			} else {
-				log(Level.WARNING, "Could not save " + resourcePath + " to " + outFile
-						+ " because " + outFile.getName() + " already exists.");
-			}
+		if (in == null) {
+			File dataFolder = (extension != null) ? extension.getDataFolder() : Main.plugin.getDataFolder();
+			throw new IllegalArgumentException(
+					"The embedded resource '" + resourcePath + "' cannot be found in " + dataFolder);
+		}
+
+		try (InputStream inputStream = in) {
+			Files.copy(inputStream, outFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		} catch (IOException ex) {
 			log(Level.SEVERE, "Could not save " + resourcePath + " to " + resultPath, ex);
 		}

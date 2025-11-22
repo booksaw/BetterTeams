@@ -6,13 +6,15 @@ import com.booksaw.betterTeams.util.ExtUtil;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 import java.io.File;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 
-@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 public class ExtensionManager {
 	private final Main plugin;
 	private final File extensionsDir;
@@ -20,6 +22,8 @@ public class ExtensionManager {
 	private final ExtensionLoader loader;
 	@Getter
 	private final ExtensionStore store;
+
+	private final Set<String> failedExtensions = new HashSet<>();
 
 	public ExtensionManager(Main plugin, File extensionsDir) {
 		this(plugin, extensionsDir, new ExtensionLoader(plugin), new ExtensionStore());
@@ -41,14 +45,26 @@ public class ExtensionManager {
 		}
 
 		plugin.getLogger().info("Loading extensions...");
+		failedExtensions.clear();
+
 		for (ExtensionInfo info : sorted) {
+			String name = info.getName();
+
+			if (hasFailedDependency(info)) {
+				plugin.getLogger().warning("Skipping extension '" + name + "' because one of its dependencies failed to load.");
+				failedExtensions.add(name);
+				continue;
+			}
+
 			try {
 				ExtensionWrapper wrapper = loader.load(info);
 				this.store.add(wrapper);
 			} catch (LoadingException e) {
-				plugin.getLogger().log(Level.SEVERE, "Failed to load extension: " + info.getName(), e.getCause() != null ? e.getCause() : e);
+				plugin.getLogger().log(Level.SEVERE, "Failed to load extension: " + name + " (" + e.getMessage() + ")");
+				failedExtensions.add(name);
 			} catch (Exception e) {
-				plugin.getLogger().log(Level.SEVERE, "An unexpected error occurred while loading " + info.getName(), e);
+				plugin.getLogger().log(Level.SEVERE, "An unexpected error occurred while loading " + name, e);
+				failedExtensions.add(name);
 			}
 		}
 	}
@@ -58,16 +74,16 @@ public class ExtensionManager {
 		List<String> loadOrder = this.store.getLoadOrder();
 		for (String name : loadOrder) {
 			ExtensionWrapper wrapper = this.store.get(name);
-			if (wrapper == null) {
-				continue;
-			}
+			if (wrapper == null) continue;
 
 			try {
 				loader.enable(wrapper);
 			} catch (LoadingException e) {
-				plugin.getLogger().log(Level.SEVERE, "Failed to enable extension: " + name, e.getCause() != null ? e.getCause() : e);
+				plugin.getLogger().log(Level.SEVERE, "Failed to enable extension: " + name, e);
+				wrapper.setEnabled(false);
 			} catch (Exception e) {
-				plugin.getLogger().log(Level.SEVERE, "An unexpected error occurred while enabling " + name, e);
+				plugin.getLogger().log(Level.SEVERE, "Unexpected error enabling " + name, e);
+				wrapper.setEnabled(false);
 			}
 		}
 	}
@@ -78,7 +94,7 @@ public class ExtensionManager {
 
 		for (String name : loadOrderReversed) {
 			ExtensionWrapper wrapper = this.store.get(name);
-			if (wrapper != null && wrapper.getEnabled()) {
+			if (wrapper != null && wrapper.isEnabled()) {
 				loader.disable(wrapper);
 			}
 		}
@@ -95,6 +111,7 @@ public class ExtensionManager {
 			}
 		}
 		this.store.clear();
+		this.failedExtensions.clear();
 	}
 
 	public void unloadExtension(BetterTeamsExtension instance) {
@@ -106,8 +123,15 @@ public class ExtensionManager {
 	}
 
 	public boolean isEnabled(String name) {
-		return store.get(name) != null && store.get(name).getEnabled();
+		return store.get(name) != null && store.get(name).isEnabled();
 	}
 
-
+	private boolean hasFailedDependency(ExtensionInfo info) {
+		for (String dep : info.getExtensionDepend()) {
+			if (failedExtensions.contains(dep)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

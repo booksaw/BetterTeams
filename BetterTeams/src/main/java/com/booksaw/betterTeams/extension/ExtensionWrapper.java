@@ -1,13 +1,16 @@
 package com.booksaw.betterTeams.extension;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import java.net.URLClassLoader;
 
 /**
  * A wrapper class that holds a loaded {@link BetterTeamsExtension}.
  */
-@Data
+@RequiredArgsConstructor
+@Getter
 public class ExtensionWrapper {
 
 	/**
@@ -28,7 +31,8 @@ public class ExtensionWrapper {
 	/**
 	 * The current lifecycle state of the extension.
 	 */
-	private Boolean enabled = false;
+	@Setter
+	private boolean enabled = false;
 }
 
 

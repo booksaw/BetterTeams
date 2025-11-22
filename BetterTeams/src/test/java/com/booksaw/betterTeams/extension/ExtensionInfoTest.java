@@ -182,34 +182,4 @@ class ExtensionInfoTest {
 			assertTrue(exception.getMessage().contains("not found or invalid"));
 		}
 	}
-
-	@Nested
-	@DisplayName("toString() Tests")
-	class ToStringTests {
-
-		private ExtensionInfo createInfo(String name, String version, String author) {
-			return new ExtensionInfo(name, "main", version, author, "", "", null, null, null, null);
-		}
-
-		@Test
-		@DisplayName("Should format correctly with an author")
-		void testToStringWithAuthor() {
-			ExtensionInfo info = createInfo("MyExt", "1.2.3", "PluginDev");
-			assertEquals("MyExt v1.2.3 (author: PluginDev)", info.toString());
-		}
-
-		@Test
-		@DisplayName("Should format correctly with no author")
-		void testToStringWithNoAuthor() {
-			ExtensionInfo info = createInfo("AnotherExt", "2.0", "");
-			assertEquals("AnotherExt v2.0", info.toString());
-		}
-
-		@Test
-		@DisplayName("Should format correctly with a blank (whitespace) author")
-		void testToStringWithBlankAuthor() {
-			ExtensionInfo info = createInfo("BlankExt", "3.0", "   ");
-			assertEquals("BlankExt v3.0", info.toString());
-		}
-	}
 }

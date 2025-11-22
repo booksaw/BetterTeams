@@ -1,9 +1,8 @@
 package com.booksaw.betterTeams.extension;
 
+import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.util.ExtUtil;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.io.TempDir;
 
 import java.io.File;
@@ -13,11 +12,14 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import static com.booksaw.betterTeams.extension.ExtensionTestUtil.createSortStub;
 import static com.booksaw.betterTeams.extension.ExtensionTestUtil.createYml;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 
 @DisplayName("ExtUtil Tests")
@@ -25,6 +27,24 @@ class ExtUtilTest {
 
 	@TempDir
 	Path tempDir;
+
+	private Main mockPlugin;
+	private Logger mockLogger;
+
+	@BeforeEach
+	void setUp() {
+		mockPlugin = mock(Main.class);
+		mockLogger = mock(Logger.class);
+
+		when(mockPlugin.getLogger()).thenReturn(mockLogger);
+
+		Main.plugin = mockPlugin;
+	}
+
+	@AfterEach
+	void tearDown() {
+		Main.plugin = null;
+	}
 
 	@Nested
 	@DisplayName("scanExtensions() Tests")

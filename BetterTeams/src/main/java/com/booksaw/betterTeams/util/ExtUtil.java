@@ -9,6 +9,7 @@ import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 import java.util.*;
+import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -30,6 +31,7 @@ public class ExtUtil {
 	public static Set<ExtensionInfo> scanExtensions(File extensionsDir) {
 		Set<ExtensionInfo> result = new HashSet<>();
 		if (!extensionsDir.exists() && !extensionsDir.mkdirs()) {
+			Main.plugin.getLogger().warning("Could not create extensions directory: " + extensionsDir.getAbsolutePath());
 			return result;
 		}
 
@@ -42,13 +44,17 @@ public class ExtUtil {
 		for (File jar : files) {
 			try {
 				ExtensionInfo info = ExtensionInfo.fromYaml(jar);
-				if (seenNames.contains(info.getName())) {
+				String name = info.getName();
+				if (seenNames.contains(name)) {
+					Main.plugin.getLogger().warning("Duplicate extension found: '" + name + "'. Ignoring file: " + jar.getName());
 					continue;
 				}
 				result.add(info);
 				seenNames.add(info.getName());
 
-			} catch (Exception ignored) {}
+			} catch (Exception e) {
+				Main.plugin.getLogger().log(Level.WARNING, "Failed to load extension info from file: " + jar.getName(), e);
+			}
 
 		}
 		return result;

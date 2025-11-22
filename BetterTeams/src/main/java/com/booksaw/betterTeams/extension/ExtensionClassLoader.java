@@ -49,4 +49,8 @@ public class ExtensionClassLoader extends URLClassLoader {
 	public Class<?> findClassInJar(String name) throws ClassNotFoundException {
 		return super.findClass(name);
 	}
+
+	public URL getLocalResource(String name) {
+		return findResource(name);
+	}
 }
