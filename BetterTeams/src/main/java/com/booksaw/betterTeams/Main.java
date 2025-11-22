@@ -23,10 +23,9 @@ import com.booksaw.betterTeams.cooldown.CooldownManager;
 import com.booksaw.betterTeams.cost.CostManager;
 import com.booksaw.betterTeams.events.*;
 import com.booksaw.betterTeams.events.MCTeamManagement.BelowNameType;
-import com.booksaw.betterTeams.integrations.LuckPermsManager;
+import com.booksaw.betterTeams.extension.ExtensionManager;
 import com.booksaw.betterTeams.integrations.UltimateClaimsManager;
 import com.booksaw.betterTeams.integrations.WorldGuardManagerV7;
-import com.booksaw.betterTeams.integrations.ZKothManager;
 import com.booksaw.betterTeams.integrations.hologram.DHHologramManager;
 import com.booksaw.betterTeams.integrations.hologram.HDHologramManager;
 import com.booksaw.betterTeams.integrations.hologram.HologramManager;
@@ -41,8 +40,6 @@ import com.booksaw.betterTeams.util.WebhookHandler;
 import com.tcoded.folialib.FoliaLib;
 import lombok.Getter;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
-import net.luckperms.api.LuckPerms;
-import net.luckperms.api.LuckPermsProvider;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 import org.bstats.bukkit.Metrics;
@@ -85,7 +82,8 @@ public class Main extends JavaPlugin {
 	@Getter
 	private TeamPlaceholders teamPlaceholders;
 
-	private LuckPermsManager luckPermsManager;
+	@Getter
+	ExtensionManager extensionManager;
 
 	/**
 	 * FoliaLib instance for Folia/Paper/Spigot support
@@ -161,24 +159,13 @@ public class Main extends JavaPlugin {
 
 		ChatManagement.enable();
 
+		setupExtension();
+
 		if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null
 				&& Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("PlaceholderAPI")).isEnabled()) {
 			placeholderAPI = true;
 			teamPlaceholders = new TeamPlaceholders(this);
 			teamPlaceholders.register();
-		}
-
-		if (Bukkit.getPluginManager().isPluginEnabled("LuckPerms") && getConfig().getBoolean("luckperms.enabled")) {
-			try {
-				LuckPerms luckPerms = LuckPermsProvider.get();
-				getLogger().info("LuckPerms detected! Registering custom context provider.");
-				luckPermsManager = new LuckPermsManager(luckPerms);
-				luckPermsManager.register();
-			} catch (Exception e) {
-				getLogger().warning("Could not properly hook into LuckPerms, context integration will not be available.");
-				luckPermsManager = null;
-				e.printStackTrace();
-			}
 		}
 
 		if (Bukkit.getPluginManager().getPlugin("UltimateClaims") != null
@@ -206,6 +193,10 @@ public class Main extends JavaPlugin {
 	@Override
 	public void onDisable() {
 
+		if (extensionManager != null) {
+			extensionManager.unloadExtensions();
+		}
+
 		foliaLib.getScheduler().cancelAllTasks();
 
 		for (Entry<Player, Team> temp : InventoryManagement.adminViewers.entrySet()) {
@@ -217,9 +208,6 @@ public class Main extends JavaPlugin {
 			HologramManager.holoManager.disable();
 		}
 
-		if (luckPermsManager != null) {
-			luckPermsManager.unregister();
-		}
 
 		if (teamManagement != null) {
 			teamManagement.removeAll(false);
@@ -452,11 +440,6 @@ public class Main extends JavaPlugin {
 			}
 		}
 
-		// loading the zkoth event listener
-		if (getServer().getPluginManager().isPluginEnabled("zKoth")) {
-			Main.plugin.getLogger().info("Found plugin zKoth, adding plugin integration");
-			getServer().getPluginManager().registerEvents(new ZKothManager(), this);
-		}
 
 		getServer().getPluginManager().registerEvents((chatManagement = new ChatManagement()), this);
 		getServer().getPluginManager().registerEvents(new ScoreManagement(), this);
@@ -533,5 +516,20 @@ public class Main extends JavaPlugin {
 
 		Team.setupTeamManager(to);
 		Team.getTeamManager().loadTeams();
+	}
+
+	public void setupExtension() {
+		extensionManager = new ExtensionManager(this, new File(getDataFolder(), "extensions"));
+		extensionManager.initializeExtensions();
+
+		int enableTick = getConfig().getInt("extension.enableTick", 1);
+		if (enableTick <= 0) {
+			extensionManager.enableExtensions();
+		} else {
+			// Run later
+			foliaLib.getScheduler().runLater(() -> {
+				extensionManager.enableExtensions();
+			}, enableTick);
+		}
 	}
 }

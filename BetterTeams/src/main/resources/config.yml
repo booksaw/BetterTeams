@@ -635,6 +635,13 @@ luckperms:
   # NOTE: Currently if enabled there will be a noticable performance impact on your server
   enabled: false
 
+# Settings regarding the extension system
+extension:
+  # Delay (in ticks) before enabling extensions
+  # Setting this to 1 ensures all other plugins are fully enabled/loaded before extensions start
+  # Use 0 to enable immediately during startup (not recommended)
+  enableTick: 1
+
 # Debug options: 
 
 # Used to disable the in game notifier about update release
