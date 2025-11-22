@@ -10,6 +10,8 @@ This is a major release which includes several breaking changes for the API
 
 ### Features
 
+* Added an Extensions system to BetterTeams where individual extensions are now packaged in their own file like
+  Extensions - Credit lpMind
 * Added a `noTeleport` config option, which when enabled will display coordinates in chat rather than teleporting the
   player [#662](https://github.com/booksaw/BetterTeams/issues/662)
 
