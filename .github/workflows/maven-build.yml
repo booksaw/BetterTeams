@@ -41,4 +41,4 @@ jobs:
         uses: actions/upload-artifact@v5
         with:
           name: my-app-jar
-          path: /server/plugins/*.jar
+          path: server/**/*.jar
