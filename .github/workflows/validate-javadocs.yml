@@ -29,5 +29,5 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      - name: Generate Javadocs
-        run: mvn clean install javadoc:javadoc -Pjavadocs
+      - name: Generate Javadocs - BetterTeams submodule
+        run: mvn -pl betterteams javadoc:javadoc -Pjavadocs
