@@ -11,35 +11,36 @@ lag behind the English version or have slight inaccuracies, but it will still be
 
 ## Supported languages
 
-| Language code | Language            |
-|---------------|---------------------|
-| ar            | Arabic              |
-| hy            | Armenian            |
-| ca            | Catlan              |
-| cz            | Czech               |
-| nl            | Dutch               |
-| en            | English             |
-| fr            | French              |
-| ka            | Georgian            |
-| de            | German              |
-| hi            | Hindi               |
-| hu            | Hungarian           |
-| id            | Indonesian          |
-| it            | Italian             |
-| ja            | Japanese            |
-| ko            | Korean              |
-| li            | Lithuanian          |
-| es_mx         | Mexican Spanish     |
-| pl            | Polish              |
-| pt            | Portuguese          |
-| ro            | Romanian            |
-| ru            | Russian             |
-| sr            | Serbian             |
-| es            | Spanish             |
-| zh_tw         | Traditional Chinese |
-| tr            | Turkish             |
-| uk            | Ukrainian           |
-| vi            | Vietnamese          |
+| Language code | Language             |
+|---------------|----------------------|
+| ar            | Arabic               |
+| hy            | Armenian             |
+| ca            | Catlan               |
+| cz            | Czech                |
+| nl            | Dutch                |
+| en            | English              |
+| fr            | French               |
+| ka            | Georgian             |
+| de            | German               |
+| hi            | Hindi                |
+| hu            | Hungarian            |
+| id            | Indonesian           |
+| it            | Italian              |
+| ja            | Japanese             |
+| ko            | Korean               |
+| li            | Lithuanian           |
+| es_mx         | Mexican Spanish      |
+| pl            | Polish               |
+| pt            | Portuguese           |
+| ro            | Romanian             |
+| ru            | Russian              |
+| sr            | Serbian              |
+| zn_ch         | Simplified Chinese   |
+| es            | Spanish              |
+| zh_tw         | Traditional Chinese  |
+| tr            | Turkish              |
+| uk            | Ukrainian            |
+| vi            | Vietnamese           |
 
 ***
 

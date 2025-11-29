@@ -14,6 +14,7 @@ This is a major release which includes several breaking changes for the API
   Extensions - Credit lpMind
 * Added a `noTeleport` config option, which when enabled will display coordinates in chat rather than teleporting the
   player [#662](https://github.com/booksaw/BetterTeams/issues/662)
+* Added Simplified Chinese - Credit Minecraft0122 (#907)
 
 ### Improvements
 
