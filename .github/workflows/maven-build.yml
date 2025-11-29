@@ -37,8 +37,10 @@ jobs:
       - name: Build with Maven
         run: mvn --batch-mode clean verify
 
-      - name: Upload JAR as artifact
-        uses: actions/upload-artifact@v5
-        with:
-          name: my-app-jar
-          path: server/**/*.jar
+      - name: Upload jars
+        shell: bash
+        run: |
+          for f in $(find server -maxdepth 4 -type f -name "*.jar"); do
+            name=$(basename "$f")
+            gh run upload-artifact "$name" "$f"
+          done

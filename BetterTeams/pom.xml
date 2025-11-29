@@ -18,8 +18,6 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!-- Used to fix duplicate java doc class generation with delombok -->
-        <is.betterteams.module>true</is.betterteams.module>
     </properties>
     <repositories>
         <repository>
@@ -328,12 +326,6 @@
     <profiles>
         <profile>
             <id>javadocs</id>
-            <activation>
-                <property>
-                    <name>is.betterteams.module</name>
-                    <value>true</value>
-                </property>
-            </activation>
             <build>
                 <plugins>
                     <plugin>
@@ -361,7 +353,6 @@
                         <configuration>
                             <outputDirectory>${maven.multiModuleProjectDirectory}/target/site/</outputDirectory>
                             <sourcepath>${project.build.directory}/generated-sources/delombok</sourcepath>
-                            <excludePackageNames>**</excludePackageNames>
                             <release>${java.version}</release>
                             <source>${java.version}</source>
                             <tags>
