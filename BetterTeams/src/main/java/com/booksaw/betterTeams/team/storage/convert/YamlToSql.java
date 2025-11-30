@@ -113,7 +113,7 @@ public class YamlToSql extends Converter {
 				boolean anchor = anchoredPlayers.contains(split[0]);
 				if (split.length == 2) {
 					database.insertRecordIfNotExists(TableName.PLAYERS,
-							"teamID, playerUUID, playerRank, anchor" + (playerAnchorExists ? ", anchor" : ""),
+							"teamID, playerUUID, playerRank" + (playerAnchorExists ? ", anchor" : ""),
 							"'" + teamName + "', '" + split[0] + "', " + rank.value
 									+ (playerAnchorExists ? ", " + anchor : ""));
 				} else {
