@@ -581,7 +581,7 @@ command:
   setrank: setrank
   add: add
   set: set
-  score: scor
+  score: score
   enableclaims: enableclaims
   disableclaims: disableclaims
   anchor: anchor
