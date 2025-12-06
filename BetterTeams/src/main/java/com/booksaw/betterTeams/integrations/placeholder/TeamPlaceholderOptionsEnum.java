@@ -21,7 +21,9 @@ public enum TeamPlaceholderOptionsEnum {
 	PVP(new PvpPlaceholderProvider()),
 	HASHOME(new HasHomePlaceholderProvider()),
 	TEAMCHAT(new TeamChatPlaceholderProvider()),
-	META(new MetaPlaceholderProvider());
+	META(new MetaPlaceholderProvider()),
+	ANCHOR(new AnchorPlaceholderProvider()),
+	COLORNAME(new ColorNamePlaceholderProvider());
 
 	private final IndividualTeamPlaceholderProvider teamProvider;
 	private final IndividualTeamPlayerPlaceholderProvider teamPlayerProvider;

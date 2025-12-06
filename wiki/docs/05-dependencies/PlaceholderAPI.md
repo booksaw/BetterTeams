@@ -50,7 +50,8 @@ you want to use in place of the `{rank}` variable. The options are as follows:
 * `score` - The score of the team
 * `money` - The current full balance of the team, i.e. 10,000.45
 * `moneyshort`-  The current balance of the team, in the formatting 10.0k
-* `color` - The color set by the team
+* `color` - The color of the team in symbol format, i.e. §a
+* `colorname` - The color of the team in string format, i.e. LIME
 * `onlinelist` - A list of all online players in the team
 * `offlinelist` - A list of all the offline players in the team
 * `online` - The number of online players in the team
@@ -74,6 +75,7 @@ you want to use in place of the `{rank}` variable. The options are as follows:
   of `placeholder.notInTeam`. Only works in the context of `%betterteams_inTeam%`
 * `hasHome` - Returns the value of `placeholder.hasHome` if the targeted team has a home, otherwise the value
   of `placeholder.noHome`
+* `anchor` - Returns true or false depending on if the team is anchored
 * `teamChat` - Returns the configurable message matching if the player is in team chat, ally chat or global chat
 * `meta_<key>` - returns the meta of team or value of `placeholder.noMeta` (Only works in the context of `%betterteams_meta_<key>%`)
 

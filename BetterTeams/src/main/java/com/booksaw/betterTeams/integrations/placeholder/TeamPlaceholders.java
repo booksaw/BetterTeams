@@ -7,9 +7,9 @@ import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.util.Cache;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.time.Duration;
 
@@ -61,7 +61,7 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 	}
 
 	@Override
-	public String onPlaceholderRequest(Player player, @NotNull String identifier) {
+	public @Nullable String onRequest(OfflinePlayer player, @NotNull String identifier) {
 		String originalIdentifier = identifier;
 		identifier = identifier.toLowerCase();
 		String[] split = identifier.split("_");
@@ -95,20 +95,14 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 		String[] split = identifier.split("_");
 
 		// more complex request though not individual player related so can be cached
-		switch (split[0]) {
-			case "position":
-				return processRankedTeamDataPlaceholder(identifier, SortType.SCORE);
-			case "balanceposition":
-				return processRankedTeamDataPlaceholder(identifier, SortType.BALANCE);
-			case "membersposition":
-				return processRankedTeamDataPlaceholder(identifier, SortType.MEMBERS);
-			case "static":
-				return processStaticTeamPlaceholder(split);
-			case "staticplayer":
-				return processStaticTeamPlayerPlaceholder(split);
-			default:
-				return null;
-		}
+		return switch (split[0]) {
+			case "position" -> processRankedTeamDataPlaceholder(identifier, SortType.SCORE);
+			case "balanceposition" -> processRankedTeamDataPlaceholder(identifier, SortType.BALANCE);
+			case "membersposition" -> processRankedTeamDataPlaceholder(identifier, SortType.MEMBERS);
+			case "static" -> processStaticTeamPlaceholder(split);
+			case "staticplayer" -> processStaticTeamPlayerPlaceholder(split);
+			default -> null;
+		};
 	}
 
 	private String processRankedTeamDataPlaceholder(String identifier, SortType type) {
@@ -127,18 +121,11 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 		if (value <= 0) {
 			return null;
 		}
-		String[] teams;
-		switch (type) {
-			case BALANCE:
-				teams = Team.getTeamManager().sortTeamsByBalance();
-				break;
-			case MEMBERS:
-				teams = Team.getTeamManager().sortTeamsByMembers();
-				break;
-			default:
-				teams = Team.getTeamManager().sortTeamsByScore();
-				break;
-		}
+		String[] teams = switch (type) {
+			case BALANCE -> Team.getTeamManager().sortTeamsByBalance();
+			case MEMBERS -> Team.getTeamManager().sortTeamsByMembers();
+			default -> Team.getTeamManager().sortTeamsByScore();
+		};
 
 		Team team;
 		try {
