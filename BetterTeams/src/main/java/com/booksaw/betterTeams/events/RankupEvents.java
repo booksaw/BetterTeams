@@ -6,6 +6,8 @@ import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.customEvents.post.PostDemotePlayerEvent;
 import com.booksaw.betterTeams.customEvents.post.PostLevelupTeamEvent;
 import com.booksaw.betterTeams.customEvents.post.PostPromotePlayerEvent;
+import com.booksaw.betterTeams.team.level.LevelManager;
+import com.booksaw.betterTeams.team.level.TeamLevel;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -20,13 +22,16 @@ public class RankupEvents implements Listener {
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
 	public void onRankup(PostLevelupTeamEvent e) {
-		List<String> endCommands = Main.plugin.getConfig()
-				.getStringList("levels.l" + e.getCurrentLevel() + ".endCommands");
-		runCommandList(endCommands, e.getTeam(), e.getCurrentLevel(), e.getCommandSender());
 
-		List<String> startCommands = Main.plugin.getConfig()
-				.getStringList("levels.l" + e.getNewLevel() + ".startCommands");
-		runCommandList(startCommands, e.getTeam(), e.getNewLevel(), e.getCommandSender());
+		TeamLevel oldLevel = LevelManager.getLevel(e.getCurrentLevel());
+		if (oldLevel != null) {
+			runCommandList(oldLevel.getEndCommands(), e.getTeam(), e.getCurrentLevel(), e.getCommandSender());
+		}
+
+		TeamLevel newLevel = LevelManager.getLevel(e.getNewLevel());
+		if (newLevel != null) {
+			runCommandList(newLevel.getStartCommands(), e.getTeam(), e.getNewLevel(), e.getCommandSender());
+		}
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)

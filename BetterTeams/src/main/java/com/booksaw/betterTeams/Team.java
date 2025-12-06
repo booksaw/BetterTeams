@@ -9,6 +9,8 @@ import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
 import com.booksaw.betterTeams.team.*;
 import com.booksaw.betterTeams.team.AnchoredPlayerUUIDSetComponent.AnchorResult;
+import com.booksaw.betterTeams.team.level.LevelManager;
+import com.booksaw.betterTeams.team.level.TeamLevel;
 import com.booksaw.betterTeams.team.storage.StorageType;
 import com.booksaw.betterTeams.team.storage.team.StoredTeamValue;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
@@ -1633,7 +1635,11 @@ public class Team {
 	}
 
 	public int getMaxWarps() {
-		return Main.plugin.getConfig().getInt("levels.l" + getLevel() + ".maxWarps");
+		return getLevelObject().getMaxWarps();
+	}
+
+	public int getMaxChests() {
+		return getLevelObject().getMaxChests();
 	}
 
 	public void setLevel(int level) {
@@ -1669,12 +1675,12 @@ public class Team {
 	}
 
 	public double getMaxMoney() {
-		return Main.plugin.getConfig().getDouble("levels.l" + getLevel() + ".maxBal");
+		return getLevelObject().getMaxBalance();
 	}
 
 	public int getTeamLimit() {
 		if (!Main.plugin.getConfig().getBoolean("permissionLevels") || Main.perms == null) {
-			return Main.plugin.getConfig().getInt("levels.l" + getLevel() + ".teamLimit");
+			return getLevelObject().getTeamLimit();
 		} else {
 
 			int limit = 1;
@@ -1700,11 +1706,11 @@ public class Team {
 	}
 
 	public int getMaxAdmins() {
-		return Main.plugin.getConfig().getInt("levels.l" + getLevel() + ".maxAdmins");
+		return getLevelObject().getMaxAdmins();
 	}
 
 	public int getMaxOwners() {
-		return Main.plugin.getConfig().getInt("levels.l" + getLevel() + ".maxOwners");
+		return getLevelObject().getMaxOwners();
 	}
 
 	public boolean isMaxAdmins() {
@@ -1732,5 +1738,9 @@ public class Team {
 	public void removeAndSaveMeta(String key) {
 		getMeta().get().remove(key);
 		getStorage().saveMeta(getMeta().get());
+	}
+
+	public TeamLevel getLevelObject() {
+		return LevelManager.getLevel(this.level);
 	}
 }
