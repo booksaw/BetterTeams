@@ -10,6 +10,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.time.Duration;
 
@@ -62,6 +63,37 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 
 	@Override
 	public String onPlaceholderRequest(Player player, @NotNull String identifier) {
+		String originalIdentifier = identifier;
+		identifier = identifier.toLowerCase();
+		String[] split = identifier.split("_");
+
+		String cachedValue = placeholderCache.get(identifier);
+		if (cachedValue != null) return cachedValue;
+
+		if (player == null) return null;
+
+		if ("inteam".equalsIgnoreCase(split[0])) {
+			return Team.getTeamManager().isInTeam(player)
+					? MessageManager.getMessage("placeholder.inteam")
+					: MessageManager.getMessage("placeholder.notinteam");
+		}
+
+		Team team = Team.getTeam(player);
+		if (team == null) return MessageManager.getMessage("placeholder.noTeam");
+
+		TeamPlayer tp = team.getTeamPlayer(player);
+		if (tp == null) return MessageManager.getMessage("placeholder.noTeam");
+
+		String placeholderType = split[0];
+		if (TeamPlaceholderService.requiresData(placeholderType)) {
+			String data = originalIdentifier.substring(originalIdentifier.indexOf('_') + 1);
+			return TeamPlaceholderService.getPlaceholder(placeholderType, team, tp, data);
+		}
+		return TeamPlaceholderService.getPlaceholder(identifier, team, tp);
+	}
+
+	@Override
+	public @Nullable String onRequest(OfflinePlayer player, @NotNull String identifier)  {
 		String originalIdentifier = identifier;
 		identifier = identifier.toLowerCase();
 		String[] split = identifier.split("_");
