@@ -6,6 +6,8 @@ import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.SubCommand;
 import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
+import com.booksaw.betterTeams.team.level.LevelManager;
+import com.booksaw.betterTeams.team.level.TeamLevel;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -29,25 +31,28 @@ public class RankCommand extends SubCommand {
 			return new CommandResponse("rank.noTeam");
 		}
 
-		String priceStr = Main.plugin.getConfig().getString("levels.l" + (team.getLevel() + 1) + ".price");
+		TeamLevel currentLevel = team.getLevelObject();
+		TeamLevel nextLevel = LevelManager.getNextLevel(team.getLevel());
 
-		if (priceStr == null || priceStr.isEmpty()) {
-			(new ReferencedFormatMessage("rank.infomm", team.getLevel())).sendMessage(sender);
+		if (nextLevel == null) {
+			new ReferencedFormatMessage("rank.infomm", team.getLevel()).sendMessage(sender);
 		} else {
-			boolean score = Objects.requireNonNull(priceStr).contains("s");
+			boolean score = nextLevel.isScoreCost();
+			String costString = String.valueOf((int) nextLevel.getCostValue());
 
-			(new ReferencedFormatMessage("rank.info" + ((score) ? "s" : "m"), team.getLevel(),
-					priceStr.substring(0, priceStr.length() - 1))).sendMessage(sender);
+			new ReferencedFormatMessage("rank.info" + ((score) ? "s" : "m"), team.getLevel(),
+					costString).sendMessage(sender);
+
 		}
 
-		List<String> rankLore = Main.plugin.getConfig().getStringList("levels.l" + team.getLevel() + ".rankLore");
+		List<String> rankLore = currentLevel.getColoredLore();
 
 		if (rankLore.isEmpty()) {
 			return new CommandResponse(true);
 		}
 
 		for (String s : rankLore) {
-			MessageManager.sendFullMessage(sender, ChatColor.translateAlternateColorCodes('&', s));
+			MessageManager.sendFullMessage(sender, s);
 		}
 
 		return new CommandResponse(true);
