@@ -1,7 +1,6 @@
 package com.booksaw.betterTeams.commands.teama;
 
 import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.ParentCommand;
 import com.booksaw.betterTeams.commands.presets.TeamSelectSubCommand;

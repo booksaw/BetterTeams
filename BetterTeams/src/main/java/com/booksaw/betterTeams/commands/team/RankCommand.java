@@ -1,19 +1,16 @@
 package com.booksaw.betterTeams.commands.team;
 
 import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.SubCommand;
 import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
 import com.booksaw.betterTeams.team.level.LevelManager;
 import com.booksaw.betterTeams.team.level.TeamLevel;
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.List;
-import java.util.Objects;
 
 public class RankCommand extends SubCommand {
 
@@ -43,6 +40,36 @@ public class RankCommand extends SubCommand {
 			new ReferencedFormatMessage("rank.info" + ((score) ? "s" : "m"), team.getLevel(),
 					costString).sendMessage(sender);
 
+			boolean hasHeaderSent = false;
+
+			int warpDiff = nextLevel.getMaxWarps() - currentLevel.getMaxWarps();
+			if (warpDiff > 0) {
+				hasHeaderSent = sendPerkMessage(sender, hasHeaderSent, "rank.perks.warps", warpDiff);
+			}
+
+			int memberDiff = nextLevel.getTeamLimit() - currentLevel.getTeamLimit();
+			if (memberDiff > 0) {
+				hasHeaderSent = sendPerkMessage(sender, hasHeaderSent, "rank.perks.members", memberDiff);
+			}
+
+			int chestDiff = nextLevel.getMaxChests() - currentLevel.getMaxChests();
+			if (chestDiff > 0) {
+				hasHeaderSent = sendPerkMessage(sender, hasHeaderSent, "rank.perks.chests", chestDiff);
+			}
+
+			if (nextLevel.getMaxBalance() > currentLevel.getMaxBalance()) {
+				hasHeaderSent = sendPerkMessage(sender, hasHeaderSent, "rank.perks.bank", String.valueOf(nextLevel.getMaxBalance()));
+			}
+
+			int adminDiff = nextLevel.getMaxAdmins() - currentLevel.getMaxAdmins();
+			if (adminDiff > 0) {
+				hasHeaderSent = sendPerkMessage(sender, hasHeaderSent, "rank.perks.admins", adminDiff);
+			}
+
+			int ownerDiff = nextLevel.getMaxOwners() - currentLevel.getMaxOwners();
+			if (ownerDiff > 0) {
+				hasHeaderSent = sendPerkMessage(sender, hasHeaderSent, "rank.perks.owners", ownerDiff);
+			}
 		}
 
 		List<String> rankLore = currentLevel.getColoredLore();
@@ -56,6 +83,18 @@ public class RankCommand extends SubCommand {
 		}
 
 		return new CommandResponse(true);
+	}
+
+	/**
+	 * Helper method to handle sending the header and perk message.
+	 * Returns true to update the 'hasHeaderSent' status.
+	 */
+	private boolean sendPerkMessage(CommandSender sender, boolean hasHeaderSent, String key, Object... args) {
+		if (!hasHeaderSent) {
+			new ReferencedFormatMessage("rank.perks.header").sendMessage(sender);
+		}
+		new ReferencedFormatMessage(key, args).sendMessage(sender);
+		return true;
 	}
 
 	@Override
