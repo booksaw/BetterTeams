@@ -54,9 +54,17 @@ public class Database {
 
 		Main.plugin.getLogger().info("Attempting to connect to database");
 
+		StringBuilder additionalOptions = new StringBuilder();
+		if (storageProperties != null) {
+			for (String property : storageProperties) {
+				additionalOptions.append("&").append(property);
+			}
+		}
+
 		try {
 			connection = DriverManager.getConnection(
-					"jdbc:mysql://" + host + ":" + port + "/" + database + "?autoReconnect=true&useSSL=false", user,
+					"jdbc:mysql://" + host + ":" + port + "/" + database + "?autoReconnect=true" + additionalOptions.toString(),
+					user,
 					password);
 			testDataSource();
 
