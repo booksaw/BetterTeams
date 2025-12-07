@@ -4,10 +4,7 @@ import com.booksaw.betterTeams.Main;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Level;
 
 public class LevelManager {
@@ -97,4 +94,13 @@ public class LevelManager {
 	public static boolean exists(int level) {
 		return levels.containsKey(level);
 	}
+
+	/**
+	 * Returns an unmodifiable view of all loaded levels.
+	 * @return Map of Level ID -> TeamLevel
+	 */
+	public static Map<Integer, TeamLevel> getLevels() {
+		return Collections.unmodifiableMap(levels);
+	}
+
 }
