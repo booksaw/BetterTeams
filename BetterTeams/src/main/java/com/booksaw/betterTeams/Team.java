@@ -951,6 +951,15 @@ public class Team {
 	}
 
 	/**
+	 * Used to get the list of all banned players
+	 *
+	 * @return The list of UUID of all banned players
+	 */
+	public Set<UUID> getBannedPlayers() {
+		return bannedPlayers.get();
+	}
+
+	/**
 	 * This method is used to add a player to the list of players which are banned
 	 * from the team
 	 *
