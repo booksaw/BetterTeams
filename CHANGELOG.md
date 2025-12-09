@@ -25,6 +25,8 @@ This is a major release which includes several breaking changes for the API
     * Added a config option `moneyDecimalPlaces` to configure how many decimal places are displayed for money
 * Added some additional information to some BetterTeams messages (will not automatically update config)
 * Added further warnings when disbanding a team (#901)
+* Added 2 new placeholders, %betterteams_colorname% and %betterteams_anchor% - Credit Just Lime
+* Added support for Offline Players in placeholders - Credit Just Lime
 
 ### Bug Fixes
 
