@@ -72,7 +72,7 @@ public class LevelManager {
 	 * @return The TeamLevel object
 	 */
 	public static TeamLevel getLevel(int level) {
-		return levels.getOrDefault(level, levels.get(1));
+		return levels.get(level);
 	}
 
 	public static TeamLevel getNextLevel(int currentLevel) {
