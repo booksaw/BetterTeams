@@ -229,6 +229,7 @@ public class Team {
 	/**
 	 * This is used to store all players which are banned from the team
 	 */
+	@Getter
 	private final BanSetComponent bannedPlayers = new BanSetComponent();
 
 	/**
@@ -948,15 +949,6 @@ public class Team {
 		teamHome = null;
 		getStorage().set(StoredTeamValue.HOME, "");
 		if (useTeamHomeAsAnchor) setAnchored(false);
-	}
-
-	/**
-	 * Used to get the list of all banned players
-	 *
-	 * @return The list of UUID of all banned players
-	 */
-	public Set<UUID> getBannedPlayers() {
-		return bannedPlayers.get();
 	}
 
 	/**
