@@ -10,6 +10,10 @@ tags: ["Score", "KOTH", "Events"]
 
 # ZKoth Extension
 
+:::warning
+Support for these plugins is either added by the authors of these plugins or community members, they are not tested by the lead developer of BetterTeams so purchase at your own risk!
+:::
+
 This extension provides a direct integration between **BetterTeams** and **[zKoth - King of the Hill](https://www.spigotmc.org/resources/zkoth-king-of-the-hill.76749/)**.
 
 It allows teams to compete for **Team Score** by capturing King of the Hill points. When a player captures a KOTH, their team is automatically awarded a configurable amount of score.
