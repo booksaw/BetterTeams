@@ -5,6 +5,8 @@ import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 import com.booksaw.betterTeams.customEvents.LevelupTeamEvent;
 import com.booksaw.betterTeams.customEvents.post.PostLevelupTeamEvent;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
+import com.booksaw.betterTeams.team.level.LevelManager;
+import com.booksaw.betterTeams.team.level.TeamLevel;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -16,51 +18,42 @@ public class RankupCommand extends TeamSubCommand {
 	@Override
 	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
 
-		String priceStr = Main.plugin.getConfig().getString("levels.l" + (team.getLevel() + 1) + ".price");
+		TeamLevel nextLevel = LevelManager.getNextLevel(team.getLevel());
 
-		if (priceStr == null || priceStr.isEmpty()) {
+		if (nextLevel == null) {
 			return new CommandResponse("rankup.max");
 		}
 
-		boolean score = priceStr.contains("s");
-		int price;
-		try {
-			price = Integer.parseInt(priceStr.substring(0, priceStr.length() - 1));
-		} catch (Exception e) {
-			price = 0;
-		}
+		int price = (int) nextLevel.getCostValue();
+		boolean score = nextLevel.isScoreCost();
 
 		if (price <= 0) {
-			Main.plugin.getLogger().warning("Rankup values setup wrong, price was found to be <= 0");
+			Main.plugin.getLogger().warning("Rankup values setup wrong, price was found to be <= 0 for level " + nextLevel.getLevel());
 			return new CommandResponse("rankup.max");
 		}
-		// score is valid checking player has enough money score
 
 		if (score) {
-
 			if (team.getScore() < price) {
 				return new CommandResponse(new ReferencedFormatMessage("rankup.score", price));
 			}
-
 		} else {
-
 			if (team.getMoney() < price) {
 				return new CommandResponse(new ReferencedFormatMessage("rankup.money", price));
 			}
-
 		}
 
 		int oldLevel = team.getLevel();
-		int newLevel = oldLevel + 1;
+		int newLevelInt = nextLevel.getLevel();
 		Player mcPlayer = player.getPlayer().getPlayer();
-		LevelupTeamEvent event = new LevelupTeamEvent(team, oldLevel, newLevel, price, score, mcPlayer);
+
+		LevelupTeamEvent event = new LevelupTeamEvent(team, oldLevel, newLevelInt, price, score, mcPlayer);
 		Bukkit.getPluginManager().callEvent(event);
 		if (event.isCancelled()) {
 			return new CommandResponse(false);
 		}
 
 		price = event.getCost();
-		newLevel = event.getNewLevel();
+		newLevelInt = event.getNewLevel();
 		score = event.isScore();
 
 		if (score) {
@@ -69,9 +62,9 @@ public class RankupCommand extends TeamSubCommand {
 			team.setMoney(team.getMoney() - price);
 		}
 
-		team.setLevel(newLevel);
+		team.setLevel(newLevelInt);
 
-		Bukkit.getPluginManager().callEvent(new PostLevelupTeamEvent(team, oldLevel, newLevel, price, score, mcPlayer));
+		Bukkit.getPluginManager().callEvent(new PostLevelupTeamEvent(team, oldLevel, newLevelInt, price, score, mcPlayer));
 		return new CommandResponse(true, "rankup.success");
 	}
 

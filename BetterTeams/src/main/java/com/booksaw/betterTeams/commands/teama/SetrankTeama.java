@@ -1,11 +1,11 @@
 package com.booksaw.betterTeams.commands.teama;
 
 import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.ParentCommand;
 import com.booksaw.betterTeams.commands.presets.TeamSelectSubCommand;
 import com.booksaw.betterTeams.message.HelpMessage;
+import com.booksaw.betterTeams.team.level.LevelManager;
 import org.bukkit.command.CommandSender;
 
 import java.util.List;
@@ -29,12 +29,7 @@ public class SetrankTeama extends TeamSelectSubCommand {
 			return new CommandResponse(new HelpMessage(this, label, parentCommand));
 		}
 
-		if (level <= 0) {
-			return new CommandResponse(new HelpMessage(this, label, parentCommand));
-		}
-
-		String price = Main.plugin.getConfig().getString("levels.l" + level + ".price");
-		if (level > 1 && (price == null || price.isEmpty())) {
+		if (!LevelManager.exists(level)) {
 			return new CommandResponse(true, "admin.setrank.no");
 		}
 

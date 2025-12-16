@@ -32,6 +32,7 @@ import com.booksaw.betterTeams.integrations.hologram.HologramManager;
 import com.booksaw.betterTeams.integrations.placeholder.TeamPlaceholders;
 import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.score.ScoreManagement;
+import com.booksaw.betterTeams.team.level.LevelManager;
 import com.booksaw.betterTeams.team.storage.StorageType;
 import com.booksaw.betterTeams.team.storage.convert.Converter;
 import com.booksaw.betterTeams.team.storage.storageManager.SeparatedYamlStorageManager;
@@ -154,6 +155,8 @@ public class Main extends JavaPlugin {
 		MessageManager.setupMessageSender(adventure);
 
 		loadCustomConfigs();
+
+		LevelManager.reload();
 
 		setupStorage();
 

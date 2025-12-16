@@ -42,6 +42,15 @@ public class InfoCommand extends SubCommand {
 		infoMessages.add(MessageManager.getMessage("info.score", team.getScore()));
 		infoMessages.add(MessageManager.getMessage("info.money", team.getBalance()));
 		infoMessages.add(MessageManager.getMessage("info.level", team.getLevel()));
+
+		int currentMembers = team.getMembers().size();
+		int maxMembers = team.getTeamLimit();
+		int currentWarps = team.getWarps().size();
+		int maxWarps = team.getMaxWarps();
+
+		infoMessages.add(MessageManager.getMessage("info.limits",
+				currentMembers, maxMembers, currentWarps, maxWarps));
+
 		infoMessages.add(MessageManager.getMessage("info.tag", team.getTag()));
 		
 		if (Main.plugin.getConfig().getBoolean("anchor.enable")) {
