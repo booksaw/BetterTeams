@@ -231,6 +231,7 @@ public class Team {
 	/**
 	 * This is used to store all players which are banned from the team
 	 */
+	@Getter
 	private final BanSetComponent bannedPlayers = new BanSetComponent();
 
 	/**
