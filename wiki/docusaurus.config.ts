@@ -1,6 +1,7 @@
 import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
+import extensionsPlugin from './src/plugins/extensions-loader';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
@@ -36,6 +37,10 @@ const config: Config = {
     locales: ['en'],
   },
 
+  plugins: [
+    extensionsPlugin,
+  ],
+
   presets: [
     [
       'classic',
@@ -69,6 +74,11 @@ const config: Config = {
           sidebarId: 'tutorialSidebar',
           position: 'left',
           label: 'Tutorial',
+        },
+        {
+          to: '/extensions',
+          label: 'Extensions',
+          position: 'left'
         },
         {
           href: '/apidocs/index.html',

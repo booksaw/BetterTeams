@@ -1,0 +1,94 @@
+.heroBanner {
+    margin-bottom: -1rem;
+    text-align: center;
+}
+
+.searchContainer {
+    margin-top: 1.5rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.searchInput {
+    width: 100%;
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: 1px solid var(--ifm-color-gray-600);
+    font-size: 1.1rem;
+    transition: box-shadow 0.2s, border-color 0.2s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: transform 0.2s, box-shadow 0.2s;
+    background-color: var(--ifm-card-background-color);
+    border: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--ifm-global-shadow-md);
+    border-color: var(--ifm-color-primary);
+}
+
+.cardHeader {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.cardIcon {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.cardImageContainer {
+    margin-right: 1rem;
+    flex-shrink: 0;
+}
+
+.cardTitleContainer {
+    overflow: hidden;
+}
+
+.cardTitle {
+    margin: 0;
+    font-size: 1.25rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cardAuthor {
+    font-size: 0.85rem;
+    color: var(--ifm-color-emphasis-600);
+}
+
+.cardDescription {
+    margin-bottom: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: 4.5em;
+}
+
+.tagContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    margin-top: auto;
+}
