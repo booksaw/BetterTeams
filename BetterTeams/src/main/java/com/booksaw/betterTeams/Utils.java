@@ -1,5 +1,6 @@
 package com.booksaw.betterTeams;
 
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -11,13 +12,7 @@ import org.bukkit.metadata.MetadataValue;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import net.kyori.adventure.text.Component;
-
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Utils {
@@ -40,7 +35,8 @@ public class Utils {
 		if (!player.hasPlayedBefore()) {
 			for (Team team : Team.getTeamManager().getLoadedTeamListClone().values()) {
 				for (OfflinePlayer offlinePlayer : team.getMembers().getOfflinePlayers()) {
-					if (offlinePlayer.getName().equalsIgnoreCase(name)) {
+					String offlinePlayerName = offlinePlayer.getName();
+					if (offlinePlayerName != null && offlinePlayerName.equalsIgnoreCase(name)) {
 						return offlinePlayer;
 					}
 				}
@@ -139,15 +135,15 @@ public class Utils {
 	}
 
 	public static boolean isComponentEmpty(Component component) {
-        if (component == null || component.equals(Component.empty())) {
-            return true;
-        }
+		if (component == null || component.equals(Component.empty())) {
+			return true;
+		}
 
-        String plainText = component.toString();
-        if (plainText == null || plainText.isEmpty()) {
-            return true;
-        }
+		String plainText = component.toString();
+		if (plainText == null || plainText.isEmpty()) {
+			return true;
+		}
 
-        return component.children().isEmpty();
-    }
+		return component.children().isEmpty();
+	}
 }
