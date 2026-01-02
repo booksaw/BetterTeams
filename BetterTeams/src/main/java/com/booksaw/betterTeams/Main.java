@@ -37,7 +37,6 @@ import com.booksaw.betterTeams.team.storage.StorageType;
 import com.booksaw.betterTeams.team.storage.convert.Converter;
 import com.booksaw.betterTeams.team.storage.storageManager.SeparatedYamlStorageManager;
 import com.booksaw.betterTeams.team.storage.storageManager.YamlStorageManager;
-import com.booksaw.betterTeams.util.WebhookHandler;
 import com.tcoded.folialib.FoliaLib;
 import lombok.Getter;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
@@ -448,11 +447,6 @@ public class Main extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new ScoreManagement(), this);
 		getServer().getPluginManager().registerEvents(new AllyManagement(), this);
 		getServer().getPluginManager().registerEvents(new MessagesManagement(), this);
-
-		// Only register webhook when hook support is enabled
-		if (getConfig().getBoolean("hookSupport")) {
-			getServer().getPluginManager().registerEvents(new WebhookHandler(), this);
-		}
 
 		if (getConfig().getBoolean("checkUpdates")) {
 			getServer().getPluginManager().registerEvents(new UpdateChecker(this), this);

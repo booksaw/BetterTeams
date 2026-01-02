@@ -3,49 +3,37 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <groupId>com.booksaw.betterTeams</groupId>
-        <artifactId>betterteams-parent</artifactId>
+        <artifactId>extensions-parent</artifactId>
         <version>4.15.2</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>extensions-parent</artifactId>
-    <packaging>pom</packaging>
+    <groupId>org.example</groupId>
+    <artifactId>discord-extension</artifactId>
 
-    <modules>
-        <module>luckperms-extension</module>
-        <module>zkoth-extension</module>
-        <module>discord-extension</module>
-    </modules>
+    <properties>
+        <extension.name>discord-extension</extension.name>
+        <extension.author>Ceymikey</extension.author>
+    </properties>
 
     <dependencies>
         <dependency>
-            <groupId>com.booksaw.betterTeams</groupId>
-            <artifactId>BetterTeams</artifactId>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.42</version>
+            <scope>provided</scope>
         </dependency>
-
         <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>26.0.2-1</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.5.0</version>
-                <configuration>
-                    <outputDirectory>
-                        ${maven.multiModuleProjectDirectory}/server/plugins/BetterTeams/extensions
-                    </outputDirectory>
-                    <finalName>${project.artifactId}-${project.version}</finalName>
-                </configuration>
-            </plugin>
-        </plugins>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -63,6 +51,5 @@
             </resource>
         </resources>
     </build>
-
 
 </project>

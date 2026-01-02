@@ -1,0 +1,4 @@
+name: ${extension.name}
+version: ${project.version}
+author: ${extension.author}
+main: com.booksaw.betterTeams.extensions.discord.DiscordExtension

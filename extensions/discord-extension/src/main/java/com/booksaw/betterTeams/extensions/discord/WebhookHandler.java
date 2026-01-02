@@ -1,12 +1,13 @@
-package com.booksaw.betterTeams.util;
+package com.booksaw.betterTeams.extensions.discord;
 
-import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.customEvents.post.*;
 import com.booksaw.betterTeams.message.MessageManager;
 import dev.ceymikey.injection.DiscordPayload;
 import dev.ceymikey.injection.EmbedBuilder;
+import org.bukkit.ChatColor;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
@@ -18,12 +19,22 @@ import org.bukkit.event.Listener;
  */
 public class WebhookHandler implements Listener {
 
-	private final String configURL = Main.plugin.getConfig().getString("hookURL");
-	private final Boolean createHook = Main.plugin.getConfig().getBoolean("create-hook");
-	private final Boolean disbandHook = Main.plugin.getConfig().getBoolean("disband-hook");
-	private final Boolean pLeaveHook = Main.plugin.getConfig().getBoolean("player-left-hook");
-	private final Boolean teamNameHook = Main.plugin.getConfig().getBoolean("team-nameChange-hook");
-	private final Boolean teamChatEvent = Main.plugin.getConfig().getBoolean("team-chat");
+	private final String configURL;
+	private final Boolean createHook;
+	private final Boolean disbandHook;
+	private final Boolean pLeaveHook;
+	private final Boolean teamNameHook;
+	private final Boolean teamChatEvent;
+
+	public WebhookHandler(YamlConfiguration config) {
+		configURL = config.getString("hookURL");
+		createHook = config.getBoolean("create-hook");
+		disbandHook = config.getBoolean("disband-hook");
+		pLeaveHook = config.getBoolean("player-left-hook");
+		teamNameHook = config.getBoolean("team-nameChange-hook");
+		teamChatEvent = config.getBoolean("team-chat");
+	}
+
 
 	@EventHandler
 	public void onTeamCreate(PostCreateTeamEvent e) {
@@ -86,8 +97,8 @@ public class WebhookHandler implements Listener {
 	public void sendWebhookMessage(String title, String description) {
 		EmbedBuilder embed = new EmbedBuilder.Construct()
 				.setUrl(configURL)
-				.setTitle(title)
-				.setDescription(description)
+				.setTitle(ChatColor.stripColor(title))
+				.setDescription(ChatColor.stripColor(description))
 				.setColor(12370112)
 				.build();
 		DiscordPayload.inject(embed);
