@@ -8,6 +8,16 @@ The newest release will always be maintained at the top of the file.
 
 This is a major release which includes several breaking changes for the API
 
+Introducing BetterTeams Extensions, Created by LpMind, these allow additional features to be added to BetterTeams
+separate to the core plugin. Some existing features such as LuckPerms contexts, Discord integration and zKoth
+integration have already been moved to this new system, see the features section of the changelog for more info.
+
+The minimum supported version of minecraft after this release is 1.21, support for all previous versions has been
+dropped. This was a difficult decision to make, but as less than 4% of BetterTeams users use older versions the decision
+was made to significantly simplify the development and testing process. Along with this change, the minimum supported
+java version has been bumped to java 21. This is the expected java version for 1.21 regardless, so this should not have
+an impact.
+
 ### Features
 
 * Added an Extensions system to BetterTeams where individual extensions are now packaged in their own file like
