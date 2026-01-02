@@ -37,6 +37,7 @@ This is a major release which includes several breaking changes for the API
 * Fixed a problem which caused the es_mx translation file to fail to load (#913)
 * Fixed permission error with /teama delwarp
 * Fixed a possible NullPointerException with the getOfflinePlayer method (#993)
+* Fixed an issue where players team names were not being updated in some cases in the TAB menu (#902)
 
 ### API Changes
 

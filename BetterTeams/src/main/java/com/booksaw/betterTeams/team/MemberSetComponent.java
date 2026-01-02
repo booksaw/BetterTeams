@@ -32,6 +32,9 @@ public class MemberSetComponent extends TeamPlayerSetComponent {
 
 		Player onlinePlayer = offlinePlayer.getPlayer();
 
+		Team.getTeamManager().playerJoinTeam(team, teamPlayer);
+		set.add(teamPlayer);
+
 		// if the player is offline there will be no player object for them
 		if (offlinePlayer.isOnline() && onlinePlayer != null) {
 			for (TeamPlayer player : set) {
@@ -44,9 +47,6 @@ public class MemberSetComponent extends TeamPlayerSetComponent {
 				Main.plugin.teamManagement.displayBelowName(onlinePlayer);
 			}
 		}
-
-		Team.getTeamManager().playerJoinTeam(team, teamPlayer);
-		set.add(teamPlayer);
 
 		if (offlinePlayer.isOnline() && onlinePlayer != null
 				&& onlinePlayer.hasPermission("betterteams.anchor.allowonjoin"))

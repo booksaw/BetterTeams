@@ -135,27 +135,27 @@ public class MCTeamManagement implements Listener {
 		Main.plugin.getFoliaLib().getScheduler().runAsync(task -> displayBelowName(e.getPlayer()));
 	}
 
-	public void setupTeam(org.bukkit.scoreboard.Team team, String teamName) {
+	public void setupTeam(org.bukkit.scoreboard.Team scoreboardTeam, String teamName) {
 		// setting team name
 		if (type == BelowNameType.PREFIX) {
-			team.setPrefix(teamName);
+			scoreboardTeam.setPrefix(teamName);
 		} else if (type == BelowNameType.SUFFIX) {
-			team.setSuffix(" " + teamName);
+			scoreboardTeam.setSuffix(" " + teamName);
 		}
 
 		if (!Main.plugin.getConfig().getBoolean("collide")) {
-			team.setOption(Option.COLLISION_RULE, OptionStatus.FOR_OWN_TEAM);
+			scoreboardTeam.setOption(Option.COLLISION_RULE, OptionStatus.FOR_OWN_TEAM);
 		}
 
 		if (Main.plugin.getConfig().getBoolean("privateDeath")) {
-			team.setOption(Option.DEATH_MESSAGE_VISIBILITY, OptionStatus.FOR_OWN_TEAM);
+			scoreboardTeam.setOption(Option.DEATH_MESSAGE_VISIBILITY, OptionStatus.FOR_OWN_TEAM);
 		}
 
 		if (Main.plugin.getConfig().getBoolean("privateName")) {
-			team.setOption(Option.NAME_TAG_VISIBILITY, OptionStatus.FOR_OTHER_TEAMS);
+			scoreboardTeam.setOption(Option.NAME_TAG_VISIBILITY, OptionStatus.FOR_OTHER_TEAMS);
 		}
 
-		team.setCanSeeFriendlyInvisibles(Main.plugin.getConfig().getBoolean("canSeeFriendlyInvisibles"));
+		scoreboardTeam.setCanSeeFriendlyInvisibles(Main.plugin.getConfig().getBoolean("canSeeFriendlyInvisibles"));
 
 	}
 
