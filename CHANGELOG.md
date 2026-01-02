@@ -12,6 +12,8 @@ This is a major release which includes several breaking changes for the API
 
 * Added an Extensions system to BetterTeams where individual extensions are now packaged in their own file like
   Extensions - Credit lpMind
+    * This includes a comprehensive new section of
+      the [wiki dedicated to browsing extensions](https://betterteams.booksaw.dev/extensions)
 * Added a `noTeleport` config option, which when enabled will display coordinates in chat rather than teleporting the
   player [#662](https://github.com/booksaw/BetterTeams/issues/662)
 * Added Simplified Chinese - Credit Minecraft0122 (#907)
@@ -36,6 +38,8 @@ This is a major release which includes several breaking changes for the API
 
 ### API Changes
 
+* Refactored the team levels codebase so Levels are wrapped in an object - Credit lpMind
+* Added a way for the API to access and update a teams banned list - Credit Just Lime
 * Removed Deprecated methods and classes from the API
     * Removed PrePurgeEvent,
       use [PurgeEvent](https://betterteams.booksaw.dev/apidocs/com/booksaw/betterTeams/customEvents/PurgeEvent.html)
