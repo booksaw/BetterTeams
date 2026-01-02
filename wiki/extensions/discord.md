@@ -16,7 +16,7 @@ messages to team chat. These can be forwarded on to a discord channel.
 An example usage is so admins can monitor team chat messages without needing to be in the server. Or announcing to the
 discord when a new Team has been created!
 
-![Webhook example](./img/webhook.jpg)
+![Webhook example](/img/extensions/webhook.jpg)
 
 ## Creating a webhook on Discord
 
@@ -25,7 +25,7 @@ create a new webhook. From this screen, you can configure the name, profile pict
 webhook, then simply copy the url into your config.yml, see the [Configuration section](#configuration) for more
 information on the config.yml.
 
-![Webhook example](./img/create-webhook.jpg)
+![Webhook example](/img/extensions/create-webhook.jpg)
 
 For futher information, Discord provides a support article
 which [describes how to create a webhook](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks)
