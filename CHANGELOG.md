@@ -32,9 +32,10 @@ This is a major release which includes several breaking changes for the API
 
 ### Bug Fixes
 
+* Fixed a missing usage of the SQL database connection config (#927) - Credit lpMind
 * Removed a potential duplication glitch with team echests
 * Fixed a problem which caused the es_mx translation file to fail to load (#913)
-* Fixed a missing usage of the SQL database connection config (#927) - Credit lpMind
+* Fixed permission error with /teama delwarp
 
 ### API Changes
 

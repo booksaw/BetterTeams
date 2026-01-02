@@ -35,7 +35,7 @@ public class DelwarpTeama extends SubCommand {
 
 	@Override
 	public String getNode() {
-		return "delwarp";
+		return "admin.delwarp";
 	}
 
 	@Override
