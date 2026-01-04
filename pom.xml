@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.booksaw.betterTeams</groupId>
     <artifactId>betterteams-parent</artifactId>
-    <version>5.0.1-SNAPSHOT</version>
+    <version>5.0.0</version>
     <packaging>pom</packaging>
     <description>Create teams to fight to be the best</description>
 
@@ -52,7 +52,7 @@
             <dependency>
                 <groupId>com.booksaw.betterTeams</groupId>
                 <artifactId>BetterTeams</artifactId>
-                <version>5.0.1-SNAPSHOT</version>
+                <version>5.0.0</version>
                 <scope>provided</scope>
             </dependency>
 
