@@ -48,6 +48,7 @@ an impact.
 * Fixed permission error with /teama delwarp
 * Fixed a possible NullPointerException with the getOfflinePlayer method (#993)
 * Fixed an issue where players team names were not being updated in some cases in the TAB menu (#902)
+* Fixed an issue where chat formatting was not correctly being reset when a color code was found
 
 ### API Changes
 
