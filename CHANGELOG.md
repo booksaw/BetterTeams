@@ -24,30 +24,35 @@ an impact.
   Extensions - Credit lpMind
     * This includes a comprehensive new section of
       the [wiki dedicated to browsing extensions](https://betterteams.booksaw.dev/extensions)
+    * To add an extension to your server, simply add the jar file to the `./plugins/betterTeams/extensions` folder
 * Added a `noTeleport` config option, which when enabled will display coordinates in chat rather than teleporting the
-  player [#662](https://github.com/booksaw/BetterTeams/issues/662)
-* Added Simplified Chinese - Credit Minecraft0122 (#907)
+  player ([#662](https://github.com/booksaw/BetterTeams/issues/662))
+* Added Simplified Chinese - Credit Minecraft0122 ([#907](https://github.com/booksaw/BetterTeams/issues/907))
 
 ### Improvements
 
 * Added %betterteams_moneyshort% placeholder for money formatted
   50.0k ([#590](https://github.com/booksaw/BetterTeams/issues/590))
 * Balance formatting changes: ([#395](https://github.com/booksaw/BetterTeams/issues/395))
-    * Added a config option `usShortMoney`, which when enabled will always use shorthand balances, i.e. 50.0k
+    * Added a config option `useShortMoney`, which when enabled will always use shorthand balances, i.e. 50.0k
     * Added a config option `moneyDecimalPlaces` to configure how many decimal places are displayed for money
-* Added some additional information to some BetterTeams messages (will not automatically update config)
-* Added further warnings when disbanding a team (#901)
+* Added some additional information to some BetterTeams messages (will not automatically update individual server files)
+* Added further warnings when disbanding a team ([#901](https://github.com/booksaw/BetterTeams/issues/901))
 * Added 2 new placeholders, %betterteams_colorname% and %betterteams_anchor% - Credit Just Lime
 * Added support for Offline Players in placeholders - Credit Just Lime
 
 ### Bug Fixes
 
-* Fixed a missing usage of the SQL database connection config (#927) - Credit lpMind
+* Fixed a missing usage of the SQL database connection
+  config ([#927](https://github.com/booksaw/BetterTeams/issues/927))- Credit lpMind
 * Removed a potential duplication glitch with team echests
-* Fixed a problem which caused the es_mx translation file to fail to load (#913)
+* Fixed a problem which caused the es_mx translation file to fail to
+  load ([#913](https://github.com/booksaw/BetterTeams/issues/913))
 * Fixed permission error with /teama delwarp
-* Fixed a possible NullPointerException with the getOfflinePlayer method (#993)
-* Fixed an issue where players team names were not being updated in some cases in the TAB menu (#902)
+* Fixed a possible NullPointerException with the getOfflinePlayer
+  method ([#993](https://github.com/booksaw/BetterTeams/issues/993))
+* Fixed an issue where players team names were not being updated in some cases in the TAB
+  menu ([#902](https://github.com/booksaw/BetterTeams/issues/902))
 * Fixed an issue where chat formatting was not correctly being reset when a color code was found
 
 ### API Changes

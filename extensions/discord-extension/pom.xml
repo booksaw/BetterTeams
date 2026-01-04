@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.booksaw.betterTeams</groupId>
         <artifactId>extensions-parent</artifactId>
-        <version>4.15.2</version>
+        <version>5.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
