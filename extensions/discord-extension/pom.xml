@@ -10,7 +10,6 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.example</groupId>
     <artifactId>discord-extension</artifactId>
 
     <properties>
