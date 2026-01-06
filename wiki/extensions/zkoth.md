@@ -5,7 +5,7 @@ author: "Community"
 image: "https://www.spigotmc.org/data/resource_icons/76/76749.jpg"
 downloadUrl: "https://github.com/booksaw/BetterTeams/releases"
 sourceUrl: "https://github.com/booksaw/BetterTeams/tree/master/extensions/zkoth-extension"
-tags: ["Score", "KOTH", "Events"]
+tags: ["Official", "Score", "KOTH"]
 ---
 
 # ZKoth Extension

@@ -5,7 +5,7 @@ author: "LpMind"
 image: "https://luckperms.net/logo.png"
 downloadUrl: "https://github.com/booksaw/BetterTeams/releases"
 sourceUrl: "https://github.com/booksaw/BetterTeams/tree/master/extensions/luckperms-extension"
-tags: ["Permissions", "Integration", "Contexts"]
+tags: ["Official", "Permissions", "Contexts"]
 ---
 
 # LuckPerms Extension
