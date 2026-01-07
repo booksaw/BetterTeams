@@ -22,8 +22,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.booksaw.betterTeams</groupId>
-            <artifactId>BetterTeams</artifactId>
+            <groupId>com.booksaw.betterteams</groupId>
+            <artifactId>betterteams</artifactId>
         </dependency>
 
         <dependency>

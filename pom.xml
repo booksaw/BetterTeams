@@ -67,8 +67,8 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.booksaw.betterTeams</groupId>
-                <artifactId>BetterTeams</artifactId>
+                <groupId>com.booksaw.betterteams</groupId>
+                <artifactId>betterteams</artifactId>
                 <version>5.0.0</version>
                 <scope>provided</scope>
             </dependency>
