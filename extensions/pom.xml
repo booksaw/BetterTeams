@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.booksaw.betterTeams</groupId>
+        <groupId>com.booksaw.betterteams</groupId>
         <artifactId>betterteams-parent</artifactId>
         <version>5.0.0</version>
         <relativePath>../pom.xml</relativePath>
