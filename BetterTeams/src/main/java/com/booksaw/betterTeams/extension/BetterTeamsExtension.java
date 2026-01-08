@@ -12,6 +12,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.Objects;
 import java.util.logging.Level;
 
 
@@ -23,6 +24,8 @@ public abstract class BetterTeamsExtension {
 	private ExtensionLogger extensionLogger;
 
 	private ConfigManager configManager;
+	private ExtensionMessages extensionMessages;
+
 	/**
 	 * Called when the extension is enabled.
 	 */
@@ -98,10 +101,53 @@ public abstract class BetterTeamsExtension {
 	}
 
 	/**
+	 * Gets the extension's message manager
+	 */
+	@NotNull
+	public ExtensionMessages getMessages()  {
+		String lang = plugin.getConfig().getString("language", "messages");
+		return getMessages(lang);
+	}
+
+	/**
+	 * Gets the extension's message manager
+	 */
+	@NotNull
+	public ExtensionMessages getMessages(@NotNull String fileName)  {
+		if (extensionMessages == null) {
+			extensionMessages = new ExtensionMessages(this, fileName);
+		} else if (!extensionMessages.getFileName().equals(fileName)) {
+			extensionMessages.reload(fileName);
+		}
+		return extensionMessages;
+	}
+
+
+	/**
 	 * Reloads the config.yml from disk.
 	 */
 	public void reloadConfig() {
 		configManager = new ConfigManager("config", true, this);
+	}
+
+	/**
+	 * Reloads the extension's messages from the current file.
+	 */
+	public void reloadMessages() {
+		if (extensionMessages != null) {
+			extensionMessages.reload();
+		}
+	}
+
+	/**
+	 * Reloads the extension's messages from a different file.
+	 */
+	public void reloadMessages(@NotNull String fileName) {
+		if (extensionMessages != null) {
+			extensionMessages.reload(fileName);
+		} else {
+			extensionMessages = new ExtensionMessages(this, fileName);
+		}
 	}
 
 	/**
