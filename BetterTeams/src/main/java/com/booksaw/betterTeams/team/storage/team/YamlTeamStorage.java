@@ -246,4 +246,26 @@ public abstract class YamlTeamStorage extends TeamStorage {
 		getConfig().set("meta", meta.getSerialized());
 		saveFile();
 	}
+
+	// Enemy stuff
+	@Override
+	public List<String> getEnemyList() {
+		return getConfig().getStringList("enemies");
+	}
+
+	@Override
+	public void setEnemyList(List<String> players) {
+		setValue("enemies", TeamStorageType.STRING, players);
+	}
+
+	@Override
+	public void addEnemy(UUID enemy) {
+		// not needed
+	}
+
+	@Override
+	public void removeEnemy(UUID enemy) {
+		// not needed
+	}
+
 }

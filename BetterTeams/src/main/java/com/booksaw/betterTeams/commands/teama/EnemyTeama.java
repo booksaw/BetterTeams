@@ -1,0 +1,83 @@
+/**
+ *
+ */
+package com.booksaw.betterTeams.commands.teama;
+
+import com.booksaw.betterTeams.CommandResponse;
+import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.commands.SubCommand;
+import org.bukkit.command.CommandSender;
+
+import java.util.List;
+
+public class EnemyTeama extends SubCommand {
+
+	@Override
+	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
+
+		Team team1 = Team.getTeam(args.length >= 1 ? args[0] : null);
+		Team team2 = Team.getTeam(args.length >= 2 ? args[1] : null);
+
+		if (team1 == null || team2 == null) {
+			return new CommandResponse("admin.noTeam");
+		}
+
+		if (team1 == team2) {
+			return new CommandResponse("admin.enemy.same");
+		}
+
+		if (team1.isEnemy(team2)) {
+			return new CommandResponse("admin.enemy.already");
+		}
+
+		team1.removeAllyRequest(team2);
+		team2.removeAllyRequest(team1);
+
+		team1.addEnemy(team2, false);
+		team2.addEnemy(team1, true);
+
+		return new CommandResponse(true, "admin.enemy.success");
+	}
+
+	@Override
+	public String getCommand() {
+		return "enemy";
+	}
+
+	@Override
+	public String getNode() {
+		return "admin.enemy";
+	}
+
+	@Override
+	public String getHelp() {
+		return "Set two teams to be enemies of each other";
+	}
+
+	@Override
+	public String getArguments() {
+		return "<team1> <team2>";
+	}
+
+	@Override
+	public int getMinimumArguments() {
+		return 2;
+	}
+
+	@Override
+	public int getMaximumArguments() {
+		return 2;
+	}
+
+	@Override
+	public void onTabComplete(List<String> options, CommandSender sender, String label, String[] args) {
+		if (args.length == 1) {
+			addTeamStringList(options, args[0]);
+		}
+		if (args.length == 2) {
+			addTeamStringList(options, args[1]);
+		}
+	}
+
+
+}

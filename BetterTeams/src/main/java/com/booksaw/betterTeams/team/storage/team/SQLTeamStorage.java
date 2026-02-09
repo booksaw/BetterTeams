@@ -402,4 +402,28 @@ public class SQLTeamStorage extends TeamStorage {
 			storageManager.getDatabase().insertRecord(TableName.TEAM_META, columns, values);
 		}
 	}
+
+	// Enemy stuff
+	@Override
+	public List<String> getEnemyList() {
+		return getTeamList(TableName.ENEMIES);
+	}
+
+	@Override
+	public void setEnemyList(List<String> players) {
+		// not needed
+	}
+
+	@Override
+	public void addEnemy(UUID enemy) {
+		storageManager.getDatabase().insertRecord(TableName.ENEMIES, "team1ID, team2ID",
+				"'" + team.getID() + "', '" + enemy + "'");
+	}
+
+	@Override
+	public void removeEnemy(UUID enemy) {
+		storageManager.getDatabase().deleteRecord(TableName.ENEMIES,
+				"(team1ID LIKE '" + team.getID() + "' AND team2ID LIKE '" + enemy + "') OR (team1ID LIKE '" + enemy
+						+ "' AND team2ID LIKE '" + team.getID() + "')");
+	}
 }

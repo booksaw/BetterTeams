@@ -222,6 +222,12 @@ public class Team {
 	private final AllySetComponent allies = new AllySetComponent();
 
 	/**
+	 * Used to track the enemies of this team
+	 */
+	@Getter
+	private final EnemySetComponent enemies = new EnemySetComponent();
+
+	/**
 	 * This is a list of invited players to this team since the last restart of the
 	 * server
 	 */
@@ -331,6 +337,7 @@ public class Team {
 		members.load(storage);
 		anchoredPlayers.load(storage);
 		allies.load(storage);
+		enemies.load(storage);
 		score.load(storage);
 		money.load(storage);
 		echest.load(storage);
@@ -787,9 +794,14 @@ public class Team {
 
 		// I've got to store this here, because otherwise the team information is gone.
 		final Set<UUID> alliesClone = allies.getClone();
+		final Set<UUID> enemiesClone = enemies.getClone();
 		final Set<TeamPlayer> membersClone = members.getClone();
 
 		alliesClone.forEach(uuid -> {
+			Team team = Team.getTeam(uuid);
+			if (team != null) team.becomeNeutral(this, false);
+		});
+		enemiesClone.forEach(uuid -> {
 			Team team = Team.getTeam(uuid);
 			if (team != null) team.becomeNeutral(this, false);
 		});
@@ -813,7 +825,7 @@ public class Team {
 			team = null;
 		}
 
-		Bukkit.getPluginManager().callEvent(new PostDisbandTeamEvent(this, player, alliesClone, membersClone));
+		Bukkit.getPluginManager().callEvent(new PostDisbandTeamEvent(this, player, alliesClone, enemiesClone, membersClone));
 	}
 
 	/**
@@ -1253,7 +1265,13 @@ public class Team {
 
 		RelationType prevRelation = RelationType.NEUTRAL;
 		final Team other = Team.getTeam(otherTeam);
-		if (callUserEvent(other, prevRelation, RelationType.ALLY)) return;
+		if (isEnemy(otherTeam)) {
+			prevRelation = RelationType.ENEMY;
+			if (callUserEvent(other, prevRelation, RelationType.ALLY)) return;
+
+			enemies.remove(this, otherTeam);
+			saveEnemies();
+		} else if (callUserEvent(other, prevRelation, RelationType.ALLY)) return;
 
 		allies.add(this, otherTeam);
 		saveAllies();
@@ -1295,6 +1313,50 @@ public class Team {
 	}
 
 	/**
+	 * Used to add an enemy for this team
+	 *
+	 * @param otherTeam the UUID of the new enemy
+	 */
+	public void addEnemy(UUID otherTeam, boolean sendPostEvent) {
+		if (isEnemy(otherTeam)) return;
+
+		RelationType prevRelation = RelationType.NEUTRAL;
+		final Team other = Team.getTeam(otherTeam);
+
+		if (isAlly(otherTeam)) {
+			prevRelation = RelationType.ALLY;
+			if (callUserEvent(other, prevRelation, RelationType.ENEMY)) return;
+
+			allies.remove(this, otherTeam);
+			saveAllies();
+		} else if (callUserEvent(other, prevRelation, RelationType.ENEMY)) {
+			return;
+		}
+
+		enemies.add(this, otherTeam);
+		saveEnemies();
+
+		List<String> channelsToUse = Main.plugin.getConfig().getStringList("onEnemyMessageChannel");
+
+		if (channelsToUse.isEmpty() || channelsToUse.contains("CHAT")) {
+			Message message = new ReferencedFormatMessage("enemy.enemy", getTeam(otherTeam).getDisplayName());
+			getMembers().broadcastMessage(message);
+		}
+		if (channelsToUse.isEmpty() || channelsToUse.contains("TITLE")) {
+			Message message = new ReferencedFormatMessage("enemy.enemy_title", getTeam(otherTeam).getDisplayName());
+			getMembers().broadcastTitle(message);
+		}
+
+		if (sendPostEvent)
+			Bukkit.getPluginManager().callEvent(new PostRelationChangeTeamEvent(this, other, prevRelation, RelationType.ENEMY));
+	}
+
+	public void addEnemy(Team otherTeam, boolean sendPostEvent) {
+		if (otherTeam == null) return;
+		addEnemy(otherTeam.getID(), sendPostEvent);
+	}
+
+	/**
 	 * Used to become neutral to a team
 	 *
 	 * @param otherTeam     the team to become neutral to
@@ -1302,21 +1364,38 @@ public class Team {
 	 *                      to another.
 	 */
 	public void becomeNeutral(UUID otherTeam, boolean sendPostEvent) {
-		if (!isAlly(otherTeam)) return;
-
 		final Team other = Team.getTeam(otherTeam);
 
-		RelationType prevRelation = RelationType.ALLY;
+		boolean wasAlly = other.isAlly(this) || this.isAlly(other);
+		boolean wasEnemy = other.isEnemy(this) || this.isEnemy(other);
+		RelationType prevRelation = RelationType.NEUTRAL;
+		if (wasAlly) {
+			prevRelation = RelationType.ALLY;
+		} else if (wasEnemy) {
+			prevRelation = RelationType.ENEMY;
+		} else {
+			return;
+		}
+
 		if (callUserEvent(other, prevRelation, RelationType.NEUTRAL)) return;
 
-		allies.remove(this, otherTeam);
-		saveAllies();
-
 		List<String> channelsToUse;
+		String message_extra;
+		if (wasAlly) {
+			allies.remove(this, otherTeam);
+			saveAllies();
+			channelsToUse = Main.plugin.getConfig().getStringList("onAllyMessageChannel");
+			message_extra = ".ally";
+		} else {
+			enemies.remove(this, otherTeam);
+			saveEnemies();
+			channelsToUse = Main.plugin.getConfig().getStringList("onEnemyMessageChannel");
+			message_extra = ".enemy";
+		}
+
 		Message chatMessage, titleMessage;
-		channelsToUse = Main.plugin.getConfig().getStringList("onAllyMessageChannel");
-		chatMessage = new ReferencedFormatMessage("neutral.remove", other.getDisplayName());
-		titleMessage = new ReferencedFormatMessage("neutral.remove_title", other.getDisplayName());
+		chatMessage = new ReferencedFormatMessage("neutral.remove" + message_extra, other.getDisplayName());
+		titleMessage = new ReferencedFormatMessage("neutral.remove_title" + message_extra, other.getDisplayName());
 
 		if (channelsToUse.isEmpty() || channelsToUse.contains("CHAT")) {
 			getMembers().broadcastMessage(chatMessage);
@@ -1325,8 +1404,9 @@ public class Team {
 			getMembers().broadcastTitle(titleMessage);
 		}
 
-		if (sendPostEvent)
+		if (sendPostEvent) {
 			Bukkit.getPluginManager().callEvent(new PostRelationChangeTeamEvent(this, other, prevRelation, RelationType.NEUTRAL));
+		}
 	}
 
 	/**
@@ -1364,13 +1444,28 @@ public class Team {
 	}
 
 	/**
+	 * Used to check if the provided team is an enemy of this team
+	 *
+	 * @param team the team to check for enemies
+	 * @return if the team is an enemy
+	 */
+	public boolean isEnemy(UUID team) {
+		return enemies.contains(team);
+	}
+
+	public boolean isEnemy(Team team) {
+		if (team == null) return false;
+		return isEnemy(team.getID());
+	}
+
+	/**
 	 * Used to check if the provided team is a neutral to the other team
 	 *
 	 * @param team the team to check
 	 * @return if the team is neutral
 	 */
 	public boolean isNeutral(UUID team) {
-		return !allies.contains(team);
+		return !allies.contains(team) && !enemies.contains(team);
 	}
 
 	public boolean isNeutral(@Nullable Team team) {
@@ -1458,6 +1553,13 @@ public class Team {
 	}
 
 	/**
+	 * Used to save the list of allies for this team
+	 */
+	private void saveEnemies() {
+		enemies.save(getStorage());
+	}
+
+	/**
 	 * Used to save the list of requests for allies for this team
 	 */
 	private void saveAllyRequests() {
@@ -1489,6 +1591,8 @@ public class Team {
 	 * @return if players of this team can damage members of the other team
 	 */
 	public boolean canDamage(Team team, Player source) {
+		if (team.isEnemy(getID())) return true;
+
 		final boolean isProtected = team.isAlly(getID()) || team == this;
 
 		boolean disallow;
@@ -1533,6 +1637,8 @@ public class Team {
 	 * @return if players of this team can damage members of the other team
 	 */
 	public boolean canDamage(Team team) {
+		if (team.isEnemy(getID())) return true;
+
 		if (team.isAlly(getID()) || team == this) {
 			return pvp && team.pvp;
 		}
@@ -1546,6 +1652,15 @@ public class Team {
 		}
 
 		return allies.size() >= limit;
+	}
+
+	public boolean hasMaxEnemies() {
+		int limit = Main.plugin.getConfig().getInt("enemyLimit");
+		if (limit == -1) {
+			return false;
+		}
+
+		return enemies.size() >= limit;
 	}
 
 	/**

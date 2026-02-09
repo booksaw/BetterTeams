@@ -102,6 +102,13 @@ chatPrefixes:
 # Possible values: [-1, any positive whole number]
 allyLimit: 5
 
+# This is used to set the maxmimum number of enemies a team can have
+# - If this feature is unwanted, set the enemyLimit to -1 and there will be unlimited enemies for each team
+# - Keep this value reasonable, as Java cannot cope with larger numbers (over 2 billion), so if you want the team to be limitless, set the value to -1 instead of something large
+#
+# Possible values: [-1, any positive whole number]
+enemyLimit: 5
+
 # This is used to limit the length of a team name (if chat prefixes are enabled, this will stop the team names clogging up the chat)
 # - If this feature is unwanted, set the maxTeamLength to -1 and team name lengths will be unlimited
 #
@@ -458,6 +465,9 @@ titleRemoval: true
 #
 # Possible values: [CHAT, TITLE, NONE] (default: CHAT,TITLE)
 onAllyMessageChannel:
+  - CHAT
+  - TITLE
+onEnemyMessageChannel:
   - CHAT
   - TITLE
 onNeutralMessageChannel:

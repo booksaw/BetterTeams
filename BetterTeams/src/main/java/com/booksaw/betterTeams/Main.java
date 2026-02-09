@@ -348,7 +348,9 @@ public class Main extends JavaPlugin {
 				new ChatCommand(teamCommand), new ColorCommand(), new TitleCommand(), new TopCommand(),
 				new BaltopCommand(), new RankCommand(), new DelHome(), new AllyCommand(), new NeutralCommand(),
 				new AllyChatCommand(teamCommand), new ListCommand(), new WarpCommand(), new SetWarpCommand(),
-				new DelwarpCommand(), new WarpsCommand(), new EchestCommand(), new RankupCommand(), new TagCommand());
+				new DelwarpCommand(), new WarpsCommand(), new EchestCommand(), new RankupCommand(), new TagCommand(),
+				new EnemyCommand()
+		);
 
 		if (getConfig().getBoolean("anchor.enable")) {
 			teamCommand.addSubCommands(new AnchorCommand(), new SetAnchorCommand());
@@ -377,6 +379,7 @@ public class Main extends JavaPlugin {
 				new LeaveTeama(), new PromoteTeama(), new DemoteTeama(), new WarpTeama(), new SetwarpTeama(),
 				new DelwarpTeama(), new PurgeTeama(), new DisbandTeama(), new ColorTeama(), new EchestTeama(),
 				new SetrankTeama(teamaCommand), new TagTeama(), new TeleportTeama(teamaCommand), new AllyTeama(),
+				new EnemyTeama(),
 				new NeutralTeama(), new ImportmessagesTeama());
 
 

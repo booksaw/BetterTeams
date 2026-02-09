@@ -189,6 +189,9 @@ permissions:
   betterTeams.ally:
     default: true
     description: gives access to /team ally
+  betterTeams.enemy:
+    default: true
+    description: gives access to /team enemy
   betterTeams.neutral:
     default: true
     description: gives access to /team neutral

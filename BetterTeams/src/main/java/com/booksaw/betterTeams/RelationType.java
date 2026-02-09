@@ -7,6 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum RelationType {
 	ALLY("ally"),
+	ENEMY("enemy"),
 	NEUTRAL("neutral"),
 	;
 

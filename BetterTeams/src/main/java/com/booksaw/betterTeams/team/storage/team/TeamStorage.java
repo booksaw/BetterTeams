@@ -182,4 +182,13 @@ public abstract class TeamStorage {
 	public abstract Map<String, String> getRawMeta();
 
 	public abstract void saveMeta(TeamMeta meta);
+
+	// Enemy stuff
+	public abstract List<String> getEnemyList();
+
+	public abstract void setEnemyList(List<String> players);
+
+	public abstract void addEnemy(UUID enemy);
+
+	public abstract void removeEnemy(UUID enemy);
 }

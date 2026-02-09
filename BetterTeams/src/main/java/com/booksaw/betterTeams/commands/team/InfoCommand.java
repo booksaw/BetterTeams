@@ -58,6 +58,7 @@ public class InfoCommand extends SubCommand {
 		}
 
 		infoMessages.add(getAlliesMessage(team));
+		infoMessages.add(getEnemiesMessage(team));
 		infoMessages.add(getPlayerList(team, PlayerRank.OWNER));
 		infoMessages.add(getPlayerList(team, PlayerRank.ADMIN));
 		infoMessages.add(getPlayerList(team, PlayerRank.DEFAULT));
@@ -87,6 +88,10 @@ public class InfoCommand extends SubCommand {
 
 	private static String getAlliesMessage(Team team) {
 		return getSetComponentMessage(team.getAllies(), "info.ally");
+	}
+
+	private static String getEnemiesMessage(Team team) {
+		return getSetComponentMessage(team.getEnemies(), "info.enemy");
 	}
 
 	private static String getPlayerList(Team team, PlayerRank rank) {

@@ -4,7 +4,7 @@ import com.booksaw.betterTeams.Main;
 
 public enum TableName {
 	TEAM("Team"), PLAYERS("Players"), ALLYREQUESTS("AllyRequests"), WARPS("warps"), CHESTCLAIMS("ChestClaims"),
-	BANS("Bans"), ALLIES("Allies"), TEAM_META("TeamMeta");
+	BANS("Bans"), ALLIES("Allies"), TEAM_META("TeamMeta"), ENEMIES("Enemies");
 
 	private final String tableName;
 
