@@ -1,41 +1,44 @@
 package com.booksaw.betterTeams.extension;
 
 import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.ConfigManager;
+import com.booksaw.betterTeams.Main;
+import com.booksaw.betterTeams.message.MessageConfig;
+import com.booksaw.betterTeams.message.MessageService;
 import com.booksaw.betterTeams.message.StaticMessage;
 import lombok.Getter;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
+@Getter
 public class ExtensionMessages {
 
-    private static final Pattern HEX_PATTERN = Pattern.compile("&#([A-Fa-f0-9]{6})");
-
+    private final MessageService messageService;
     private final BetterTeamsExtension extension;
-    private final Map<String, String> cache;
-    @Getter
-    private ConfigManager configManager;
-    @Getter
     private String fileName;
 
     public ExtensionMessages(@NotNull BetterTeamsExtension extension, @NotNull String fileName) {
         this.extension = extension;
-        this.cache = new HashMap<>();
         this.fileName = fileName;
-        reload();
-    }
 
-    public void reload() {
-        reload(this.fileName);
+        MessageConfig config = new MessageConfig(fileName, extension);
+
+        this.messageService = new MessageService(config);
+
+        try {
+            BukkitAudiences audiences = Main.plugin.getAdventure();
+            this.messageService.setupMessageSender(audiences);
+        } catch (Exception e) {
+            this.messageService.setupMessageSender(null);
+        }
+
+        if (config.has("prefix")) {
+            this.messageService.loadPrefix("prefix");
+        } else {
+            this.messageService.setPrefix(extension.getInfo().getName());
+        }
     }
 
     /**
@@ -45,38 +48,26 @@ public class ExtensionMessages {
     public void reload(@NotNull String fileName) {
         if (fileName.isEmpty()) throw new IllegalArgumentException("File name cannot be empty");
         this.fileName = fileName;
-        clearCache();
-        this.configManager = new ConfigManager(fileName, false, extension);
-        extension.getLogger().info("Messages loaded from " + fileName + ".yml");
+        this.messageService.reload(fileName);
+
+        if (has("prefix")) {
+            this.messageService.loadPrefix("prefix");
+        }
     }
 
+    public void reload() {
+        reload(this.fileName);
+    }
 
     /**
      * Gets a raw string from config with color codes translated
      *
      * @param path The path in messages file
-     * @return The formatted message, or an error string if not found
+     * @return The formatted message, or an empty string if not found
      */
     @NotNull
     public String get(@NotNull String path) {
-        String cached = cache.get(path);
-        if (cached != null) {
-            return cached;
-        }
-
-        FileConfiguration config = configManager.getConfig();
-        String val = config.getString(path);
-
-        if (val == null) {
-            String error = ChatColor.RED + "[Missing: " + path + "]";
-            cache.put(path, error);
-            extension.getLogger().warning("Missing message key: " + path);
-            return error;
-        }
-
-        String colored = translateColors(val);
-        cache.put(path, colored);
-        return colored;
+        return messageService.getMessage(path);
     }
 
     /**
@@ -84,37 +75,12 @@ public class ExtensionMessages {
      */
     @NotNull
     public String get(@NotNull String path, @NotNull Object... replacements) {
-        String message = get(path);
-        if (replacements.length >= 2) {
-            for (int i = 0; i < replacements.length - 1; i += 2) {
-                String key = String.valueOf(replacements[i]);
-                String value = String.valueOf(replacements[i + 1]);
-                message = message.replace("{" + key + "}", value);
-            }
-        }
-        return message;
-    }
-
-    private String translateColors(@NotNull String message) {
-        Matcher matcher = HEX_PATTERN.matcher(message);
-        StringBuilder buffer = new StringBuilder();
-
-        while (matcher.find()) {
-            String hex = matcher.group(1);
-            StringBuilder replacement = new StringBuilder("§x");
-            for (char c : hex.toCharArray()) {
-                replacement.append('§').append(c);
-            }
-            matcher.appendReplacement(buffer, replacement.toString());
-        }
-        matcher.appendTail(buffer);
-
-        return ChatColor.translateAlternateColorCodes('&', buffer.toString());
+        return messageService.getMessage(path, replacements);
     }
 
     @NotNull
     public String getPrefix() {
-        return get("prefix");
+        return messageService.getPrefix();
     }
 
     @NotNull
@@ -129,7 +95,6 @@ public class ExtensionMessages {
     public String getWithPrefix(@NotNull String path, @NotNull Object... replacements) {
         return getPrefix() + get(path, replacements);
     }
-
 
     /**
      * Creates a StaticMessage for use in BetterTeams commands
@@ -147,7 +112,7 @@ public class ExtensionMessages {
      * Creates a StaticMessage with placeholders replaced
      * Includes the prefix
      *
-     * @param path         The message path
+     * @param path          The message path
      * @param replacements Pairs of key-value replacements
      * @return A StaticMessage instance
      */
@@ -189,8 +154,8 @@ public class ExtensionMessages {
      * Creates a CommandResponse with custom success state and placeholders
      * Includes the prefix
      *
-     * @param success      Whether the command was successful
-     * @param path         The message path
+     * @param success       Whether the command was successful
+     * @param path          The message path
      * @param replacements Pairs of key-value replacements
      * @return A CommandResponse instance
      */
@@ -206,7 +171,7 @@ public class ExtensionMessages {
      * @param path   The message path
      */
     public void send(@NotNull CommandSender sender, @NotNull String path) {
-        toStatic(path).sendMessage(sender);
+        messageService.sendMessage(sender, true, path);
     }
 
     /**
@@ -217,7 +182,7 @@ public class ExtensionMessages {
      * @param replacements Pairs of key-value replacements
      */
     public void send(@NotNull CommandSender sender, @NotNull String path, @NotNull Object... replacements) {
-        toStatic(path, replacements).sendMessage(sender);
+        messageService.sendMessage(sender, true, path, replacements);
     }
 
     /**
@@ -227,7 +192,7 @@ public class ExtensionMessages {
      * @param path       The message path
      */
     public void send(@NotNull Collection<? extends CommandSender> recipients, @NotNull String path) {
-        toStatic(path).sendMessage(recipients);
+        messageService.sendMessage(recipients, true, path);
     }
 
     /**
@@ -238,7 +203,7 @@ public class ExtensionMessages {
      * @param replacements Pairs of key-value replacements
      */
     public void send(@NotNull Collection<? extends CommandSender> recipients, @NotNull String path, @NotNull Object... replacements) {
-        toStatic(path, replacements).sendMessage(recipients);
+        messageService.sendMessage(recipients, true, path, replacements);
     }
 
     /**
@@ -248,7 +213,7 @@ public class ExtensionMessages {
      * @param path   The message path
      */
     public void sendRaw(@NotNull CommandSender sender, @NotNull String path) {
-        toStaticRaw(path).sendMessage(sender);
+        messageService.sendMessage(sender, false, path);
     }
 
     /**
@@ -259,101 +224,25 @@ public class ExtensionMessages {
      * @param replacements Pairs of key-value replacements
      */
     public void sendRaw(@NotNull CommandSender sender, @NotNull String path, @NotNull Object... replacements) {
-        toStaticRaw(path, replacements).sendMessage(sender);
+        messageService.sendMessage(sender, false, path, replacements);
     }
 
     /**
      * Checks if a message key exists in the configuration
      */
     public boolean has(@NotNull String path) {
-        return configManager.getConfig().contains(path);
+        return messageService.getMessageConfig().has(path);
     }
 
-    @NotNull
-    public MessageBuilder builder(@NotNull String path) {
-        return new MessageBuilder(this, path);
-    }
-
-    /**
-     * Clears the message cache.
-     */
     public void clearCache() {
-        cache.clear();
+        messageService.getMessageConfig().clearCache();
     }
 
     public int getCacheSize() {
-        return cache.size();
+        return messageService.getMessageConfig().getCacheSize();
     }
 
-
-    public static class MessageBuilder {
-        private final ExtensionMessages messages;
-        private String text;
-
-        public MessageBuilder(@NotNull ExtensionMessages messages, @NotNull String path) {
-            this.messages = messages;
-            this.text = messages.get(path);
-        }
-
-        /**
-         * Replaces a placeholder with a value
-         * Placeholders are in the format {key}
-         *
-         * @param key   The placeholder key (without braces)
-         * @param value The replacement value
-         * @return This builder for chaining
-         */
-        @NotNull
-        public MessageBuilder with(@NotNull String key, @Nullable Object value) {
-            this.text = this.text.replace("{" + key + "}", String.valueOf(value));
-            return this;
-        }
-
-        /**
-         * Replaces multiple placeholders from a map
-         *
-         * @param placeholders Map of key-value pairs
-         * @return This builder for chaining
-         */
-        @NotNull
-        public MessageBuilder withAll(@NotNull Map<String, Object> placeholders) {
-            for (Map.Entry<String, Object> entry : placeholders.entrySet()) {
-                with(entry.getKey(), entry.getValue());
-            }
-            return this;
-        }
-
-        @NotNull
-        public String build() {
-            return text;
-        }
-
-        @NotNull
-        public String buildWithPrefix() {
-            return messages.getPrefix() + text;
-        }
-
-        @NotNull
-        public StaticMessage toStatic() {
-            return new StaticMessage(buildWithPrefix());
-        }
-
-        @NotNull
-        public StaticMessage toStaticRaw() {
-            return new StaticMessage(build());
-        }
-
-        @NotNull
-        public CommandResponse toResponse(boolean success) {
-            return new CommandResponse(success, toStatic());
-        }
-
-        public void send(@NotNull CommandSender sender) {
-            toStatic().sendMessage(sender);
-        }
-
-        public void sendRaw(@NotNull CommandSender sender) {
-            toStaticRaw().sendMessage(sender);
-        }
+    public MessageConfig.MessageBuilder builder(String path) {
+        return messageService.getMessageConfig().builder(path);
     }
 }

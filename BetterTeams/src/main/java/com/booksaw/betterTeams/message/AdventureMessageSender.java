@@ -57,4 +57,12 @@ final class AdventureMessageSender implements MessageSender {
 	public void sendTitleAndSub(@NotNull Collection<Player> recipients, @NotNull Component title, @NotNull Component subtitle) {
 		audiences.filter(recipients::contains).showTitle(Title.title(title, subtitle));
 	}
+
+	public void sendActionBar(@NotNull Player recipient, @NotNull Component message) {
+		audiences.player(recipient).sendActionBar(message);
+	}
+
+	public void sendActionBar(@NotNull Collection<Player> recipients, @NotNull Component message) {
+		audiences.filter(recipients::contains).sendActionBar(message);
+	}
 }

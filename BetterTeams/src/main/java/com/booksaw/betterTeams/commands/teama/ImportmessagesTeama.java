@@ -5,6 +5,7 @@ import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.commands.SubCommand;
 import com.booksaw.betterTeams.message.MessageManager;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -16,7 +17,14 @@ public class ImportmessagesTeama extends SubCommand {
 	@Override
 	public CommandResponse onCommand(CommandSender sender, String label, String[] args) {
 		try {
-			File f = new File(Main.plugin.getDataFolder() + File.separator + MessageManager.MISSINGMESSAGES_FILENAME);
+			if (MessageManager.getMainPluginService() == null) {
+				return new CommandResponse(false, "admin.import.fail");
+			}
+
+			String lang = MessageManager.getLanguage();
+			File f = new File(Main.plugin.getDataFolder(), lang + "_missingmessages.txt");
+
+			FileConfiguration config = MessageManager.getDefaultMessages();
 			try (BufferedReader reader = new BufferedReader(new FileReader(f))) {
 				String line;
 				while ((line = reader.readLine()) != null) {
@@ -27,9 +35,9 @@ public class ImportmessagesTeama extends SubCommand {
 					if (split.length != 2) {
 						continue;
 					}
-					MessageManager.getDefaultMessages().set(split[0], split[1]);
+					config.set(split[0], split[1]);
 				}
-				MessageManager.getDefaultMessagesConfigManager().save(true);
+				MessageManager.getMainPluginService().getMessageConfig().getConfigManager().save(true);
 				f.delete();
 			}
 		} catch (IOException e) {

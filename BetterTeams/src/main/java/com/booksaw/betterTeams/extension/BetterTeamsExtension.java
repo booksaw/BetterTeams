@@ -2,6 +2,7 @@ package com.booksaw.betterTeams.extension;
 
 import com.booksaw.betterTeams.ConfigManager;
 import com.booksaw.betterTeams.Main;
+import com.booksaw.betterTeams.message.MessageManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -105,7 +106,7 @@ public abstract class BetterTeamsExtension {
 	 */
 	@NotNull
 	public ExtensionMessages getMessages()  {
-		String lang = plugin.getConfig().getString("language", "messages");
+		String lang = MessageManager.getLanguage();
 		return getMessages(lang);
 	}
 
