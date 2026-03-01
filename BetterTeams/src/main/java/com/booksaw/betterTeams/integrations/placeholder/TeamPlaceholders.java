@@ -4,14 +4,18 @@ import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.Utils;
 import com.booksaw.betterTeams.message.MessageManager;
-import com.booksaw.betterTeams.util.Cache;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.time.Duration;
+import java.util.Optional;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * This class is used to set the placeholder values for placeholder API
@@ -21,14 +25,24 @@ import java.time.Duration;
 public class TeamPlaceholders extends PlaceholderExpansion {
 	private final Plugin plugin;
 
-	private final Cache<String, String> placeholderCache;
+	private final LoadingCache<String, Optional<String>> placeholderCache;
 
 	public TeamPlaceholders(Plugin plugin) {
 		this.plugin = plugin;
-		placeholderCache = new Cache.Builder<String, String>()
-				.maximumSize(300)
-				.expireAfterWrite(Duration.ofSeconds(plugin.getConfig().getInt("invalidateCacheSeconds", 60)))
-				.build(this::getStaticPlaceholder);
+		int duration = plugin.getConfig().getInt("invalidateCacheSeconds", 60);
+		CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder()
+				.maximumSize(300);
+
+		// Keep old behavior
+		if (duration > 0) {
+			builder.expireAfterWrite(duration, TimeUnit.SECONDS);
+		}
+
+		placeholderCache = builder.build(
+				CacheLoader.from(key ->
+						Optional.ofNullable(getStaticPlaceholder(key))
+				)
+		);
 	}
 
 	public void invalidateCache() {
@@ -66,8 +80,12 @@ public class TeamPlaceholders extends PlaceholderExpansion {
 		identifier = identifier.toLowerCase();
 		String[] split = identifier.split("_");
 
-		String cachedValue = placeholderCache.get(identifier);
-		if (cachedValue != null) return cachedValue;
+		try {
+			String cachedValue = placeholderCache.get(identifier).orElse(null);
+			if (cachedValue != null) return cachedValue;
+		} catch (ExecutionException ignored) {
+			return null;
+		}
 
 		if (player == null) return null;
 

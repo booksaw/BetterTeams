@@ -2,7 +2,9 @@ package com.booksaw.betterTeams.commands.presets;
 
 import com.booksaw.betterTeams.*;
 import com.booksaw.betterTeams.commands.SubCommand;
-import com.booksaw.betterTeams.util.Cache;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.OfflinePlayer;
@@ -11,7 +13,9 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.time.Duration;
+import java.util.Optional;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * This class can be extended for any sub commands which require players to be
@@ -26,10 +30,13 @@ public abstract class TeamSubCommand extends SubCommand {
 	@Getter
 	PlayerRank requiredRank = getDefaultRank();
 
-	private final Cache<CommandSender, Team> teamCache = new Cache.Builder<CommandSender, Team>()
-			.maximumSize(300)
-			.expireAfterAccess(Duration.ofMinutes(5))
-			.build(this::getTeam);
+	private final LoadingCache<CommandSender, Optional<Team>> teamCache =
+			CacheBuilder.newBuilder()
+					.maximumSize(300)
+					.expireAfterAccess(5, TimeUnit.MINUTES)
+					.build(CacheLoader.from(sender ->
+							Optional.ofNullable(getTeam(sender))
+					));
 
 	private Team getTeam(CommandSender sender) {
 		if (sender instanceof Player) {
@@ -41,7 +48,11 @@ public abstract class TeamSubCommand extends SubCommand {
 	protected @Nullable Team getMyTeam(CommandSender sender) {
 		if (!(sender instanceof Player)) return null;
 
-		return teamCache.get(sender);
+		try {
+			return teamCache.get(sender).orElse(null);
+		} catch (ExecutionException e) {
+			return null;
+		}
 	}
 
 	@Override

@@ -52,7 +52,7 @@ class TeamPlaceholdersTest {
 	@SuppressWarnings("ResultOfMethodCallIgnored")
 	void setUp() {
 		when(mockPlugin.getConfig()).thenReturn(mockConfig);
-//		when(mockConfig.getInt("invalidateCacheSeconds", 60)).thenReturn(30);
+//		when(mockConfig.getInt("invalidateCacheSeconds", 60)).thenReturn(60);
 
 		teamStatic = mockStatic(Team.class);
 		messageManagerStatic = mockStatic(MessageManager.class);
@@ -257,7 +257,10 @@ class TeamPlaceholdersTest {
 			assertEquals("100", result2);
 
 			// Verify the service was NOT called again, proving the cache was hit
-			placeholderServiceStatic.verifyNoMoreInteractions();
+			placeholderServiceStatic.verify(
+					() -> TeamPlaceholderService.getPlaceholder("score", mockTeam, null),
+					times(1)
+			);
 		}
 
 		@Test
