@@ -10,6 +10,10 @@ The newest release will always be maintained at the top of the file.
 
 * Improved the Cache service to reduce the performance cost of placeholders - Credit RVSkeLe
 
+### Bug Fixes
+
+* Fixed double comparator for balance (#951)
+
 ### Code Improvements
 
 * Fixed jitpack build - Credit JustLime

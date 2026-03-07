@@ -221,14 +221,7 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 	public String[] sortTeamsByBalance() {
 		return sortTeamByX(
 				configuration -> configuration.getDouble(StoredTeamValue.MONEY.getReference()),
-				(t1, t2) -> {
-					if (t1.value == t2.value) {
-						return 0;
-					} else if (t1.value < t2.value) {
-						return 1;
-					}
-					return -1;
-				});
+				(t1, t2) -> Double.compare(t2.value, t1.value));
 	}
 
 	@Override
