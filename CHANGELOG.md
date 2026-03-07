@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file against thei
 
 The newest release will always be maintained at the top of the file.
 
+## 5.0.1
+
+### Improvements
+
+* Improved the Cache service to reduce the performance cost of placeholders - Credit RVSkeLe
+
+### Code Improvements
+
+* Fixed jitpack build - Credit JustLime
+
 ## 5.0.0
 
 This is a major release which includes several breaking changes for the API
