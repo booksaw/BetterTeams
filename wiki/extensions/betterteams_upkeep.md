@@ -2,7 +2,7 @@
 title: "BetterTeams Upkeep"
 description: "Adds upkeep fee based on team rank"
 author: "KrishThePatel"
-image: "/img/extensions/create-webhook.jpg"
+image: "/img/extensions/upkeep-logo.jpg"
 downloadUrl: "https://www.spigotmc.org/resources/133229/"
 tags: ["Economy", "Configurable"]
 ---
