@@ -5,7 +5,6 @@ import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.text.LegacyTextUtils;
-
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -64,9 +63,9 @@ public class ChatManagement implements Listener {
 				event.setCancelled(true);
 
 				if (teamPlayer.isInTeamChat()) {
-					team.sendMessage(teamPlayer, event.getMessage());
+					team.getTeamMessageController().sendTeamChatMessage(teamPlayer, event.getMessage());
 				} else {
-					team.sendAllyMessage(teamPlayer, event.getMessage());
+					team.getTeamMessageController().sendAllyChatMessage(teamPlayer, event.getMessage());
 				}
 				// Used as some chat plugins do not accept when a message is cancelled
 				event.setMessage("");
@@ -74,16 +73,16 @@ public class ChatManagement implements Listener {
 				return;
 			}
 		} else if (
-			(!globalToTeamPrefix.isEmpty() && event.getMessage().startsWith(globalToTeamPrefix) && event.getMessage().length() > globalToTeamPrefix.length())
-					|| (!globalToAllyPrefix.isEmpty() && event.getMessage().startsWith(globalToAllyPrefix) && event.getMessage().length() > globalToAllyPrefix.length())
+				(!globalToTeamPrefix.isEmpty() && event.getMessage().startsWith(globalToTeamPrefix) && event.getMessage().length() > globalToTeamPrefix.length())
+						|| (!globalToAllyPrefix.isEmpty() && event.getMessage().startsWith(globalToAllyPrefix) && event.getMessage().length() > globalToAllyPrefix.length())
 		) {
 			// Player is not sending to global chat
 			event.setCancelled(true);
 
 			if (event.getMessage().startsWith(globalToTeamPrefix)) {
-				team.sendMessage(teamPlayer, event.getMessage().substring(globalToTeamPrefix.length()));
+				team.getTeamMessageController().sendTeamChatMessage(teamPlayer, event.getMessage().substring(globalToTeamPrefix.length()));
 			} else {
-				team.sendAllyMessage(teamPlayer, event.getMessage().substring(globalToAllyPrefix.length()));
+				team.getTeamMessageController().sendAllyChatMessage(teamPlayer, event.getMessage().substring(globalToAllyPrefix.length()));
 			}
 			// Used as some chat plugins do not accept when a message is cancelled
 			event.setMessage("");

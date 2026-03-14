@@ -2,8 +2,8 @@ package com.booksaw.betterTeams.customEvents;
 
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
+import com.booksaw.betterTeams.team.controller.TeamMessageController;
 import com.booksaw.betterTeams.util.StringUtil;
-
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.entity.Player;
@@ -30,8 +30,16 @@ public class TeamSendMessageEvent extends TeamPlayerEvent {
 	 * @apiNote {0} is replaced with the player name and {1} is the message
 	 */
 	private String format;
-	/// The prefix that is put before the name of the sender in the message format.
+	/**
+	 * The prefix that is put before the name of the sender in the message format.
+	 */
 	private String senderNamePrefix;
+
+	/**
+	 * If the message is being sent to the ally chat, false if only to the team chat
+	 */
+	private final TeamMessageController.TeamMessageType messageType;
+
 	/**
 	 * A mutable set of players which are going to receive a copy of the message.
 	 *
@@ -54,12 +62,14 @@ public class TeamSendMessageEvent extends TeamPlayerEvent {
 								@NotNull String rawMessage,
 								@NotNull String proposedFormat,
 								@NotNull String senderNamePrefix,
-								@NotNull Collection<TeamPlayer> recipients) {
+								@NotNull Collection<TeamPlayer> recipients,
+								TeamMessageController.TeamMessageType messageType) {
 		super(team, sender, true);
 		this.rawMessage = rawMessage;
 		this.format = proposedFormat;
 		this.senderNamePrefix = senderNamePrefix;
 		this.recipients.addAll(recipients);
+		this.messageType = messageType;
 	}
 
 	/**

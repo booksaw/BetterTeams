@@ -125,13 +125,22 @@ public class TeamPlayer {
 	public boolean isAnchored() {
 		return anchor;
 	}
-	
+
+	/**
+	 * @return the player prefix for messages that the player has sent
+	 */
+	public String getPlayerPrefix() {
+		return getPrefix(null);
+	}
+
 	/**
 	 * @param returnTo the chat color that should be returned to after the prefix
 	 *                 has been added (to stop the color of the prefix continuing
 	 *                 for the rest of the message)
-	 * @return the prefix for messages that the player has sent
+	 * @return the player prefix for messages that the player has sent
+	 * @deprecated Use getPlayerPrefix() instead, any requirement for returnTo should be managed by the code on the other side
 	 */
+	@Deprecated
 	public String getPrefix(ChatColor returnTo) {
 		if (title == null || title.isEmpty()) {
 			return rank.getPrefix() + (returnTo != null ? returnTo : "");
