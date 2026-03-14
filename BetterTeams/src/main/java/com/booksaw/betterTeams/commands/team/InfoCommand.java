@@ -6,7 +6,6 @@ import com.booksaw.betterTeams.commands.SubCommand;
 import com.booksaw.betterTeams.message.HelpMessage;
 import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.team.SetTeamComponent;
-
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
@@ -52,7 +51,7 @@ public class InfoCommand extends SubCommand {
 				currentMembers, maxMembers, currentWarps, maxWarps));
 
 		infoMessages.add(MessageManager.getMessage("info.tag", team.getTag()));
-		
+
 		if (Main.plugin.getConfig().getBoolean("anchor.enable")) {
 			infoMessages.add(MessageManager.getMessage("info.anchor", team.isAnchored()));
 		}
@@ -98,9 +97,9 @@ public class InfoCommand extends SubCommand {
 			for (TeamPlayer player : users) {
 				OfflinePlayer offplayer = player.getPlayer();
 				playerList.add(MessageManager.getMessage(offplayer, "info." + ((offplayer.isOnline()
-						&& player.getOnlinePlayer().map(
+								&& player.getOnlinePlayer().map(
 								p -> !Utils.isVanished(p)).orElse(false)) ? "onlinePlayer" : "offlinePlayer"),
-						player.getPrefix(null) + offplayer.getName()));
+						player.getPlayerPrefix() + offplayer.getName()));
 			}
 
 			return MessageManager.getMessage("info." + rank.toString().toLowerCase(), String.join(space, playerList));

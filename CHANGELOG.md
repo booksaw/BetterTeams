@@ -13,9 +13,14 @@ The newest release will always be maintained at the top of the file.
 ### Bug Fixes
 
 * Fixed double comparator for balance (#951)
+* Fixed discord webhook not logging any ally chat messages
 
 ### Code Improvements
 
+* Refactored the team chat API, previous methods have been deprecated to be removed in a future release, see the javadoc
+  comments for details
+* Team Chat events will also now fire on Ally Chat messages as monitoring ally chat was not previously possible, there
+  is a new `getMessageType()` field added to the events to trace which is used
 * Fixed jitpack build - Credit JustLime
 
 ## 5.0.0

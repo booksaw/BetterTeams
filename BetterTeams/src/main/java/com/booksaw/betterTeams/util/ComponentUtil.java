@@ -1,10 +1,9 @@
 package com.booksaw.betterTeams.util;
 
-import org.jetbrains.annotations.NotNull;
-
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.JoinConfiguration;
 import net.kyori.adventure.text.TextReplacementConfig;
+import org.jetbrains.annotations.NotNull;
 
 public class ComponentUtil {
 
@@ -28,20 +27,18 @@ public class ComponentUtil {
 	public static @NotNull Component setPlaceholders(Component base, Component replacement, String... placeholders) {
 		if (base == null || base.equals(Component.empty())) return Component.empty();
 
-		if (placeholders == null || placeholders.length == 0 || replacement == null || replacement.equals(Component.empty())) return base;
+		if (placeholders == null || placeholders.length == 0 || replacement == null || replacement.equals(Component.empty()))
+			return base;
 
 		TextReplacementConfig.Builder builder = TextReplacementConfig.builder();
-		boolean hasReplacements = false;
 
 		for (String placeholder : placeholders) {
 			if (placeholder == null || placeholder.isEmpty()) continue;
 
 			builder.matchLiteral(placeholder).replacement(replacement);
-			hasReplacements = true;
+			base = base.replaceText(builder.build());
 		}
 
-		if (!hasReplacements) return base;
-
-		return base.replaceText(builder.build());
+		return base;
 	}
 }

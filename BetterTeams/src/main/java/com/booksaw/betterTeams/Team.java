@@ -3,12 +3,12 @@ package com.booksaw.betterTeams;
 import com.booksaw.betterTeams.customEvents.*;
 import com.booksaw.betterTeams.customEvents.post.*;
 import com.booksaw.betterTeams.exceptions.CancelledEventException;
-import com.booksaw.betterTeams.message.ChatMessage;
 import com.booksaw.betterTeams.message.Message;
 import com.booksaw.betterTeams.message.MessageManager;
 import com.booksaw.betterTeams.message.ReferencedFormatMessage;
 import com.booksaw.betterTeams.team.*;
 import com.booksaw.betterTeams.team.AnchoredPlayerUUIDSetComponent.AnchorResult;
+import com.booksaw.betterTeams.team.controller.TeamMessageController;
 import com.booksaw.betterTeams.team.level.LevelManager;
 import com.booksaw.betterTeams.team.level.TeamLevel;
 import com.booksaw.betterTeams.team.storage.StorageType;
@@ -18,7 +18,6 @@ import com.booksaw.betterTeams.text.LegacyTextUtils;
 import lombok.Getter;
 import org.bukkit.*;
 import org.bukkit.block.Block;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.scoreboard.Scoreboard;
@@ -27,9 +26,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 /**
  * This class is used to manage a team and all of it's participants
@@ -208,6 +204,7 @@ public class Team {
 	 * tracks and provides utility methods relating to the members of this team
 	 */
 	@Getter
+	@NotNull
 	private final MemberSetComponent members = new MemberSetComponent();
 
 	/**
@@ -248,6 +245,9 @@ public class Team {
 	 * The money that the team has
 	 */
 	private final MoneyComponent money = new MoneyComponent();
+
+	@Getter
+	private final TeamMessageController teamMessageController = new TeamMessageController(this);
 
 	/**
 	 * Tracks if the team has pvp enabled between team members
@@ -490,8 +490,7 @@ public class Team {
 
 	public @NotNull String getAdventureDisplayName(boolean checkConfig) {
 		boolean doColor = !checkConfig || Main.plugin.getConfig().getBoolean("colorTeamName", true);
-		return ""
-				+ (doColor ? getOpenColor() : "")
+		return (doColor ? getOpenColor() : "")
 				+ getName()
 				+ (doColor ? getCloseColor() : "");
 	}
@@ -524,8 +523,7 @@ public class Team {
 		if (asAdventure) {
 			return getAdventureDisplayName(true);
 		} else {
-			return ""
-					+ (color != null && Main.plugin.getConfig().getBoolean("colorTeamName", true) ? color : "")
+			return (color != null && Main.plugin.getConfig().getBoolean("colorTeamName", true) ? color : "")
 					+ name;
 		}
 	}
@@ -987,94 +985,36 @@ public class Team {
 
 	/**
 	 * Used when a player sends a message to the team chat
+	 * Use
 	 *
 	 * @param sender  the player which sent the message to the team chat
 	 * @param message the message to send to the team chat
+	 * @deprecated This method is going to be removed in simplifying the Team class. Use team.getTeamMessageController().sendTeamChatMessage() instead
 	 */
+	@Deprecated(forRemoval = true)
 	public void sendMessage(TeamPlayer sender, String message) {
-		String format = getTeamChatSyntax(sender);
-		ChatColor returnTo = getPreviousChatColor(format);
-
-		// These are variables which may be modified by TeamSendMessageEvent
-		Set<TeamPlayer> recipients = members.getClone();
-		recipients.removeIf(teamPlayer -> !teamPlayer.getPlayer().isOnline()); // Offline players won't be recipients
-		String prefix = sender.getPrefix(returnTo);
-
-		// Notify third party plugins that a team message is going to be sent
-		TeamSendMessageEvent teamSendMessageEvent = new TeamSendMessageEvent(this, sender, message, format, prefix, recipients);
-		Bukkit.getPluginManager().callEvent(teamSendMessageEvent);
-
-		// Process any updates after the event has been dispatched
-		if (teamSendMessageEvent.isCancelled()) {
-			return;
-		}
-
-		message = teamSendMessageEvent.getRawMessage();
-		format = teamSendMessageEvent.getFormat().replace("$name$", "{0}").replace("$message$", "{1}");
-		prefix = teamSendMessageEvent.getSenderNamePrefix();
-		recipients = teamSendMessageEvent.getRecipients();
-
-		Collection<Player> playerRecipients = recipients.stream().map(r -> r.getPlayer().getPlayer())
-				.filter(Objects::nonNull)
-				.collect(Collectors.toList());
-		Collection<CommandSender> spies = Main.plugin.chatManagement.spy.stream()
-				.filter(Objects::nonNull)
-				.filter(temp -> !(temp instanceof Player && getTeamPlayer((Player) temp) != null))
-				.collect(Collectors.toList());
-
-		ChatMessage chatMsg = ChatMessage.customSyntaxTeamChat(this, sender, prefix, message, format);
-		chatMsg.sendMessage(playerRecipients);
-		chatMsg.sendSpyMessage(spies);
-
-		if (TEAMMANAGER.isLogChat()) {
-			MessageManager.sendFullMessage(Bukkit.getConsoleSender(), chatMsg.getMessage());
-		}
-
-		String fMessage = LegacyTextUtils.serialize(chatMsg.getMessage());
-		// Notify third party plugins that a message has been dispatched
-		Bukkit.getPluginManager().callEvent(new PostTeamSendMessageEvent(this, sender, fMessage, recipients));
-	}
-
-	private static @NotNull ChatColor getPreviousChatColor(String toTest) {
-		Matcher matcher = Pattern.compile("\\{\\d+}").matcher(toTest);
-		if (matcher.find()) {
-			int value = matcher.start();
-			if (value > 3) {
-				for (int i = value; i >= 0; i--) {
-					if (toTest.charAt(i) == ChatColor.COLOR_CHAR) {
-						ChatColor returnTo = ChatColor.getByChar(toTest.charAt(i + 1));
-						if (returnTo != null) {
-							return returnTo;
-						}
-					}
-				}
-			}
-		}
-
-		return ChatColor.RESET;
+		teamMessageController.sendTeamChatMessage(sender, message);
 	}
 
 	/**
 	 * Used to get the chat syntax and apply placeholders when possible
 	 *
 	 * @param sender - The team player who sent the command
+	 * @deprecated use Team.getTeamMessageContorller().getTeamChatSyntax() instead
 	 */
+	@Deprecated
 	public String getTeamChatSyntax(TeamPlayer sender) {
-
-		if (sender != null && sender.getPlayer() != null && sender.getPlayer().isOnline() && (sender.getPlayer().getPlayer() instanceof CommandSender)) {
-			return MessageManager.getMessage(sender.getPlayer().getPlayer(), "chat.syntax").replace("$name$", "{0}").replace("$message$", "{1}");
-		}
-
-		return MessageManager.getMessage("chat.syntax").replace("$name$", "{0}").replace("$message$", "{1}");
+		return teamMessageController.getChatSyntax(sender, TeamMessageController.TeamMessageType.TEAM_CHAT_MESSAGE);
 	}
 
+	/**
+	 * @param sender The team player who sent the command
+	 * @return The syntax
+	 * @deprecated Use team.getTeamMessageController().getChatSyntax() instead
+	 */
+	@Deprecated
 	public String getAllyChatSyntax(TeamPlayer sender) {
-
-		if (sender != null && sender.getPlayer() != null && sender.getPlayer().isOnline() && (sender.getPlayer().getPlayer() instanceof CommandSender)) {
-			return MessageManager.getMessage(sender.getPlayer().getPlayer(), "allychat.syntax").replace("$name$", "{1}").replace("$message$", "{2}");
-		}
-
-		return MessageManager.getMessage("allychat.syntax").replace("$name$", "{1}").replace("$message$", "{2}");
+		return teamMessageController.getChatSyntax(sender, TeamMessageController.TeamMessageType.ALLY_CHAT_MESSAGE);
 	}
 
 	/**
@@ -1082,35 +1022,11 @@ public class Team {
 	 *
 	 * @param sender  the player who sent the message
 	 * @param message the message that the player sent
+	 * @deprecated Use team.getTeamMessageController().sendAllyChatMessage() instead
 	 */
+	@Deprecated
 	public void sendAllyMessage(TeamPlayer sender, String message) {
-		String toTest = MessageManager.getMessage(sender.getPlayer().getPlayer(), "chat.syntax");
-		ChatColor returnTo = getPreviousChatColor(toTest);
-
-		String prefix = sender.getPrefix(returnTo);
-
-		ChatMessage chatMsg = ChatMessage.allyChat(this, sender, prefix, message);
-
-		members.broadcastMessage(chatMsg);
-
-		for (UUID ally : allies.getClone()) {
-			Team temp = Team.getTeam(ally);
-			temp.getMembers().broadcastMessage(chatMsg);
-
-		}
-
-		Collection<CommandSender> spies = Main.plugin.chatManagement.spy.stream()
-				.filter(temp -> !(temp instanceof Player &&
-						(Team.getTeam((Player) temp) == this ||
-								(Team.getTeam((Player) temp) != null && isAlly(Team.getTeam((Player) temp)))))
-				)
-				.collect(Collectors.toList());
-
-		chatMsg.sendSpyMessage(spies);
-
-		if (TEAMMANAGER.isLogChat()) {
-			MessageManager.sendFullMessage(Bukkit.getConsoleSender(), chatMsg.getMessage());
-		}
+		teamMessageController.sendAllyChatMessage(sender, message);
 	}
 
 	public int getScore() {

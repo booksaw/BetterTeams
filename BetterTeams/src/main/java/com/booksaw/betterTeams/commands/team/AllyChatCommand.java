@@ -40,7 +40,7 @@ public class AllyChatCommand extends TeamSubCommand {
 			message.append(arg).append(" ");
 		}
 
-		team.sendAllyMessage(player, message.toString());
+		team.getTeamMessageController().sendAllyChatMessage(player, message.toString());
 		return new CommandResponse(true);
 	}
 
