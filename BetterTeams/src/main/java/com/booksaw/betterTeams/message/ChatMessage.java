@@ -5,7 +5,6 @@ import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.team.controller.TeamMessageController;
 import com.booksaw.betterTeams.text.Formatter;
 import com.booksaw.betterTeams.util.ComponentUtil;
-import com.booksaw.betterTeams.util.StringUtil;
 import lombok.Getter;
 import net.kyori.adventure.text.Component;
 import org.bukkit.command.CommandSender;
@@ -54,10 +53,10 @@ public class ChatMessage extends StaticComponentHolderMessage {
 		requireNonNull(message, "Team chat message cannot be null.");
 		requireNonNull(syntax, "Team chat syntax cannot be null.");
 
-		Component teamPreMessage = Formatter.absolute().process(StringUtil.setPlaceholders(syntax, (prefix == null ? "" : prefix) + player.getDisplayName()));
+		Component teamPreMessage = messageType.formattingFunction.getTeamMessagePrefix(syntax, prefix, team, player);
 		Component playerMessage = Formatter.player(player).process(message);
 		Component spyPreMessage = Formatter.absolute().process(MessageManager.getMessage(player, messageType.chatSpyFormat, team.getName(), player.getName()));
-		return new ChatMessage(team, teamPlayer, ComponentUtil.setPlaceholders(teamPreMessage, playerMessage, "{1}"), ComponentUtil.setPlaceholders(spyPreMessage, playerMessage, "{2}"));
+		return new ChatMessage(team, teamPlayer, ComponentUtil.setPlaceholders(teamPreMessage, playerMessage, "{1}", "{2}"), ComponentUtil.setPlaceholders(spyPreMessage, playerMessage, "{2}"));
 	}
 
 	@Override

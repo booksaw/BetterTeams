@@ -7,8 +7,11 @@ import com.booksaw.betterTeams.customEvents.TeamSendMessageEvent;
 import com.booksaw.betterTeams.customEvents.post.PostTeamSendMessageEvent;
 import com.booksaw.betterTeams.message.ChatMessage;
 import com.booksaw.betterTeams.message.MessageManager;
+import com.booksaw.betterTeams.text.Formatter;
 import com.booksaw.betterTeams.text.LegacyTextUtils;
+import com.booksaw.betterTeams.util.StringUtil;
 import lombok.RequiredArgsConstructor;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -27,16 +30,29 @@ import java.util.stream.Collectors;
 public class TeamMessageController {
 
 	public enum TeamMessageType {
-		TEAM_CHAT_MESSAGE("chat.syntax", "spy.team"),
-		ALLY_CHAT_MESSAGE("allychat.syntax", "spy.ally");
+		TEAM_CHAT_MESSAGE("chat.syntax", "spy.team",
+				(syntax, prefix, team, sender) ->
+						Formatter.absolute().process(StringUtil.setPlaceholders(syntax,
+								(prefix == null ? "" : prefix) + sender.getDisplayName()))),
+		ALLY_CHAT_MESSAGE("allychat.syntax", "spy.ally",
+				(syntax, prefix, team, sender) ->
+						Formatter.absolute().process(StringUtil.setPlaceholders(syntax, team.getDisplayName(),
+								(prefix == null ? "" : prefix) + sender.getDisplayName())));
 
 		public final String chatFormat;
 		public final String chatSpyFormat;
 
-		TeamMessageType(String chatFormat, String chatspyFormat) {
+		public final ChatMessageFormattingReplacementInterface formattingFunction;
+
+		TeamMessageType(String chatFormat, String chatSpyFormat, ChatMessageFormattingReplacementInterface formattingFunction) {
 			this.chatFormat = chatFormat;
-			this.chatSpyFormat = chatspyFormat;
+			this.chatSpyFormat = chatSpyFormat;
+			this.formattingFunction = formattingFunction;
 		}
+	}
+
+	public interface ChatMessageFormattingReplacementInterface {
+		Component getTeamMessagePrefix(String syntax, String prefix, Team team, Player sender);
 	}
 
 	private final Team team;
@@ -91,7 +107,7 @@ public class TeamMessageController {
 
 	public String getChatSyntax(TeamPlayer sender, TeamMessageType messageType) {
 		if (sender != null && sender.getPlayer() != null && sender.getPlayer().isOnline() && (sender.getPlayer().getPlayer() != null)) {
-			return MessageManager.getMessage(sender.getPlayer().getPlayer(), "allychat.syntax").replace("$name$", "{1}").replace("$message$", "{2}");
+			return MessageManager.getMessage(sender.getPlayer().getPlayer(), messageType.chatFormat).replace("$name$", "{1}").replace("$message$", "{2}");
 		}
 
 		return MessageManager.getMessage(messageType.chatFormat).replace("$name$", "{1}").replace("$message$", "{2}");
