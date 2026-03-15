@@ -16,6 +16,7 @@ The newest release will always be maintained at the top of the file.
 
 ### Code Improvements
 
+* Added individual messages and translation file support for extensions (#942) - Credit LpMind
 * Fixed jitpack build - Credit JustLime
 
 ## 5.0.0
