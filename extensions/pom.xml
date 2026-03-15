@@ -42,7 +42,7 @@
                     <outputDirectory>
                         ${maven.multiModuleProjectDirectory}/server/plugins/BetterTeams/extensions
                     </outputDirectory>
-                    <finalName>${project.artifactId}-${project.version}</finalName>
+                    <finalName>${project.artifactId}</finalName>
                 </configuration>
             </plugin>
         </plugins>

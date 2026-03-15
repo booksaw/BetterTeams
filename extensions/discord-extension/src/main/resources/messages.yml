@@ -1,0 +1,17 @@
+webhook:
+  unknownPlayer: "an unknown player"
+  create:
+    title: "New team created - {0}"
+    description: "A team called **{0}** has been created by **{1}**"
+  disband:
+    title: "Team disbanded - {0}"
+    description: "A team called **{0}** has been disbanded by **{1}**"
+  leave:
+    title: "Team member left - {0}"
+    description: "A user named **{0}** has left team **{1}**"
+  rename:
+    title: "Team name change - {0}"
+    description: "A team called **{0}** had its name changed to **{1}** by **{2}**"
+  chat:
+    title: "Team Message: {0} [{1}]"
+    description: "{0}"
