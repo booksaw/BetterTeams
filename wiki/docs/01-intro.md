@@ -26,7 +26,7 @@ sidebar_position: 1
 
 - [Commands](./Commands)
 - [Permissions Nodes](./permissions/Permissions)
-- [Developer API](./API)
+- [Developer API](./API/API-intro)
 
 ## ⛓️ Useful links
 

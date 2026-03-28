@@ -8,6 +8,7 @@ import com.booksaw.betterTeams.team.controller.TeamMessageController;
 import dev.ceymikey.injection.DiscordPayload;
 import dev.ceymikey.injection.EmbedBuilder;
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,6 +21,7 @@ import org.bukkit.event.Listener;
  */
 public class WebhookHandler implements Listener {
 
+	private final DiscordExtension extension;
 	private final String configURL;
 	private final Boolean createHook;
 	private final Boolean disbandHook;
@@ -27,7 +29,11 @@ public class WebhookHandler implements Listener {
 	private final Boolean teamNameHook;
 	private final Boolean teamChatEvent;
 
-	public WebhookHandler(YamlConfiguration config) {
+	public WebhookHandler(DiscordExtension extension) {
+		this.extension = extension;
+		FileConfiguration config = extension.getConfig().getConfig();
+		extension.getMessages(); // for create message file
+
 		configURL = config.getString("hookURL");
 		createHook = config.getBoolean("create-hook");
 		disbandHook = config.getBoolean("disband-hook");
@@ -36,15 +42,18 @@ public class WebhookHandler implements Listener {
 		teamChatEvent = config.getBoolean("team-chat");
 	}
 
+	private String getMessage(String path, Object... replacements) {
+		return extension.getMessages().get(path, replacements);
+	}
 
 	@EventHandler
 	public void onTeamCreate(PostCreateTeamEvent e) {
 		if (createHook) {
 			Team team = e.getTeam();
-			String playerOrUnknown = e.getPlayer() != null ? e.getPlayer().getName() : MessageManager.getMessage("webhook.unknownPlayer");
+			String playerOrUnknown = e.getPlayer() != null ? e.getPlayer().getName() : getMessage("webhook.unknownPlayer");
 			sendWebhookMessage(
-					MessageManager.getMessage("webhook.create.title", team.getName()),
-					MessageManager.getMessage("webhook.create.description", team.getName(), playerOrUnknown));
+					getMessage("webhook.create.title", team.getName()),
+					getMessage("webhook.create.description", team.getName(), playerOrUnknown));
 		}
 	}
 
@@ -52,10 +61,10 @@ public class WebhookHandler implements Listener {
 	public void onTeamDisband(PostDisbandTeamEvent e) {
 		if (disbandHook) {
 			Team team = e.getTeam();
-			String playerOrUnknown = e.getPlayer() != null ? e.getPlayer().getName() : MessageManager.getMessage("webhook.unknownPlayer");
+			String playerOrUnknown = e.getPlayer() != null ? e.getPlayer().getName() : getMessage("webhook.unknownPlayer");
 			sendWebhookMessage(
-					MessageManager.getMessage("webhook.disband.title", team.getName()),
-					MessageManager.getMessage("webhook.disband.description", team.getName(), playerOrUnknown));
+					getMessage("webhook.disband.title", team.getName()),
+					getMessage("webhook.disband.description", team.getName(), playerOrUnknown));
 		}
 	}
 
@@ -65,8 +74,8 @@ public class WebhookHandler implements Listener {
 			Team team = e.getTeam();
 			TeamPlayer teamPlayer = e.getTeamPlayer();
 			sendWebhookMessage(
-					MessageManager.getMessage("webhook.leave.title", teamPlayer.getPlayer().getName()),
-					MessageManager.getMessage("webhook.leave.description", teamPlayer.getPlayer().getName(), team.getName()));
+					getMessage("webhook.leave.title", teamPlayer.getPlayer().getName()),
+					getMessage("webhook.leave.description", teamPlayer.getPlayer().getName(), team.getName()));
 		}
 	}
 
@@ -75,10 +84,10 @@ public class WebhookHandler implements Listener {
 		if (teamNameHook) {
 			Team team = e.getTeam();
 			String newTeamName = e.getNewTeamName();
-			String playerOrUnknown = e.getPlayer() != null ? e.getPlayer().getName() : MessageManager.getMessage("webhook.unknownPlayer");
+			String playerOrUnknown = e.getPlayer() != null ? e.getPlayer().getName() : getMessage("webhook.unknownPlayer");
 			sendWebhookMessage(
-					MessageManager.getMessage("webhook.rename.title", newTeamName),
-					MessageManager.getMessage("webhook.rename.description", team.getName(), newTeamName, playerOrUnknown));
+					getMessage("webhook.rename.title", newTeamName),
+					getMessage("webhook.rename.description", team.getName(), newTeamName, playerOrUnknown));
 		}
 	}
 
@@ -90,8 +99,8 @@ public class WebhookHandler implements Listener {
 			String teamName = e.getTeam().getName();
 			String webhookType = (e.getMessageType() == TeamMessageController.TeamMessageType.TEAM_CHAT_MESSAGE) ? "chat" : "allychat";
 			sendWebhookMessage(
-					MessageManager.getMessage("webhook." + webhookType + ".title", eSender, teamName),
-					MessageManager.getMessage("webhook." + webhookType + ".description", message));
+					getMessage("webhook." + webhookType + ".title", eSender, teamName),
+					getMessage("webhook." + webhookType + ".description", message));
 		}
 	}
 

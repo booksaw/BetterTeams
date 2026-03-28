@@ -109,6 +109,7 @@ public class Main extends JavaPlugin {
 
 	private ConfigManager configManager;
 
+	@Getter
 	private BukkitAudiences adventure;
 
 	public boolean isAdventure() {
@@ -137,12 +138,6 @@ public class Main extends JavaPlugin {
 	public void onEnable() {
 		foliaLib = new FoliaLib(this);
 		setupMetrics();
-
-		String language = getConfig().getString("language");
-		MessageManager.setLanguage(language);
-		if (Objects.requireNonNull(language).equals("en") || language.isEmpty()) {
-			MessageManager.setLanguage("messages");
-		}
 
 		if (adventure == null) try {
 			adventure = BukkitAudiences.create(this);
@@ -228,9 +223,6 @@ public class Main extends JavaPlugin {
 
 		Team.disable();
 
-		MessageManager.dumpMessages();
-		MessageManager.dumpMessageSender();
-
 		if (adventure != null) {
 			adventure.close();
 			adventure = null;
@@ -241,8 +233,13 @@ public class Main extends JavaPlugin {
 
 	public void loadCustomConfigs() {
 
-		File f = MessageManager.getFile();
-		String language = MessageManager.getLanguage();
+		String language = getConfig().getString("language");
+		if (language == null || language.isEmpty() || language.equals("en")) {
+			language = "messages";
+		}
+
+		File f = new File(getDataFolder(), language + ".yml");
+
 		try {
 			if (!f.exists()) {
 				saveResource(language + ".yml", false);
@@ -251,17 +248,16 @@ public class Main extends JavaPlugin {
 			Main.plugin.getLogger().warning("Could not load selected language: " + language
 					+ " go to https://betterteams.booksaw.dev/docs/Translations to view a list of supported languages");
 			Main.plugin.getLogger().warning("Reverting to english so the plugin can still function");
-			MessageManager.setLanguage("messages");
-			loadCustomConfigs();
-			return;
+			language = "messages";
+			if (!new File(getDataFolder(), "messages.yml").exists()) {
+				saveResource("messages.yml", false);
+			}
 		}
 
-		ConfigManager messagesConfigManager = new ConfigManager(language, true);
-
-		MessageManager.addMessages(messagesConfigManager);
+		MessageManager.addMessages(language);
 
 		if (!language.equals("messages")) {
-			messagesConfigManager = new ConfigManager("messages", true);
+			ConfigManager messagesConfigManager = new ConfigManager("messages", true);
 			MessageManager.addBackupMessages(messagesConfigManager.config);
 		}
 
