@@ -23,6 +23,8 @@ The newest release will always be maintained at the top of the file.
   comments for details
 * Team Chat events will also now fire on Ally Chat messages as monitoring ally chat was not previously possible, there
   is a new `getMessageType()` field added to the events to trace which is used
+* Added API call to allow registering of custom admin commands, See the wiki page for info
+* Added a `PostBetterTeamsReloadEvent` so plugins can detect when BetterTeams has been reloaded.
 
 ## 5.0.0
 

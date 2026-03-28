@@ -1,8 +1,8 @@
 ---
-sidebar_position: 3
+sidebar_position: 10
 ---
 
-# Message Management for Extensions
+# Extensions Translation support
 
 The extensions system includes support for all of the BetterTeams translation management system. This includes:
 * Configuration of selected language, to allow for community translations

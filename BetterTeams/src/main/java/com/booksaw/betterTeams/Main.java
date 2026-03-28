@@ -21,6 +21,7 @@ import com.booksaw.betterTeams.commands.teama.score.RemoveScore;
 import com.booksaw.betterTeams.commands.teama.score.SetScore;
 import com.booksaw.betterTeams.cooldown.CooldownManager;
 import com.booksaw.betterTeams.cost.CostManager;
+import com.booksaw.betterTeams.customEvents.post.PostBetterTeamsReloadEvent;
 import com.booksaw.betterTeams.events.*;
 import com.booksaw.betterTeams.events.MCTeamManagement.BelowNameType;
 import com.booksaw.betterTeams.extension.ExtensionManager;
@@ -75,6 +76,9 @@ public class Main extends JavaPlugin {
 	public WorldGuardManagerV7 wgManagement;
 	@Getter
 	private PermissionParentCommand teamCommand;
+
+	@Getter
+	private ParentCommand teamaCommand;
 
 	@Getter
 	private BooksawCommand teamBooksawCommand;
@@ -330,6 +334,7 @@ public class Main extends JavaPlugin {
 		configManager = new ConfigManager("config", true);
 
 		onEnable();
+		Bukkit.getPluginManager().callEvent(new PostBetterTeamsReloadEvent());
 
 		getLogger().info("BetterTeams reload complete.");
 	}
@@ -365,7 +370,7 @@ public class Main extends JavaPlugin {
 		teamBooksawCommand = new BooksawCommand("team", teamCommand, "betterteams.standard", "All commands for teams",
 				getConfig().getStringList("command.team"));
 
-		ParentCommand teamaCommand = new ParentCommand("teamadmin");
+		teamaCommand = new ParentCommand("teamadmin");
 
 		teamaCommand.addSubCommands(new ReloadTeama(), new ChatSpyTeama(), new TitleTeama(),
 				new VersionTeama("version"), new VersionTeama("debug"), new HomeTeama(), new NameTeama(),
