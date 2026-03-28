@@ -4,6 +4,7 @@ import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.customEvents.post.*;
 import com.booksaw.betterTeams.message.MessageManager;
+import com.booksaw.betterTeams.team.controller.TeamMessageController;
 import dev.ceymikey.injection.DiscordPayload;
 import dev.ceymikey.injection.EmbedBuilder;
 import org.bukkit.ChatColor;
@@ -96,9 +97,10 @@ public class WebhookHandler implements Listener {
 			String eSender = e.getPlayer().getName();
 			String message = e.getFormattedMessage();
 			String teamName = e.getTeam().getName();
+			String webhookType = (e.getMessageType() == TeamMessageController.TeamMessageType.TEAM_CHAT_MESSAGE) ? "chat" : "allychat";
 			sendWebhookMessage(
-					getMessage("webhook.chat.title", eSender, teamName),
-					getMessage("webhook.chat.description", message));
+					getMessage("webhook." + webhookType + ".title", eSender, teamName),
+					getMessage("webhook." + webhookType + ".description", message));
 		}
 	}
 

@@ -3,6 +3,7 @@ package com.booksaw.betterTeams.customEvents.post;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.customEvents.TeamPlayerEvent;
+import com.booksaw.betterTeams.team.controller.TeamMessageController;
 import com.google.common.collect.ImmutableSet;
 import lombok.Getter;
 import org.bukkit.event.HandlerList;
@@ -26,6 +27,11 @@ public class PostTeamSendMessageEvent extends TeamPlayerEvent {
 	private final Set<TeamPlayer> recipients;
 
 	/**
+	 * If the message is being sent to the ally chat, false if only to the team chat
+	 */
+	private final TeamMessageController.TeamMessageType messageType;
+
+	/**
 	 * Creates an event with the original data for the message.
 	 *
 	 * @param team             the team which the message is being sent to
@@ -36,11 +42,13 @@ public class PostTeamSendMessageEvent extends TeamPlayerEvent {
 	public PostTeamSendMessageEvent(@NotNull Team team,
 									@NotNull TeamPlayer sender,
 									@NotNull String formattedMessage,
-									@NotNull Collection<TeamPlayer> recipients) {
+									@NotNull Collection<TeamPlayer> recipients,
+									TeamMessageController.TeamMessageType messageType) {
 		super(team, sender, true);
 
 		this.formattedMessage = formattedMessage;
 		this.recipients = ImmutableSet.copyOf(recipients);
+		this.messageType = messageType;
 	}
 
 	/**
