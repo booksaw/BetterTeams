@@ -623,6 +623,15 @@ ultimateClaims:
   # All members of a team are trusted in the claim
   enabled: true
 
+# INTEGRATION WITH LUNAR CLIENT (APOLLO)
+# Enables the Apollo Team View module for players using Lunar Client.
+# Teammates will have markers displayed above their heads, on the minimap, and in the direction HUD.
+# No additional plugin is required - this uses the lightweight plugin messaging API.
+apollo:
+  teamview:
+    # Set to false to disable the Apollo Teamview integration entirely
+    enabled: true
+
 # INTEGRATION WITH WORLDGUARD
 # Plugin link: https://dev.bukkit.org/projects/worldguard
 worldGuard:
