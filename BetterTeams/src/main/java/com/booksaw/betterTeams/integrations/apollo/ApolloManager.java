@@ -41,7 +41,7 @@ public class ApolloManager implements Listener {
 	private static final String LUNAR_CHANNEL = "lunar:apollo";
 
 	/** UUIDs of online players confirmed to be running Lunar Client with Apollo. */
-	private final Set<UUID> apolloPlayers = new HashSet<>();
+	private static final Set<UUID> apolloPlayers = new HashSet<>();
 
 	public ApolloManager() {
 		var messenger = Bukkit.getServer().getMessenger();
@@ -51,7 +51,7 @@ public class ApolloManager implements Listener {
 
 		Bukkit.getPluginManager().registerEvents(this, Main.plugin);
 
-		Main.plugin.getFoliaLib().getScheduler().runTimerAsync(task -> refreshAllTeams(), 1L, 1L);
+		Main.plugin.getFoliaLib().getScheduler().runTimerAsync(this::refreshAllTeams, 1L, 1L);
 		Main.plugin.getLogger().info("Registered Apollo Teamview integration");
 	}
 

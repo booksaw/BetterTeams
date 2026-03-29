@@ -222,6 +222,7 @@ public class Main extends JavaPlugin {
 		}
 
 		HandlerList.unregisterAll(this); // unregister all Listeners
+		Bukkit.getServer().getMessenger().unregisterIncomingPluginChannel(this);
 
 		damageManagement = null;
 		chatManagement = null;
