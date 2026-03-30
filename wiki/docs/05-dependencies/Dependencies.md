@@ -64,6 +64,17 @@ Highlight your fellow teammates with the glowing effect!
 
 This plugin supports altering how the claiming system of UltimateClaims works. For more information view the [UltimateClaims page of the wiki](./UltimateClaims)
 
+### [Apollo (Lunar Client)](https://lunarclient.dev/apollo/developers/modules/team)
+
+BetterTeams integrates with the Apollo API to enhance the experience for players on Lunar Client. When a player is using Lunar Client, BetterTeams will use the Apollo Team Module to sync team data, which enables:
+
+* A marker displayed above teammates' heads (visible even outside render distance)
+* Teammates appearing on Lunar Client's Minimap mod
+* Teammates appearing in the Direction HUD mod
+* Custom team marker colors based on team configuration
+
+This integration is automatic, no additional setup is required. For more details on the Apollo Team Module, see the [Apollo documentation](https://lunarclient.dev/apollo/developers/modules/team).
+
 ### [Vault](https://www.spigotmc.org/resources/vault.34315/)
 
 A team can have a balance associated with their team, this is managed with the commands

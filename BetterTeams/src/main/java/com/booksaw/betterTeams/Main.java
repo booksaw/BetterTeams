@@ -27,6 +27,7 @@ import com.booksaw.betterTeams.events.MCTeamManagement.BelowNameType;
 import com.booksaw.betterTeams.extension.ExtensionManager;
 import com.booksaw.betterTeams.integrations.UltimateClaimsManager;
 import com.booksaw.betterTeams.integrations.WorldGuardManagerV7;
+import com.booksaw.betterTeams.integrations.apollo.ApolloManager;
 import com.booksaw.betterTeams.integrations.hologram.DHHologramManager;
 import com.booksaw.betterTeams.integrations.hologram.HDHologramManager;
 import com.booksaw.betterTeams.integrations.hologram.HologramManager;
@@ -221,6 +222,7 @@ public class Main extends JavaPlugin {
 		}
 
 		HandlerList.unregisterAll(this); // unregister all Listeners
+		Bukkit.getServer().getMessenger().unregisterIncomingPluginChannel(this);
 
 		damageManagement = null;
 		chatManagement = null;
@@ -464,6 +466,10 @@ public class Main extends JavaPlugin {
 		if (getConfig().getBoolean("anchor.enable")) {
 			homeAnchorManagement = new HomeAnchorManagement(this);
 			homeAnchorManagement.registerEvent();
+		}
+
+		if (getConfig().getBoolean("apollo.teamview.enabled", true)) {
+			new ApolloManager();
 		}
 	}
 
