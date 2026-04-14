@@ -28,6 +28,30 @@ public abstract class Formatter {
 			TagResolver.standard(),
 			LegacyTextTags.RESET);
 
+	private static final TagResolver SAFE_FORMATTING = TagResolver.builder()
+			.resolver(StandardTags.color())
+			.resolver(StandardTags.decorations())
+			.resolver(StandardTags.reset())
+			.build();
+
+	private static final Formatter SAFE = new Formatter() {
+
+		private final MiniMessage SAFE_MINIMESSAGE = MiniMessage.builder()
+				.tags(SAFE_FORMATTING)
+				.preProcessor(new LegacyTextPreProcessor())
+				.postProcessor(new LegacyTextPostProcessor())
+				.build();
+
+		@Override
+		public Component process(String input) {
+			return SAFE_MINIMESSAGE.deserializeOr(input, Component.empty());
+		}
+	};
+
+	public static Formatter safe() {
+		return SAFE;
+	}
+
 	private static final Formatter ABSOLUTE = new Formatter() {
 
 		private final MiniMessage ABSOLUTE_MINIMESSAGE = MiniMessage.builder()

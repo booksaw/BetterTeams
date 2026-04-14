@@ -255,6 +255,28 @@ public class MessageService {
         sendFullMessage(recipient, message, false);
     }
 
+
+	/**
+	 * Sends a formatted and sanitized message to a specified recipient.
+	 *
+	 * <p>This method MUST be used when handling any user-provided or untrusted input
+	 * (e.g. player input, config values editable by players, database content, etc.).
+	 * It ensures that unsafe MiniMessage tags such as click/hover events are not parsed,
+	 * preventing abuse (e.g. command execution via <click:run_command>).</p>
+	 *
+	 * <p>If a prefix is required, it is combined with the processed message before sending.</p>
+	 *
+	 * @param recipient the intended recipient of the message; if null, the method does nothing
+	 * @param message the raw message content; if null or empty, the method does nothing
+	 * @param doPrefix whether the message should be prefixed before being sent
+	 */
+	public void sendSafeMessage(@Nullable CommandSender recipient, @Nullable String message, boolean doPrefix) {
+		if (recipient == null || message == null || message.isEmpty() || messageSender == null) return;
+
+		Component component = Formatter.safe().process(message);
+		messageSender.sendMessage(recipient, doPrefix ? combineWithPrefix(component) : component);
+	}
+
     /**
      * Sends a raw message component to a recipient with optional prefix.
      *
