@@ -16,8 +16,9 @@ The newest release will always be maintained at the top of the file.
 
 ### Bug Fixes
 
+* Fixed minimessages injection exploit - Credit RVSkeLe
 * Fixed double comparator for balance (#951)
-* Fixed discord webhook not logging any ally chat messages
+* Fixed discord webhook not logging any ally chat messages (#941)
 
 ### Code Improvements
 

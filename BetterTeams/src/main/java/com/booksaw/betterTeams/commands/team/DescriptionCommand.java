@@ -6,7 +6,7 @@ import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 import com.booksaw.betterTeams.message.MessageManager;
-import com.booksaw.betterTeams.message.ReferencedFormatMessage;
+import com.booksaw.betterTeams.message.ReferencedFormatSafeMessage;
 import org.bukkit.command.CommandSender;
 
 import java.util.List;
@@ -22,8 +22,9 @@ public class DescriptionCommand extends TeamSubCommand {
 
 		if (args.length == 0) {
 			if (team.getDescription() != null && !team.getDescription().isEmpty()) {
+				System.out.println("Description : " + team.getDescription());
 				return new CommandResponse(true,
-						new ReferencedFormatMessage("description.view", team.getDescription()));
+						new ReferencedFormatSafeMessage("description.view", team.getDescription()));
 			} else {
 				return new CommandResponse("description.noDesc");
 			}
