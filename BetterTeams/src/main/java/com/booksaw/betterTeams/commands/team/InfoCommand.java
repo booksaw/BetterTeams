@@ -158,7 +158,7 @@ public class InfoCommand extends SubCommand {
 			if (str == null || str.isEmpty()) {
 				continue;
 			}
-			MessageManager.sendFullMessage(sender, str, true);
+			MessageManager.sendSafeMessage(sender, str, true);
 		}
 	}
 
