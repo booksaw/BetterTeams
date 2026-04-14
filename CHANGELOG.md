@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file against thei
 
 The newest release will always be maintained at the top of the file.
 
-## 5.0.1
+## 5.1.0
+
+### Features
+
+* Added support for the [Lunar Client](https://lunarclient.dev/apollo/developers/modules/team) - Credit Beaness (#980)
 
 ### Improvements
 

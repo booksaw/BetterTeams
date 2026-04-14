@@ -188,8 +188,7 @@ public class Team {
 	/**
 	 * If the team is open or invite only
 	 * <p>change this to an enum - which is more expressive</p>
-	 *
-	 * @return [true - anyone can join the team] [false - the team is invite only]
+	 * [true - anyone can join the team] [false - the team is invite only]
 	 */
 	@Getter
 	private boolean open;
@@ -256,7 +255,7 @@ public class Team {
 	private boolean pvp = false;
 
 	/*
-	 * Decides whether or not team home will serve as respawn location
+	 * Decides whether team home will serve as respawn location
 	 */
 	private boolean useTeamHomeAsAnchor = false;
 
@@ -433,7 +432,7 @@ public class Team {
 	 * This is used to set the name of the team, it is important that you check that
 	 * the name is unique before running this method
 	 *
-	 * @param name the new team namexg
+	 * @param name the new team nametag
 	 */
 	public void setName(String name, Player playerSource) {
 		final String previousName = this.name;
@@ -723,7 +722,7 @@ public class Team {
 	}
 
 	/**
-	 * Used for unanchoring this player.
+	 * Used to unanchor this player.
 	 *
 	 * @param p the team player to unanchor
 	 * @return AnchorResult
@@ -756,7 +755,7 @@ public class Team {
 	 * Used to get all players which have the specified rank within the team
 	 *
 	 * @param rank the rank to search for
-	 * @return a list of players which have that rank [emtpy list - no players have
+	 * @return a list of players which have that rank [empty list - no players have
 	 * that rank]
 	 */
 	public List<TeamPlayer> getRank(PlayerRank rank) {
@@ -830,7 +829,7 @@ public class Team {
 	}
 
 	/**
-	 * Used to create an invite for the included player to this team
+	 * Used to create an invitation for the included player to this team
 	 *
 	 * @param uniqueId the UUID of the player being invited
 	 */
@@ -977,7 +976,7 @@ public class Team {
 	 * This method searches the ban list to check if the player is banned
 	 *
 	 * @param player the player to check
-	 * @return [true - the player is banned] [false - the player isen't banned]
+	 * @return [true - the player is banned] [false - the player isn't banned]
 	 */
 	public boolean isBanned(OfflinePlayer player) {
 		return bannedPlayers.contains(player);
@@ -1000,7 +999,7 @@ public class Team {
 	 * Used to get the chat syntax and apply placeholders when possible
 	 *
 	 * @param sender - The team player who sent the command
-	 * @deprecated use Team.getTeamMessageContorller().getTeamChatSyntax() instead
+	 * @deprecated use Team.getTeamMessageController().getTeamChatSyntax() instead
 	 */
 	@Deprecated
 	public String getTeamChatSyntax(TeamPlayer sender) {
@@ -1018,7 +1017,7 @@ public class Team {
 	}
 
 	/**
-	 * Used to send a message to all of the teams allies
+	 * Used to send a message to all the team's allies
 	 *
 	 * @param sender  the player who sent the message
 	 * @param message the message that the player sent
@@ -1114,7 +1113,7 @@ public class Team {
 
 		if (team == null) {
 			Main.plugin.getLogger().warning(
-					"An avaliable team cannot be found, be prepared for a lot of errors. (this should never happen, and should always be reported to booksaw)");
+					"An available team cannot be found, be prepared for a lot of errors. (this should never happen, and should always be reported to booksaw)");
 			Main.plugin.getLogger().warning("This catch is merely here to stop the server crashing");
 			return null;
 		}
@@ -1602,7 +1601,7 @@ public class Team {
 
 			int limit = 1;
 
-			// looping through every owener to find the max team limit
+			// looping through every owner to find the max team limit
 			for (TeamPlayer player : getRank(PlayerRank.OWNER)) {
 
 				OfflinePlayer op = player.getPlayer();
