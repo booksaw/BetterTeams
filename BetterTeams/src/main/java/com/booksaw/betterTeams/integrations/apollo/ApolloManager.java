@@ -26,6 +26,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Integrates BetterTeams with the Apollo (Lunar Client) Team View module
@@ -41,7 +42,7 @@ public class ApolloManager implements Listener {
 	private static final String LUNAR_CHANNEL = "lunar:apollo";
 
 	/** UUIDs of online players confirmed to be running Lunar Client with Apollo. */
-	private static final Set<UUID> apolloPlayers = new HashSet<>();
+	private static final Set<UUID> apolloPlayers = ConcurrentHashMap.newKeySet();
 
 	public ApolloManager() {
 		var messenger = Bukkit.getServer().getMessenger();
