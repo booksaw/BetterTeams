@@ -52,7 +52,7 @@ public class ApolloManager implements Listener {
 
 		Bukkit.getPluginManager().registerEvents(this, Main.plugin);
 
-		Main.plugin.getFoliaLib().getScheduler().runTimerAsync(this::refreshAllTeams, 1L, 1L);
+		Main.plugin.getFoliaLib().getScheduler().runTimerAsync(this::refreshAllTeams, 1L, 20L);
 		Main.plugin.getLogger().info("Registered Apollo Teamview integration");
 	}
 
