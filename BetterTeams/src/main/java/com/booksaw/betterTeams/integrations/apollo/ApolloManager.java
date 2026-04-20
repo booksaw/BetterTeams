@@ -138,11 +138,20 @@ public class ApolloManager implements Listener {
 
 	private JsonObject createTeamMemberObject(Player member, Team team) {
 		JsonObject obj = new JsonObject();
+
+		Color awtColor = team.getColor().asBungee().getColor();
+		if (awtColor == null) awtColor = Color.WHITE;
+
+		int rgb = awtColor.getRGB();
+
 		obj.add("player_uuid", createUuidObject(member.getUniqueId()));
+
 		obj.addProperty("adventure_json_player_name", toJson(
-			Component.text(member.getName()).color(TextColor.color(team.getColor().asBungee().getColor().getRGB()))
+				Component.text(member.getName()).color(TextColor.color(rgb))
 		));
-		obj.add("marker_color", createColorObject(team.getColor().asBungee().getColor()));
+
+		obj.add("marker_color", createColorObject(awtColor));
+
 		obj.add("location", createLocationObject(member.getLocation()));
 		return obj;
 	}
