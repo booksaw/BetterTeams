@@ -78,18 +78,22 @@ public class HelpCommand extends SubCommand {
 				+ ((permissiveCommands.size() % COMMANDS_PER_PAGE == 0) ? 0 : 1);
 		int page;
 		if (args.length > 0) {
-			page = getPage(args[0], maxPage);
+			page = getSanitzedPage(args[0], maxPage);
 		} else {
 			page = 0;
 		}
 		MessageManager.sendMessage(sender, "help.header");
 
-		for (int i = COMMANDS_PER_PAGE * page; i < permissiveCommands.size()
-				&& i < COMMANDS_PER_PAGE * (page + 1); i++) {
+		int start = COMMANDS_PER_PAGE * page;
+		// i < permissiveCommands.size() && i < COMMANDS_PER_PAGE * (page + 1)
+		int end = Math.min(start + COMMANDS_PER_PAGE, permissiveCommands.size());
+
+		for (int i = start; i < end; i++) {
 			SubCommand subCommand = permissiveCommands.get(i);
 			MessageManager.sendFullMessage(sender, createClickableHelpMiniMessage(label,
 					subCommand.getCommandAndArgMessage(command),
-					subCommand.getHelpMessage(command)));
+					subCommand.getHelpMessage(command))
+			);
 		}
 
 		MessageManager.sendMessage(sender, "help.footer", page + 1, maxPage, command.getCommand());
@@ -217,18 +221,24 @@ public class HelpCommand extends SubCommand {
 		return 0;
 	}
 
-	private int getPage(String request, int maxPage) {
+	private int getSanitzedPage(String request, int maxPage) {
+		if (maxPage <= 0) return 0;
 
 		try {
 			int page = Integer.parseInt(request);
-			if (page > maxPage) {
-				return maxPage;
+
+			if (page <= 0) {
+				return 0;
 			}
+
+			if (page > maxPage) {
+				return maxPage - 1;
+			}
+
 			return page - 1;
 		} catch (NumberFormatException e) {
 			return 0;
 		}
-
 	}
 
 }
