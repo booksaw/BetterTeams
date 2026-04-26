@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file against thei
 
 The newest release will always be maintained at the top of the file.
 
+# 5.1.1
+
+### Bug Fixes
+
+* Fixed null exception in the /team help message
+* Fixed null exception in the LunarClient rgb formatting which was causing log spamming
+
+Based on feedback from server owners, the LunarClient integration has been disabled by default, it can still be enabled
+in `config.yml`
+
 ## 5.1.0
 
 ### Features
