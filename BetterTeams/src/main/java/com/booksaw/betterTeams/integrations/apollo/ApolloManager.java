@@ -26,6 +26,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Integrates BetterTeams with the Apollo (Lunar Client) Team View module
@@ -41,7 +42,7 @@ public class ApolloManager implements Listener {
 	private static final String LUNAR_CHANNEL = "lunar:apollo";
 
 	/** UUIDs of online players confirmed to be running Lunar Client with Apollo. */
-	private static final Set<UUID> apolloPlayers = new HashSet<>();
+	private static final Set<UUID> apolloPlayers = ConcurrentHashMap.newKeySet();
 
 	public ApolloManager() {
 		var messenger = Bukkit.getServer().getMessenger();
@@ -51,7 +52,7 @@ public class ApolloManager implements Listener {
 
 		Bukkit.getPluginManager().registerEvents(this, Main.plugin);
 
-		Main.plugin.getFoliaLib().getScheduler().runTimerAsync(this::refreshAllTeams, 1L, 1L);
+		Main.plugin.getFoliaLib().getScheduler().runTimerAsync(this::refreshAllTeams, 1L, 20L);
 		Main.plugin.getLogger().info("Registered Apollo Teamview integration");
 	}
 
@@ -138,11 +139,20 @@ public class ApolloManager implements Listener {
 
 	private JsonObject createTeamMemberObject(Player member, Team team) {
 		JsonObject obj = new JsonObject();
+
+		Color awtColor = team.getColor().asBungee().getColor();
+		if (awtColor == null) awtColor = Color.WHITE;
+
+		int rgb = awtColor.getRGB();
+
 		obj.add("player_uuid", createUuidObject(member.getUniqueId()));
+
 		obj.addProperty("adventure_json_player_name", toJson(
-			Component.text(member.getName()).color(TextColor.color(team.getColor().asBungee().getColor().getRGB()))
+				Component.text(member.getName()).color(TextColor.color(rgb))
 		));
-		obj.add("marker_color", createColorObject(team.getColor().asBungee().getColor()));
+
+		obj.add("marker_color", createColorObject(awtColor));
+
 		obj.add("location", createLocationObject(member.getLocation()));
 		return obj;
 	}
