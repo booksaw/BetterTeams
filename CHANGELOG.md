@@ -4,12 +4,18 @@ All notable changes to this project will be documented in this file against thei
 
 The newest release will always be maintained at the top of the file.
 
+# 5.1.2
+
+### Bug Fixes
+
+* Fixed vulnerability with the SQL datatype allowing players to incorrectly increase their team balance
+
 # 5.1.1
 
 ### Bug Fixes
 
-* Fixed null exception in the /team help message
-* Fixed null exception in the LunarClient rgb formatting which was causing log spamming
+* Fixed null exception in the /team help message - Credit RVSkeLe
+* Fixed null exception in the LunarClient rgb formatting which was causing log spamming - Credit RVSkeLe
 
 Based on feedback from server owners, the LunarClient integration has been disabled by default, it can still be enabled
 in `config.yml`

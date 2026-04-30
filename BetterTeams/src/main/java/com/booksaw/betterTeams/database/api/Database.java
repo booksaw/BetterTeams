@@ -5,7 +5,6 @@ import com.booksaw.betterTeams.database.TableName;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.sql.*;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -88,7 +87,6 @@ public class Database {
 			Main.plugin.getServer().getPluginManager().disablePlugin(Main.plugin);
 			return;
 		}
-
 		Main.plugin.getLogger().info("Connection with the database established");
 
 	}
@@ -191,26 +189,7 @@ public class Database {
 	 * @param statement    The SQL statement to execute
 	 * @param placeholders The placeholders for the statement
 	 */
-	public void executeStatement(String statement, String... placeholders) {
-		List<String> statementChars = Arrays.asList(statement.split(""));
-		for (String placeholder : placeholders) {
-			try {
-				int index = statementChars.indexOf("?");
-				if (index == -1) {
-					throw new IndexOutOfBoundsException();
-				}
-				statementChars.set(index, placeholder);
-			} catch (IndexOutOfBoundsException e) {
-				Main.plugin.getLogger().severe("Invalid setup for replacing placeholders");
-				Main.plugin.getLogger().severe("Statement: " + statement);
-				Main.plugin.getLogger().severe("Placeholders: " + Arrays.toString(placeholders));
-				e.printStackTrace();
-			}
-		}
-		statement = String.join("", statementChars);
-		statement = statement.replace("'false'", "false");
-		statement = statement.replace("'true'", "true");
-
+	public void executeStatement(String statement, Object... placeholders) {
 		try {
 			if (!connection.isValid(2)) {
 				resetConnection();
@@ -220,6 +199,10 @@ public class Database {
 		}
 
 		try (PreparedStatement ps = connection.prepareStatement(statement)) {
+			for (int i = 0; i < placeholders.length; i++) {
+				ps.setObject(i + 1, placeholders[i]);
+			}
+			Main.plugin.getLogger().info("EXECUTING " + ps);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			Main.plugin.getLogger().severe("Something went wrong while executing SQL");
@@ -231,14 +214,10 @@ public class Database {
 	/**
 	 * Used to execute an sql query
 	 *
-	 * @param query        The query to execute
-	 * @param placeholders The placeholders within that query
+	 * @param query The query to execute
 	 * @return The results of the query
 	 */
-	public PreparedStatement executeQuery(String query, String... placeholders) {
-		for (String placeholder : placeholders) {
-			query = query.replaceFirst("\\?", placeholder);
-		}
+	public PreparedStatement executeQuery(String query) {
 
 		try {
 			if (!connection.isValid(2)) {

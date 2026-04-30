@@ -53,7 +53,7 @@ public class BetterTeamsDatabase extends Database {
 	}
 
 	public PreparedStatement select(String select, TableName from) {
-		return executeQuery("SELECT ? FROM ?", select, from.toString());
+		return executeQuery("SELECT %s FROM %S".formatted(select, from.toString()));
 	}
 
 	/**
@@ -63,18 +63,7 @@ public class BetterTeamsDatabase extends Database {
 	 * @return the resultant resultSet
 	 */
 	public PreparedStatement selectWhere(String select, TableName from, String where) {
-		return executeQuery("SELECT ? FROM ? WHERE ?;", select, from.toString(), where);
-	}
-
-	/**
-	 * @param select  the element to select
-	 * @param from    the table which the data is from
-	 * @param where   the condition required for the data to be included
-	 * @param orderBy what to order the data by
-	 * @return the resultant resultset
-	 */
-	public PreparedStatement selectWhereOrder(String select, TableName from, String where, String orderBy) {
-		return executeQuery("SELECT ? FROM ? WHERE ? ORDER BY ?;", select, from.toString(), where, orderBy);
+		return executeQuery("SELECT %s FROM %s WHERE %s;".formatted(select, from.toString(), where));
 	}
 
 	/**
@@ -84,27 +73,13 @@ public class BetterTeamsDatabase extends Database {
 	 * @return The resultant resultset
 	 */
 	public PreparedStatement selectOrder(String select, TableName from, String orderBy) {
-		return executeQuery("SELECT ? FROM ? ORDER BY ?;", select, from.toString(), orderBy);
-	}
-
-	/**
-	 * @param select      the element to select
-	 * @param table       the table which the data is from
-	 * @param joinTable   the table to join
-	 * @param columToJoin the details of the join
-	 * @param orderBy     the order by conditions
-	 * @return The resultSet of the select
-	 */
-	public PreparedStatement selectInnerJoinOrder(String select, TableName table, TableName joinTable, String columToJoin,
-												  String orderBy) {
-		return executeQuery("SELECT ? FROM ? INNER JOIN ? on (?) ORDER BY ?;", select, table.toString(),
-				joinTable.toString(), columToJoin, orderBy);
+		return executeQuery("SELECT %s FROM %s ORDER BY %s;".formatted(select, from.toString(), orderBy));
 	}
 
 	public PreparedStatement selectInnerJoinGroupByOrder(String select, TableName table, TableName joinTable,
 														 String columToJoin, String groupBy, String orderBy) {
-		return executeQuery("SELECT ? FROM ? INNER JOIN ? on (?) GROUP BY ? ORDER BY ?;", select, table.toString(),
-				joinTable.toString(), columToJoin, groupBy, orderBy);
+		return executeQuery("SELECT %s FROM %s INNER JOIN %s on (%s) GROUP BY %s ORDER BY %s;".formatted(select, table.toString(),
+				joinTable.toString(), columToJoin, groupBy, orderBy));
 	}
 
 	/**
@@ -157,7 +132,7 @@ public class BetterTeamsDatabase extends Database {
 	 * @param condition The condition for the update
 	 */
 	public void deleteRecord(TableName table, String condition) {
-		executeStatement("DELETE FROM ? WHERE ?;", table.toString(), condition);
+		executeStatement("DELETE FROM %s WHERE %s;".formatted(table.toString(), condition));
 
 	}
 
@@ -168,8 +143,8 @@ public class BetterTeamsDatabase extends Database {
 	 * @param update    the values to update (ie "col = exp1, col2 = exp2")
 	 * @param condition The condition for which records should be updated
 	 */
-	public void updateRecordWhere(TableName table, String update, String condition) {
-		executeStatement("UPDATE ? SET ? WHERE ?;", table.toString(), update, condition);
+	public void updateRecordWhere(TableName table, String field, Object update, String condition) {
+		executeStatement("UPDATE %s SET %s = ? WHERE %s;".formatted(table.toString(), field, condition), update);
 	}
 
 	/**
@@ -179,7 +154,7 @@ public class BetterTeamsDatabase extends Database {
 	 * @param update the value to update (ie "col = exp1, col2 = exp2")
 	 */
 	public void updateRecord(TableName table, String update) {
-		executeStatement("UPDATE ? SET ?", table.toString(), update);
+		executeStatement("UPDATE %s SET %s".formatted(table.toString(), update));
 	}
 
 	/**
@@ -191,13 +166,11 @@ public class BetterTeamsDatabase extends Database {
 	 * @param values  the values to insert (ie "val1, val2, val3")
 	 */
 	public void insertRecord(TableName table, String columns, String values) {
-		executeStatement("INSERT INTO ? (?) VALUES (?);", table.toString(), columns, values);
+		executeStatement("INSERT INTO %s (%s) VALUES (%s);".formatted(table.toString(), columns, values));
 	}
 
 	public void insertRecordIfNotExists(TableName table, String columns, String values) {
-//		executeStatement("IF NOT EXISTS (SELECT * FROM ? WHERE ?) INSERT INTO ? (?) VALUES(?);", table.toString(),
-//				condition, table.toString(), columns, values);
-		executeStatement("INSERT IGNORE INTO ? (?) VALUES (?);", table.toString(), columns, values);
+		executeStatement("INSERT IGNORE INTO %s (%s) VALUES (%s);".formatted(table.toString(), columns, values));
 	}
 
 }

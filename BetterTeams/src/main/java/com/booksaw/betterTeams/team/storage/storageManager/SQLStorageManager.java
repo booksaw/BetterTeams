@@ -168,7 +168,7 @@ public class SQLStorageManager extends TeamManager implements Listener {
 
 	@Override
 	public void teamNameChange(Team team, String newName) {
-		database.updateRecordWhere(TableName.TEAM, "name = '" + newName + "'", "teamID LIKE '" + team.getID() + "'");
+		database.updateRecordWhere(TableName.TEAM, "name", newName, "teamID LIKE '" + team.getID() + "'");
 	}
 
 	@Override

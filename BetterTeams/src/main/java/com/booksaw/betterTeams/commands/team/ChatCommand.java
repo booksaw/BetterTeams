@@ -40,7 +40,7 @@ public class ChatCommand extends TeamSubCommand {
 			message.append(arg).append(" ");
 		}
 
-		team.sendMessage(player, message.toString());
+		team.getTeamMessageController().sendTeamChatMessage(player, message.toString());
 		return new CommandResponse(true);
 	}
 

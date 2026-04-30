@@ -33,7 +33,7 @@ public class SQLTeamStorage extends TeamStorage {
 
 	@Override
 	protected void setValue(String location, TeamStorageType storageType, Object value) {
-		storageManager.getDatabase().updateRecordWhere(TableName.TEAM, location + " = '" + value.toString() + "'",
+		storageManager.getDatabase().updateRecordWhere(TableName.TEAM, location, value,
 				getCondition());
 	}
 
@@ -199,8 +199,7 @@ public class SQLTeamStorage extends TeamStorage {
 		serial = serial.replace("\"", "\\\"");
 		serial = "\"" + serial + "\"";
 		invalidateCache();
-		storageManager.getDatabase().executeStatement("UPDATE ? SET echest = ? WHERE ?",
-				TableName.TEAM.toString(), serial, getCondition());
+		storageManager.getDatabase().executeStatement("UPDATE %s SET echest = ? WHERE %s".formatted(TableName.TEAM.toString(), getCondition()), serial);
 
 	}
 
@@ -317,7 +316,7 @@ public class SQLTeamStorage extends TeamStorage {
 
 	private void changeRank(TeamPlayer player) {
 		invalidateCache();
-		storageManager.getDatabase().updateRecordWhere(TableName.PLAYERS, "playerRank = " + player.getRank().value,
+		storageManager.getDatabase().updateRecordWhere(TableName.PLAYERS, "playerRank", player.getRank().value,
 				"playerUUID = '" + player.getPlayer().getUniqueId() + "'");
 
 	}
@@ -325,14 +324,14 @@ public class SQLTeamStorage extends TeamStorage {
 	@Override
 	public void setTitle(TeamPlayer player) {
 		invalidateCache();
-		storageManager.getDatabase().updateRecordWhere(TableName.PLAYERS, "title = '" + player.getTitle() + "'",
+		storageManager.getDatabase().updateRecordWhere(TableName.PLAYERS, "title", player.getTitle(),
 				"playerUUID = '" + player.getPlayer().getUniqueId() + "'");
 	}
 
 	@Override
 	public void setAnchor(TeamPlayer player, boolean anchor) {
 		invalidateCache();
-		storageManager.getDatabase().updateRecordWhere(TableName.PLAYERS, "anchor = " + anchor,
+		storageManager.getDatabase().updateRecordWhere(TableName.PLAYERS, "anchor", anchor,
 				"playerUUID = '" + player.getPlayer().getUniqueId() + "'");
 	}
 
