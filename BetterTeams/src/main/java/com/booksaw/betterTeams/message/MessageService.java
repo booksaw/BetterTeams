@@ -261,7 +261,7 @@ public class MessageService {
 	 * <p>This method MUST be used when handling any user-provided or untrusted input
 	 * (e.g. player input, config values editable by players, database content, etc.).
 	 * It ensures that unsafe MiniMessage tags such as click/hover events are not parsed,
-	 * preventing abuse (e.g. command execution via \<click:run_command\>).</p>
+	 * preventing abuse (e.g. command execution via {@code <click:run_command>}).</p>
 	 *
 	 * <p>If a prefix is required, it is combined with the processed message before sending.</p>
 	 *
