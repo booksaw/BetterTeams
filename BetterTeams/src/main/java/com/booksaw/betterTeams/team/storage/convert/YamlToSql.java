@@ -75,20 +75,25 @@ public class YamlToSql extends Converter {
 
 			String echest = Utils.serializeInventory(inv);
 			echest = echest.replace("\"", "\\\"");
-			database.insertRecordIfNotExists(TableName.TEAM,
-					"teamID, name, description, open, score, money, home, color, level, tag, pvp"
-							+ (teamAnchorExists ? ", anchor" : ""),
-					"'" + teamName + "', '" + config.getString("name") + "', '" + config.getString("description")
-							+ "', "
-							+ config.getBoolean("open") + ", " + config.getInt("score") + ", "
-							+ config.getDouble("money") + ", '" + config.getString("home") + "', '"
-							+ config.getString("color") + "', " + config.getInt("level") + ", '"
-							+ config.getString("tag") + "', " + config.getBoolean("pvp")
-							+ (teamAnchorExists ? ", " + config.getBoolean("anchor") : ""));
+			if (teamAnchorExists) {
+				database.insertRecordIfNotExists(TableName.TEAM,
+						"teamID, name, description, open, score, money, home, color, level, tag, pvp, anchor",
+						teamName.toString(), config.getString("name"), config.getString("description"),
+						config.getBoolean("open"), config.getInt("score"), config.getDouble("money"),
+						config.getString("home"), config.getString("color"), config.getInt("level"),
+						config.getString("tag"), config.getBoolean("pvp"), config.getBoolean("anchor"));
+			} else {
+				database.insertRecordIfNotExists(TableName.TEAM,
+						"teamID, name, description, open, score, money, home, color, level, tag, pvp",
+						teamName.toString(), config.getString("name"), config.getString("description"),
+						config.getBoolean("open"), config.getInt("score"), config.getDouble("money"),
+						config.getString("home"), config.getString("color"), config.getInt("level"),
+						config.getString("tag"), config.getBoolean("pvp"));
+			}
 
 			if (echest != null && !echest.isEmpty()) {
 				database.updateRecordWhere(TableName.TEAM, "echest", echest,
-						"teamID LIKE '" + teamName + "'");
+						"teamID = ?", teamName.toString());
 			}
 
 			// allies
@@ -103,7 +108,7 @@ public class YamlToSql extends Converter {
 			// bans
 			for (String temp : config.getStringList("bans")) {
 				database.insertRecordIfNotExists(TableName.BANS, "teamID, playerUUID",
-						"'" + teamName + "', '" + temp + "'");
+						teamName.toString(), temp);
 			}
 			// players
 			List<String> anchoredPlayers = config.getStringList("anchoredPlayers");
@@ -112,22 +117,32 @@ public class YamlToSql extends Converter {
 				PlayerRank rank = PlayerRank.getRank(split[1]);
 				boolean anchor = anchoredPlayers.contains(split[0]);
 				if (split.length == 2) {
-					database.insertRecordIfNotExists(TableName.PLAYERS,
-							"teamID, playerUUID, playerRank" + (playerAnchorExists ? ", anchor" : ""),
-							"'" + teamName + "', '" + split[0] + "', " + rank.value
-									+ (playerAnchorExists ? ", " + anchor : ""));
+					if (playerAnchorExists) {
+						database.insertRecordIfNotExists(TableName.PLAYERS,
+								"teamID, playerUUID, playerRank, anchor",
+								teamName.toString(), split[0], rank.value, anchor);
+					} else {
+						database.insertRecordIfNotExists(TableName.PLAYERS,
+								"teamID, playerUUID, playerRank",
+								teamName.toString(), split[0], rank.value);
+					}
 				} else {
-					database.insertRecordIfNotExists(TableName.PLAYERS,
-							"teamID, playerUUID, playerRank, title" + (playerAnchorExists ? ", anchor" : ""),
-							"'" + teamName + "', '" + split[0] + "', " + rank.value + ", '" + split[2] + "'"
-									+ (playerAnchorExists ? ", " + anchor : ""));
+					if (playerAnchorExists) {
+						database.insertRecordIfNotExists(TableName.PLAYERS,
+								"teamID, playerUUID, playerRank, title, anchor",
+								teamName.toString(), split[0], rank.value, split[2], anchor);
+					} else {
+						database.insertRecordIfNotExists(TableName.PLAYERS,
+								"teamID, playerUUID, playerRank, title",
+								teamName.toString(), split[0], rank.value, split[2]);
+					}
 				}
 
 			}
 			// warps
 			for (String temp : config.getStringList("warps")) {
 				database.insertRecordIfNotExists(TableName.WARPS, "teamID, warpInfo",
-						"'" + teamName + "', '" + temp + "'");
+						teamName.toString(), temp);
 			}
 
 			current++;
@@ -137,18 +152,18 @@ public class YamlToSql extends Converter {
 		log("Converting allies, There may be error messages in this section, they are expected just ignore them");
 		for (Entry<String, String> temp : allies.entrySet()) {
 			database.insertRecord(TableName.ALLIES, "team1ID, team2ID",
-					"'" + temp.getKey() + "', '" + temp.getValue() + "'");
+					temp.getKey(), temp.getValue());
 		}
 		for (Entry<String, String> temp : allyRequests.entrySet()) {
 			database.insertRecord(TableName.ALLYREQUESTS, "receivingTeamID, requestingTeamID",
-					"'" + temp.getKey() + "', '" + temp.getValue() + "'");
+					temp.getKey(), temp.getValue());
 		}
 
 		// chest claims
 		log("converting chest claims");
 		for (String temp : teamStorage.getStringList("chestClaims")) {
 			String[] split = temp.split(";");
-			database.insertRecord(TableName.CHESTCLAIMS, "teamID, chestLoc", "'" + split[1] + "', '" + split[0] + "'");
+			database.insertRecord(TableName.CHESTCLAIMS, "teamID, chestLoc", split[1], split[0]);
 		}
 		log("chest claims converted");
 
