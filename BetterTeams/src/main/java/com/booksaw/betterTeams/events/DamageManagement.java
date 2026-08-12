@@ -113,9 +113,9 @@ public class DamageManagement implements Listener {
 		for (PotionEffect effect : effects) {
 			String type = effect.getType().getName();
 			if (type.equals(PotionEffectType.BAD_OMEN.getName()) || type.equals(PotionEffectType.BLINDNESS.getName())
-					|| type.equals(PotionEffectType.CONFUSION.getName()) || type.equals(PotionEffectType.HARM.getName())
+					|| type.equals(PotionEffectType.NAUSEA.getName()) || type.equals(PotionEffectType.INSTANT_DAMAGE.getName())
 					|| type.equals(PotionEffectType.HUNGER.getName())
-					|| type.equals(PotionEffectType.SLOW_DIGGING.getName())
+					|| type.equals(PotionEffectType.MINING_FATIGUE.getName())
 					|| type.equals(PotionEffectType.UNLUCK.getName())
 					|| type.equals(PotionEffectType.WEAKNESS.getName())
 					|| type.equals(PotionEffectType.POISON.getName())) {
