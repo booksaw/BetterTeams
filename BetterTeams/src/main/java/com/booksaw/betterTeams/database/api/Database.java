@@ -217,14 +217,18 @@ public class Database {
 	 * @param query The query to execute
 	 * @return The results of the query
 	 */
-	public PreparedStatement executeQuery(String query) {
+	public PreparedStatement executeQuery(String query, Object... placeholders) {
 
 		try {
 			if (!connection.isValid(2)) {
 				resetConnection();
 			}
-			return connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE,
+			PreparedStatement ps = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE,
 					ResultSet.CONCUR_UPDATABLE);
+			for (int i = 0; i < placeholders.length; i++) {
+				ps.setObject(i + 1, placeholders[i]);
+			}
+			return ps;
 		} catch (SQLException e) {
 			Main.plugin.getLogger().severe("Something went wrong while executing SQL");
 			Main.plugin.getLogger().severe("SQL: " + query);

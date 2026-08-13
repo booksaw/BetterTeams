@@ -96,30 +96,30 @@ public class SQLStorageManager extends TeamManager implements Listener {
 	@Override
 	@Contract(pure = true, value = "null -> false")
 	public boolean isTeam(@Nullable UUID uuid) {
-		return uuid != null && database.hasResult(TableName.TEAM, "teamID LIKE '" + uuid.toString() + "'");
+		return uuid != null && database.hasResult(TableName.TEAM, "teamID = ?", uuid.toString());
 	}
 
 	@Override
 	@Contract(pure = true, value = "null -> false")
 	public boolean isTeam(@Nullable String name) {
-		return name != null && database.hasResult(TableName.TEAM, "UPPER(name) LIKE '" + name.toUpperCase() + "'");
+		return name != null && database.hasResult(TableName.TEAM, "UPPER(name) = ?", name.toUpperCase());
 	}
 
 	@Override
 	public boolean isInTeam(OfflinePlayer player) {
-		return database.hasResult(TableName.PLAYERS, "playerUUID LIKE '" + player.getUniqueId() + "'");
+		return database.hasResult(TableName.PLAYERS, "playerUUID = ?", player.getUniqueId().toString());
 	}
 
 	@Override
 	public UUID getTeamUUID(OfflinePlayer player) {
 		return UUID.fromString(
-				database.getResult("teamID", TableName.PLAYERS, "playerUUID LIKE '" + player.getUniqueId() + "'"));
+				database.getResult("teamID", TableName.PLAYERS, "playerUUID = ?", player.getUniqueId().toString()));
 	}
 
 	@Override
 	public UUID getTeamUUID(String name) {
 		return UUID.fromString(
-				database.getResult("teamID", TableName.TEAM, "UPPER(name) LIKE '" + name.toUpperCase() + "'"));
+				database.getResult("teamID", TableName.TEAM, "UPPER(name) = ?", name.toUpperCase()));
 	}
 
 	@Override
@@ -166,23 +166,23 @@ public class SQLStorageManager extends TeamManager implements Listener {
 
 	@Override
 	protected void deleteTeamStorage(Team team) {
-		database.deleteRecord(TableName.TEAM, "teamID LIKE '" + team.getID() + "'");
+		database.deleteRecord(TableName.TEAM, "teamID = ?", team.getID().toString());
 	}
 
 	@Override
 	public void teamNameChange(Team team, String newName) {
-		database.updateRecordWhere(TableName.TEAM, "name", newName, "teamID LIKE '" + team.getID() + "'");
+		database.updateRecordWhere(TableName.TEAM, "name", newName, "teamID = ?", team.getID().toString());
 	}
 
 	@Override
 	public void playerJoinTeam(Team team, TeamPlayer player) {
 		database.insertRecord(TableName.PLAYERS, "playerUUID, teamID, playerRank",
-				"'" + player.getPlayer().getUniqueId() + "', '" + team.getID() + "', " + player.getRank().value);
+				player.getPlayer().getUniqueId().toString(), team.getID().toString(), player.getRank().value);
 	}
 
 	@Override
 	public void playerLeaveTeam(Team team, TeamPlayer player) {
-		database.deleteRecord(TableName.PLAYERS, "playerUUID LIKE '" + player.getPlayer().getUniqueId() + "'");
+		database.deleteRecord(TableName.PLAYERS, "playerUUID = ?", player.getPlayer().getUniqueId().toString());
 	}
 
 	@Override
@@ -192,7 +192,7 @@ public class SQLStorageManager extends TeamManager implements Listener {
 
 	@Override
 	public TeamStorage createNewTeamStorage(Team team) {
-		database.insertRecord(TableName.TEAM, "teamID, name", "'" + team.getID() + "', '" + team.getName() + "'");
+		database.insertRecord(TableName.TEAM, "teamID, name", team.getID().toString(), team.getName());
 		return new SQLTeamStorage(this, team);
 	}
 
@@ -304,13 +304,13 @@ public class SQLStorageManager extends TeamManager implements Listener {
 	public void addChestClaim(Team team, Location loc) {
 		claims.put(LocationSetComponent.getString(loc), team.getID());
 		database.insertRecord(TableName.CHESTCLAIMS, "teamID, chestLoc",
-				"'" + team.getID() + "', '" + LocationSetComponent.getString(loc) + "'");
+				team.getID().toString(), LocationSetComponent.getString(loc));
 	}
 
 	@Override
 	public void removeChestclaim(Location loc) {
 		claims.remove(LocationSetComponent.getString(loc));
-		database.deleteRecord(TableName.CHESTCLAIMS, "chestLoc LIKE '" + LocationSetComponent.getString(loc) + "'");
+		database.deleteRecord(TableName.CHESTCLAIMS, "chestLoc = ?", LocationSetComponent.getString(loc));
 	}
 
 	@Override
