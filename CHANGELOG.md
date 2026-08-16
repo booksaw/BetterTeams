@@ -6,11 +6,17 @@ The newest release will always be maintained at the top of the file.
 
 # 5.1.7
 
+### Improvements
+
+* Returned a majority of commands to run syncronously to prevent race conditions which were causing data inconsistencies
+* Added further protections to ensure players cannot interact with echests while not in a team
+
 ### Bug Fixes
 
 * Fixed issue where Spigot compilation version did not match API version, breaking some remapping
   logic (#1041)
 * Fixed issue causing some SQL commands to be incorrectly executed - Credit RVSkeLe
+* Fixed an issue blocking admins from using /teama setwarp
 
 # 5.1.6
 

@@ -25,7 +25,7 @@ public class PurgeEvent extends Event implements Cancellable {
 	}
 
 	public PurgeEvent() {
-		super(true);
+		super(false);
 	}
 
 	@Override

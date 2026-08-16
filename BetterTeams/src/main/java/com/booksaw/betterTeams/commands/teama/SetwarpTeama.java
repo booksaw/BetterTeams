@@ -24,7 +24,7 @@ public class SetwarpTeama extends SubCommand {
 			return new CommandResponse("setwarp.exist");
 		}
 
-		if (team.getWarps().size() >= Main.plugin.getConfig().getInt("maxWarps")) {
+		if (team.getWarps().size() >= team.getMaxWarps()) {
 			return new CommandResponse("admin.setwarp.max");
 		}
 
