@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file against thei
 
 The newest release will always be maintained at the top of the file.
 
+# 5.1.7
+
+### Bug Fixes
+
+* Fixed issue where Spigot compilation version did not match API version, breaking some remapping
+  logic (#1041)
+* Fixed issue causing some SQL commands to be incorrectly executed - Credit RVSkeLe
+
 # 5.1.6
 
 **PLEASE UPDATE IMMEDIATELY, THIS BUG HAS EXPLOITATION POTENTIAL**
