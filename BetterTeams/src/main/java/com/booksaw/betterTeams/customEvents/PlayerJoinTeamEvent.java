@@ -15,7 +15,7 @@ public class PlayerJoinTeamEvent extends TeamPlayerEvent {
 	private static final HandlerList HANDLERS = new HandlerList();
 
 	public PlayerJoinTeamEvent(Team team, TeamPlayer teamPlayer) {
-		super(team, teamPlayer, true);
+		super(team, teamPlayer, false);
 	}
 
 	@SuppressWarnings("unused")

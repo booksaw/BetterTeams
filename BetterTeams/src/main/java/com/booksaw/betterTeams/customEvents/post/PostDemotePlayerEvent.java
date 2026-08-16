@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 public class PostDemotePlayerEvent extends RankChangePlayerEvent {
 
 	public PostDemotePlayerEvent(Team team, TeamPlayer teamPlayer, PlayerRank currentRank, PlayerRank newRank) {
-		super(team, teamPlayer, currentRank, newRank, true);
+		super(team, teamPlayer, currentRank, newRank);
 	}
 
 	private static final HandlerList HANDLERS = new HandlerList();

@@ -47,29 +47,27 @@ public class RankupEvents implements Listener {
 	}
 
 	private void runCommandList(List<String> commands, Team team, Object level, OfflinePlayer source) {
-		Main.plugin.getFoliaLib().getScheduler().runAsync(task -> {
-			for (String str : commands) {
-				str = str.replace("%team%", team.getName());
-				str = str.replace("%level%", level.toString());
-				if (str.contains("%player%")) {
+		for (String str : commands) {
+			str = str.replace("%team%", team.getName());
+			str = str.replace("%level%", level.toString());
+			if (str.contains("%player%")) {
 
-					for (TeamPlayer p : team.getMembers().getClone()) {
-						String newStr = str.replace("%player%", Objects.requireNonNull(p.getPlayer().getName()));
-						if (Main.placeholderAPI) {
-							newStr = PlaceholderAPI.setPlaceholders(p.getPlayer(), newStr);
-						}
-
-						Bukkit.dispatchCommand(Bukkit.getConsoleSender(), newStr);
-					}
-				} else {
+				for (TeamPlayer p : team.getMembers().getClone()) {
+					String newStr = str.replace("%player%", Objects.requireNonNull(p.getPlayer().getName()));
 					if (Main.placeholderAPI) {
-						str = PlaceholderAPI.setPlaceholders(source, str);
+						newStr = PlaceholderAPI.setPlaceholders(p.getPlayer(), newStr);
 					}
 
-					Bukkit.dispatchCommand(Bukkit.getConsoleSender(), str);
-
+					Bukkit.dispatchCommand(Bukkit.getConsoleSender(), newStr);
 				}
+			} else {
+				if (Main.placeholderAPI) {
+					str = PlaceholderAPI.setPlaceholders(source, str);
+				}
+
+				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), str);
+
 			}
-		});
+		}
 	}
 }

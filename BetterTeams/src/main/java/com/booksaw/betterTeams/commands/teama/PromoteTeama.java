@@ -81,4 +81,9 @@ public class PromoteTeama extends SubCommand {
 		}
 	}
 
+	@Override
+	protected boolean runAsync(String[] args) {
+		return false;
+	}
+
 }

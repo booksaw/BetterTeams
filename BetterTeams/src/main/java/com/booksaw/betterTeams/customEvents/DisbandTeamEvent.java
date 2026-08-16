@@ -14,7 +14,7 @@ public class DisbandTeamEvent extends TeamEvent {
 	private final @Nullable Player player;
 
 	public DisbandTeamEvent(Team team, @Nullable Player player) {
-		super(team, true);
+		super(team, false);
 
 		this.player = player;
 	}

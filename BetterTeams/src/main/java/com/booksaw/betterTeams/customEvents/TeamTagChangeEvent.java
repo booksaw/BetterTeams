@@ -15,8 +15,8 @@ public class TeamTagChangeEvent extends TeamEvent {
 	private String newTeamTag;
 
 	public TeamTagChangeEvent(@NotNull Team team,
-							  @NotNull String newTag) {
-		super(team, true);
+	                          @NotNull String newTag) {
+		super(team, false);
 		this.newTeamTag = newTag;
 	}
 

@@ -1,243 +1,236 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.booksaw.betterteams</groupId>
-  <artifactId>betterteams-parent</artifactId>
-  <version>5.1.6</version>
-  <packaging>pom</packaging>
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.booksaw.betterteams</groupId>
+    <artifactId>betterteams-parent</artifactId>
+    <version>5.1.6</version>
+    <packaging>pom</packaging>
 
-  <name>BetterTeams</name>
-  <description>Create teams to fight to be the best</description>
-  <url>https://www.spigotmc.org/resources/better-teams.17129/</url>
+    <name>BetterTeams</name>
+    <description>Create teams to fight to be the best</description>
+    <url>https://www.spigotmc.org/resources/better-teams.17129/</url>
 
-  <modules>
-    <module>BetterTeams</module>
-    <module>extensions</module>
-  </modules>
+    <modules>
+        <module>BetterTeams</module>
+        <module>extensions</module>
+    </modules>
 
-  <scm>
-    <connection>scm:git:git://github.com/booksaw/BetterTeams.git</connection>
-    <developerConnection>scm:git:ssh://github.com:booksaw/BetterTeams.git</developerConnection>
-    <url>http://github.com/booksaw/BetterTeams/tree/master</url>
-  </scm>
-  <developers>
-    <developer>
-      <name>booksaw</name>
-      <email>about@booksaw.dev</email>
-      <organization>Booksaw Development</organization>
-      <organizationUrl>https://www.booksaw.dev</organizationUrl>
-    </developer>
-  </developers>
-  <licenses>
-    <license>
-      <name>MIT License</name>
-      <url>http://www.opensource.org/licenses/mit-license.php</url>
-    </license>
-  </licenses>
+    <scm>
+        <connection>scm:git:git://github.com/booksaw/BetterTeams.git</connection>
+        <developerConnection>scm:git:ssh://github.com:booksaw/BetterTeams.git</developerConnection>
+        <url>http://github.com/booksaw/BetterTeams/tree/master</url>
+    </scm>
+    <developers>
+        <developer>
+            <name>booksaw</name>
+            <email>about@booksaw.dev</email>
+            <organization>Booksaw Development</organization>
+            <organizationUrl>https://www.booksaw.dev</organizationUrl>
+        </developer>
+    </developers>
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+        </license>
+    </licenses>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <maven.compiler.release>21</maven.compiler.release>
-    <java.version>21</java.version>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.release>21</maven.compiler.release>
+        <java.version>21</java.version>
 
-    <!-- Internal versions -->
-    <betterteams.deadends.version>4b3d734531</betterteams.deadends.version>
+        <!-- Internal versions -->
+        <betterteams.deadends.version>4b3d734531</betterteams.deadends.version>
 
-    <!-- Java dependencies -->
-    <lombok.version>1.18.46</lombok.version>
+        <!-- Java dependencies -->
+        <lombok.version>1.18.46</lombok.version>
 
-    <!-- Spigot API -->
-    <spigot.version>1.21-R0.1-SNAPSHOT</spigot.version>
-    <folialib.version>0.5.2</folialib.version>
-    <bstats.version>3.2.1</bstats.version>
-    <adventure.version>4.26.1</adventure.version>
+        <!-- Spigot API -->
+        <spigot.version>1.21-R0.1-SNAPSHOT</spigot.version>
+        <bstats.version>3.2.1</bstats.version>
+        <adventure.version>4.26.1</adventure.version>
 
-    <!-- Spigot dependencies -->
-    <placeholder.api.version>2.12.2</placeholder.api.version>
-    <vault.version>1.7.1</vault.version>
-    <holographic.displays.version>2.4.9</holographic.displays.version>
-    <decent.holograms.version>2.10.0</decent.holograms.version>
-    <worldedit.version>7.2.8</worldedit.version>
-    <worldguard.version>7.0.5</worldguard.version>
-    <ultimate.claims.version>3.1.0</ultimate.claims.version>
+        <!-- Spigot dependencies -->
+        <placeholder.api.version>2.12.2</placeholder.api.version>
+        <vault.version>1.7.1</vault.version>
+        <holographic.displays.version>2.4.9</holographic.displays.version>
+        <decent.holograms.version>2.10.0</decent.holograms.version>
+        <worldedit.version>7.2.8</worldedit.version>
+        <worldguard.version>7.0.5</worldguard.version>
+        <ultimate.claims.version>3.1.0</ultimate.claims.version>
 
-    <!-- Test dependencies -->
-    <junit.version>6.0.3</junit.version>
-    <mockito.version>5.23.0</mockito.version>
-    <assertj.version>3.27.7</assertj.version>
-  </properties>
+        <!-- Test dependencies -->
+        <junit.version>6.0.3</junit.version>
+        <mockito.version>5.23.0</mockito.version>
+        <assertj.version>3.27.7</assertj.version>
+    </properties>
 
-  <repositories>
-    <repository>
-      <id>central</id>
-      <name>Maven Central Repository</name>
-      <url>https://repo.maven.apache.org/maven2</url>
-    </repository>
-    <repository>
-      <id>spigot-repo</id>
-      <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
-    </repository>
-    <repository>
-      <id>placeholderapi</id>
-      <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
-    </repository>
-    <repository>
-      <id>jitpack.io</id>
-      <url>https://jitpack.io</url>
-    </repository>
-    <repository>
-      <id>mvnrepository</id>
-      <url>https://mvnrepository.com/</url>
-    </repository>
-    <repository>
-      <id>sk89q-repo</id>
-      <url>https://maven.enginehub.org/repo/</url>
-    </repository>
-    <repository>
-      <id>songoda-minecraft-plugins</id>
-      <url>https://repo.songoda.com/repository/minecraft-plugins/</url>
-    </repository>
-    <repository>
-      <id>codemc-repo</id>
-      <url>https://repo.codemc.io/repository/maven-public/</url>
-    </repository>
-    <repository>
-      <id>tcoded-releases</id>
-      <url>https://repo.tcoded.com/releases</url>
-    </repository>
-  </repositories>
+    <repositories>
+        <repository>
+            <id>central</id>
+            <name>Maven Central Repository</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+        </repository>
+        <repository>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+        <repository>
+            <id>placeholderapi</id>
+            <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+        </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+        <repository>
+            <id>mvnrepository</id>
+            <url>https://mvnrepository.com/</url>
+        </repository>
+        <repository>
+            <id>sk89q-repo</id>
+            <url>https://maven.enginehub.org/repo/</url>
+        </repository>
+        <repository>
+            <id>songoda-minecraft-plugins</id>
+            <url>https://repo.songoda.com/repository/minecraft-plugins/</url>
+        </repository>
+        <repository>
+            <id>codemc-repo</id>
+            <url>https://repo.codemc.io/repository/maven-public/</url>
+        </repository>
+        <repository>
+            <id>tcoded-releases</id>
+            <url>https://repo.tcoded.com/releases</url>
+        </repository>
+    </repositories>
 
-  <dependencyManagement>
-    <dependencies>
-      <!-- Internal versions -->
-      <dependency>
-        <groupId>com.booksaw.betterteams</groupId>
-        <artifactId>betterteams</artifactId>
-        <version>5.1.6</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>com.github.booksaw</groupId>
-        <artifactId>betterteams-deadends</artifactId>
-        <version>${betterteams.deadends.version}</version>
-        <scope>provided</scope>
-      </dependency>
-      <!-- Java dependencies -->
-      <dependency>
-        <groupId>org.projectlombok</groupId>
-        <artifactId>lombok</artifactId>
-        <version>${lombok.version}</version>
-        <scope>provided</scope>
-      </dependency>
+    <dependencyManagement>
+        <dependencies>
+            <!-- Internal versions -->
+            <dependency>
+                <groupId>com.booksaw.betterteams</groupId>
+                <artifactId>betterteams</artifactId>
+                <version>5.1.6</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.github.booksaw</groupId>
+                <artifactId>betterteams-deadends</artifactId>
+                <version>${betterteams.deadends.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <!-- Java dependencies -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>provided</scope>
+            </dependency>
 
-      <!-- Spigot API -->
-      <dependency>
-        <groupId>org.spigotmc</groupId>
-        <artifactId>spigot-api</artifactId>
-        <version>${spigot.version}</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>com.tcoded</groupId>
-        <artifactId>FoliaLib</artifactId>
-        <version>${folialib.version}</version>
-        <scope>compile</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.bstats</groupId>
-        <artifactId>bstats-bukkit</artifactId>
-        <version>${bstats.version}</version>
-        <scope>compile</scope>
-      </dependency>
-      <dependency>
-        <groupId>net.kyori</groupId>
-        <artifactId>adventure-bom</artifactId>
-        <version>${adventure.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
+            <!-- Spigot API -->
+            <dependency>
+                <groupId>org.spigotmc</groupId>
+                <artifactId>spigot-api</artifactId>
+                <version>${spigot.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.bstats</groupId>
+                <artifactId>bstats-bukkit</artifactId>
+                <version>${bstats.version}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>net.kyori</groupId>
+                <artifactId>adventure-bom</artifactId>
+                <version>${adventure.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 
-      <!-- Plugin dependencies -->
-      <dependency>
-        <groupId>me.clip</groupId>
-        <artifactId>placeholderapi</artifactId>
-        <version>${placeholder.api.version}</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>com.github.MilkBowl</groupId>
-        <artifactId>VaultAPI</artifactId>
-        <version>${vault.version}</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>com.gmail.filoghost.holographicdisplays</groupId>
-        <artifactId>holographicdisplays-api</artifactId>
-        <version>${holographic.displays.version}</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>com.github.decentsoftware-eu</groupId>
-        <artifactId>decentholograms</artifactId>
-        <version>${decent.holograms.version}</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>com.sk89q.worldedit</groupId>
-        <artifactId>worldedit-bukkit</artifactId>
-        <version>${worldedit.version}</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>com.sk89q.worldguard</groupId>
-        <artifactId>worldguard-bukkit</artifactId>
-        <version>${worldguard.version}</version>
-        <scope>provided</scope>
-        <exclusions>
-          <exclusion>
-            <groupId>io.papermc</groupId>
-            <artifactId>paperlib</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>com.songoda</groupId>
-        <artifactId>UltimateClaims</artifactId>
-        <version>${ultimate.claims.version}</version>
-        <scope>provided</scope>
-      </dependency>
+            <!-- Plugin dependencies -->
+            <dependency>
+                <groupId>me.clip</groupId>
+                <artifactId>placeholderapi</artifactId>
+                <version>${placeholder.api.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.github.MilkBowl</groupId>
+                <artifactId>VaultAPI</artifactId>
+                <version>${vault.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.gmail.filoghost.holographicdisplays</groupId>
+                <artifactId>holographicdisplays-api</artifactId>
+                <version>${holographic.displays.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.github.decentsoftware-eu</groupId>
+                <artifactId>decentholograms</artifactId>
+                <version>${decent.holograms.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.sk89q.worldedit</groupId>
+                <artifactId>worldedit-bukkit</artifactId>
+                <version>${worldedit.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.sk89q.worldguard</groupId>
+                <artifactId>worldguard-bukkit</artifactId>
+                <version>${worldguard.version}</version>
+                <scope>provided</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>io.papermc</groupId>
+                        <artifactId>paperlib</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.songoda</groupId>
+                <artifactId>UltimateClaims</artifactId>
+                <version>${ultimate.claims.version}</version>
+                <scope>provided</scope>
+            </dependency>
 
-      <!-- Test dependencies -->
-      <dependency>
-        <groupId>org.junit</groupId>
-        <artifactId>junit-bom</artifactId>
-        <version>${junit.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.mockito</groupId>
-        <artifactId>mockito-bom</artifactId>
-        <version>${mockito.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.assertj</groupId>
-        <artifactId>assertj-core</artifactId>
-        <version>${assertj.version}</version>
-      </dependency>
+            <!-- Test dependencies -->
+            <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>${junit.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-bom</artifactId>
+                <version>${mockito.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>${assertj.version}</version>
+            </dependency>
 
-    </dependencies>
-  </dependencyManagement>
+        </dependencies>
+    </dependencyManagement>
 
-  <distributionManagement>
-    <repository>
-      <id>github</id>
-      <name>GitHub Apache Maven Packages</name>
-      <url>https://maven.pkg.github.com/booksaw/BetterTeams</url>
-    </repository>
-  </distributionManagement>
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/booksaw/BetterTeams</url>
+        </repository>
+    </distributionManagement>
 </project>

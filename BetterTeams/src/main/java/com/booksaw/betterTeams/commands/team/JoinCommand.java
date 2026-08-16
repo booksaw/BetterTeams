@@ -86,4 +86,9 @@ public class JoinCommand extends NoTeamSubCommand {
 		}
 	}
 
+	@Override
+	protected boolean runAsync(String[] args) {
+		return false;
+	}
+
 }

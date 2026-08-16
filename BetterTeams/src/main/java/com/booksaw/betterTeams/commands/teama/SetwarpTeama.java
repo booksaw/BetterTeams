@@ -81,4 +81,9 @@ public class SetwarpTeama extends SubCommand {
 		return true;
 	}
 
+	@Override
+	protected boolean runAsync(String[] args) {
+		return false;
+	}
+
 }

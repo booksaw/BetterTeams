@@ -20,11 +20,11 @@ public class RelationChangeTeamEvent extends TeamEvent {
 	private @NotNull RelationType newRelation;
 
 	public RelationChangeTeamEvent(@NotNull Team team,
-								   @NotNull Team otherTeam,
-								   @NotNull RelationType previousRelation,
-								   @NotNull RelationType newRelation
+	                               @NotNull Team otherTeam,
+	                               @NotNull RelationType previousRelation,
+	                               @NotNull RelationType newRelation
 	) {
-		super(team, true);
+		super(team, false);
 
 		this.otherTeam = otherTeam;
 		this.previousRelation = previousRelation;

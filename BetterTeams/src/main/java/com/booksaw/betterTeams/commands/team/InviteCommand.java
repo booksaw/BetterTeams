@@ -96,4 +96,9 @@ public class InviteCommand extends TeamSubCommand {
 		return PlayerRank.ADMIN;
 	}
 
+	@Override
+	protected boolean runAsync(String[] args) {
+		return false;
+	}
+
 }

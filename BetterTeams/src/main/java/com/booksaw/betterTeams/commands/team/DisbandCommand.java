@@ -82,4 +82,9 @@ public class DisbandCommand extends TeamSubCommand {
 		return PlayerRank.OWNER;
 	}
 
+	@Override
+	protected boolean runAsync(String[] args) {
+		return false;
+	}
+
 }

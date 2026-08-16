@@ -84,4 +84,9 @@ public class NameCommand extends TeamSubCommand {
 		return PlayerRank.OWNER;
 	}
 
+	@Override
+	protected boolean runAsync(String[] args) {
+		return false;
+	}
+
 }

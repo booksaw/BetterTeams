@@ -25,8 +25,8 @@ public class PostTeamNameChangeEvent extends TeamEvent {
 	private final Player player;
 
 	public PostTeamNameChangeEvent(@NotNull Team team, @NotNull String oldTeamName, @NotNull String newTeamName,
-								   @Nullable Player player) {
-		super(team, true);
+	                               @Nullable Player player) {
+		super(team, false);
 
 		this.oldTeamName = oldTeamName;
 		this.newTeamName = newTeamName;

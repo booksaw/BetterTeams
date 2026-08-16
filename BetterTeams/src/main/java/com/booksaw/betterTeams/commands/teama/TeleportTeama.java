@@ -1,7 +1,6 @@
 package com.booksaw.betterTeams.commands.teama;
 
 import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.ParentCommand;
 import com.booksaw.betterTeams.commands.SubCommand;
@@ -207,18 +206,16 @@ public class TeleportTeama extends SubCommand {
 			throw new IllegalArgumentException("Invalid location array - Either one location for all or separate locations for each");
 		}
 
-		Main.plugin.getFoliaLib().getScheduler().runAsync(task -> {
-			if (locations.length != 1) {
-				for (int i = 0; i < targetList.size(); i++) {
-					if (locations[i] == null) continue; // Some teams may not have their home set
-					targetList.get(i).teleport(locations[i]);
-				}
-				return;
+		if (locations.length != 1) {
+			for (int i = 0; i < targetList.size(); i++) {
+				if (locations[i] == null) continue; // Some teams may not have their home set
+				targetList.get(i).teleport(locations[i]);
 			}
-			for (Player player : targetList) {
-				player.teleport(locations[0]);
-			}
-		});
+			return;
+		}
+		for (Player player : targetList) {
+			player.teleport(locations[0]);
+		}
 
 	}
 

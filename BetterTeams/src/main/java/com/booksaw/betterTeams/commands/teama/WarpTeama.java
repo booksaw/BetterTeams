@@ -98,4 +98,9 @@ public class WarpTeama extends SubCommand {
 		return true;
 	}
 
+	@Override
+	protected boolean runAsync(String[] args) {
+		return false;
+	}
+
 }

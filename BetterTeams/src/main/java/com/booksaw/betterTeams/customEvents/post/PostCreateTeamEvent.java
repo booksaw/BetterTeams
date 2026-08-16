@@ -23,7 +23,7 @@ public class PostCreateTeamEvent extends TeamEvent {
 	private final Player player;
 
 	public PostCreateTeamEvent(Team team, Player player) {
-		super(team, true);
+		super(team, false);
 
 		this.player = player;
 	}
