@@ -46,7 +46,7 @@
         <betterteams.deadends.version>4b3d734531</betterteams.deadends.version>
 
         <!-- Java dependencies -->
-        <lombok.version>1.18.46</lombok.version>
+        <lombok.version>1.18.48</lombok.version>
 
         <!-- Spigot API -->
         <spigot.version>1.21-R0.1-SNAPSHOT</spigot.version>
@@ -54,16 +54,16 @@
         <adventure.version>4.26.1</adventure.version>
 
         <!-- Spigot dependencies -->
-        <placeholder.api.version>2.12.2</placeholder.api.version>
+        <placeholder.api.version>2.12.3</placeholder.api.version>
         <vault.version>1.7.1</vault.version>
         <holographic.displays.version>2.4.9</holographic.displays.version>
-        <decent.holograms.version>2.10.0</decent.holograms.version>
+        <decent.holograms.version>2.10.1</decent.holograms.version>
         <worldedit.version>7.2.8</worldedit.version>
         <worldguard.version>7.0.5</worldguard.version>
         <ultimate.claims.version>3.1.0</ultimate.claims.version>
 
         <!-- Test dependencies -->
-        <junit.version>6.0.3</junit.version>
+        <junit.version>6.1.3</junit.version>
         <mockito.version>5.23.0</mockito.version>
         <assertj.version>3.27.7</assertj.version>
     </properties>
