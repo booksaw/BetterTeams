@@ -9,7 +9,7 @@ import org.bukkit.command.CommandSender;
 
 import java.util.List;
 
-public class DelHome extends TeamSubCommand {
+public class DelhomeCommand extends TeamSubCommand {
 
 	@Override
 	public CommandResponse onCommand(TeamPlayer player, String label, String[] args, Team team) {
@@ -60,6 +60,11 @@ public class DelHome extends TeamSubCommand {
 	@Override
 	public PlayerRank getDefaultRank() {
 		return PlayerRank.ADMIN;
+	}
+
+	@Override
+	protected boolean runAsync(String[] args) {
+		return false;
 	}
 
 }

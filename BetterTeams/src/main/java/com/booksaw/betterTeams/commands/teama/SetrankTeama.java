@@ -77,4 +77,9 @@ public class SetrankTeama extends TeamSelectSubCommand {
 		}
 	}
 
+	@Override
+	protected boolean runAsync(String[] args) {
+		return false;
+	}
+
 }

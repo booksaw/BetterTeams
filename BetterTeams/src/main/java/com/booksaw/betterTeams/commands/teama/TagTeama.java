@@ -68,4 +68,9 @@ public class TagTeama extends TeamSelectSubCommand {
 		}
 	}
 
+	@Override
+	protected boolean runAsync(String[] args) {
+		return false;
+	}
+
 }

@@ -16,7 +16,7 @@ public class CreateTeamEvent extends TeamEvent {
 	private final Player player;
 
 	public CreateTeamEvent(Team team, Player player) {
-		super(team, true);
+		super(team, false);
 		this.player = player;
 	}
 

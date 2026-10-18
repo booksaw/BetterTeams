@@ -28,23 +28,29 @@ public class SQLTeamStorage extends TeamStorage {
 	}
 
 	private String getCondition() {
-		return "teamID LIKE '" + team.getID() + "'";
+		return "teamID = ?";
+	}
+
+	private String getTeamId() {
+		return team.getID().toString();
 	}
 
 	@Override
 	protected void setValue(String location, TeamStorageType storageType, Object value) {
 		storageManager.getDatabase().updateRecordWhere(TableName.TEAM, location, value,
-				getCondition());
+				getCondition(), getTeamId());
 	}
 
 	@Override
 	public String getString(String reference) {
-		return storageManager.getDatabase().getResult(reference, TableName.TEAM, getCondition());
+		return storageManager.getDatabase()
+				.getResult(reference, TableName.TEAM, getCondition(), getTeamId());
 	}
 
 	@Override
 	public boolean getBoolean(String reference) {
-		String result = storageManager.getDatabase().getResult(reference, TableName.TEAM, getCondition());
+		String result = storageManager.getDatabase()
+				.getResult(reference, TableName.TEAM, getCondition(), getTeamId());
 		if (result.equals("1")) {
 			return true;
 		} else if (result.equals("0")) {
@@ -55,28 +61,32 @@ public class SQLTeamStorage extends TeamStorage {
 
 	@Override
 	public double getDouble(String reference) {
-		return Double.parseDouble(storageManager.getDatabase().getResult(reference, TableName.TEAM, getCondition()));
+		return Double.parseDouble(storageManager.getDatabase()
+				.getResult(reference, TableName.TEAM, getCondition(), getTeamId()));
 	}
 
 	@Override
 	public int getInt(String reference) {
-		return Integer.parseInt(storageManager.getDatabase().getResult(reference, TableName.TEAM, getCondition()));
+		return Integer.parseInt(storageManager.getDatabase()
+				.getResult(reference, TableName.TEAM, getCondition(), getTeamId()));
 	}
 
 	@Override
 	public List<TeamPlayer> getPlayerList() {
 		List<TeamPlayer> toReturn = new ArrayList<>();
 
-		try (PreparedStatement ps = storageManager.getDatabase().selectWhere("*", TableName.PLAYERS, getCondition())) {
+		try (PreparedStatement ps = storageManager.getDatabase()
+				.selectWhere("*", TableName.PLAYERS, getCondition(), getTeamId())) {
 			ResultSet result = ps.executeQuery();
 			if (!result.first()) {
 				return toReturn;
 			}
 			do {
 
-				toReturn.add(new TeamPlayer(Bukkit.getOfflinePlayer(UUID.fromString(result.getString("playerUUID"))),
-						PlayerRank.getRank((result.getInt("playerRank"))), result.getString("title"),
-						result.getBoolean("anchor")));
+				toReturn.add(
+						new TeamPlayer(Bukkit.getOfflinePlayer(UUID.fromString(result.getString("playerUUID"))),
+								PlayerRank.getRank((result.getInt("playerRank"))), result.getString("title"),
+								result.getBoolean("anchor")));
 
 			} while (result.next());
 		} catch (SQLException e) {
@@ -90,14 +100,16 @@ public class SQLTeamStorage extends TeamStorage {
 	public List<UUID> getAnchoredPlayerList() {
 		List<UUID> toReturn = new ArrayList<>();
 
-		try (PreparedStatement ps = storageManager.getDatabase().selectWhere("*", TableName.PLAYERS, getCondition())) {
+		try (PreparedStatement ps = storageManager.getDatabase()
+				.selectWhere("*", TableName.PLAYERS, getCondition(), getTeamId())) {
 			ResultSet result = ps.executeQuery();
 			if (!result.first()) {
 				return toReturn;
 			}
 			do {
-				if (result.getBoolean("anchor"))
+				if (result.getBoolean("anchor")) {
 					toReturn.add(UUID.fromString(result.getString("playerUUID")));
+				}
 			} while (result.next());
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -111,7 +123,8 @@ public class SQLTeamStorage extends TeamStorage {
 
 		List<String> toReturn = new ArrayList<>();
 
-		try (PreparedStatement ps = storageManager.getDatabase().selectWhere("*", TableName.BANS, getCondition())) {
+		try (PreparedStatement ps = storageManager.getDatabase()
+				.selectWhere("*", TableName.BANS, getCondition(), getTeamId())) {
 			ResultSet result = ps.executeQuery();
 			if (!result.first()) {
 				return toReturn;
@@ -133,7 +146,7 @@ public class SQLTeamStorage extends TeamStorage {
 		List<String> toReturn = new ArrayList<>();
 
 		try (PreparedStatement ps = storageManager.getDatabase().selectWhere("*", table,
-				"team1ID LIKE '" + team.getID() + "' OR team2ID LIKE '" + team.getID() + "'")) {
+				"team1ID = ? OR team2ID = ?", getTeamId(), getTeamId())) {
 			ResultSet result = ps.executeQuery();
 			if (!result.first()) {
 				return toReturn;
@@ -163,8 +176,9 @@ public class SQLTeamStorage extends TeamStorage {
 
 		List<String> toReturn = new ArrayList<>();
 
-		try (PreparedStatement ps = storageManager.getDatabase().selectWhere("*", TableName.ALLYREQUESTS,
-				"receivingTeamID LIKE '" + team.getID() + "'")) {
+		try (PreparedStatement ps = storageManager.getDatabase()
+				.selectWhere("*", TableName.ALLYREQUESTS,
+						"receivingTeamID = ?", getTeamId())) {
 
 			ResultSet result = ps.executeQuery();
 			if (!result.first()) {
@@ -184,7 +198,8 @@ public class SQLTeamStorage extends TeamStorage {
 	@Override
 	public void getEchestContents(Inventory inventory) {
 
-		String result = storageManager.getDatabase().getResult("echest", TableName.TEAM, getCondition());
+		String result = storageManager.getDatabase()
+				.getResult("echest", TableName.TEAM, getCondition(), getTeamId());
 		if (result == null || result.isEmpty()) {
 			return;
 		}
@@ -195,12 +210,10 @@ public class SQLTeamStorage extends TeamStorage {
 	@Override
 	public void setEchestContents(Inventory inventory) {
 		String serial = Utils.serializeInventory(inventory);
-		serial = serial.replace("\\", "\\\\");
-		serial = serial.replace("\"", "\\\"");
-		serial = "\"" + serial + "\"";
 		invalidateCache();
-		storageManager.getDatabase().executeStatement("UPDATE %s SET echest = ? WHERE %s".formatted(TableName.TEAM.toString(), getCondition()), serial);
-
+		storageManager.getDatabase().executeStatement(
+				"UPDATE %s SET echest = ? WHERE %s".formatted(TableName.TEAM.toString(), getCondition()),
+				serial, getTeamId());
 	}
 
 	@Override
@@ -208,7 +221,8 @@ public class SQLTeamStorage extends TeamStorage {
 
 		List<String> toReturn = new ArrayList<>();
 
-		try (PreparedStatement ps = storageManager.getDatabase().selectWhere("*", TableName.WARPS, getCondition())) {
+		try (PreparedStatement ps = storageManager.getDatabase()
+				.selectWhere("*", TableName.WARPS, getCondition(), getTeamId())) {
 
 			ResultSet result = ps.executeQuery();
 			if (!result.first()) {
@@ -231,7 +245,8 @@ public class SQLTeamStorage extends TeamStorage {
 
 		List<String> toReturn = new ArrayList<>();
 
-		try (PreparedStatement ps = storageManager.getDatabase().selectWhere("*", TableName.CHESTCLAIMS, getCondition())) {
+		try (PreparedStatement ps = storageManager.getDatabase()
+				.selectWhere("*", TableName.CHESTCLAIMS, getCondition(), getTeamId())) {
 
 			ResultSet result = ps.executeQuery();
 			if (!result.first()) {
@@ -252,56 +267,58 @@ public class SQLTeamStorage extends TeamStorage {
 	public void addBan(UUID component) {
 		invalidateCache();
 		storageManager.getDatabase().insertRecord(TableName.BANS, "playerUUID, teamID",
-				"'" + component + "', '" + team.getID() + "'");
+				component.toString(), getTeamId());
 	}
 
 	@Override
 	public void removeBan(UUID component) {
 		invalidateCache();
-		storageManager.getDatabase().deleteRecord(TableName.BANS, "playerUUID LIKE '" + component.toString() + "'");
+		storageManager.getDatabase()
+				.deleteRecord(TableName.BANS, "playerUUID = ?", component.toString());
 	}
 
 	@Override
 	public void addAlly(UUID ally) {
 		invalidateCache();
 		storageManager.getDatabase().insertRecord(TableName.ALLIES, "team1ID, team2ID",
-				"'" + team.getID() + "', '" + ally + "'");
+				getTeamId(), ally.toString());
 	}
 
 	@Override
 	public void removeAlly(UUID ally) {
 		invalidateCache();
 		storageManager.getDatabase().deleteRecord(TableName.ALLIES,
-				"(team1ID LIKE '" + team.getID() + "' AND team2ID LIKE '" + ally + "') OR (team1ID LIKE '" + ally
-						+ "' AND team2ID LIKE '" + team.getID() + "')");
+				"(team1ID = ? AND team2ID = ?) OR (team1ID = ? AND team2ID = ?)",
+				getTeamId(), ally.toString(), ally.toString(), getTeamId());
 	}
 
 	@Override
 	public void addAllyRequest(UUID requesting) {
 		invalidateCache();
-		storageManager.getDatabase().insertRecord(TableName.ALLYREQUESTS, "receivingTeamID, requestingTeamID",
-				"'" + team.getID() + "', '" + requesting + "'");
+		storageManager.getDatabase()
+				.insertRecord(TableName.ALLYREQUESTS, "receivingTeamID, requestingTeamID",
+						getTeamId(), requesting.toString());
 	}
 
 	@Override
 	public void removeAllyRequest(UUID requesting) {
 		invalidateCache();
 		storageManager.getDatabase().deleteRecord(TableName.ALLYREQUESTS,
-				"receivingTeamID LIKE '" + team.getID() + "' AND requestingTeamID LIKE '" + requesting + "'");
+				"receivingTeamID = ? AND requestingTeamID = ?", getTeamId(), requesting.toString());
 	}
 
 	@Override
 	public void addWarp(Warp component) {
 		invalidateCache();
 		storageManager.getDatabase().insertRecord(TableName.WARPS, "teamID, warpInfo",
-				"'" + team.getID() + "', '" + component.toString() + "'");
+				getTeamId(), component.toString());
 	}
 
 	@Override
 	public void removeWarp(Warp component) {
 		invalidateCache();
 		storageManager.getDatabase().deleteRecord(TableName.WARPS,
-				getCondition() + " AND warpInfo LIKE '" + component.toString() + "'");
+				getCondition() + " AND warpInfo = ?", getTeamId(), component.toString());
 	}
 
 	@Override
@@ -316,8 +333,9 @@ public class SQLTeamStorage extends TeamStorage {
 
 	private void changeRank(TeamPlayer player) {
 		invalidateCache();
-		storageManager.getDatabase().updateRecordWhere(TableName.PLAYERS, "playerRank", player.getRank().value,
-				"playerUUID = '" + player.getPlayer().getUniqueId() + "'");
+		storageManager.getDatabase()
+				.updateRecordWhere(TableName.PLAYERS, "playerRank", player.getRank().value,
+						"playerUUID = ?", player.getPlayer().getUniqueId().toString());
 
 	}
 
@@ -325,14 +343,14 @@ public class SQLTeamStorage extends TeamStorage {
 	public void setTitle(TeamPlayer player) {
 		invalidateCache();
 		storageManager.getDatabase().updateRecordWhere(TableName.PLAYERS, "title", player.getTitle(),
-				"playerUUID = '" + player.getPlayer().getUniqueId() + "'");
+				"playerUUID = ?", player.getPlayer().getUniqueId().toString());
 	}
 
 	@Override
 	public void setAnchor(TeamPlayer player, boolean anchor) {
 		invalidateCache();
 		storageManager.getDatabase().updateRecordWhere(TableName.PLAYERS, "anchor", anchor,
-				"playerUUID = '" + player.getPlayer().getUniqueId() + "'");
+				"playerUUID = ?", player.getPlayer().getUniqueId().toString());
 	}
 
 	@Override
@@ -373,8 +391,9 @@ public class SQLTeamStorage extends TeamStorage {
 	@Override
 	public Map<String, String> getRawMeta() {
 		Map<String, String> rawMeta = new HashMap<>();
-		String condition = "teamID = '" + team.getID().toString() + "'";
-		try (PreparedStatement ps = storageManager.getDatabase().selectWhere("*", TableName.TEAM_META, condition)) {
+		String condition = "teamID = ?";
+		try (PreparedStatement ps = storageManager.getDatabase()
+				.selectWhere("*", TableName.TEAM_META, condition, getTeamId())) {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				rawMeta.put(rs.getString("metaKey"), rs.getString("metaValue"));
@@ -389,7 +408,7 @@ public class SQLTeamStorage extends TeamStorage {
 	public void saveMeta(TeamMeta meta) {
 		String teamId = team.getID().toString();
 
-		storageManager.getDatabase().deleteRecord(TableName.TEAM_META, "teamID = '" + teamId + "'");
+		storageManager.getDatabase().deleteRecord(TableName.TEAM_META, "teamID = ?", teamId);
 		Map<String, String> serializedMeta = meta.getSerialized();
 		if (serializedMeta.isEmpty()) {
 			return;
@@ -397,8 +416,8 @@ public class SQLTeamStorage extends TeamStorage {
 
 		for (Map.Entry<String, String> entry : serializedMeta.entrySet()) {
 			String columns = "teamID, metaKey, metaValue";
-			String values = "'" + teamId + "', '" + entry.getKey() + "', '" + entry.getValue().replace("'", "''") + "'";
-			storageManager.getDatabase().insertRecord(TableName.TEAM_META, columns, values);
+			storageManager.getDatabase()
+					.insertRecord(TableName.TEAM_META, columns, teamId, entry.getKey(), entry.getValue());
 		}
 	}
 }

@@ -70,4 +70,8 @@ public class LeaveCommand extends TeamSubCommand {
 		return PlayerRank.DEFAULT;
 	}
 
+	@Override
+	protected boolean runAsync(String[] args) {
+		return false;
+	}
 }

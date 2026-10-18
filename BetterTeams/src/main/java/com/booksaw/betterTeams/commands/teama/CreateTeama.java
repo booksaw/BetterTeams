@@ -66,4 +66,9 @@ public class CreateTeama extends SubCommand {
 		}
 	}
 
+	@Override
+	protected boolean runAsync(String[] args) {
+		return false;
+	}
+
 }

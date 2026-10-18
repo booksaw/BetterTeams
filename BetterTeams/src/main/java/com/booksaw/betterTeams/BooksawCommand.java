@@ -28,7 +28,7 @@ public class BooksawCommand extends BukkitCommand {
 	private SubCommand subCommand;
 
 	public BooksawCommand(String command, SubCommand subCommand, String permission, String description,
-						  List<String> alises) {
+	                      List<String> alises) {
 		super(command);
 		this.description = description;
 		usageMessage = "/<command> help";
@@ -59,7 +59,7 @@ public class BooksawCommand extends BukkitCommand {
 		boolean async = subCommand.checkAsync(args);
 
 		if (async) {
-			Main.plugin.getFoliaLib().getScheduler().runAsync(task -> runExecution(sender, label, args));
+			Bukkit.getScheduler().runTaskAsynchronously(Main.plugin, task -> runExecution(sender, label, args));
 		} else {
 			runExecution(sender, label, args);
 		}

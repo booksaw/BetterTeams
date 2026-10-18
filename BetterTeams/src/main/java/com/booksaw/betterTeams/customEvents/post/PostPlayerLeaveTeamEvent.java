@@ -20,7 +20,7 @@ public class PostPlayerLeaveTeamEvent extends TeamPlayerEvent {
 	private static final HandlerList HANDLERS = new HandlerList();
 
 	public PostPlayerLeaveTeamEvent(Team team, TeamPlayer teamPlayer) {
-		super(team, teamPlayer, true);
+		super(team, teamPlayer, false);
 	}
 
 	public static HandlerList getHandlerList() {

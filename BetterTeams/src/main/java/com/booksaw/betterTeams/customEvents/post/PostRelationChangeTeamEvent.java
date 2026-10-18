@@ -22,11 +22,11 @@ public class PostRelationChangeTeamEvent extends TeamEvent {
 	final private @NotNull RelationType newRelation;
 
 	public PostRelationChangeTeamEvent(@NotNull Team team,
-									   @NotNull Team otherTeam,
-									   @NotNull RelationType previousRelation,
-									   @NotNull RelationType newRelation
+	                                   @NotNull Team otherTeam,
+	                                   @NotNull RelationType previousRelation,
+	                                   @NotNull RelationType newRelation
 	) {
-		super(team, true);
+		super(team, false);
 
 		this.otherTeam = otherTeam;
 		this.previousRelation = previousRelation;

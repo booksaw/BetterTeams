@@ -56,4 +56,9 @@ public class OpenTeama extends TeamSelectSubCommand {
 		}
 	}
 
+	@Override
+	protected boolean runAsync(String[] args) {
+		return false;
+	}
+
 }

@@ -61,4 +61,9 @@ public class DisbandTeama extends TeamSelectSubCommand {
 
 	}
 
+	@Override
+	protected boolean runAsync(String[] args) {
+		return false;
+	}
+
 }

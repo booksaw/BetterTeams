@@ -39,7 +39,6 @@ import com.booksaw.betterTeams.team.storage.StorageType;
 import com.booksaw.betterTeams.team.storage.convert.Converter;
 import com.booksaw.betterTeams.team.storage.storageManager.SeparatedYamlStorageManager;
 import com.booksaw.betterTeams.team.storage.storageManager.YamlStorageManager;
-import com.tcoded.folialib.FoliaLib;
 import lombok.Getter;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.milkbowl.vault.economy.Economy;
@@ -91,12 +90,6 @@ public class Main extends JavaPlugin {
 	ExtensionManager extensionManager;
 
 	/**
-	 * FoliaLib instance for Folia/Paper/Spigot support
-	 */
-	@Getter
-	public FoliaLib foliaLib;
-
-	/**
 	 * If the ultimateClaims expansion has been enabled
 	 */
 	@Getter
@@ -141,7 +134,6 @@ public class Main extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
-		foliaLib = new FoliaLib(this);
 		setupMetrics();
 
 		if (adventure == null) try {
@@ -198,8 +190,6 @@ public class Main extends JavaPlugin {
 		if (extensionManager != null) {
 			extensionManager.unloadExtensions();
 		}
-
-		foliaLib.getScheduler().cancelAllTasks();
 
 		for (Entry<Player, Team> temp : InventoryManagement.adminViewers.entrySet()) {
 			temp.getKey().closeInventory();
@@ -349,7 +339,7 @@ public class Main extends JavaPlugin {
 				new InfoCommand(teamCommand), new KickCommand(), new PromoteCommand(), new DemoteCommand(),
 				new HomeCommand(), new SethomeCommand(), new BanCommand(), new UnbanCommand(),
 				new ChatCommand(teamCommand), new ColorCommand(), new TitleCommand(), new TopCommand(),
-				new BaltopCommand(), new RankCommand(), new DelHome(), new AllyCommand(), new NeutralCommand(),
+				new BaltopCommand(), new RankCommand(), new DelhomeCommand(), new AllyCommand(), new NeutralCommand(),
 				new AllyChatCommand(teamCommand), new ListCommand(), new WarpCommand(), new SetWarpCommand(),
 				new DelwarpCommand(), new WarpsCommand(), new EchestCommand(), new RankupCommand(), new TagCommand());
 
@@ -429,12 +419,10 @@ public class Main extends JavaPlugin {
 		BelowNameType type = BelowNameType.getType(Objects.requireNonNull(getConfig().getString("displayTeamName")));
 		Main.plugin.getLogger().info("Loading below name. Type: " + type);
 		if (getConfig().getBoolean("useTeams")) {
-			if (foliaLib.isFolia()) {
-				Bukkit.getLogger().warning("Folia detected: Skipping MCTeamManagement initialization to avoid threading issues.");
-			} else if (teamManagement == null) {
+			if (teamManagement == null) {
 				teamManagement = new MCTeamManagement(type);
 
-				Main.plugin.getFoliaLib().getScheduler().runAsync(task -> teamManagement.displayBelowNameForAll());
+				teamManagement.displayBelowNameForAll();
 				getServer().getPluginManager().registerEvents(teamManagement, this);
 				Main.plugin.getLogger().info("teamManagement declared: " + teamManagement);
 			} else {
@@ -531,9 +519,8 @@ public class Main extends JavaPlugin {
 			extensionManager.enableExtensions();
 		} else {
 			// Run later
-			foliaLib.getScheduler().runLater(() -> {
-				extensionManager.enableExtensions();
-			}, enableTick);
+			Bukkit.getScheduler().runTaskLater(this, () ->
+					extensionManager.enableExtensions(), enableTick);
 		}
 	}
 }

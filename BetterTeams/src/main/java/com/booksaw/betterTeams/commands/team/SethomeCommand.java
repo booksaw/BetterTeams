@@ -60,4 +60,9 @@ public class SethomeCommand extends TeamSubCommand {
 		return PlayerRank.ADMIN;
 	}
 
+	@Override
+	protected boolean runAsync(String[] args) {
+		return false;
+	}
+
 }

@@ -103,4 +103,9 @@ public class NeutralCommand extends TeamSubCommand {
 		return PlayerRank.OWNER;
 	}
 
+	@Override
+	protected boolean runAsync(String[] args) {
+		return false;
+	}
+
 }

@@ -29,7 +29,7 @@ public class PostLevelupTeamEvent extends TeamEvent {
 	private final Player commandSender;
 
 	public PostLevelupTeamEvent(Team team, int currentLevel, int newLevel, int cost, boolean score, Player commandSender) {
-		super(team, true);
+		super(team, false);
 
 		this.currentLevel = currentLevel;
 		this.newLevel = newLevel;

@@ -146,4 +146,9 @@ public class TitleCommand extends TeamSubCommand {
 	public PlayerRank getDefaultRank() {
 		return PlayerRank.OWNER;
 	}
+
+	@Override
+	protected boolean runAsync(String[] args) {
+		return false;
+	}
 }

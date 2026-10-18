@@ -21,9 +21,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRegisterChannelEvent;
 
-import java.awt.Color;
+import java.awt.*;
 import java.nio.charset.StandardCharsets;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -41,18 +40,22 @@ public class ApolloManager implements Listener {
 	private static final String APOLLO_CHANNEL = "apollo:json";
 	private static final String LUNAR_CHANNEL = "lunar:apollo";
 
-	/** UUIDs of online players confirmed to be running Lunar Client with Apollo. */
+	/**
+	 * UUIDs of online players confirmed to be running Lunar Client with Apollo.
+	 */
 	private static final Set<UUID> apolloPlayers = ConcurrentHashMap.newKeySet();
 
 	public ApolloManager() {
 		var messenger = Bukkit.getServer().getMessenger();
-		messenger.registerIncomingPluginChannel(Main.plugin, LUNAR_CHANNEL, (channel, player, bytes) -> {});
-		messenger.registerIncomingPluginChannel(Main.plugin, APOLLO_CHANNEL, (channel, player, bytes) -> {});
+		messenger.registerIncomingPluginChannel(Main.plugin, LUNAR_CHANNEL, (channel, player, bytes) -> {
+		});
+		messenger.registerIncomingPluginChannel(Main.plugin, APOLLO_CHANNEL, (channel, player, bytes) -> {
+		});
 		messenger.registerOutgoingPluginChannel(Main.plugin, APOLLO_CHANNEL);
 
 		Bukkit.getPluginManager().registerEvents(this, Main.plugin);
 
-		Main.plugin.getFoliaLib().getScheduler().runTimerAsync(this::refreshAllTeams, 1L, 20L);
+		Bukkit.getScheduler().runTaskTimerAsynchronously(Main.plugin, this::refreshAllTeams, 1L, 20L);
 		Main.plugin.getLogger().info("Registered Apollo Teamview integration");
 	}
 
@@ -116,7 +119,7 @@ public class ApolloManager implements Listener {
 		JsonArray teammates = new JsonArray();
 		for (TeamPlayer tp : members) {
 			tp.getOnlinePlayer().ifPresent(player ->
-				teammates.add(createTeamMemberObject(player, team))
+					teammates.add(createTeamMemberObject(player, team))
 			);
 		}
 

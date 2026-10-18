@@ -22,9 +22,9 @@ public class PostTeamTagChangeEvent extends TeamEvent {
 	private final String newTag;
 
 	public PostTeamTagChangeEvent(@NotNull Team team,
-								  @NotNull String oldTag,
-								  @NotNull String newTag) {
-		super(team, true);
+	                              @NotNull String oldTag,
+	                              @NotNull String newTag) {
+		super(team, false);
 
 		this.oldTag = oldTag;
 		this.newTag = newTag;

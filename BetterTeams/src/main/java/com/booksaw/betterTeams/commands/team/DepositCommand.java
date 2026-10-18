@@ -108,5 +108,5 @@ public class DepositCommand extends TeamSubCommand {
 	public boolean runAsync(String[] args) {
 		return false;
 	}
-
+	
 }

@@ -9,607 +9,457 @@
 
 # 此文件中的任何 Placeholder API 占位符都将起作用
 invalidArg: '&4参数无效，请查看帮助'
-inTeam: '&4您必须在一个团队中才能执行此操作'
+inTeam: '&4你必须在一个团队中才能执行此操作'
 internalError: '&4执行该命令时出现错误，请向服务器管理员报告'
-notInTeam: '&4执行此操作前您必须离开当前团队'
-needOwner: '&4您必须是团队的所有者才能执行此操作'
-needAdmin: '&4您必须是团队的管理员或所有者才能执行此操作'
-needPlayer: '&4您必须是一名玩家才能执行此操作'
+notInTeam: '&4你必须先离开当前团队才能执行此操作'
+needOwner: '&4你必须拥有团队所有者权限才能执行此操作'
+needAdmin: '&4你必须拥有团队管理员或所有者权限才能执行此操作'
+needPlayer: '&4你必须是一名玩家才能执行此操作'
 noPlayer: '&4未找到指定玩家'
 notTeam: '&6&4该团队不存在，请尝试 &b/team create <名称>'
-needSameTeam: '&6您与该玩家不在同一团队'
-noPerm: '&4您没有权限执行此操作'
+needSameTeam: '&6你与该玩家不在同一个团队中'
+noPerm: '&4你没有权限执行此操作'
 prefixSyntax: '&7[{0}&7] &r{1}'
-bannedChar: '&4您尝试使用的字符已被禁止'
+bannedChar: '&4你尝试使用的字符被禁止使用'
 noTeam: '&4该团队不存在'
 loading: '&6加载中'
-cooldown:
-  wait: '&4您需要再等待 {0} 秒才能运行该命令！'
-cost:
-  tooPoor: '&4您的资金不足，无法运行该命令'
-  run: '&4&l-{0}'
-placeholder:
-  noTeam: ''
-  noMeta: ''
-  noDescription: ''
-  money: '{0}'
-  owner: 所有者
-  admin: 管理员
-  default: 默认
-  name: '{0}'
-  tag: '{0}'
-  displayname: '{0}'
-  inteam: 'true'
-  notinteam: 'false'
-  noTitle: ''
-  hasHome: 'true'
-  noHome: 'false'
-  teamChat: 团队聊天
-  globalChat: 全局聊天
-  allyChat: 盟友聊天
-prefix:
-  owner: ' **'
-  admin: ' *'
-  default: ' '
-create:
-  exists: '&6该团队已存在'
-  success: '&6您的团队 {0} 已创建'
-  banned: '&4该团队名称已被禁止'
-  maxLength: '&4团队名称过长'
-  minLength: '&4团队名称过短'
-leave:
-  success: '&6您已离开团队'
-  lastOwner: '&6您是团队中唯一的所有者，请先提升其他人或使用 &b/team disband &6解散团队'
-announce:
-  join: '&3{0} &7已加入团队 {1}'
-  leave: '&3{0} &7已离开团队 {1}'
-  disband: '&7团队 {0} &7已被解散'
-rank:
-  noTeam: '&4未找到团队'
-  info: '&6团队位置：'
-  infos: '&6团队等级：&b{0} &7(需要 {1} 分数以升级到下一等级)'
-  infom: '&6团队等级：&b{0} &7(需要 ${1} 以升级到下一等级)'
-  infomm: '&6团队等级：&b{0} &7(您已达到最高等级)'
-  syntax: '&b{0}: &6{1} &7({2})'
-delhome:
-  success: '&6您的团队家园已被删除'
-  noHome: '&4您的团队尚未设置家园'
-disband:
-  success: '&6您已解散团队'
-  confirm: '&6再次输入 &b/team disband &6以确认'
-description:
-  success: '&6您已更改团队描述'
-  view: '&6团队描述：{0}'
-  noDesc: '&6未设置团队描述'
-  noPerm: '&4您没有权限编辑描述'
-name:
-  success: '&6您已更改团队名称'
-  view: '&6团队名称：{0}'
-  exists: '&4该团队已存在'
-  noPerm: '&4您没有权限更改团队名称'
-invite:
-  success: '&6已邀请该玩家'
-  invite: '&6您已被邀请加入团队 {0}，输入 &b/team join {0} &6以加入团队'
-  hover: '&6点击加入 &b{0}'
-  inTeam: '&6该玩家已在一个团队中'
-  banned: '&6该玩家已被您的团队封禁'
-  full: '&6您的团队已满员，请在邀请更多人之前踢出某人'
-  expired: '&4来自 &b{0} &4的邀请已过期'
-join:
-  success: '&6您已加入该团队'
-  notify: '&6欢迎 &b{0} &6加入团队！'
-  notInvited: '&6&4您未被邀请加入该团队'
-  banned: '&6&4您已被该团队封禁'
-  full: '&4该团队已满员'
-open:
-  successopen: '&6您的团队现在对所有人开放'
-  successclose: '&6您的团队现在仅限邀请加入'
-title:
-  change: '&6您的头衔已更改为 &b{0}'
-  remove: '&6您的头衔已被移除'
-  success: '&6该头衔已更改'
-  tooLong: '&4头衔过长'
-  noFormat: '&4您没有权限格式化头衔'
-  noColor: '&4您没有权限为头衔着色'
-  reset: '&6您的头衔已重置'
-  noPerm: '&4您没有权限更改团队头衔'
-info:
-  needTeam: '&6未找到该名称的团队或玩家'
-  name: '&6名称：&b{0}'
-  description: '&6描述：&b{0}'
-  open: '&6开放：&b{0}'
-  level: '&6等级：&b{0}'
-  owner: '&6所有者：&b{0}'
-  admin: '&6管理员：&b{0}'
-  default: '&6成员：&b{0}'
-  tag: '&6标签：&b{0}'
-  anchor: '&6锚点：&b{0}'
-  fail: '&6未找到该名称的团队或玩家'
-  score: '&6分数：&b{0}'
-  money: '&6余额：&b{0}'
-  ally: '&6盟友：&b{0}'
-  online: '&a'
-  offline: '&c'
-  onlinePlayer: '<green>{0}</green>'
-  offlinePlayer: '<red>{0}</red>'
-  playerListSpace: ' '
-kick:
-  success: '&6已踢出该玩家'
-  notify: '&6您已被踢出团队 {0}'
-  title: '&4您已被踢出团队'
-  noPerm: '&6您没有权限踢出该玩家'
-ban:
-  success: '&6已封禁该玩家'
-  notify: '&6您已被团队 {0} 封禁'
-  title: '&4您已被团队封禁'
-  noPerm: '&6您没有权限封禁该玩家'
-  already: '&6该玩家已被封禁'
-unban:
-  success: '&6已解封该玩家'
-  notify: '&6您已被团队 {0} 解封'
-  noPerm: '&6您没有权限解封该玩家'
-  not: '&6该玩家未被封禁'
-promote:
-  success: '&6已提升该玩家'
-  noPerm: '&6您没有权限提升该玩家'
-  max: '&6该玩家已被提升至最高等级！'
-  notify: '&6您已被提升！'
-  maxAdmins: '&4您的团队已达到最大管理员数量，请降级某人或升级团队'
-  maxOwners: '&4您的团队已达到最大所有者数量，请降级某人或升级团队'
-demote:
-  success: '&6已降级该玩家'
-  noPerm: '&6您没有权限降级该玩家'
-  min: '&6该玩家已是最低等级'
-  notify: '&6您已被降级'
-  lastOwner: '&6您不能降级最后一位所有者，请先提升其他人'
-  maxAdmins: '&4您的团队已达到最大管理员数量，请移除一位管理员或升级团队'
-home:
-  success: '&6您已被传送'
-  noHome: '&6您的团队尚未设置家园'
-  world: '&4无法找到您的团队家园'
-sethome:
-  success: '&6您的团队家园已设置'
-  noPerm: '&6您的等级不足以设置团队家园'
-anchor:
-  enabled: '&6您现在允许在团队家园重生'
-  disabled: '&6您现在不允许在团队家园重生'
-  noHome: '&6您的团队必须设置团队家园并启用团队锚点'
-setanchor:
-  enabled: '&6团队锚点已启用'
-  disabled: '&6团队锚点已禁用'
-  notifyEnable: '&6团队锚点已被 {0} 启用'
-  notifyDisable: '&6团队锚点已被 {0} 禁用'
-  noHome: '&4必须先设置团队家园'
-  noPerm: '&4您没有权限设置团队的锚点状态'
-  noBool: '&4团队锚点状态只能为 true 或 false'
-chat:
-  enabled: '&6您的消息现在将发送到团队聊天'
-  disabled: '&6您的消息现在将发送到全局聊天'
-  syntax: '&b[团队]&f{0}&f: {1}'
-color:
-  success: '&6您的团队颜色已更改'
-  fail: '&6这不是可识别的聊天颜色'
-  banned: '&4该颜色代码已被禁止'
-deposit:
-  tooLittle: '&4您不能存入负数金额'
-  fail: '&4存款失败'
-  success: '&6存款成功'
-  max: '&4这将超过您团队允许的最大余额'
-withdraw:
-  tooLittle: '&4您不能取出负数金额'
-  fail: '&4取款失败'
-  success: '&6取款成功'
-  notEnough: '&6您的团队资金不足'
-ally:
-  already: '&4你们已经是盟友'
-  success: '&6你们的团队现在结为盟友'
-  ally: '&6您的团队现在与 &b{0} 结盟'
-  ally_title: '&6您的团队现在与 &b{0} 结盟'
-  requested: '&6已向该团队发送盟友请求'
-  request: '&b{0} &6发送了盟友请求，使用 &b/team ally <团队> &6接受'
-  self: '&4您不能与自己团队结盟'
-  from: '&6您收到来自以下团队的盟友请求：{0}'
-  noRequests: '&4您没有任何盟友请求'
-  onJoin: '&6您有新的盟友请求，请使用 &b/team ally &6查看'
-  limit: '&4已达到盟友数量限制'
-  alreadyrequest: '&4您已经请求与该团队结盟'
-allychat:
-  disabled: '&6您的消息不再发送到盟友聊天'
-  enabled: '&6您的消息现在将发送到盟友聊天'
-  syntax: '&d[{0}]&f{1}&f: {2}'
-neutral:
-  self: '&6那是您自己的团队'
-  requestremove: '&6该盟友请求已被移除'
-  reject: '&4您与 &b{0} &4的盟友请求已被拒绝'
-  notAlly: '&4您未与该团队结盟'
-  success: '&4您不再与该团队结盟'
-  remove: '&4您不再与 &b{0} 结盟'
-  remove_title: '&4您不再与 &b{0} 结盟'
-list:
-  noPage: '&6未找到该页面'
-  header: '&7--- &b团队列表第 {0} 页 &7---'
-  body: '&6{0}: &b{1}'
-  footer: '&7--- &6输入 &b/team list [页码] &6查看更多 &7---'
-setowner:
-  use: '&6您不能提升该玩家，请使用 &b/team setowner <玩家> &6将该玩家提升为所有者'
-  success: '&6该玩家现在是所有者'
-  notify: '&6您现在是自己团队的所有者'
-  max: '&4该玩家已经是所有者'
-setwarp:
-  exist: '&4该传送点已存在'
-  max: '&4您的团队已设置最大数量的传送点'
-  success: '&6该传送点已创建'
-  char: '&4该传送点名称包含被禁止的字符'
-warp:
-  nowarp: '&4该传送点不存在'
-  invalidPassword: '&4该传送点的密码无效'
-  success: '&6您已被传送'
-  world: '&4无法找到该传送点的位置'
-warps:
-  syntax: '&6传送点：&b{0}'
-  none: '&4您的团队未设置任何传送点'
-delwarp:
-  success: '&4该传送点已被删除'
-teleport:
-  fail: '&4传送失败'
-  wait: '&6静止站立 &b{0} &6秒以进行传送'
-  bypass: '&6由于您的权限，您已绕过传送延迟！'
-chest:
-  claim:
-    noChest: '&4您未站在箱子上'
-    limit: '&4您的团队已达到最大认领箱子数量'
-    claimed: '&4该箱子已被认领'
-    success: '&6您已认领该箱子'
-  remove:
-    noChest: '&4您未站在箱子上'
-    notClaimed: '&4您的团队未认领该箱子'
-    success: '&4您的团队不再认领该箱子'
-  all:
-    success: '&6取消认领所有箱子'
-  claimed: '&4该箱子已被 &a{0} &4认领'
-  check:
-    self: '&6您的团队已认领该箱子'
-    notClaimed: '&6该箱子未被认领'
-    claimed: '&6该箱子已被 &a{0} &6认领'
-echest:
-  echest: 末影箱
-pvp:
-  enabled: '&6您的团队已启用 PvP'
-  disabled: '&6您的团队已禁用 PvP'
-rankup:
-  max: '&4您已是最高等级'
-  score: '&4您需要 {0} 分数来升级'
-  money: '&4您需要团队余额中有 {0} 资金来升级'
-  success: '&6您的团队已升级'
-tag:
-  banned: '&4该标签已被禁止'
-  success: '&6您的标签已成功更改'
-  maxLength: '&4标签过长'
-  noPerm: '&4您没有权限更改团队标签'
-admin:
-  cancel: '&4该命令已被其他插件取消'
-  tag:
-    success: '&6该团队的标签已成功更改'
-  setrank:
-    success: '&6该团队的等级已设置'
-    'no': '&4该等级不存在或未正确设置'
-  config:
-    reload: '&6BetterTeams 已重新加载（如果您在使用此命令时遇到问题，请重启服务器）'
-  holo:
-    create:
-      success: '&6全息图已创建'
-    remove:
-      noHolo: '&4未找到全息图'
-      success: '&6全息图已删除'
-  title:
-    success: '&6该玩家的头衔已更改'
-    reset: '&6该玩家的头衔已重置'
-  version: '&6当前插件版本：&b{0}'
-  versionstorage: '&6存储方法：&b{0}'
-  versionversion: '&6Minecraft 版本：&b{0}'
-  versionlanguage: '&6选择的语言：&b{0}'
-  versiononline: '&6在线模式：&b{0}'
-  versionplayers: '&6玩家数量：&b{0}'
-  versionplugins: '&6插件集成：&b{0}'
-  versionconflicts: '&6潜在冲突：&b{0}'
-  noTeam: '&4这不是一个团队'
-  home:
-    success: '&6您已被传送到该团队的家园'
-    noHome: '&4该团队未设置家园'
-  anchor:
-    enabled: '&6已强制该玩家允许在其团队家园重生'
-    disabled: '&6已强制该玩家不允许在其团队家园重生'
-  setanchor:
-    enabled: '&6该团队的锚点状态已启用'
-    disabled: '&6该团队的锚点状态已禁用'
-    noHome: '&4该团队必须先设置家园'
-  name:
-    success: '&6团队名称已更改'
-  description:
-    success: '&6该团队的描述已更改'
-  open:
-    successopen: '&6该团队现在对所有人开放'
-    successclose: '&6该团队现在仅限邀请加入'
-  invite:
-    success: '&6已邀请该玩家加入该团队'
-  create:
-    success: '&6该团队已创建'
-  join:
-    banned: '&4该玩家已被该团队封禁'
-    success: '&6该玩家已加入团队'
-    notify: '&6您已加入团队 &b{0}'
-    full: '&4该团队已满员'
-  notInTeam: '&6执行此操作前该玩家不能在团队中'
-  inTeam: '&4该玩家不在团队中'
-  leave:
-    success: '&6该玩家已离开该团队'
-    notify: '&6您已离开该团队'
-  demote:
-    notify: '&6您已被降级'
-    success: '&6该玩家已被降级'
-    min: '&4该玩家无法再被降级'
-    maxAdmins: '&4该团队已达到最大管理员数量，请在降级此玩家前移除一位'
-  promote:
-    max: '&6该玩家已是最高等级'
-    notify: '&6您已被提升'
-    success: '&6该玩家已被提升'
-    owner: '&6配置为团队只能有一个所有者，请使用 &b/teama setowner <玩家> &6将该玩家设为所有者'
-    maxAdmins: '&4该团队已达到最大管理员数量，请在提升该玩家前移除一位'
-    maxOwners: '&4该团队已达到最大所有者数量，请在提升该玩家前移除一位'
-  setowner:
-    already: '&4该玩家已经是所有者'
-    nonotify: '&6您不再是团队的所有者'
-    success: '&6该玩家是新的团队所有者'
-    notify: '&6您现在是自己团队的所有者'
-  warps:
-    none: '&4该团队未设置任何传送点'
-  setwarp:
-    success: '&6该传送点已设置'
-    max: '&6该团队已设置最大数量的传送点'
-  purge:
-    confirm: '&6在接下来 10 秒内再次运行该命令以确认，&4此操作无法撤销并将重置所有团队的分数'
-    success: '&6团队已被清除'
-  score:
-    tooSmall: '&4分数必须大于 0'
-    success: '&6该团队的分数已更改'
-  bal:
-    toSmall: '&4余额必须大于 0'
-    success: '&6该团队的余额已更改'
-  update: '&4BetterTeams 有新版本发布，请在此更新：https://www.spigotmc.org/resources/better-teams.17129/'
-  disband:
-    success: '&6该团队已成功解散'
-  color:
-    success: '&6该团队的颜色已更改'
-  chest:
-    claim:
-      success: '&6您已代表团队认领该箱子'
-    remove:
-      success: '&6您已成功移除该箱子的认领'
-      notClaimed: '&4没有团队认领该箱子'
-    all:
-      success: '&6已移除该团队的所有认领'
-    disable:
-      already: '&4箱子认领已禁用'
-      success: '&6箱子认领已禁用'
-    disabled:
-      bc: '&6&l所有被认领的箱子都可以被打开'
-    enable:
-      already: '&4箱子认领已启用'
-      success: '&6箱子认领已启用'
-    enabled:
-      bc: '&6&l所有被认领的箱子已上锁'
-  teleport:
-    noWorld: '&4未找到指定世界'
-    success: '&6该团队的所有在线成员已被传送'
-    player:
-      success: '&6该玩家已被传送'
-    all:
-      success: '&6所有团队的所有在线成员已被传送'
-      home:
-        success: '&6所有有家园的团队的所有在线成员已被传送'
-  ally:
-    same: '&4您不能使团队与自己结盟'
-    already: '&4这些团队已经是盟友'
-    success: '&6这两个团队现在结为盟友'
-  neutral:
-    same: '&4您不能输入相同的团队两次'
-    not: '&4这些团队不是盟友'
-    success: '&6这些团队不再是盟友'
-  import:
-    fail: '&4消息导入失败，请检查控制台中的错误'
-    success: '&6消息已成功导入'
-  meta:
-    get:
-      noMetaData: '&c此团队没有元数据条目。'
-      allMetaData: '&a此团队的元数据：&e{0}'
-      specificMetaData: '&a元数据键 "&e{0}&a" 的值为："&e{1}&a"'
-      noexist: '&c指定的元数据键在此团队中不存在。'
-    set:
-      needsValue: '&c您必须为元数据键提供一个值。'
-      success: '&a成功设置元数据键'
-    remove:
-      success: '&a成功从团队中移除元数据键 "&e{0}&a"'
-nametag:
-  syntax: '&6&l{0}&r '
-holo:
-  leaderboard: '&6排行榜'
-  syntax: '&6{0}: &b{1}'
-  msyntax: '&6{0}: &b${1}'
-top:
-  leaderboard: '&6排行榜'
-  syntax: '&b{0}: &6{1} &7({2})'
-  divide: '&f...'
-baltop:
-  leaderboard: '&6排行榜'
-  syntax: '&b{0}: &6{1} &7({2})'
-  divide: '&f...'
-spy:
-  stop: '&6您不再监视团队消息'
-  start: '&6您现在正在监视团队消息'
-  team: '&7[&b{0}&7]&f{1}&f: {2}'
-  ally: '&7[&d{0}&7]&f{1}&f: {2}'
-uclaim:
-  team: '&4您必须在一个团队中才能创建认领'
-  member: '&4您不能离开自己团队的认领'
-  kick: '&4您不能从认领中踢出自己团队的成员'
-  ban: '&4您不能从认领中封禁自己团队的成员'
-  dissolve: '&4您的团队已被解散，因此您的认领已被解除'
-help:
-  header: '&6---- &bBetterTeams 帮助 &6----'
-  footer: '&6---- &b第 {0}/{1} 页 - /{2} help <页码> &6----'
-  wrong: '&4出现错误，请通知服务器管理员'
-  description: 查看和更改团队的描述
-  ban: 将指定玩家封禁出您的团队
-  home: 将您传送到团队的家园
-  help: 查看此帮助页面
-  promote: 在团队中提升指定玩家
-  demote: 在团队中降级指定玩家
-  unban: 将指定玩家从团队封禁中解封
-  kick: 将指定玩家踢出团队
-  leave: 离开当前团队
-  chat: 仅向您的团队发送消息
-  name: 查看和更改团队的名称
-  sethome: 设置团队的家园
-  create: 使用指定名称创建团队
-  invite: 邀请指定玩家加入您的团队
-  disband: 解散当前团队
-  open: 切换团队是否仅限邀请加入
-  info: 查看指定玩家/团队的信息
-  color: 更改团队的颜色
-  deposit: 将资金存入团队余额
-  bal: 查看团队的余额
-  withdraw: 从团队余额中取出资金
-  title: 更改团队中该玩家的头衔
-  top: 查看顶级团队
-  rank: 查看团队的等级
-  join: 加入指定团队
-  delhome: 删除团队的家园
-  ally: 用于请求与另一团队结盟
-  neutral: 移除盟友并拒绝盟友请求
-  allychat: 仅向您的盟友发送消息
-  anchor: 切换是否要在团队家园重生
-  setanchor: 设置团队家园作为重生点的能力
-  echest: 查看团队的末影箱
-  setwarp: 为团队其他成员设置传送点
-helpArg:
-  delhome: ''
-  echest: ''
-  color: <颜色代码>
-  allychat: '[消息]'
-  description: '[描述]'
-  setwarp: <名称> [密码]
-  title: '[玩家/我] [头衔]'
-  bal: ''
-  ban: <玩家>
-  promote: <玩家>
-  warps: ''
-  top: ''
-  ally: <团队>
-  rankup: ''
-  leave: ''
-  sethome: ''
-  create: <名称> [标签]
-  rank: '[团队]'
-  join: <团队>
-  tag: '[标签]'
-  disband: ''
-  info: '[团队/玩家]'
-  delwarp: <名称> [密码]
-  chest: ''
-  neutral: <团队>
-  pvp: ''
-  baltop: ''
-  list: '[页码]'
-  home: ''
-  help: ''
-  unban: <玩家>
-  demote: <玩家>
-  kick: <玩家>
-  chat: '[消息]'
-  name: <名称>
-  deposit: <金额>
-  invite: <玩家>
-  open: ''
-  warp: <名称>
-  withdraw: <金额>
-  anchor: ''
-  setanchor: <true/false>
-command:
-  create: 创建
-  leave: 离开
-  disband: 解散
-  description: 描述
-  invite: 邀请
-  join: 加入
-  name: 名称
-  open: 开放
-  info: 信息
-  kick: 踢出
-  promote: 提升
-  demote: 降级
-  home: 家园
-  sethome: 设置家园
-  ban: 封禁
-  unban: 解封
-  chat: 聊天
-  color: 颜色
-  title: 头衔
-  top: 顶级
-  baltop: 余额排行
-  rank: 等级
-  delhome: 删除家园
-  ally: 盟友
-  neutral: 中立
-  allychat: 盟友聊天
-  list: 列表
-  warp: 传送点
-  setwarp: 设置传送点
-  delwarp: 删除传送点
-  warps: 传送点列表
-  echest: 末影箱
-  rankup: 升级
-  tag: 标签
-  pvp: PvP
-  claim: 认领
-  remove: 移除
-  removeall: 全部移除
-  chest: 箱子
-  reload: 重载
-  chatspy: 聊天监视
-  version: 版本
-  purge: 清除
-  setrank: 设置等级
-  add: 添加
-  set: 设置
-  score: 分数
-  enableclaims: 启用认领
-  disableclaims: 禁用认领
-  anchor: 锚点
-  setanchor: 设置锚点
-  check: 检查
-  debug: 调试
-  teleport: 传送
-  importmessages: 导入消息
-  money: 资金
-  meta: 元数据
-  get: 获取
-  deposit: 存款
-  bal: 余额
-  withdraw: 取款
-webhook:
-  unknownPlayer: 未知玩家
-  create:
-    title: 新团队已创建 - {0}
-    description: 一个名为 **{0}** 的团队已被 **{1}** 创建
-  disband:
-    title: 团队已解散 - {0}
-    description: 一个名为 **{0}** 的团队已被 **{1}** 解散
-  leave:
-    title: 团队成员离开 - {0}
-    description: 名为 **{0}** 的用户已离开团队 **{1}**
-  rename:
-    title: 团队名称更改 - {0}
-    description: 一个名为 **{0}** 的团队已被 **{2}** 将其名称更改为 **{1}**
-  chat:
-    title: '团队消息：{0} [{1}]'
-    description: '{0}'
+cooldown.wait: '&4你需要再等待 &b{0} &4秒才能执行此操作！'
+cost.tooPoor: '&4你的资金不足，无法执行此命令，你需要 &b{0}'
+cost.run: '&4&l-{0}'
+placeholder.noTeam: ''
+placeholder.noMeta: ''
+placeholder.noDescription: ''
+placeholder.money: '{0}'
+placeholder.owner: 所有者
+placeholder.admin: 管理员
+placeholder.default: 成员
+placeholder.name: '{0}'
+placeholder.tag: '{0}'
+placeholder.displayname: '{0}'
+placeholder.inteam: 'true'
+placeholder.notinteam: 'false'
+placeholder.noTitle: ''
+placeholder.hasHome: 'true'
+placeholder.noHome: 'false'
+placeholder.teamChat: '团队聊天'
+placeholder.globalChat: '全局聊天'
+placeholder.allyChat: '盟友聊天'
+prefix.owner: ' **'
+prefix.admin: ' *'
+prefix.default: ' '
+create.exists: '&6该团队已存在'
+create.success: '&6你的团队 &b{0} &6已创建'
+create.banned: '&4该团队名称被禁止使用'
+create.maxLength: '&4该团队名称过长'
+create.minLength: '&4该团队名称过短'
+leave.success: '&6你已离开团队'
+leave.lastOwner: '&6你是团队内唯一的所有者，请先晋升其他人或使用 &b/team disband &6命令来解散团队'
+announce.join: '&3{0} &7已加入团队 {1}'
+announce.leave: '&3{0} &7已离开团队 {1}'
+announce.disband: '&7团队 &b{0} &7已被解散'
+rank.noTeam: '&4未找到团队'
+rank.info: '&6团队等级:'
+rank.infos: '&6团队等级: &b{0} &7(还需要 {1} 积分来升级到下一级)'
+rank.infom: '&6团队等级: &b{0} &7(还需要 ${1} 来升级到下一级)'
+rank.infomm: '&6团队等级: &b{0} &7(你已达到最高等级)'
+rank.syntax: '&b{0}: &6{1} &7({2})'
+rank.perks.header: '&6&l下一级特权:'
+rank.perks.warps: '&7- &a+{0} &7最大传送点数量'
+rank.perks.members: '&7- &a+{0} &7最大成员数量'
+rank.perks.chests: '&7- &a+{0} &7最大箱子领地数量'
+rank.perks.bank: '&7- &a提高银行限额 (&e${0}&a)'
+rank.perks.admins: '&7- &a+{0} &7最大管理员数量'
+rank.perks.owners: '&7- &a+{0} &7最大所有者数量'
+delhome.success: '&6你的团队据点已被删除'
+delhome.noHome: '&4你的团队尚未设置据点'
+disband.success: '&6你已解散团队'
+disband.warning: '&4你团队 &b末影箱 &b中的所有物品以及 &b团队银行 &b中的所有资金将被删除'
+disband.confirm: '&6再次输入 &b/team disband &6以确认'
+description.success: '&6你已更改团队描述'
+description.view: '&6团队描述: &b{0}'
+description.noDesc: '&6未设置团队描述'
+description.noPerm: '&4你没有权限编辑团队描述'
+name.success: '&6你已更改团队名称'
+name.view: '&6团队名称: &b{0}'
+name.exists: '&4该团队已存在'
+name.noPerm: '&4你没有权限更改你的团队名称'
+invite.success: '&6该玩家已被邀请'
+invite.invite: '&6你已被邀请加入团队 &b{0}&6，输入 &b/team join {0} &6以加入团队'
+invite.hover: '&6点击加入 &b{0}'
+invite.inTeam: '&6该玩家已在一个团队中'
+invite.banned: '&6该玩家已被你的团队封禁'
+invite.full: '&6你的团队已达最大人数，请在邀请更多人之前踢出部分成员'
+invite.expired: '&4来自 &b{0} &4的邀请已过期'
+join.success: '&6你已加入该团队'
+join.notify: '&6欢迎 &b{0} &6加入团队！'
+join.notInvited: '&6&4你未被邀请加入该团队'
+join.banned: '&6&4你已被该团队封禁'
+join.full: '&4该团队已满员'
+open.successopen: '&6你的团队现在对所有人开放'
+open.successclose: '&6你的团队现在仅限邀请加入'
+title.change: '&6你的头衔已更改为 &b{0}'
+title.remove: '&6你的头衔已被移除'
+title.success: '&6该头衔已更改'
+title.tooLong: '&4该头衔过长'
+title.noFormat: '&4你没有权限格式化头衔'
+title.noColor: '&4你没有权限为头衔着色'
+title.reset: '&6你的头衔已被重置'
+title.noPerm: '&4你没有权限更改你的团队头衔'
+info.needTeam: '&6未找到该名称对应的团队或玩家'
+info.name: '&6名称: &b{0}'
+info.description: '&6描述: &b{0}'
+info.open: '&6开放加入: &b{0}'
+info.level: '&6等级: &b{0}'
+info.owner: '&6所有者: &b{0}'
+info.admin: '&6管理员: &b{0}'
+info.default: '&6成员: &b{0}'
+info.tag: '&6标签: &b{0}'
+info.anchor: "&6复活点锚: &b{0}"
+info.fail: '&6未找到该名称对应的团队或玩家'
+info.score: '&6积分: &b{0}'
+info.money: '&6余额: &b{0}'
+info.ally: '&6盟友: &b{0}'
+info.online: '&a'
+info.offline: '&c'
+info.onlinePlayer: '<green>{0}</green>'
+info.offlinePlayer: '<red>{0}</red>'
+info.playerListSpace: " "
+info.limits: '&6限制: &7成员 &b{0}/{1} &7| &7传送点 &b{2}/{3}'
+kick.success: '&6该玩家已被踢出'
+kick.notify: '&6你已被踢出团队 &b{0}'
+kick.title: '&4你已被踢出你的团队'
+kick.noPerm: '&6你没有权限踢出该玩家'
+ban.success: '&6该玩家已被封禁'
+ban.notify: '&6你已被团队 &b{0} &6封禁'
+ban.title: '&4你已被你的团队封禁'
+ban.noPerm: '&6你没有权限封禁该玩家'
+ban.already: '&6该玩家已被封禁'
+unban.success: '&6该玩家已被解封'
+unban.notify: '&6你已被团队 &b{0} &6解封'
+unban.noPerm: '&6你没有权限解封该玩家'
+unban.not: '&6该玩家未被封禁'
+promote.success: '&6该玩家已被晋升'
+promote.noPerm: '&6你没有权限晋升该玩家'
+promote.max: '&6该玩家已晋升至最高等级！'
+promote.notify: '&6你已被晋升！'
+promote.maxAdmins: '&4你的团队已达到最大管理员数量，请先降职某人或提升团队等级'
+promote.maxOwners: '&4你的团队已达到最大所有者数量，请先降职某人或提升团队等级'
+demote.success: '&6该玩家已被降职'
+demote.noPerm: '&6你没有权限降职该玩家'
+demote.min: '&6该玩家已是最低等级'
+demote.notify: '&6你已被降职'
+demote.lastOwner: '&6你不能降职最后一位所有者，请先晋升其他人'
+demote.maxAdmins: '&4你的团队已达到最大管理员数量，请先移除一位管理员或提升团队等级'
+home.success: '&6你已被传送'
+home.noHome: '&6你的团队尚未设置据点'
+home.world: '&4无法找到你的团队据点'
+sethome.success: '&6你的团队据点已设置'
+sethome.noPerm: '&6你的等级不足以设置团队据点'
+anchor.enabled: '&6你现在允许在团队据点重生'
+anchor.disabled: '&6你现在不允许在团队据点重生'
+anchor.noHome: '&6你的团队必须设置据点并启用复活点锚'
+setanchor.enabled: '&6团队复活点锚已启用'
+setanchor.disabled: '&6团队复活点锚已禁用'
+setanchor.notifyEnable: '&6团队复活点锚已由 &b{0} &6启用'
+setanchor.notifyDisable: '&6团队复活点锚已由 &b{0} &6禁用'
+setanchor.noHome: '&4必须先设置团队据点'
+setanchor.noPerm: '&4你没有权限设置团队的复活点锚状态'
+setanchor.noBool: '&4团队复活点锚状态只能是 true 或 false'
+chat.enabled: '&6你的消息现在将发送至团队聊天'
+chat.disabled: '&6你的消息现在将发送至全局聊天'
+color.success: '&6你的团队颜色已更改'
+color.fail: '&6这不是一个可识别的聊天颜色'
+color.banned: '&4该颜色代码被禁止使用'
+deposit.tooLittle: '&4你不能存入负数金额'
+deposit.fail: '&4存款失败'
+deposit.success: '&6存款成功'
+deposit.max: '&4该金额将超出团队最大允许余额'
+withdraw.tooLittle: '&4你不能提取负数金额'
+withdraw.fail: '&4取款失败'
+withdraw.success: '&6取款成功'
+withdraw.notEnough: '&6你的团队资金不足'
+ally.already: '&4你们已经是盟友'
+ally.success: '&6你们的团队现在结为盟友'
+ally.ally: '&6你的团队现在与 &b{0} &6结为盟友'
+ally.ally_title: '&6你的团队现在与 &b{0} &6结为盟友'
+ally.requested: '&6已向该团队发送盟友请求'
+ally.request: '&b{0} &6已发送盟友请求，使用 &b/team ally <团队> &6接受'
+ally.self: '&4你不能与你自己的团队结盟'
+ally.from: '&6你收到了来自以下团队的盟友请求: &b{0}'
+ally.noRequests: '&4你没有任何盟友请求'
+ally.onJoin: '&6你有新的盟友请求，输入 &b/team ally &6查看'
+ally.limit: '&4已达到盟友数量上限'
+ally.alreadyrequest: '&4你已请求与该团队结盟'
+allychat.disabled: '&6你的消息将不再发送至盟友聊天'
+allychat.enabled: '&6你的消息现在将发送至盟友聊天'
+allychat.syntax: '&d[{0}]&f{1}&f: {2}'
+neutral.self: '&6那是你自己的团队'
+neutral.requestremove: '&6该盟友请求已被移除'
+neutral.reject: '&4你与 &b{0} &4的盟友请求已被拒绝'
+neutral.notAlly: '&4你未与该团队结盟'
+neutral.success: '&4你不再与该团队结盟'
+neutral.remove: '&4你不再与 &b{0} &4结盟'
+neutral.remove_title: '&4你不再与 &b{0} &4结盟'
+list.noPage: '&6未找到该页面'
+list.header: '&7--- &b团队列表 第 {0} 页 &7---'
+list.body: '&6{0}: &b{1}'
+list.footer: '&7--- &6输入 &b/team list [页码] &6查看更多 &7---'
+setowner.use: '&6你无法晋升该玩家，请使用 &b/team setowner <玩家> &6来晋升该玩家为所有者'
+setowner.success: '&6该玩家现在是所有者了'
+setowner.notify: '&6你现在是你的团队的所有者了'
+setowner.max: '&4该玩家已经是所有者了'
+setwarp.exist: '&4该传送点已存在'
+setwarp.max: '&4你的团队已设置最大数量的传送点'
+setwarp.success: '&6该传送点已创建'
+setwarp.char: '&4该传送点名称包含禁止使用的字符'
+warp.nowarp: '&4该传送点不存在'
+warp.invalidPassword: '&4该传送点的密码无效'
+warp.success: '&6你已被传送'
+warps.syntax: '&6传送点: &b{0}'
+warps.none: '&4你的团队未设置任何传送点'
+warp.world: '&4无法找到该传送点的位置'
+delwarp.success: '&4该传送点已被删除'
+chat.syntax: '&b[团队]&f{0}&f: {1}'
+teleport.fail: '&4传送失败'
+teleport.wait: '&6保持静止 &b{0} &6秒以传送'
+teleport.bypass: '&6由于你的权限，你已跳过传送延迟！'
+teleport.noTeleport: "&6位置在 &b{0} &6世界，坐标 &b{1}, {2}, {3}"
+chest.claim.noChest: '&4你未站在一个箱子上'
+chest.claim.limit: '&4你的团队已认领最大数量的箱子'
+chest.claim.claimed: '&4该箱子已被认领'
+chest.claim.success: '&6你已认领该箱子'
+chest.remove.noChest: '&4你未站在一个箱子上'
+chest.remove.notClaimed: '&4你的团队未认领该箱子'
+chest.remove.success: '&4你的团队已不再认领该箱子'
+chest.all.success: '&6已解除所有箱子的认领'
+chest.claimed: '&4该箱子已被 &a{0} &4认领'
+chest.check.self: '&6你的团队已认领该箱子'
+chest.check.notClaimed: "&6该箱子未被认领"
+chest.check.claimed: "&6该箱子已被 &a{0} &6认领"
+
+echest.echest: '末影箱'
+
+pvp.enabled: '&6团队内PvP已 &b启用'
+pvp.disabled: '&6团队内PvP已 &b禁用'
+
+rankup.max: '&4你已达到最高等级'
+rankup.score: '&4你需要 &a{0} &4积分来升级'
+rankup.money: '&4你需要团队余额中有 &a{0} &4资金来升级'
+rankup.success: '&6你的团队已升级'
+
+tag.banned: '&4该标签被禁止使用'
+tag.success: '&6你的团队标签已成功更改'
+tag.maxLength: '&4该标签过长'
+tag.noPerm: '&4你没有权限更改团队标签'
+admin.cancel: '&4该命令已被另一个插件取消'
+admin.tag.success: '&6该团队的标签已成功更改'
+admin.setrank.success: '&6该团队的等级已设置'
+admin.setrank.no: '&4该等级不存在或未正确设置'
+
+admin.config.reload: '&6BetterTeams 已重载 (如果你在使用此命令时遇到问题，请重启服务器)'
+admin.holo.create.success: '&6全息图已创建'
+admin.holo.remove.noHolo: '&4未找到全息图'
+admin.holo.remove.success: '&6全息图已删除'
+admin.title.success: '&6该玩家的头衔已更改'
+admin.title.reset: '&6该玩家的头衔已重置'
+admin.version: '&6当前插件版本: &b{0}'
+admin.versionstorage: '&6存储方式: &b{0}'
+admin.versionversion: '&6Minecraft 版本: &b{0}'
+admin.versionlanguage: '&6所选语言: &b{0}'
+admin.versiononline: '&6在线模式: &b{0}'
+admin.versionplayers: '&6玩家数量: &b{0}'
+admin.versionplugins: '&6插件集成: &b{0}'
+admin.versionconflicts: '&6潜在冲突: &b{0}'
+admin.versionnoconflicts: '未检测到'
+admin.versionextensions: '&6扩展: {0}'
+admin.versionnomanager: '&c管理器未加载'
+admin.versionnoextensions: '&e无'
+
+admin.noTeam: '&4这不是一个团队'
+admin.home.success: '&6你已被传送到该团队的据点'
+admin.home.noHome: '&4该团队未设置据点'
+admin.anchor.enabled: '&6已强制该玩家允许在其团队据点重生'
+admin.anchor.disabled: '&6已强制该玩家禁止在其团队据点重生'
+admin.setanchor.enabled: '&6该团队的复活点锚状态已启用'
+admin.setanchor.disabled: '&6该团队的复活点锚状态已禁用'
+admin.setanchor.noHome: '&4该团队必须先设置据点'
+admin.name.success: '&6团队名称已更改'
+admin.description.success: '&6该团队的描述已更改'
+admin.open.successopen: '&6该团队现在对所有人开放'
+admin.open.successclose: '&6该团队现在仅限邀请加入'
+admin.invite.success: '&6该玩家已被邀请加入该团队'
+admin.create.success: '&6该团队已创建'
+admin.join.banned: '&4该玩家被该团队封禁'
+admin.join.success: '&6该玩家已加入该团队'
+admin.join.notify: '&6你已加入团队 &b{0}'
+admin.join.full: '&4该团队已满员'
+admin.notInTeam: '&6该玩家在执行此操作前不能身处团队中'
+admin.inTeam: '&4该玩家不在一个团队中'
+admin.leave.success: '&6该玩家已离开该团队'
+admin.leave.notify: '&6你已离开该团队'
+admin.demote.notify: '&6你已被降职'
+admin.demote.success: '&6该玩家已被降职'
+admin.demote.min: '&4该玩家无法再被降职'
+admin.demote.maxAdmins: '&4该团队已达到最大管理员数量，请在降职此玩家前移除一位'
+admin.promote.max: '&6该玩家已达到最高等级'
+admin.promote.notify: '&6你已被晋升'
+admin.promote.success: '&6该玩家已被晋升'
+admin.promote.owner: '&6配置设定为团队只能有一位所有者，请使用 &b/teama setowner <玩家> &6来设置该玩家为所有者'
+admin.promote.maxAdmins: '&4该团队已达到最大管理员数量，请在晋升该玩家前移除一位'
+admin.promote.maxOwners: '&4该团队已达到最大所有者数量，请在晋升该玩家前移除一位'
+admin.setowner.already: '&4该玩家已经是所有者了'
+admin.setowner.nonotify: '&6你不再是团队的所有者'
+admin.setowner.success: '&6该玩家已成为新的团队所有者'
+admin.setowner.notify: '&6你现在是你的团队的所有者了'
+admin.warps.none: '&4该团队未设置任何传送点'
+admin.setwarp.success: '&6该传送点已设置'
+admin.setwarp.max: '&6该团队已设置最大数量的传送点'
+admin.purge.confirm: '&6请在10秒内再次运行该命令以确认，&4此操作无法撤销并将重置所有团队的积分'
+admin.purge.success: '&6团队数据已清除'
+admin.score.tooSmall: '&4积分必须大于0'
+admin.score.success: '&6该团队的积分已更改'
+admin.bal.toSmall: '&4余额必须大于0'
+admin.bal.success: '&6该团队的余额已更改'
+admin.update: '&4BetterTeams 有新版本发布，请在此处更新: https://www.spigotmc.org/resources/better-teams.17129/'
+admin.disband.success: '&6该团队已成功解散'
+admin.color.success: '&6该团队的颜色已更改'
+admin.chest.claim.success: '&6你已代表团队认领该箱子'
+admin.chest.remove.success: '&6你已成功移除该箱子的认领'
+admin.chest.all.success: '&6已移除该团队的所有认领'
+admin.chest.remove.notClaimed: '&4没有团队认领该箱子'
+admin.chest.disable.already: '&4箱子认领功能已被禁用'
+admin.chest.disable.success: '&6箱子认领功能已禁用'
+admin.chest.disabled.bc: '&6&l所有已认领的箱子现在都可以被打开'
+admin.chest.enable.already: '&4箱子认领功能已被启用'
+admin.chest.enable.success: '&6箱子认领功能已启用'
+admin.chest.enabled.bc: '&6&l所有已认领的箱子已被锁定'
+admin.teleport.noWorld: '&4未找到指定的世界'
+admin.teleport.success: '&6该团队的所有在线成员已被传送'
+admin.teleport.player.success: '&6该玩家已被传送'
+admin.teleport.all.success: '&6所有团队的所有在线成员已被传送'
+admin.teleport.all.home.success: '&6所有拥有据点的团队的所有在线成员已被传送'
+admin.ally.same: '&4你不能让一个团队与自己结盟'
+admin.ally.already: '&4这些团队已经是盟友'
+admin.ally.success: '&6这两个团队现在结为盟友'
+admin.neutral.same: '&4你不能输入相同的团队两次'
+admin.neutral.not: '&4这些团队不是盟友'
+admin.neutral.success: '&6这些团队不再是盟友'
+admin.import.fail: '&4消息导入失败，请检查控制台错误'
+admin.import.success: '&6消息已成功导入'
+admin.meta.get.noMetaData: '&c此团队没有元数据条目。'
+admin.meta.get.allMetaData: '&a此团队的元数据: &e{0}'
+admin.meta.get.specificMetaData: '&a元数据键 "&e{0}&a" 的值为: "&e{1}&a"'
+admin.meta.get.noexist: '&c指定的元数据键在此团队中不存在。'
+admin.meta.set.needsValue: '&c你必须提供要设置的元数据键的值。'
+admin.meta.set.success: '&a元数据键设置成功'
+admin.meta.remove.success: '&a已成功从团队中移除元数据键 "&e{0}&a"'
+
+nametag.syntax: '&6&l{0}&r '
+holo.leaderboard: '&6排行榜'
+holo.syntax: '&6{0}: &b{1}'
+holo.msyntax: '&6{0}: &b${1}'
+top.leaderboard: '&6排行榜'
+top.syntax: '&b{0}: &6{1} &7({2})'
+top.divide: '&f...'
+baltop.leaderboard: '&6排行榜'
+baltop.syntax: '&b{0}: &6{1} &7({2})'
+baltop.divide: '&f...'
+spy.stop: '&6你已停止监听团队消息'
+spy.start: '&6你现在正在监听团队消息'
+spy.team: '&7[&b{0}&7]&f{1}&f: {2}'
+spy.ally: '&7[&d{0}&7]&f{1}&f: {2}'
+
+uclaim.team: '&4你必须在一个团队中才能创建领地'
+uclaim.member: '&4你不能离开你团队的领地'
+uclaim.kick: '&4你不能从你的领地中踢出你自己团队的成员'
+uclaim.ban: '&4你不能从你的领地中封禁你自己团队的成员'
+uclaim.dissolve: '&4你的团队已被解散，因此你的领地已被解除'
+
+help.header: '&6---- &bBetterTeams 帮助 &6----'
+help.footer: '&6---- &b第 {0}/{1} 页 - /{2} help <页码> &6----'
+help.wrong: '&4出现错误，请通知服务器管理员'
+
+help.description: 查看和更改你的团队描述
+help.ban: 将指定玩家从你的团队中封禁
+help.home: 将你传送到你的团队据点
+help.help: 查看此帮助页面
+help.promote: 在你的团队中晋升指定玩家
+help.demote: 在你的团队中降职指定玩家
+help.unban: 将指定玩家从你的团队中解封
+help.kick: 将指定玩家踢出你的团队
+help.leave: 离开你当前的团队
+help.chat: 发送仅团队可见的消息
+help.name: 查看和更改你的团队名称
+help.sethome: 设置你的团队据点
+help.create: 创建指定名称的团队
+help.invite: 邀请指定玩家加入你的团队
+help.disband: 解散你当前的团队
+help.open: 切换团队是否仅限邀请加入
+help.info: 查看指定玩家/团队的信息
+help.color: 更改你团队的颜色
+help.deposit: 将资金存入团队余额
+help.bal: 查看你团队的余额
+help.withdraw: 从团队余额中提取资金
+help.title: 更改团队内该玩家的头衔
+help.top: 查看顶级团队排行榜
+help.rank: 查看团队的等级
+help.join: 加入指定团队
+help.delhome: 删除你的团队据点
+help.ally: 用于请求与另一个团队结盟
+help.neutral: 移除盟友并拒绝盟友请求
+help.allychat: 发送仅盟友可见的消息
+help.anchor: 切换是否希望在团队据点重生
+help.setanchor: 设置团队据点作为重生点的功能
+helpArg.delhome: ''
+helpArg.echest: ''
+helpArg.color: <颜色代码>
+helpArg.allychat: '[消息]'
+helpArg.description: '[描述]'
+helpArg.setwarp: <名称> [密码]
+helpArg.title: '[玩家/me] [头衔]'
+helpArg.bal: ''
+helpArg.ban: <玩家>
+helpArg.promote: <玩家>
+helpArg.warps: ''
+helpArg.top: ''
+helpArg.ally: <团队>
+helpArg.rankup: ''
+helpArg.leave: ''
+helpArg.sethome: ''
+helpArg.create: <名称> [标签]
+helpArg.rank: '[团队]'
+helpArg.join: <团队>
+helpArg.tag: '[标签]'
+helpArg.disband: ''
+helpArg.info: '[团队/玩家]'
+helpArg.delwarp: <名称> [密码]
+helpArg.chest: ''
+helpArg.neutral: <团队>
+helpArg.pvp: ''
+helpArg.baltop: ''
+helpArg.list: '[页码]'
+helpArg.home: ''
+helpArg.help: ''
+helpArg.unban: <玩家>
+helpArg.demote: <玩家>
+helpArg.kick: <玩家>
+helpArg.chat: '[消息]'
+helpArg.name: <名称>
+helpArg.deposit: <数量>
+helpArg.invite: <玩家>
+helpArg.open: ''
+helpArg.warp: <名称>
+helpArg.withdraw: <数量>
+helpArg.anchor: ''
+
+webhook.unknownPlayer: "一位未知玩家"
+webhook.create.title: "新团队创建 - {0}"
+webhook.create.description: "一个名为 **{0}** 的团队已被 **{1}** 创建"
+webhook.disband.title: "团队解散 - {0}"
+webhook.disband.description: "一个名为 **{0}** 的团队已被 **{1}** 解散"
+webhook.leave.title: "团队成员离开 - {0}"
+webhook.leave.description: "名为 **{0}** 的用户已离开团队 **{1}**"
+webhook.rename.title: "团队名称变更 - {0}"
+webhook.rename.description: "一个名为 **{0}** 的团队已被 **{2}** 更名为 **{1}**"
+webhook.chat.title: "团队消息: {0} [{1}]"
+webhook.chat.description: "{0}"

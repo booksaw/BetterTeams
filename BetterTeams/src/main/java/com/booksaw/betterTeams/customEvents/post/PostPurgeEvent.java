@@ -22,7 +22,7 @@ public class PostPurgeEvent extends Event {
 	}
 
 	public PostPurgeEvent() {
-		super(true);
+		super(false);
 	}
 
 	@Override

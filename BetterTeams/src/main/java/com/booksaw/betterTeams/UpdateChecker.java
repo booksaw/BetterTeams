@@ -34,7 +34,7 @@ public class UpdateChecker implements Listener {
 	}
 
 	public void checkForUpdate() {
-		Main.plugin.getFoliaLib().getScheduler().runTimerAsync(task -> {
+		Bukkit.getScheduler().runTaskTimerAsynchronously(Main.plugin, task -> {
 					try {
 						URI uri = new URI("https://api.spigotmc.org/legacy/update.php?resource=" + ID);
 						HttpsURLConnection connection = (HttpsURLConnection) uri.toURL().openConnection();

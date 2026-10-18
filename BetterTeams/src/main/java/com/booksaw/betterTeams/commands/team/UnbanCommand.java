@@ -74,4 +74,9 @@ public class UnbanCommand extends TeamSubCommand {
 		return PlayerRank.ADMIN;
 	}
 
+	@Override
+	protected boolean runAsync(String[] args) {
+		return false;
+	}
+
 }

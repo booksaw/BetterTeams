@@ -4,6 +4,52 @@ All notable changes to this project will be documented in this file against thei
 
 The newest release will always be maintained at the top of the file.
 
+# 5.1.7
+
+### Improvements
+
+* Returned a majority of commands to run syncronously to prevent race conditions which were causing data inconsistencies
+* Added further protections to ensure players cannot interact with echests while not in a team
+
+### Bug Fixes
+
+* Fixed issue where Spigot compilation version did not match API version, breaking some remapping
+  logic (#1041)
+* Fixed issue causing some SQL commands to be incorrectly executed - Credit RVSkeLe
+* Fixed an issue blocking admins from using /teama setwarp
+
+# 5.1.6
+
+**PLEASE UPDATE IMMEDIATELY, THIS BUG HAS EXPLOITATION POTENTIAL**
+
+### Bug Fixes
+
+* Fixed bug causing a players echest to not be closed when they are kicked from a team
+
+# 5.1.5
+
+### Improvements
+
+* Updated Simplified Chinese translations (#944) - Credit Minecraft0122
+
+### Bug Fixes
+
+* Fixed an issue causing some items to be lost in echests when using SQL storage type
+* Reduced the logging level of SQL statement outputs so they do not fill log files
+* Fixed issue with TeamRankupEvent failing to trigger due to a change the async processing (#1039)
+* Fixed Simplified Chinese language code on the wiki
+
+# 5.1.4
+
+**Duplication glitch fixed, please update ASAP!**
+
+### Bug Fixes
+
+* Fixed a duplication glitch with team echests - Credit Darkxx14
+
+Thanks to everyone else who helped provide debugging and investigation support to make this update
+so fast
+
 # 5.1.3
 
 ### Improvements
@@ -13,7 +59,8 @@ The newest release will always be maintained at the top of the file.
 * Updated Polish Translations - Kuszaa
 * Updated Mexican Spanish Translations - CR4I5, hallaquin
 
-Thank you all for the contributions, you are helping make BetterTeams accessible to many more people!
+Thank you all for the contributions, you are helping make BetterTeams accessible to many more
+people!
 
 *I want to add my apologies for getting so far behind on submitted community translations*
 
@@ -27,23 +74,27 @@ Thank you all for the contributions, you are helping make BetterTeams accessible
 
 ### Bug Fixes
 
-* Fixed vulnerability with the SQL datatype allowing players to incorrectly increase their team balance
+* Fixed vulnerability with the SQL datatype allowing players to incorrectly increase their team
+  balance
 
 # 5.1.1
 
 ### Bug Fixes
 
 * Fixed null exception in the /team help message - Credit RVSkeLe
-* Fixed null exception in the LunarClient rgb formatting which was causing log spamming - Credit RVSkeLe
+* Fixed null exception in the LunarClient rgb formatting which was causing log spamming - Credit
+  RVSkeLe
 
-Based on feedback from server owners, the LunarClient integration has been disabled by default, it can still be enabled
+Based on feedback from server owners, the LunarClient integration has been disabled by default, it
+can still be enabled
 in `config.yml`
 
 ## 5.1.0
 
 ### Features
 
-* Added support for the [Lunar Client](https://lunarclient.dev/apollo/developers/modules/team) - Credit Beaness (#980)
+* Added support for the [Lunar Client](https://lunarclient.dev/apollo/developers/modules/team) -
+  Credit Beaness (#980)
 
 ### Improvements
 
@@ -59,9 +110,11 @@ in `config.yml`
 
 * Added individual messages and translation file support for extensions (#942) - Credit LpMind
 * Fixed jitpack build - Credit JustLime
-* Refactored the team chat API, previous methods have been deprecated to be removed in a future release, see the javadoc
+* Refactored the team chat API, previous methods have been deprecated to be removed in a future
+  release, see the javadoc
   comments for details
-* Team Chat events will also now fire on Ally Chat messages as monitoring ally chat was not previously possible, there
+* Team Chat events will also now fire on Ally Chat messages as monitoring ally chat was not
+  previously possible, there
   is a new `getMessageType()` field added to the events to trace which is used
 * Added API call to allow registering of custom admin commands, See the wiki page for info
 * Added a `PostBetterTeamsReloadEvent` so plugins can detect when BetterTeams has been reloaded.
@@ -70,36 +123,51 @@ in `config.yml`
 
 This is a major release which includes several breaking changes for the API
 
-Introducing BetterTeams Extensions, Created by LpMind, these allow additional features to be added to BetterTeams
-separate to the core plugin. Some existing features such as LuckPerms contexts, Discord integration and zKoth
-integration have already been moved to this new system, see the features section of the changelog for more info.
+Introducing BetterTeams Extensions, Created by LpMind, these allow additional features to be added
+to BetterTeams
+separate to the core plugin. Some existing features such as LuckPerms contexts, Discord integration
+and zKoth
+integration have already been moved to this new system, see the features section of the changelog
+for more info.
 
-The minimum supported version of minecraft after this release is 1.21, support for all previous versions has been
-dropped. This was a difficult decision to make, but as less than 4% of BetterTeams users use older versions the decision
-was made to significantly simplify the development and testing process. Along with this change, the minimum supported
-java version has been bumped to java 21. This is the expected java version for 1.21 regardless, so this should not have
+The minimum supported version of minecraft after this release is 1.21, support for all previous
+versions has been
+dropped. This was a difficult decision to make, but as less than 4% of BetterTeams users use older
+versions the decision
+was made to significantly simplify the development and testing process. Along with this change, the
+minimum supported
+java version has been bumped to java 21. This is the expected java version for 1.21 regardless, so
+this should not have
 an impact.
 
 ### Features
 
-* Added an Extensions system to BetterTeams where individual extensions are now packaged in their own file like
+* Added an Extensions system to BetterTeams where individual extensions are now packaged in their
+  own file like
   Extensions - Credit lpMind
     * This includes a comprehensive new section of
       the [wiki dedicated to browsing extensions](https://betterteams.booksaw.dev/extensions)
-    * To add an extension to your server, simply add the jar file to the `./plugins/betterTeams/extensions` folder
-* Added a `noTeleport` config option, which when enabled will display coordinates in chat rather than teleporting the
+    * To add an extension to your server, simply add the jar file to the
+      `./plugins/betterTeams/extensions` folder
+* Added a `noTeleport` config option, which when enabled will display coordinates in chat rather
+  than teleporting the
   player ([#662](https://github.com/booksaw/BetterTeams/issues/662))
-* Added Simplified Chinese - Credit Minecraft0122 ([#907](https://github.com/booksaw/BetterTeams/issues/907))
+* Added Simplified Chinese - Credit
+  Minecraft0122 ([#907](https://github.com/booksaw/BetterTeams/issues/907))
 
 ### Improvements
 
 * Added %betterteams_moneyshort% placeholder for money formatted
   50.0k ([#590](https://github.com/booksaw/BetterTeams/issues/590))
 * Balance formatting changes: ([#395](https://github.com/booksaw/BetterTeams/issues/395))
-    * Added a config option `useShortMoney`, which when enabled will always use shorthand balances, i.e. 50.0k
-    * Added a config option `moneyDecimalPlaces` to configure how many decimal places are displayed for money
-* Added some additional information to some BetterTeams messages (will not automatically update individual server files)
-* Added further warnings when disbanding a team ([#901](https://github.com/booksaw/BetterTeams/issues/901))
+    * Added a config option `useShortMoney`, which when enabled will always use shorthand balances,
+      i.e. 50.0k
+    * Added a config option `moneyDecimalPlaces` to configure how many decimal places are displayed
+      for money
+* Added some additional information to some BetterTeams messages (will not automatically update
+  individual server files)
+* Added further warnings when disbanding a
+  team ([#901](https://github.com/booksaw/BetterTeams/issues/901))
 * Added 2 new placeholders, %betterteams_colorname% and %betterteams_anchor% - Credit Just Lime
 * Added support for Offline Players in placeholders - Credit Just Lime
 

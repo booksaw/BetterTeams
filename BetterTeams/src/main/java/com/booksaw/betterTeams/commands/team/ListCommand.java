@@ -1,7 +1,6 @@
 package com.booksaw.betterTeams.commands.team;
 
 import com.booksaw.betterTeams.CommandResponse;
-import com.booksaw.betterTeams.Main;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.commands.SubCommand;
 import com.booksaw.betterTeams.message.MessageManager;
@@ -27,22 +26,20 @@ public class ListCommand extends SubCommand {
 
 		MessageManager.sendMessage(sender, "loading");
 
-		Main.plugin.getFoliaLib().getScheduler().runAsync(task -> {
-			String[] teams = Team.getTeamManager().sortTeamsByMembers();
+		String[] teams = Team.getTeamManager().sortTeamsByMembers();
 
-			// displaying the page
-			if (page * 10 > teams.length) {
-				MessageManager.sendMessage(sender, "list.noPage");
-				return;
-			}
+		// displaying the page
+		if (page * 10 > teams.length) {
+			MessageManager.sendMessage(sender, "list.noPage");
+			return new CommandResponse(true);
+		}
 
-			MessageManager.sendMessage(sender, "list.header", page + 1);
-			for (int i = page * 10; i < (page + 1) * 10 && i < teams.length; i++) {
-				MessageManager.sendMessage(sender, "list.body", i + 1, teams[i]);
-			}
+		MessageManager.sendMessage(sender, "list.header", page + 1);
+		for (int i = page * 10; i < (page + 1) * 10 && i < teams.length; i++) {
+			MessageManager.sendMessage(sender, "list.body", i + 1, teams[i]);
+		}
 
-			MessageManager.sendMessage(sender, "list.footer");
-		});
+		MessageManager.sendMessage(sender, "list.footer");
 		return new CommandResponse(true);
 	}
 

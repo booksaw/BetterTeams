@@ -76,5 +76,8 @@ public class NeutralTeama extends SubCommand {
 		}
 	}
 
-
+	@Override
+	protected boolean runAsync(String[] args) {
+		return false;
+	}
 }

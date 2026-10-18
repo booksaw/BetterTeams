@@ -97,4 +97,9 @@ public class CreateCommand extends NoTeamSubCommand {
 
 	}
 
+	@Override
+	protected boolean runAsync(String[] args) {
+		return false;
+	}
+
 }

@@ -63,4 +63,9 @@ public class NameTeama extends TeamSelectSubCommand {
 		}
 	}
 
+	@Override
+	protected boolean runAsync(String[] args) {
+		return false;
+	}
+
 }

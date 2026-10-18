@@ -5,6 +5,7 @@ import com.booksaw.betterTeams.database.api.Database;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collections;
 
 public class BetterTeamsDatabase extends Database {
 
@@ -62,8 +63,8 @@ public class BetterTeamsDatabase extends Database {
 	 * @param where  the condition required for the data to be included
 	 * @return the resultant resultSet
 	 */
-	public PreparedStatement selectWhere(String select, TableName from, String where) {
-		return executeQuery("SELECT %s FROM %s WHERE %s;".formatted(select, from.toString(), where));
+	public PreparedStatement selectWhere(String select, TableName from, String where, Object... placeholders) {
+		return executeQuery("SELECT %s FROM %s WHERE %s;".formatted(select, from.toString(), where), placeholders);
 	}
 
 	/**
@@ -89,9 +90,9 @@ public class BetterTeamsDatabase extends Database {
 	 * @param where the condition required for the data to be included
 	 * @return if the query has a result
 	 */
-	public boolean hasResult(TableName from, String where) {
+	public boolean hasResult(TableName from, String where, Object... placeholders) {
 
-		try (PreparedStatement ps = selectWhere("*", from, where)) {
+		try (PreparedStatement ps = selectWhere("*", from, where, placeholders)) {
 			ResultSet result = ps.executeQuery();
 			if (result == null) {
 				return false;
@@ -113,9 +114,9 @@ public class BetterTeamsDatabase extends Database {
 	 * @return the first returned result, the specified column. Will return "" if an
 	 * error occurs
 	 */
-	public String getResult(String column, TableName from, String where) {
+	public String getResult(String column, TableName from, String where, Object... placeholders) {
 
-		try (PreparedStatement pr = selectWhere(column, from, where)) {
+		try (PreparedStatement pr = selectWhere(column, from, where, placeholders)) {
 			ResultSet results = pr.executeQuery();
 			results.first();
 			return results.getString(column);
@@ -131,8 +132,8 @@ public class BetterTeamsDatabase extends Database {
 	 * @param table     The table to update
 	 * @param condition The condition for the update
 	 */
-	public void deleteRecord(TableName table, String condition) {
-		executeStatement("DELETE FROM %s WHERE %s;".formatted(table.toString(), condition));
+	public void deleteRecord(TableName table, String condition, Object... placeholders) {
+		executeStatement("DELETE FROM %s WHERE %s;".formatted(table.toString(), condition), placeholders);
 
 	}
 
@@ -143,8 +144,11 @@ public class BetterTeamsDatabase extends Database {
 	 * @param update    the values to update (ie "col = exp1, col2 = exp2")
 	 * @param condition The condition for which records should be updated
 	 */
-	public void updateRecordWhere(TableName table, String field, Object update, String condition) {
-		executeStatement("UPDATE %s SET %s = ? WHERE %s;".formatted(table.toString(), field, condition), update);
+	public void updateRecordWhere(TableName table, String field, Object update, String condition, Object... conditionPlaceholders) {
+		Object[] placeholders = new Object[conditionPlaceholders.length + 1];
+		placeholders[0] = update;
+		System.arraycopy(conditionPlaceholders, 0, placeholders, 1, conditionPlaceholders.length);
+		executeStatement("UPDATE %s SET %s = ? WHERE %s;".formatted(table.toString(), field, condition), placeholders);
 	}
 
 	/**
@@ -165,12 +169,25 @@ public class BetterTeamsDatabase extends Database {
 	 *                col3)
 	 * @param values  the values to insert (ie "val1, val2, val3")
 	 */
-	public void insertRecord(TableName table, String columns, String values) {
-		executeStatement("INSERT INTO %s (%s) VALUES (%s);".formatted(table.toString(), columns, values));
+	public void insertRecord(TableName table, String columns, Object... values) {
+		validateInsertValueCount(columns, values);
+		executeStatement("INSERT INTO %s (%s) VALUES (%s);".formatted(table.toString(), columns, placeholders(values.length)), values);
 	}
 
-	public void insertRecordIfNotExists(TableName table, String columns, String values) {
-		executeStatement("INSERT IGNORE INTO %s (%s) VALUES (%s);".formatted(table.toString(), columns, values));
+	public void insertRecordIfNotExists(TableName table, String columns, Object... values) {
+		validateInsertValueCount(columns, values);
+		executeStatement("INSERT IGNORE INTO %s (%s) VALUES (%s);".formatted(table.toString(), columns, placeholders(values.length)), values);
+	}
+
+	private String placeholders(int count) {
+		return String.join(", ", Collections.nCopies(count, "?"));
+	}
+
+	private void validateInsertValueCount(String columns, Object[] values) {
+		int columnCount = columns.split(",").length;
+		if (columnCount != values.length) {
+			throw new IllegalArgumentException("Insert column count does not match value count");
+		}
 	}
 
 }

@@ -87,4 +87,9 @@ public class KickCommand extends TeamSubCommand {
 		return PlayerRank.ADMIN;
 	}
 
+	@Override
+	protected boolean runAsync(String[] args) {
+		return false;
+	}
+
 }

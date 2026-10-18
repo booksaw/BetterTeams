@@ -87,4 +87,9 @@ public class JoinTeama extends SubCommand {
 		}
 	}
 
+	@Override
+	protected boolean runAsync(String[] args) {
+		return false;
+	}
+
 }

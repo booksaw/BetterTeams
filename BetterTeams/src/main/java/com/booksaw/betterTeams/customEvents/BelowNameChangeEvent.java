@@ -20,8 +20,6 @@ public class BelowNameChangeEvent extends Event {
 	private final ChangeType type;
 
 	public BelowNameChangeEvent(Player player, ChangeType type) {
-		super(true);
-
 		this.player = player;
 		this.type = type;
 	}

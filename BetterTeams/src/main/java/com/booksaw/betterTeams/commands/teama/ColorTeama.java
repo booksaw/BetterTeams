@@ -80,4 +80,9 @@ public class ColorTeama extends TeamSelectSubCommand {
 		}
 	}
 
+	@Override
+	protected boolean runAsync(String[] args) {
+		return false;
+	}
+
 }

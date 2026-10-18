@@ -77,4 +77,9 @@ public class DemoteTeama extends SubCommand {
 		}
 	}
 
+	@Override
+	protected boolean runAsync(String[] args) {
+		return false;
+	}
+
 }

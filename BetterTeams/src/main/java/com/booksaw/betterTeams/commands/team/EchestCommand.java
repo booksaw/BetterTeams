@@ -24,7 +24,7 @@ public class EchestCommand extends TeamSubCommand {
 					+ " this should never occur, report to booksaw");
 		}
 
-		Main.plugin.getFoliaLib().getScheduler().runAtEntity(player.getPlayer().getPlayer(), task -> Objects.requireNonNull(player.getPlayer().getPlayer()).openInventory(team.getEchest()));
+		Objects.requireNonNull(player.getPlayer().getPlayer()).openInventory(team.getEchest());
 
 		return new CommandResponse(true);
 	}
@@ -68,4 +68,8 @@ public class EchestCommand extends TeamSubCommand {
 		return PlayerRank.DEFAULT;
 	}
 
+	@Override
+	protected boolean runAsync(String[] args) {
+		return false;
+	}
 }

@@ -78,5 +78,8 @@ public class AllyTeama extends SubCommand {
 		}
 	}
 
-
+	@Override
+	protected boolean runAsync(String[] args) {
+		return false;
+	}
 }

@@ -91,4 +91,9 @@ public class TitleTeama extends SubCommand {
 		}
 	}
 
+	@Override
+	protected boolean runAsync(String[] args) {
+		return false;
+	}
+
 }
