@@ -15,12 +15,14 @@ import com.booksaw.betterTeams.team.storage.StorageType;
 import com.booksaw.betterTeams.team.storage.team.StoredTeamValue;
 import com.booksaw.betterTeams.team.storage.team.TeamStorage;
 import com.booksaw.betterTeams.text.LegacyTextUtils;
+import com.booksaw.betterTeams.events.InventoryManagement;
 import lombok.Getter;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.entity.HumanEntity;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -278,6 +280,9 @@ public class Team {
 	private final AllyRequestComponent allyRequests = new AllyRequestComponent();
 
 	private final EChestComponent echest = new EChestComponent();
+
+	@Getter
+	private boolean disbanded = false;
 
 	@Getter
 	private int level;
@@ -800,7 +805,9 @@ public class Team {
 			throw new IllegalArgumentException("Disbanding was cancelled by another plugin");
 		}
 
-		// I've got to store this here, because otherwise the team information is gone.
+		closeEchestViewers();
+		claims.clear();
+
 		final Set<UUID> alliesClone = allies.getClone();
 		final Set<TeamPlayer> membersClone = members.getClone();
 
@@ -815,7 +822,7 @@ public class Team {
 			getTeamManager().playerLeaveTeam(this, teamPlayer);
 		}
 
-		// removing it from the team list, the java GC will handle the reset
+		disbanded = true;
 		getTeamManager().disbandTeam(this);
 
 		if (Main.plugin.teamManagement != null) {
@@ -1598,7 +1605,22 @@ public class Team {
 	}
 
 	public void saveEchest() {
+		if (disbanded) {
+			return;
+		}
+
 		echest.save(getStorage());
+	}
+
+	private void closeEchestViewers() {
+		for (HumanEntity viewer : new ArrayList<>(echest.get().getViewers())) {
+			viewer.closeInventory();
+
+			if (viewer instanceof Player) {
+				InventoryManagement.adminViewers.remove((Player) viewer);
+			}
+
+		}
 	}
 
 	public Inventory getEchest() {

@@ -41,8 +41,12 @@ public class InventoryManagement implements Listener {
 		}
 
 		adminViewers.remove((Player) e.getPlayer());
-		t.saveEchest();
 
+		if (t.isDisbanded()) {
+			return;
+		}
+
+		t.saveEchest();
 	}
 
 	@EventHandler
