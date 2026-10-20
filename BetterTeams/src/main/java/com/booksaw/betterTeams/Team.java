@@ -1612,7 +1612,7 @@ public class Team {
 		echest.save(getStorage());
 	}
 
-	private void closeEchestViewers() {
+	public void closeEchestViewers() {
 		for (HumanEntity viewer : new ArrayList<>(echest.get().getViewers())) {
 			viewer.closeInventory();
 
