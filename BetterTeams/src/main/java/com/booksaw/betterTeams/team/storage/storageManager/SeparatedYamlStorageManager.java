@@ -133,8 +133,9 @@ public class SeparatedYamlStorageManager extends YamlStorageManager implements L
 	}
 
 	public void unloadTeam(UUID uuid) {
-		Team team = Team.getTeam(uuid);
+		Team team = loadedTeams.get(uuid);
 		if (team != null) {
+			team.closeEchestViewers();
 			team.saveEchest();
 			if (team.getScoreboardTeamOrNull() != null) {
 				team.getScoreboardTeamOrNull().unregister();
