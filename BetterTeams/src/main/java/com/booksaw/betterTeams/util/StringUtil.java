@@ -6,11 +6,15 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class StringUtil {
 	private StringUtil() {
 	}
 
 	public static final String[] EMPTY_STRING_ARRAY = new String[0];
+	private static final Pattern INDEXED_PLACEHOLDER = Pattern.compile("\\{(\\d{1,9})}");
 
 	public static @NotNull String setPlaceholders(Player player, String text) {
 		if (text == null || text.isEmpty()) {
@@ -66,17 +70,17 @@ public class StringUtil {
 			return text;
 		}
 
-		StringBuilder formatted = new StringBuilder(text);
-		for (int i = 0; i < replacements.length; i++) {
-			String placeholder = "{" + i + "}";
-			String replacement = replacements[i] != null ? replacements[i].toString() : "";
+		return INDEXED_PLACEHOLDER.matcher(text).replaceAll(match -> {
+			int index = Integer.parseInt(match.group(1));
 
-			int index;
-			while ((index = formatted.indexOf(placeholder)) != -1) {
-				formatted.replace(index, index + placeholder.length(), replacement);
+			if (index >= replacements.length) {
+				return Matcher.quoteReplacement(match.group());
 			}
-		}
-		return formatted.toString();
+
+			Object value = replacements[index];
+
+			return Matcher.quoteReplacement(value != null ? value.toString() : "");
+		});
 	}
 
 }

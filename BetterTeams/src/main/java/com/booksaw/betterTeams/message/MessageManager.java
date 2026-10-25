@@ -168,6 +168,14 @@ public class MessageManager {
 		sendFullMessage(senders, message, false);
 	}
 
+	public static void sendLiteralDescription(CommandSender recipient, String description) {
+		mainPluginService.sendLiteralDescription(recipient, description);
+	}
+
+	public static void sendLiteralValue(CommandSender recipient, String reference, String value) {
+		mainPluginService.sendLiteralValue(recipient, reference, value);
+	}
+
 	public static void sendSafeReplacedMessage(CommandSender sender, String message, Object... replacements) {
 		sendSafeMessage(sender, getMessage(message, replacements), true);
 	}
