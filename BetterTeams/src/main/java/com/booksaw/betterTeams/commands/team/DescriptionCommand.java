@@ -6,9 +6,11 @@ import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.booksaw.betterTeams.commands.presets.TeamSubCommand;
 import com.booksaw.betterTeams.message.MessageManager;
-import com.booksaw.betterTeams.message.ReferencedFormatSafeMessage;
+import com.booksaw.betterTeams.message.Message;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
+import java.util.Collection;
 import java.util.List;
 
 public class DescriptionCommand extends TeamSubCommand {
@@ -22,9 +24,8 @@ public class DescriptionCommand extends TeamSubCommand {
 
 		if (args.length == 0) {
 			if (team.getDescription() != null && !team.getDescription().isEmpty()) {
-				System.out.println("Description : " + team.getDescription());
 				return new CommandResponse(true,
-						new ReferencedFormatSafeMessage("description.view", team.getDescription()));
+						literalDescription(team.getDescription()));
 			} else {
 				return new CommandResponse("description.noDesc");
 			}
@@ -34,11 +35,11 @@ public class DescriptionCommand extends TeamSubCommand {
 		if (teamPlayer.getRank().value < getRequiredRank().value) {
 
 			if (team.getDescription() != null && !team.getDescription().isEmpty()) {
-				MessageManager.sendMessage(teamPlayer.getPlayer().getPlayer(), "description.view",
-						team.getDescription());
+				MessageManager.sendLiteralDescription(teamPlayer.getPlayer().getPlayer(), team.getDescription());
 			} else {
 				MessageManager.sendMessage(teamPlayer.getPlayer().getPlayer(), "description.noDesc");
 			}
+
 			return new CommandResponse("description.noPerm");
 		}
 
@@ -50,6 +51,30 @@ public class DescriptionCommand extends TeamSubCommand {
 		team.setDescription(newDescrip.toString());
 
 		return new CommandResponse(true, "description.success");
+	}
+
+	private Message literalDescription(String description) {
+		return new Message() {
+			@Override
+			public void sendMessage(CommandSender recipient) {
+				MessageManager.sendLiteralDescription(recipient, description);
+			}
+
+			@Override
+			public void sendMessage(Collection<? extends CommandSender> recipients) {
+				recipients.forEach(recipient -> MessageManager.sendLiteralDescription(recipient, description));
+			}
+
+			@Override
+			public void sendTitle(Player recipient) {
+				sendMessage(recipient);
+			}
+
+			@Override
+			public void sendTitle(Collection<Player> recipients) {
+				sendMessage(recipients);
+			}
+		};
 	}
 
 	@Override

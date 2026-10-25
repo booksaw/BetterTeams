@@ -14,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
+import java.util.regex.Pattern;
 
 public class MessageService {
 
@@ -274,6 +275,28 @@ public class MessageService {
 
 		Component component = Formatter.safe().process(message);
 		messageSender.sendMessage(recipient, doPrefix ? combineWithPrefix(component) : component);
+	}
+
+	public void sendLiteralDescription(@Nullable CommandSender recipient, @Nullable String description) {
+		sendLiteralValue(recipient, "description.view", description);
+	}
+
+	public void sendLiteralValue(@Nullable CommandSender recipient, @NotNull String reference, @Nullable String value) {
+		if (recipient == null || messageSender == null) {
+			return;
+		}
+
+		String[] parts = messageConfig.get(reference).split(Pattern.quote("{0}"), -1);
+		Component component = Component.empty();
+
+		for (int i = 0; i < parts.length; i++) {
+			component = component.append(Formatter.safe().process(parts[i]));
+			if (i < parts.length - 1) {
+				component = component.append(Component.text(value == null ? "" : value));
+			}
+		}
+
+		messageSender.sendMessage(recipient, combineWithPrefix(component));
 	}
 
 	/**

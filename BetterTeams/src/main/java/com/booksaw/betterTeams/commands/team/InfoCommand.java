@@ -30,10 +30,14 @@ public class InfoCommand extends SubCommand {
 	}
 
 	public static List<@Nullable String> getInfoMessages(Team team) {
+		return buildInfoMessages(team, true);
+	}
+
+	private static List<@Nullable String> buildInfoMessages(Team team, boolean includeDescription) {
 		List<String> infoMessages = new ArrayList<>();
 
 		infoMessages.add(MessageManager.getMessage("info.name", team.getDisplayName()));
-		if (team.getDescription() != null && !team.getDescription().isEmpty()) {
+		if (includeDescription && team.getDescription() != null && !team.getDescription().isEmpty()) {
 			infoMessages.add(MessageManager.getMessage("info.description", team.getDescription()));
 		}
 
@@ -152,13 +156,19 @@ public class InfoCommand extends SubCommand {
 	}
 
 	private void displayTeamInfo(CommandSender sender, Team team) {
-		List<String> toDisplay = getInfoMessages(team);
+		List<String> toDisplay = buildInfoMessages(team, false);
+		String description = team.getDescription();
+		boolean hasDescription = description != null && !description.isEmpty();
 
-		for (String str : toDisplay) {
-			if (str == null || str.isEmpty()) {
-				continue;
+		for (int i = 0; i < toDisplay.size(); i++) {
+			String str = toDisplay.get(i);
+			if (str != null && !str.isEmpty()) {
+				MessageManager.sendSafeMessage(sender, str, true);
 			}
-			MessageManager.sendSafeMessage(sender, str, true);
+
+			if (i == 0 && hasDescription) {
+				MessageManager.sendLiteralValue(sender, "info.description", description);
+			}
 		}
 	}
 
