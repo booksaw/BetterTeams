@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file against thei
 
 The newest release will always be maintained at the top of the file.
 
+# 5.1.9
+
+### Bug Fixes
+
+* Fixed a bug where setting team description could cause the server to crash (#1068) - Credit Darkxx14
+* Force close team echest when a team is unloaded - Credit vihaan69
+
 # 5.1.8
 
 ### Bug Fixes
