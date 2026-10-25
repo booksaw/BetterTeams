@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file against thei
 
 The newest release will always be maintained at the top of the file.
 
+# 5.1.8
+
+### Bug Fixes
+
+* Fixed an issue where player echests were not being closed when a team is disbanded - Credit Darkxx14
+
 # 5.1.7
 
 ### Improvements
