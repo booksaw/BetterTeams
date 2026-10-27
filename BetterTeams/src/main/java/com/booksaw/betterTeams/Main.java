@@ -55,6 +55,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.logging.Level;
@@ -191,7 +192,7 @@ public class Main extends JavaPlugin {
 			extensionManager.unloadExtensions();
 		}
 
-		for (Entry<Player, Team> temp : InventoryManagement.adminViewers.entrySet()) {
+		for (Entry<Player, Team> temp : new ArrayList<>(InventoryManagement.adminViewers.entrySet())) {
 			temp.getKey().closeInventory();
 			temp.getValue().saveEchest();
 		}
