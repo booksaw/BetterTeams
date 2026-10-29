@@ -5,10 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.booksaw.betterteams</groupId>
+        <groupId>dev.booksaw.betterteams</groupId>
         <artifactId>betterteams-parent</artifactId>
-        <version>5.1.6</version>
-        <relativePath>../pom.xml</relativePath>
+        <version>5.1.5</version>
     </parent>
 
     <artifactId>betterteams</artifactId>
@@ -143,12 +142,12 @@
                         </relocation>
                         <relocation>
                             <pattern>com.tcoded.folialib</pattern>
-                            <shadedPattern>com.booksaw.betterTeams.lib.folialib</shadedPattern>
+                            <shadedPattern>dev.booksaw.betterTeams.lib.folialib</shadedPattern>
                         </relocation>
                         <!-- Adventure platforms -->
                         <relocation>
                             <pattern>net.kyori</pattern>
-                            <shadedPattern>com.booksaw.betterTeams.lib.net.kyori</shadedPattern>
+                            <shadedPattern>dev.booksaw.betterTeams.lib.net.kyori</shadedPattern>
                         </relocation>
                     </relocations>
                     <filters>
